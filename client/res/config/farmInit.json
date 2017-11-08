@@ -1,0 +1,81 @@
+{
+  "field":{
+    "1":{
+      "id":"empty_field",
+      "x":20,
+      "y":18,
+      "crop":"crop_wheat"
+    },
+    "2":{
+      "id":"empty_field",
+      "x":20,
+      "y":19,
+      "crop":"crop_wheat"
+    },
+    "3":{
+      "id":"empty_field",
+      "x":20,
+      "y":20,
+      "crop":"crop_wheat"
+    },
+    "4":{
+      "id":"empty_field",
+      "x":20,
+      "y":21,
+      "crop":"crop_wheat"
+    },
+    "5":{
+      "id":"empty_field",
+      "x":21,
+      "y":20,
+      "crop":"crop_wheat"
+    },
+    "6":{
+      "id":"empty_field",
+      "x":21,
+      "y":21,
+      "crop":"crop_wheat"
+    }
+  },
+  
+  "coop": {
+    "1":{
+      "id":"chicken_habitat",
+      "x":9,
+      "y":21,
+      "animal":["chicken","chicken"]
+    }
+  },
+  
+  "machine": {
+    "1":{
+      "id":"feed_mill",
+      "x":9,
+      "y":26,
+      "product":["food_chicken","food_chicken","food_chicken"]
+    },
+    "2":{
+      "id":"bakery",
+      "x":20,
+      "y":24,
+      "product":["product_bread"]
+    }
+  },
+  
+  "silo": {
+    "x":16,
+    "y":11,
+    "width":2,
+    "height":2
+  },
+  "ware": {
+    "x":9,
+    "y":14,
+    "width":3,
+    "height":3
+  },
+  "orderTable": {
+  },
+  "templeHouse": {
+  }
+}

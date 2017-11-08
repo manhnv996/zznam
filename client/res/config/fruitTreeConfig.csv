@@ -1,0 +1,9 @@
+id,good,harvest,smallTimes,mediumTimes,bigTimes,time,harvestExp,numFruitGroup,cutType,tileWidth,tileHeight,price,nameIconShop,iconToolName,type,name,maxNum,groupAnimation,percentMaterial,iconHarvest,level,maxPrice,tapSound,cutSound,rPrice,instantPrice
+String,String,int,int,int,int,int,int,int,String,int,int,int,String,String,int,String,int,String,int,String,int,int,String,String,int,int
+fruit_apple,fruit_apple,2,2,3,4,57600,7,3,tool_saw,1,1,160,guiShop/imageIconApple.png,context/fruitBag.png,8,NAME_TAB_FRUIT_APPLE,0,apple_tree,5,context/fruitBag.png,16,39,obj_touch_big_tree,obj_big_tree_saw,7,13
+fruit_raspberry,fruit_raspberry,2,2,3,4,64800,9,3,tool_axe,1,2,220,guiShop/imageIconRaspberry.png,context/fruitBag.png,8,NAME_TAB_FRUIT_APPLE,0,raspberry_tree,6,context/fruitBag.png,18,46,obj_touch_small_tree,obj_small_tree_crack,9,14
+fruit_cherry,fruit_cherry,2,2,3,4,97200,13,3,tool_saw,1,1,410,guiShop/imageIconCherry.png,context/fruitBag.png,8,NAME_TAB_FRUIT_APPLE,0,cherry_tree,7,context/fruitBag.png,22,68,obj_touch_big_tree,obj_big_tree_saw,13,17
+fruit_blackberry,fruit_blackberry,2,2,3,4,111600,16,3,tool_axe,1,2,530,guiShop/imageIconBlackberry.png,context/fruitBag.png,8,NAME_TAB_FRUIT_APPLE,0,blackberry_tree,8,context/fruitBag.png,26,82,obj_touch_small_tree,obj_small_tree_crack,16,18
+fruit_cacao,fruit_cacao,2,2,3,4,122400,16,3,tool_saw,1,1,550,guiShop/imageIconCacao.png,context/fruitBag.png,8,NAME_TAB_FRUIT_APPLE,0,cacao_tree,9,context/fruitBag.png,36,86,obj_touch_big_tree,obj_big_tree_saw,16,19
+fruit_coffee,fruit_coffee,2,2,3,4,111600,12,3,tool_axe,1,1,375,guiShop/imageIconCoffee.png,context/fruitBag.png,8,NAME_TAB_FRUIT_APPLE,0,coffee_tree,10,context/fruitBag.png,42,64,obj_touch_small_tree,obj_small_tree_crack,12,16
+fruit_olive,fruit_olive,2,2,3,4,86400,17,3,tool_saw,1,1,620,guiShop/imageIconCoffee.png,context/fruitBag.png,8,NAME_TAB_FRUIT_APPLE,0,coffee_tree,9,context/fruitBag.png,57,82,obj_touch_small_tree,obj_small_tree_crack,16,17

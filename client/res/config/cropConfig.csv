@@ -1,0 +1,15 @@
+id,harvest,time,level,name,harvestExp,percentMaterial,maxPrice,growTimeType,rPrice,instantPrice
+String,int,int,int,String,int,int,int,int,int,int
+crop_wheat,2,120,1,Lua,1,1,3,1,1,1
+crop_corn,2,300,2,Ngo,1,1,7,1,1,1
+crop_carrot,2,600,9,Ca rot,2,2,7,1,2,2
+crop_soybean,2,1200,5,Dau nanh,2,2,10,1,2,2
+crop_sugarcane,2,1800,7,Mia,3,3,14,1,3,3
+crop_indigo,2,7200,13,Hoa oai huong,5,4,25,2,5,5
+crop_pumpkin,2,10800,15,Bi do,6,4,32,2,6,6
+crop_chili_pepper,2,14400,25,Ot,7,5,36,2,7,7
+crop_tomato,2,21600,30,Ca chua,8,5,43,3,8,8
+crop_strawberry,2,28800,34,Dau tay,10,6,50,3,10,10
+crop_potato,2,13200,35,Khoai tay,7,5,36,2,7,7
+crop_lettuce,2,12600,58,Xa lach,7,5,32,2,7,7
+crop_rice,2,2700,56,Lua nep,3,3,18,1,3,3

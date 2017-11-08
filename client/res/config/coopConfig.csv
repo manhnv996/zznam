@@ -1,0 +1,7 @@
+id,animal,capacity,price,width,height,time,level,maxNum,nameIconShop,name,detail,type,iconHarvest
+String,String,int,int,int,int,int,int,String,String,String,String,int,String
+chicken_habitat,chicken,6,5,3,3,5,1,maxChickenHabitats,guiShop/imageIconChickenCoop.png,NAME_TAB_CHICKEN_HABITAT,De nuoi ga,3,context/fruitBag.png
+cow_habitat,cow,5,20,4,4,5,6,maxCowHabitats,guiShop/imageIconCowCoop.png,NAME_TAB_COW_HABITAT,De nuoi bo,3,context/pail.png
+pig_habitat,pig,5,150,4,4,5,10,maxPigHabitats,guiShop/imageIconPigCoop.png,NAME_TAB_PIG_HABITAT,De nuoi lon,3,context/imgIconHarvestPig.png
+sheep_habitat,sheep,5,300,4,4,5,16,maxSheepHabitats,guiShop/imageIconSheepCoop.png,NAME_TAB_SHEEP_HABITAT,De nuoi cuu,3,context/imgIconHarvestSheep.png
+goat_habitat,goat,5,1000,3,3,5,32,maxGoatHabitats,guiShop/imageIconGoatCoop.png,NAME_TAB_GOAT_HABITAT,De nuoi de,3,context/pail.png
