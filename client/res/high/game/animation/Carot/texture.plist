@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>Carot1/Ca rot copy 12.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1,131},{214,131}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{214,131}}</string>
+                <key>sourceSize</key>
+                <string>{214,131}</string>
+            </dict>
+            <key>Carot1/Ca rot copy 18.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{258,1},{217,157}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{217,157}}</string>
+                <key>sourceSize</key>
+                <string>{217,157}</string>
+            </dict>
+            <key>Carot1/Layer 1.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{112,263},{197,75}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{197,75}}</string>
+                <key>sourceSize</key>
+                <string>{197,75}</string>
+            </dict>
+            <key>Carot1/Layer 13 copy 4.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{216,159},{73,88}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{73,88}}</string>
+                <key>sourceSize</key>
+                <string>{73,88}</string>
+            </dict>
+            <key>Carot1/Layer 40 copy 6.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{325,159},{185,108}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{185,108}}</string>
+                <key>sourceSize</key>
+                <string>{185,108}</string>
+            </dict>
+            <key>Carot1/Layer 42 copy 6.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{188,263},{193,136}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{193,136}}</string>
+                <key>sourceSize</key>
+                <string>{193,136}</string>
+            </dict>
+            <key>Carot1/Layer 55 copy 6.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1,1},{256,129}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{256,129}}</string>
+                <key>sourceSize</key>
+                <string>{256,129}</string>
+            </dict>
+            <key>Carot1/Layer 98 copy.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1,263},{205,110}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{205,110}}</string>
+                <key>sourceSize</key>
+                <string>{205,110}</string>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>2</integer>
+            <key>realTextureFileName</key>
+            <string>texture.png</string>
+            <key>size</key>
+            <string>{512,512}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:5e23c73cfd4671185304b0006ffb3cdf:1/1$</string>
+            <key>textureFileName</key>
+            <string>texture.png</string>
+        </dict>
+    </dict>
+</plist>
