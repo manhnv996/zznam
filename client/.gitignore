@@ -1,1 +1,4 @@
 /frameworks/
+*.dll
+*.exe
+*.pdb
