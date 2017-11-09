@@ -74,8 +74,7 @@ cc.game.onStart = function () {
         gv.gameClient = new GameClient();
         gv.poolObjects = new PoolObject();
         testnetwork.connector = new testnetwork.Connector(gv.gameClient);
-		cc.log("OK OK");
-        fr.view(ScreenMenu);
+		cc.director.runScene(new MainScene());
     }, this);
 };
 cc.game.run();

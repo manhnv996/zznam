@@ -19,7 +19,9 @@ var res = {
     ZCSD_POPUP_MINI_GAME:"zcsd/game/mini_game/PopupMiniGame.json",
 
     //images
-    Slot1_png : "zcsd/slot1.png"
+    Slot1_png : "zcsd/slot1.png",
+    // GRASS_BLOCK: "Art/Map/grass-lock1x1.png",
+    MAP: "map/default.tmx"
 };
 
 var g_resources = [
@@ -72,5 +74,7 @@ var g_resources = [
     "zcsd/screen_localize.json",
     "zcsd/screen_menu.json",
     "zcsd/screen_network.json",
-    "zcsd/screen_zalo.json"
+    "zcsd/screen_zalo.json",
+    // res.GRASS_BLOCK,
+    res.MAP
 ];
