@@ -41,6 +41,7 @@
         "src/modules/testnetwork/network/Network.js",
         "src/modules/testnetwork/network/Packet.js",
         "src/modules/testnetwork/ScreenNetwork.js",
+        "src/modules/views/sprites/TruckOrderSprite.js",
         "src/modules/views/layers/MapLayer.js",
         "src/modules/views/scenes/MainScene.js"
     ]

@@ -20,8 +20,21 @@ var res = {
 
     //images
     Slot1_png : "zcsd/slot1.png",
-    // GRASS_BLOCK: "Art/Map/grass-lock1x1.png",
-    MAP: "map/default.tmx"
+    GRASS_BLOCK: "Art/Map/grass-lock1x1.png",
+    ROAD_PNG: "Art/Map/road.png",
+    NOI_DUONG_PNG: "Art/Map/noi duong.png",
+    ROAD_02_PNG: "Art/Map/road02.png",
+    NHA_CHINH_PNG: "Art/Map/nha chinh.png",
+    SONG_1: "Art/Map/song1.png",
+    SONG_2: "Art/Map/song2.png",
+    NUI_PNG: "Art/Map/nui.png",
+    MO_02: "Art/Map/mo02.png",
+    RAY_TAU: "Art/Map/ray tau.png",
+    MO_01: "Art/Map/mo01.png",
+    GRASS_PNG: "Art/Map/grass.png",
+    TRUCK_ORDER_BG_PNG: "Art/Truck Order/BG.png",
+    DOT_PNG: "dot.png",
+    DOT2_PNG: "dot2.png"
 };
 
 var g_resources = [
@@ -75,6 +88,19 @@ var g_resources = [
     "zcsd/screen_menu.json",
     "zcsd/screen_network.json",
     "zcsd/screen_zalo.json",
-    // res.GRASS_BLOCK,
-    res.MAP
+    res.GRASS_BLOCK,
+    res.ROAD_PNG,
+    res.NOI_DUONG_PNG,
+    res.ROAD_02_PNG,
+    res.NHA_CHINH_PNG,
+    res.SONG_1,
+    res.SONG_2,
+    res.NUI_PNG,
+    res.MO_02,
+    res.RAY_TAU,
+    res.MO_01,
+    res.GRASS_PNG,
+    res.TRUCK_ORDER_BG_PNG,
+    res.DOT_PNG,
+    res.DOT2_PNG
 ];

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.0.3" orientation="staggered" renderorder="right-down" width="32" height="64" tilewidth="262" tileheight="134" staggeraxis="y" staggerindex="odd" nextobjectid="1">
+ <tileset firstgid="1" name="grass-lock1x1_" tilewidth="262" tileheight="134" tilecount="1" columns="1">
+  <image source="grass-lock1x1_.png" width="262" height="134"/>
+ </tileset>
+ <tileset firstgid="2" name="road" tilewidth="262" tileheight="134" tilecount="9" columns="3">
+  <image source="../Art/Map/road.png" width="845" height="434"/>
+ </tileset>
+ <tileset firstgid="11" name="cay01" tilewidth="329" tileheight="350" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="329" height="350" source="../Art/Map/cay01.png"/>
+  </tile>
+ </tileset>
+ <layer name="Tile Layer 1" width="32" height="64">
+  <data encoding="base64" compression="zlib">
+   eJztw8EJAAAMA6H7Z/99O0dBwVVTVVVVVVVVVV8/Io9YAQ==
+  </data>
+ </layer>
+</map>

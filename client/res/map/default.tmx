@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="isometric" renderorder="right-down" width="32" height="32" tilewidth="262" tileheight="134" nextobjectid="1">
+<map version="1.0" tiledversion="1.0.3" orientation="isometric" renderorder="right-down" width="32" height="32" tilewidth="262" tileheight="134" nextobjectid="8">
  <tileset firstgid="1" name="Grass" tilewidth="262" tileheight="134" tilecount="1" columns="1">
   <image source="grass-lock1x1_.png" width="262" height="134"/>
+ </tileset>
+ <tileset firstgid="2" name="cay01" tilewidth="329" tileheight="350" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="329" height="350" source="../Art/Map/cay01.png"/>
+  </tile>
  </tileset>
  <layer name="Tile Layer 1" width="32" height="32">
   <data encoding="base64" compression="zlib">
    eJztwwEJAAAMBKH7/qXXYyi4aqqqqurrBxngBAE=
   </data>
  </layer>
+ <objectgroup name="Object Layer 1" offsetx="76.6667" offsety="19.3333"/>
 </map>
