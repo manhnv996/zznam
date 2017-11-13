@@ -16,8 +16,11 @@ var MapValues = (function() {
 })();
 
 var MapLayer = cc.Layer.extend({
-	currentScale: 1.0,
+	currentScale: 0.6,
 	LEFT_LIMIT: null,
+	RIGHT_LIMIT: null,
+	TOP_LIMIT: null,
+	BOTTOM_LIMIT: null,
 
 	ctor: function() {
 		this._super();
@@ -31,21 +34,38 @@ var MapLayer = cc.Layer.extend({
 		this.renderNhaChinh();
 		// this.renderTruckOrder();
 		this.renderSample();
-		this.setPosition(MapValues.logicToPosition(0, 0));
+		this.setPosition(MapValues.logicToPosition(-16, -16));
+		// this.setPosition(cc.p(1136 / 2, 640 / 2));
 		this.setScale(this.currentScale);
 		this.initBorder();
 		this.initEvent();
+		cc.json(this.getContentSize());
 		cc.json(this.LEFT_LIMIT);
 	},
 
 	initBorder: function() {
-		var dot2 = new cc.Sprite(res.DOT2_PNG);
+		var dotLeft = new cc.Sprite(res.DOT2_PNG);
+		var dotRight = new cc.Sprite(res.DOT2_PNG);
+		var dotTop = new cc.Sprite(res.DOT2_PNG);
+		var dotBottom = new cc.Sprite(res.DOT2_PNG);
 		this.LEFT_LIMIT = MapValues.logicToPosition(0, 32);
-		dot2.setPosition(this.LEFT_LIMIT);
-		this.addChild(dot2);
-		// this.LEFT_LIMIT.x -= MapValues.iLength;
-		// this.LEFT_LIMIT.x += this.x;
-		// this.LEFT_LIMIT.y += this.y;
+		this.RIGHT_LIMIT = MapValues.logicToPosition(32, 0);
+		this.TOP_LIMIT = MapValues.logicToPosition(0, 0);
+		this.BOTTOM_LIMIT = MapValues.logicToPosition(32, 32);
+
+		this.TOP_LIMIT.y += 100;
+		this.LEFT_LIMIT.x -= 100;
+		this.RIGHT_LIMIT.x += 100;
+		this.BOTTOM_LIMIT.y -= 100;
+
+		dotLeft.setPosition(this.LEFT_LIMIT);
+		dotRight.setPosition(this.RIGHT_LIMIT);
+		dotTop.setPosition(this.TOP_LIMIT);
+		dotBottom.setPosition(this.BOTTOM_LIMIT);
+		this.addChild(dotLeft);
+		this.addChild(dotRight);
+		this.addChild(dotTop);
+		this.addChild(dotBottom);
 	},
 
 	renderGrassBlock: function(width, height) {
@@ -236,9 +256,22 @@ var MapLayer = cc.Layer.extend({
 	},
 
 	move: function(dx, dy) {
-		this.x += dx;
-		this.y += dy;
-		// cc.log(this.x);
+		cc.log(dx + " : " + dy);
+		var newX = this.x + dx;
+		var newY = this.y + dy;
+		var scale = this.currentScale;
+
+		if (-newX > (this.LEFT_LIMIT.x * this.currentScale + this.width * (1 - this.currentScale) / 2) 
+				&& -newX < (this.RIGHT_LIMIT.x * this.currentScale + this.width * (-1 - this.currentScale) / 2)
+		) {
+			this.x = newX;
+		}
+		if (-newY > (this.BOTTOM_LIMIT.y * this.currentScale + this.height * (1 - this.currentScale) / 2)
+				&& -newY < (this.TOP_LIMIT.y * this.currentScale + this.height * (-1 - this.currentScale) / 2)
+		) {
+			this.y += dy;
+		}
+		// cc.json(this.getPosition());
 	},
 
 	renderSample: function() {
@@ -246,12 +279,13 @@ var MapLayer = cc.Layer.extend({
 		this.addChild(bakery);
 		bakery.setPosition(MapValues.logicToPosition(4, 5));
 		bakery.gotoAndPlay('1', -1);
-		// var Lamb = fr.createAnimationById(resAniId.Lamb, this);
-		// this.addChild(Lamb);
-		// Lamb.setPosition(this.logicToPosition(4, 5));
-		// Lamb.gotoAndPlay('Cuu_Idle', -1);
-		// bakery.setLocalZOrder(2);
-		// Lamb.setLocalZOrder(1);
+		var Lamb = fr.createAnimationById(resAniId.bakery, this);
+		this.addChild(Lamb);
+		Lamb.setPosition(MapValues.logicToPosition(4, 5));
+		Lamb.gotoAndPlay('loop', -1);
+		Lamb.setAnchorPoint(cc.p(0, 0));
+		bakery.setLocalZOrder(2);
+		Lamb.setLocalZOrder(1);
 	},
 
 	initEvent: function() {
@@ -261,7 +295,10 @@ var MapLayer = cc.Layer.extend({
             onTouchBegan: function (touch, event) {
                 return true;
             },
-            onTouchMoved: this.handleMove.bind(this),
+            onTouchMoved: function(touch, event) {
+            	var delta = touch.getDelta();
+       			this.move(delta.x, delta.y);
+            }.bind(this),
             onTouchEnded: function (touch, event) {}
         });
         cc.eventManager.addListener(touchListener, this);
@@ -282,11 +319,6 @@ var MapLayer = cc.Layer.extend({
 		this.__dY = 0;
 	},
 
-	handleMove: function(touch, event) {
-        var delta = touch.getDelta();
-        this.move(delta.x, delta.y);
-	},
-
 	handleMouse: function(e) {
 		var lstScale = this.currentScale;
 		var winSize = cc.winSize;
@@ -295,25 +327,37 @@ var MapLayer = cc.Layer.extend({
 		var cursorX = e.getLocation().x;
 		var cursorY = e.getLocation().y;
 
+		var _d = - this.x - (this.LEFT_LIMIT.x * this.currentScale + this.width * (1 - this.currentScale) / 2);
+		cc.log("_d = " + _d);
+		if (_d <= 0) {
+			cc.log("No");
+			cursorX = 0;
+		}
+
 		var cx = - cursorX + cex;
 		var cy = - cursorY + cey;
+
 		if (e.getScrollY() === 1) {
-			if (this.currentScale > 0.1) {
+			if (this.currentScale > 0.16) {
 				this.currentScale = this.currentScale - SCALE_RATIO;
 				this.setScale(this.currentScale);
-				this.x -= SCALE_RATIO * cx / lstScale;
-				this.y -= SCALE_RATIO * cy / lstScale;
+				var dx = - SCALE_RATIO * cx / lstScale;
+				var dy = - SCALE_RATIO * cy / lstScale;
+				this.x += dx;
+				this.y += dy;
 			}
 		} else {
 			if (this.currentScale < 2) {
 				this.currentScale = this.currentScale + SCALE_RATIO;
 				this.setScale(this.currentScale);
 				// action
-				this.x += SCALE_RATIO * cx / lstScale;
-				this.y += SCALE_RATIO * cy / lstScale;
+				var dx = SCALE_RATIO * cx / lstScale;
+				var dy = SCALE_RATIO * cy / lstScale;
+				this.x += dx;
+				this.y += dy;
 			}
 		}
-		// cc.log(this.currentScale);
+		cc.log(this.currentScale);
 	},
 
 	handleKeyboard: function(keycode, event) {
