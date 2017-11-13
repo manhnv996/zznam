@@ -17,6 +17,7 @@ var MapValues = (function() {
 
 var MapLayer = cc.Layer.extend({
 	currentScale: 1.0,
+	LEFT_LIMIT: null,
 
 	ctor: function() {
 		this._super();
@@ -25,22 +26,38 @@ var MapLayer = cc.Layer.extend({
 		this.renderRoad();
 		this.renderRoad2();
 		this.renderNui();
+		this.renderForest();
 		this.renderDuongRay();
 		this.renderNhaChinh();
-		this.renderTruckOrder();
+		// this.renderTruckOrder();
 		this.renderSample();
-		this.setPosition(MapValues.logicToPosition(-12, -12));
+		this.setPosition(MapValues.logicToPosition(0, 0));
+		this.setScale(this.currentScale);
+		this.initBorder();
 		this.initEvent();
+		cc.json(this.LEFT_LIMIT);
+	},
+
+	initBorder: function() {
+		var dot2 = new cc.Sprite(res.DOT2_PNG);
+		this.LEFT_LIMIT = MapValues.logicToPosition(0, 32);
+		dot2.setPosition(this.LEFT_LIMIT);
+		this.addChild(dot2);
+		// this.LEFT_LIMIT.x -= MapValues.iLength;
+		// this.LEFT_LIMIT.x += this.x;
+		// this.LEFT_LIMIT.y += this.y;
 	},
 
 	renderGrassBlock: function(width, height) {
 		for (var i = -3; i <= 12; i++) {
 			for (var j = -3; j <= 12; j++) {
-				var sprite = new cc.Sprite(res.GRASS_PNG);
-				sprite.setPosition(MapValues.logicToPosition(4 * i, 4 * j));
-				sprite.y += 30 * (j + i);
-				sprite.x += 30 * (j - i);
-				this.addChild(sprite);
+				if (i + j > -2 && i + j < 20 && j - i < 10 && i - j < 10) {
+					var sprite = new cc.Sprite(res.GRASS_PNG);
+					sprite.setPosition(MapValues.logicToPosition(4 * i, 4 * j));
+					sprite.y += 30 * (j + i);
+					sprite.x += 30 * (j - i);
+					this.addChild(sprite);
+				}
 			}
 		}
 
@@ -79,7 +96,6 @@ var MapLayer = cc.Layer.extend({
 		spriteNoiDuong.setPosition(MapValues.logicToPosition(16, 33));
 		spriteNoiDuong.x += 40;
 		spriteNoiDuong.y += 10;
-		this.debugSprite = spriteNoiDuong;
 	},
 
 	renderNhaChinh: function() {
@@ -138,7 +154,7 @@ var MapLayer = cc.Layer.extend({
 			this.addChild(sprite);
 		}
 		var mo02Sprite = new cc.Sprite(res.MO_02);
-		mo02Sprite.setPosition(MapValues.logicToPosition(-3, 22));
+		mo02Sprite.setPosition(MapValues.logicToPosition(-3, 21));
 		this.addChild(mo02Sprite);
 	},
 
@@ -151,7 +167,7 @@ var MapLayer = cc.Layer.extend({
 			this.addChild(sprite);
 		}
 		var mo01Sprite = new cc.Sprite(res.MO_01);
-		mo01Sprite.setPosition(MapValues.logicToPosition(-7, 21));
+		mo01Sprite.setPosition(MapValues.logicToPosition(-7, 20));
 		this.addChild(mo01Sprite);
 	},
 
@@ -176,6 +192,53 @@ var MapLayer = cc.Layer.extend({
 		truckOrder.y -= dy;
 
 		this.addChild(truckOrder);
+	},
+
+	renderForest: function() {
+		var basePoint = MapValues.logicToPosition(-18, 16);
+		var basePoint2 = MapValues.logicToPosition(16, -18);
+		var basePoint3 = MapValues.logicToPosition(16, 48);
+		var basePoint4 = MapValues.logicToPosition(48, 16);
+
+		for (var i = 0; i <= 3; i++) {
+			for (var j = 0; j <= (3 - i); j++) {
+				var sprite = new cc.Sprite(res.NHOM_CAY_1);
+				sprite.setPosition(cc.p(basePoint.x + 730 * i, basePoint.y - 300 * j));
+				this.addChild(sprite);
+			}
+		}
+
+		for (var i = 0; i <= 4; i++) {
+			for (var j = 0; j <= (4 - i); j++) {
+				var sprite = new cc.Sprite(res.NHOM_CAY_1);
+				sprite.setPosition(cc.p(basePoint2.x - 730 * i, basePoint2.y - 300 * j));
+				sprite.setScaleX(-1);
+				this.addChild(sprite);
+			}
+		}
+
+		for (var i = 0; i <= 3; i++) {
+			for (var j = 0; j <= (3 - i); j++) {
+				var sprite = new cc.Sprite(res.NHOM_CAY_2);
+				sprite.setPosition(cc.p(basePoint3.x + 600 * i, basePoint3.y + 260 * j));
+				this.addChild(sprite);
+			}
+		}
+
+		for (var i = 0; i <= 3; i++) {
+			for (var j = 0; j <= (3 - i); j++) {
+				var sprite = new cc.Sprite(res.NHOM_CAY_2);
+				sprite.setScaleX(-1);
+				sprite.setPosition(cc.p(basePoint4.x - 600 * i, basePoint4.y + 260 * j));
+				this.addChild(sprite);
+			}
+		}
+	},
+
+	move: function(dx, dy) {
+		this.x += dx;
+		this.y += dy;
+		// cc.log(this.x);
 	},
 
 	renderSample: function() {
@@ -220,10 +283,8 @@ var MapLayer = cc.Layer.extend({
 	},
 
 	handleMove: function(touch, event) {
-		var target = event.getCurrentTarget();
         var delta = touch.getDelta();
-        target.x += delta.x;
-        target.y += delta.y;
+        this.move(delta.x, delta.y);
 	},
 
 	handleMouse: function(e) {

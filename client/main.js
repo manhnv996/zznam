@@ -47,6 +47,9 @@
  *
  */
 var gv = gv || {};
+cc.json = function(obj) {
+    return cc.log(JSON.stringify(obj, null, 2));
+}
 
 cc.game.onStart = function () {
     if (!cc.sys.isNative && document.getElementById("cocosLoading")) //If referenced loading.js, please remove it

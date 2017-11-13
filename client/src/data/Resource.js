@@ -34,7 +34,9 @@ var res = {
     GRASS_PNG: "Art/Map/grass.png",
     TRUCK_ORDER_BG_PNG: "Art/Truck Order/BG.png",
     DOT_PNG: "dot.png",
-    DOT2_PNG: "dot2.png"
+    DOT2_PNG: "dot2.png",
+    NHOM_CAY_1: "Art/Map/nhom-cay1 x 2.png",
+    NHOM_CAY_2: "Art/Map/nhom-cay2 x 2.png"
 };
 
 var g_resources = [
@@ -102,5 +104,7 @@ var g_resources = [
     res.GRASS_PNG,
     res.TRUCK_ORDER_BG_PNG,
     res.DOT_PNG,
-    res.DOT2_PNG
+    res.DOT2_PNG,
+    res.NHOM_CAY_1,
+    res.NHOM_CAY_2
 ];
