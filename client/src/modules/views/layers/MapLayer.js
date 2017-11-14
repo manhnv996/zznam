@@ -1,6 +1,6 @@
 var MapLayer = (function() {
 	var SCALE_RATIO = 0.05;
-	var __DEBUG = false;
+	var __DEBUG = true;
 
 	return cc.Layer.extend({
 		LEFT_LIMIT: null,
@@ -10,33 +10,34 @@ var MapLayer = (function() {
 
 		ctor: function() {
 			this._super();
-			this.renderGrassBlock(32, 32);
+			this.initBorder();
+			this.renderGrassBlock();
 			this.renderSong();
 			this.renderRoad();
 			this.renderRoad2();
 			this.renderNui();
-			this.renderHoaDa();
-			this.renderForest();
+			// this.renderHoaDa();
+			// this.renderForest();
 			this.renderDuongRay();
 			this.renderDefaultConstruct();
 			this.renderSample();
 			this.setPosition(MapValues.logicToPosition(-6, -7));
 			this.setScale(0.4);
-			this.initBorder();
 			this.initEvent();
 		},
 
 		initBorder: function() {
-			this.LEFT_LIMIT = MapValues.logicToPosition(0, 32);
-			this.RIGHT_LIMIT = MapValues.logicToPosition(32, 0);
+			this.LEFT_LIMIT = MapValues.logicToPosition(0, MapValues.height);
+			this.RIGHT_LIMIT = MapValues.logicToPosition(MapValues.width, 0);
 			this.TOP_LIMIT = MapValues.logicToPosition(0, 0);
-			this.BOTTOM_LIMIT = MapValues.logicToPosition(32, 32);
+			this.BOTTOM_LIMIT = MapValues.logicToPosition(MapValues.width, MapValues.height);
 
 			// Set padding
-			this.TOP_LIMIT.y += 100;
-			this.LEFT_LIMIT.x -= 100;
-			this.RIGHT_LIMIT.x += 100;
-			this.BOTTOM_LIMIT.y -= 100;
+			this.TOP_LIMIT.y += MapValues.paddingTop;
+			this.LEFT_LIMIT.x -= MapValues.paddingLeft;
+			this.RIGHT_LIMIT.x += MapValues.paddingRight;
+			this.BOTTOM_LIMIT.y -= MapValues.paddingBottom;
+
 			if (__DEBUG) {
 				var dotLeft = new cc.Sprite(res.DOT2_PNG);
 				var dotRight = new cc.Sprite(res.DOT2_PNG);
@@ -47,6 +48,12 @@ var MapLayer = (function() {
 				dotRight.setPosition(this.RIGHT_LIMIT);
 				dotTop.setPosition(this.TOP_LIMIT);
 				dotBottom.setPosition(this.BOTTOM_LIMIT);
+				
+				dotLeft.setLocalZOrder(5);
+				dotRight.setLocalZOrder(5);
+				dotTop.setLocalZOrder(5);
+				dotBottom.setLocalZOrder(5);
+
 				this.addChild(dotLeft);
 				this.addChild(dotRight);
 				this.addChild(dotTop);
@@ -54,23 +61,25 @@ var MapLayer = (function() {
 			}
 		},
 
-		renderGrassBlock: function(width, height) {
-			for (var i = -3; i <= 12; i++) {
-				for (var j = -3; j <= 12; j++) {
-					if (i + j > -2 && i + j < 20 && j - i < 10 && i - j < 10) {
-						var sprite = new cc.Sprite(res.GRASS_PNG);
-						sprite.setPosition(MapValues.logicToPosition(4 * i, 4 * j));
-						sprite.y += 30 * (j + i);
-						sprite.x += 30 * (j - i);
-						this.addChild(sprite);
-					}
+		renderGrassBlock: function() {
+			var sampleGrassSprite = new cc.Sprite(res.GRASS_PNG);
+			var blockSize = sampleGrassSprite.getContentSize();
+			var horizontal = (this.RIGHT_LIMIT.x - this.LEFT_LIMIT.x) / blockSize.width;
+			var vertical = (this.TOP_LIMIT.y - this.BOTTOM_LIMIT.y) / blockSize.height;
+			var startPoint = cc.p(this.LEFT_LIMIT.x, this.TOP_LIMIT.y);
+
+			for (var i = 0; i < vertical * 2 + 1; i++) {
+				for (var j = 0; j < horizontal * 2 + 1; j++) {
+					var sprite = new cc.Sprite(res.GRASS_PNG);
+					sprite.setPosition(startPoint.x + j * blockSize.width / 2, startPoint.y - i * blockSize.height / 2);
+					this.addChild(sprite);
 				}
 			}
 
 			if (__DEBUG) {
 				// Debug
-				for (var i = 0; i < width; i++) {
-					for (var j = 0; j < height; j++) {
+				for (var i = 0; i < MapValues.width; i++) {
+					for (var j = 0; j < MapValues.height; j++) {
 						var sprite = new cc.Sprite(res.GRASS_BLOCK);
 						sprite.setPosition(MapValues.logicToPosition(i, j));
 						sprite.setAnchorPoint(cc.p(0.5, 1));
@@ -81,23 +90,23 @@ var MapLayer = (function() {
 		},
 
 		renderRoad: function() {
-			for (var i = 17; i >= 0; i--) {
+			for (var i = 0; i <= MapValues.width / 2 + 1; i++) {
 				var sprite = new cc.Sprite(res.ROAD_PNG);
 				this.addChild(sprite);
-				sprite.setPosition(MapValues.logicToPosition(2 * i, 35));
+				sprite.setPosition(MapValues.logicToPosition(2 * i, MapValues.height + 3));
 				sprite.y += i * 4;
 			}
 		},
 
 		renderRoad2: function() {
-			for (var i = 16; i > 8; i--) {
+			for (var i = MapValues.height / 2; i > 8; i--) {
 				var sprite = new cc.Sprite(res.ROAD_02_PNG);
 				this.addChild(sprite);
 				sprite.setPosition(MapValues.logicToPosition(16, 2 * i));
 			}
 			var spriteNoiDuong = new cc.Sprite(res.NOI_DUONG_PNG);
 			this.addChild(spriteNoiDuong);
-			spriteNoiDuong.setPosition(MapValues.logicToPosition(16, 33));
+			spriteNoiDuong.setPosition(MapValues.logicToPosition(16, MapValues.height + 1));
 			spriteNoiDuong.x += 40;
 			spriteNoiDuong.y += 10;
 		},
@@ -110,45 +119,43 @@ var MapLayer = (function() {
 		},
 
 		renderSong: function() {
-			var f = 34; // From
-			var t = 40; // To
 			var drawNode = new cc.DrawNode();
 			drawNode.drawPoly([
-				MapValues.logicToPosition(f, f),
-				MapValues.logicToPosition(t, f),
-				MapValues.logicToPosition(t, 0),
-				MapValues.logicToPosition(f, 0)
+				MapValues.logicToPosition(MapValues.width + 2, MapValues.height),
+				MapValues.logicToPosition(MapValues.width + 6, MapValues.height),
+				MapValues.logicToPosition(MapValues.width + 6, 0),
+				MapValues.logicToPosition(MapValues.width + 2, 0)
 			], cc.color(52, 141, 162));
 			this.addChild(drawNode);
 
-			for (var i = 0; i <= 8; i++) {
+			for (var i = 0; i <= MapValues.height / 4; i++) {
 				var sprite = new cc.Sprite(res.SONG_1);
-				sprite.setPosition(MapValues.logicToPosition(f, i * 4));
+				sprite.setPosition(MapValues.logicToPosition(MapValues.width + 2, i * 4));
 				this.addChild(sprite);
 			}
-			for (var i = 0; i <= 16; i++) {
+			for (var i = 0; i <= MapValues.height / 2; i++) {
 				var sprite = new cc.Sprite(res.SONG_2);
-				sprite.setPosition(MapValues.logicToPosition(t, i * 2));
+				sprite.setPosition(MapValues.logicToPosition(MapValues.width + 6, i * 2));
 				this.addChild(sprite);
 			}
 			var habor = new MapBlockSprite(res.HABOR, 2, 2);
-			habor.setLogicPosition(35, 19);
+			habor.setLogicPosition(MapValues.width + 3, Math.round(MapValues.height * 0.75));
 			this.addChild(habor);
 		},
 
 		renderNui: function() {
-			for (var i = 0; i <= 8; i++) {
+			for (var i = 0; i <= MapValues.height / 4; i++) {
 				var sprite = new cc.Sprite(res.NUI_PNG);
 				sprite.setPosition(MapValues.logicToPosition(-3, i * 4));
 				this.addChild(sprite);
 			}
 			var mo02Sprite = new cc.Sprite(res.MO_02);
-			mo02Sprite.setPosition(MapValues.logicToPosition(-3, 21));
+			mo02Sprite.setPosition(MapValues.logicToPosition(-3, Math.round(MapValues.height * 0.75)));
 			this.addChild(mo02Sprite);
 		},
 
 		renderDuongRay: function() {
-			for (var i = -1; i < 16; i++) {
+			for (var i = -1; i < MapValues.height / 2; i++) {
 				var sprite = new cc.Sprite(res.RAY_TAU);
 				sprite.setPosition(MapValues.logicToPosition(-7, i * 2));
 				sprite.x += -33 * i;
@@ -156,7 +163,7 @@ var MapLayer = (function() {
 				this.addChild(sprite);
 			}
 			var mo01Sprite = new cc.Sprite(res.MO_01);
-			mo01Sprite.setPosition(MapValues.logicToPosition(-7, 20));
+			mo01Sprite.setPosition(MapValues.logicToPosition(-7, Math.round(MapValues.height * 0.6)));
 			this.addChild(mo01Sprite);
 		},
 
@@ -364,17 +371,17 @@ var MapLayer = (function() {
 			var topY = (this.TOP_LIMIT.y - this.height / 2) * this.scale - this.height / 2;
 			var bottomY = (this.BOTTOM_LIMIT.y - this.height / 2) * this.scale + this.height / 2;
 
-			if (-newX < leftX) {
-				newX = -leftX;
-			} else if (-newX > rightX) {
-				newX = -rightX;
-			}
+			// if (-newX < leftX) {
+			// 	newX = -leftX;
+			// } else if (-newX > rightX) {
+			// 	newX = -rightX;
+			// }
 
-			if (-newY < bottomY) {
-				newY = -bottomY;
-			} else if (-newY > topY) {
-				newY = -topY;
-			}
+			// if (-newY < bottomY) {
+			// 	newY = -bottomY;
+			// } else if (-newY > topY) {
+			// 	newY = -topY;
+			// }
 
 			this.setPosition(newX, newY);
 		},
@@ -383,7 +390,7 @@ var MapLayer = (function() {
 			var deltaScale = SCALE_RATIO * sign;
 			
 			var newScale = this.scale + deltaScale;
-			if (newScale >= 0.1 && newScale <= 2) {
+			if (newScale > 0.1 && newScale <= 2) {
 				var cx = this.centerPoint.x + this.x - cursor.x;
 				var cy = this.centerPoint.y + this.y - cursor.y;
 				var dx = deltaScale * cx / this.scale;

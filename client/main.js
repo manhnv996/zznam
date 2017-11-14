@@ -47,8 +47,11 @@
  *
  */
 var gv = gv || {};
-cc.json = function(obj) {
-    return cc.log(JSON.stringify(obj, null, 2));
+cc.json = function(label, obj) {
+    if (typeof label === 'string') {
+        return cc.log(label + " = " + JSON.stringify(obj, null, 2));
+    }
+    return cc.log(JSON.stringify(label, null, 2));
 }
 
 cc.game.onStart = function () {
