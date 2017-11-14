@@ -17,9 +17,8 @@ var res = {
     ZCSD_SCREEN_ZALO:"zcsd/screen_zalo.json",
     //popup
     ZCSD_POPUP_MINI_GAME:"zcsd/game/mini_game/PopupMiniGame.json",
-
     //images
-    Slot1_png : "zcsd/slot1.png"
+    Slot1_png : "zcsd/slot1.png",
 };
 
 var g_resources = [
@@ -74,3 +73,9 @@ var g_resources = [
     "zcsd/screen_network.json",
     "zcsd/screen_zalo.json"
 ];
+
+for (var k in MapResource) {
+    res[k] = MapResource[k];
+}
+
+g_resources = g_resources.concat(g_MapResource);

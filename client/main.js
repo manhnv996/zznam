@@ -47,6 +47,9 @@
  *
  */
 var gv = gv || {};
+cc.json = function(obj) {
+    return cc.log(JSON.stringify(obj, null, 2));
+}
 
 cc.game.onStart = function () {
     if (!cc.sys.isNative && document.getElementById("cocosLoading")) //If referenced loading.js, please remove it
@@ -74,8 +77,7 @@ cc.game.onStart = function () {
         gv.gameClient = new GameClient();
         gv.poolObjects = new PoolObject();
         testnetwork.connector = new testnetwork.Connector(gv.gameClient);
-		cc.log("OK");
-        fr.view(ScreenMenu);
+		cc.director.runScene(new MainScene());
     }, this);
 };
 cc.game.run();
