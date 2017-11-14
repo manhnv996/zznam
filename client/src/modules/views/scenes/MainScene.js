@@ -3,8 +3,10 @@ var MainScene = cc.Scene.extend({
 		this._super();
 		MapLayer.instance = new MapLayer();
 		this.addChild(MapLayer.instance);
-		MapLayer.instance.addChild(new ODatSprite(10, 10));
-		MapLayer.instance.addChild(new SiloSprite(20, 20));
-		MapLayer.instance.addChild(new WareHouseSprite(18, 24));
+	},
+
+	onEnter: function() {
+		this._super();
+		MapController.instance.init();
 	}
 });

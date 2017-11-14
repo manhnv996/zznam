@@ -308,10 +308,11 @@ var MapLayer = (function() {
 		},
 
 		renderSample: function() {
-			var bakery = fr.createAnimationById(resAniId.Bagia, this);
+			var bakery = fr.createAnimationById(resAniId.bakery, this);
 			this.addChild(bakery);
 			bakery.setPosition(MapValues.logicToPosition(4, 5));
-			bakery.gotoAndPlay('1', -1);
+			bakery.gotoAndPlay('loop', -1);
+			
 			var Lamb = fr.createAnimationById(resAniId.bakery, this);
 			this.addChild(Lamb);
 			Lamb.setPosition(MapValues.logicToPosition(4, 5));
@@ -355,14 +356,13 @@ var MapLayer = (function() {
 		},
 
 		move: function(dx, dy) {
-			// cc.log(dx + " : " + dy);
 			var newX = this.x + dx;
 			var newY = this.y + dy;
 
 			var leftX = (this.LEFT_LIMIT.x - this.width / 2) * this.scale + this.width / 2;
 			var rightX = (this.RIGHT_LIMIT.x - this.width / 2) * this.scale - this.width / 2;
-			var topY = this.TOP_LIMIT.y * this.scale + this.height * (-1 - this.scale) / 2;
-			var bottomY = this.BOTTOM_LIMIT.y * this.scale + this.height * (1 - this.scale) / 2;
+			var topY = (this.TOP_LIMIT.y - this.height / 2) * this.scale - this.height / 2;
+			var bottomY = (this.BOTTOM_LIMIT.y - this.height / 2) * this.scale + this.height / 2;
 
 			if (-newX < leftX) {
 				newX = -leftX;
@@ -383,7 +383,7 @@ var MapLayer = (function() {
 			var deltaScale = SCALE_RATIO * sign;
 			
 			var newScale = this.scale + deltaScale;
-			if (newScale >= 0.15 && newScale <= 2) {
+			if (newScale >= 0.1 && newScale <= 2) {
 				var cx = this.centerPoint.x + this.x - cursor.x;
 				var cy = this.centerPoint.y + this.y - cursor.y;
 				var dx = deltaScale * cx / this.scale;
