@@ -18,6 +18,7 @@
         "src/**/*.js"
     ],
     "jsList": [
+        "src/data/MapResource.js",
         "src/data/Resource.js",
         "src/data/ResourceAnimation.js",
         "src/framework/AnimationMgr.js",
@@ -41,7 +42,16 @@
         "src/modules/testnetwork/network/Network.js",
         "src/modules/testnetwork/network/Packet.js",
         "src/modules/testnetwork/ScreenNetwork.js",
+        
+        "src/modules/configs/MapValues.js",
+        "src/modules/views/sprites/MapBlockSprite.js",
+        "src/modules/views/sprites/NhaChinhSprite.js",
         "src/modules/views/sprites/TruckOrderSprite.js",
+        "src/modules/views/sprites/MailBoxSprite.js",
+        "src/modules/views/sprites/RoadShopSprite.js",
+        "src/modules/views/sprites/ODatSprite.js",
+        "src/modules/views/sprites/SiloSprite.js",
+        "src/modules/views/sprites/WareHouseSprite.js",
         "src/modules/views/layers/MapLayer.js",
         "src/modules/views/scenes/MainScene.js"
     ]

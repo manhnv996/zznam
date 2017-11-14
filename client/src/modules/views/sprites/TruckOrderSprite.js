@@ -1,7 +1,5 @@
-var TruckOrderSprite = cc.Sprite.extend({
-	ctor: function() {
-		this._super();
-		var background = new cc.Sprite(res.TRUCK_ORDER_BG_PNG);
-		this.addChild(background);
+var TruckOrderSprite = MapBlockSprite.extend({
+	ctor: function(x, y) {
+		this._super(res.TRUCK_ORDER_BG_PNG, 1, 2, x, y);
 	}
 });
