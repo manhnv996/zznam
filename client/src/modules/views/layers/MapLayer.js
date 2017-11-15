@@ -21,8 +21,9 @@ var MapLayer = (function() {
 			this.renderDuongRay();
 			this.renderDefaultConstruct();
 			this.renderSample();
-			this.setPosition(MapValues.logicToPosition(-6, -7));
-			this.setScale(0.4);
+			// this.setPosition(MapValues.logicToPosition(-6, -7));
+			this.setPosition(0, 0);
+			this.setScale(1.0);
 			this.initEvent();
 		},
 
@@ -43,21 +44,25 @@ var MapLayer = (function() {
 				var dotRight = new cc.Sprite(res.DOT2_PNG);
 				var dotTop = new cc.Sprite(res.DOT2_PNG);
 				var dotBottom = new cc.Sprite(res.DOT2_PNG);
+				var dotCenter = new cc.Sprite(res.DOT2_PNG);
 
 				dotLeft.setPosition(this.LEFT_LIMIT);
 				dotRight.setPosition(this.RIGHT_LIMIT);
 				dotTop.setPosition(this.TOP_LIMIT);
 				dotBottom.setPosition(this.BOTTOM_LIMIT);
-				
+				dotCenter.setPosition(cc.p(this.width / 2, this.height / 2));
+
 				dotLeft.setLocalZOrder(5);
 				dotRight.setLocalZOrder(5);
 				dotTop.setLocalZOrder(5);
 				dotBottom.setLocalZOrder(5);
+				dotCenter.setLocalZOrder(5);
 
 				this.addChild(dotLeft);
 				this.addChild(dotRight);
 				this.addChild(dotTop);
 				this.addChild(dotBottom);
+				this.addChild(dotCenter);
 			}
 		},
 
@@ -331,20 +336,22 @@ var MapLayer = (function() {
 
 		initEvent: function() {
 			var touchListener = cc.EventListener.create({
-	            event: cc.EventListener.TOUCH_ONE_BY_ONE,
-	            swallowTouches: true,
-	            onTouchBegan: function (touch, event) {
-	                return true;
-	            },
-	            onTouchMoved: function(touch, event) {
-	            	var delta = touch.getDelta();
-	       			this.move(delta.x, delta.y);
-	            }.bind(this),
-	            onTouchEnded: function (touch, event) {}
-	        });
-	        cc.eventManager.addListener(touchListener, this);
+				event: cc.EventListener.TOUCH_ONE_BY_ONE,
+				swallowTouches: true,
+				onTouchBegan: function (touch, event) {
+					var mousePos = touch.getLocation();
+					cc.json('Clicked', MapValues.screenPositionToLogic(mousePos.x, mousePos.y));
+					return true;
+				}.bind(this),
+				onTouchMoved: function(touch, event) {
+					var delta = touch.getDelta();
+					this.move(delta.x, delta.y);
+				}.bind(this),
+				onTouchEnded: function (touch, event) {}
+			});
+			cc.eventManager.addListener(touchListener, this);
 
-	        var mouseListener = cc.EventListener.create({
+			var mouseListener = cc.EventListener.create({
 				event: cc.EventListener.MOUSE,
 				onMouseScroll: function(e) {
 					this.zoom(-e.getScrollY(), e.getLocation());
