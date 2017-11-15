@@ -26,22 +26,22 @@ var MapLayer = (function() {
 
 			this.setScale(0.4);
 			// Set map to center of screen, Note that setting scale before setting position.
-			var center = MapValues.logicToPosition(MapValues.width / 2, MapValues.height / 2);
+			var center = MapValues.logicToPosition(MapConfigs.Init.width / 2, MapConfigs.Init.height / 2);
 			this.setPosition(cc.p((this.width / 2 - center.x) * this.scale, (this.height / 2 - center.y) * this.scale));
 			this.initEvent();
 		},
 
 		initBorder: function() {
-			this.LEFT_LIMIT = MapValues.logicToPosition(0, MapValues.height);
-			this.RIGHT_LIMIT = MapValues.logicToPosition(MapValues.width, 0);
+			this.LEFT_LIMIT = MapValues.logicToPosition(0, MapConfigs.Init.height);
+			this.RIGHT_LIMIT = MapValues.logicToPosition(MapConfigs.Init.width, 0);
 			this.TOP_LIMIT = MapValues.logicToPosition(0, 0);
-			this.BOTTOM_LIMIT = MapValues.logicToPosition(MapValues.width, MapValues.height);
+			this.BOTTOM_LIMIT = MapValues.logicToPosition(MapConfigs.Init.width, MapConfigs.Init.height);
 
 			// Set padding
-			this.TOP_LIMIT.y += MapValues.paddingTop;
-			this.LEFT_LIMIT.x -= MapValues.paddingLeft;
-			this.RIGHT_LIMIT.x += MapValues.paddingRight;
-			this.BOTTOM_LIMIT.y -= MapValues.paddingBottom;
+			this.TOP_LIMIT.y += MapConfigs.Init.padding.top;
+			this.LEFT_LIMIT.x -= MapConfigs.Init.padding.left;
+			this.RIGHT_LIMIT.x += MapConfigs.Init.padding.right;
+			this.BOTTOM_LIMIT.y -= MapConfigs.Init.padding.bottom;
 
 			// Show red point of each limit point.
 			if (__DEBUG) {
@@ -82,15 +82,18 @@ var MapLayer = (function() {
 			for (var i = 0; i < vertical * 2 + 1; i++) {
 				for (var j = 0; j < horizontal * 2 + 1; j++) {
 					var sprite = new cc.Sprite(res.GRASS_PNG);
-					sprite.setPosition(startPoint.x + j * blockSize.width / 2, startPoint.y - i * blockSize.height / 2);
+					sprite.setPosition(
+						startPoint.x + j * blockSize.width / 2,
+						startPoint.y - i * blockSize.height / 2
+					);
 					this.addChild(sprite);
 				}
 			}
 
 			if (__DEBUG) {
 				// Debug
-				for (var i = 0; i < MapValues.width; i++) {
-					for (var j = 0; j < MapValues.height; j++) {
+				for (var i = 0; i < MapConfigs.Init.width; i++) {
+					for (var j = 0; j < MapConfigs.Init.height; j++) {
 						var sprite = new cc.Sprite(res.GRASS_BLOCK);
 						sprite.setPosition(MapValues.logicToPosition(i, j));
 						sprite.setAnchorPoint(cc.p(0.5, 1));
@@ -101,89 +104,124 @@ var MapLayer = (function() {
 		},
 
 		renderRoad: function() {
-			for (var i = 0; i <= MapValues.width / 2 + 1; i++) {
+			var config = MapConfigs.Road;
+			for (var i = 0; i <= MapConfigs.Init.width / config.blockSizeX; i++) {
 				var sprite = new cc.Sprite(res.ROAD_PNG);
 				this.addChild(sprite);
-				sprite.setPosition(MapValues.logicToPosition(2 * i, MapValues.height + 3));
-				sprite.y += i * 4;
+				sprite.setPosition(MapValues.logicToPosition(
+					config.blockSizeX * i,
+					config.position.y
+				));
+				sprite.y += i * config.blockSizeY;
 			}
 		},
 
 		renderRoad2: function() {
-			for (var i = MapValues.height / 2; i > 8; i--) {
+			for (var i = MapConfigs.Init.height / 2; i > 8; i--) {
 				var sprite = new cc.Sprite(res.ROAD_02_PNG);
 				this.addChild(sprite);
 				sprite.setPosition(MapValues.logicToPosition(16, 2 * i));
 			}
 			var spriteNoiDuong = new cc.Sprite(res.NOI_DUONG_PNG);
 			this.addChild(spriteNoiDuong);
-			spriteNoiDuong.setPosition(MapValues.logicToPosition(16, MapValues.height + 1));
+			spriteNoiDuong.setPosition(MapValues.logicToPosition(16, MapConfigs.Init.height + 1));
 			spriteNoiDuong.x += 40;
 			spriteNoiDuong.y += 10;
 		},
 
 		renderDefaultConstruct: function() {
-			this.addChild(new NhaChinhSprite(14, 14));
-			this.addChild(new TruckOrderSprite(14, 19));
-			this.addChild(new MailBoxSprite(13, 31));
-			this.addChild(new RoadShopSprite(19, 30));
+			this.addChild(new NhaChinhSprite(MapConfigs.NhaChinh.position));
+			this.addChild(new TruckOrderSprite(MapConfigs.TruckOrder.position));
+			this.addChild(new MailBoxSprite(MapConfigs.MailBox.position));
+			this.addChild(new RoadShopSprite(MapConfigs.RoadShop.position));
 		},
 
 		renderSong: function() {
+			// Render riverbed
 			var drawNode = new cc.DrawNode();
 			drawNode.drawPoly([
-				MapValues.logicToPosition(MapValues.width + 2, MapValues.height),
-				MapValues.logicToPosition(MapValues.width + 8, MapValues.height),
-				MapValues.logicToPosition(MapValues.width + 8, 0),
-				MapValues.logicToPosition(MapValues.width + 2, 0)
-			], cc.color(52, 141, 162));
+				MapValues.logicToPosition(MapConfigs.Song.startX, MapConfigs.Song.endY),
+				MapValues.logicToPosition(MapConfigs.Song.endX, MapConfigs.Song.endY),
+				MapValues.logicToPosition(MapConfigs.Song.endX, MapConfigs.Song.startY),
+				MapValues.logicToPosition(MapConfigs.Song.startX, MapConfigs.Song.startY)
+			], cc.color(MapConfigs.Song.color));
 			this.addChild(drawNode);
 
-			for (var i = 0; i <= MapValues.height / 4; i++) {
+			// Render first riverside
+			var riverSide1BlockSizeY = MapConfigs.Song.riverside1.blockSizeY;
+			for (var i = 0; i <= MapConfigs.Init.height / riverSide1BlockSizeY; i++) {
 				var sprite = new cc.Sprite(res.SONG_1);
-				sprite.setPosition(MapValues.logicToPosition(MapValues.width + 2, i * 4));
+				sprite.setPosition(MapValues.logicToPosition(
+					MapConfigs.Song.startX,
+					i * riverSide1BlockSizeY
+				));
 				this.addChild(sprite);
 			}
-			for (var i = 0; i <= MapValues.height / 2; i++) {
+
+			var riverSide2BlockSizeY = MapConfigs.Song.riverside2.blockSizeY;
+			// Render last riverside
+			for (var i = 0; i <= MapConfigs.Init.height / riverSide2BlockSizeY; i++) {
 				var sprite = new cc.Sprite(res.SONG_2);
-				sprite.setPosition(MapValues.logicToPosition(MapValues.width + 8, i * 2));
+				sprite.setPosition(MapValues.logicToPosition(
+					MapConfigs.Song.endX,
+					i * riverSide2BlockSizeY
+				));
 				this.addChild(sprite);
 			}
-			var habor = new MapBlockSprite(res.HABOR, 2, 2);
-			habor.setLogicPosition(MapValues.width + 3, Math.round(MapValues.height * 0.75));
-			this.addChild(habor);
+
+			// Render harbor
+			var harborConfig = MapConfigs.Song.harbor;
+			var harbor = new MapBlockSprite(res.HABOR, 
+					harborConfig.blockSizeX, harborConfig.blockSizeY);
+			harbor.setLogicPosition(harborConfig.position);
+			this.addChild(harbor);
 		},
 
 		renderNui: function() {
-			for (var i = 0; i <= MapValues.height / 4; i++) {
+			var nuiConfig = MapConfigs.Nui;
+			for (var i = 0; i <= MapConfigs.Init.height / nuiConfig.blockSizeY; i++) {
 				var sprite = new cc.Sprite(res.NUI_PNG);
-				sprite.setPosition(MapValues.logicToPosition(-3, i * 4));
+				sprite.setPosition(MapValues.logicToPosition(
+					nuiConfig.x,
+					i * nuiConfig.blockSizeY
+				));
 				this.addChild(sprite);
 			}
 			var mo02Sprite = new cc.Sprite(res.MO_02);
-			mo02Sprite.setPosition(MapValues.logicToPosition(-3, Math.round(MapValues.height * 0.75)));
+			mo02Sprite.setPosition(MapValues.logicToPosition(
+				nuiConfig.x,
+				Math.round(MapConfigs.Init.height * 0.75)
+			));
 			this.addChild(mo02Sprite);
 		},
 
 		renderDuongRay: function() {
-			for (var i = -1; i < MapValues.height / 2; i++) {
+			var duongRayConfig = MapConfigs.DuongRay;
+			for (var i = 0; i < MapConfigs.Init.height / duongRayConfig.blockSizeY; i++) {
 				var sprite = new cc.Sprite(res.RAY_TAU);
-				sprite.setPosition(MapValues.logicToPosition(-7, i * 2));
-				sprite.x += -33 * i;
-				sprite.y += -13 * i;
+				sprite.setPosition(MapValues.logicToPosition(
+					duongRayConfig.position.x,
+					i * duongRayConfig.blockSizeY
+				));
+				sprite.x += duongRayConfig.offset.x * i;
+				sprite.y += duongRayConfig.offset.y * i;
 				this.addChild(sprite);
 			}
 			var mo01Sprite = new cc.Sprite(res.MO_01);
-			mo01Sprite.setPosition(MapValues.logicToPosition(-7, Math.round(MapValues.height * 0.6)));
+			mo01Sprite.setPosition(MapValues.logicToPosition(
+				duongRayConfig.position.x,
+				Math.round(MapConfigs.Init.height * 0.6)
+			));
 			this.addChild(mo01Sprite);
 		},
 
 		renderForest: function() {
 			// Render top-left forest
 			(function() {
-				var lineXl = -9;
-				var overlapX = 30;
-				var overlapY = 300;
+				var config = MapConfigs.Forest.topLeft;
+				var lineXl = config.position.x;
+				var overlapX = config.overlap.x;
+				var overlapY = config.overlap.y;
 
 				var sprite = new cc.Sprite(res.NHOM_CAY_1);
 				var contentSize = sprite.getContentSize();
@@ -192,9 +230,12 @@ var MapLayer = (function() {
 				var startY = MapValues.yLinearByXl(lineXl, startX);
 				while (startY <= this.TOP_LIMIT.y) {
 					var countX = Math.round((this.TOP_LIMIT.y - startY) / (contentSize.height - overlapY));
-					for (var i = countX - 1; i >= 0; i--) {
+					for (var i = countX; i >= 0; i--) {
 						var sprite = new cc.Sprite(res.NHOM_CAY_1);
-						sprite.setPosition(startX, startY + i * (contentSize.height - overlapY));
+						sprite.setPosition(
+							startX,
+							startY + i * (contentSize.height - overlapY)
+						);
 						sprite.setAnchorPoint(cc.p(0.5, 0));
 						this.addChild(sprite);
 					}
@@ -203,10 +244,12 @@ var MapLayer = (function() {
 				}
 			}.bind(this))();
 
+			// Render top-right forest
 			(function() {
-				var lineYl = -3;
-				var overlapX = 30;
-				var overlapY = 300;
+				var config = MapConfigs.Forest.topRight;
+				var lineYl = config.position.y;
+				var overlapX = config.overlap.x;
+				var overlapY = config.overlap.y;
 
 				var sprite = new cc.Sprite(res.NHOM_CAY_1);
 				var contentSize = sprite.getContentSize();
@@ -215,9 +258,12 @@ var MapLayer = (function() {
 				var startY = MapValues.yLinearByYl(lineYl, startX);
 				while (startY <= this.TOP_LIMIT.y) {
 					var countX = Math.round((this.TOP_LIMIT.y - startY) / (contentSize.height - overlapY));
-					for (var i = countX - 1; i >= 0; i--) {
+					for (var i = countX; i >= 0; i--) {
 						var sprite = new cc.Sprite(res.NHOM_CAY_1);
-						sprite.setPosition(startX, startY + i * (contentSize.height - overlapY));
+						sprite.setPosition(
+							startX, 
+							startY + i * (contentSize.height - overlapY)
+						);
 						sprite.setAnchorPoint(cc.p(0.5, 0));
 						sprite.setScaleX(-1);
 						this.addChild(sprite);
@@ -226,8 +272,63 @@ var MapLayer = (function() {
 					startY = MapValues.yLinearByYl(lineYl, startX);
 				}
 			}.bind(this))();
-			// Render top-right forest
 			
+			// Render bottom-left forest
+			(function() {
+				var config = MapConfigs.Forest.bottomLeft;
+				var lineYl = config.position.y;
+				var overlapX = config.overlap.x;
+				var overlapY = config.overlap.y;
+
+				var sprite = new cc.Sprite(res.NHOM_CAY_2);
+				var contentSize = sprite.getContentSize();
+
+				var startX = this.LEFT_LIMIT.x;
+				var startY = MapValues.yLinearByYl(lineYl, startX);
+				while (startY >= this.BOTTOM_LIMIT.y) {
+					var countX = Math.round((startY - this.BOTTOM_LIMIT.y) / (contentSize.height - overlapY));
+					for (var i = countX; i >= 0; i--) {
+						var sprite = new cc.Sprite(res.NHOM_CAY_2);
+						sprite.setPosition(
+							startX,
+							startY - i * (contentSize.height - overlapY)
+						);
+						sprite.setAnchorPoint(0.5, 1);
+						this.addChild(sprite);
+					}
+					startX += contentSize.width - overlapX;
+					startY = MapValues.yLinearByYl(lineYl, startX);
+				}
+			}.bind(this))();
+
+			// Render bottom-right forest
+			(function() {
+				var config = MapConfigs.Forest.bottomRight;
+				var lineXl = config.position.x;
+				var overlapX = config.overlap.x;
+				var overlapY = config.overlap.y;
+
+				var sprite = new cc.Sprite(res.NHOM_CAY_2);
+				var contentSize = sprite.getContentSize();
+
+				var startX = this.RIGHT_LIMIT.x;
+				var startY = MapValues.yLinearByXl(lineXl, startX);
+				while (startY >= this.BOTTOM_LIMIT.y) {
+					var countX = Math.round((startY - this.BOTTOM_LIMIT.y) / (contentSize.height - overlapY));
+					for (var i = countX; i >= 0; i--) {
+						var sprite = new cc.Sprite(res.NHOM_CAY_2);
+						sprite.setPosition(
+							startX, 
+							startY - i * (contentSize.height - overlapY)
+						);
+						sprite.setAnchorPoint(0.5, 1);
+						sprite.setScaleX(-1);
+						this.addChild(sprite);
+					}
+					startX -= contentSize.width - overlapX;
+					startY = MapValues.yLinearByXl(lineXl, startX);
+				}
+			}.bind(this))();
 		},
 
 		renderHoaDa: function() {

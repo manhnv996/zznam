@@ -47,6 +47,7 @@
         "src/modules/entities/StorageItem.js",
         "src/modules/entities/Storage.js",
 
+        "src/modules/configs/MapConfigs.js",
         "src/modules/configs/MapValues.js",
         "src/modules/views/sprites/MapBlockSprite.js",
         "src/modules/views/sprites/NhaChinhSprite.js",

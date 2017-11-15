@@ -1,12 +1,6 @@
 var MapValues = new function() {
 	this.iLength = 262;
 	this.jLength = 134;
-	this.width = 32;
-	this.height = 50;
-	this.paddingTop = 100;
-	this.paddingBottom = 100;
-	this.paddingLeft = 100;
-	this.paddingRight = 100;
 
 	// Convert logic map position to map position
 	this.logicToPosition = function(xl, yl) { // x-logic, y-logic
