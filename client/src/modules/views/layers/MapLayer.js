@@ -10,20 +10,24 @@ var MapLayer = (function() {
 
 		ctor: function() {
 			this._super();
+			// Init limit points of map
 			this.initBorder();
+			
 			this.renderGrassBlock();
 			this.renderSong();
 			this.renderRoad();
 			this.renderRoad2();
 			this.renderNui();
 			// this.renderHoaDa();
-			// this.renderForest();
+			this.renderForest();
 			this.renderDuongRay();
 			this.renderDefaultConstruct();
 			this.renderSample();
-			// this.setPosition(MapValues.logicToPosition(-6, -7));
-			this.setPosition(0, 0);
-			this.setScale(1.0);
+
+			this.setScale(0.4);
+			// Set map to center of screen, Note that setting scale before setting position.
+			var center = MapValues.logicToPosition(MapValues.width / 2, MapValues.height / 2);
+			this.setPosition(cc.p((this.width / 2 - center.x) * this.scale, (this.height / 2 - center.y) * this.scale));
 			this.initEvent();
 		},
 
@@ -39,6 +43,7 @@ var MapLayer = (function() {
 			this.RIGHT_LIMIT.x += MapValues.paddingRight;
 			this.BOTTOM_LIMIT.y -= MapValues.paddingBottom;
 
+			// Show red point of each limit point.
 			if (__DEBUG) {
 				var dotLeft = new cc.Sprite(res.DOT2_PNG);
 				var dotRight = new cc.Sprite(res.DOT2_PNG);
@@ -67,6 +72,7 @@ var MapLayer = (function() {
 		},
 
 		renderGrassBlock: function() {
+			// Grass sprite overlaps another grass sprite by its half size.
 			var sampleGrassSprite = new cc.Sprite(res.GRASS_PNG);
 			var blockSize = sampleGrassSprite.getContentSize();
 			var horizontal = (this.RIGHT_LIMIT.x - this.LEFT_LIMIT.x) / blockSize.width;
@@ -127,8 +133,8 @@ var MapLayer = (function() {
 			var drawNode = new cc.DrawNode();
 			drawNode.drawPoly([
 				MapValues.logicToPosition(MapValues.width + 2, MapValues.height),
-				MapValues.logicToPosition(MapValues.width + 6, MapValues.height),
-				MapValues.logicToPosition(MapValues.width + 6, 0),
+				MapValues.logicToPosition(MapValues.width + 8, MapValues.height),
+				MapValues.logicToPosition(MapValues.width + 8, 0),
 				MapValues.logicToPosition(MapValues.width + 2, 0)
 			], cc.color(52, 141, 162));
 			this.addChild(drawNode);
@@ -140,7 +146,7 @@ var MapLayer = (function() {
 			}
 			for (var i = 0; i <= MapValues.height / 2; i++) {
 				var sprite = new cc.Sprite(res.SONG_2);
-				sprite.setPosition(MapValues.logicToPosition(MapValues.width + 6, i * 2));
+				sprite.setPosition(MapValues.logicToPosition(MapValues.width + 8, i * 2));
 				this.addChild(sprite);
 			}
 			var habor = new MapBlockSprite(res.HABOR, 2, 2);
@@ -173,44 +179,55 @@ var MapLayer = (function() {
 		},
 
 		renderForest: function() {
-			var basePoint = MapValues.logicToPosition(-18, 16);
-			var basePoint2 = MapValues.logicToPosition(16, -18);
-			var basePoint3 = MapValues.logicToPosition(16, 48);
-			var basePoint4 = MapValues.logicToPosition(48, 16);
+			// Render top-left forest
+			(function() {
+				var lineXl = -9;
+				var overlapX = 30;
+				var overlapY = 300;
 
-			for (var i = 0; i <= 3; i++) {
-				for (var j = 0; j <= (3 - i); j++) {
-					var sprite = new cc.Sprite(res.NHOM_CAY_1);
-					sprite.setPosition(cc.p(basePoint.x + 730 * i, basePoint.y - 300 * j));
-					this.addChild(sprite);
+				var sprite = new cc.Sprite(res.NHOM_CAY_1);
+				var contentSize = sprite.getContentSize();
+				
+				var startX = this.LEFT_LIMIT.x; // because of anchor 1,0
+				var startY = MapValues.yLinearByXl(lineXl, startX);
+				while (startY <= this.TOP_LIMIT.y) {
+					var countX = Math.round((this.TOP_LIMIT.y - startY) / (contentSize.height - overlapY));
+					for (var i = countX - 1; i >= 0; i--) {
+						var sprite = new cc.Sprite(res.NHOM_CAY_1);
+						sprite.setPosition(startX, startY + i * (contentSize.height - overlapY));
+						sprite.setAnchorPoint(cc.p(0.5, 0));
+						this.addChild(sprite);
+					}
+					startX += contentSize.width - overlapX;
+					startY = MapValues.yLinearByXl(lineXl, startX);
 				}
-			}
+			}.bind(this))();
 
-			for (var i = 0; i <= 4; i++) {
-				for (var j = 0; j <= (4 - i); j++) {
-					var sprite = new cc.Sprite(res.NHOM_CAY_1);
-					sprite.setPosition(cc.p(basePoint2.x - 730 * i, basePoint2.y - 300 * j));
-					sprite.setScaleX(-1);
-					this.addChild(sprite);
-				}
-			}
+			(function() {
+				var lineYl = -3;
+				var overlapX = 30;
+				var overlapY = 300;
 
-			for (var i = 0; i <= 4; i++) {
-				for (var j = 0; j <= (4 - i); j++) {
-					var sprite = new cc.Sprite(res.NHOM_CAY_2);
-					sprite.setPosition(cc.p(basePoint3.x + 600 * i, basePoint3.y + 260 * j));
-					this.addChild(sprite);
-				}
-			}
+				var sprite = new cc.Sprite(res.NHOM_CAY_1);
+				var contentSize = sprite.getContentSize();
 
-			for (var i = 0; i <= 2; i++) {
-				for (var j = 0; j <= (2 - i); j++) {
-					var sprite = new cc.Sprite(res.NHOM_CAY_2);
-					sprite.setScaleX(-1);
-					sprite.setPosition(cc.p(basePoint4.x - 600 * i, basePoint4.y + 260 * j));
-					this.addChild(sprite);
+				var startX = this.RIGHT_LIMIT.x;
+				var startY = MapValues.yLinearByYl(lineYl, startX);
+				while (startY <= this.TOP_LIMIT.y) {
+					var countX = Math.round((this.TOP_LIMIT.y - startY) / (contentSize.height - overlapY));
+					for (var i = countX - 1; i >= 0; i--) {
+						var sprite = new cc.Sprite(res.NHOM_CAY_1);
+						sprite.setPosition(startX, startY + i * (contentSize.height - overlapY));
+						sprite.setAnchorPoint(cc.p(0.5, 0));
+						sprite.setScaleX(-1);
+						this.addChild(sprite);
+					}
+					startX -= contentSize.width - overlapX;
+					startY = MapValues.yLinearByYl(lineYl, startX);
 				}
-			}
+			}.bind(this))();
+			// Render top-right forest
+			
 		},
 
 		renderHoaDa: function() {

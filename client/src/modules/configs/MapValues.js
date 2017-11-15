@@ -8,19 +8,23 @@ var MapValues = new function() {
 	this.paddingLeft = 100;
 	this.paddingRight = 100;
 
-	this.logicToPosition = function(x, y) {
-		var _x = (x - y) * this.iLength / 2;
-		var _y = (- x - y) * this.jLength / 2;
-		return cc.p(_x, _y);
+	// Convert logic map position to map position
+	this.logicToPosition = function(xl, yl) { // x-logic, y-logic
+		var x = (xl - yl) * this.iLength / 2;
+		var y = (- xl - yl) * this.jLength / 2;
+		return cc.p(x, y); // x-of map, y-of map
 	}
 
-	this.positionToLogic = function(_x, _y) {
-		var x = _x / this.iLength - _y / this.jLength;
-		var y = -_x / this.iLength - _y / this.jLength;
-		return cc.p(x, y);
+	// Convert map position to logic map position
+	this.positionToLogic = function(x, y) {
+		var xl = x / this.iLength - y / this.jLength;
+		var yl = -x / this.iLength - y / this.jLength;
+		return cc.p(xl, yl);
 	}
 
+	// Convert screen position to logic map position
 	this.screenPositionToLogic = function(x, y) {
+		// First convert screen position to map position
 		var map = MapLayer.instance;
 		var mapCenterPosition = cc.p(
 			cc.winSize.width / 2 + map.x,
@@ -34,6 +38,28 @@ var MapValues = new function() {
 			(x - mapRootPosition.x) / map.scale,
 			(y - mapRootPosition.y) / map.scale
 		);
+		// Last convert map position to logic map position
 		return this.positionToLogic(deltaPosition.x, deltaPosition.y);
+	}
+
+
+	// xl = x / this.iLength - y / this.jLength;
+	// yl = -x / this.iLength - y / this.jLength;
+	// Find linear by logic map position => return y
+	this.yLinearByXl = function(xl, x) {
+		return this.jLength * (- xl + x / this.iLength);
+	}
+
+	// Find linear by logic map position => return x
+	this.xLinearByXl = function(xl, y) {
+		return this.iLength * (xl + y / this.jLength);
+	}
+
+	this.yLinearByYl = function(yl, x) {
+		return this.jLength * (- yl - x / this.iLength); 
+	}
+
+	this.xLinearByYl = function(yl, y) {
+		return this.iLength * (- yl - y / this.jLength); 
 	}
 };
