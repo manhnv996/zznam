@@ -43,10 +43,11 @@
         "src/modules/testnetwork/network/Packet.js",
         "src/modules/testnetwork/ScreenNetwork.js",
 
+        "src/modules/entities/CoordinatedObject.js",
+        "src/modules/entities/StorageItem.js",
+        "src/modules/entities/Storage.js",
 
-
-
-
+        "src/modules/configs/MapConfigs.js",
         "src/modules/configs/MapValues.js",
         "src/modules/views/sprites/MapBlockSprite.js",
         "src/modules/views/sprites/NhaChinhSprite.js",
@@ -96,8 +97,8 @@
 
 
         "src/modules/views/layers/MapLayer.js",
-        "src/modules/views/scenes/MainScene.js"
+        "src/modules/views/scenes/MainScene.js",
 
-
+        "src/modules/controllers/MapController.js"
     ]
 }
