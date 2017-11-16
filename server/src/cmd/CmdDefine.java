@@ -17,6 +17,13 @@ public class CmdDefine {
    
     //Log cmd
     public static final short MOVE = 2001;
+    
+    public static final short PLANT = 5001;
+    public static final short CROP = 5002;
+    
+    
+    
+    
 
     public static final short GET_FRIENDS = 3001;
     public static final short FRIEND_SEND_MESSAGE = 3002;

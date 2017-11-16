@@ -13,11 +13,6 @@
 		"instantPrice": "1",
 
 
-		"growImg1": "res/animation/Luanuoc/texture/Luami1/Layer 102 copy 4.png",
-		"growImg2": "res/animation/Luanuoc/texture/Luami1/Layer 103 copy 17.png",
-		"growImg3": "res/animation/Luanuoc/texture/Luami1/Layer 103 copy 11.png",
-		"growImg4": "res/animation/Luanuoc/texture/Luami1/Layer 102 copy 3.png",
-
 	  	"animation_res": "game/animation/luanuoc",
 	  	"plantAni": "Luanuoc_1",
 
@@ -43,18 +38,14 @@
 		"instantPrice": "1",
 
 
-		"growImg1": "res/animation/Ngo/texture/Ngo.psd Assets/hatgiong.png",
-		"growImg2": "res/animation/Ngo/texture/Ngo.psd Assets/thanngo.png",
-		"growImg3": "res/animation/Ngo/texture/Ngo.psd Assets/hoango.png",
-		"growImg4": "res/animation/Ngo/texture/Ngo.psd Assets/bapngo.png",
 
 	  	"animation_res": "game/animation/Ngo",
 	  	"plantAni": "Ngo_hat",
 
 		"grow1": "Ngo_non",
 		"grow2": "Ngo_Hoa",
-		"grow3": "Ngo_bap",
-		"grow4": "selected",
+		"grow3": "selected",
+		"grow4": "Ngo_bap",
 
 
 	  	"cropAni": "Ngo_Th"
@@ -73,10 +64,6 @@
 		"instantPrice": "2",
 
 
-		"growImg1": "res/animation/Carot/texture/Carot1/Layer 40 copy 6.png",
-		"growImg2": "res/animation/Carot/texture/Carot1/Layer 42 copy 6.png",
-		"growImg3": "res/animation/Carot/texture/Carot1/Ca rot copy 12.png",
-		"growImg4": "res/animation/Carot/texture/Carot1/Ca rot copy 18.png",
 
 		"animation_res": "game/animation/Carot",
 		"plantAni": "Carot_mam",
@@ -102,10 +89,6 @@
 		"instantPrice": "2",
 
 
-		"growImg1": "res/animation/DauHL/texture/DauHL1/Layer 59 copy 3.png",
-		"growImg2": "res/animation/DauHL/texture/DauHL1/Layer 57 copy 7.png",
-		"growImg3": "res/animation/DauHL/texture/DauHL1/Layer 58 copy 16.png",
-		"growImg4": "res/animation/DauHL/texture/DauHL1/Layer 58 copy 11.png",
 
 		"animation_res": "game/animation/DauHL",
 		"plantAni": "DauHL_Mam",
@@ -131,18 +114,14 @@
 		"instantPrice": "3",
 
 
-		"growImg1": "res/animation/Mia/texture/CayMiaAsset/Layer 57 copy 25.png",
-		"growImg2": "res/animation/Mia/texture/CayMiaAsset/Layer 57 copy 26.png",
-		"growImg3": "res/animation/Mia/texture/CayMiaAsset/Layer 57 copy 34.png",
-		"growImg4": "res/animation/Mia/texture/CayMiaAsset/caymia.png",
 
 		"animation_res": "game/animation/Mia",
 		"plantAni": "Mia_mam",
 
 		"grow1": "Mia_non",
 		"grow2": "Mia_nho",
-		"grow3": "Mia_to",
-		"grow4": "selected",
+		"grow3": "selected",
+		"grow4": "Mia_to",
 
 		"cropAni": "Mia_Harvest"
 	},
@@ -157,13 +136,10 @@
 		"maxPrice": "25",
 		"growTimeType": "2",
 		"rPrice": "5",
-		"instantPrice": "5",
+		"instantPrice": "5"
 
 
-		"growImg1": "",
-		"growImg2": "",
-		"growImg3": "",
-		"growImg4": ""
+
 	},
 	{
 		"id": "crop_pumpkin",
@@ -176,13 +152,10 @@
 		"maxPrice": "32",
 		"growTimeType": "2",
 		"rPrice": "6",
-		"instantPrice": "6",
+		"instantPrice": "6"
 
 
-		"growImg1": "",
-		"growImg2": "",
-		"growImg3": "",
-		"growImg4": ""
+
 	},
 	{
 		"id": "crop_chili_pepper",
@@ -195,13 +168,10 @@
 		"maxPrice": "36",
 		"growTimeType": "2",
 		"rPrice": "7",
-		"instantPrice": "7",
+		"instantPrice": "7"
 
 
-		"growImg1": "",
-		"growImg2": "",
-		"growImg3": "",
-		"growImg4": ""
+
 	},
 	{
 		"id": "crop_tomato",
@@ -214,13 +184,10 @@
 		"maxPrice": "43",
 		"growTimeType": "3",
 		"rPrice": "8",
-		"instantPrice": "8",
+		"instantPrice": "8"
 
 
-		"growImg1": "",
-		"growImg2": "",
-		"growImg3": "",
-		"growImg4": ""
+
 	},
 	{
 		"id": "crop_strawberry",
@@ -233,13 +200,10 @@
 		"maxPrice": "50",
 		"growTimeType": "3",
 		"rPrice": "10",
-		"instantPrice": "10",
+		"instantPrice": "10"
 
 
-		"growImg1": "",
-		"growImg2": "",
-		"growImg3": "",
-		"growImg4": ""
+
 	},
 	{
 		"id": "crop_potato",
@@ -252,13 +216,9 @@
 		"maxPrice": "36",
 		"growTimeType": "2",
 		"rPrice": "7",
-		"instantPrice": "7",
+		"instantPrice": "7"
 
 
-		"growImg1": "",
-		"growImg2": "",
-		"growImg3": "",
-		"growImg4": ""
 	},
 	{
 		"id": "crop_lettuce",
@@ -271,13 +231,10 @@
 		"maxPrice": "32",
 		"growTimeType": "2",
 		"rPrice": "7",
-		"instantPrice": "7",
+		"instantPrice": "7"
 
 
-		"growImg1": "",
-		"growImg2": "",
-		"growImg3": "",
-		"growImg4": ""
+
 	},
 	{
 		"id": "crop_rice",
@@ -290,12 +247,9 @@
 		"maxPrice": "18",
 		"growTimeType": "1",
 		"rPrice": "3",
-		"instantPrice": "3",
+		"instantPrice": "3"
 
 
-		"growImg1": "",
-		"growImg2": "",
-		"growImg3": "",
-		"growImg4": ""
+
 	}
 ]

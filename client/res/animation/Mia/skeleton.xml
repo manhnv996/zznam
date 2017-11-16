@@ -1,0 +1,200 @@
+<dragonBones name="Mia" frameRate="24" version="2.3">
+ <armature name="Mia">
+  <bone name="Layer 1">
+   <transform x="129" y="86.45" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="Layer 3">
+   <transform x="125.5" y="69" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="Layer 4">
+   <transform x="121.5" y="48.45" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="Layer 5">
+   <transform x="127" y="18.45" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="Layer 2">
+   <transform x="127.55" y="97" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="Layer 6">
+   <transform x="135.05" y="122.5" skX="-1.91" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="Layer 10">
+   <transform x="130.35" y="84.35" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="Layer 9">
+   <transform x="176.35" y="65.3" skX="-45" skY="-45" scX="1" scY="1"/>
+  </bone>
+  <bone name="Layer 11">
+   <transform x="112.35" y="72.5" skX="-45" skY="-45" scX="1" scY="1"/>
+  </bone>
+  <skin name="default">
+   <slot name="Layer 1" parent="Layer 1" z="0">
+    <display name="CayMiaAsset/Layer 1" type="image">
+     <transform x="-129" y="-64.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Layer 3" parent="Layer 3" z="1">
+    <display name="CayMiaAsset/Layer 57 copy 25" type="image">
+     <transform x="-113.5" y="-69" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Layer 4" parent="Layer 4" z="2">
+    <display name="CayMiaAsset/Layer 57 copy 26" type="image">
+     <transform x="-117.5" y="-94" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Layer 5" parent="Layer 5" z="3">
+    <display name="CayMiaAsset/Layer 57 copy 34" type="image">
+     <transform x="-131" y="-122" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Layer 2" parent="Layer 2" z="4">
+    <display name="CayMiaAsset/Layer 2" type="image">
+     <transform x="-98" y="-45.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Layer 6" parent="Layer 6" z="5">
+    <display name="CayMiaAsset/caymia" type="image">
+     <transform x="-138.5" y="-270" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Layer 10" parent="Layer 10" z="6">
+    <display name="CayMiaAsset/Layer 57 copy 17" type="image">
+     <transform x="-98" y="-54.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Layer 9" parent="Layer 9" z="7">
+    <display name="CayMiaAsset/Layer 57 copy 18" type="image">
+     <transform x="-32" y="-27.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Layer 11" parent="Layer 11" z="8">
+    <display name="CayMiaAsset/Layer 57 copy 18" type="image">
+     <transform x="-32" y="-27.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+  </skin>
+  <animation name="Mia_mam" fadeInTime="0.3" duration="10" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="Layer 1" scale="1" offset="0">
+    <frame z="0" duration="10">
+     <transform x="129" y="86.45" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 3" scale="1" offset="0">
+    <frame z="1" duration="10">
+     <transform x="125.5" y="69" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="Mia_non" fadeInTime="0.3" duration="10" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="Layer 1" scale="1" offset="0">
+    <frame z="0" duration="143">
+     <transform x="129" y="86.45" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 4" scale="1" offset="0">
+    <frame z="2" duration="10">
+     <transform x="121.5" y="48.45" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="Mia_nho" fadeInTime="0.3" duration="10" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="Layer 1" scale="1" offset="0">
+    <frame z="0" duration="133">
+     <transform x="129" y="86.45" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 5" scale="1" offset="0">
+    <frame z="3" duration="10">
+     <transform x="127" y="18.45" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="Mia_to" fadeInTime="0.3" duration="20" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="Layer 1" scale="1" offset="0">
+    <frame z="0" duration="123">
+     <transform x="129" y="86.45" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="4" duration="20">
+     <transform x="127.55" y="97" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 6" scale="1" offset="0">
+    <frame z="5" duration="20">
+     <transform x="135.05" y="122.5" skX="-1.91" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="selected" fadeInTime="0" duration="50" scale="1" loop="0" autoTween="1" tweenEasing="NaN">
+   <timeline name="Layer 1" scale="1" offset="0">
+    <frame z="0" duration="103">
+     <transform x="129" y="86.45" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="4" duration="50">
+     <transform x="127.55" y="97" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 6" scale="1" offset="0">
+    <frame z="5" tweenEasing="0" duration="26">
+     <transform x="135.05" y="122.5" skX="-1.91" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="5" tweenEasing="0" duration="23">
+     <transform x="135.05" y="122.5" skX="1.27" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="5" duration="1">
+     <transform x="135.05" y="122.5" skX="-1.91" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="Mia_Harvest" fadeInTime="0" duration="53" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="Layer 1" scale="1" offset="0">
+    <frame z="0" duration="53">
+     <transform x="129" y="86.45" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="4" duration="53">
+     <transform x="127.55" y="97" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 10" scale="1" offset="0">
+    <frame z="6" duration="53">
+     <transform x="130.35" y="84.35" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 9" scale="1" offset="0">
+    <frame z="7" tweenEasing="0" duration="7">
+     <transform x="176.35" y="65.3" skX="-45" skY="-45" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="7" tweenEasing="0" duration="5">
+     <transform x="162.4" y="-103.65" skX="138.73" skY="138.73" scX="1" scY="1" pX="0.2" pY="-0.1"/>
+    </frame>
+    <frame z="7" tweenEasing="0" duration="2">
+     <transform x="171.35" y="97.3" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="7" duration="39">
+     <transform x="171.35" y="94.3" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 11" scale="1" offset="0">
+    <frame duration="2" displayIndex="-1"/>
+    <frame z="8" tweenEasing="0" duration="7">
+     <transform x="112.35" y="72.5" skX="-45" skY="-45" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="8" tweenEasing="0" duration="5">
+     <transform x="98.4" y="-96.45" skX="138.73" skY="138.73" scX="1" scY="1" pX="0.2" pY="-0.05"/>
+    </frame>
+    <frame z="8" tweenEasing="0" duration="2">
+     <transform x="107.35" y="104.5" skX="-105" skY="-105" scX="1" scY="1" pX="0.05" pY="-0.05"/>
+    </frame>
+    <frame z="8" duration="37">
+     <transform x="107.35" y="101.5" skX="-105" skY="-105" scX="1" scY="1" pX="0.05" pY="-0.05"/>
+    </frame>
+   </timeline>
+  </animation>
+ </armature>
+</dragonBones>

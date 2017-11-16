@@ -6,9 +6,13 @@ var Field = CoordinatedObject.extend({
     plantedTime: null,
 
     ctor: function (coordinate, fieldId) {
+    // ctor: function (x, y, fieldId) {
         //
-        //this._super(coordinate);
-        CoordinatedObject.prototype.render(coordinate);
+        this._super(coordinate);
+        // this._super(x, y);
+        // CoordinatedObject.prototype.render(coordinate);
+
+        this.coordinate = coordinate;
 
         this.render(fieldId);
 
@@ -22,11 +26,26 @@ var Field = CoordinatedObject.extend({
         this.plantType = null;
         this.plantedTime = null;
 
+
         //this._super().changeCoordinate();
     },
 
+//     //
+//     getCoordinate: function() {
+//         this._super();
+//     },
+//
+//     changeCoordinate: function (coordinate) {
+//         //return boolean
+//         this._super();
+//     },
+// //
+
     getFieldId: function () {
         return this.fieldId;
+    },
+    setFieldId: function (fieldId) {
+        this.fieldId = fieldId;
     },
     getPlantType: function () {
         return this.plantType;
@@ -67,7 +86,7 @@ var Field = CoordinatedObject.extend({
             //////////user is global variable
             if (user.getAsset().getFoodStorage().addItem(this.plantType, 2)){
 
-                user.addExp(this.plantType.EXP);
+                user.addExp(getProductObjByType((this.plantType)).harvestExp);
 
                 var productCrop = this.plantType;
                 this.render(this.fieldId);
@@ -87,8 +106,8 @@ var Field = CoordinatedObject.extend({
 
         var parseTime = this.plantedTime.getTime();
         var cropTime = new Date();
-        // cropTime.setTime(parseTime + this.plantType.TIME_MIN * 1000 * 60);
-        cropTime.setTime(parseTime + 2000);     //HERE IS TEST
+        // cropTime.setTime(parseTime + getProductObjByType(this.plantType).time * 1000);
+        cropTime.setTime(parseTime + 6000);     //HERE IS TEST
 
         return cropTime;
     },
@@ -107,5 +126,20 @@ var Field = CoordinatedObject.extend({
             return FieldStatusTypes.EMPTY;
         }
 
-    }
+    },
+
+    boost: function () {
+        //boolean
+        if (this.checkStatus() == FieldStatusTypes.GROWING){
+            if (user.reduceRuby(1)){
+                var date = new Date();
+                var intDate = date.getTime();
+                this.plantedTime.setTime(intDate - getProductObjByType(this.plantType).time * 1000);
+
+                return true;
+            }
+            return false;
+        }
+        return false;
+    },
 });

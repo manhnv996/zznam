@@ -12,12 +12,7 @@ var MapLayer = (function() {
 		BOTTOM_LIMIT: null,
 
 
-		//flow plant and crop
-		currentScale: 1.0,
-		popupBackground: null,
-		popupItemList: [],
-		popupQuantityItemList: [],
-		popupItemSelected: null,
+//		  flow plant and crop
 		fieldList: [],
 
 
@@ -33,8 +28,8 @@ var MapLayer = (function() {
 			this.renderDuongRay();
 			this.renderDefaultConstruct();
 			this.renderSample();
-			this.setPosition(MapValues.logicToPosition(-6, -7));
-			this.setScale(0.4);
+			this.setPosition(MapValues.logicToPosition(-10, -9));
+			this.setScale(0.6);
 			this.initBorder();
 			this.initEvent();
 
@@ -353,9 +348,10 @@ var MapLayer = (function() {
 					var target = event.getCurrentTarget();
 					cc.log("sprite onTouchesEnded.. ");
 					//
-					// target.disVisiblePopup(this.popupItemSelected);
-					target.disVisiblePopup(null);
 
+					//
+					target.disableProgressBarAllFieldList();
+					target.disablePopupAllFieldList();
 
 				}
 	        });
@@ -451,219 +447,59 @@ var MapLayer = (function() {
 
 
 
-		//
+
+//		////
 		initFieldList: function () {
 			this.fieldList = [];
 
-			var field1 = new FieldSprite(this, 0, 25, 25);
-			var field2 = new FieldSprite(this, 1, 25, 26);
-
-			this.fieldList.push(field1);
-			this.fieldList.push(field2);
-
-			this.addChild(field1);
-			this.addChild(field2);
-
-
-			/////////////////////////////////////////////
-			//this.label1 = new cc.LabelTTF("FoodStorage:\n", "res/fonts/eff_number.fnt", 18);
-			//this.addChild(this.label1);
-			//// label1.x = cc.winSize - 100;
-			//// label1.y = cc.winSize - 100;
-			//this.label1.setPosition(new cc.p(100, cc.winSize.height - 100));
-
-
-
-
 		},
 
-		showSeedPopup: function(fieldId, seedList){
-			//cc.log("showPopup");
+		showSeedPopup: function (fieldId, seedList) {
+            var index = this.getIndexOfFieldList(fieldId);
 
-			this.disVisiblePopup(null);
+            if (index != null) {
+                this.disablePopupAllFieldList();
+                this.disableProgressBarAllFieldList();
 
+                this.fieldList[index].showSeedPopup(fieldId, seedList);
+            }
+        },
+        showToolPopup: function (fieldId) {
+            var index = this.getIndexOfFieldList(fieldId);
 
-			this.popupItemList = [];
+            if (index != null) {
+            	this.disablePopupAllFieldList();
+            	this.disableProgressBarAllFieldList();
 
-			this.popupQuantityItemList = [];
+                this.fieldList[index].showToolPopup(fieldId);
+            }
+        },
 
-			//
-			if (seedList != null){
+		//
+		disablePopupAllFieldList: function () {
+			for (var i = 0; i < this.fieldList.length; i++){
+				this.fieldList[i].disablePopup(null);
 
-				if (seedList.length > 3){
-					this.popupBackground = new cc.Sprite(res.popup5);
-				} else if (seedList.length == 3){
-					this.popupBackground = new cc.Sprite(res.popup4);
-				} else {
-					this.popupBackground = new cc.Sprite(res.popup2)
-				}
-
-
-				this.popupBackground.setPosition(cc.winSize.width/2, cc.winSize.height/2);
-				this.addChild(this.popupBackground, 10);
-
-				//
-				var index = this.getIndexOfFieldList(fieldId);
-				cc.log("index = " + index);
-				if (index != null) {
-					this.popupBackground.setPosition(this.fieldList[index].x - this.fieldList[index].width / 1.5, this.fieldList[index].y + this.fieldList[index].height / 1.5);
-				}
-
-				//
-				for (var i = 0; i < seedList.length; i++){
-
-					var seed_img = null;
-					var seed_type = seedList[i].getTypeItem();
-					switch (seed_type){
-						case ProductTypes.CROP_WHEAT:
-							seed_img = res.crops;
-							if (seedList[i].getQuantityItem() == null){
-								seed_img = res.crops_null;
-							}
-							break;
-						case ProductTypes.CROP_CARROT:
-							seed_img = res.caroot;
-							if (seedList[i].getQuantityItem() == null){
-								seed_img = res.caroot_null;
-							}
-							break;
-						case ProductTypes.CROP_CORN:
-							seed_img = res.corn;
-							if (seedList[i].getQuantityItem() == null){
-								seed_img = res.corn_null;
-							}
-							break;
-						case ProductTypes.CROP_SOYBEAN:
-							seed_img = res.sausages;
-							if (seedList[i].getQuantityItem() == null){
-								seed_img = res.sausages_null;
-							}
-							break;
-						default:
-							seed_img = res.mia;
-							if (seedList[i].getQuantityItem() == null){
-								seed_img = res.mia_null;
-							}
-							break;
-					}
-					var seed = new SeedSprite(this, seed_img, seed_type);
-
-
-					seed.setPosition(cc.p(this.popupBackground.x, this.popupBackground.y));
-
-					/////
-					var quantitySeed = new cc.LabelTTF(seedList[i].getQuantityItem(), "res/fonts/eff_number.fnt", 18);
-					seed.addChild(quantitySeed);
-					quantitySeed.setPosition(new cc.p(0, 0));
-					this.popupQuantityItemList.push(quantitySeed);
-
-					////
-					//if (seedList[i].getQuantityItem() == null){
-					//    seed.removeDragEventListener();
-					//}
-
-					this.popupItemList.push(seed);
-					this.addChild(seed);
-				}
-
-
-				//setPosition
-				switch (seedList.length){
-					case 1:
-
-						break;
-					case 2:
-						this.popupItemList[0].runAction(new cc.moveBy(0.1, - (this.popupItemList[0].width / 2), 0));
-						this.popupItemList[1].runAction(new cc.moveBy(0.1, (this.popupItemList[1].height / 2), 0));
-						break;
-					case 3:
-						this.popupItemList[0].runAction(new cc.moveBy(0.1, - (this.popupItemList[0].width), 0));
-						// this.popupItemList[1].runAction(new cc.moveBy(0.1, (this.popupItemList[1].height / 2), 0));
-						this.popupItemList[2].runAction(new cc.moveBy(0.1, (this.popupItemList[2].width), 0));
-
-						break;
-					case 4:
-						this.popupItemList[0].runAction(new cc.moveBy(0.1, - (this.popupItemList[0].width), (this.popupItemList[0].height / 2)));
-						this.popupItemList[1].runAction(new cc.moveBy(0.1, 0, (this.popupItemList[1].height / 2)));
-						this.popupItemList[2].runAction(new cc.moveBy(0.1, (this.popupItemList[2].width), (this.popupItemList[1].height / 2)));
-
-						this.popupItemList[3].runAction(new cc.moveBy(0.1, - (this.popupItemList[3].width / 2), - (this.popupItemList[3].height / 2)));
-
-						break;
-					case 5:
-						this.popupItemList[0].runAction(new cc.moveBy(0.1, - (this.popupItemList[0].width), (this.popupItemList[0].height / 2)));
-						this.popupItemList[1].runAction(new cc.moveBy(0.1, 0, (this.popupItemList[1].height / 2)));
-						this.popupItemList[2].runAction(new cc.moveBy(0.1, (this.popupItemList[2].width), (this.popupItemList[1].height / 2)));
-
-						this.popupItemList[3].runAction(new cc.moveBy(0.1, - (this.popupItemList[3].width / 2), - (this.popupItemList[3].height / 2)));
-						this.popupItemList[4].runAction(new cc.moveBy(0.1, + (this.popupItemList[3].width / 2), - (this.popupItemList[3].height / 2)));
-
-						break;
-					default:
-
-				}
-
-				for (var i = 0; i < this.popupQuantityItemList.length; i++){
-					this.popupQuantityItemList[i].runAction(new cc.moveTo(0.1, this.popupItemList[i].width / 4, this.popupItemList[i].height));
-				}
-
-
-			} else {
-				this.popupBackground = cc.Sprite.create(res.popup2);
-				this.popupBackground.setPosition(cc.winSize.width/2, cc.winSize.height/2);
-				this.addChild(this.popupBackground, 10);
-//
-				var index = this.getIndexOfFieldList(fieldId);
-				//cc.log("index = " + index);
-				if (index != null) {
-					this.popupBackground.setPosition(this.fieldList[index].x - this.fieldList[index].width / 1.5, this.fieldList[index].y + this.fieldList[index].height / 1.5);
-				}
+                this.fieldList[i].popupBackground = null;
+                this.fieldList[i].popupItemList = [];
 			}
-
-		},
-
-		showToolPopup: function(fieldId){
-			//cc.log("showPopup");
-
-			this.disVisiblePopup(null);
+        },
+		//
 
 
-			this.popupBackground = cc.Sprite.create(res.popup2);
-			this.popupBackground.setPosition(cc.winSize.width/2, cc.winSize.height/2);
-			this.addChild(this.popupBackground, 10);
+        getIndexOfFieldList: function (fieldId) {
+            if (fieldId == null){
+                return null;
+            }
+            for (var i = 0; i < this.fieldList.length; i++){
+                if (this.fieldList[i].fieldId == fieldId){
+                    return i;
+                }
+            }
+            return null;
+        },
+		//
 
-			//
-			var index = this.getIndexOfFieldList(fieldId);
-			cc.log("index = " + index);
-			if (index != null) {
-				this.popupBackground.setPosition(this.fieldList[index].x - this.fieldList[index].width / 1.5, this.fieldList[index].y + this.fieldList[index].height / 1.5);
-			}
-
-
-			var tool = new CropToolSprite(this, res.liem);
-
-			tool.setPosition(cc.p(this.popupBackground.x, this.popupBackground.y));
-
-			// this.popupBackground.addChild(tool);
-			this.popupItemList = [];
-			this.popupItemList.push(tool);
-			this.addChild(tool);
-
-		},
-		disVisiblePopup: function(seedId){
-			//cc.log("disvisible");
-			this.disVisiblePopupBackground();
-
-			this.disVisibleItemOfPopup(seedId);
-
-		},
-		removePopup: function(){
-			//cc.log("remove popup");
-			if (this.popupBackground != null){
-				this.popupBackground.removeFromParent(true);
-
-			}
-		},
 
 		runAnimationPlantting: function(fieldId, seedType){
 			var index = this.getIndexOfFieldList(fieldId);
@@ -686,74 +522,36 @@ var MapLayer = (function() {
 
 		},
 
+
 		//
-		disVisiblePopupBackground: function () {
-			if (this.popupBackground != null) {
-				if (this.popupBackground.isVisible()) {
-					this.popupBackground.setVisible(false);
-				}
+		showProgressBar: function (fieldId) {
+			var index = this.getIndexOfFieldList(fieldId);
+			if (index != null){
+                this.disablePopupAllFieldList();
+                this.disableProgressBarAllFieldList();
 
+				this.fieldList[index].showProgressBarInprogress();
 			}
-//
 		},
-
-		getIndexOfFieldList: function (fieldId) {
-			if (fieldId == null){
-				return null;
-			}
+		disableProgressBarAllFieldList: function () {
 			for (var i = 0; i < this.fieldList.length; i++){
-				if (this.fieldList[i].fieldId == fieldId){
-					return i;
-				}
+				this.fieldList[i].disableProgressBarInprogress();
 			}
-			return null;
-		},
-		getIndexSeedOfPopupItemList: function (seedId) {
-			if (seedId == null){    //
-				if (this.popupItemList.length == 1){
-					if (!this.popupItemList[0].seedType){    //tool
-						// return 0;
-					}
-				}
-				return null;
-			}
-			for (var i = 0; i < this.popupItemList.length; i++){    //seed list
-				if (this.popupItemList[i].seedType == seedId){
-					return i;
-				}
-			}
-			return null;
 		},
 		//
-		disVisibleItemOfPopup: function(seedId){
-			var index = this.getIndexSeedOfPopupItemList(seedId);
-			if (index == null){
-				for (var i = 0; i < this.popupItemList.length; i++){
-					if (this.popupItemList[i] != null){
-						if (this.popupItemList[i].isVisible()){
-							this.popupItemList[i].setVisible(false);
-						}
 
-					}
-				}
-				this.popupItemList = []
-			} else {
-				for (var i = 0; i < this.popupItemList.length; i++){
-					if (index != i){
-						if (this.popupItemList[i] != null){
-							if (this.popupItemList[i].isVisible()){
-								this.popupItemList[i].setVisible(false);
-							}
+		//
+		showNoticeFullFoodStorageBG: function () {
+            // this.bgNotice = new cc.Sprite(res.bgNotice);
+            // this.bgNotice.setPosition(300, 300);
+            // this.addChild(this.bgNotice);
+            //
+            // var msgFullFoodStorage = new cc.Sprite(res.msgFullFoodStorage);
+            // this.setPosition(cc.p(this.bgNotice.width / 2, this.bgNotice.height / 2));
+            // this.bgNotice.addChild(msgFullFoodStorage);
 
-						}
+        }
 
-					}
-				}
-				this.popupItemList = [];
-
-			}
-
-		},
 
 	});
 })();

@@ -16,7 +16,8 @@ function getSeedLevel(level) {
     for (var i = 0; i < productTypeObj.length; i++) {
 
         if (productTypeObj[i].level <= (level + 2)) {
-            seedLevelList.push(productTypeObj[i].id);
+            //seedLevelList.push(productTypeObj[i].id);
+            seedLevelList.unshift(productTypeObj[i].id);
         }
     }
 
@@ -33,7 +34,6 @@ function getProductObjByType(productId) {
     });
 
     for (var i = 0; i < productTypeObj.length; i++) {
-
         if (productTypeObj[i].id == productId) {
             return productTypeObj[i];
         }
@@ -58,6 +58,45 @@ function getResAniIdBySeedType(seedType) {
 
         case ProductTypes.CROP_SUGARCANE:
             return resAniId.Mia;
+        default:
+            return null;
+
+    }
+
+}
+
+function getSeedImgBySeedTypeAndQuantity(seedType, quantity) {
+    switch (seedType) {
+        case ProductTypes.CROP_WHEAT:
+            if (quantity == null){
+                res.caroot_null;
+            }
+            return res.crops;
+
+        case ProductTypes.CROP_CORN:
+            if (quantity == null){
+                return res.corn_null;
+            }
+            return res.corn;
+
+        case ProductTypes.CROP_CARROT:
+            if (quantity == null){
+                return res.caroot_null;
+            }
+            return res.caroot;
+
+        case ProductTypes.CROP_SOYBEAN:
+            if (quantity == null){
+                return res.sausages_null;
+            }
+            return res.sausages;
+
+        case ProductTypes.CROP_SUGARCANE:
+            if (quantity == null){
+                return res.mia_null;
+            }
+            return res.mia;
+
         default:
             return null;
 

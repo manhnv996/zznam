@@ -9,10 +9,9 @@ var MapCtrl = cc.Class.extend({
     getField: function(x, y) {
         /*
          INPROGRESS
+         Check previous block and current block
          */
-        //return new Field(new Coordinate(300, 300), 1);
         var pointLogic = MapValues.positionToLogic(x, y);
-        //return user.getAsset().getFieldById(0);
         return user.getAsset().getFieldByLogicPosition(pointLogic.x, pointLogic.y);
     }
 });

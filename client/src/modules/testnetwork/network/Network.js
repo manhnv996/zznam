@@ -79,14 +79,14 @@ testnetwork.Connector = cc.Class.extend({
     },
     //
     sendPlant: function (fieldId, productType) {
-        //cc.log("sendPlant: " + fieldId + ", type: " + productType);
+        cc.log("sendPlant: " + fieldId + ", type: " + productType);
         var pk = this.gameClient.getOutPacket(CmdSendPlant);
         pk.pack(fieldId, productType);
         this.gameClient.sendPacket(pk);
     },
     sendCrop: function (fieldId, productType) {
-        //cc.log("sendCrop: " + fieldId + ", type: " + productType);
-        var pk = this.gameClient.getOutPacket(CmdSendPlant);
+        cc.log("sendCrop: " + fieldId + ", type: " + productType);
+        var pk = this.gameClient.getOutPacket(CmdSendCrop);
         pk.pack(fieldId, productType);
         this.gameClient.sendPacket(pk);
     }

@@ -13,7 +13,7 @@ var MapValues = (function() {
 		},
 		positionToLogic: function(x_logic, y_logic){
 
-			return cc.p(25, 26);
+			return cc.p(17, 10);
 		}
 	}
 })();
