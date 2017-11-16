@@ -13,6 +13,7 @@ var MapValues = new function() {
 	this.positionToLogic = function(x, y) {
 		var xl = x / this.iLength - y / this.jLength;
 		var yl = -x / this.iLength - y / this.jLength;
+
 		return cc.p(xl, yl);
 	}
 
@@ -33,6 +34,7 @@ var MapValues = new function() {
 			(y - mapRootPosition.y) / map.scale
 		);
 		// Last convert map position to logic map position
+
 		return this.positionToLogic(deltaPosition.x, deltaPosition.y);
 	}
 
