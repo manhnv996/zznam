@@ -19,6 +19,7 @@
     ],
     "jsList": [
         "src/data/MapResource.js",
+        "src/data/ShopResource.js",
         "src/data/Resource.js",
         "src/data/ResourceAnimation.js",
         "src/framework/AnimationMgr.js",
@@ -95,6 +96,9 @@
 
 
 
+        "src/modules/views/GameShopUI/GameShopLayer.js",
+        "src/modules/views/GameShopUI/GameShopBtnLayout.js",
+        "src/modules/views/GameShopUI/GameShopDetailLayout.js",
 
         "src/modules/views/layers/MapLayer.js",
         "src/modules/views/scenes/MainScene.js",

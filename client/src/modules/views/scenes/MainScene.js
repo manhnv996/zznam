@@ -3,6 +3,9 @@ var MainScene = cc.Scene.extend({
 		this._super();
 		MapLayer.instance = new MapLayer();
 		this.addChild(MapLayer.instance);
+
+		GameShopLayer.instance = new GameShopLayer();
+		this.addChild(GameShopLayer.instance);
 	},
 
 	onEnter: function() {
