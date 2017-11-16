@@ -481,6 +481,7 @@ var MapLayer = (function() {
 	            onTouchMoved: function(touch, event) {
 	            	var delta = touch.getDelta();
 	       			this.move(delta.x, delta.y);
+
 	            }.bind(this),
 	            onTouchEnded: function (touch, event) {
 					var target = event.getCurrentTarget();
@@ -488,8 +489,8 @@ var MapLayer = (function() {
 					//
 
 					//
-					target.disableProgressBarAllFieldList();
-					target.disablePopupAllFieldList();
+					//target.disableProgressBarAllFieldList();
+					//target.disablePopupAllFieldList();
 					PopupLayer.instance.disablePopup();
 					PopupLayer.instance.disableProgressBarInprogress();
 
@@ -537,6 +538,11 @@ var MapLayer = (function() {
 			}
 
 			this.setPosition(newX, newY);
+
+
+//
+			PopupLayer.instance.disablePopup();
+			PopupLayer.instance.disableProgressBarInprogress();
 		},
 
 		zoom: function(sign, cursor) {
