@@ -1,6 +1,6 @@
 var MapLayer = (function() {
 	var SCALE_RATIO = 0.05;
-	var __DEBUG = true;
+	var __DEBUG = false;
 
 	return cc.Layer.extend({
 		LEFT_LIMIT: null,
@@ -18,7 +18,7 @@ var MapLayer = (function() {
 			this.renderRoad();
 			this.renderRoad2();
 			this.renderNui();
-			// this.renderHoaDa();
+			this.renderHoaDa();
 			this.renderForest();
 			this.renderDuongRay();
 			this.renderDefaultConstruct();
@@ -117,16 +117,20 @@ var MapLayer = (function() {
 		},
 
 		renderRoad2: function() {
-			for (var i = MapConfigs.Init.height / 2; i > 8; i--) {
+			var config = MapConfigs.Road2;
+			for (var i = (MapConfigs.Road.position.y - 3) / config.blockSizeY; i > config.startPoint; i--) {
 				var sprite = new cc.Sprite(res.ROAD_02_PNG);
 				this.addChild(sprite);
-				sprite.setPosition(MapValues.logicToPosition(16, 2 * i));
+				sprite.setPosition(MapValues.logicToPosition(config.position.x, 2 * i));
 			}
 			var spriteNoiDuong = new cc.Sprite(res.NOI_DUONG_PNG);
 			this.addChild(spriteNoiDuong);
-			spriteNoiDuong.setPosition(MapValues.logicToPosition(16, MapConfigs.Init.height + 1));
-			spriteNoiDuong.x += 40;
-			spriteNoiDuong.y += 10;
+			spriteNoiDuong.setPosition(MapValues.logicToPosition(
+				config.position.x,
+				MapConfigs.Road.position.y - 2
+			));
+			spriteNoiDuong.x += config.joinSegmentOffset.x;
+			spriteNoiDuong.y += config.joinSegmentOffset.y;
 		},
 
 		renderDefaultConstruct: function() {
@@ -332,109 +336,108 @@ var MapLayer = (function() {
 		},
 
 		renderHoaDa: function() {
-			var _res = [
-				2, 1, 1, 2, 1, 0, 1, 1, 2, 1, 1, 0, 
-				1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 
-				1, 0, 1, 1, 1, 1, 1, 1
-			];
+			var _res = [];
+			for (var i = 0; i < MapConfigs.Init.width; i++) {
+				_res.push(Math.round(Math.random() * 10 ) % 3);
+			}
 			var resArr = [res.STONE_13, res.HOA_2, res.HOA_1];
 			for (var i = 0; i < 32; i++) {
 				var sprite = new cc.Sprite(resArr[_res[i]]);
 				sprite.setPosition(MapValues.logicToPosition(i, -1));
 				this.addChild(sprite);
 			}
-			var _resStone12 = [cc.p(8, 38), cc.p(12, 38), cc.p(18, 38), cc.p(24, 37),
-					cc.p(42, 12), cc.p(42, 16), cc.p(41, 21),
-					cc.p(6, -3), cc.p(14, -4), cc.p(17, -5), cc.p(18, -3)
-			];
-			for (var i = 0; i < _resStone12.length; i++) {
-				var sprite = new cc.Sprite(res.STONE_12);
-				sprite.setPosition(MapValues.logicToPosition(_resStone12[i].x, _resStone12[i].y));
-				this.addChild(sprite);
-			}
-			var _resStone12_2 = [cc.p(-9, 23)];
-			for (var i = 0; i < _resStone12_2.length; i++) {
-				var sprite = new cc.Sprite(res.STONE_13);
-				sprite.setPosition(MapValues.logicToPosition(_resStone12_2[i].x, _resStone12_2[i].y));
-				this.addChild(sprite);
-				sprite.setLocalZOrder(2);
-			}
-			var _resHoa2 = [
-				cc.p(10, 38), cc.p(15, 37), cc.p(15, 38), 
-				cc.p(42, 10), cc.p(41, 14), cc.p(41, 18), 
-				cc.p(42, 19), cc.p(42, 23), cc.p(4, -4), 
-				cc.p(20, -4), cc.p(21, -3)
-			];
-			for (var i = 0; i < _resHoa2.length; i++) {
-				var sprite = new cc.Sprite(res.HOA_2);
-				sprite.setPosition(MapValues.logicToPosition(
-					_resHoa2[i].x,
-					_resHoa2[i].y
-				));
-				this.addChild(sprite);
-			}
-			var _resHoa2_2 = [cc.p(-9, 21), cc.p(15, -4)];
-			for (var i = 0; i < _resHoa2_2.length; i++) {
-				var sprite = new cc.Sprite(res.HOA_2);
-				sprite.setPosition(MapValues.logicToPosition(
-					_resHoa2_2[i].x,
-					_resHoa2_2[i].y
-				));
-				this.addChild(sprite);
-			}
-			var _res_grass = [
-				{"x":0,"y":9,"v":0},{"x":0,"y":19,"v":1},{"x":1,"y":8,"v":0},
-				{"x":2,"y":13,"v":1},{"x":2,"y":28,"v":0},{"x":3,"y":8,"v":1},
-				{"x":3,"y":24,"v":1},{"x":3,"y":29,"v":1},{"x":4,"y":7,"v":0},
-				{"x":4,"y":29,"v":1},{"x":5,"y":21,"v":0},{"x":6,"y":11,"v":1},
-				{"x":6,"y":12,"v":0},{"x":6,"y":19,"v":0},{"x":8,"y":4,"v":0},
-				{"x":8,"y":14,"v":1},{"x":9,"y":19,"v":0},{"x":10,"y":3,"v":0},
-				{"x":10,"y":10,"v":1},{"x":12,"y":5,"v":0},{"x":12,"y":22,"v":0},
-				{"x":13,"y":0,"v":0},{"x":13,"y":7,"v":0},{"x":15,"y":6,"v":1},
-				{"x":16,"y":5,"v":1},{"x":17,"y":1,"v":0},
-				{"x":17,"y":10,"v":1},{"x":17,"y":14,"v":0},{"x":17,"y":15,"v":0},
-				{"x":18,"y":1,"v":1},{"x":18,"y":12,"v":1},{"x":18,"y":16,"v":1},
-				{"x":18,"y":29,"v":0},{"x":20,"y":13,"v":1},{"x":21,"y":12,"v":1},
-				{"x":22,"y":24,"v":1},{"x":23,"y":3,"v":1},{"x":23,"y":8,"v":1},
-				{"x":23,"y":18,"v":0},{"x":24,"y":2,"v":0},{"x":24,"y":9,"v":0},
-				{"x":24,"y":25,"v":1},{"x":25,"y":17,"v":0},{"x":25,"y":18,"v":1},
-				{"x":26,"y":0,"v":1},{"x":26,"y":11,"v":1},{"x":26,"y":12,"v":0},
-				{"x":26,"y":31,"v":0},{"x":27,"y":1,"v":0},{"x":27,"y":31,"v":0},
-				{"x":28,"y":6,"v":1},{"x":29,"y":10,"v":0},{"x":30,"y":5,"v":1},
-				{"x":30,"y":20,"v":1},{"x":31,"y":4,"v":1},{"x":31,"y":8,"v":0},
-				{"x":31,"y":20,"v":1}
-			];
-			for (var i = 0; i < _res_grass.length; i++) {
-				var sprite = new cc.Sprite(
-					_res_grass[i].v === 0 ? res.GRASS_TREE_1 : res.GRASS_TREE_2
-				);
-				sprite.setPosition(MapValues.logicToPosition(
-					_res_grass[i].x,
-					_res_grass[i].y
-				));
-				this.addChild(sprite);
-			}
-			var _res_tree_outside = [
-				{ x: 8, y: -4, v: 1 },
-				{ x: 12, y: -3, v: 0 },
-				{ x: 15, y: -3, v: 1 },
-				{ x: 28, y: -4, v: 0 },
-				{ x: 23, y: -4, v: 1 },
-				{ x: 24, y: -5, v: 1 }
-			];
-			for (var i = 0; i < _res_tree_outside.length; i++) {
-				var sprite = new cc.Sprite(
-					_res_tree_outside[i].v === 0 
-					? res.CAY_02_OUT 
-					: res.CAY_01_OUT
-				);
-				sprite.setPosition(MapValues.logicToPosition(
-					_res_tree_outside[i].x,
-					_res_tree_outside[i].y
-				));
-				sprite.setLocalZOrder(2);
-				this.addChild(sprite);
-			}
+			// var _resStone12 = [cc.p(8, 38), cc.p(12, 38), cc.p(18, 38), cc.p(24, 37),
+			// 		cc.p(42, 12), cc.p(42, 16), cc.p(41, 21),
+			// 		cc.p(6, -3), cc.p(14, -4), cc.p(17, -5), cc.p(18, -3)
+			// ];
+			// for (var i = 0; i < _resStone12.length; i++) {
+			// 	var sprite = new cc.Sprite(res.STONE_12);
+			// 	sprite.setPosition(MapValues.logicToPosition(_resStone12[i].x, _resStone12[i].y));
+			// 	this.addChild(sprite);
+			// }
+			// var _resStone12_2 = [cc.p(-9, 23)];
+			// for (var i = 0; i < _resStone12_2.length; i++) {
+			// 	var sprite = new cc.Sprite(res.STONE_13);
+			// 	sprite.setPosition(MapValues.logicToPosition(_resStone12_2[i].x, _resStone12_2[i].y));
+			// 	this.addChild(sprite);
+			// 	sprite.setLocalZOrder(2);
+			// }
+			// var _resHoa2 = [
+			// 	cc.p(10, 38), cc.p(15, 37), cc.p(15, 38), 
+			// 	cc.p(42, 10), cc.p(41, 14), cc.p(41, 18), 
+			// 	cc.p(42, 19), cc.p(42, 23), cc.p(4, -4), 
+			// 	cc.p(20, -4), cc.p(21, -3)
+			// ];
+			// for (var i = 0; i < _resHoa2.length; i++) {
+			// 	var sprite = new cc.Sprite(res.HOA_2);
+			// 	sprite.setPosition(MapValues.logicToPosition(
+			// 		_resHoa2[i].x,
+			// 		_resHoa2[i].y
+			// 	));
+			// 	this.addChild(sprite);
+			// }
+			// var _resHoa2_2 = [cc.p(-9, 21), cc.p(15, -4)];
+			// for (var i = 0; i < _resHoa2_2.length; i++) {
+			// 	var sprite = new cc.Sprite(res.HOA_2);
+			// 	sprite.setPosition(MapValues.logicToPosition(
+			// 		_resHoa2_2[i].x,
+			// 		_resHoa2_2[i].y
+			// 	));
+			// 	this.addChild(sprite);
+			// }
+			// var _res_grass = [
+			// 	{"x":0,"y":9,"v":0},{"x":0,"y":19,"v":1},{"x":1,"y":8,"v":0},
+			// 	{"x":2,"y":13,"v":1},{"x":2,"y":28,"v":0},{"x":3,"y":8,"v":1},
+			// 	{"x":3,"y":24,"v":1},{"x":3,"y":29,"v":1},{"x":4,"y":7,"v":0},
+			// 	{"x":4,"y":29,"v":1},{"x":5,"y":21,"v":0},{"x":6,"y":11,"v":1},
+			// 	{"x":6,"y":12,"v":0},{"x":6,"y":19,"v":0},{"x":8,"y":4,"v":0},
+			// 	{"x":8,"y":14,"v":1},{"x":9,"y":19,"v":0},{"x":10,"y":3,"v":0},
+			// 	{"x":10,"y":10,"v":1},{"x":12,"y":5,"v":0},{"x":12,"y":22,"v":0},
+			// 	{"x":13,"y":0,"v":0},{"x":13,"y":7,"v":0},{"x":15,"y":6,"v":1},
+			// 	{"x":16,"y":5,"v":1},{"x":17,"y":1,"v":0},
+			// 	{"x":17,"y":10,"v":1},{"x":17,"y":14,"v":0},{"x":17,"y":15,"v":0},
+			// 	{"x":18,"y":1,"v":1},{"x":18,"y":12,"v":1},{"x":18,"y":16,"v":1},
+			// 	{"x":18,"y":29,"v":0},{"x":20,"y":13,"v":1},{"x":21,"y":12,"v":1},
+			// 	{"x":22,"y":24,"v":1},{"x":23,"y":3,"v":1},{"x":23,"y":8,"v":1},
+			// 	{"x":23,"y":18,"v":0},{"x":24,"y":2,"v":0},{"x":24,"y":9,"v":0},
+			// 	{"x":24,"y":25,"v":1},{"x":25,"y":17,"v":0},{"x":25,"y":18,"v":1},
+			// 	{"x":26,"y":0,"v":1},{"x":26,"y":11,"v":1},{"x":26,"y":12,"v":0},
+			// 	{"x":26,"y":31,"v":0},{"x":27,"y":1,"v":0},{"x":27,"y":31,"v":0},
+			// 	{"x":28,"y":6,"v":1},{"x":29,"y":10,"v":0},{"x":30,"y":5,"v":1},
+			// 	{"x":30,"y":20,"v":1},{"x":31,"y":4,"v":1},{"x":31,"y":8,"v":0},
+			// 	{"x":31,"y":20,"v":1}
+			// ];
+			// for (var i = 0; i < _res_grass.length; i++) {
+			// 	var sprite = new cc.Sprite(
+			// 		_res_grass[i].v === 0 ? res.GRASS_TREE_1 : res.GRASS_TREE_2
+			// 	);
+			// 	sprite.setPosition(MapValues.logicToPosition(
+			// 		_res_grass[i].x,
+			// 		_res_grass[i].y
+			// 	));
+			// 	this.addChild(sprite);
+			// }
+			// var _res_tree_outside = [
+			// 	{ x: 8, y: -4, v: 1 },
+			// 	{ x: 12, y: -3, v: 0 },
+			// 	{ x: 15, y: -3, v: 1 },
+			// 	{ x: 28, y: -4, v: 0 },
+			// 	{ x: 23, y: -4, v: 1 },
+			// 	{ x: 24, y: -5, v: 1 }
+			// ];
+			// for (var i = 0; i < _res_tree_outside.length; i++) {
+			// 	var sprite = new cc.Sprite(
+			// 		_res_tree_outside[i].v === 0 
+			// 		? res.CAY_02_OUT 
+			// 		: res.CAY_01_OUT
+			// 	);
+			// 	sprite.setPosition(MapValues.logicToPosition(
+			// 		_res_tree_outside[i].x,
+			// 		_res_tree_outside[i].y
+			// 	));
+			// 	sprite.setLocalZOrder(2);
+			// 	this.addChild(sprite);
+			// }
 		},
 
 		renderSample: function() {
@@ -445,7 +448,7 @@ var MapLayer = (function() {
 			
 			var Lamb = fr.createAnimationById(resAniId.bakery, this);
 			this.addChild(Lamb);
-			Lamb.setPosition(MapValues.logicToPosition(4, 5));
+			Lamb.setLogicPosition(4, 5);
 			Lamb.gotoAndPlay('loop', -1);
 			Lamb.setAnchorPoint(cc.p(0, 0));
 			bakery.setLocalZOrder(2);
@@ -458,7 +461,7 @@ var MapLayer = (function() {
 				swallowTouches: true,
 				onTouchBegan: function (touch, event) {
 					var mousePos = touch.getLocation();
-					cc.json('Clicked', MapValues.screenPositionToLogic(mousePos.x, mousePos.y));
+					cc.log('Clicked', MapValues.screenPositionToLogic(mousePos.x, mousePos.y));
 					return true;
 				}.bind(this),
 				onTouchMoved: function(touch, event) {
@@ -496,17 +499,17 @@ var MapLayer = (function() {
 			var topY = (this.TOP_LIMIT.y - this.height / 2) * this.scale - this.height / 2;
 			var bottomY = (this.BOTTOM_LIMIT.y - this.height / 2) * this.scale + this.height / 2;
 
-			// if (-newX < leftX) {
-			// 	newX = -leftX;
-			// } else if (-newX > rightX) {
-			// 	newX = -rightX;
-			// }
+			if (-newX < leftX) {
+				newX = -leftX;
+			} else if (-newX > rightX) {
+				newX = -rightX;
+			}
 
-			// if (-newY < bottomY) {
-			// 	newY = -bottomY;
-			// } else if (-newY > topY) {
-			// 	newY = -topY;
-			// }
+			if (-newY < bottomY) {
+				newY = -bottomY;
+			} else if (-newY > topY) {
+				newY = -topY;
+			}
 
 			this.setPosition(newX, newY);
 		},

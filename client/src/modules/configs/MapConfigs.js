@@ -13,7 +13,9 @@ MapConfigs.Init = {
 }
 
 MapConfigs.NhaChinh = {
-	position: { x: 14, y: 14 }
+	position: { x: 14, y: 14 },
+	blockSizeX: 2,
+	blockSizeY: 2
 };
 
 MapConfigs.TruckOrder = {
@@ -58,7 +60,17 @@ MapConfigs.Road = {
 	}
 };
 
-MapConfigs.Road2 = {};
+MapConfigs.Road2 = {
+	blockSizeY: 2,
+	position: {
+		x: MapConfigs.NhaChinh.position.x + 2
+	},
+	startPoint: (MapConfigs.NhaChinh.position.y + MapConfigs.NhaChinh.blockSizeY / 2) / 2,
+	joinSegmentOffset: {
+		x: 40,
+		y: 10
+	}
+};
 
 MapConfigs.Nui = {
 	blockSizeY: 4,
