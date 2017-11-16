@@ -184,11 +184,14 @@ var PlantCtrl = cc.Class.extend({
         var fieldSelected = user.getAsset().getFieldById(fieldId);
 
         if (fieldSelected != null) {
-            fieldSelected.boost();
+            //fieldSelected.boost();
             /*
             Inprogress
             Call Mapview (show effect)
              */
+            if (fieldSelected.boost()){
+
+            }
         }
 
     }

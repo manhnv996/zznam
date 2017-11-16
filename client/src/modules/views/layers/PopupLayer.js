@@ -23,7 +23,7 @@ var PopupLayer = cc.Layer.extend({
 
     ////////////////////
     addBoostEvent: function (sender) {
-
+        cc.log("addboostevent");
         PlantCtrl.instance.boostPlant(this.fieldId);
 
     },
@@ -31,6 +31,8 @@ var PopupLayer = cc.Layer.extend({
     updateProgressBarInprogress: function () {
 
         if (this.isShowProgressBar){
+//          ///
+
             var parsePlantTime = user.getAsset().getFieldList()[this.fieldId].getPlantedTime().getTime();
             var parseCropTime = user.getAsset().getFieldList()[this.fieldId].getCropTime().getTime();
             var currTime = new Date().getTime();
@@ -63,8 +65,9 @@ var PopupLayer = cc.Layer.extend({
     },
 
     showProgressBarInprogress: function (fieldId) {
-        //this.disablePopup(null);
+        this.fieldId = fieldId;
 
+        this.disablePopup(null);
         this.disableProgressBarInprogress();
 
 
@@ -73,6 +76,16 @@ var PopupLayer = cc.Layer.extend({
         this.progressBar.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
         this.progressBar.setScale(0.5);
         this.addChild(this.progressBar);
+
+
+        var index = MapLayer.instance.getIndexOfFieldList(fieldId);
+        //cc.log("index = " + index);
+        if (index != null) {
+            var fieldSelected = user.getAsset().getFieldById(MapLayer.instance.fieldList[index].fieldId);
+            this.progressBar.setPosition(MapValues.logicToScreenPosition(fieldSelected.getCoordinate().getCurrX() - 2, fieldSelected.getCoordinate().getCurrY() + 1));
+
+        }
+
 
 
         this.progress = cc.Sprite.create(res.progress);
@@ -134,6 +147,7 @@ var PopupLayer = cc.Layer.extend({
         //cc.log("showPopup");
 
         this.disablePopup(null);
+        this.disableProgressBarInprogress();
 
 
         this.popupItemList = [];
@@ -157,8 +171,9 @@ var PopupLayer = cc.Layer.extend({
             var index = MapLayer.instance.getIndexOfFieldList(fieldId);
             //cc.log("index = " + index);
             if (index != null) {
-                //this.popupBackground.setPosition(MapLayer.instance.fieldList[index].getPosition().x - MapLayer.instance.fieldList[index].width / 1.5,
-                //    MapLayer.instance.fieldList[index].getPosition().y + MapLayer.instance.fieldList[index].height / 1.5);
+                var fieldSelected = user.getAsset().getFieldById(MapLayer.instance.fieldList[index].fieldId);
+                this.popupBackground.setPosition(MapValues.logicToScreenPosition(fieldSelected.getCoordinate().getCurrX() - 3, fieldSelected.getCoordinate().getCurrY()));
+
             }
 
 
@@ -252,12 +267,22 @@ var PopupLayer = cc.Layer.extend({
         //cc.log("showPopup");
 
         this.disablePopup(null);
+        this.disableProgressBarInprogress();
 
 
         this.popupBackground = cc.Sprite.create(res.popup2);
         //this.popupBackground.setPosition(- this.width / 8, this.height * 4 / 3);
         this.popupBackground.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
         this.addChild(this.popupBackground);
+
+        var index = MapLayer.instance.getIndexOfFieldList(fieldId);
+        //cc.log("index = " + index);
+        if (index != null) {
+            var fieldSelected = user.getAsset().getFieldById(MapLayer.instance.fieldList[index].fieldId);
+            this.popupBackground.setPosition(MapValues.logicToScreenPosition(fieldSelected.getCoordinate().getCurrX() - 2, fieldSelected.getCoordinate().getCurrY()));
+
+        }
+
 
 
         var tool = new CropToolSprite(this, res.liem);
@@ -329,7 +354,7 @@ var PopupLayer = cc.Layer.extend({
         if (seedId == null){    //
             if (this.popupItemList.length == 1){
                 if (!this.popupItemList[0].seedType){    //tool
-                    // return 0;
+                     //return 0;
                 }
             }
             return null;

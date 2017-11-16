@@ -452,21 +452,28 @@ var MapLayer = (function() {
 		},
 
 		renderSample: function() {
-			var bakery = fr.createAnimationById(resAniId.bakery, this);
+			// var bakery = fr.createAnimationById(resAniId.bakery, this);
+			// this.bakery = bakery;
+			// bakery.setPosition(MapValues.logicToPosition(4, 5));
+			// bakery.gotoAndPlay('loop', -1);
+			// this.setScale(0.7);
+			// this.addChild(bakery);
+			// cc.log(bakery.getBoundingBox());
+			var bakery = new BakerySprite(4, 5);
 			this.bakery = bakery;
-			bakery.setPosition(MapValues.logicToPosition(4, 5));
-			bakery.gotoAndPlay('loop', -1);
-			this.setScale(0.7);
-			this.addChild(bakery);
-			cc.log(bakery.getBoundingBox());
+			// setInterval(function() {
+			// 	cc.log(bakery._getContentSize());
+			// }, 500);
 
-			var Lamb = fr.createAnimationById(resAniId.bakery, this);
-			this.addChild(Lamb);
-			Lamb.setLogicPosition(4, 5);
-			Lamb.gotoAndPlay('loop', -1);
-			Lamb.setAnchorPoint(cc.p(0, 0));
-			bakery.setLocalZOrder(2);
-			Lamb.setLocalZOrder(1);
+			this.addChild(this.bakery);
+
+			// var Lamb = fr.createAnimationById(resAniId.bakery, this);
+			// this.addChild(Lamb);
+			// Lamb.setLogicPosition(4, 5);
+			// Lamb.gotoAndPlay('loop', -1);
+			// Lamb.setAnchorPoint(cc.p(0, 0));
+			// bakery.setLocalZOrder(2);
+			// Lamb.setLocalZOrder(1);
 		},
 
 		initEvent: function() {
@@ -555,6 +562,7 @@ var MapLayer = (function() {
 				var dx = deltaScale * cx / this.scale;
 				var dy = deltaScale * cy / this.scale;
 				this.setScale(newScale);
+				// cc.log(this.bakery.getBoundingBox())
 				this.move(dx, dy);
 			}
 		},

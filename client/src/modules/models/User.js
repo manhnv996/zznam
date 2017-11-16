@@ -1,10 +1,10 @@
 
 var User = cc.Class.extend({
 
-    level: Infinity,    //int
-    gold: Infinity,
-    ruby: Infinity,
-    exp: Infinity,
+    level: 1,    //int
+    gold: 0,
+    ruby: 0,
+    exp: 0,
     asset: Asset,
 
     ctor: function (asset) {

@@ -103,4 +103,3 @@ for (var k in HavestResource) {
 }
 
 g_resources = g_resources.concat(g_MapResource, g_HavestResource);
-
