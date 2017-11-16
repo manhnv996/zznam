@@ -132,6 +132,7 @@ var PopupLayer = cc.Layer.extend({
             // if (this.progressBar.isVisible()){
             this.progressBar.setVisible(false);
 
+
             this.progressBar = null;
             // }
 
@@ -314,6 +315,9 @@ var PopupLayer = cc.Layer.extend({
             // if (this.popupBackground.isVisible()) {
             this.popupBackground.setVisible(false);
 
+            //
+            this.popupBackground.removeFromParent(true);
+
             this.popupBackground = null;
             // }
         }
@@ -327,6 +331,8 @@ var PopupLayer = cc.Layer.extend({
                     if (this.popupItemList[i].isVisible()){
                         this.popupItemList[i].setVisible(false);
 
+
+                        this.popupItemList[i].removeFromParent(true);
                     }
 
                 }
@@ -339,6 +345,8 @@ var PopupLayer = cc.Layer.extend({
                         if (this.popupItemList[i].isVisible()){
                             this.popupItemList[i].setVisible(false);
 
+
+                            this.popupItemList[i].removeFromParent(true);
                         }
 
                     }

@@ -101,10 +101,10 @@ var SeedSprite = cc.Sprite.extend({
 
                 var target = event.getCurrentTarget();
                 target.opacity = 255;
-                target.removeFromParent(true);
 
-                // parent.removePopup();
-                parent.disablePopup(seedType);
+                //parent.disablePopup(seedType);
+                parent.disablePopup(null);
+                target.removeFromParent(true);
 
             }
         });
