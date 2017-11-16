@@ -1,13 +1,13 @@
 var BakerySprite = MapBlockSprite.extend({
 	ctor: function(x, y) {
-		this._super(undefined, 3, 3, x, y);
-		cc.log(resAniId.bakery);
+		this._super(undefined, 3, 3, 4, 3);
 		this.content = fr.createAnimationById(resAniId.bakery, this);
 		this.content.gotoAndPlay('loop', -1);
 		this.addChild(this.content);
+		cc.log(this.getBoundingBox());
 	},
 
-	_getContentSize: function() {
-		return this.content.getBoundingBox();
-	}
+	// getContentSize: function() {
+	// 	return this.content.getBoundingBox();
+	// }
 });

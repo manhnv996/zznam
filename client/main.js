@@ -66,35 +66,6 @@ cc.log = function() {
     cc._log(contents.join(' '));
 }
 
-// Add logic position setting, getting
-cc.Node.prototype.setLogicPosition = function(lx, ly) {
-    lx = lx || 0;
-    ly = ly || 0;
-    if (typeof lx === 'object') {
-        ly = lx.y;
-        lx = lx.x;
-    }
-    this.lx = lx;
-    this.ly = ly;
-    var contentSize = this.getContentSize();
-    var point2 = MapValues.logicToPosition(lx, ly);
-    var point1 = MapValues.logicToPosition(
-        lx - this.blockSizeX,
-        ly - this.blockSizeY
-    );
-
-    var dx = contentSize.width / 2 + 2 * point2.x - 
-            point1.x - this.blockSizeX * MapValues.iLength / 2;
-    var dy = contentSize.height / 2 + 2 * point2.y - point1.y;
-    
-    this.setLocalZOrder(this.lx + this.ly);
-    this.setPosition(cc.p(dx, dy));
-}
-
-cc.Node.prototype.getLogicPosition = function() {
-    return cc.p(this.lx, this.ly);
-}
-
 var user;
 
 cc.game.onStart = function () {

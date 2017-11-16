@@ -467,13 +467,13 @@ var MapLayer = (function() {
 
 			this.addChild(this.bakery);
 
-			var Lamb = fr.createAnimationById(resAniId.bakery, this);
-			this.addChild(Lamb);
-			Lamb.setLogicPosition(4, 5);
-			Lamb.gotoAndPlay('loop', -1);
-			Lamb.setAnchorPoint(cc.p(0, 0));
-			bakery.setLocalZOrder(2);
-			Lamb.setLocalZOrder(1);
+			// var Lamb = fr.createAnimationById(resAniId.bakery, this);
+			// this.addChild(Lamb);
+			// Lamb.setLogicPosition(4, 5);
+			// Lamb.gotoAndPlay('loop', -1);
+			// Lamb.setAnchorPoint(cc.p(0, 0));
+			// bakery.setLocalZOrder(2);
+			// Lamb.setLocalZOrder(1);
 		},
 
 		initEvent: function() {
