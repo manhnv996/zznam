@@ -13,7 +13,16 @@ Carot: "Carot",
 Cayrung: "Cayrung",
 CayTao: "CayTao",
 chipu: "chipu",
-Cherry: "Cherry"
+Cherry: "Cherry",
+
+
+	//
+	//Carot: "Carot",
+	Mia: "Mia",
+	Ngo: "Ngo",
+	luanuoc: "luanuoc",
+	DauHL: "DauHL",
+
 };
 
 //path
@@ -27,5 +36,14 @@ Carot: "game/animation/Carot",
 Cayrung: "game/animation/Cayrung",
 CayTao: "game/animation/CayTao",
 chipu: "game/animation/character/chipu",
-Cherry: "game/animation/Cherry"
+Cherry: "game/animation/Cherry",
+
+
+	//
+	//Carot: "game/animation/Carot",
+	Mia: "game/animation/Mia",
+	Ngo: "game/animation/Ngo",
+	luanuoc: "game/animation/Luanuoc",
+	DauHL: "game/animation/DauHL",
+
 };

@@ -19,6 +19,47 @@ var res = {
     ZCSD_POPUP_MINI_GAME:"zcsd/game/mini_game/PopupMiniGame.json",
     //images
     Slot1_png : "zcsd/slot1.png",
+
+
+
+//////////////////
+    ///////////
+    cropconfig: "src/modules/configs/json/cropconfig.json",
+    ////////////////
+
+
+    //background_jpg: "res/img/background.jpg",
+    //
+    caroot: "res/Art/Crops/Field/caroot.png",
+    corn: "res/Art/Crops/Field/corn.png",
+    crops: "res/Art/Crops/Field/crops.png",
+    sausages: "res/Art/Crops/Field/dau.png",
+    mia: "res/Art/Crops/Field/mia.png",
+
+    caroot_null: "res/Art/Crops/Gui-act/hethat/icon/carrot.png",
+    corn_null: "res/Art/Crops/Gui-act/hethat/icon/corn.png",
+    crops_null: "res/Art/Crops/Gui-act/hethat/icon/carrot.png",
+    sausages_null: "res/Art/Crops/Gui-act/hethat/icon/sausages.png",
+    mia_null: "res/Art/Crops/Gui-act/hethat/icon/mia.png",
+
+
+    field: "res/Art/Crops/Field/field.png",
+
+
+    liem: "res/Art/Tool/liem.png",
+
+    popup1: "res/Art/Crops/Gui-act/1.png",
+    popup2: "res/Art/Crops/Gui-act/2.png",
+    popup4: "res/Art/Crops/Gui-act/4.png",
+    popup5: "res/Art/Crops/Gui-act/5.png",
+
+
+
+    //plant animation
+    caroot_plist: "res/Art/Crops/animation/caroot/caroot.plist",
+    caroot_png: "res/Art/Crops/animation/caroot/caroot.png",
+
+
 };
 
 var g_resources = [
@@ -71,7 +112,44 @@ var g_resources = [
     "zcsd/screen_localize.json",
     "zcsd/screen_menu.json",
     "zcsd/screen_network.json",
-    "zcsd/screen_zalo.json"
+    "zcsd/screen_zalo.json",
+
+
+
+
+
+
+    "src/modules/configs/json/cropconfig.json",
+
+
+    "res/Art/Crops/Field/caroot.png",
+    "res/Art/Crops/Field/corn.png",
+    "res/Art/Crops/Field/crops.png",
+    "res/Art/Crops/Field/dau.png",
+    "res/Art/Crops/Field/mia.png",
+
+    "res/Art/Crops/Gui-act/hethat/icon/carrot.png",
+    "res/Art/Crops/Gui-act/hethat/icon/corn.png",
+    "res/Art/Crops/Gui-act/hethat/icon/carrot.png",
+    "res/Art/Crops/Gui-act/hethat/icon/sausages.png",
+    "res/Art/Crops/Gui-act/hethat/icon/mia.png",
+
+
+    "res/Art/Crops/Field/field.png",
+
+
+    "res/Art/Tool/liem.png",
+
+    "res/Art/Crops/Gui-act/1.png",
+    "res/Art/Crops/Gui-act/2.png",
+    "res/Art/Crops/Gui-act/4.png",
+    "res/Art/Crops/Gui-act/5.png",
+
+
+
+    "res/Art/Crops/animation/caroot/caroot.plist",
+    "res/Art/Crops/animation/caroot/caroot.png"
+
 ];
 
 for (var k in MapResource) {

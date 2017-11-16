@@ -32,6 +32,16 @@ testnetwork.Connector = cc.Class.extend({
                 cc.log("MOVE:", packet.x, packet.y);
                 fr.getCurrentScreen().updateMove(packet.x, packet.y);
                 break;
+
+            //
+            case gv.CMD.PLANT:
+                cc.log("RECEIVERED PLANT: " );
+                //
+                break;
+            case gv.CMD.PLANT:
+                cc.log("RECEIVERED CROP: " );
+                //
+                break;
         }
     },
     sendGetUserInfo:function()
@@ -52,7 +62,35 @@ testnetwork.Connector = cc.Class.extend({
         var pk = this.gameClient.getOutPacket(CmdSendMove);
         pk.pack(direction);
         this.gameClient.sendPacket(pk);
+    },
+
+    //
+    sendCheckStatusField: function (fieldId) {
+        cc.log("SendCheckStatusField:" + fieldId);
+        var pk = this.gameClient.getOutPacket(CmdSendCheckStatusField);
+        pk.pack(fieldId);
+        this.gameClient.sendPacket(pk);
+    },
+    sendAddStorageItem: function (productType, number) {
+        cc.log("SendAddStorageItem:" + fieldId);
+        var pk = this.gameClient.getOutPacket(CmdSendAddStorageItem);
+        pk.pack(productType, number);
+        this.gameClient.sendPacket(pk);
+    },
+    //
+    sendPlant: function (fieldId, productType) {
+        //cc.log("sendPlant: " + fieldId + ", type: " + productType);
+        var pk = this.gameClient.getOutPacket(CmdSendPlant);
+        pk.pack(fieldId, productType);
+        this.gameClient.sendPacket(pk);
+    },
+    sendCrop: function (fieldId, productType) {
+        //cc.log("sendCrop: " + fieldId + ", type: " + productType);
+        var pk = this.gameClient.getOutPacket(CmdSendPlant);
+        pk.pack(fieldId, productType);
+        this.gameClient.sendPacket(pk);
     }
+
 });
 
 

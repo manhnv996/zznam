@@ -51,6 +51,8 @@ cc.json = function(obj) {
     return cc.log(JSON.stringify(obj, null, 2));
 }
 
+var user;
+
 cc.game.onStart = function () {
     if (!cc.sys.isNative && document.getElementById("cocosLoading")) //If referenced loading.js, please remove it
         document.body.removeChild(document.getElementById("cocosLoading"));
@@ -78,6 +80,52 @@ cc.game.onStart = function () {
         gv.poolObjects = new PoolObject();
         testnetwork.connector = new testnetwork.Connector(gv.gameClient);
 		cc.director.runScene(new MainScene());
+
+
+
+
+        ////    TEST//
+        ////     var field = new Field();
+        var foodStorage = new Storages(new Coordinate(10, 10), "foodStorage", 50);
+        //var warehouse = new Storages(new Coordinate(15, 10), initt.warehouse.storageId, initt.warehouse.capacity);
+
+        foodStorage.addItem(ProductTypes.CROP_CARROT, 10);
+        foodStorage.addItem(ProductTypes.CROP_WHEAT, 10);
+
+
+
+        var asset = new Asset(foodStorage, null, null, null, null, null, null);
+        user = new User(asset);
+
+        var currentdate = new Date();
+        currentdate.setHours(3, 50, 40);
+        for (var i = 0; i < 2; i++){
+            var field = new Field(new Coordinate(25, 25 + i), i);
+
+            asset.addField(field);
+        }
+///////////////
+//        var item = user.getAsset().getFoodStorage().getItemList();
+//        var str = "FoodStorage: " + user.getAsset().getFoodStorage().getCurrentQuantity() + "/ " + user.getAsset().getFoodStorage().getCapacity() + "\n";
+//        for (var _i = 0; _i < item.length; _i++){
+//            //cc.log(item[_i].getTypeItem().TYPE);
+//            cc.log(item[_i].getTypeItem());
+//            cc.log(item[_i].getQuantityItem());
+//            //str += "TYPE: " + item[_i].getTypeItem().TYPE + ", quantity: " + item[_i].getQuantityItem() + "\n";
+//            str += "TYPE: " + item[_i].getTypeItem() + ", quantity: " + item[_i].getQuantityItem() + "\n";
+//        }
+//        MapLayer.instance.label1.setString(str);
+/////////////////
+
+
+
+        cc.log(JSON.stringify(user.getAsset().getFoodStorage().getItemList()));
+        cc.log(user.getAsset().getFoodStorage().getCurrentQuantity());
+        cc.log(user.getAsset().getFoodStorage().getCapacity());
+        //cc.log(user.getAsset().getFieldList()[0].crop());
+
+
+
     }, this);
 };
 cc.game.run();
