@@ -1,3 +1,6 @@
+
+var lstScale = 1.0;
+
 var MapLayer = (function() {
 	var SCALE_RATIO = 0.05;
 	var __DEBUG = true;
@@ -7,6 +10,11 @@ var MapLayer = (function() {
 		RIGHT_LIMIT: null,
 		TOP_LIMIT: null,
 		BOTTOM_LIMIT: null,
+
+
+//		  flow plant and crop
+		fieldList: [],
+
 
 		ctor: function() {
 			this._super();
@@ -23,12 +31,15 @@ var MapLayer = (function() {
 			this.renderDuongRay();
 			this.renderDefaultConstruct();
 			this.renderSample();
-
 			this.setScale(0.4);
 			// Set map to center of screen, Note that setting scale before setting position.
 			var center = MapValues.logicToPosition(MapConfigs.Init.width / 2, MapConfigs.Init.height / 2);
 			this.setPosition(cc.p((this.width / 2 - center.x) * this.scale, (this.height / 2 - center.y) * this.scale));
 			this.initEvent();
+
+
+
+			this.initFieldList();
 		},
 
 		initBorder: function() {
@@ -460,22 +471,31 @@ var MapLayer = (function() {
 
 		initEvent: function() {
 			var touchListener = cc.EventListener.create({
-				event: cc.EventListener.TOUCH_ONE_BY_ONE,
-				swallowTouches: true,
-				onTouchBegan: function (touch, event) {
+	            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+	            swallowTouches: true,
+	            onTouchBegan: function (touch, event) {
 					var mousePos = touch.getLocation();
 					cc.log('Clicked', MapValues.screenPositionToLogic(mousePos.x, mousePos.y));
 					return true;
-				}.bind(this),
-				onTouchMoved: function(touch, event) {
-					var delta = touch.getDelta();
-					this.move(delta.x, delta.y);
-				}.bind(this),
-				onTouchEnded: function (touch, event) {}
-			});
-			cc.eventManager.addListener(touchListener, this);
+	            },
+	            onTouchMoved: function(touch, event) {
+	            	var delta = touch.getDelta();
+	       			this.move(delta.x, delta.y);
+	            }.bind(this),
+	            onTouchEnded: function (touch, event) {
+					var target = event.getCurrentTarget();
+					cc.log("sprite onTouchesEnded.. ");
+					//
 
-			var mouseListener = cc.EventListener.create({
+					//
+					target.disableProgressBarAllFieldList();
+					target.disablePopupAllFieldList();
+
+				}
+	        });
+	        cc.eventManager.addListener(touchListener, this);
+
+	        var mouseListener = cc.EventListener.create({
 				event: cc.EventListener.MOUSE,
 				onMouseScroll: function(e) {
 					this.zoom(-e.getScrollY(), e.getLocation());
@@ -559,6 +579,116 @@ var MapLayer = (function() {
 					cc.log("Unhandled key " + keycode);
 			}
 			cc.log("Debug Sprite delta: " + this.__dX + " " + this.__dY);
-		}
+		},
+
+
+
+
+
+//		////
+		initFieldList: function () {
+			this.fieldList = [];
+
+		},
+
+		showSeedPopup: function (fieldId, seedList) {
+            var index = this.getIndexOfFieldList(fieldId);
+
+            if (index != null) {
+                this.disablePopupAllFieldList();
+                this.disableProgressBarAllFieldList();
+
+                this.fieldList[index].showSeedPopup(fieldId, seedList);
+            }
+        },
+        showToolPopup: function (fieldId) {
+            var index = this.getIndexOfFieldList(fieldId);
+
+            if (index != null) {
+            	this.disablePopupAllFieldList();
+            	this.disableProgressBarAllFieldList();
+
+                this.fieldList[index].showToolPopup(fieldId);
+            }
+        },
+
+		//
+		disablePopupAllFieldList: function () {
+			for (var i = 0; i < this.fieldList.length; i++){
+				this.fieldList[i].disablePopup(null);
+
+                this.fieldList[i].popupBackground = null;
+                this.fieldList[i].popupItemList = [];
+			}
+        },
+		//
+
+
+        getIndexOfFieldList: function (fieldId) {
+            if (fieldId == null){
+                return null;
+            }
+            for (var i = 0; i < this.fieldList.length; i++){
+                if (this.fieldList[i].fieldId == fieldId){
+                    return i;
+                }
+            }
+            return null;
+        },
+		//
+
+
+		runAnimationPlantting: function(fieldId, seedType){
+			var index = this.getIndexOfFieldList(fieldId);
+			if (index != null){
+
+				this.fieldList[index].plantAnimation(seedType);
+
+			}
+
+
+		},
+
+		runAnimationCrop: function (fieldId, seedType) {
+			var index = this.getIndexOfFieldList(fieldId);
+			if (index != null){
+				this.fieldList[index].cropAnimation(seedType);
+
+				this.fieldList[index].changeTexture(res.field);
+			}
+
+		},
+
+
+		//
+		showProgressBar: function (fieldId) {
+			var index = this.getIndexOfFieldList(fieldId);
+			if (index != null){
+                this.disablePopupAllFieldList();
+                this.disableProgressBarAllFieldList();
+
+				this.fieldList[index].showProgressBarInprogress();
+			}
+		},
+		disableProgressBarAllFieldList: function () {
+			for (var i = 0; i < this.fieldList.length; i++){
+				this.fieldList[i].disableProgressBarInprogress();
+			}
+		},
+		//
+
+		//
+		showNoticeFullFoodStorageBG: function () {
+            // this.bgNotice = new cc.Sprite(res.bgNotice);
+            // this.bgNotice.setPosition(300, 300);
+            // this.addChild(this.bgNotice);
+            //
+            // var msgFullFoodStorage = new cc.Sprite(res.msgFullFoodStorage);
+            // this.setPosition(cc.p(this.bgNotice.width / 2, this.bgNotice.height / 2));
+            // this.bgNotice.addChild(msgFullFoodStorage);
+
+        }
+
+
 	});
 })();

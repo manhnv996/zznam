@@ -36,6 +36,12 @@ var ScreenNetwork = cc.Layer.extend({
         this.addChild(this.lblLog);
 
         this.initGuiGame();
+
+
+        var btnAddItem = gv.commonButton(200, 64, 3*size.width/4, yBtn - 50,"AddItem");
+        this.addChild(btnAddItem);
+        btnAddItem.addClickEventListener(this.onSelectAddItem.bind(this));
+
     },
     initGuiGame:function()
     {
@@ -115,6 +121,13 @@ var ScreenNetwork = cc.Layer.extend({
     updateMove:function(x, y)
     {
         this.lblLog.setString("Pos:" + x + "," + y);
+    },
+
+
+    //
+    onSelectAddItem: function(){
+        //testnetwork.connector.sendStorageAddItem(0, 5);
+
     }
 
 });

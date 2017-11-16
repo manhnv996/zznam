@@ -7,6 +7,12 @@ var res = {
     //font
     FONT_BITMAP_NUMBER_1:"fonts/number_1.fnt",
     FONT_BITMAP_DICE_NUMBER: "fonts/diceNumber.fnt",
+    //
+    FONT_EFFECT_NUMBER: "fonts/eff_number.fnt",
+    FONT_OUTLINE_20: "fonts/outline/20.fnt",
+    FONT_OUTLINE_30: "fonts/outline/30.fnt",
+    FONT_OUTLINE_50: "fonts/outline/50.fnt",
+
     //zcsd
     //screen
     ZCSD_SCREEN_MENU:"zcsd/screen_menu.json",
@@ -19,6 +25,61 @@ var res = {
     ZCSD_POPUP_MINI_GAME:"zcsd/game/mini_game/PopupMiniGame.json",
     //images
     Slot1_png : "zcsd/slot1.png",
+
+
+
+//////////////////
+    ///////////
+    cropconfig: "src/modules/configs/json/cropconfig.json",
+    ////////////////
+
+
+    //background_jpg: "res/img/background.jpg",
+    //
+    caroot: "res/Art/Crops/Field/caroot.png",
+    corn: "res/Art/Crops/Field/corn.png",
+    crops: "res/Art/Crops/Field/crops.png",
+    sausages: "res/Art/Crops/Field/dau.png",
+    mia: "res/Art/Crops/Field/mia.png",
+
+    caroot_null: "res/Art/Crops/Gui-act/hethat/icon/carrot.png",
+    corn_null: "res/Art/Crops/Gui-act/hethat/icon/corn.png",
+    crops_null: "res/Art/Crops/Gui-act/hethat/icon/carrot.png",
+    sausages_null: "res/Art/Crops/Gui-act/hethat/icon/sausages.png",
+    mia_null: "res/Art/Crops/Gui-act/hethat/icon/mia.png",
+
+
+    field: "res/Art/Crops/Field/field.png",
+
+
+    liem: "res/Art/Tool/liem.png",
+
+    popup1: "res/Art/Crops/Gui-act/1.png",
+    popup2: "res/Art/Crops/Gui-act/2.png",
+    popup4: "res/Art/Crops/Gui-act/4.png",
+    popup5: "res/Art/Crops/Gui-act/5.png",
+
+
+    slot: "res/Art/Crops/Gui-act/slot.png",
+    tooltip: "res/Art/Crops/Gui-act/tooltip.png",
+    ten: "res/Art/Crops/Gui-act/ten.png",
+    btBoost: "res/Art/Crops/Gui-act/button-energy2.png",
+    rubi: "res/Art/Crops/Gui-act/hethat/ngoc-nho.png",
+
+
+
+    progressbar: "res/Art/Main Gui/exp-111.png",
+    progress: "res/Art/Main Gui/exp-221.png",
+
+    bgNotice: "res/Art/Storage/gui-thongbao.png",
+    msgFullFoodStorage: "res/Art/Storage/Kho chứa đồ đã đầy!.png",
+
+
+    //plant animation
+    caroot_plist: "res/Art/Crops/animation/caroot/caroot.plist",
+    caroot_png: "res/Art/Crops/animation/caroot/caroot.png",
+
+
 };
 
 var g_resources = [
@@ -45,6 +106,8 @@ var g_resources = [
     "fonts/eff_number.png",
     "fonts/number_1.fnt",
     "fonts/number_1.png",
+    "fonts/outline/20.fnt",
+    "fonts/outline/20.png",
     "game/animation/character/chipu/texture.plist",
     "game/animation/character/chipu/texture.png",
     "game/animation/eff_dice_number/texture.plist",
@@ -72,10 +135,19 @@ var g_resources = [
     "zcsd/screen_menu.json",
     "zcsd/screen_network.json",
     "zcsd/screen_zalo.json"
+
+
+
+
 ];
 
 for (var k in MapResource) {
     res[k] = MapResource[k];
 }
 
+for (var i in res) {
+    g_resources.push(res[i]);
+}
+
 g_resources = g_resources.concat(g_MapResource);
+

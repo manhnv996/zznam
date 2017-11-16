@@ -42,7 +42,7 @@
         "src/modules/testnetwork/network/Network.js",
         "src/modules/testnetwork/network/Packet.js",
         "src/modules/testnetwork/ScreenNetwork.js",
-        
+
         "src/modules/entities/CoordinatedObject.js",
         "src/modules/entities/StorageItem.js",
         "src/modules/entities/Storage.js",
@@ -57,6 +57,45 @@
         "src/modules/views/sprites/ODatSprite.js",
         "src/modules/views/sprites/SiloSprite.js",
         "src/modules/views/sprites/WareHouseSprite.js",
+
+
+
+
+
+
+
+        "src/modules/views/sprites/SeedSprite.js",
+        "src/modules/views/sprites/CropToolSprite.js",
+        "src/modules/views/sprites/FieldSprite.js",
+
+
+
+        "src/modules/configs/enum/ProductTypes.js",
+        "src/modules/configs/enum/FieldStatusTypes.js",
+        "src/modules/configs/config.js",
+
+
+
+        "src/modules/controllers/PlantCtrl.js",
+        "src/modules/controllers/MapCtrl.js",
+
+
+        "src/modules/models/CoordinatedObject.js",
+        "src/modules/models/Coordinate.js",
+        "src/modules/models/Field.js",
+        "src/modules/models/StorageItem.js",
+        "src/modules/models/Storage.js",
+        "src/modules/models/Asset.js",
+        "src/modules/models/User.js",
+
+
+
+
+
+
+
+
+
         "src/modules/views/layers/MapLayer.js",
         "src/modules/views/scenes/MainScene.js",
 
