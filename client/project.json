@@ -57,6 +57,7 @@
         "src/modules/views/sprites/ODatSprite.js",
         "src/modules/views/sprites/SiloSprite.js",
         "src/modules/views/sprites/WareHouseSprite.js",
+        "src/modules/views/sprites/BakerySprite.js",
 
 
 

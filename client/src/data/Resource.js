@@ -145,9 +145,9 @@ for (var k in MapResource) {
     res[k] = MapResource[k];
 }
 
-for (var i in res) {
-    g_resources.push(res[i]);
-}
+// for (var i in res) {
+//     g_resources.push(res[i]);
+// }
 
 g_resources = g_resources.concat(g_MapResource);
 

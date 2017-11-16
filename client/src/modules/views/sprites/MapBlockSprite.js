@@ -7,5 +7,9 @@ var MapBlockSprite = cc.Sprite.extend({
 		this.blockSizeX = blockSizeX;
 		this.blockSizeY = blockSizeY;
 		this.setLogicPosition(x, y);
+	},
+
+	registerTouchEvents: function() {
+		cc.log("Register touch events");
 	}
 });
