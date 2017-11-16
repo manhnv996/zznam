@@ -56,7 +56,11 @@ cc.log = function() {
         if (typeof arguments[i] === 'object') {
             contents.push(JSON.stringify(arguments[i], null, 2));
         } else {
-            contents.push(arguments[i]);
+            if (arguments[i] === undefined) {
+                contents.push('undefined');
+            } else {
+                contents.push(arguments[i]);
+            }
         }
     }
     cc._log(contents.join(' '));
