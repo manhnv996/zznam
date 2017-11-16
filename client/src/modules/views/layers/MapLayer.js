@@ -453,13 +453,13 @@ var MapLayer = (function() {
 
 		renderSample: function() {
 			var bakery = fr.createAnimationById(resAniId.bakery, this);
+			this.bakery = bakery;
 			bakery.setPosition(MapValues.logicToPosition(4, 5));
 			bakery.gotoAndPlay('loop', -1);
-			var node = new cc.Node();
-			node.addChild(bakery);
-			this.addChild(node);
-			cc.log(node.getContentSize());
-			
+			this.setScale(0.7);
+			this.addChild(bakery);
+			cc.log(bakery.getBoundingBox());
+
 			var Lamb = fr.createAnimationById(resAniId.bakery, this);
 			this.addChild(Lamb);
 			Lamb.setLogicPosition(4, 5);

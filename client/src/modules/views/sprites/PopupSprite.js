@@ -1,13 +1,8 @@
 /**
- * Created by CPU60133_LOCAL on 11/8/2017.
+ * Created by CPU60133_LOCAL on 11/16/2017.
  */
 
-var SeedSprite = cc.Sprite.extend({
-
-    data: null,
-    seedType: null,
-
-    quantity: null,
+var PopupSprite = cc.Sprite.extend({
 
     ctor: function(parent, seed_img, seedType) {
         this._super(seed_img);
@@ -53,8 +48,8 @@ var SeedSprite = cc.Sprite.extend({
                         //target.removeFromParent(true);
                         // parent.disablePopup(seedType);
                         /*
-                        DONE
-                        SHOW LEVEL UNLOCK
+                         DONE
+                         SHOW LEVEL UNLOCK
                          */
                         target.showInfo();
 
@@ -74,10 +69,8 @@ var SeedSprite = cc.Sprite.extend({
 
                 var delta = touch.getDelta();
 
-                //this.x += delta.x / MapLayer.instance.scale;
-                //this.y += delta.y / MapLayer.instance.scale;
-                this.x += delta.x;
-                this.y += delta.y;
+                this.x += delta.x / MapLayer.instance.scale;
+                this.y += delta.y / MapLayer.instance.scale;
 
                 ////
                 parent.disablePopup(seedType);
@@ -154,7 +147,7 @@ var SeedSprite = cc.Sprite.extend({
     removeDragEventListener: function () {
         //this.removeAllEventListeners();
         /*
-        BUGGG
+         BUGGG
          */
 
     }

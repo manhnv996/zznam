@@ -37,8 +37,10 @@ var CropToolSprite = cc.Sprite.extend({
 
                 var delta = touch.getDelta();
 
-                this.x += delta.x / MapLayer.instance.scale;
-                this.y += delta.y / MapLayer.instance.scale;
+                //this.x += delta.x / MapLayer.instance.scale;
+                //this.y += delta.y / MapLayer.instance.scale;
+                this.x += delta.x;
+                this.y += delta.y;
 
 
                 if (delta.x / lstScale > 0.01 || delta.y / lstScale > 0.01){
@@ -50,8 +52,10 @@ var CropToolSprite = cc.Sprite.extend({
 
                 // cc.log("onTouchMoved: " + delta.x + ", " + delta.y);
 
+                var mouse = touch.getLocation();
+
                  //Call ctrl
-                 PlantCtrl.instance.onDragCropTool(this.x, this.y);
+                 PlantCtrl.instance.onDragCropTool(mouse.x, mouse.y);
                 /*
                 DONE
                  */
