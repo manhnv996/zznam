@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="c3317a9b-01a3-4ee3-8e73-f1d8c3e3badd" name="Default" comment="">
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\img\demolayer\background.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\img\demolayer\dinosaur.jpg" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\img\icon_xuong\Sushi bar.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\img\icon_xuong\cake_oven.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\img\icon_xuong\coffee_kiosk.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\img\icon_xuong\icecream_maker.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\img\icon_xuong\icon01_0000_Layer-1.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\img\icon_xuong\icon01_0001_Layer-2.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\img\icon_xuong\icon01_0002_Levels-2.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\img\icon_xuong\icon01_0003_Group-50.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\img\icon_xuong\icon01_0004_Layer-10.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\img\icon_xuong\icon01_0005_Layer-7.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\img\icon_xuong\icon01_0006_Group-43.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\img\icon_xuong\icon01_0007_Layer-38-copy-2.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\img\icon_xuong\jam_maker.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\img\icon_xuong\jeweler.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\img\icon_xuong\juice_press.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\img\icon_xuong\may det luoi.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\img\icon_xuong\may luoc tom.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\img\icon_xuong\pie_oven.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\img\icon_xuong\salad bar.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\img\icon_xuong\sanwich bar.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\img\icon_xuong\sauce market.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\img\icon_xuong\smelter.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\img\icon_xuong\soup kitchen.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\res\PlayBG.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\res\TexturePacker\coins and rocks\coin0.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\res\TexturePacker\coins and rocks\coin1.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\res\TexturePacker\coins and rocks\coin2.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\res\TexturePacker\coins and rocks\coin3.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\res\TexturePacker\coins and rocks\coin4.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\res\TexturePacker\coins and rocks\coin5.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\res\TexturePacker\coins and rocks\coin6.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\res\TexturePacker\coins and rocks\coin7.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\res\TexturePacker\coins and rocks\rock.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\res\TexturePacker\runner0.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\res\TexturePacker\runner1.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\res\TexturePacker\runner2.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\res\TexturePacker\runner3.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\res\TexturePacker\runner4.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\res\TexturePacker\runner5.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\res\TexturePacker\runner6.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\res\TexturePacker\runner7.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\res\background.plist" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\res\background.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\res\favicon.ico" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\res\helloBG.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\res\map.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\res\map00.tmx" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\res\map01.tmx" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\res\restart_n.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\res\restart_s.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\res\runner.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\res\running.plist" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\res\running.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\res\start_n.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\workspace\Farmery\client\res\res\start_s.png" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../classes/cmd/CmdDefine.class" afterPath="$PROJECT_DIR$/../classes/cmd/CmdDefine.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../classes/service/DemoHandler$DemoDirection.class" afterPath="$PROJECT_DIR$/../classes/service/DemoHandler$DemoDirection.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../classes/service/DemoHandler$DemoError.class" afterPath="$PROJECT_DIR$/../classes/service/DemoHandler$DemoError.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../classes/service/DemoHandler$MaxPosition.class" afterPath="$PROJECT_DIR$/../classes/service/DemoHandler$MaxPosition.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../classes/service/DemoHandler.class" afterPath="$PROJECT_DIR$/../classes/service/DemoHandler.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../classes/.data/FresherProject.cdi" afterPath="$PROJECT_DIR$/../classes/.data/FresherProject.cdi" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../classes/service/PlantHandler$DemoError.class" afterPath="$PROJECT_DIR$/../classes/service/PlantHandler$DemoError.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../classes/service/PlantHandler.class" afterPath="$PROJECT_DIR$/../classes/service/PlantHandler.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../classes/cmd/receive/demo/RequestMove.class" afterPath="$PROJECT_DIR$/../classes/cmd/receive/demo/RequestMove.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmd/CmdDefine.java" afterPath="$PROJECT_DIR$/cmd/CmdDefine.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/DemoHandler.java" afterPath="$PROJECT_DIR$/service/DemoHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../client/src/modules/models/Field.js" afterPath="$PROJECT_DIR$/../../client/src/modules/models/Field.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../client/src/base/network/GameClient.js" afterPath="$PROJECT_DIR$/../../client/src/base/network/GameClient.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../client/src/data/HavestResource.js" afterPath="$PROJECT_DIR$/../../client/src/data/HavestResource.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../client/src/modules/views/scenes/MainScene.js" afterPath="$PROJECT_DIR$/../../client/src/modules/views/scenes/MainScene.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../client/src/modules/testnetwork/network/Network.js" afterPath="$PROJECT_DIR$/../../client/src/modules/testnetwork/network/Network.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../client/src/modules/controllers/PlantCtrl.js" afterPath="$PROJECT_DIR$/../../client/src/modules/controllers/PlantCtrl.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/PlantHandler.java" afterPath="$PROJECT_DIR$/service/PlantHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../client/src/modules/views/layers/PopupLayer.js" afterPath="$PROJECT_DIR$/../../client/src/modules/views/layers/PopupLayer.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmd/receive/demo/RequestMove.java" afterPath="$PROJECT_DIR$/cmd/receive/demo/RequestMove.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../client/src/modules/configs/config.js" afterPath="$PROJECT_DIR$/../../client/src/modules/configs/config.js" />
+    </list>
+    <ignored path="src.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="src" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="Asset.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/model/Asset.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="GradleLocalSettings">
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+  </component>
+  <component name="NamedScopeManager">
+    <order />
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="833" />
+    <option name="width" value="854" />
+    <option name="height" value="1017" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="util" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="model" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Confirmation" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <module />
+      <method />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <method />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c3317a9b-01a3-4ee3-8e73-f1d8c3e3badd" name="Default" comment="" />
+      <created>1510912633576</created>
+      <option name="number" value="Default" />
+      <updated>1510912633576</updated>
+      <workItem from="1510912634866" duration="62000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="62000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="833" y="0" width="854" height="1017" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24940334" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/model/Asset.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

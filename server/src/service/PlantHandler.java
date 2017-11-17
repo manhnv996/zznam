@@ -42,6 +42,7 @@ public class PlantHandler extends BaseClientRequestHandler {
             case CmdDefine.PLANT:
                 RequestPlant plant = new RequestPlant(dataCmd);
                 
+                System.out.println("get plant");
                 processPlant(user, plant);
                 break;
             
