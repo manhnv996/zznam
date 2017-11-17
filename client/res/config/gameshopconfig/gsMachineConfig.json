@@ -1,6 +1,6 @@
 [
   {
-    "id": "bakery",
+    "id": "bakery_machine",
     "level": 1,
     "price": 20,
     "time": 10,
@@ -15,7 +15,7 @@
     "nameIconShop": "Art/Shop/icon xuong/loBanhMi.png"
   },
   {
-    "id": "food",
+    "id": "food_machine",
     "level": 1,
     "price": 5,
     "price2": 3795,
@@ -31,7 +31,7 @@
     "nameIconShop": "Art/Shop/icon xuong/mayXayThucAn.png"
   },
   {
-    "id": "butter",
+    "id": "butter_machine",
     "level": 6,
     "price": 50,
     "time": 7200,
@@ -46,7 +46,7 @@
     "nameIconShop": "Art/Shop/icon xuong/xuongLamBo.png"
   },
   {
-    "id": "sugar",
+    "id": "sugar_machine",
     "level": 7,
     "price": 350,
     "time": 21600,
@@ -61,7 +61,7 @@
     "nameIconShop": "Art/Shop/icon xuong/mayLamDuong.png"
   },
   {
-    "id": "popcorn",
+    "id": "popcorn_machine",
     "level": 8,
     "price": 1180,
     "time": 28800,

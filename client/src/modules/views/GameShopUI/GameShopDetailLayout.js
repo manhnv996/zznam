@@ -23,19 +23,18 @@
     + "}",
     programs:{},
     grayScale: function (sprite) {
-        if(!sprite){
-            var shader = new cc.GLProgram(Filter.DEFAULT_VERTEX_SHADER, Filter.GRAY_SCALE_FRAGMENT_SHADER);
-            shader.retain();
-            //program.addAttribute(Filter.DEFAULT_VERTEX_SHADER, Filter.GRAY_SCALE_FRAGMENT_SHADER);
-            shader.addAttribute(cc.ATTRIBUTE_NAME_POSITION, cc.VERTEX_ATTRIB_POSITION);
-            shader.addAttribute(cc.ATTRIBUTE_NAME_TEX_COORD, cc.VERTEX_ATTRIB_TEX_COORDS);
-            shader.addAttribute(cc.ATTRIBUTE_NAME_COLOR, cc.VERTEX_ATTRIB_COLOR);
-            shader.link();
-            shader.updateUniforms();
-            shader.use();
-
-            sprite.setShaderProgram(shader);
+        var program = Filter.programs["grayScale"];
+        if(!program){
+            program = new cc.GLProgram(Filter.DEFAULT_VERTEX_SHADER, Filter.GRAY_SCALE_FRAGMENT_SHADER);
+            //program.initWithVertexShaderByteArray(Filter.DEFAULT_VERTEX_SHADER, Filter.GRAY_SCALE_FRAGMENT_SHADER);
+            program.addAttribute(cc.ATTRIBUTE_NAME_POSITION, cc.VERTEX_ATTRIB_POSITION);
+            program.addAttribute(cc.ATTRIBUTE_NAME_TEX_COORD, cc.VERTEX_ATTRIB_TEX_COORDS);
+            program.link();
+            program.updateUniforms();
+            Filter.programs["grayScale"] = program;
         }
+        gl.useProgram(program.getProgram());
+        sprite.shaderProgram = program;
     }
 }*/
 
@@ -163,12 +162,12 @@ var GameShopDetailLayout = ccui.Layout.extend({
                     this._item = this.addSlot(infoItem[i].title, infoItem[i].detail, 1, 1, infoItem[i].price, infoItem[i].nameIconShop);
                     this._listView.pushBackCustomItem(this._item);
                 }
-                this.scaleSequenceBtn(sender);
+                this.scaleAfterClickBtn(sender);
                 break;
         }
     },
 
-    scaleSequenceBtn: function (btn) {
+    scaleAfterClickBtn: function (btn) {
         var scale1 = cc.scaleTo(0.1, this._scaleBtn + 0.1, this._scaleBtn + 0.1);
         var scale2 = cc.scaleTo(0.05, this._scaleBtn, this._scaleBtn);
         btn.runAction(cc.sequence(scale1, cc.delayTime(0.1), scale2));
@@ -195,14 +194,54 @@ var GameShopDetailLayout = ccui.Layout.extend({
         slotView.y = layout.height / 2;
         layout.addChild(slotView);
 
-        var imgBtn = new ccui.Button(res_img);
+        var image = new cc.Sprite(res_img);
+        image.setName("img");
+        image.x = layout.width / 4 * 3;
+        image.y = layout.height / 2;
+        var scaleBtn = slotView.getContentSize().height / image.getContentSize().height;
+        image.setScale(scaleBtn);
+        //imgBtn.addTouchEventListener(this.onClickImg, this);
+        //Filter.grayScale(imgBtn);
+        layout.addChild(image);
+
+        var listener = cc.EventListener.create({
+            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            swallowTouches: false,
+            self: this,
+            onTouchBegan: function (touch, event) {
+                var target = event.getCurrentTarget();
+                var locationInNode = target.convertToNodeSpace(touch.getLocation());
+                var s = target.getContentSize();
+                var rect = cc.rect(0, 0, s.width, s.height);
+                if (cc.rectContainsPoint(rect, locationInNode)) {
+                    cc.log("sprite began... x = " + locationInNode.x + ", y = " + locationInNode.y);
+                    return true;
+                }
+                return false;
+            },
+            onTouchMoved: function (touch, event) {
+                if(!this._isHide){
+                    this.self.getParent().hide();
+                    this._isHide = true;
+                }
+                cc.log("Touch Moved");
+            },
+            onTouchEnded: function (touch, event) {
+                this.self.getParent().show();
+                this._isHide = false;
+                cc.log("Touch Ended");
+            }
+        });
+        cc.eventManager.addListener(listener, image);
+
+/*        var imgBtn = new ccui.Button(res_img);
         imgBtn.x = layout.width / 4 * 3;
         imgBtn.y = layout.height / 2;
         var scaleBtn = slotView.getContentSize().height / imgBtn.getContentSize().height;
         imgBtn.setScale(scaleBtn);
         imgBtn.addTouchEventListener(this.onClickImg, this);
         //Filter.grayScale(imgBtn);
-        layout.addChild(imgBtn);
+        layout.addChild(imgBtn);*/
 
         var goldImg = new cc.Sprite(res.gold_png);
         goldImg.x = layout.width / 2;
@@ -234,9 +273,9 @@ var GameShopDetailLayout = ccui.Layout.extend({
         layout.addChild(slot);
 
         return layout;
-    },
+    }
 
-    onClickImg: function (sender, type) {
+/*    onClickImg: function (sender, type) {
         switch (type) {
             case ccui.Widget.TOUCH_BEGAN:
                 cc.log("Touch Began");
@@ -258,5 +297,5 @@ var GameShopDetailLayout = ccui.Layout.extend({
             default:
                 break;
         }
-    }
+    }*/
 });
