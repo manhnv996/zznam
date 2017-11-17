@@ -95,9 +95,9 @@ var PlantCtrl = cc.Class.extend({
                      FLOW UpgradeStorage
                      Show Popup
                      */
-                    MapLayer.instance.showNoticeFullFoodStorageBG();
-
-                    MapLayer.instance.disablePopupAllFieldList();
+                    PopupLayer.instance.showNoticeFullFoodStorageBG();
+                    //
+                    // MapLayer.instance.disablePopupAllFieldList();
                     cc.log("FLOW UpgradeStorage!!!!!!!!!!!!!!!!!!!");
 
                 } else {

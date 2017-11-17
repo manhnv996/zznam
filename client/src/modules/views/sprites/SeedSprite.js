@@ -64,7 +64,6 @@ var SeedSprite = cc.Sprite.extend({
                     target.removeAllChildrenWithCleanup(true);  //remove all child
 
 
-                    target.opacity = 180;
                     return true;
                 }
 
@@ -100,10 +99,9 @@ var SeedSprite = cc.Sprite.extend({
                 cc.log("sprite onTouchesEnded.. ");
 
                 var target = event.getCurrentTarget();
-                target.opacity = 255;
 
-                //parent.disablePopup(seedType);
-                parent.disablePopup(null);
+                parent.disablePopup(seedType);
+                // parent.disablePopup(null);
                 target.removeFromParent(true);
 
             }

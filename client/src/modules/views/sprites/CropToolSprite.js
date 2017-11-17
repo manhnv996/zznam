@@ -26,7 +26,6 @@ var CropToolSprite = cc.Sprite.extend({
                     //
                     target.runAction(new cc.ScaleTo(0.1, 1.5, 1.5));
 
-                     target.opacity = 180;
                     return true;
                 }
 
@@ -72,11 +71,11 @@ var CropToolSprite = cc.Sprite.extend({
                 cc.log("sprite onTouchesEnded.. ");
 
                 var target = event.getCurrentTarget();
-                target.opacity = 255;
 
                 target.runAction(new cc.ScaleTo(0.1, 1/1.5, 1/1.5));
 
-                parent.disablePopup(null);
+                // parent.disablePopup(null);
+                parent.disablePopup(0);
                 target.removeFromParent(true);
             }
         });

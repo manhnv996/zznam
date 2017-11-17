@@ -82,8 +82,10 @@ var PopupLayer = cc.Layer.extend({
         //cc.log("index = " + index);
         if (index != null) {
             var fieldSelected = user.getAsset().getFieldById(MapLayer.instance.fieldList[index].fieldId);
-            this.progressBar.setPosition(MapValues.logicToScreenPosition(fieldSelected.getCoordinate().getCurrX() - 2, fieldSelected.getCoordinate().getCurrY() + 1));
-
+            // this.progressBar.setPosition(MapValues.logicToScreenPosition(fieldSelected.getCoordinate().getCurrX() - 2, fieldSelected.getCoordinate().getCurrY() + 1));
+            //
+            var fieldScreenPosition = MapValues.logicToScreenPosition(fieldSelected.getCoordinate().getCurrX(), fieldSelected.getCoordinate().getCurrY());
+            this.progressBar.setPosition(fieldScreenPosition.x, fieldScreenPosition.y);
         }
 
 
@@ -156,16 +158,9 @@ var PopupLayer = cc.Layer.extend({
         //
         if (seedList != null){
 
-            if (seedList.length > 3){
-                this.popupBackground = new cc.Sprite(res.popup5);
-            } else if (seedList.length == 3){
-                this.popupBackground = new cc.Sprite(res.popup4);
-            } else {
-                this.popupBackground = new cc.Sprite(res.popup2)
-            }
+            this.popupBackground = new cc.Sprite(res.popup5);
 
 
-            //this.popupBackground.setPosition(- this.width / 4, this.height * 7 / 4);
             this.popupBackground.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
             this.addChild(this.popupBackground);
 
@@ -173,7 +168,10 @@ var PopupLayer = cc.Layer.extend({
             //cc.log("index = " + index);
             if (index != null) {
                 var fieldSelected = user.getAsset().getFieldById(MapLayer.instance.fieldList[index].fieldId);
-                this.popupBackground.setPosition(MapValues.logicToScreenPosition(fieldSelected.getCoordinate().getCurrX() - 3, fieldSelected.getCoordinate().getCurrY()));
+
+                var fieldScreenPosition = MapValues.logicToScreenPosition(fieldSelected.getCoordinate().getCurrX(), fieldSelected.getCoordinate().getCurrY());
+                this.popupBackground.setPosition(fieldScreenPosition.x - MapLayer.instance.fieldList[index].width * 2 / 3,
+                    fieldScreenPosition.y + MapLayer.instance.fieldList[index].height * 2 / 3);
 
             }
 
@@ -198,7 +196,6 @@ var PopupLayer = cc.Layer.extend({
 
 
                 this.popupItemList.push(seed);
-                //seed.setScale(1.0 / MapLayer.instance.scale);
                 this.addChild(seed);
             }
 
@@ -256,9 +253,11 @@ var PopupLayer = cc.Layer.extend({
             this.addChild(this.popupBackground);
 //
             var index = this.getIndexOfFieldList(fieldId);
-            //cc.log("index = " + index);
             if (index != null) {
-                this.popupBackground.setPosition(this.fieldList[index].x - this.fieldList[index].width / 1.5, this.fieldList[index].y + this.fieldList[index].height / 1.5);
+                var fieldScreenPosition = MapValues.logicToScreenPosition(fieldSelected.getCoordinate().getCurrX(), fieldSelected.getCoordinate().getCurrY());
+                this.popupBackground.setPosition(fieldScreenPosition.x - MapLayer.instance.fieldList[index].width * 1 / 2,
+                    fieldScreenPosition.y + MapLayer.instance.fieldList[index].height * 2 / 3);
+
             }
         }
 
@@ -277,10 +276,12 @@ var PopupLayer = cc.Layer.extend({
         this.addChild(this.popupBackground);
 
         var index = MapLayer.instance.getIndexOfFieldList(fieldId);
-        //cc.log("index = " + index);
         if (index != null) {
             var fieldSelected = user.getAsset().getFieldById(MapLayer.instance.fieldList[index].fieldId);
-            this.popupBackground.setPosition(MapValues.logicToScreenPosition(fieldSelected.getCoordinate().getCurrX() - 2, fieldSelected.getCoordinate().getCurrY()));
+
+            var fieldScreenPosition = MapValues.logicToScreenPosition(fieldSelected.getCoordinate().getCurrX(), fieldSelected.getCoordinate().getCurrY());
+            this.popupBackground.setPosition(fieldScreenPosition.x - MapLayer.instance.fieldList[index].width * 1 / 2,
+                fieldScreenPosition.y + MapLayer.instance.fieldList[index].height * 2 / 3);
 
         }
 
@@ -375,7 +376,22 @@ var PopupLayer = cc.Layer.extend({
         return null;
     },
 
+    
+//    //
+    showNoticeFullFoodStorageBG: function () {
 
+        // this.disablePopup(null);
+        // this.disableProgressBarInprogress();
+        //
+        //
+        // this.NoticeBG = cc.Sprite.create(res.bgNotice);
+        // this.NoticeBG.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
+        // this.addChild(this.NoticeBG);
+
+
+
+    }
+    
 
 });
 //PopupLayer.instance = new PopupLayer();

@@ -34,30 +34,12 @@ var FieldSprite = MapBlockSprite.extend({
 ///////////
         this.schedule(this.updateFieldStatus, 0.5);
         //this.schedule(this.updateProgressBarInprogress, 0.2);
-        //this.schedule(PopupLayer.instance.updateProgressBarInprogress, 0.2);
 
     },
     render: function (fieldId) {
         this.fieldId = fieldId;
 
     },
-
-    // render: function(fieldId, seed_plist_img, seed_plist){
-    //     this.fieldId = fieldId;
-    //
-    //
-    //     if (seed_plist != null){
-    //         ////////////
-    //         //cc.spriteFrameCache.addSpriteFrames(res.caroot_plist, res.caroot_png); // sprite cache
-    //         cc.spriteFrameCache.addSpriteFrames(seed_plist); // sprite cache
-    //
-    //         this.animation = new cc.Animation([cc.spriteFrameCache.getSpriteFrame("field.png")], 0.1);
-    //         this.runAction(cc.animate(this.animation).repeat(1));  //repeat one time
-    //         ///////////
-    //
-    //     }
-    //
-    // },
 
 
     //
@@ -108,27 +90,6 @@ var FieldSprite = MapBlockSprite.extend({
         cc.eventManager.addListener(touchListener, this);
     },
 
-    //loadAnimFrames: function(num, str_seed_key, speed){
-    //    //cc.spriteFrameCache.addSpriteFrames(seed_plist); // sprite cache
-    //
-    //    this.animFrames = [];
-    //    // num equal to spriteSheet
-    //    for (var i = 0; i < num; i++) {
-    //        var str = str_seed_key + i + ".png";
-    //        var frame = cc.spriteFrameCache.getSpriteFrame(str);
-    //        this.animFrames.push(frame);
-    //
-    //    }
-    //
-    //    this.animation = new cc.Animation(this.animFrames, speed);
-    //},
-    //runAnimationForever: function(){
-    //    this.runAction(cc.animate(this.animation).repeatForever());  //repeatForever
-    //},
-    //runAnimationRepeat: function(num){
-    //    this.runAction(cc.animate(this.animation).repeat(num));  //repeat num time
-    //},
-
 
     plantAnimation: function (seedType) {
 
@@ -148,6 +109,11 @@ var FieldSprite = MapBlockSprite.extend({
             // this.plantSprite.getAnimation().setTimeScale(1);
             this.plantSprite.getAnimation().gotoAndPlay(plantTypeObj.plantAni, -1, -1, 1);
 
+
+            //
+            this.isGrow3 = false;
+            this.isGrow2 = false;
+            this.isGrow1 = false;
         }
     },
     cropAnimation: function (seedType) {
@@ -179,38 +145,43 @@ var FieldSprite = MapBlockSprite.extend({
             return false;
         }
 
-        var parsePlantTime = user.getAsset().getFieldList()[this.fieldId].getPlantedTime().getTime();
-        var parseCropTime = user.getAsset().getFieldList()[this.fieldId].getCropTime().getTime();
-        var currTime = new Date().getTime();
-
-        duration = parseCropTime - parsePlantTime;
-        curr = currTime - parsePlantTime;
-
 
         if (this.plantSprite != null){
 
+            var parsePlantTime = user.getAsset().getFieldList()[this.fieldId].getPlantedTime().getTime();
+            var parseCropTime = user.getAsset().getFieldList()[this.fieldId].getCropTime().getTime();
+            var currTime = new Date().getTime();
+
+            duration = parseCropTime - parsePlantTime;
+            curr = currTime - parsePlantTime;
+
+
             var plantTypeObj = getProductObjByType(this.seedType);
 
-            if (curr > duration + 1000){
-
-                return true;
-            }
-            else if (curr >= duration){
+            if (curr >= duration){
                 //
-
                 //this.plantSprite.getAnimation().setTimeScale(0.5);
-                this.plantSprite.getAnimation().gotoAndPlay(plantTypeObj.grow3,-1, -1, 0);
+                if (!this.isGrow3){
+                    this.plantSprite.getAnimation().gotoAndPlay(plantTypeObj.grow3, -1, -1, 0);
+
+                }
+                this.isGrow3 = true;
+
             } else if (curr >= duration * 3 / 4) {
                 //
-                this.plantSprite.getAnimation().gotoAndPlay(plantTypeObj.grow2,-1, -1, 1);
+                if (!this.isGrow2){
+                    this.plantSprite.getAnimation().gotoAndPlay(plantTypeObj.grow2, -1, -1, 1);
+
+                }
+                this.isGrow2 = true;
             } else if (curr >= duration / 2) {
-                this.plantSprite.getAnimation().gotoAndPlay(plantTypeObj.grow1,-1, -1, 1);
+                if (!this.isGrow1){
+                    this.plantSprite.getAnimation().gotoAndPlay(plantTypeObj.grow1, -1, -1, 1);
 
-            } else if(curr >= duration * 1 / 4){
-                this.plantSprite.getAnimation().gotoAndPlay(plantTypeObj.plantAni,-1, -1, 1);
-
+                }
+                this.isGrow1 = true;
             } else {    // < / 2
-                this.plantSprite.getAnimation().gotoAndPlay(plantTypeObj.plantAni,-1, -1, 1);
+                // this.plantSprite.getAnimation().gotoAndPlay(plantTypeObj.plantAni,-1, -1, 1);
 
             }
         }
