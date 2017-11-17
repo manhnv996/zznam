@@ -2,4 +2,4 @@
 *.dll
 *.exe
 *.pdb
-/.idea/workspace.xml
+workspace.xml

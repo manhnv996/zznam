@@ -1,5 +1,5 @@
 <dragonBones name="Luanuoc" frameRate="24" version="2.3">
- <armature name="luanuoc">
+ <armature name="Luanuoc">
   <bone name="Layer 1">
    <transform x="128" y="75.5" skX="0" skY="0" scX="1" scY="1"/>
   </bone>

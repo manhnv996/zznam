@@ -11,8 +11,9 @@ var MapCtrl = cc.Class.extend({
          INPROGRESS
          Check previous block and current block
          */
-        var pointLogic = MapValues.positionToLogic(x, y);
-        return user.getAsset().getFieldByLogicPosition(pointLogic.x, pointLogic.y);
+        //var pointLogic = MapValues.positionToLogic(x, y);
+        var pointLogic = MapValues.screenPositionToLogic(x, y);
+        return user.getAsset().getFieldByLogicPosition(Math.floor(pointLogic.x), Math.floor(pointLogic.y));
     }
 });
 MapCtrl.instance = new MapCtrl();

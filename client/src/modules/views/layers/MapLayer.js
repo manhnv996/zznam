@@ -452,21 +452,28 @@ var MapLayer = (function() {
 		},
 
 		renderSample: function() {
-			var bakery = fr.createAnimationById(resAniId.bakery, this);
-			bakery.setPosition(MapValues.logicToPosition(4, 5));
-			bakery.gotoAndPlay('loop', -1);
-			var node = new cc.Node();
-			node.addChild(bakery);
-			this.addChild(node);
-			cc.log(node.getContentSize());
-			
-			var Lamb = fr.createAnimationById(resAniId.bakery, this);
-			this.addChild(Lamb);
-			Lamb.setLogicPosition(4, 5);
-			Lamb.gotoAndPlay('loop', -1);
-			Lamb.setAnchorPoint(cc.p(0, 0));
-			bakery.setLocalZOrder(2);
-			Lamb.setLocalZOrder(1);
+			// var bakery = fr.createAnimationById(resAniId.bakery, this);
+			// this.bakery = bakery;
+			// bakery.setPosition(MapValues.logicToPosition(4, 5));
+			// bakery.gotoAndPlay('loop', -1);
+			// this.setScale(0.7);
+			// this.addChild(bakery);
+			// cc.log(bakery.getBoundingBox());
+			var bakery = new BakerySprite(4, 5);
+			this.bakery = bakery;
+			// setInterval(function() {
+			// 	cc.log(bakery._getContentSize());
+			// }, 500);
+
+			this.addChild(this.bakery);
+
+			// var Lamb = fr.createAnimationById(resAniId.bakery, this);
+			// this.addChild(Lamb);
+			// Lamb.setLogicPosition(4, 5);
+			// Lamb.gotoAndPlay('loop', -1);
+			// Lamb.setAnchorPoint(cc.p(0, 0));
+			// bakery.setLocalZOrder(2);
+			// Lamb.setLocalZOrder(1);
 		},
 
 		initEvent: function() {
@@ -481,6 +488,7 @@ var MapLayer = (function() {
 	            onTouchMoved: function(touch, event) {
 	            	var delta = touch.getDelta();
 	       			this.move(delta.x, delta.y);
+
 	            }.bind(this),
 	            onTouchEnded: function (touch, event) {
 					var target = event.getCurrentTarget();
@@ -488,8 +496,10 @@ var MapLayer = (function() {
 					//
 
 					//
-					target.disableProgressBarAllFieldList();
-					target.disablePopupAllFieldList();
+					//target.disableProgressBarAllFieldList();
+					//target.disablePopupAllFieldList();
+					PopupLayer.instance.disablePopup();
+					PopupLayer.instance.disableProgressBarInprogress();
 
 				}
 	        });
@@ -535,6 +545,11 @@ var MapLayer = (function() {
 			}
 
 			this.setPosition(newX, newY);
+
+
+//
+			PopupLayer.instance.disablePopup();
+			PopupLayer.instance.disableProgressBarInprogress();
 		},
 
 		zoom: function(sign, cursor) {
@@ -547,6 +562,7 @@ var MapLayer = (function() {
 				var dx = deltaScale * cx / this.scale;
 				var dy = deltaScale * cy / this.scale;
 				this.setScale(newScale);
+				// cc.log(this.bakery.getBoundingBox())
 				this.move(dx, dy);
 			}
 		},

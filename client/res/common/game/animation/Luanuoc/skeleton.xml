@@ -27,7 +27,7 @@
   <skin name="default">
    <slot name="Layer 1" parent="Layer 1" z="0">
     <display name="Luami1/Layer 55 copy 6" type="image">
-     <transform x="-128" y="-64.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-128" y="-77.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 2" parent="Layer 2" z="1">

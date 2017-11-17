@@ -44,7 +44,8 @@ var PlantCtrl = cc.Class.extend({
 
 
 
-                MapLayer.instance.showSeedPopup(fieldId, seedShow);
+                //MapLayer.instance.showSeedPopup(fieldId, seedShow);
+                PopupLayer.instance.showSeedPopup(fieldId, seedShow);
                 cc.log("empty");
                 //
                 this.FIRST_DRAG = true;
@@ -54,14 +55,16 @@ var PlantCtrl = cc.Class.extend({
                 /*
                 Show croptool
                  */
-                MapLayer.instance.showToolPopup(fieldId);
+                //MapLayer.instance.showToolPopup(fieldId);
+                PopupLayer.instance.showToolPopup(fieldId);
                 cc.log("done");
 
             } else {
                 /*
                 Show status
                  */
-                MapLayer.instance.showProgressBar(fieldId);
+                //MapLayer.instance.showProgressBar(fieldId);
+                PopupLayer.instance.showProgressBarInprogress(fieldId);
 
                 cc.log("inprogress");
             }
@@ -181,11 +184,14 @@ var PlantCtrl = cc.Class.extend({
         var fieldSelected = user.getAsset().getFieldById(fieldId);
 
         if (fieldSelected != null) {
-            fieldSelected.boost();
+            //fieldSelected.boost();
             /*
             Inprogress
             Call Mapview (show effect)
              */
+            if (fieldSelected.boost()){
+
+            }
         }
 
     }

@@ -37,21 +37,24 @@ var CropToolSprite = cc.Sprite.extend({
 
                 var delta = touch.getDelta();
 
-                this.x += delta.x / MapLayer.instance.scale;
-                this.y += delta.y / MapLayer.instance.scale;
+                //this.x += delta.x / MapLayer.instance.scale;
+                //this.y += delta.y / MapLayer.instance.scale;
+                this.x += delta.x;
+                this.y += delta.y;
 
 
-                if (delta.x / lstScale > 0.01 || delta.y / lstScale > 0.01){
-                    parent.popupItemList.shift();
+                parent.popupItemList.shift();
 
-                    parent.disablePopup(null);
+                parent.disablePopup(null);
                     // parent.disablePopupBackground();
-                }
+
 
                 // cc.log("onTouchMoved: " + delta.x + ", " + delta.y);
 
+                var mouse = touch.getLocation();
+
                  //Call ctrl
-                 PlantCtrl.instance.onDragCropTool(this.x, this.y);
+                 PlantCtrl.instance.onDragCropTool(mouse.x, mouse.y);
                 /*
                 DONE
                  */
@@ -73,9 +76,8 @@ var CropToolSprite = cc.Sprite.extend({
 
                 target.runAction(new cc.ScaleTo(0.1, 1/1.5, 1/1.5));
 
-                target.removeFromParent(true);
-
                 parent.disablePopup(null);
+                target.removeFromParent(true);
             }
         });
         cc.eventManager.addListener(dragListener, this);

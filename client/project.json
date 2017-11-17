@@ -20,6 +20,7 @@
     "jsList": [
         "src/data/MapResource.js",
         "src/data/ShopResource.js",
+        "src/data/HavestResource.js",
         "src/data/Resource.js",
         "src/data/ResourceAnimation.js",
         "src/framework/AnimationMgr.js",
@@ -58,11 +59,15 @@
         "src/modules/views/sprites/ODatSprite.js",
         "src/modules/views/sprites/SiloSprite.js",
         "src/modules/views/sprites/WareHouseSprite.js",
+        "src/modules/views/sprites/BakerySprite.js",
 
 
 
 
 
+
+
+        "src/modules/views/layers/PopupLayer.js",
 
 
         "src/modules/views/sprites/SeedSprite.js",
@@ -79,6 +84,7 @@
 
         "src/modules/controllers/PlantCtrl.js",
         "src/modules/controllers/MapCtrl.js",
+        "src/modules/controllers/PopupCtrl.js",
 
 
         "src/modules/models/CoordinatedObject.js",

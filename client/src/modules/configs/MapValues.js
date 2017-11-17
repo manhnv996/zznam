@@ -13,12 +13,12 @@ var MapValues = new function() {
 	this.positionToLogic = function(x, y) {
 		var xl = x / this.iLength - y / this.jLength;
 		var yl = -x / this.iLength - y / this.jLength;
+
 		return cc.p(xl, yl);
 	}
 
-	// Convert screen position to logic map position
-	this.screenPositionToLogic = function(x, y) {
-		// First convert screen position to map position
+	// Convert screen position to map position
+	this.screenPositionToMapPosition = function(x, y) {
 		var map = MapLayer.instance;
 		var mapCenterPosition = cc.p(
 			cc.winSize.width / 2 + map.x,
@@ -28,14 +28,49 @@ var MapValues = new function() {
 			mapCenterPosition.x - map.scale * map.width / 2,
 			mapCenterPosition.y - map.scale * map.height / 2
 		);
-		var deltaPosition = cc.p(
+		return cc.p(
 			(x - mapRootPosition.x) / map.scale,
 			(y - mapRootPosition.y) / map.scale
 		);
-		// Last convert map position to logic map position
-		return this.positionToLogic(deltaPosition.x, deltaPosition.y);
 	}
 
+	// Convert screen position to logic map position
+	this.screenPositionToLogic = function(x, y) {
+		// First convert screen position to map position
+		var mapPosition = this.screenPositionToMapPosition(x, y)
+		// Last convert map position to logic map position
+		return this.positionToLogic(mapPosition.x, mapPosition.y);
+	}
+
+	this.mapPositionToScreenPosition = function(x, y) {
+		var map = MapLayer.instance;
+		var mapCenter = cc.p(
+			map.width / 2,
+			map.height / 2
+		);
+		var delta = cc.p(
+			(mapCenter.x - x) * map.scale,
+			(mapCenter.y - y) * map.scale
+		);
+		var mapPosition = map.getPosition();
+		var d = cc.p(
+			mapPosition.x - delta.x,
+			mapPosition.y - delta.y
+		);
+		var screenCenter = cc.p(
+			cc.winSize.width / 2,
+			cc.winSize.height / 2
+		);
+		return cc.p(
+			screenCenter.x + d.x,
+			screenCenter.y + d.y
+		);
+	}
+
+	this.logicToScreenPosition = function(xl, yl) {
+		var mapPosition = this.logicToPosition(xl, yl);
+		return this.mapPositionToScreenPosition(mapPosition.x, mapPosition.y);
+	}
 
 	// xl = x / this.iLength - y / this.jLength;
 	// yl = -x / this.iLength - y / this.jLength;
