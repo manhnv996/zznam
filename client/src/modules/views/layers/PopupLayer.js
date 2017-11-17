@@ -112,6 +112,11 @@ var PopupLayer = cc.Layer.extend({
         var rubi = new cc.Sprite(res.rubi);
         rubi.setPosition(cc.p(btBoost.width * 4 / 5, btBoost.height / 2));
         btBoost.addChild(rubi);
+
+
+        var rubi_buy_seed = new cc.LabelBMFont("1", res.FONT_OUTLINE_30);
+        rubi_buy_seed.setPosition(cc.p(btBoost.width / 2, btBoost.height / 2));
+        btBoost.addChild(rubi_buy_seed);
         //
         btBoost.addClickEventListener(this.addBoostEvent.bind(this));
 
@@ -206,30 +211,30 @@ var PopupLayer = cc.Layer.extend({
 
                     break;
                 case 2:
-                    this.popupItemList[0].runAction(new cc.moveBy(0.1, - (this.popupItemList[0].width / 2), 0));
-                    this.popupItemList[1].runAction(new cc.moveBy(0.1, (this.popupItemList[1].height / 2), 0));
+                    this.popupItemList[1].runAction(new cc.moveBy(0.1, - (this.popupItemList[0].width / 2), 0));
+                    this.popupItemList[0].runAction(new cc.moveBy(0.1, (this.popupItemList[1].height / 2), 0));
                     break;
                 case 3:
-                    this.popupItemList[0].runAction(new cc.moveBy(0.1, - (this.popupItemList[0].width), 0));
+                    this.popupItemList[2].runAction(new cc.moveBy(0.1, - (this.popupItemList[0].width), 0));
                     // this.popupItemList[1].runAction(new cc.moveBy(0.1, (this.popupItemList[1].height / 2), 0));
-                    this.popupItemList[2].runAction(new cc.moveBy(0.1, (this.popupItemList[2].width), 0));
+                    this.popupItemList[0].runAction(new cc.moveBy(0.1, (this.popupItemList[2].width), 0));
 
                     break;
                 case 4:
-                    this.popupItemList[0].runAction(new cc.moveBy(0.1, - (this.popupItemList[0].width), (this.popupItemList[0].height / 2)));
-                    this.popupItemList[1].runAction(new cc.moveBy(0.1, 0, (this.popupItemList[1].height / 2)));
-                    this.popupItemList[2].runAction(new cc.moveBy(0.1, (this.popupItemList[2].width), (this.popupItemList[1].height / 2)));
+                    this.popupItemList[3].runAction(new cc.moveBy(0.1, - (this.popupItemList[0].width), (this.popupItemList[0].height / 2)));
+                    this.popupItemList[2].runAction(new cc.moveBy(0.1, 0, (this.popupItemList[1].height / 2)));
+                    this.popupItemList[1].runAction(new cc.moveBy(0.1, (this.popupItemList[2].width), (this.popupItemList[1].height / 2)));
 
-                    this.popupItemList[3].runAction(new cc.moveBy(0.1, - (this.popupItemList[3].width / 2), - (this.popupItemList[3].height / 2)));
+                    this.popupItemList[0].runAction(new cc.moveBy(0.1, - (this.popupItemList[3].width / 2), - (this.popupItemList[3].height / 2)));
 
                     break;
                 case 5:
-                    this.popupItemList[0].runAction(new cc.moveBy(0.1, - (this.popupItemList[0].width), (this.popupItemList[0].height / 2)));
-                    this.popupItemList[1].runAction(new cc.moveBy(0.1, 0, (this.popupItemList[1].height / 2)));
+                    this.popupItemList[4].runAction(new cc.moveBy(0.1, - (this.popupItemList[0].width), (this.popupItemList[0].height / 2)));
+                    this.popupItemList[3].runAction(new cc.moveBy(0.1, 0, (this.popupItemList[1].height / 2)));
                     this.popupItemList[2].runAction(new cc.moveBy(0.1, (this.popupItemList[2].width), (this.popupItemList[1].height / 2)));
 
-                    this.popupItemList[3].runAction(new cc.moveBy(0.1, - (this.popupItemList[3].width / 2), - (this.popupItemList[3].height / 2)));
-                    this.popupItemList[4].runAction(new cc.moveBy(0.1, + (this.popupItemList[3].width / 2), - (this.popupItemList[3].height / 2)));
+                    this.popupItemList[1].runAction(new cc.moveBy(0.1, - (this.popupItemList[3].width / 2), - (this.popupItemList[3].height / 2)));
+                    this.popupItemList[0].runAction(new cc.moveBy(0.1, + (this.popupItemList[3].width / 2), - (this.popupItemList[3].height / 2)));
 
                     break;
 
@@ -309,10 +314,7 @@ var PopupLayer = cc.Layer.extend({
     //
     disablePopupBackground: function () {
         if (this.popupBackground != null) {
-            /*
-             BUGG
-             WHY ?!
-             */
+
             // if (this.popupBackground.isVisible()) {
             this.popupBackground.setVisible(false);
 
@@ -380,17 +382,44 @@ var PopupLayer = cc.Layer.extend({
 //    //
     showNoticeFullFoodStorageBG: function () {
 
-        // this.disablePopup(null);
-        // this.disableProgressBarInprogress();
+        this.disablePopup(null);
+        this.disableProgressBarInprogress();
+
+
+//        this.noticeBG = new cc.Sprite(res.bgNotice);
+//        this.noticeBG.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
+//        this.addChild(this.noticeBG, 11);
+//
+//        var action1 = new cc.ScaleTo(0.2, 1.25);
+//        var action2 = new cc.ScaleTo(0.1, 1);
+//        this.noticeBG.runAction(cc.sequence(action1, cc.delayTime(0.01), action2));
+//
+//
+//
+//        var msgFullFoodStorage = new cc.Sprite(res.msgFullFoodStorage);
+//        msgFullFoodStorage.setPosition(this.noticeBG.width / 2, this.noticeBG.height / 2);
+//        this.noticeBG.addChild(msgFullFoodStorage);
+//
+//
+//        var btTick = new ccui.Button(res.btTick);
+//        btTick.setPosition(this.noticeBG.width * 3 / 4, this.noticeBG.height / 4);
+//        this.noticeBG.addChild(btTick);
+////
+//        btTick.addClickEventListener(this.addCloseBGEvent.bind(this));
+
+    },
+
+    addCloseBGEvent: function (sender) {
+        //if (this.noticeBG != null){
+        //    this.setVisible(false);
         //
-        //
-        // this.NoticeBG = cc.Sprite.create(res.bgNotice);
-        // this.NoticeBG.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
-        // this.addChild(this.NoticeBG);
+        //    //this.removeChildByTag(11, true);
+        //    this.removeAllChildrenWithCleanup(true);
+        //    this.noticeBG = null;
+        //}
 
+    },
 
-
-    }
     
 
 });

@@ -25,8 +25,8 @@ var PlantCtrl = cc.Class.extend({
                 Show seedtable
                  */
 
-                var seedList = user.getAsset().getFoodStorage().getItemList();
                 var seedLevel = getSeedLevel(user.getLevel());
+                var seedList = user.getAsset().getFoodStorage().getItemList();
 
                 var seedShow = [];
                 for (var i = 0; i < seedLevel.length; i++){
@@ -42,9 +42,16 @@ var PlantCtrl = cc.Class.extend({
                     seedShow.push(new StorageItem(seedList[i].getTypeItem(), seedList[i].getQuantityItem()));
                 }
 
+                seedShow.sort(function(a, b) {
+                    if (getProductObjByType(a.getTypeItem()).level <= user.getLevel() || a.getQuantityItem() != null){
+                        return getProductObjByType(a.getTypeItem()).level - getProductObjByType(b.getTypeItem()).level;
+                    }
+
+                });
+                seedShow.reverse();
 
 
-                //MapLayer.instance.showSeedPopup(fieldId, seedShow);
+
                 PopupLayer.instance.showSeedPopup(fieldId, seedShow);
                 cc.log("empty");
                 //

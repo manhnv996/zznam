@@ -107,7 +107,7 @@ var Field = CoordinatedObject.extend({
         var parseTime = this.plantedTime.getTime();
         var cropTime = new Date();
          //cropTime.setTime(parseTime + getProductObjByType(this.plantType).time * 1000);
-        cropTime.setTime(parseTime + 6000);     //HERE IS TEST
+        cropTime.setTime(parseTime + 2000);     //HERE IS TEST
 
         return cropTime;
     },
@@ -135,7 +135,7 @@ var Field = CoordinatedObject.extend({
                 var date = new Date();
                 var intDate = date.getTime();
                 //this.plantedTime.setTime(intDate - getProductObjByType(this.plantType).time * 1000);
-                this.plantedTime.setTime(intDate - 6000);   //HERE IS TEST
+                this.plantedTime.setTime(intDate - 2000);   //HERE IS TEST
 
                 return true;
             }

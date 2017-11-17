@@ -15,6 +15,10 @@ var MainScene = cc.Scene.extend({
 	},
 	init: function() {
 
+		gv.gameClient.connect();
+		testnetwork.connector.sendLoginRequest();
+
+
 		////    TEST//
 		////     var field = new Field();
 		var foodStorage = new Storages(new Coordinate(10, 10), "foodStorage", 30);
@@ -22,8 +26,8 @@ var MainScene = cc.Scene.extend({
 
 		 //foodStorage.addItem(ProductTypes.CROP_CORN, 10);
 		foodStorage.addItem(ProductTypes.CROP_CARROT, 10);
-		foodStorage.addItem(ProductTypes.CROP_WHEAT, 10);
-		foodStorage.addItem(ProductTypes.CROP_SOYBEAN, 5);
+		//foodStorage.addItem(ProductTypes.CROP_WHEAT, 10);
+		//foodStorage.addItem(ProductTypes.CROP_SOYBEAN, 5);
 		foodStorage.addItem(ProductTypes.CROP_SUGARCANE, 5);
 
 

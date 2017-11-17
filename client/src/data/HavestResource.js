@@ -42,7 +42,8 @@ var HavestResource = {
     progress: "res/Art/Main Gui/exp-221.png",
 
     bgNotice: "res/Art/Storage/gui-thongbao.png",
-    msgFullFoodStorage: "res/Art/Storage/Kho chứa đồ đã đầy!.png",
+    msgFullFoodStorage: "res/Art/Storage/Kho lươngthuc.png",
+    btTick:"res/Art/Storage/butoon-V.png",
 
 
     //plant animation
@@ -51,6 +52,7 @@ var HavestResource = {
 };
 
 var g_HavestResource = [];
+
 for (var k in HavestResource) {
     g_HavestResource.push(HavestResource[k]);
 }

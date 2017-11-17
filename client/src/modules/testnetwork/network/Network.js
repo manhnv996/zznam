@@ -23,14 +23,14 @@ testnetwork.Connector = cc.Class.extend({
                 break;
             case gv.CMD.USER_LOGIN:
                 this.sendGetUserInfo();
-                fr.getCurrentScreen().onFinishLogin();
+                //fr.getCurrentScreen().onFinishLogin();
                 break;
             case gv.CMD.USER_INFO:
-                fr.getCurrentScreen().onUserInfo(packet.name, packet.x, packet.y);
+                //fr.getCurrentScreen().onUserInfo(packet.name, packet.x, packet.y);
                 break;
             case gv.CMD.MOVE:
                 cc.log("MOVE:", packet.x, packet.y);
-                fr.getCurrentScreen().updateMove(packet.x, packet.y);
+                //fr.getCurrentScreen().updateMove(packet.x, packet.y);
                 break;
 
             //

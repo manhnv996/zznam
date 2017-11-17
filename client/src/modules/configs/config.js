@@ -15,7 +15,7 @@ function getSeedLevel(level) {
     var seedLevelList = [];
     for (var i = 0; i < productTypeObj.length; i++) {
 
-        if (productTypeObj[i].level <= (level + 2)) {
+        if (productTypeObj[i].level <= (level + 7)) {
             //seedLevelList.push(productTypeObj[i].id);
             seedLevelList.unshift(productTypeObj[i].id);
         }
