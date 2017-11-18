@@ -34,19 +34,23 @@ var _ = (function() {
         //shop_animal_cuu_png: r("icon vatnuoi/sheep.png"),
         //shop_animal_de_png: r("icon vatnuoi/goat.png"),
 
-        infoCoopItem: JSON.parse(jsb.fileUtils.getStringFromFile("res/config/gameshopconfig/gsCoopConfig.json")),
+        /*infoCoopItem: JSON.parse(jsb.fileUtils.getStringFromFile("res/config/gameshopconfig/gsCoopConfig.json")),
         infoAnimalItem: JSON.parse(jsb.fileUtils.getStringFromFile("res/config/gameshopconfig/gsAnimalConfig.json")),
-        infoMachineItem: JSON.parse(jsb.fileUtils.getStringFromFile("res/config/gameshopconfig/gsMachineConfig.json"))
+        infoMachineItem: JSON.parse(jsb.fileUtils.getStringFromFile("res/config/gameshopconfig/gsMachineConfig.json"))*/
+        infoShopItem: JSON.parse(jsb.fileUtils.getStringFromFile("res/config/gameshopconfig/shopConfigs.json"))
     };
 
     var g_ShopResource = [];
-    ShopResource.infoCoopItem.forEach(function(content) {
+    /*ShopResource.infoCoopItem.forEach(function(content) {
         g_ShopResource.push(content.nameIconShop);
     });
     ShopResource.infoAnimalItem.forEach(function(content) {
         g_ShopResource.push(content.nameIconShop);
     });
     ShopResource.infoMachineItem.forEach(function(content) {
+        g_ShopResource.push(content.nameIconShop);
+    });*/
+    ShopResource.infoShopItem.forEach(function (content) {
         g_ShopResource.push(content.nameIconShop);
     });
     for (var k in ShopResource) {

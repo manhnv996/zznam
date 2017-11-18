@@ -8,6 +8,9 @@ var MainScene = cc.Scene.extend({
 		GameShopLayer.instance = new GameShopLayer();
 		this.addChild(GameShopLayer.instance);
 
+		DragLayer.instance = new DragLayer();
+		this.addChild(DragLayer.instance);
+
 		PopupLayer.instance = new PopupLayer();
 		this.addChild(PopupLayer.instance);
 
@@ -18,6 +21,7 @@ var MainScene = cc.Scene.extend({
 		MapController.instance.init();
 		this.init();
 	},
+
 	init: function() {
 
 		////    TEST//

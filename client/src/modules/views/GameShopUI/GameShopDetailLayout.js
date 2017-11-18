@@ -55,7 +55,7 @@ var GameShopDetailLayout = ccui.Layout.extend({
 
         this._winSize = cc.director.getVisibleSize();
         var sizeWidthList = this._winSize.width / 3;
-
+        this.setClippingEnabled(false);
         //background
         var bg = new cc.Sprite(res.shop_bg_png);
         this._bg_size = bg.getContentSize();
@@ -124,10 +124,12 @@ var GameShopDetailLayout = ccui.Layout.extend({
 
     initData: function () {
         this._btnLodge.loadTextureNormal(res.shop_btLodge_s_png);
-        var infoItem = res.infoCoopItem;
+        var infoItem = res.infoShopItem;
         for(var i = 0; i < infoItem.length; i++){
-            this._item = this.addSlot(infoItem[i].title, infoItem[i].detail, 1, 1, infoItem[i].price, infoItem[i].nameIconShop);
-            this._listView.pushBackCustomItem(this._item);
+            if(infoItem[i].type == 1) {
+                this._item = this.addSlot(infoItem[i], 1, 1);
+                this._listView.pushBackCustomItem(this._item);
+            }
         }
     },
 
@@ -137,30 +139,46 @@ var GameShopDetailLayout = ccui.Layout.extend({
                 sender.runAction(cc.scaleTo(0.1, this._scaleBtn - 0.1, this._scaleBtn - 0.1));
                 break;
             case ccui.Widget.TOUCH_ENDED:
-                var infoItem = null;
+                var infoItem = res.infoShopItem;
                 this.setNormalButton();
                 this._listView.removeAllChildren();
                 switch (sender.name) {
                     case "Lodge":
-                        infoItem = res.infoCoopItem;
+                        for(var i = 0; i < infoItem.length; i++){
+                            if(infoItem[i].type == 1) {
+                                this._item = this.addSlot(infoItem[i], 1, 1);
+                                this._listView.pushBackCustomItem(this._item);
+                            }
+                        }
                         sender.loadTextureNormal(res.shop_btLodge_s_png);
                         break;
                     case "Animal":
-                        infoItem = res.infoAnimalItem;
+                        for(var i = 0; i < infoItem.length; i++){
+                            if(infoItem[i].type == 2) {
+                                this._item = this.addSlot(infoItem[i], 1, 1);
+                                this._listView.pushBackCustomItem(this._item);
+                            }
+                        }
                         sender.loadTextureNormal(res.shop_btAnimal_s_png);
                         break;
                     case "Machine":
-                        infoItem = res.infoMachineItem;
+                        for(var i = 0; i < infoItem.length; i++){
+                            if(infoItem[i].type == 3) {
+                                this._item = this.addSlot(infoItem[i], 1, 1);
+                                this._listView.pushBackCustomItem(this._item);
+                            }
+                        }
                         sender.loadTextureNormal(res.shop_btMachine_s_png);
                         break;
                     case "Tree":
-                        infoItem = res.infoMachineItem;
+                        for(var i = 0; i < infoItem.length; i++){
+                            if(infoItem[i].type == 4) {
+                                this._item = this.addSlot(infoItem[i], 1, 1);
+                                this._listView.pushBackCustomItem(this._item);
+                            }
+                        }
                         sender.loadTextureNormal(res.shop_btTree_s_png);
                         break;
-                }
-                for(var i = 0; i < infoItem.length; i++){
-                    this._item = this.addSlot(infoItem[i].title, infoItem[i].detail, 1, 1, infoItem[i].price, infoItem[i].nameIconShop);
-                    this._listView.pushBackCustomItem(this._item);
                 }
                 this.scaleAfterClickBtn(sender);
                 break;
@@ -180,7 +198,7 @@ var GameShopDetailLayout = ccui.Layout.extend({
         this._btnTree.loadTextureNormal(res.shop_btTree_n_png);
     },
 
-    addSlot: function (title, detail, cslot, mslot, price, res_img) {
+    addSlot: function (item, cslot, mslot) {
         var slotView = new ccui.ImageView(res.shop_slot_png);
         slotView.setTouchEnabled(true);
         slotView.setName("slotView");
@@ -194,12 +212,12 @@ var GameShopDetailLayout = ccui.Layout.extend({
         slotView.y = layout.height / 2;
         layout.addChild(slotView);
 
-        var image = new cc.Sprite(res_img);
+        var image = new cc.Sprite(item.nameIconShop);
         image.setName("img");
         image.x = layout.width / 4 * 3;
         image.y = layout.height / 2;
-        var scaleBtn = slotView.getContentSize().height / image.getContentSize().height;
-        image.setScale(scaleBtn);
+        var scaleImg = slotView.getContentSize().height / image.getContentSize().height;
+        image.setScale(scaleImg);
         //imgBtn.addTouchEventListener(this.onClickImg, this);
         //Filter.grayScale(imgBtn);
         layout.addChild(image);
@@ -208,6 +226,7 @@ var GameShopDetailLayout = ccui.Layout.extend({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: false,
             self: this,
+            dragSprite: null,
             onTouchBegan: function (touch, event) {
                 var target = event.getCurrentTarget();
                 var locationInNode = target.convertToNodeSpace(touch.getLocation());
@@ -215,20 +234,35 @@ var GameShopDetailLayout = ccui.Layout.extend({
                 var rect = cc.rect(0, 0, s.width, s.height);
                 if (cc.rectContainsPoint(rect, locationInNode)) {
                     cc.log("sprite began... x = " + locationInNode.x + ", y = " + locationInNode.y);
+                    target.setScale(scaleImg + 0.2);
                     return true;
                 }
                 return false;
             },
             onTouchMoved: function (touch, event) {
+                var delta = touch.getDelta();
                 if(!this._isHide){
+                    var mouse = touch.getLocation();
+                    var position = MapValues.screenPositionToMapPosition(mouse.x, mouse.y);
                     this.self.getParent().hide();
                     this._isHide = true;
+                    dragSprite = new DragSprite(item, position);
+                    //dragSprite = new cc.Sprite(item.nameIconShop);
+                    //dragSprite.setPosition(cc.p(mouse.x, mouse.y));
+                    dragSprite.setName("DragSprite");
+                    DragLayer.instance.addChild(dragSprite);
                 }
+                dragSprite.x += delta.x;
+                dragSprite.y += delta.y;
                 cc.log("Touch Moved");
             },
             onTouchEnded: function (touch, event) {
+                listener._lock = false;
+                var target = event.getCurrentTarget();
                 this.self.getParent().show();
+                target.setScale(scaleImg);
                 this._isHide = false;
+                DragLayer.instance.removeChildByName("DragSprite");
                 cc.log("Touch Ended");
             }
         });
@@ -249,19 +283,19 @@ var GameShopDetailLayout = ccui.Layout.extend({
         goldImg.setAnchorPoint(0.5, -0.5);
         layout.addChild(goldImg);
 
-        var title = new cc.LabelBMFont(title, "fonts/outline/30.fnt");
+        var title = new cc.LabelBMFont(item.title, "fonts/outline/30.fnt");
         title.x = layout.width / 10 - 10;
         title.y = layout.height - 10;
         title.setAnchorPoint(0, 1);
         layout.addChild(title);
 
-        var detail = new cc.LabelBMFont(detail, "fonts/normal/30.fnt");
+        var detail = new cc.LabelBMFont(item.detail, "fonts/normal/30.fnt");
         detail.x = layout.width / 3;
         detail.y = layout.height / 2;
         detail.color = cc.color(77, 41, 1);
         layout.addChild(detail);
 
-        var price = new cc.LabelBMFont(price, "fonts/outline/30.fnt");
+        var price = new cc.LabelBMFont(item.price, "fonts/outline/30.fnt");
         price.x = layout.width / 5 * 2;
         price.y = 0;
         price.setAnchorPoint(1, -0.5);

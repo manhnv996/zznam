@@ -90,7 +90,6 @@ var FieldSprite = MapBlockSprite.extend({
                 var delta = touch.getDelta();
                 MapLayer.instance.move(delta.x, delta.y);
 
-
             }.bind(this),
 
             onTouchEnded: function (touch, event) {

@@ -3,10 +3,10 @@
  */
 
 var DragSprite = MapBlockSprite.extend({
-    _spriteId: null,
 
-    ctor: function (spriteId) {
-
+    ctor: function (item, position) {
+        this._super(item.nameIconShop, item.width, item.height, position.x, position.y);
+        cc.log(this.getContentSize());
     }
 
 });
