@@ -57,6 +57,11 @@ var Storages = CoordinatedObject.extend({
         return this.itemList;
     },
 
+
+    /*
+    NOT YET STARTED
+    SHOW Effect if Add or Reduce item (call controller)
+     */
     addItem: function (productType, number) {
         //boolean
         if ((this.getCurrentQuantity() + number) <= this.capacity){
@@ -103,8 +108,6 @@ var Storages = CoordinatedObject.extend({
         for (var i = 0; i < this.getItemList().length; i++){
             total += this.getItemList()[i].quantity;
 
-            // cc.log("Type: " + this.getItemList()[i].typeItem
-            //     + ", " + this.getItemList()[i].getQuantityItem());
         }
 
         return total;

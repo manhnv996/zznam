@@ -136,25 +136,18 @@
 		"maxPrice": "25",
 		"growTimeType": "2",
 		"rPrice": "5",
-		"instantPrice": "5"
+		"instantPrice": "5",
 
 
+		"animation_res": "game/animation/OaiHuong",
+		"plantAni": "OaiHuong_mam",
 
-	},
-	{
-		"id": "crop_pumpkin",
-		"harvest": "2",
-		"time": "10800",
-		"level": "15",
-		"name": "Bi do",
-		"harvestExp": "6",
-		"percentMaterial": "4",
-		"maxPrice": "32",
-		"growTimeType": "2",
-		"rPrice": "6",
-		"instantPrice": "6"
+		"grow1": "OaiHuong_nho",
+		"grow2": "OaiHuong_hoanho",
+		"grow3": "selected",
+		"grow4": "OaiHuong_to",
 
-
+		"cropAni": "OaiHuong_TH"
 
 	},
 	{
@@ -168,8 +161,18 @@
 		"maxPrice": "36",
 		"growTimeType": "2",
 		"rPrice": "7",
-		"instantPrice": "7"
+		"instantPrice": "7",
 
+
+		"animation_res": "game/animation/Ot",
+		"plantAni": "Ot_Mam",
+
+		"grow1": "Ot_la",
+		"grow2": "Ot_Hoa",
+		"grow3": "selected",
+		"grow4": "Ot_to",
+
+		"cropAni": "Ot_Harvest"
 
 
 	},
@@ -184,8 +187,18 @@
 		"maxPrice": "43",
 		"growTimeType": "3",
 		"rPrice": "8",
-		"instantPrice": "8"
+		"instantPrice": "8",
 
+
+		"animation_res": "game/animation/Cachua",
+		"plantAni": "Cachua_mam",
+
+		"grow1": "Cachua_non",
+		"grow2": "Cachua_quaxanh",
+		"grow3": "selected",
+		"grow4": "Cachua_chin",
+
+		"cropAni": "Cachua_thuhoach"
 
 
 	},
@@ -200,55 +213,18 @@
 		"maxPrice": "50",
 		"growTimeType": "3",
 		"rPrice": "10",
-		"instantPrice": "10"
+		"instantPrice": "10",
 
 
+		"animation_res": "game/animation/Dautay",
+		"plantAni": "Dau_mam",
 
-	},
-	{
-		"id": "crop_potato",
-		"harvest": "2",
-		"time": "13200",
-		"level": "35",
-		"name": "Khoai tay",
-		"harvestExp": "7",
-		"percentMaterial": "5",
-		"maxPrice": "36",
-		"growTimeType": "2",
-		"rPrice": "7",
-		"instantPrice": "7"
+		"grow1": "Dau_la",
+		"grow2": "Dau_hoa",
+		"grow3": "selected",
+		"grow4": "Dau_chin",
 
-
-	},
-	{
-		"id": "crop_lettuce",
-		"harvest": "2",
-		"time": "12600",
-		"level": "58",
-		"name": "Xa lach",
-		"harvestExp": "7",
-		"percentMaterial": "5",
-		"maxPrice": "32",
-		"growTimeType": "2",
-		"rPrice": "7",
-		"instantPrice": "7"
-
-
-
-	},
-	{
-		"id": "crop_rice",
-		"harvest": "2",
-		"time": "2700",
-		"level": "56",
-		"name": "Lua nep",
-		"harvestExp": "3",
-		"percentMaterial": "3",
-		"maxPrice": "18",
-		"growTimeType": "1",
-		"rPrice": "3",
-		"instantPrice": "3"
-
+		"cropAni": "Dau_Harvest"
 
 
 	}
