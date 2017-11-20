@@ -8,10 +8,8 @@ var MapCtrl = cc.Class.extend({
     },
     getField: function(x, y) {
         /*
-         INPROGRESS
-         Check previous block and current block
+         DONE
          */
-        //var pointLogic = MapValues.positionToLogic(x, y);
         var pointLogic = MapValues.screenPositionToLogic(x, y);
         return user.getAsset().getFieldByLogicPosition(Math.floor(pointLogic.x), Math.floor(pointLogic.y));
     }

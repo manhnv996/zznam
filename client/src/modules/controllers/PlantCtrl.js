@@ -7,11 +7,6 @@ var PlantCtrl = cc.Class.extend({
     onFieldSelected: function(fieldId) {
         /*
          DONE
-
-         get Field Object by id
-         check fieldstatus
-
-         show popup view (seed / or croptool) IN Mapview
          */
         var fieldSelected = user.getAsset().getFieldById(fieldId);
 
@@ -21,59 +16,29 @@ var PlantCtrl = cc.Class.extend({
 
 
             if (status == FieldStatusTypes.EMPTY){
-                /*
-                Show seedtable
-                 */
 
-                var seedLevel = getSeedLevel(user.getLevel());
-                var seedList = user.getAsset().getFoodStorage().getItemList();
-
-                var seedShow = [];
-                for (var i = 0; i < seedLevel.length; i++){
-                    if (user.getAsset().getFoodStorage().getQuantity(seedLevel[i]) == 0){
-                        if (getProductObjByType(seedLevel[i]).level <= user.getLevel()){
-                            seedShow.push(new StorageItem(seedLevel[i], 0));
-                        } else {
-                            seedShow.push(new StorageItem(seedLevel[i], null));
-                        }
-                    }
-                }
-                for (var i = 0; i < seedList.length; i++){
-                    seedShow.push(new StorageItem(seedList[i].getTypeItem(), seedList[i].getQuantityItem()));
-                }
-
-                seedShow.sort(function(a, b) {
-                    if (getProductObjByType(a.getTypeItem()).level <= user.getLevel() || a.getQuantityItem() != null){
-                        return getProductObjByType(a.getTypeItem()).level - getProductObjByType(b.getTypeItem()).level;
-                    }
-
-                });
-                seedShow.reverse();
-
-
+                var seedShow = getSeedShow(user.getLevel());
 
                 PopupLayer.instance.showSeedPopup(fieldId, seedShow);
-                cc.log("empty");
                 //
-                this.FIRST_DRAG = true;
+                this.firstDragEmptyField = true;
+                this.firstDragField = true;
                 //
 
             } else if (status == FieldStatusTypes.DONE){
                 /*
                 Show croptool
                  */
-                //MapLayer.instance.showToolPopup(fieldId);
                 PopupLayer.instance.showToolPopup(fieldId);
-                cc.log("done");
 
+                this.firstShowNotice = false;
+                //
             } else {
                 /*
                 Show status
                  */
-                //MapLayer.instance.showProgressBar(fieldId);
                 PopupLayer.instance.showProgressBarInprogress(fieldId);
 
-                cc.log("inprogress");
             }
 
 
@@ -86,45 +51,52 @@ var PlantCtrl = cc.Class.extend({
         var fieldSelected = MapCtrl.instance.getField(x, y);
 
         if (fieldSelected != null){
+            if (this.firstDragField) {
+                this.lastFieldSelected = null;
+            }
+            if (this.lastFieldSelected != null){
+                if (this.lastFieldSelected.getFieldId() == fieldSelected.getFieldId()){
 
+                    return false;
+                }
+            }
+            this.lastFieldSelected = fieldSelected;
+            this.firstDragField = false;
+
+
+//            //
             var status = fieldSelected.checkStatus();
-
 
             if (status == FieldStatusTypes.DONE){
                 //
                 var seedType = fieldSelected.getPlantType();
-
                 if (fieldSelected.crop() == null){  //crop and check crop fail
 
                     //full foodStorage
                     /*
-                     Inprogress
+                     done
                      FLOW UpgradeStorage
                      Show Popup
                      */
-                    PopupLayer.instance.showNoticeFullFoodStorageBG();
+                    if (this.firstShowNotice == false){
+
+                        PopupLayer.instance.showNoticeFullFoodStorageBG();
+                        this.firstShowNotice = true;
+                    }
+
                     //
-                    // MapLayer.instance.disablePopupAllFieldList();
                     cc.log("FLOW UpgradeStorage!!!!!!!!!!!!!!!!!!!");
 
                 } else {
-////////
-                    //send msg to server {packet{fieldId, productType}}
-                    testnetwork.connector.sendCrop(fieldSelected.getFieldId(), seedType);
+//
+                    //send pk to server {packet{fieldId}}
+                    testnetwork.connector.sendCrop(fieldSelected.getFieldId());
 /////
 
                     //animation
                     MapLayer.instance.runAnimationCrop(fieldSelected.getFieldId(), seedType);
 
-                    /*
-                    Inprogress
-                    Call Mapview (show effect)
-                     */
                 }
-
-                ////send msg to server {packet{fieldId, productType}}
-                //testnetwork.connector.sendCrop(fieldSelected.getFieldId(), fieldSelected.getPlantType());
-
             } else {
                 /*
                  DO NOTHING
@@ -140,40 +112,46 @@ var PlantCtrl = cc.Class.extend({
         var fieldSelected = MapCtrl.instance.getField(x, y);
 
         if (fieldSelected != null){
+            if (this.firstDragField) {
+                this.lastFieldSelected = null;
+            }
+            if (this.lastFieldSelected != null){
+                if (this.lastFieldSelected.getFieldId() == fieldSelected.getFieldId()){
 
+                    return false;
+                }
+            }
+            this.lastFieldSelected = fieldSelected;
+            this.firstDragField = false;
+
+
+//            //
             var status = fieldSelected.checkStatus();
 
             if (status == FieldStatusTypes.EMPTY){
                 //
                 if (fieldSelected.plant(seedType)){     //plant and if success
-
-////////
-                    //send msg to server {packet{fieldId, productType}}
+//
+                    //send pk to server {packet{fieldId, productType}}
                     testnetwork.connector.sendPlant(fieldSelected.getFieldId(), fieldSelected.getPlantType());
 /////
 
                     //animation
                     MapLayer.instance.runAnimationPlantting(fieldSelected.getFieldId(), seedType);
 
-                    /*
-                    Inprogress
-                    Call Mapview (show effect)
-                     */
                 } else {
-                    if (this.FIRST_DRAG){
+                    if (this.firstDragEmptyField){
+                        cc.log("FLOW BUY SEEDDDDDDDDDDD!!!!!!!!!!!!!!!!!!!");
 
+                        PopupLayer.instance.showSuggestBuyingSeedBG(seedType);
                         /*
                         INPROGRESS
                         FLOW BUY SEED
                         Show Popup
                          */
                     }
-
                 }
-                this.FIRST_DRAG = false;
-
-                ////send msg to server {packet{fieldId, productType}}
-                //testnetwork.connector.sendPlant(fieldSelected.getFieldId(), fieldSelected.getPlantType());
+                this.firstDragEmptyField = false;
                 /*
                  DONE
                  */
@@ -191,16 +169,30 @@ var PlantCtrl = cc.Class.extend({
         var fieldSelected = user.getAsset().getFieldById(fieldId);
 
         if (fieldSelected != null) {
-            //fieldSelected.boost();
-            /*
-            Inprogress
-            Call Mapview (show effect)
-             */
             if (fieldSelected.boost()){
-
+//
+                //send pk to server {packet{fieldId}}
+                testnetwork.connector.sendPlantBoost(fieldSelected.getFieldId());
+            } else {
+                cc.log("Not enough ruby");
             }
+
         }
 
+    },
+
+    buySeed: function (seedType) {
+        var rubiBuy = getProductObjByType(seedType).rPrice;
+        if (user.reduceRuby(rubiBuy)){
+            if (user.getAsset().getFoodStorage().addItem(seedType, 1)){
+
+                testnetwork.connector.sendBuyItemByRubi(seedType);
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
     }
 
 

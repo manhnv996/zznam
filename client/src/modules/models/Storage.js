@@ -15,9 +15,9 @@ var Storages = CoordinatedObject.extend({
     render: function (storageId, capacity) {
 
         this.storageId = storageId;
-
         this.capacity = capacity;
-        // this.itemList = [];
+
+        this.itemList = [];
         //this.itemList.push(new StorageItem(ProductTypes.CROP_CARROT.TYPE, 5));
         //this.itemList.push(new StorageItem(ProductTypes.CROP_WHEAT.TYPE, 4));
         //this.itemList.push(new StorageItem(ProductTypes.CUT_AXE.TYPE, 2));
@@ -28,6 +28,7 @@ var Storages = CoordinatedObject.extend({
         //boolean
 
     },
+
     getCapacity: function () {
         return this.capacity;
     },
@@ -57,6 +58,11 @@ var Storages = CoordinatedObject.extend({
         return this.itemList;
     },
 
+
+    /*
+    NOT YET STARTED
+    SHOW Effect if Add or Reduce item (call controller)
+     */
     addItem: function (productType, number) {
         //boolean
         if ((this.getCurrentQuantity() + number) <= this.capacity){
@@ -95,16 +101,10 @@ var Storages = CoordinatedObject.extend({
     },
     getCurrentQuantity: function () {
         var total = 0;
-        // for (var i in this.getItemList()){
-        //     total += this.getItemList()[i].quantity;
-        //
-        //     cc.log("Type: " + this.getItemList()[i].typeItem);
-        // }
+
         for (var i = 0; i < this.getItemList().length; i++){
             total += this.getItemList()[i].quantity;
 
-            // cc.log("Type: " + this.getItemList()[i].typeItem
-            //     + ", " + this.getItemList()[i].getQuantityItem());
         }
 
         return total;

@@ -15,16 +15,45 @@ function getSeedLevel(level) {
     var seedLevelList = [];
     for (var i = 0; i < productTypeObj.length; i++) {
 
-        if (productTypeObj[i].level <= (level + 7)) {
+        if (productTypeObj[i].level <= (level + 9)) {
             //seedLevelList.push(productTypeObj[i].id);
             seedLevelList.unshift(productTypeObj[i].id);
         }
     }
 
     return seedLevelList;
-    // return [ProductTypes.CROP_WHEAT.TYPE, ProductTypes.CROP_CARROT.TYPE, ProductTypes.CROP_CORN.TYPE];
-
 }
+
+function getSeedShow(level) {
+
+    var seedLevel = getSeedLevel(level);
+    var seedList = user.getAsset().getFoodStorage().getItemList();
+
+    var seedShow = [];
+    for (var i = 0; i < seedLevel.length; i++){
+        if (user.getAsset().getFoodStorage().getQuantity(seedLevel[i]) == 0){
+            if (getProductObjByType(seedLevel[i]).level <= user.getLevel()){
+                seedShow.push(new StorageItem(seedLevel[i], 0));
+            } else {
+                seedShow.push(new StorageItem(seedLevel[i], null));
+            }
+        }
+    }
+    for (var i = 0; i < seedList.length; i++){
+        seedShow.push(new StorageItem(seedList[i].getTypeItem(), seedList[i].getQuantityItem()));
+    }
+
+    seedShow.sort(function(a, b) {
+        if (getProductObjByType(a.getTypeItem()).level <= user.getLevel() || a.getQuantityItem() != null){
+            return getProductObjByType(a.getTypeItem()).level - getProductObjByType(b.getTypeItem()).level;
+        }
+
+    });
+    seedShow.reverse();
+
+    return seedShow;
+}
+
 
 function getProductObjByType(productId) {
     var productTypeObj = null;
@@ -58,6 +87,21 @@ function getResAniIdBySeedType(seedType) {
 
         case ProductTypes.CROP_SUGARCANE:
             return resAniId.Mia;
+
+
+        //
+        case ProductTypes.CROP_INDIGO:
+            return resAniId.OaiHuong;
+
+        case ProductTypes.CROP_CHILI:
+            return resAniId.Ot;
+
+        case ProductTypes.CROP_TOMATO:
+            return resAniId.Cachua;
+
+        case ProductTypes.CROP_STRAWBERRY:
+            return resAniId.Dautay;
+
         default:
             return null;
 
@@ -69,7 +113,7 @@ function getSeedImgBySeedTypeAndQuantity(seedType, quantity) {
     switch (seedType) {
         case ProductTypes.CROP_WHEAT:
             if (quantity == null){
-                res.caroot_null;
+                return res.crops_null;
             }
             return res.crops;
 
@@ -96,6 +140,31 @@ function getSeedImgBySeedTypeAndQuantity(seedType, quantity) {
                 return res.mia_null;
             }
             return res.mia;
+
+        //
+        case ProductTypes.CROP_INDIGO:
+            if (quantity == null){
+                return res.indigo_null;
+            }
+            return res.indigo;
+
+        case ProductTypes.CROP_CHILI:
+            if (quantity == null){
+                return res.chili_null;
+            }
+            return res.chili;
+
+        case ProductTypes.CROP_TOMATO:
+            if (quantity == null){
+                return res.tomato_null;
+            }
+            return res.tomato;
+
+        case ProductTypes.CROP_STRAWBERRY:
+            if (quantity == null){
+                return res.strawberry_null;
+            }
+            return res.strawberry;
 
         default:
             return null;

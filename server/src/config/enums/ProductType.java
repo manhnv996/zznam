@@ -1,4 +1,4 @@
-package model;
+package config.enums;
 
 public class ProductType {
     public static final String CROP_WHEAT = "crop_wheat";

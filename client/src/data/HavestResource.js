@@ -1,22 +1,29 @@
 
 var HavestResource = {
+    //
     cropconfig: "src/modules/configs/json/cropconfig.json",
     ////////////////
 
-
-    //background_jpg: "res/img/background.jpg",
     //
     caroot: "res/Art/Crops/Field/caroot.png",
     corn: "res/Art/Crops/Field/corn.png",
     crops: "res/Art/Crops/Field/crops.png",
     sausages: "res/Art/Crops/Field/dau.png",
     mia: "res/Art/Crops/Field/mia.png",
+    chili: "res/Art/Crops/Field/vhili pepper.png",
+    indigo: "res/Art/Crops/Field/indigo.png",
+    tomato: "res/Art/Crops/Field/tomato.png",
+    strawberry: "res/Art/Crops/Field/strawberry.png",
 
     caroot_null: "res/Art/Crops/Gui-act/hethat/icon/carrot.png",
     corn_null: "res/Art/Crops/Gui-act/hethat/icon/corn.png",
     crops_null: "res/Art/Crops/Gui-act/hethat/icon/carrot.png",
     sausages_null: "res/Art/Crops/Gui-act/hethat/icon/sausages.png",
     mia_null: "res/Art/Crops/Gui-act/hethat/icon/mia.png",
+    chili_null: "res/Art/Crops/Gui-act/hethat/icon/chily.png",
+    indigo_null: "res/Art/Crops/Gui-act/hethat/icon/idigo.png",
+    tomato_null: "res/Art/Crops/Gui-act/hethat/icon/tomato.png",
+    strawberry_null: "res/Art/Crops/Gui-act/hethat/icon/strawberry.png",
 
 
     field: "res/Art/Crops/Field/field.png",
@@ -36,6 +43,11 @@ var HavestResource = {
     btBoost: "res/Art/Crops/Gui-act/button-energy2.png",
     rubi: "res/Art/Crops/Gui-act/hethat/ngoc-nho.png",
 
+    btTurnPage: "res/Art/Crops/Gui-act/button.png",
+    pageSelected: "res/Art/Crops/Gui-act/page1.png",
+    page: "res/Art/Crops/Gui-act/page.png",
+
+
 
 
     progressbar: "res/Art/Main Gui/exp-111.png",
@@ -44,6 +56,9 @@ var HavestResource = {
     bgNotice: "res/Art/Storage/gui-thongbao.png",
     msgFullFoodStorage: "res/Art/Storage/Kho lươngthuc.png",
     btTick:"res/Art/Storage/butoon-V.png",
+    bgNotice2:"res/Art/Storage/BG.png",
+    btCancle:"res/Art/Storage/tuchoi.png",
+    btSuggest:"res/Art/Storage/Layer 24.png",
 
 
     //plant animation

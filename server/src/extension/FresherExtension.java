@@ -17,10 +17,18 @@ import bitzero.util.socialcontroller.bean.UserInfo;
 
 import cmd.receive.authen.RequestLogin;
 
+import config.enums.ProductType;
+import config.enums.StorageType;
+
 import eventhandler.LoginSuccessHandler;
 import eventhandler.LogoutHandler;
 
 import java.util.List;
+
+import model.Asset;
+import model.Field;
+import model.Storage;
+import model.ZPUserInfo;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
 
@@ -48,6 +56,8 @@ public class FresherExtension extends BZExtension {
         super();
         setName("Fresher");
         svrLoop = new ServerLoop();
+        
+        setup();
     }
 
     public void init() {
@@ -66,6 +76,25 @@ public class FresherExtension extends BZExtension {
         addEventHandler(BZEventType.USER_DISCONNECT, LogoutHandler.class);
 
     }
+    
+    public static ZPUserInfo user;
+    public void setup(){
+        Storage foodStorage = new Storage(StorageType.FOOD_STORAGE, 30, 10, 10);
+        Storage warehouse = new Storage(StorageType.WAREHOUSE, 30, 8, 8);
+        foodStorage.addItem(ProductType.CROP_CARROT, 5);
+        foodStorage.addItem(ProductType.CROP_SOYBEAN, 10);
+        
+        Asset asset = new Asset(foodStorage, warehouse, null);        
+        for (int i = 0; i < 6; i++){
+            Field field = new Field(0, 18, 10 + i);
+            asset.addField(field);
+        }
+
+        user = new ZPUserInfo(asset);
+        System.out.println("Setup!!!!!!!!!");
+    }
+    
+    
 
     public ServerLoop getServerLoop() {
         return svrLoop;

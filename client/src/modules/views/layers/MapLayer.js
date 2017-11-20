@@ -606,19 +606,6 @@ var MapLayer = (function() {
 		},
 
 
-
-		// //
-		// disablePopupAllFieldList: function () {
-		// 	for (var i = 0; i < this.fieldList.length; i++){
-		// 		this.fieldList[i].disablePopup(null);
-        //
-         //        this.fieldList[i].popupBackground = null;
-         //        this.fieldList[i].popupItemList = [];
-		// 	}
-        // },
-		// //
-        //
-
         getIndexOfFieldList: function (fieldId) {
             if (fieldId == null){
                 return null;

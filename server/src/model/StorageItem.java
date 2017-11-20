@@ -13,6 +13,17 @@ public class StorageItem extends DataModel {
         this.typeItem = typeItem;
         this.quantity = quantity;
     }
+
+    
+    public String getTypeItem() {
+        return typeItem;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+    
+    
     
     public boolean addQuantity(int value){
         this.quantity += value;
