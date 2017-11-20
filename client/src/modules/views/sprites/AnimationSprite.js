@@ -2,8 +2,8 @@ var AnimationSprite = MapBlockSprite.extend({
 	__isAnimation: true,
 	__boundingBox: null,
 
-	ctor: function(aniId, lx, ly, blockSizeX, blockSizeY) {
-		this._super(undefined, lx, ly, blockSizeX, blockSizeY);
+	ctor: function(aniId, blockSizeX, blockSizeY, lx, ly) {
+		this._super(undefined, blockSizeX, blockSizeY, lx, ly);
 
 		this.content = fr.createAnimationById(aniId, this);
 		this.addChild(this.content);

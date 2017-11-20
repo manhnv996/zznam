@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>muiten dichuyen1/Layer 1.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{59,221},{44,24}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{44,24}}</string>
+                <key>sourceSize</key>
+                <string>{44,24}</string>
+            </dict>
+            <key>muiten dichuyen1/Layer 2.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{25,171},{50,22}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{50,22}}</string>
+                <key>sourceSize</key>
+                <string>{50,22}</string>
+            </dict>
+            <key>muiten dichuyen1/Layer 3.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1,234},{57,21}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{57,21}}</string>
+                <key>sourceSize</key>
+                <string>{57,21}</string>
+            </dict>
+            <key>muiten dichuyen1/Layer 31 copy 2.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{48,171},{107,49}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{107,49}}</string>
+                <key>sourceSize</key>
+                <string>{107,49}</string>
+            </dict>
+            <key>muiten dichuyen1/Layer 31 copy.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1,1},{107,169}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{107,169}}</string>
+                <key>sourceSize</key>
+                <string>{107,169}</string>
+            </dict>
+            <key>muiten dichuyen1/Layer 4.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1,171},{62,23}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{62,23}}</string>
+                <key>sourceSize</key>
+                <string>{62,23}</string>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>2</integer>
+            <key>realTextureFileName</key>
+            <string>texture.png</string>
+            <key>size</key>
+            <string>{256,256}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:4115f261a9a0e496756d426d82eb07dd:1/1$</string>
+            <key>textureFileName</key>
+            <string>texture.png</string>
+        </dict>
+    </dict>
+</plist>

@@ -6,6 +6,7 @@
 var resAniId = {
 	demoEffect: "demoEffect",
 Bagia: "Bagia",
+Arrow1: "Arrow1",
 bakery: "bakery",
 Cachua: "Cachua",
 //Carot: "Carot",
@@ -52,6 +53,7 @@ Vungnuoc1: "Vungnuoc1"
 //path
 var resAni = {
 	demoEffect:"game/animation/effects/landmarkConstruct",
+Arrow1: "game/animation/Arrow1",
 Bagia: "game/animation/Bagia",
 bakery: "game/animation/bakery",
 Cachua: "game/animation/Cachua",
