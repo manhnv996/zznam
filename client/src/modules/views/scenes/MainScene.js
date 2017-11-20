@@ -61,11 +61,11 @@ var MainScene = cc.Scene.extend({
 			MapLayer.instance.addChild(fieldSprite);
 			MapLayer.instance.fieldList.push(fieldSprite);
 		}
-		cc.log(user.getAsset().getFieldList().length + "ddd");
+		// cc.log(user.getAsset().getFieldList().length + "ddd");
 
 		var fieldList = user.getAsset().getFieldList();
 		for (var i = 0; i < fieldList.length; i++){
-			cc.log("Field_" + fieldList[i].getFieldId() + ": " + fieldList[i].getCoordinate().getCurrX() + ", " + fieldList[i].getCoordinate().getCurrY());
+			// cc.log("Field_" + fieldList[i].getFieldId() + ": " + fieldList[i].getCoordinate().getCurrX() + ", " + fieldList[i].getCoordinate().getCurrY());
 			// cc.log("Field_" + fieldList[i].getFieldId() + ": " + fieldList[i].getCurrX() + ", " + fieldList[i].getCurrY());
 		}
 

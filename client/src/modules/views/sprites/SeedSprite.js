@@ -38,7 +38,7 @@ var SeedSprite = cc.Sprite.extend({
                 var rect = cc.rect(0, 0, s.width, s.height);
 
                 if (cc.rectContainsPoint(rect, locationInNode)) {
-                    cc.log("sprite began... x = " + locationInNode.x + ", y = " + locationInNode.y);
+                    // cc.log("sprite began... x = " + locationInNode.x + ", y = " + locationInNode.y);
 
                     //
                     target.runAction(new cc.ScaleTo(0.1, 1.5, 1.5));
@@ -97,7 +97,7 @@ var SeedSprite = cc.Sprite.extend({
             }.bind(this),
 
             onTouchEnded: function (touch, event) {
-                cc.log("sprite onTouchesEnded.. ");
+                // cc.log("sprite onTouchesEnded.. ");
 
                 // var target = event.getCurrentTarget();
                 var target = this;
