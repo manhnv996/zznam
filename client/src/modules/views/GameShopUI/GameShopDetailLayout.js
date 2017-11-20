@@ -262,6 +262,7 @@ var GameShopDetailLayout = ccui.Layout.extend({
             self: this,
             check: false,
             sprite: null,
+            lstP: { x: 0, y: 0 },
             //dragSprite: null,
             onTouchBegan: function (touch, event) {
                 var target = event.getCurrentTarget();
@@ -276,28 +277,33 @@ var GameShopDetailLayout = ccui.Layout.extend({
                 return false;
             },
             onTouchMoved: function (touch, event) {
-                var delta = touch.getDelta();
-                if(!this._isHide){
-                    var mouse = touch.getLocation();
-                    var p = MapValues.screenPositionToMapPosition(mouse.x, mouse.y);
-                    var pl = MapValues.positionToLogic(p.x, p.y);
-                    cc.log(pl.x + " " + pl.y);
+                //var delta = touch.getDelta();
+                var mouse = touch.getLocation();
+                var p = MapValues.screenPositionToLogic(mouse.x, mouse.y);
+                p.x = Math.floor(p.x);
+                p.y = Math.floor(p.y);
+                if(!this._isHide) {
+                    cc.log(p.x + " " + p.y);
                     this.self.getParent().hide();
                     this._isHide = true;
                     if (item.id == "bakery_machine") {
-                        this.sprite = new BakerySprite(item.width, item.height, Math.round(pl.x), Math.round(pl.y));
+                        cc.log(p);
+                        this.sprite = new BakerySprite(p.x, p.y);
                         MapLayer.instance.addChild(this.sprite);
-                        var bakeryMachine = new BakeryMachine(new Coordinate(pl.x, pl.y));
+                        var bakeryMachine = new BakeryMachine(new Coordinate(p.x, p.y));
                         user.getAsset().addMachine(bakeryMachine);
                         this.check = true;
                     }
                 }
                 //var ps = MapValues.screenPositionToMapPosition(dragSprite.x + delta.x, dragSprite.y + delta.y);
-                var psl = MapValues.positionToLogic(this.sprite.x + delta.x, this.sprite.y + delta.y);
-                cc.log(psl.x + " : " + psl.x);
-                this.sprite.setLogicPosition(Math.round(psl.x), Math.round(psl.y));
-                cc.log(Math.round(psl.x) + " : " + Math.round(psl.y));
-                cc.log("Touch Moved");
+                //var psl = MapValues.screenPositionToLogic(this.sprite.x + delta.x, this.sprite.y + delta.y);
+                //cc.log(psl.x + " : " + psl.x);
+                if (p.x !== this.lstP.x || p.y !== this.lstP.y) {
+                    this.sprite.setLogicPosition(p.x, p.y);
+                    this.lstP = p;
+                    //cc.log(Math.floor(psl.x) + " : " + Math.floor(psl.y));
+                    cc.log("Touch Moved");
+                }
             },
             onTouchEnded: function (touch, event) {
                 var target = event.getCurrentTarget();

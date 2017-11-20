@@ -10,11 +10,12 @@ var CropToolSprite = cc.Sprite.extend({
         //
         this.render();
 
-        var dragListener = cc.EventListener.create({
+        this.dragListener = cc.EventListener.create({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
             onTouchBegan: function (touch, event) {
-                var target = event.getCurrentTarget();
+                // var target = event.getCurrentTarget();
+                var target = this;
 
                 var locationInNode = target.convertToNodeSpace(touch.getLocation());
                 var s = target.getContentSize();
@@ -31,7 +32,7 @@ var CropToolSprite = cc.Sprite.extend({
 
 
                 return false;
-            },
+            }.bind(this),
             onTouchMoved: function (touch, event) {
                 var delta = touch.getDelta();
 
@@ -56,7 +57,8 @@ var CropToolSprite = cc.Sprite.extend({
             onTouchEnded: function (touch, event) {
                 cc.log("sprite onTouchesEnded.. ");
 
-                var target = event.getCurrentTarget();
+                // var target = event.getCurrentTarget();
+                var target = this;
 
                 target.runAction(new cc.ScaleTo(0.1, 1/1.5, 1/1.5));
 
@@ -64,11 +66,16 @@ var CropToolSprite = cc.Sprite.extend({
                 parent.disablePopup(null);
                 // parent.disablePopup(0);
                 target.removeFromParent(true);
-            }
+                cc.eventManager.removeListener(this.dragListener);
+            }.bind(this)
         });
-        cc.eventManager.addListener(dragListener, this);
+        cc.eventManager.addListener(this.dragListener, 1);
     },
     render: function () {
 
+    },
+    
+    clearListener: function() {
+        cc.eventManager.removeListener(this.dragListener);
     }
 });
