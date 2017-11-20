@@ -1,7 +1,7 @@
 package model;
 
-public class FieldStatusType {
-    public FieldStatusType() {
-        super();
-    }
+public enum FieldStatusType {
+    EMPTY,
+    GROWING,
+    DONE
 }

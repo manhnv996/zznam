@@ -23,4 +23,31 @@ public class Field extends CoordinateObject {
         this.fieldId = fieldId;
         
     }
+    public Date getCropTime(){
+        
+        return new Date();
+    }
+    
+    public boolean plant(String seedType){
+        
+        
+        
+        return false;
+    }
+    
+    public FieldStatusType checkStatus(){
+        if (this.plantType != null){
+            Date currentTime = new Date();
+    
+            if (currentTime.after(getCropTime())){
+                return FieldStatusType.DONE;
+                
+            } else {
+                return FieldStatusType.GROWING;
+            }
+    
+        } else {
+            return FieldStatusType.EMPTY;
+        }
+    }
 }

@@ -70,6 +70,8 @@ public class PlantHandler extends BaseClientRequestHandler {
                 send(new ResponsePlant((short) 14), user);
                 
             }
+            
+            
             /*
              * INPROGRESS
              *  Check status
