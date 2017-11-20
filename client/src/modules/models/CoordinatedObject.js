@@ -10,7 +10,7 @@ var CoordinatedObject = cc.Class.extend({
         //
         // this._super();
 
-        cc.log("ctor coordinateobject:");
+        // cc.log("ctor coordinateobject:");
         this.render(coordinate);
     },
     render: function (coordinate) {

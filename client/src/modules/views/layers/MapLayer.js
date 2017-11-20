@@ -302,7 +302,7 @@ var MapLayer = (function() {
 				var startY = MapValues.yLinearByYl(lineYl, startX);
 				while (startY >= this.BOTTOM_LIMIT.y) {
 					var countX = Math.round((startY - this.BOTTOM_LIMIT.y) / (contentSize.height - overlapY));
-					for (var i = countX; i >= 0; i--) {
+					for (var i = 0; i <= countX; i++) {
 						var sprite = new cc.Sprite(res.NHOM_CAY_2);
 						sprite.setPosition(
 							startX,
@@ -330,7 +330,7 @@ var MapLayer = (function() {
 				var startY = MapValues.yLinearByXl(lineXl, startX);
 				while (startY >= this.BOTTOM_LIMIT.y) {
 					var countX = Math.round((startY - this.BOTTOM_LIMIT.y) / (contentSize.height - overlapY));
-					for (var i = countX; i >= 0; i--) {
+					for (var i = 0; i <= countX; i++) {
 						var sprite = new cc.Sprite(res.NHOM_CAY_2);
 						sprite.setPosition(
 							startX, 
@@ -555,16 +555,25 @@ var MapLayer = (function() {
 		},
 
 		zoom: function(sign, cursor) {
-			var deltaScale = SCALE_RATIO * sign;
-			
-			var newScale = this.scale + deltaScale;
-			if (newScale > 0.1 && newScale <= 2) {
+			var deltaScale = Math.round(SCALE_RATIO * sign * 1000) / 1000;
+			var currentScale = Math.round(this.scale * 1000) / 1000;
+			var newScale = Math.round((currentScale + deltaScale) * 1000) / 1000;
+
+			if (newScale < 0.15) {
+				newScale = 0.15;
+				deltaScale = newScale - currentScale;
+			}
+			if (newScale > 2) {
+				newScale = 2;
+				deltaScale = newScale - currentScale;
+			}
+
+			if (newScale !== currentScale) {
 				var cx = this.centerPoint.x + this.x - cursor.x;
 				var cy = this.centerPoint.y + this.y - cursor.y;
-				var dx = deltaScale * cx / this.scale;
-				var dy = deltaScale * cy / this.scale;
+				var dx = deltaScale * cx / currentScale;
+				var dy = deltaScale * cy / currentScale;
 				this.setScale(newScale);
-				// cc.log(this.bakery.getBoundingBox())
 				this.move(dx, dy);
 			}
 		},

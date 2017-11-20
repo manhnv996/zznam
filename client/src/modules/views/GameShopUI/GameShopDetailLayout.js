@@ -57,7 +57,7 @@ var GameShopDetailLayout = ccui.Layout.extend({
 
         this._maxField = maxField;
 
-        cc.log(user);
+        // cc.log(user);
         this._level = user.getLevel();
 
         this._winSize = cc.director.getVisibleSize();
