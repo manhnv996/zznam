@@ -10,11 +10,12 @@ var CropToolSprite = cc.Sprite.extend({
         //
         this.render();
 
-        var dragListener = cc.EventListener.create({
+        this.dragListener = cc.EventListener.create({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
             onTouchBegan: function (touch, event) {
-                var target = event.getCurrentTarget();
+                // var target = event.getCurrentTarget();
+                var target = this;
 
                 var locationInNode = target.convertToNodeSpace(touch.getLocation());
                 var s = target.getContentSize();
@@ -26,28 +27,20 @@ var CropToolSprite = cc.Sprite.extend({
                     //
                     target.runAction(new cc.ScaleTo(0.1, 1.5, 1.5));
 
-                     target.opacity = 180;
                     return true;
                 }
 
 
                 return false;
-            },
+            }.bind(this),
             onTouchMoved: function (touch, event) {
-
                 var delta = touch.getDelta();
 
-                //this.x += delta.x / MapLayer.instance.scale;
-                //this.y += delta.y / MapLayer.instance.scale;
                 this.x += delta.x;
                 this.y += delta.y;
 
-
                 parent.popupItemList.shift();
-
                 parent.disablePopup(null);
-                    // parent.disablePopupBackground();
-
 
                 // cc.log("onTouchMoved: " + delta.x + ", " + delta.y);
 
@@ -59,30 +52,30 @@ var CropToolSprite = cc.Sprite.extend({
                 DONE
                  */
 
-
-
-                //var toolBoundingBox = this.getBoundingBox();
-                //if (cc.rectIntersectsRect(toolBoundingBox, runnerBoundingBox)){
-                //    PlantCtrl.instance.onDragCropTool(this.x, this.y);
-                //}
-
             }.bind(this),
 
             onTouchEnded: function (touch, event) {
                 cc.log("sprite onTouchesEnded.. ");
 
-                var target = event.getCurrentTarget();
-                target.opacity = 255;
+                // var target = event.getCurrentTarget();
+                var target = this;
 
                 target.runAction(new cc.ScaleTo(0.1, 1/1.5, 1/1.5));
 
+                parent.popupItemList.shift();
                 parent.disablePopup(null);
+                // parent.disablePopup(0);
                 target.removeFromParent(true);
-            }
+                cc.eventManager.removeListener(this.dragListener);
+            }.bind(this)
         });
-        cc.eventManager.addListener(dragListener, 1);
+        cc.eventManager.addListener(this.dragListener, 1);
     },
     render: function () {
 
+    },
+    
+    clearListener: function() {
+        cc.eventManager.removeListener(this.dragListener);
     }
 });

@@ -14,10 +14,9 @@ gv.CMD.MOVE = 2001;
 gv.CMD.PLANT = 5001;
 gv.CMD.CROP = 5002;
 gv.CMD.PLANT_BOOST = 5003;
+gv.CMD.BUY_ITEM_BY_RUBI = 5004;
 
-
-gv.CMD.CHECK_STATUS_FIELD = 2091;
-gv.CMD.ADD_STORAGE_ITEM = 2092;
+gv.CMD.RECEIVE_FIELD_STATUS = 5011;
 
 
 
@@ -94,39 +93,6 @@ CmdSendMove = fr.OutPacket.extend(
 
 
 //
-CmdSendCheckStatusField = fr.OutPacket.extend(
-    {
-        ctor:function()
-        {
-            this._super();
-            this.initData(100);
-            this.setCmdId(gv.CMD.CHECK_STATUS_FIELD);
-        },
-        pack:function(fieldId){
-            this.packHeader();
-            this.putShort(fieldId);
-            this.updateSize();
-        }
-    }
-);
-
-CmdSendAddStorageItem = fr.OutPacket.extend(
-    {
-        ctor:function()
-        {
-            this._super();
-            this.initData(100);
-            this.setCmdId(gv.CMD.ADD_STORAGE_ITEM);
-        },
-        pack:function(productType, number){
-            this.packHeader();
-            this.putShort(productType);
-            this.putShort(number);
-            this.updateSize();
-        }
-    }
-);
-
 CmdSendPlant = fr.OutPacket.extend(
     {
         ctor:function()
@@ -139,7 +105,6 @@ CmdSendPlant = fr.OutPacket.extend(
             this.packHeader();
 
             this.putShort(fieldId);
-            // this.putShort(productType);
             this.putString(productType);
 
             this.updateSize();
@@ -155,12 +120,11 @@ CmdSendCrop = fr.OutPacket.extend(
             this.initData(100);
             this.setCmdId(gv.CMD.CROP);
         },
-        pack:function(fieldId, productType){
+        pack:function(fieldId){
             this.packHeader();
 
             this.putShort(fieldId);
-            // this.putShort(productType);
-            this.putString(productType);
+            // this.putString(productType);
 
             this.updateSize();
         }
@@ -175,10 +139,28 @@ CmdSendPlantBoost = fr.OutPacket.extend(
             this.initData(100);
             this.setCmdId(gv.CMD.PLANT_BOOST);
         },
-        pack:function(fieldId, productType){
+        pack:function(fieldId){
             this.packHeader();
 
             this.putShort(fieldId);
+            // this.putString(productType);
+
+            this.updateSize();
+        }
+    }
+);
+
+CmdSendBuyItemByRubi = fr.OutPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+            this.initData(100);
+            this.setCmdId(gv.CMD.BUY_ITEM_BY_RUBI);
+        },
+        pack:function(productType){
+            this.packHeader();
+
             this.putString(productType);
 
             this.updateSize();
@@ -247,35 +229,6 @@ testnetwork.packetMap[gv.CMD.MOVE] = fr.InPacket.extend(
 
 
 //
-testnetwork.packetMap[gv.CMD.CHECK_STATUS_FIELD] = fr.InPacket.extend(
-    {
-        ctor:function()
-        {
-            this._super();
-        },
-        readData:function(){
-            this.fieldId = this.getShort();
-            this.status = this.getShort();
-        }
-    }
-);
-
-testnetwork.packetMap[gv.CMD.ADD_STORAGE_ITEM] = fr.InPacket.extend(
-    {
-        ctor:function()
-        {
-            this._super();
-        },
-        readData:function(){
-            this.isResult = this.getBool();
-            this.productType = this.getShort();
-            this.number = this.getShort();
-        }
-    }
-);
-
-
-//
 testnetwork.packetMap[gv.CMD.PLANT] = fr.InPacket.extend(
     {
         ctor:function()
@@ -285,11 +238,9 @@ testnetwork.packetMap[gv.CMD.PLANT] = fr.InPacket.extend(
         readData:function(){
 
             /*
-            INPROGRESS
+             CLOSED, not used
              */
-
-            this.t = this.getShort();
-            cc.log(this.t + " get short ");
+            // this.errorLog = this.getShort();
         }
     }
 );
@@ -303,8 +254,9 @@ testnetwork.packetMap[gv.CMD.CROP] = fr.InPacket.extend(
         readData:function(){
 
             /*
-             INPROGRESS
+             CLOSED, not used
              */
+            // this.errorLog = this.getShort();
         }
     }
 );
@@ -318,12 +270,52 @@ testnetwork.packetMap[gv.CMD.PLANT_BOOST] = fr.InPacket.extend(
         readData:function(){
 
             /*
-             INPROGRESS
+             CLOSED, not used
              */
+            // this.errorLog = this.getShort();
         }
     }
 );
 
+testnetwork.packetMap[gv.CMD.RECEIVE_FIELD_STATUS] = fr.InPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+        },
+        readData:function(){
 
+            /*
+             DONE
+             */
+            this.errorLog = this.getShort();
+
+            if (this.errorLog != 0){    //not success
+
+                this.fieldId = this.getInt();
+                this.plantType = this.getString();
+                this.plantedTime = this.getLong();
+            }
+        }
+    }
+);
+
+testnetwork.packetMap[gv.CMD.BUY_ITEM_BY_RUBI] = fr.InPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+        },
+        readData:function(){
+
+            /*
+             DONE
+             */
+            this.errorLog = this.getShort();
+            this.productType = this.getString();
+
+        }
+    }
+);
 
 

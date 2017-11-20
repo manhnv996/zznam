@@ -9,5 +9,6 @@ public class RequestMove extends BaseCmd{
     public RequestMove(DataCmd dataCmd) {
         super(dataCmd);
         unpackData();
+        
     }
 }

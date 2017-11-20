@@ -609,38 +609,6 @@ var MapLayer = (function() {
 
 		},
 
-		showSeedPopup: function (fieldId, seedList) {
-            var index = this.getIndexOfFieldList(fieldId);
-
-            if (index != null) {
-                this.disablePopupAllFieldList();
-                this.disableProgressBarAllFieldList();
-
-                this.fieldList[index].showSeedPopup(fieldId, seedList);
-            }
-        },
-        showToolPopup: function (fieldId) {
-            var index = this.getIndexOfFieldList(fieldId);
-
-            if (index != null) {
-            	this.disablePopupAllFieldList();
-            	this.disableProgressBarAllFieldList();
-
-                this.fieldList[index].showToolPopup(fieldId);
-            }
-        },
-
-		//
-		disablePopupAllFieldList: function () {
-			for (var i = 0; i < this.fieldList.length; i++){
-				this.fieldList[i].disablePopup(null);
-
-                this.fieldList[i].popupBackground = null;
-                this.fieldList[i].popupItemList = [];
-			}
-        },
-		//
-
 
         getIndexOfFieldList: function (fieldId) {
             if (fieldId == null){
@@ -653,7 +621,7 @@ var MapLayer = (function() {
             }
             return null;
         },
-		//
+		// //
 
 
 		runAnimationPlantting: function(fieldId, seedType){
@@ -676,37 +644,5 @@ var MapLayer = (function() {
 			}
 
 		},
-
-
-		//
-		showProgressBar: function (fieldId) {
-			var index = this.getIndexOfFieldList(fieldId);
-			if (index != null){
-                this.disablePopupAllFieldList();
-                this.disableProgressBarAllFieldList();
-
-				this.fieldList[index].showProgressBarInprogress();
-			}
-		},
-		disableProgressBarAllFieldList: function () {
-			for (var i = 0; i < this.fieldList.length; i++){
-				this.fieldList[i].disableProgressBarInprogress();
-			}
-		},
-		//
-
-		//
-		showNoticeFullFoodStorageBG: function () {
-            // this.bgNotice = new cc.Sprite(res.bgNotice);
-            // this.bgNotice.setPosition(300, 300);
-            // this.addChild(this.bgNotice);
-            //
-            // var msgFullFoodStorage = new cc.Sprite(res.msgFullFoodStorage);
-            // this.setPosition(cc.p(this.bgNotice.width / 2, this.bgNotice.height / 2));
-            // this.bgNotice.addChild(msgFullFoodStorage);
-
-        }
-
-
 	});
 })();

@@ -13,6 +13,7 @@ import cmd.receive.demo.RequestPlant;
 
 import cmd.send.demo.ResponseMove;
 
+
 import java.awt.Point;
 
 import model.ZPUserInfo;
@@ -40,21 +41,7 @@ public class DemoHandler extends BaseClientRequestHandler {
                 processMove(user, move);
                 break;
             
-                
-//            //
-//            case CmdDefine.PLANT:
-//                RequestPlant plant = new RequestPlant(dataCmd);
-//                
-//                processPlant(user, plant);
-//                break;
-//            
-//            case CmdDefine.CROP:
-//                RequestCrop crop = new RequestCrop(dataCmd);
-//                
-//                
-//                break;
             }
-            
                 
         } catch (Exception e) {
             logger.warn("DEMO HANDLER EXCEPTION " + e.getMessage());
@@ -62,52 +49,7 @@ public class DemoHandler extends BaseClientRequestHandler {
         }
 
     }
-    
-//    /////////////
-//    public void processPlant(User user, RequestPlant plant){
-//        try {
-//            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
-//            if (userInfo==null){
-////                send(new ResponseMove(DemoError.ERROR.getValue(), new Point()), user);
-//                
-//            }
-//            /*
-//             * INPROGRESS
-//             *  Check status
-//             *  if status == EMPTY
-//             *      takeItem -> if true (saveModel) 
-//             *  
-//             *  send Response
-//             */
-////            userInfo.move(move.direction);
-////            userInfo.saveModel(user.getId());            
-////            send(new ResponseMove(DemoError.SUCCESS.getValue(), userInfo.position), user);
-//            
-//        } catch (Exception e) {
-//        }
-//    }
-//    
-//    public void processCrop(User user, RequestCrop crop){
-//        try {
-//            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
-//            if (userInfo==null){
-//    //                send(new ResponseMove(DemoError.ERROR.getValue(), new Point()), user);
-//                
-//            }
-//            /*
-//             * INPROGRESS
-//             *  Check status
-//             *  if status == DONE
-//             *      addItem -> if true (saveModel) 
-//             *  
-//             *  send Response
-//             */
-//            
-//        } catch (Exception e) {
-//        }
-//    }
-//    /////////
-    
+        
     
     public void processMove(User user, RequestMove move){
         try {

@@ -24,19 +24,6 @@ var User = cc.Class.extend({
         this.asset = asset;
     },
 
-    //properties: {
-    //    test: {
-    //        default: 15,
-    //
-    //        get: function () {
-    //            return this._test;
-    //        },
-    //        set: function (value) {
-    //            this._test = value;
-    //        }
-    //    }
-    //},
-
 
     getGold: function () {
         return this.gold;
@@ -54,6 +41,13 @@ var User = cc.Class.extend({
         return this.asset;
     },
 
+
+
+    /*
+    NOT YET STARTED
+    SHOW Effect if Add or Reduce asset (call controller)
+     */
+
     addGold: function (number) {
         this.gold += number;
     },
@@ -64,7 +58,7 @@ var User = cc.Class.extend({
         this.exp += number;
         //bug
         /*
-        INPROGRESS
+        NOT YET STARTED
         if level up
          */
     },
