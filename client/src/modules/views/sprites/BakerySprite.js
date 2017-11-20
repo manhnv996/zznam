@@ -1,13 +1,14 @@
-var BakerySprite = MapBlockSprite.extend({
+var BakerySprite = AnimationSprite.extend({
 	ctor: function(x, y) {
-		this._super(undefined, 3, 3, 4, 3);
-		this.content = fr.createAnimationById(resAniId.bakery, this);
-		this.content.gotoAndPlay('loop', -1);
-		this.addChild(this.content);
-		cc.log(this.getBoundingBox());
+		this._super(resAniId.bakery, 3, 3, 4, 3);
+		// this.content = fr.createAnimationById(resAniId.bakery, this);
+		// this.content.gotoAndPlay('loop', -1);
+		// this.addChild(this.content);
+		this.play("loop");
+		this.registerTouchEvents();
 	},
 
-	// getContentSize: function() {
-	// 	return this.content.getBoundingBox();
-	// }
+	onClick: function() {
+		cc.log("bakery is clicked");
+	}
 });

@@ -10,7 +10,7 @@ var MainScene = cc.Scene.extend({
 
 	onEnter: function() {
 		this._super();
-		MapController.instance.init();
+		MapCtrl.instance.init();
 		this.init();
 	},
 	init: function() {

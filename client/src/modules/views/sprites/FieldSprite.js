@@ -28,8 +28,8 @@ var FieldSprite = MapBlockSprite.extend({
         //
         this.render(fieldId);
 
-        this.addTouchEventListener(parent, fieldId);
-
+        // this.addTouchEventListener(parent, fieldId);
+        this.registerTouchEvents();
 
 ///////////
         this.schedule(this.updateFieldStatus, 0.5);
@@ -60,14 +60,15 @@ var FieldSprite = MapBlockSprite.extend({
     // },
 
 
-    //
+    // Not use
     addTouchEventListener: function (parent, fieldId) {
 
         var touchListener = cc.EventListener.create({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
             onTouchBegan: function (touch, event) {
-                var target = event.getCurrentTarget();
+                // var target = event.getCurrentTarget();
+                var target = this;
 
                 var locationInNode = target.convertToNodeSpace(touch.getLocation());
                 var s = target.getContentSize();
@@ -84,7 +85,7 @@ var FieldSprite = MapBlockSprite.extend({
 
 
                 return false;
-            },
+            }.bind(this),
             onTouchMoved: function (touch, event) {
                 touchListener._lock = false;
                 var delta = touch.getDelta();
@@ -95,7 +96,8 @@ var FieldSprite = MapBlockSprite.extend({
 
             onTouchEnded: function (touch, event) {
                 cc.log("sprite onTouchesEnded.. ");
-                var target = event.getCurrentTarget();
+                // var target = event.getCurrentTarget();
+                var target = this;
                 target.opacity = 255;
                 //
                 if (touchListener._lock) {
@@ -103,9 +105,24 @@ var FieldSprite = MapBlockSprite.extend({
                 }
                 //parent.showSeedPopup();
 
-            }
+            }.bind(this)
         });
-        cc.eventManager.addListener(touchListener, this);
+        cc.eventManager.addListener(touchListener, this.lx + this.ly);
+    },
+
+    // When click
+    onClick: function() {
+        PlantCtrl.instance.onFieldSelected(this.fieldId);
+    },
+
+    // When begin click
+    onBeginClick: function() {
+        this.setOpacity(180);
+    },
+
+    // When end click    
+    onEndClick: function() {
+        this.setOpacity(255);
     },
 
     //loadAnimFrames: function(num, str_seed_key, speed){

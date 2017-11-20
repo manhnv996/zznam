@@ -9,8 +9,76 @@ var MapBlockSprite = cc.Sprite.extend({
 		this.setLogicPosition(x, y);
 	},
 
+    // Override there methods in inherited class
+    onClick: function() {},
+    onBeginClick: function() {},
+    onEndClick: function() {},
+
+    // Register touch event, call this in constructor
 	registerTouchEvents: function() {
-		cc.log("Register touch events");
+        // Calculate bounding points
+       //  TL---TR
+       //  |*****|
+       //  L*****R
+       //   \***/
+       //    \*/
+       //     B
+        var leftPoint = MapValues.logicToPosition(
+            this.lx, 
+            this.ly + this.blockSizeY
+        );
+        var rightPoint = MapValues.logicToPosition(
+            this.lx + this.blockSizeX,
+            this.ly);
+        var bottomPoint = MapValues.logicToPosition(
+            this.lx + this.blockSizeX,
+            this.ly + this.blockSizeY
+        );
+
+        var contentSize = this.getContentSize();
+        var topLeftPoint = cc.p(
+            leftPoint.x,
+            bottomPoint.y + contentSize.height
+        );
+        var topRightPoint = cc.p(
+            rightPoint.x,
+            bottomPoint.y + contentSize.height
+        );
+
+        // Polygon with 5 verts
+        this.boundingPoints = [
+            bottomPoint, leftPoint, topLeftPoint, 
+            topRightPoint, rightPoint
+        ];
+
+        this.touchListener = cc.EventListener.create({
+            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            swallowTouches: true,
+            onTouchBegan: function (touch, event) {
+                var touchLocation = touch.getLocation();
+                var location = MapValues.screenPositionToMapPosition(touchLocation.x, touchLocation.y);
+                this.touchListener.__isMoved = false;
+                // Check if is click inside sprite
+                if (rayCasting(location, this.boundingPoints)) {
+                    this.onBeginClick();
+                    return true;
+                }
+                return false;
+            }.bind(this),
+
+            onTouchMoved: function(touch, event) {
+                // Move map and disable onclick
+                this.touchListener.__isMoved = true;
+                var delta = touch.getDelta();
+                MapLayer.instance.move(delta.x, delta.y);
+            }.bind(this),
+            
+            onTouchEnded: function(touch, event) {
+                this.onEndClick();
+                !this.touchListener.__isMoved && this.onClick();
+            }.bind(this)
+        });
+        cc.eventManager.addListener(this.touchListener, this.lx + this.ly +  + MapConfigs.offsetEventPriority);
 	}
 });
 
@@ -25,12 +93,13 @@ cc.Node.prototype.setLogicPosition = function(lx, ly) {
     }
     this.lx = lx;
     this.ly = ly;
-    var contentSize = this.getContentSize();
-    if (contentSize.width + contentSize.height === 0) {
-    	this.setLocalZOrder(this.lx + this.ly);
-    	this.setPosition(MapValues.logicToPosition(lx, ly));
-    	return;
+    if (this.__isAnimation) {
+        // Do not calculate with animations
+        this.setLocalZOrder(this.lx + this.ly);
+        this.setPosition(MapValues.logicToPosition(lx, ly));
+        return;
     }
+    var contentSize = this.getContentSize();
     var point2 = MapValues.logicToPosition(lx, ly);
     var point1 = MapValues.logicToPosition(
         lx - this.blockSizeX,
