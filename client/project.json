@@ -77,6 +77,7 @@
 
 
 
+        "src/modules/configs/enum/ErrorLog.js",
         "src/modules/configs/enum/ProductTypes.js",
         "src/modules/configs/enum/FieldStatusTypes.js",
         "src/modules/configs/config.js",
@@ -87,7 +88,6 @@
         "src/modules/controllers/MapCtrl.js",
         "src/modules/controllers/PopupCtrl.js",
         "src/modules/controllers/GameShopController.js",
-
 
         "src/modules/models/CoordinatedObject.js",
         "src/modules/models/Coordinate.js",

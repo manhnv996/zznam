@@ -53,7 +53,7 @@ var Asset = cc.Class.extend({
     getFieldById: function(fieldId) {
         for (var i = 0; i < this.fieldList.length; i++){
             if (this.fieldList[i].getFieldId() == fieldId){
-                cc.log("i = " + i);
+
                 return this.fieldList[i];
             }
         }
@@ -75,7 +75,7 @@ var Asset = cc.Class.extend({
 
             if (this.fieldList[i].getCoordinate().getCurrX() == lx){
                 if (this.fieldList[i].getCoordinate().getCurrY() == ly){
-                    //cc.log("i = " + i);
+
                     return this.fieldList[i];
                 }
 

@@ -14,14 +14,12 @@ var SeedSprite = cc.Sprite.extend({
 
         //
         this.render(seedType);
-
         this.addDragEventListener(parent, seedType);
 
     },
     render: function (seedType) {
 
         this.seedType = seedType;
-
         //
         this.quantity = null;
     },
@@ -44,45 +42,47 @@ var SeedSprite = cc.Sprite.extend({
 
                     //
                     target.runAction(new cc.ScaleTo(0.1, 1.5, 1.5));
+                    //
+                    dragListener._isFirstMove = false;
 
 
                     if (target.quantity == null){
-
-                        target.removeAllChildrenWithCleanup(true);  //remove all child
-
-                        //target.removeFromParent(true);
-                        // parent.disablePopup(seedType);
                         /*
                         DONE
                         SHOW LEVEL UNLOCK
                          */
                         target.showInfo();
 
-                        return false;
+                    } else {
+                        target.slot.runAction(new cc.MoveBy(0.1, target.width / 4, target.height / 4));
                     }
 
-                    target.removeAllChildrenWithCleanup(true);  //remove all child
 
-
-                    target.opacity = 180;
                     return true;
                 }
-
                 return false;
             },
             onTouchMoved: function (touch, event) {
 
                 var delta = touch.getDelta();
+                var target = event.getCurrentTarget();
 
-                //this.x += delta.x / MapLayer.instance.scale;
-                //this.y += delta.y / MapLayer.instance.scale;
+                if (target.quantity == null){
+                    return false;
+                }
+
                 this.x += delta.x;
                 this.y += delta.y;
 
                 ////
-                parent.disablePopup(seedType);
+                if (!dragListener._isFirstMove){
+                    parent.disablePopup(seedType);
 
-                //cc.log("onTouchMoved: " + delta.x + ", " + delta.y);
+                    //
+                    dragListener._isFirstMove = true;
+                    target.removeAllChildrenWithCleanup(true);  //remove all child
+                }
+
 
                 //Call ctrl
                 var mouse = touch.getLocation();
@@ -90,9 +90,8 @@ var SeedSprite = cc.Sprite.extend({
 
                 PlantCtrl.instance.onDragSeed(seedType, mouse.x, mouse.y);
                 /*
-                 INPROGRESS
+                 DONE
                  */
-
 
             }.bind(this),
 
@@ -100,11 +99,20 @@ var SeedSprite = cc.Sprite.extend({
                 cc.log("sprite onTouchesEnded.. ");
 
                 var target = event.getCurrentTarget();
-                target.opacity = 255;
-                target.removeFromParent(true);
 
-                // parent.removePopup();
-                parent.disablePopup(seedType);
+                if (!dragListener._isFirstMove){
+                    target.runAction(new cc.ScaleTo(0.1, 1, 1));
+
+                    if (target.quantity == null){
+                        target.removeAllChildrenWithCleanup(true);
+                    } else {
+                        target.slot.runAction(new cc.MoveBy(0.1, - target.width / 4, - target.height / 4));
+                    }
+                } else {
+
+                    parent.disablePopup(seedType);
+                    target.removeFromParent(true);
+                }
 
             }
         });
@@ -112,11 +120,7 @@ var SeedSprite = cc.Sprite.extend({
     },
     //
     showInfo: function () {
-
-        // this.disablePopup(null);
-
         var popupMsg = cc.Sprite.create(res.tooltip);
-        // popupMsg.setPosition(this.width * 4 / 3, this.height * 6 / 5);
         popupMsg.setPosition(0, this.height * 6 / 5);
         popupMsg.setScale(0.5);
         this.addChild(popupMsg);
@@ -125,23 +129,21 @@ var SeedSprite = cc.Sprite.extend({
         var msg = new cc.LabelBMFont("LevelUnlock: " + getProductObjByType(this.seedType).level, res.FONT_OUTLINE_30);
         msg.setPosition(cc.p(popupMsg.width / 2, popupMsg.height / 2));
         popupMsg.addChild(msg);
-
     },
 
     addQuantityInfo: function () {
         /////
         if (this.quantity != null){
-
             var quantitySeed = new cc.LabelBMFont(this.quantity, res.FONT_OUTLINE_20);
             if (this.quantity == 0){
                 quantitySeed.setString("0");
             }
 
-            var slot = new cc.Sprite(res.slot);
-            quantitySeed.setPosition(new cc.p(slot.width / 2, slot.height / 2));
-            slot.setPosition(new cc.p(this.width / 4, this.height * 3 / 4));
-            slot.addChild(quantitySeed);
-            this.addChild(slot);
+            this.slot = new cc.Sprite(res.slot);
+            quantitySeed.setPosition(new cc.p(this.slot.width / 2, this.slot.height / 2));
+            this.slot.setPosition(new cc.p(this.width / 4, this.height * 3 / 4));
+            this.slot.addChild(quantitySeed);
+            this.addChild(this.slot);
 
             var muiten = new cc.Sprite(res.ten);
             muiten.setPosition(new cc.p(this.width * 3 / 4, this.height / 4));
@@ -151,11 +153,4 @@ var SeedSprite = cc.Sprite.extend({
 
     },
 
-    removeDragEventListener: function () {
-        //this.removeAllEventListeners();
-        /*
-        BUGGG
-         */
-
-    }
 });
