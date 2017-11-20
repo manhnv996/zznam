@@ -1,3 +1,4 @@
+
 var BakerySprite = AnimationSprite.extend({
 	ctor: function(x, y) {
 		this._super(resAniId.bakery, 3, 3, x, y);

@@ -1,15 +1,15 @@
 /**
- * Created by CPU60133_LOCAL on 11/7/2017.
+ * Created by CPU60075_LOCAL on 19/11/2017.
  */
 
-var ChickenLodge = AnimalLodge.extend({
+var GoatLodge = AnimalLodge.extend({
     type: null,
-    chickenList: [],
+    goatList: [],
 
     ctor: function () {
         //
         //this._super();
-        this.type = "goat_habitat";
+        this.type = "chicken_habitat";
 
 
     },
@@ -19,7 +19,7 @@ var ChickenLodge = AnimalLodge.extend({
     },
 
     getCurrentSlot: function () {
-        return this.chickenList.length;
+        return this.cowList.length;
     },
 
     getType: function () {

@@ -6,6 +6,9 @@ var MainScene = cc.Scene.extend({
 
 		PopupLayer.instance = new PopupLayer();
 		this.addChild(PopupLayer.instance);
+
+		cc.log("Start Scene");
+
 	},
 
 	onEnter: function() {
@@ -13,6 +16,7 @@ var MainScene = cc.Scene.extend({
 		MapCtrl.instance.init();
 		this.init();
 	},
+
 	init: function() {
 
 		gv.gameClient.connect();
@@ -21,8 +25,8 @@ var MainScene = cc.Scene.extend({
 
 		////    TEST//
 		////     var field = new Field();
-		var foodStorage = new Storages(new Coordinate(10, 10), "foodStorage", 30);
-		//var warehouse = new Storages(new Coordinate(15, 10), initt.warehouse.storageId, initt.warehouse.capacity);
+		var foodStorage = new Storages(new Coordinate(10, 10), "foodStorage", 50);
+		//var warehouse = new Storages(new Coordinate(15, 10), init.warehouse.storageId, initt.warehouse.capacity);
 
 		// foodStorage.addItem(ProductTypes.CROP_CORN, 10);
 		foodStorage.addItem(ProductTypes.CROP_CARROT, 5);
@@ -64,5 +68,8 @@ var MainScene = cc.Scene.extend({
 			cc.log("Field_" + fieldList[i].getFieldId() + ": " + fieldList[i].getCoordinate().getCurrX() + ", " + fieldList[i].getCoordinate().getCurrY());
 			// cc.log("Field_" + fieldList[i].getFieldId() + ": " + fieldList[i].getCurrX() + ", " + fieldList[i].getCurrY());
 		}
+
+		GameShopLayer.instance = new GameShopLayer(GameShopController.instance.getMaxField());
+		this.addChild(GameShopLayer.instance);
 	}
 });

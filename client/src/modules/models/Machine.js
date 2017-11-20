@@ -5,9 +5,9 @@ var Machine = CoordinatedObject.extend({
     startTime: null,
     productQueue: null,
 
-    ctor: function () {
+    ctor: function (coordinate) {
         //
-        //this._super();
+        this._super(coordinate);
 
 
     },

@@ -37,7 +37,7 @@ var MapValues = new function() {
 	// Convert screen position to logic map position
 	this.screenPositionToLogic = function(x, y) {
 		// First convert screen position to map position
-		var mapPosition = this.screenPositionToMapPosition(x, y)
+		var mapPosition = this.screenPositionToMapPosition(x, y);
 		// Last convert map position to logic map position
 		return this.positionToLogic(mapPosition.x, mapPosition.y);
 	}
