@@ -46,6 +46,7 @@
  }
  *
  */
+
 var gv = gv || {};
 
 // Redefine cc.log
@@ -69,6 +70,7 @@ cc.log = function() {
 var user;
 
 cc.game.onStart = function () {
+    cc.log("bom");
     if (!cc.sys.isNative && document.getElementById("cocosLoading")) //If referenced loading.js, please remove it
         document.body.removeChild(document.getElementById("cocosLoading"));
 
@@ -98,6 +100,7 @@ cc.game.onStart = function () {
         gv.gameClient = new GameClient();
         gv.poolObjects = new PoolObject();
         testnetwork.connector = new testnetwork.Connector(gv.gameClient);
+        cc.log("abc");
 		cc.director.runScene(new MainScene());
 
     }, this);

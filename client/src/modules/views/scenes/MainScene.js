@@ -7,6 +7,8 @@ var MainScene = cc.Scene.extend({
 		PopupLayer.instance = new PopupLayer();
 		this.addChild(PopupLayer.instance);
 
+		cc.log("Start Scene");
+
 	},
 
 	onEnter: function() {

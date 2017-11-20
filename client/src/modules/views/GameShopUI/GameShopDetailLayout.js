@@ -294,7 +294,7 @@ var GameShopDetailLayout = ccui.Layout.extend({
                 }
                 //var ps = MapValues.screenPositionToMapPosition(dragSprite.x + delta.x, dragSprite.y + delta.y);
                 var psl = MapValues.positionToLogic(this.sprite.x + delta.x, this.sprite.y + delta.y);
-                //cc.log(ps.x + " : " + psl.x);
+                cc.log(psl.x + " : " + psl.x);
                 this.sprite.setLogicPosition(Math.round(psl.x), Math.round(psl.y));
                 cc.log(Math.round(psl.x) + " : " + Math.round(psl.y));
                 cc.log("Touch Moved");
