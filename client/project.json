@@ -18,6 +18,7 @@
         "src/**/*.js"
     ],
     "jsList": [
+        "src/modules/views/scenes/MainScene.js",
         "src/data/MapResource.js",
         "src/data/ShopResource.js",
         "src/data/HavestResource.js",
@@ -85,6 +86,7 @@
         "src/modules/controllers/PlantCtrl.js",
         "src/modules/controllers/MapCtrl.js",
         "src/modules/controllers/PopupCtrl.js",
+        "src/modules/controllers/GameShopController.js",
 
 
         "src/modules/models/CoordinatedObject.js",
@@ -95,12 +97,21 @@
         "src/modules/models/Asset.js",
         "src/modules/models/User.js",
 
+        "src/modules/models/AnimalLodge.js",
+        "src/modules/models/ChickenLodge.js",
+        "src/modules/models/CowLodge.js",
+        "src/modules/models/PigLodge.js",
+        "src/modules/models/SheepLodge.js",
+        "src/modules/models/GoatLodge.js",
 
+        "src/modules/models/Machine.js",
+        "src/modules/models/BakeryMachine.js",
+        "src/modules/models/ButterMachine.js",
+        "src/modules/models/FoodMachine.js",
+        "src/modules/models/PopcornMachine.js",
+        "src/modules/models/SugarMachine.js",
 
-
-
-
-
+        "src/modules/models/GameShop.js",
 
         "src/modules/views/GameShopUI/GameShopLayer.js",
         "src/modules/views/GameShopUI/GameShopBtnLayout.js",
@@ -109,7 +120,6 @@
         "src/modules/views/GameShopUI/DragLayer.js",
 
         "src/modules/views/layers/MapLayer.js",
-        "src/modules/views/scenes/MainScene.js",
 
         "src/modules/controllers/MapController.js"
     ]

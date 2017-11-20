@@ -49,9 +49,16 @@ var GameShopDetailLayout = ccui.Layout.extend({
     _scaleBtn: 0,
     _item: null,
     _isHide: false,
+    _maxField: 0,
+    _level: 1,
 
-    ctor: function () {
+    ctor: function (maxField) {
         this._super();
+
+        this._maxField = maxField;
+
+        cc.log(user);
+        this._level = user.getLevel();
 
         this._winSize = cc.director.getVisibleSize();
         var sizeWidthList = this._winSize.width / 3;
@@ -127,7 +134,20 @@ var GameShopDetailLayout = ccui.Layout.extend({
         var infoItem = res.infoShopItem;
         for(var i = 0; i < infoItem.length; i++){
             if(infoItem[i].type == 1) {
-                this._item = this.addSlot(infoItem[i], 1, 1);
+                if(infoItem[i].id == "field"){
+                    this._item = this.addSlot(infoItem[i], user.getAsset().getFieldList().length, this._maxField);
+                }
+                else{
+                    if(this._level >= infoItem[i].level3) {
+                        this._item = this.addSlot(infoItem[i], this.getNumberLodge(infoItem[i].id), 3);
+                    } else if (infoItem[i].level2 <= this._level && this._level < infoItem[i].level3) {
+                        this._item = this.addSlot(infoItem[i], this.getNumberLodge(infoItem[i].id), 2);
+                    } else if (infoItem[i].level <= this._level && this._level < infoItem[i].level2) {
+                        this._item = this.addSlot(infoItem[i], this.getNumberLodge(infoItem[i].id), 1);
+                    } else {
+                        this._item = this.addSlot(infoItem[i], 0, 0);
+                    }
+                }
                 this._listView.pushBackCustomItem(this._item);
             }
         }
@@ -146,7 +166,20 @@ var GameShopDetailLayout = ccui.Layout.extend({
                     case "Lodge":
                         for(var i = 0; i < infoItem.length; i++){
                             if(infoItem[i].type == 1) {
-                                this._item = this.addSlot(infoItem[i], 1, 1);
+                                if(infoItem[i].id == "field"){
+                                    this._item = this.addSlot(infoItem[i], user.getAsset().getFieldList().length, this._maxField);
+                                }
+                                else{
+                                    if(this._level >= infoItem[i].level3) {
+                                        this._item = this.addSlot(infoItem[i], this.getNumberLodge(infoItem[i].id), 3);
+                                    } else if (infoItem[i].level2 <= this._level && this._level < infoItem[i].level3) {
+                                        this._item = this.addSlot(infoItem[i], this.getNumberLodge(infoItem[i].id), 2);
+                                    } else if (infoItem[i].level <= this._level && this._level < infoItem[i].level2) {
+                                        this._item = this.addSlot(infoItem[i], this.getNumberLodge(infoItem[i].id), 1);
+                                    } else {
+                                        this._item = this.addSlot(infoItem[i], 0, 0);
+                                    }
+                                }
                                 this._listView.pushBackCustomItem(this._item);
                             }
                         }
@@ -154,8 +187,9 @@ var GameShopDetailLayout = ccui.Layout.extend({
                         break;
                     case "Animal":
                         for(var i = 0; i < infoItem.length; i++){
+                            var id = infoItem[i].id + "_habitat";
                             if(infoItem[i].type == 2) {
-                                this._item = this.addSlot(infoItem[i], 1, 1);
+                                this._item = this.addSlot(infoItem[i], this.getNumberAnimal(id), this.getNumberLodge(id) * infoItem[i].slot);
                                 this._listView.pushBackCustomItem(this._item);
                             }
                         }
@@ -164,7 +198,7 @@ var GameShopDetailLayout = ccui.Layout.extend({
                     case "Machine":
                         for(var i = 0; i < infoItem.length; i++){
                             if(infoItem[i].type == 3) {
-                                this._item = this.addSlot(infoItem[i], 1, 1);
+                                this._item = this.addSlot(infoItem[i], this.getNumberMachine(infoItem[i].id), infoItem[i].number);
                                 this._listView.pushBackCustomItem(this._item);
                             }
                         }
@@ -226,7 +260,8 @@ var GameShopDetailLayout = ccui.Layout.extend({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: false,
             self: this,
-            dragSprite: null,
+            check: false,
+            //dragSprite: null,
             onTouchBegan: function (touch, event) {
                 var target = event.getCurrentTarget();
                 var locationInNode = target.convertToNodeSpace(touch.getLocation());
@@ -243,39 +278,59 @@ var GameShopDetailLayout = ccui.Layout.extend({
                 var delta = touch.getDelta();
                 if(!this._isHide){
                     var mouse = touch.getLocation();
-                    var position = MapValues.screenPositionToMapPosition(mouse.x, mouse.y);
+                    var p = MapValues.screenPositionToMapPosition(mouse.x, mouse.y);
+                    var pl = MapValues.positionToLogic(p.x, p.y);
+                    cc.log(pl.x + " " + pl.y);
                     this.self.getParent().hide();
                     this._isHide = true;
-                    dragSprite = new DragSprite(item, position);
+                    if(item.id == "bakery_machine"){
+                        var bakery = new BakerySprite(item.width, item.height, pl.x, pl.y);
+                        MapLayer.instance.addChild(bakery);
+                        var bakeryMachine = new BakeryMachine(new Coordinate(pl.x, pl.y));
+                        user.getAsset().addMachine(bakeryMachine);
+                        this.check = true;
+                    }
+                    //dragSprite = new DragSprite(item, pl);
                     //dragSprite = new cc.Sprite(item.nameIconShop);
                     //dragSprite.setPosition(cc.p(mouse.x, mouse.y));
-                    dragSprite.setName("DragSprite");
-                    DragLayer.instance.addChild(dragSprite);
+                    //dragSprite.setName("DragSprite");
+                    //MapLayer.instance.addChild(dragSprite);
                 }
-                dragSprite.x += delta.x;
-                dragSprite.y += delta.y;
+                //var ps = MapValues.screenPositionToMapPosition(dragSprite.x + delta.x, dragSprite.y + delta.y);
+                //var psl = MapValues.positionToLogic(dragSprite.x + delta.x, dragSprite.y + delta.y);
+                //cc.log(ps.x + " : " + psl.x);
+                //cc.log(dragSprite.getParent());
+                //dragSprite.setLogicPosition(psl.x, psl.y);
+                //dragSprite.x += delta.x;
+                //dragSprite.y += delta.y;
                 cc.log("Touch Moved");
             },
             onTouchEnded: function (touch, event) {
-                listener._lock = false;
                 var target = event.getCurrentTarget();
+                if (this.check){
+                    this.self.getParent().updateData();
+                    this.check = false;
+                }
                 this.self.getParent().show();
                 target.setScale(scaleImg);
                 this._isHide = false;
-                DragLayer.instance.removeChildByName("DragSprite");
+                //MapLayer.instance.removeChildByName("DragSprite");
                 cc.log("Touch Ended");
             }
         });
-        cc.eventManager.addListener(listener, image);
 
-/*        var imgBtn = new ccui.Button(res_img);
-        imgBtn.x = layout.width / 4 * 3;
-        imgBtn.y = layout.height / 2;
-        var scaleBtn = slotView.getContentSize().height / imgBtn.getContentSize().height;
-        imgBtn.setScale(scaleBtn);
-        imgBtn.addTouchEventListener(this.onClickImg, this);
-        //Filter.grayScale(imgBtn);
-        layout.addChild(imgBtn);*/
+        if(this._level >= item.level && cslot < mslot) {
+            cc.eventManager.addListener(listener, image);
+        }
+
+/*        if(item.id = "chicken_habitat") {
+            cc.log(this._level >= item.level + " : " + cslot);
+        }*/
+
+        var slot = new cc.LabelBMFont(cslot + "/" + mslot, "fonts/outline/30.fnt");
+        slot.x = layout.width / 3 * 2;
+        slot.y = layout.height / 5 * 4;
+        layout.addChild(slot);
 
         var goldImg = new cc.Sprite(res.gold_png);
         goldImg.x = layout.width / 2;
@@ -295,41 +350,61 @@ var GameShopDetailLayout = ccui.Layout.extend({
         detail.color = cc.color(77, 41, 1);
         layout.addChild(detail);
 
-        var price = new cc.LabelBMFont(item.price, "fonts/outline/30.fnt");
+        var price;
+        if (item.type == 2){
+            var numberLodge = mslot / item.slot;
+            if (cslot < item.slot){
+                price = new cc.LabelBMFont(item.price1, "fonts/outline/30.fnt");
+            } else {
+                if (numberLodge == 2) {
+                    price = new cc.LabelBMFont(item.price2, "fonts/outline/30.fnt");
+                } else if (numberLodge == 3) {
+                    if (cslot < item.slot * 2) {
+                        price = new cc.LabelBMFont(item.price2, "fonts/outline/30.fnt");
+                    } else {
+                        price = new cc.LabelBMFont(item.price3, "fonts/outline/30.fnt");
+                    }
+                } else {
+                    price = new cc.LabelBMFont(item.price1, "fonts/outline/30.fnt");
+                }
+            }
+        } else {
+            price = new cc.LabelBMFont(item.price, "fonts/outline/30.fnt");
+        }
         price.x = layout.width / 5 * 2;
         price.y = 0;
         price.setAnchorPoint(1, -0.5);
         layout.addChild(price);
 
-        var slot = new cc.LabelBMFont(cslot + "/" + mslot, "fonts/outline/30.fnt");
-        slot.x = layout.width / 3 * 2;
-        slot.y = layout.height / 5 * 4;
-        layout.addChild(slot);
-
         return layout;
+    },
+
+    getNumberLodge: function (id) {
+        var number = 0;
+        var listLodge = user.getAsset().getAnimalLodgeList();
+        for(var i = 0; i < listLodge.length; i++){
+            if(listLodge[i].getType() == id) number++;
+        }
+        return number;
+    },
+
+    getNumberAnimal: function (id) {
+        var number = 0;
+        var listLodge = user.getAsset().getAnimalLodgeList();
+        for(var i = 0; i < listLodge.length; i++){
+            if(listLodge[i].getType() == id)
+                number += listLodge[i].getCurrentSlot();
+        }
+        return number;
+    },
+
+    getNumberMachine: function (id) {
+        var number = 0;
+        var listMachine = user.getAsset().getMachineList();
+        for(var i = 0; i < listMachine.length; i++){
+            if(listMachine[i].getType() == id) number++;
+        }
+        return number;
     }
 
-/*    onClickImg: function (sender, type) {
-        switch (type) {
-            case ccui.Widget.TOUCH_BEGAN:
-                cc.log("Touch Began");
-                break;
-            case ccui.Widget.TOUCH_MOVED:
-                if(!this._isHide){
-                    this.getParent().hide();
-                    this._isHide = true;
-                }
-                cc.log("Touch Moved");
-                break;
-            case ccui.Widget.TOUCH_ENDED:
-                cc.log("Touch Ended");
-                break;
-            case ccui.Widget.TOUCH_CANCELED:
-                this.getParent().show();
-                this._isHide = false;
-                cc.log("Touch Cancelled");
-            default:
-                break;
-        }
-    }*/
 });

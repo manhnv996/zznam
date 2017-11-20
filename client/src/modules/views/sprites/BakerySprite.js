@@ -1,6 +1,6 @@
 var BakerySprite = MapBlockSprite.extend({
-	ctor: function(x, y) {
-		this._super(undefined, 3, 3, 4, 3);
+	ctor: function(w, h, x, y) {
+		this._super(undefined, w, h, x, y);
 		this.content = fr.createAnimationById(resAniId.bakery, this);
 		this.content.gotoAndPlay('loop', -1);
 		this.addChild(this.content);

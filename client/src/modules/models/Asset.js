@@ -82,6 +82,10 @@ var Asset = cc.Class.extend({
             }
         }
         return null;
+    },
+
+    addMachine: function (machine) {
+        this.machineList.push(machine);
     }
 
 });

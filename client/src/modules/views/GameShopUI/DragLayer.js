@@ -3,7 +3,7 @@
  */
 
 var DragLayer = cc.Layer.extend({
-    ctor: function (spriteId) {
+    ctor: function () {
         this._super();
     }
 });
