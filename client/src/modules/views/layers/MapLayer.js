@@ -546,7 +546,6 @@ var MapLayer = (function() {
 
 			this.setPosition(newX, newY);
 
-
 //
 			PopupLayer.instance.disablePopup();
 			PopupLayer.instance.disableProgressBarInprogress();
