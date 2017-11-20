@@ -4,13 +4,6 @@ var MainScene = cc.Scene.extend({
 		MapLayer.instance = new MapLayer();
 		this.addChild(MapLayer.instance);
 
-
-		GameShopLayer.instance = new GameShopLayer();
-		this.addChild(GameShopLayer.instance);
-
-		DragLayer.instance = new DragLayer();
-		this.addChild(DragLayer.instance);
-
 		PopupLayer.instance = new PopupLayer();
 		this.addChild(PopupLayer.instance);
 
@@ -69,5 +62,8 @@ var MainScene = cc.Scene.extend({
 			cc.log("Field_" + fieldList[i].getFieldId() + ": " + fieldList[i].getCoordinate().getCurrX() + ", " + fieldList[i].getCoordinate().getCurrY());
 			// cc.log("Field_" + fieldList[i].getFieldId() + ": " + fieldList[i].getCurrX() + ", " + fieldList[i].getCurrY());
 		}
+
+		GameShopLayer.instance = new GameShopLayer(GameShopController.instance.getMaxField());
+		this.addChild(GameShopLayer.instance);
 	}
 });
