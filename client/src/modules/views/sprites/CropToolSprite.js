@@ -80,7 +80,7 @@ var CropToolSprite = cc.Sprite.extend({
                 target.removeFromParent(true);
             }
         });
-        cc.eventManager.addListener(dragListener, this);
+        cc.eventManager.addListener(dragListener, 1);
     },
     render: function () {
 

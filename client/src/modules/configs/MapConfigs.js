@@ -1,5 +1,7 @@
 var MapConfigs = {};
 
+MapConfigs.offsetEventPriority = 10;
+
 MapConfigs.Init = {
 	width: 32,
 	height: 32,
