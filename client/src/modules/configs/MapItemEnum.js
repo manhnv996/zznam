@@ -14,5 +14,8 @@ var MapItemEnum = {
 	CHICKEN_LODGE: 10,
 
 	ROAD2: 11,
-	NHA_CHINH: 12
+	NHA_CHINH: 12,
+	TRUCK_ORDER: 13,
+	MAIL_BOX: 14,
+	ROAD_SHOP: 15
 };

@@ -3,10 +3,11 @@
  */
 
 var MapCtrl = cc.Class.extend({
-    map: [], // [{ type: MapItemEnum, [anotherKey]: [anotherValue] }]
+    map: null, // [{ type: MapItemEnum, [anotherKey]: [anotherValue] }]
 
     init: function() {
         // MapLayer.instance.addChild(new ODatSprite(10, 10));
+        this.map = user.map; // Pass to user map
         this.initMapArray();
         this.renderNaturalThings();
         MapLayer.instance.addChild(new SiloSprite(20, 20));
@@ -17,53 +18,51 @@ var MapCtrl = cc.Class.extend({
         for (var i = 0; i < MapConfigs.Init.width; i++) {
             this.map.push([]);
             for (var j = 0; j < MapConfigs.Init.height; j++) {
-                this.map[i].push(0);
+                this.map[i].push({
+                    type: 0
+                });
             }
         }
+
         // Nha chinh
-        var NhaChinhPosition = MapConfigs.NhaChinh.position;
-        for (var i = 0; i < MapConfigs.NhaChinh.blockSizeX; i++) {
-            for (var j = 0; j < MapConfigs.NhaChinh.blockSizeY; j++) {
-                 this.map[i + NhaChinhPosition.x][j + NhaChinhPosition.y] = 1;
-            }
-        }
-        var nhaChinh = new NhaChinhSprite(NhaChinhPosition);
+        var NhaChinhConfigs = MapConfigs.NhaChinh;
+        this.addMapAlias(NhaChinhConfigs.position.x, NhaChinhConfigs.position.y,
+                NhaChinhConfigs.blockSizeX, NhaChinhConfigs.blockSizeY,
+                MapItemEnum.NHA_CHINH);
+        var nhaChinh = new NhaChinhSprite(NhaChinhConfigs.position);
         MapLayer.instance.addChild(nhaChinh);
 
         // Truck Order
-        var TruckOrderPosition = MapConfigs.TruckOrder.position;
-        for (var i = 0; i < MapConfigs.TruckOrder.blockSizeX; i++) {
-            for (var j = 0; j < MapConfigs.TruckOrder.blockSizeY; j++) {
-                 this.map[i + TruckOrderPosition.x][j + TruckOrderPosition.y] = 1;
-            }
-        }
-        var truckOrder = new TruckOrderSprite(TruckOrderPosition);
+        var TruckOrderConfigs = MapConfigs.TruckOrder;
+        this.addMapAlias(TruckOrderConfigs.position.x, TruckOrderConfigs.position.y,
+                TruckOrderConfigs.blockSizeX, TruckOrderConfigs.blockSizeY,
+                MapItemEnum.TRUCK_ORDER);
+        var truckOrder = new TruckOrderSprite(TruckOrderConfigs.position);
         MapLayer.instance.addChild(truckOrder);
 
-        var MailBoxPosition = MapConfigs.MailBox.position;
-        for (var i = 0; i < MapConfigs.MailBox.blockSizeX; i++) {
-            for (var j = 0; j < MapConfigs.MailBox.blockSizeY; j++) {
-                 this.map[i + MailBoxPosition.x][j + MailBoxPosition.y] = 1;
-            }
-        }
-        var mailBox = new MailBoxSprite(MailBoxPosition);
+        // Mailbox
+        var MailBoxConfigs = MapConfigs.MailBox;
+        this.addMapAlias(MailBoxConfigs.position.x, MailBoxConfigs.position.y,
+                MailBoxConfigs.blockSizeX, MailBoxConfigs.blockSizeY,
+                MapItemEnum.MAIL_BOX);
+        var mailBox = new MailBoxSprite(MailBoxConfigs.position);
         MapLayer.instance.addChild(mailBox);
 
-        var RoadShopPosition = MapConfigs.RoadShop.position;
-        var roadShop = new RoadShopSprite(RoadShopPosition);
-        for (var i = 0; i < MapConfigs.RoadShop.blockSizeX; i++) {
-            for (var j = 0; j < MapConfigs.RoadShop.blockSizeY; j++) {
-                 this.map[i + RoadShopPosition.x][j + RoadShopPosition.y] = 1;
-            }
-        }
+        // Roadshop
+        var RoadShopConfigs = MapConfigs.RoadShop;
+        this.addMapAlias(RoadShopConfigs.position.x, RoadShopConfigs.position.y,
+                RoadShopConfigs.blockSizeX, RoadShopConfigs.blockSizeY,
+                MapItemEnum.ROAD_SHOP);
+        var roadShop = new RoadShopSprite(RoadShopConfigs.position);
         MapLayer.instance.addChild(roadShop);
-        for (var i = 0; i < this.map.length; i++) {
+
+        for (var i = 0; i < user.map.length; i++) {
             var str = '';
-            for (var j = 0; j < this.map[i].length; j++) {
-                if (this.map[i][j] === 1) {
-                    str += '-';
-                } else {
+            for (var j = 0; j < user.map[i].length; j++) {
+                if (user.map[i][j].type === 0) {
                     str += '0';
+                } else {
+                    str += "*";
                 }
             }
             cc.log(str);
@@ -87,9 +86,37 @@ var MapCtrl = cc.Class.extend({
         if (x < MapConfigs.Init.width && x >= 0 &&
             y < MapConfigs.Init.height && x >=0) {
 
-            return this.map[x][y] === 0;
+            return this.map[x][y].type === 0;
         } else {
             return false;
+        }
+    },
+
+    checkValidBlock: function(x, y, width, height) {
+        for (var i = 0; i < width; i++) {
+            for (var j = 0; j < height; j++) {
+                cc.log(x + i, y + j, this.map[x + i][y + j])
+                if (!this.checkValidPosition(x + i, y + j)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    },
+
+    removeMapAlias: function(x, y, width, height) {
+        for (var i = 0; i < width; i++) {
+            for (var j = 0; j < height; j++) {
+                this.map[x + i][y + j] = { type: 0 };
+            }
+        }
+    },
+
+    addMapAlias: function(x, y, width, height, type) {
+        for (var i = 0; i < width; i++) {
+            for (var j = 0; j < height; j++) {
+                this.map[x + i][y + j] = { type: type };
+            }
         }
     },
 
@@ -119,6 +146,7 @@ var MapCtrl = cc.Class.extend({
     }
 });
 
-MapCtrl.instance = new MapCtrl();
+// Moved to MainScene.js
+// MapCtrl.instance = new MapCtrl();
 
 //MapCtrl.instance.showMe();

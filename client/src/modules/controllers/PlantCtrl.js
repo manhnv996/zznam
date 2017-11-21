@@ -197,4 +197,6 @@ var PlantCtrl = cc.Class.extend({
 
 
 });
-PlantCtrl.instance = new PlantCtrl();
+
+// Moved to MainScene.js
+// PlantCtrl.instance = new PlantCtrl();

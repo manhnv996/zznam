@@ -3,5 +3,15 @@ var TruckOrderSprite = MapBlockSprite.extend({
 		this._super(res.TRUCK_ORDER_BG_PNG, 
 			MapConfigs.TruckOrder.blockSizeX, MapConfigs.TruckOrder.blockSizeY, 
 			x, y);
+		this.registerTouchEvents();
+	},
+
+	onClick: function() {
+		cc.log("TruckOrder clicked");
+		if (this.move(this.lx, this.ly - 1)) {
+			cc.log("Yes");
+		} else {
+			cc.log("No");
+		}
 	}
 });

@@ -1,6 +1,13 @@
 var MainScene = cc.Scene.extend({
 	ctor: function() {
 		this._super();
+
+		// Init controllers
+		MapCtrl.instance = new MapCtrl();
+		PlantCtrl.instance = new PlantCtrl();
+		GameShopController.instance = new GameShopController();
+
+		// Init layers
 		MapLayer.instance = new MapLayer();
 		this.addChild(MapLayer.instance);
 

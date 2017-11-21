@@ -1,11 +1,14 @@
 var MapBlockSprite = cc.Sprite.extend({
 	lx: 0,
 	ly: 0,
+    mapAliasType: 0,
+    boundingPoints: null,
 
-	ctor: function(resource, blockSizeX, blockSizeY, x, y) {
+	ctor: function(resource, blockSizeX, blockSizeY, x, y, mapAliasType) {
 		this._super(resource);
 		this.blockSizeX = blockSizeX;
 		this.blockSizeY = blockSizeY;
+        this.mapAliasType = mapAliasType;
 		this.setLogicPosition(x, y);
 	},
 
@@ -23,34 +26,7 @@ var MapBlockSprite = cc.Sprite.extend({
        //   \***/
        //    \*/
        //     B
-        var leftPoint = MapValues.logicToPosition(
-            this.lx, 
-            this.ly + this.blockSizeY
-        );
-        var rightPoint = MapValues.logicToPosition(
-            this.lx + this.blockSizeX,
-            this.ly);
-        var bottomPoint = MapValues.logicToPosition(
-            this.lx + this.blockSizeX,
-            this.ly + this.blockSizeY
-        );
-
-        var contentSize = this.getContentSize();
-        var topLeftPoint = cc.p(
-            leftPoint.x,
-            bottomPoint.y + contentSize.height
-        );
-        var topRightPoint = cc.p(
-            rightPoint.x,
-            bottomPoint.y + contentSize.height
-        );
-
-        // Polygon with 5 verts
-        this.boundingPoints = [
-            bottomPoint, leftPoint, topLeftPoint, 
-            topRightPoint, rightPoint
-        ];
-
+        this.caculateBoundingPoints();
         this.touchListener = cc.EventListener.create({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
@@ -89,10 +65,55 @@ var MapBlockSprite = cc.Sprite.extend({
                 clearTimeout(this.touchListener.__timeout);
             }.bind(this)
         });
-        cc.eventManager.addListener(this.touchListener, this.lx + this.ly +  + ListenerPriority.offsetEventPriority);
-	}
-});
+        cc.eventManager.addListener(this.touchListener, 
+                this.lx + this.ly + ListenerPriority.offsetEventPriority);
+	},
 
+    // Called in setLogicPosition
+    caculateBoundingPoints: function() {
+        var leftPoint = MapValues.logicToPosition(
+            this.lx, 
+            this.ly + this.blockSizeY
+        );
+        var rightPoint = MapValues.logicToPosition(
+            this.lx + this.blockSizeX,
+            this.ly);
+        var bottomPoint = MapValues.logicToPosition(
+            this.lx + this.blockSizeX,
+            this.ly + this.blockSizeY
+        );
+
+        var contentSize = this.getContentSize();
+        var topLeftPoint = cc.p(
+            leftPoint.x,
+            bottomPoint.y + contentSize.height
+        );
+        var topRightPoint = cc.p(
+            rightPoint.x,
+            bottomPoint.y + contentSize.height
+        );
+
+        // Polygon with 5 verts
+        this.boundingPoints = [
+            bottomPoint, leftPoint, topLeftPoint, 
+            topRightPoint, rightPoint
+        ];
+    },
+
+    move: function(lx, ly) {
+        if (MapCtrl.instance.checkValidBlock(lx, ly, this.blockSizeX, this.blockSizeY)) {
+            MapCtrl.instance.removeMapAlias(this.lx, this.ly, this.blockSizeX, this.blockSizeY);
+            
+            MapCtrl.instance.addMapAlias(lx, ly, this.blockSizeX, this.blockSizeY, this.mapAliasType);
+            this.setLogicPosition(lx, ly);
+            // Send to server here
+            // ...
+            // End send to server
+            return true;
+        }
+        return false;
+    }
+});
 
 // Add logic position setting, getting
 cc.Node.prototype.setLogicPosition = function(lx, ly) {
@@ -104,6 +125,10 @@ cc.Node.prototype.setLogicPosition = function(lx, ly) {
     }
     this.lx = lx;
     this.ly = ly;
+    if (this.boundingPoints) {
+        // Recaculate, if not exists, dont caculate
+        this.caculateBoundingPoints();
+    }
     if (this.__isAnimation) {
         // Do not calculate with animations
         this.setLocalZOrder(this.lx + this.ly);
