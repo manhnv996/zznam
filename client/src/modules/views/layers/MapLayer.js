@@ -29,7 +29,9 @@ var MapLayer = (function() {
 			this.renderHoaDa();
 			this.renderForest();
 			this.renderDuongRay();
-			this.renderDefaultConstruct();
+
+			// Move to MapCtrl
+			// this.renderDefaultConstruct(); 
 			this.renderSample();
 			this.setScale(0.4);
 			// Set map to center of screen, Note that setting scale before setting position.
@@ -144,6 +146,7 @@ var MapLayer = (function() {
 			spriteNoiDuong.y += config.joinSegmentOffset.y;
 		},
 
+		// Moved to MapCtrl
 		renderDefaultConstruct: function() {
 			this.addChild(new NhaChinhSprite(MapConfigs.NhaChinh.position));
 			this.addChild(new TruckOrderSprite(MapConfigs.TruckOrder.position));
@@ -482,7 +485,10 @@ var MapLayer = (function() {
 	            swallowTouches: true,
 	            onTouchBegan: function (touch, event) {
 					var mousePos = touch.getLocation();
-					cc.log('Map Clicked', MapValues.screenPositionToLogic(mousePos.x, mousePos.y));
+					var position = MapValues.screenPositionToLogic(mousePos.x, mousePos.y);
+					position.x = Math.floor(position.x);
+					position.y = Math.floor(position.y);
+					cc.log('Map Clicked', position, MapCtrl.instance.checkValidPosition(position));
 					
 //
 					PopupLayer.instance.disablePopup();
@@ -503,7 +509,7 @@ var MapLayer = (function() {
 				}
 	        });
 	        cc.eventManager.addListener(this.touchListener,
-	        		MapConfigs.Init.width + MapConfigs.Init.height + MapConfigs.offsetEventPriority);
+	        		MapConfigs.Init.width + MapConfigs.Init.height + ListenerPriority.offsetEventPriority);
 	        
 	        cc.log("Register map touch event with priority", MapConfigs.Init.width + MapConfigs.Init.height);
 	        var mouseListener = cc.EventListener.create({

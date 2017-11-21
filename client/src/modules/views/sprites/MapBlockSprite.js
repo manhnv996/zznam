@@ -61,6 +61,16 @@ var MapBlockSprite = cc.Sprite.extend({
                 // Check if is click inside sprite
                 if (rayCasting(location, this.boundingPoints)) {
                     this.onBeginClick();
+                    this.touchListener.__timeout = setTimeout(function() {
+                        this.arrow = fr.createAnimationById(resAniId.Arrow1);
+                        this.arrow.gotoAndPlay('1', -1, 1.5);
+                        this.arrow.setPosition(cc.p(this.getContentSize().width / 2, this.getContentSize().height));
+                        this.addChild(this.arrow);
+                        this.arrow.setCompleteListener(function() {
+                            this.touchListener.__isMoved = true;
+                            cc.log("Finish");
+                        }.bind(this));
+                    }.bind(this), 1000);
                     return true;
                 }
                 return false;
@@ -76,9 +86,10 @@ var MapBlockSprite = cc.Sprite.extend({
             onTouchEnded: function(touch, event) {
                 this.onEndClick();
                 !this.touchListener.__isMoved && this.onClick();
+                clearTimeout(this.touchListener.__timeout);
             }.bind(this)
         });
-        cc.eventManager.addListener(this.touchListener, this.lx + this.ly +  + MapConfigs.offsetEventPriority);
+        cc.eventManager.addListener(this.touchListener, this.lx + this.ly +  + ListenerPriority.offsetEventPriority);
 	}
 });
 

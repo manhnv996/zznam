@@ -1,7 +1,5 @@
 var MapConfigs = {};
 
-MapConfigs.offsetEventPriority = 10;
-
 MapConfigs.Init = {
 	width: 32,
 	height: 32,
@@ -16,20 +14,26 @@ MapConfigs.Init = {
 
 MapConfigs.NhaChinh = {
 	position: { x: 14, y: 14 },
-	blockSizeX: 2,
-	blockSizeY: 2
+	blockSizeX: 4,
+	blockSizeY: 4
 };
 
 MapConfigs.TruckOrder = {
-	position: { x: 14, y: 19 }
+	position: { x: 14, y: 19 },
+	blockSizeX: 1,
+	blockSizeY: 2
 }
 
 MapConfigs.MailBox = {
-	position: { x: 13, y: 31 }
+	position: { x: 13, y: 31 },
+	blockSizeX: 1,
+	blockSizeY: 1
 }
 
 MapConfigs.RoadShop = {
-	position: { x: 19, y: 30 }
+	position: { x: 19, y: 30 },
+	blockSizeX: 2,
+	blockSizeY: 2
 }
 
 MapConfigs.Song = {
@@ -127,4 +131,9 @@ MapConfigs.DuongRay = {
 		x: -33,
 		y: -13
 	}
+};
+
+MapConfigs.Field = {
+	blockSizeX: 1,
+	blockSizeY: 1
 };

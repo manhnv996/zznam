@@ -13,8 +13,8 @@ var MainScene = cc.Scene.extend({
 
 	onEnter: function() {
 		this._super();
-		MapCtrl.instance.init();
 		this.init();
+		MapCtrl.instance.init();
 	},
 
 	init: function() {

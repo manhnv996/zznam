@@ -20,7 +20,8 @@ var FieldSprite = MapBlockSprite.extend({
 
     ctor: function(parent, fieldId, x, y) {
         //this._super();
-        this._super(res.field, 1, 1, x, y);
+        this._super(res.field, MapConfigs.Field.blockSizeX, 
+                MapConfigs.Field.blockSizeY, x, y);
 
         //
         this.render(fieldId);
