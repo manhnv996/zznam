@@ -54,7 +54,7 @@
   <skin name="default">
    <slot name="Layer 1" parent="Layer 1" z="0">
     <display name="Cachua1/Layer 1" type="image">
-     <transform x="-129" y="-64.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-129" y="-71.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 2" parent="Layer 2" z="1">

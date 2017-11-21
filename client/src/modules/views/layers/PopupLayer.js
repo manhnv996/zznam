@@ -15,6 +15,7 @@ var PopupLayer = cc.Layer.extend({
         this._super();
 
 
+        this.pageCurr = 0;
         this.schedule(this.updateProgressBarInprogress, 0.2);
     },
 
@@ -278,7 +279,11 @@ var PopupLayer = cc.Layer.extend({
                 seed.addQuantityInfo();
 
                 this.popupItemList.push(seed);
-                this.addChild(seed);
+                // this.addChild(seed);
+            }
+
+            for (var i = this.popupItemList.length - 1; i >= 0; i--){
+                this.addChild(this.popupItemList[i]);
             }
 
 
@@ -294,7 +299,7 @@ var PopupLayer = cc.Layer.extend({
                 this.pageListNumber = [];
                 for (var i = 0; i < pageNumber; i++){
                     var page;
-                    if (i == 0){
+                    if (i == this.pageCurr){
                         page = new cc.Sprite(res.pageSelected);
                     } else {
                         page = new cc.Sprite(res.page);
@@ -307,9 +312,8 @@ var PopupLayer = cc.Layer.extend({
 
             }
 
-            this.pageCurr = 0;
-            this.setSeedListPosition(this.pageCurr, seedList);
 
+            this.setSeedListPosition(this.pageCurr, seedList);
 
         }
 
