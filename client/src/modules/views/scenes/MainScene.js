@@ -69,7 +69,7 @@ var MainScene = cc.Scene.extend({
 			// cc.log("Field_" + fieldList[i].getFieldId() + ": " + fieldList[i].getCurrX() + ", " + fieldList[i].getCurrY());
 		}
 
-		GameShopLayer.instance = new GameShopLayer(GameShopController.instance.getMaxField());
-		this.addChild(GameShopLayer.instance);
+		GSLayer.instance = new GSLayer();
+		this.addChild(GSLayer.instance);
 	}
 });

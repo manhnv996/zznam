@@ -106,7 +106,14 @@
         "src/modules/views/GameShopUI/GameShopLayer.js",
         "src/modules/views/GameShopUI/GameShopBtnLayout.js",
         "src/modules/views/GameShopUI/GameShopDetailLayout.js",
-        "src/modules/views/GameShopUI/DragSprite.js",
+
+        "src/modules/views/layers/GSGUI/LodgeTable.js",
+        "src/modules/views/layers/GSGUI/AnimalTable.js",
+        "src/modules/views/layers/GSGUI/MachineTable.js",
+        "src/modules/views/layers/GSGUI/TreeTable.js",
+        "src/modules/views/layers/GSGUI/GSBtnLayout.js",
+        "src/modules/views/layers/GSGUI/GSDetailLayout.js",
+        "src/modules/views/layers/GSGUI/GSLayer.js",
 
         "src/modules/views/layers/MapLayer.js",
         "src/modules/views/scenes/MainScene.js"

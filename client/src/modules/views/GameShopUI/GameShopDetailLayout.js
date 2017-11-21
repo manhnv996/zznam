@@ -290,8 +290,8 @@ var GameShopDetailLayout = ccui.Layout.extend({
                         cc.log(p);
                         this.sprite = new BakerySprite(p.x, p.y);
                         MapLayer.instance.addChild(this.sprite);
-                        var bakeryMachine = new BakeryMachine(new Coordinate(p.x, p.y));
-                        user.getAsset().addMachine(bakeryMachine);
+                        /*var bakeryMachine = new BakeryMachine(new Coordinate(p.x, p.y));
+                        user.getAsset().addMachine(bakeryMachine);*/
                         this.check = true;
                     }
                 }
