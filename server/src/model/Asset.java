@@ -17,7 +17,7 @@ public class Asset extends DataModel {
         this.foodStorage = foodStorage;
         this.warehouse = warehouse;
 //        this.fieldList = (fieldList == null) ? new ArrayList<>() : fieldList;
-        this.fieldList = new ArrayList<>();
+        this.fieldList = new ArrayList<Field>();
         if (fieldList != null){
             this.fieldList = fieldList;
         }
