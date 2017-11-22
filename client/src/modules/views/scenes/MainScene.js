@@ -1,27 +1,27 @@
 var MainScene = cc.Scene.extend({
 	ctor: function() {
 		this._super();
+
+		// Init controllers
+		MapCtrl.instance = new MapCtrl();
+		PlantCtrl.instance = new PlantCtrl();
+		GameShopController.instance = new GameShopController();
+
+		// Init layers
 		MapLayer.instance = new MapLayer();
 		this.addChild(MapLayer.instance);
 
 		PopupLayer.instance = new PopupLayer();
 		this.addChild(PopupLayer.instance);
-
-		cc.log("Start Scene");
-
-	},
-
-	onEnter: function() {
-		this._super();
 		MapCtrl.instance.init();
 		this.init();
+		MapCtrl.instance._showDebugMap();
 	},
 
 	init: function() {
 
 		gv.gameClient.connect();
 		testnetwork.connector.sendLoginRequest();
-
 
 		////    TEST//
 		////     var field = new Field();
@@ -37,7 +37,7 @@ var MainScene = cc.Scene.extend({
 
 
 		var asset = new Asset(foodStorage, null, null, null, null, null, null);
-		user = new User(asset);
+		user.asset = asset;
 
 		var currentdate = new Date();
 		currentdate.setHours(3, 50, 40);
@@ -50,6 +50,8 @@ var MainScene = cc.Scene.extend({
 			// var fieldSprite = new FieldSprite(MapLayer.instance, field.getFieldId(), field.getCurrX(), field.getCurrY());
 			MapLayer.instance.addChild(fieldSprite);
 			MapLayer.instance.fieldList.push(fieldSprite);
+			
+			MapCtrl.instance.addSpriteAlias(fieldSprite);
 		}
 //		for (var i = 0; i < 3; i++){
 //			var field = new Field(new Coordinate(17, 10 + i), i);

@@ -1,6 +1,8 @@
 var NhaChinhSprite = MapBlockSprite.extend({
 	ctor: function(x, y) {
-		this._super(res.NHA_CHINH_PNG, 4, 4, x, y);
+		this._super(res.NHA_CHINH_PNG, MapConfigs.NhaChinh.blockSizeX, MapConfigs.NhaChinh.blockSizeY, x, y,
+				MapItemEnum.NHA_CHINH
+			);
 		this.registerTouchEvents();
 	},
 
@@ -14,5 +16,9 @@ var NhaChinhSprite = MapBlockSprite.extend({
 
 	onEndClick: function() {
 		this.setOpacity(255);
+	},
+
+	onFinishMove: function(lx, ly) {
+		cc.log("House moved to", lx, ly);
 	}
 });

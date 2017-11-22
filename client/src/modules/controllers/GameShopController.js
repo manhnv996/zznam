@@ -60,4 +60,5 @@ var GameShopController = cc.Class.extend({
     }
 });
 
-GameShopController.instance = new GameShopController();
+// Moved to MainScene.js
+// GameShopController.instance = new GameShopController();

@@ -5,8 +5,9 @@ var User = cc.Class.extend({
     gold: 0,
     ruby: 0,
     exp: 0,
-    asset: Asset,
-
+    asset: null,
+    map: [],
+    
     ctor: function (asset) {
         //
         //this._super();

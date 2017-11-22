@@ -119,7 +119,7 @@ var SeedSprite = cc.Sprite.extend({
 
             }.bind(this)
         });
-        cc.eventManager.addListener(this.dragListener, 1);
+        cc.eventManager.addListener(this.dragListener, ListenerPriority.plantingPriority);
     },
     //
     showInfo: function () {
