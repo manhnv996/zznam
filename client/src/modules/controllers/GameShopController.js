@@ -44,10 +44,19 @@ var GameShopController = cc.Class.extend({
     },
 
     checkGold: function (price) {
+        cc.log(price);
         var gold = user.getGold();
-        if (price <= gold)
-            return true;
-        return false;
+        var missGold = 0;
+        if (price > gold)
+            missGold = price - gold;
+        return missGold;
+    },
+
+    fromGoldToRuby: function (gold) {
+        var ruby = gold / 15;
+        if(gold % 15) ruby++;
+        ruby = Math.floor(ruby);
+        return ruby;
     }
 });
 

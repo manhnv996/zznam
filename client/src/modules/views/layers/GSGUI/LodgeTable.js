@@ -162,8 +162,6 @@ var LodgeTable = cc.Layer.extend({
 
             price = cell.getChildByTag(5);
             price.setString(res.infoCoopItem[idx].price);
-
-            //this.addTouchListener(image, id, imgBg.getContentSize().height / image.getContentSize().height);
         }
 
         return cell;
@@ -228,10 +226,17 @@ var LodgeTable = cc.Layer.extend({
                 endP.y = Math.floor(endP.y);
                 cc.log(endP.x + " " + endP.y);
                 this._check = GameShopController.instance.checkBorder(endP.x, endP.y);
-                if(!this._check) {
+                if (!this._check) {
                     MapLayer.instance.removeChild(this._sprite);
                 } else {
+                    var missGold = GameShopController.instance.checkGold(sender.parent.getChildByTag(5).getString());
+                    cc.log(missGold);
+                    if (missGold) {
+                        MapLayer.instance.removeChild(this._sprite);
+                        NotifyLayer.instance.notifyMissGold(missGold);
+                    } else {
 
+                    }
                 }
                 GSLayer.instance.show();
                 this._isHide = false;
@@ -239,65 +244,5 @@ var LodgeTable = cc.Layer.extend({
                 break;
         }
     }
-
-    //addTouchListener: function (image, id, scale) {
-    //    var listener = cc.EventListener.create({
-    //        event: cc.EventListener.TOUCH_ONE_BY_ONE,
-    //        swallowTouches: false,
-    //        check: false,
-    //        sprite: null,
-    //        lstP: {x: 0, y: 0},
-    //        onTouchBegan: function (touch, event) {
-    //            //cc.log(id);
-    //            var target = event.getCurrentTarget();
-    //            var locationInNode = target.convertToNodeSpace(touch.getLocation());
-    //            var s = target.getContentSize();
-    //            var rect = cc.rect(0, 0, s.width, s.height);
-    //            if (cc.rectContainsPoint(rect, locationInNode)) {
-    //                cc.log("sprite began... x = " + locationInNode.x + ", y = " + locationInNode.y);
-    //                target.setScale(scale + 0.2);
-    //                return true;
-    //            }
-    //            return false;
-    //        },
-    //        onTouchMoved: function (touch, event) {
-    //            //var delta = touch.getDelta();
-    //            var mouse = touch.getLocation();
-    //            var p = MapValues.screenPositionToLogic(mouse.x, mouse.y);
-    //            p.x = Math.floor(p.x);
-    //            p.y = Math.floor(p.y);
-    //            if (!this._isHide) {
-    //                cc.log(p.x + " " + p.y);
-    //                GSLayer.instance.hide();
-    //                this._isHide = true;
-    //                if (id == "field") {
-    //                    cc.log(p);
-    //                    this.sprite = new ODatSprite(p.x, p.y, 3);
-    //                    cc.log("sprite: " + this.sprite);
-    //                    MapLayer.instance.addChild(this.sprite);
-    //                    /*var bakeryMachine = new BakeryMachine(new Coordinate(p.x, p.y));
-    //                     user.getAsset().addMachine(bakeryMachine);*/
-    //                    this.check = true;
-    //                }
-    //            }
-    //            if (p.x !== this.lstP.x || p.y !== this.lstP.y) {
-    //                this.sprite.setLogicPosition(p.x, p.y);
-    //                this.lstP = p;
-    //                //cc.log(Math.floor(psl.x) + " : " + Math.floor(psl.y));
-    //                cc.log("Touch Moved");
-    //            }
-    //        },
-    //        onTouchEnded: function (touch, event) {
-    //            var target = event.getCurrentTarget();
-    //            GSLayer.instance.show();
-    //            target.setScale(scale);
-    //            this._isHide = false;
-    //            cc.log("Touch Ended");
-    //        }
-    //    });
-    //
-    //    cc.eventManager.addListener(listener, image);
-    //}
-
 
 });

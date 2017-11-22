@@ -71,5 +71,9 @@ var MainScene = cc.Scene.extend({
 
 		GSLayer.instance = new GSLayer();
 		this.addChild(GSLayer.instance);
+
+		NotifyLayer.instance = new NotifyLayer();
+		this.addChild(NotifyLayer.instance);
+
 	}
 });

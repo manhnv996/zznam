@@ -12,6 +12,9 @@ var res = {
     FONT_OUTLINE_20: "fonts/outline/20.fnt",
     FONT_OUTLINE_30: "fonts/outline/30.fnt",
     FONT_OUTLINE_50: "fonts/outline/50.fnt",
+    FONT_NORMAL_20: "fonts/normal/20.fnt",
+    FONT_NORMAL_30: "fonts/normal/30.fnt",
+    FONT_NORMAL_50: "fonts/normal/50.fnt",
 
     //zcsd
     //screen

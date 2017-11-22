@@ -107,6 +107,7 @@
         "src/modules/views/GameShopUI/GameShopBtnLayout.js",
         "src/modules/views/GameShopUI/GameShopDetailLayout.js",
 
+        "src/modules/views/layers/GSGUI/NotifyLayer.js",
         "src/modules/views/layers/GSGUI/LodgeTable.js",
         "src/modules/views/layers/GSGUI/AnimalTable.js",
         "src/modules/views/layers/GSGUI/MachineTable.js",
