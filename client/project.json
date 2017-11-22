@@ -19,6 +19,7 @@
     ],
     "jsList": [
         "src/data/MapResource.js",
+        "src/data/ShopResource.js",
         "src/data/HavestResource.js",
         "src/data/Resource.js",
         "src/data/ResourceAnimation.js",
@@ -44,6 +45,8 @@
         "src/modules/testnetwork/network/Packet.js",
         "src/modules/testnetwork/ScreenNetwork.js",
 
+        "src/modules/utils/rayCasting.js",
+
         "src/modules/entities/CoordinatedObject.js",
         "src/modules/entities/StorageItem.js",
         "src/modules/entities/Storage.js",
@@ -51,6 +54,7 @@
         "src/modules/configs/MapConfigs.js",
         "src/modules/configs/MapValues.js",
         "src/modules/views/sprites/MapBlockSprite.js",
+        "src/modules/views/sprites/AnimationSprite.js",
         "src/modules/views/sprites/NhaChinhSprite.js",
         "src/modules/views/sprites/TruckOrderSprite.js",
         "src/modules/views/sprites/MailBoxSprite.js",
@@ -60,31 +64,20 @@
         "src/modules/views/sprites/WareHouseSprite.js",
         "src/modules/views/sprites/BakerySprite.js",
 
-
-
-
-
-
-
         "src/modules/views/layers/PopupLayer.js",
-
 
         "src/modules/views/sprites/SeedSprite.js",
         "src/modules/views/sprites/CropToolSprite.js",
         "src/modules/views/sprites/FieldSprite.js",
-
-
 
         "src/modules/configs/enum/ErrorLog.js",
         "src/modules/configs/enum/ProductTypes.js",
         "src/modules/configs/enum/FieldStatusTypes.js",
         "src/modules/configs/config.js",
 
-
-
         "src/modules/controllers/PlantCtrl.js",
         "src/modules/controllers/MapCtrl.js",
-
+        "src/modules/controllers/GameShopController.js",
 
         "src/modules/models/CoordinatedObject.js",
         "src/modules/models/Coordinate.js",
@@ -94,17 +87,28 @@
         "src/modules/models/Asset.js",
         "src/modules/models/User.js",
 
+        "src/modules/models/AnimalLodge.js",
+        "src/modules/models/ChickenLodge.js",
+        "src/modules/models/CowLodge.js",
+        "src/modules/models/PigLodge.js",
+        "src/modules/models/SheepLodge.js",
+        "src/modules/models/GoatLodge.js",
 
+        "src/modules/models/Machine.js",
+        "src/modules/models/BakeryMachine.js",
+        "src/modules/models/ButterMachine.js",
+        "src/modules/models/FoodMachine.js",
+        "src/modules/models/PopcornMachine.js",
+        "src/modules/models/SugarMachine.js",
 
+        "src/modules/models/GameShop.js",
 
-
-
-
-
+        "src/modules/views/GameShopUI/GameShopLayer.js",
+        "src/modules/views/GameShopUI/GameShopBtnLayout.js",
+        "src/modules/views/GameShopUI/GameShopDetailLayout.js",
+        "src/modules/views/GameShopUI/DragSprite.js",
 
         "src/modules/views/layers/MapLayer.js",
-        "src/modules/views/scenes/MainScene.js",
-
-        "src/modules/controllers/MapController.js"
+        "src/modules/views/scenes/MainScene.js"
     ]
 }

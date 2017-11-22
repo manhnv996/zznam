@@ -1,5 +1,7 @@
 var MapConfigs = {};
 
+MapConfigs.offsetEventPriority = 10;
+
 MapConfigs.Init = {
 	width: 32,
 	height: 32,
@@ -101,7 +103,7 @@ MapConfigs.Forest = {
 			y: MapConfigs.Init.height + 7
 		},
 		overlap: {
-			x: 50,
+			x: 80,
 			y: 200
 		}
 	},
@@ -110,7 +112,7 @@ MapConfigs.Forest = {
 			x: MapConfigs.Init.width + 9
 		},
 		overlap: {
-			x: 50,
+			x: 80,
 			y: 200
 		}
 	}

@@ -46,6 +46,7 @@
  }
  *
  */
+
 var gv = gv || {};
 
 // Redefine cc.log
@@ -99,7 +100,6 @@ cc.game.onStart = function () {
         gv.poolObjects = new PoolObject();
         testnetwork.connector = new testnetwork.Connector(gv.gameClient);
 		cc.director.runScene(new MainScene());
-
 
     }, this);
 };

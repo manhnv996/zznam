@@ -71,7 +71,7 @@ var Field = CoordinatedObject.extend({
                 this.setPlantType(productType);
                 this.setPlantedTime(new Date());
 
-                cc.log("__" + this.plantType + ", " + this.plantedTime);
+                // cc.log("__" + this.plantType + ", " + this.plantedTime);
 
                 return true;
             }

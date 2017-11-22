@@ -3,18 +3,27 @@
  */
 
 var ChickenLodge = AnimalLodge.extend({
-
+    type: null,
     chickenList: [],
 
     ctor: function () {
         //
         //this._super();
+        this.type = "goat_habitat";
 
 
     },
     render: function () {
         //
 
+    },
+
+    getCurrentSlot: function () {
+        return this.chickenList.length;
+    },
+
+    getType: function () {
+        return this.type;
     }
 
 });

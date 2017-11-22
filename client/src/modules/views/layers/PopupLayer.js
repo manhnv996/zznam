@@ -387,6 +387,7 @@ var PopupLayer = cc.Layer.extend({
                         this.popupItemList[i].setVisible(false);
                         // this.popupItemList[i].pause();
                         this.popupItemList[i].removeFromParent(true);
+                        this.popupItemList[i].clearListener();
                     }
 
                 }
@@ -400,6 +401,7 @@ var PopupLayer = cc.Layer.extend({
                             this.popupItemList[i].setVisible(false);
                             // this.popupItemList[i].pause();
                             this.popupItemList[i].removeFromParent(true);
+                            this.popupItemList[i].clearListener();
                         }
 
                     }

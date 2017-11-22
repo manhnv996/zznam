@@ -6,13 +6,17 @@ var MainScene = cc.Scene.extend({
 
 		PopupLayer.instance = new PopupLayer();
 		this.addChild(PopupLayer.instance);
+
+		cc.log("Start Scene");
+
 	},
 
 	onEnter: function() {
 		this._super();
-		MapController.instance.init();
+		MapCtrl.instance.init();
 		this.init();
 	},
+
 	init: function() {
 
 		gv.gameClient.connect();

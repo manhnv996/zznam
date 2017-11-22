@@ -302,7 +302,7 @@ var MapLayer = (function() {
 				var startY = MapValues.yLinearByYl(lineYl, startX);
 				while (startY >= this.BOTTOM_LIMIT.y) {
 					var countX = Math.round((startY - this.BOTTOM_LIMIT.y) / (contentSize.height - overlapY));
-					for (var i = countX; i >= 0; i--) {
+					for (var i = 0; i <= countX; i++) {
 						var sprite = new cc.Sprite(res.NHOM_CAY_2);
 						sprite.setPosition(
 							startX,
@@ -330,7 +330,7 @@ var MapLayer = (function() {
 				var startY = MapValues.yLinearByXl(lineXl, startX);
 				while (startY >= this.BOTTOM_LIMIT.y) {
 					var countX = Math.round((startY - this.BOTTOM_LIMIT.y) / (contentSize.height - overlapY));
-					for (var i = countX; i >= 0; i--) {
+					for (var i = 0; i <= countX; i++) {
 						var sprite = new cc.Sprite(res.NHOM_CAY_2);
 						sprite.setPosition(
 							startX, 
@@ -477,12 +477,16 @@ var MapLayer = (function() {
 		},
 
 		initEvent: function() {
-			var touchListener = cc.EventListener.create({
+			this.touchListener = cc.EventListener.create({
 	            event: cc.EventListener.TOUCH_ONE_BY_ONE,
 	            swallowTouches: true,
 	            onTouchBegan: function (touch, event) {
 					var mousePos = touch.getLocation();
-					cc.log('Clicked', MapValues.screenPositionToLogic(mousePos.x, mousePos.y));
+					cc.log('Map Clicked', MapValues.screenPositionToLogic(mousePos.x, mousePos.y));
+					
+//
+					PopupLayer.instance.disablePopup();
+					PopupLayer.instance.disableProgressBarInprogress();
 					return true;
 	            },
 	            onTouchMoved: function(touch, event) {
@@ -492,17 +496,16 @@ var MapLayer = (function() {
 	            }.bind(this),
 	            onTouchEnded: function (touch, event) {
 					var target = event.getCurrentTarget();
-					cc.log("sprite onTouchesEnded.. ");
-					//
-
-					//
-					PopupLayer.instance.disablePopup();
-					PopupLayer.instance.disableProgressBarInprogress();
-
+					//target.disableProgressBarAllFieldList();
+					//target.disablePopupAllFieldList();
+					// PopupLayer.instance.disablePopup();
+					// PopupLayer.instance.disableProgressBarInprogress();
 				}
 	        });
-	        cc.eventManager.addListener(touchListener, this);
-
+	        cc.eventManager.addListener(this.touchListener,
+	        		MapConfigs.Init.width + MapConfigs.Init.height + MapConfigs.offsetEventPriority);
+	        
+	        cc.log("Register map touch event with priority", MapConfigs.Init.width + MapConfigs.Init.height);
 	        var mouseListener = cc.EventListener.create({
 				event: cc.EventListener.MOUSE,
 				onMouseScroll: function(e) {
@@ -510,7 +513,10 @@ var MapLayer = (function() {
 				}.bind(this)
 			});
 			cc.eventManager.addListener(mouseListener, this);
-			this.centerPoint = cc.p(this.getContentSize().width / 2, this.getContentSize().height / 2);
+			this.centerPoint = cc.p(
+				this.getContentSize().width / 2,
+				this.getContentSize().height / 2
+			);
 
 			var keyboardListener = cc.EventListener.create({
 				event: cc.EventListener.KEYBOARD,
@@ -543,24 +549,31 @@ var MapLayer = (function() {
 			}
 
 			this.setPosition(newX, newY);
-
-
 //
-			PopupLayer.instance.disablePopup();
-			PopupLayer.instance.disableProgressBarInprogress();
+			// PopupLayer.instance.disablePopup();
+			// PopupLayer.instance.disableProgressBarInprogress();
 		},
 
 		zoom: function(sign, cursor) {
-			var deltaScale = SCALE_RATIO * sign;
-			
-			var newScale = this.scale + deltaScale;
-			if (newScale > 0.1 && newScale <= 2) {
+			var deltaScale = Math.round(SCALE_RATIO * sign * 1000) / 1000;
+			var currentScale = Math.round(this.scale * 1000) / 1000;
+			var newScale = Math.round((currentScale + deltaScale) * 1000) / 1000;
+
+			if (newScale < 0.15) {
+				newScale = 0.15;
+				deltaScale = newScale - currentScale;
+			}
+			if (newScale > 2) {
+				newScale = 2;
+				deltaScale = newScale - currentScale;
+			}
+
+			if (newScale !== currentScale) {
 				var cx = this.centerPoint.x + this.x - cursor.x;
 				var cy = this.centerPoint.y + this.y - cursor.y;
-				var dx = deltaScale * cx / this.scale;
-				var dy = deltaScale * cy / this.scale;
+				var dx = deltaScale * cx / currentScale;
+				var dy = deltaScale * cy / currentScale;
 				this.setScale(newScale);
-				// cc.log(this.bakery.getBoundingBox())
 				this.move(dx, dy);
 			}
 		},
@@ -640,8 +653,5 @@ var MapLayer = (function() {
 			}
 
 		},
-
-
-
 	});
 })();

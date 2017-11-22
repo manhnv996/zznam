@@ -27,23 +27,23 @@ var SeedSprite = cc.Sprite.extend({
 
     //
     addDragEventListener: function (parent, seedType) {
-        var dragListener = cc.EventListener.create({
+        this.dragListener = cc.EventListener.create({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
             onTouchBegan: function (touch, event) {
-                var target = event.getCurrentTarget();
-
+                // var target = event.getCurrentTarget();
+                var target = this;
                 var locationInNode = target.convertToNodeSpace(touch.getLocation());
                 var s = target.getContentSize();
                 var rect = cc.rect(0, 0, s.width, s.height);
 
                 if (cc.rectContainsPoint(rect, locationInNode)) {
-                    cc.log("sprite began... x = " + locationInNode.x + ", y = " + locationInNode.y);
+                    // cc.log("sprite began... x = " + locationInNode.x + ", y = " + locationInNode.y);
 
                     //
                     target.runAction(new cc.ScaleTo(0.1, 1.5, 1.5));
                     //
-                    dragListener._isFirstMove = false;
+                    this.dragListener._isFirstMove = false;
 
 
                     if (target.quantity == null){
@@ -61,11 +61,12 @@ var SeedSprite = cc.Sprite.extend({
                     return true;
                 }
                 return false;
-            },
+            }.bind(this),
             onTouchMoved: function (touch, event) {
 
                 var delta = touch.getDelta();
-                var target = event.getCurrentTarget();
+                // var target = event.getCurrentTarget();
+                var target = this;
 
                 if (target.quantity == null){
                     return false;
@@ -75,11 +76,11 @@ var SeedSprite = cc.Sprite.extend({
                 this.y += delta.y;
 
                 ////
-                if (!dragListener._isFirstMove){
+                if (!this.dragListener._isFirstMove){
                     parent.disablePopup(seedType);
 
                     //
-                    dragListener._isFirstMove = true;
+                    this.dragListener._isFirstMove = true;
                     target.removeAllChildrenWithCleanup(true);  //remove all child
                 }
 
@@ -96,11 +97,12 @@ var SeedSprite = cc.Sprite.extend({
             }.bind(this),
 
             onTouchEnded: function (touch, event) {
-                cc.log("sprite onTouchesEnded.. ");
+                // cc.log("sprite onTouchesEnded.. ");
 
-                var target = event.getCurrentTarget();
+                // var target = event.getCurrentTarget();
+                var target = this;
 
-                if (!dragListener._isFirstMove){
+                if (!this.dragListener._isFirstMove){
                     target.runAction(new cc.ScaleTo(0.1, 1, 1));
 
                     if (target.quantity == null){
@@ -112,11 +114,12 @@ var SeedSprite = cc.Sprite.extend({
 
                     parent.disablePopup(seedType);
                     target.removeFromParent(true);
+                    cc.eventManager.removeListener(this.dragListener);
                 }
 
-            }
+            }.bind(this)
         });
-        cc.eventManager.addListener(dragListener, this);
+        cc.eventManager.addListener(this.dragListener, 1);
     },
     //
     showInfo: function () {
@@ -153,4 +156,7 @@ var SeedSprite = cc.Sprite.extend({
 
     },
 
+    clearListener: function() {
+        cc.eventManager.removeListener(this.dragListener);
+    }
 });
