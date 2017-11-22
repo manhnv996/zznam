@@ -8,10 +8,5 @@ var TruckOrderSprite = MapBlockSprite.extend({
 
 	onClick: function() {
 		cc.log("TruckOrder clicked");
-		if (this.move(this.lx, this.ly - 1)) {
-			cc.log("Yes");
-		} else {
-			cc.log("No");
-		}
 	}
 });
