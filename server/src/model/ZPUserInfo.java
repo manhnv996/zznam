@@ -1,6 +1,11 @@
 package model;
 
+import config.enums.ProductType;
+import config.enums.StorageType;
+
 import java.awt.Point;
+
+import java.util.Date;
 
 import service.DemoHandler.DemoDirection;
 import service.DemoHandler.MaxPosition;
@@ -20,13 +25,14 @@ public class ZPUserInfo extends DataModel {
     private Asset asset;
     
     
-    public Point position;
 
-    public ZPUserInfo(Asset asset) {
+    public ZPUserInfo(int _id, Asset asset) {
         super();
         
-        this.level = 1;
-        this.gold = 0;
+        id = _id;
+        
+        this.level = 10;
+        this.gold = 10;
         this.ruby = 10;
         this.exp = 0L;
         
@@ -38,7 +44,7 @@ public class ZPUserInfo extends DataModel {
         super();
         id = _id;
         name = _name;
-        position = new Point(0, 0);
+//        position = new Point(0, 0);
     }
 
     
@@ -102,32 +108,10 @@ public class ZPUserInfo extends DataModel {
     
     
     //
-    public String toString() {
-        return String.format("%s|%s", new Object[] { id, name });
-    }
-    
-    public Point move(short direction){        
-        if (direction == DemoDirection.UP.getValue()){
-            position.x++;
-        }
-        else if (direction == DemoDirection.DOWN.getValue()){
-            position.x--;
-        }
-        else if (direction == DemoDirection.RIGHT.getValue()){
-            position.y++;
-        }
-        else{
-            position.y--;
-        }
-        
-        position.x = position.x % MaxPosition.X;
-        position.y = position.y % MaxPosition.Y;
-                
-        return position;
-    }
-    
-    
+//    public String toString() {
+//        return String.format("%s|%s", new Object[] { id, name });
+//    }
 
-    
+
     
 }

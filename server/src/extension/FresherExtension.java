@@ -57,7 +57,7 @@ public class FresherExtension extends BZExtension {
         setName("Fresher");
         svrLoop = new ServerLoop();
         
-        setup();
+        setupUserInfo();
     }
 
     public void init() {
@@ -78,7 +78,7 @@ public class FresherExtension extends BZExtension {
     }
     
     public static ZPUserInfo user;
-    public void setup(){
+    public static void setupUserInfo(){
         Storage foodStorage = new Storage(StorageType.FOOD_STORAGE, 30, 10, 10);
         Storage warehouse = new Storage(StorageType.WAREHOUSE, 30, 8, 8);
         foodStorage.addItem(ProductType.CROP_CARROT, 5);
@@ -89,8 +89,9 @@ public class FresherExtension extends BZExtension {
             Field field = new Field(0, 18, 10 + i);
             asset.addField(field);
         }
+        asset.getFieldById(1).setPlantType("crop_corn");
 
-        user = new ZPUserInfo(asset);
+//        user = new ZPUserInfo(asset);
         System.out.println("Setup!!!!!!!!!");
     }
     

@@ -43,6 +43,7 @@ var User = cc.Class.extend({
 
 
 
+
     /*
     NOT YET STARTED
     SHOW Effect if Add or Reduce asset (call controller)

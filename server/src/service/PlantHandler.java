@@ -13,9 +13,14 @@ import cmd.receive.demo.RequestMove;
 import cmd.receive.demo.RequestPlant;
 import cmd.receive.demo.RequestPlantBoost;
 import cmd.send.demo.ResponseBuyItemByRubi;
-import cmd.send.demo.ResponseFieldStatus;
+import cmd.send.demo.ResponseErrorCode;
+import cmd.send.demo.ResponseSyncFieldStatus;
 
 import cmd.send.demo.ResponseMove;
+
+import cmd.send.demo.ResponseSyncFoodStorageItem;
+
+import cmd.send.demo.ResponseSyncUserInfo;
 
 import config.enums.ErrorLog;
 import config.utils.ProductUtil;
@@ -24,6 +29,7 @@ import extension.FresherExtension;
 
 import java.awt.Point;
 
+import model.StorageItem;
 import model.ZPUserInfo;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
@@ -60,6 +66,8 @@ public class PlantHandler extends BaseClientRequestHandler {
                     RequestPlantBoost boost = new RequestPlantBoost(dataCmd);
                 
                     processPlantBoost(user, boost);
+                            
+                System.out.println("boost");
                     break;
                 case CmdDefine.BUY_ITEM_BY_RUBI:
                     RequestBuyItemByRubi buyItem = new RequestBuyItemByRubi(dataCmd);
@@ -80,7 +88,8 @@ public class PlantHandler extends BaseClientRequestHandler {
 //    /////////////
     public void processPlant(User user, RequestPlant plant){
         try {
-            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
+//            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
+            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(1, ZPUserInfo.class);
             if (userInfo == null){
 //                send(new ResponseFieldStatus(ErrorLog.ERROR_USER_NOT_FOUND.getValue(), null), user);
                 return;
@@ -91,20 +100,22 @@ public class PlantHandler extends BaseClientRequestHandler {
              * DONE
              */
             short errorCode = userInfo.getAsset().getFieldById(plant.fieldId).plant(userInfo, plant.productType);
-                
-//            userInfo.getAsset().getFoodStorage().saveModel(user.getId());
-//            userInfo.getAsset().getFoodStorage().getItemList()
-//                    .get(userInfo.getAsset().getFoodStorage().getStorageItem(plant.productType)).saveModel(user.getId());
-//            userInfo.getAsset().getFieldById(plant.fieldId).saveModel(user.getId());
-            userInfo.saveModel(user.getId());
             
 
             //
             if (errorCode == ErrorLog.SUCCESS.getValue()){
-                send(new ResponseFieldStatus(errorCode, null), user);
-            
+                send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
+
+//                userInfo.saveModel(user.getId());
+                userInfo.saveModel(1);
             } else {
-                send(new ResponseFieldStatus(errorCode, userInfo.getAsset().getFieldById(plant.fieldId)), user);
+                send(new ResponseSyncFieldStatus(errorCode, userInfo.getAsset().getFieldById(plant.fieldId)), user);
+                
+                if (errorCode == ErrorLog.ERROR_STORAGE_NOT_REDUCE.getValue()){
+                    StorageItem storageItem = userInfo.getAsset().getFoodStorage().getItemList().get(userInfo.getAsset().getFoodStorage().getStorageItem(plant.productType));
+                    
+                    send(new ResponseSyncFoodStorageItem(errorCode, storageItem), user);
+                }
             }
             
             
@@ -114,7 +125,8 @@ public class PlantHandler extends BaseClientRequestHandler {
     
     public void processCrop(User user, RequestCrop crop){
         try {
-            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
+//            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
+            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(1, ZPUserInfo.class);
             if (userInfo == null){
 //                send(new ResponseFieldStatus(ErrorLog.ERROR_USER_NOT_FOUND.getValue(), null), user);
                 return;
@@ -125,11 +137,19 @@ public class PlantHandler extends BaseClientRequestHandler {
 
             //
             if (errorCode == ErrorLog.SUCCESS.getValue()){
-                send(new ResponseFieldStatus(errorCode, null), user);
-                userInfo.saveModel(user.getId());
-            
+                send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
+
+//                userInfo.saveModel(user.getId());
+                userInfo.saveModel(1);
             } else {
-                send(new ResponseFieldStatus(errorCode, userInfo.getAsset().getFieldById(crop.fieldId)), user);
+                send(new ResponseSyncFieldStatus(errorCode, userInfo.getAsset().getFieldById(crop.fieldId)), user);
+                
+                if (errorCode == ErrorLog.ERROR_STORAGE_NOT_ADD.getValue()){
+                    StorageItem storageItem = userInfo.getAsset().getFoodStorage().getItemList().get(userInfo.getAsset().getFoodStorage().getStorageItem(
+                                                                                                         userInfo.getAsset().getFieldById(crop.fieldId).getPlantType()));
+                    
+                    send(new ResponseSyncFoodStorageItem(errorCode, storageItem), user);
+                }
             }
             
             
@@ -139,23 +159,28 @@ public class PlantHandler extends BaseClientRequestHandler {
     
     public void processPlantBoost(User user, RequestPlantBoost boost){
         try {
-            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
+//            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
+            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(1, ZPUserInfo.class);
             if (userInfo == null){
-//                send(new ResponseFieldStatus(ErrorLog.ERROR_USER_NOT_FOUND.getValue(), null), user);
+//                send(new ResponseFieldStatus(ErrorLog.ERROR_USER_NOT_FOUND.getValue(), null), user);   
                 return;
             }
             
             
             short errorCode = userInfo.getAsset().getFieldById(boost.fieldId).boost(userInfo);
             
-            userInfo.saveModel(user.getId());
-
             //
             if (errorCode == ErrorLog.SUCCESS.getValue()){
-                send(new ResponseFieldStatus(errorCode, null), user);
-            
+                send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
+
+//                userInfo.saveModel(user.getId());
+                userInfo.saveModel(1);
             } else {
-                send(new ResponseFieldStatus(errorCode, userInfo.getAsset().getFieldById(boost.fieldId)), user);
+                send(new ResponseSyncFieldStatus(errorCode, userInfo.getAsset().getFieldById(boost.fieldId)), user);
+                
+                if (errorCode == ErrorLog.ERROR_RUBY_NOT_REDUCE.getValue()){
+                    send(new ResponseSyncUserInfo(errorCode, userInfo), user);
+                }
             }
             
             
@@ -165,7 +190,8 @@ public class PlantHandler extends BaseClientRequestHandler {
     
     public void processBuyItemByRubi(User user, RequestBuyItemByRubi buyItem){
         try {
-            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
+//            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
+            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(1, ZPUserInfo.class);
             if (userInfo == null){
 //                send(new ResponseBuyItemByRubi(ErrorLog.ERROR_USER_NOT_FOUND.getValue(), buyItem.productType), user);
                 return;
@@ -174,17 +200,31 @@ public class PlantHandler extends BaseClientRequestHandler {
             int rubi = ProductUtil.getProductObjByType(buyItem.productType).rPrice;
             if (userInfo.reduceRuby(rubi)){
                 if (userInfo.getAsset().getFoodStorage().addItem(buyItem.productType, 1)){
+
+    //                userInfo.saveModel(user.getId());
+                    userInfo.saveModel(1);
                     
-                    userInfo.saveModel(user.getId());
-                    send(new ResponseBuyItemByRubi(ErrorLog.SUCCESS.getValue(), buyItem.productType), user);
+                    send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
+                    return;
                 } else {
                     
                     userInfo.addRuby(rubi);     //recovery
-                    send(new ResponseBuyItemByRubi(ErrorLog.ERROR_STORAGE_NOT_ADD.getValue(), buyItem.productType), user);
+                    
+////                    send(new ResponseBuyItemByRubi(ErrorLog.ERROR_STORAGE_NOT_ADD.getValue(), buyItem.productType), user);
+//                    send(new ResponseSyncUserInfo(ErrorLog.ERROR_RUBY_NOT_REDUCE.getValue(), userInfo), user);
+//                    
+//                    StorageItem storageItem = userInfo.getAsset().getFoodStorage().getItemList().get(userInfo.getAsset().getFoodStorage().getStorageItem(buyItem.productType));
+//                    send(new ResponseSyncFoodStorageItem(ErrorLog.ERROR_STORAGE_NOT_ADD.getValue(), storageItem), user);
                 }
-            } else {
-                send(new ResponseBuyItemByRubi(ErrorLog.ERROR_RUBY_NOT_REDUCE.getValue(), buyItem.productType), user);
-            }
+            } 
+//            else {
+                
+                System.out.println("before send");
+                send(new ResponseSyncUserInfo(ErrorLog.ERROR_RUBY_NOT_REDUCE.getValue(), userInfo), user);
+                System.out.println("after send");
+//                StorageItem storageItem = userInfo.getAsset().getFoodStorage().getItemList().get(userInfo.getAsset().getFoodStorage().getStorageItem(buyItem.productType));
+                send(new ResponseSyncFoodStorageItem(ErrorLog.ERROR_STORAGE_NOT_ADD.getValue(), new StorageItem(buyItem.productType, -1)), user);
+//            }
             
         } catch (Exception e) {
         }

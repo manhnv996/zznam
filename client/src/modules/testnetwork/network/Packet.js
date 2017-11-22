@@ -11,12 +11,19 @@ gv.CMD.MOVE = 2001;
 
 
 //
+gv.CMD.GAME_INFO = 5099;
+gv.CMD.RESPONSE_ERROR_CODE = 5098;
+
 gv.CMD.PLANT = 5001;
 gv.CMD.CROP = 5002;
 gv.CMD.PLANT_BOOST = 5003;
 gv.CMD.BUY_ITEM_BY_RUBI = 5004;
 
-gv.CMD.RECEIVE_FIELD_STATUS = 5011;
+//gv.CMD.RECEIVE_FIELD_STATUS = 5011;
+gv.CMD.RESPONSE_SYNC_USER_INFO = 5081;
+gv.CMD.RESPONSE_SYNC_FIELD_STATUS = 5082;
+gv.CMD.RESPONSE_SYNC_STORAGE = 5083;
+gv.CMD.RESPONSE_SYNC_FOOD_STORAGE_ITEM = 5084;
 
 
 
@@ -206,10 +213,11 @@ testnetwork.packetMap[gv.CMD.USER_INFO] = fr.InPacket.extend(
             this._super();
         },
         readData:function(){
-            this.token = this.getInt();
-            this.name = this.getString();
-            this.x = this.getInt();
-            this.y = this.getInt();
+            //this.token = this.getInt();
+            //this.name = this.getString();
+            //this.x = this.getInt();
+            //this.y = this.getInt();
+
         }
     }
 );
@@ -277,29 +285,6 @@ testnetwork.packetMap[gv.CMD.PLANT_BOOST] = fr.InPacket.extend(
     }
 );
 
-testnetwork.packetMap[gv.CMD.RECEIVE_FIELD_STATUS] = fr.InPacket.extend(
-    {
-        ctor:function()
-        {
-            this._super();
-        },
-        readData:function(){
-
-            /*
-             DONE
-             */
-            this.errorLog = this.getShort();
-
-            if (this.errorLog != 0){    //not success
-
-                this.fieldId = this.getInt();
-                this.plantType = this.getString();
-                this.plantedTime = this.getLong();
-            }
-        }
-    }
-);
-
 testnetwork.packetMap[gv.CMD.BUY_ITEM_BY_RUBI] = fr.InPacket.extend(
     {
         ctor:function()
@@ -309,10 +294,112 @@ testnetwork.packetMap[gv.CMD.BUY_ITEM_BY_RUBI] = fr.InPacket.extend(
         readData:function(){
 
             /*
+             CLOSED, not used
+             */
+            // this.errorLog = this.getShort();
+
+        }
+    }
+);
+
+testnetwork.packetMap[gv.CMD.GAME_INFO] = fr.InPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+        },
+        readData:function(){
+
+            this.gameInfoJson = this.getString();
+        }
+    }
+);
+
+testnetwork.packetMap[gv.CMD.RESPONSE_ERROR_CODE] = fr.InPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+        },
+        readData:function(){
+
+            /*
              DONE
              */
             this.errorLog = this.getShort();
+        }
+    }
+);
+
+testnetwork.packetMap[gv.CMD.RESPONSE_SYNC_USER_INFO] = fr.InPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+        },
+        readData:function(){
+
+            /*
+             DONE
+             */
+            this.level = this.getInt();
+            this.gold = this.getInt();
+            this.ruby = this.getInt();
+            this.exp = this.getLong();
+
+        }
+    }
+);
+
+testnetwork.packetMap[gv.CMD.RESPONSE_SYNC_FIELD_STATUS] = fr.InPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+        },
+        readData:function(){
+
+            /*
+             DONE
+             */
+            this.fieldId = this.getInt();
+            this.plantType = this.getString();
+            this.longPlantedTime = this.getLong();
+
+        }
+    }
+);
+
+testnetwork.packetMap[gv.CMD.RESPONSE_SYNC_STORAGE] = fr.InPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+        },
+        readData:function(){
+
+            /*
+             DONE
+             */
+            this.storageJsonString = this.getString();
+
+        }
+    }
+);
+
+testnetwork.packetMap[gv.CMD.RESPONSE_SYNC_FOOD_STORAGE_ITEM] = fr.InPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+        },
+        readData:function(){
+
+            /*
+             DONE
+             */
             this.productType = this.getString();
+            this.quantity = this.getInt();
 
         }
     }

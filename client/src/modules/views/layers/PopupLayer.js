@@ -429,6 +429,7 @@ var PopupLayer = cc.Layer.extend({
     showNoticeFullFoodStorageBG: function () {
 
         this.addCloseBGEvent();
+        this.setPauseBackground(MapLayer.instance.fieldList, true);
 
 
         this.noticeBG = new cc.Sprite(res.bgNotice);
@@ -462,6 +463,7 @@ var PopupLayer = cc.Layer.extend({
             this.noticeBG = null;
         }
 
+        this.setPauseBackground(MapLayer.instance.fieldList, false);
     },
 
 
@@ -469,6 +471,7 @@ var PopupLayer = cc.Layer.extend({
     showSuggestBuyingSeedBG: function (seedType) {
 
         this.addCloseBGEvent();
+        this.setPauseBackground(MapLayer.instance.fieldList, true);
 
 
         this.noticeBG = new cc.Sprite(res.bgNotice2);
@@ -534,6 +537,19 @@ var PopupLayer = cc.Layer.extend({
         btBuy.addChild(rubi_buy_seed);
 
     },
+
+
+    setPauseBackground: function(listSprite, isPause){
+        if (isPause){
+            for (var i = 0; i < listSprite.length; i++){
+                listSprite[i].pause();
+            }
+        } else {
+            for (var i = 0; i < listSprite.length; i++){
+                listSprite[i].resume();
+            }
+        }
+    }
 
 
 });
