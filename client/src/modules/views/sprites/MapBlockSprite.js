@@ -52,6 +52,8 @@ var MapBlockSprite = cc.Sprite.extend({
                         }.bind(this));
                     }.bind(this), 500);
                     return true;
+                } else {
+                    // On click outside
                 }
                 return false;
             }.bind(this),
