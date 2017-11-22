@@ -7,7 +7,12 @@ var MainScene = cc.Scene.extend({
 		PopupLayer.instance = new PopupLayer();
 		this.addChild(PopupLayer.instance);
 
+		var mainGuiLayer = new MainGuiLayer();
+		this.addChild(mainGuiLayer);
+
 		cc.log("Start Scene");
+
+
 
 	},
 
