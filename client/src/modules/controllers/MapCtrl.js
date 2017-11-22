@@ -3,6 +3,7 @@
  */
 
 var MapCtrl = cc.Class.extend({
+    // Map property referenced to user.map
     map: null, // [{ type: MapItemEnum, [anotherKey]: [anotherValue] }]
 
     init: function() {
@@ -56,6 +57,9 @@ var MapCtrl = cc.Class.extend({
         var roadShop = new RoadShopSprite(RoadShopConfigs.position);
         MapLayer.instance.addChild(roadShop);
 
+    },
+
+    _showDebugMap: function() {
         for (var i = 0; i < user.map.length; i++) {
             var str = '';
             for (var j = 0; j < user.map[i].length; j++) {
@@ -85,7 +89,6 @@ var MapCtrl = cc.Class.extend({
         x = x.x || x;
         if (x < MapConfigs.Init.width && x >= 0 &&
             y < MapConfigs.Init.height && x >=0) {
-
             return this.map[x][y].type === 0;
         } else {
             return false;
@@ -95,7 +98,7 @@ var MapCtrl = cc.Class.extend({
     checkValidBlock: function(x, y, width, height) {
         for (var i = 0; i < width; i++) {
             for (var j = 0; j < height; j++) {
-                cc.log(x + i, y + j, this.map[x + i][y + j])
+                // cc.log(x + i, y + j, this.map[x + i][y + j].type);
                 if (!this.checkValidPosition(x + i, y + j)) {
                     return false;
                 }
@@ -107,7 +110,8 @@ var MapCtrl = cc.Class.extend({
     removeMapAlias: function(x, y, width, height) {
         for (var i = 0; i < width; i++) {
             for (var j = 0; j < height; j++) {
-                this.map[x + i][y + j] = { type: 0 };
+                this.map[x + i][y + j].type = 0;
+                // cc.log("Remove", x + i, y + j, this.map[x + i][y + j]);
             }
         }
     },
@@ -118,6 +122,20 @@ var MapCtrl = cc.Class.extend({
                 this.map[x + i][y + j] = { type: type };
             }
         }
+    },
+
+    addSpriteAlias: function(sprite) {
+        this.addMapAlias(sprite.lx, sprite.ly,
+            sprite.blockSizeX, sprite.blockSizeY,
+            sprite.mapAliasType
+        );
+    },
+
+    removeSpriteAlias: function(sprite) {
+        this.removeMapAlias(
+            sprite.lx, sprite.ly,
+            sprite.blockSizeX, sprite.blockSizeY
+        );
     },
 
     renderNaturalThings: function() {
