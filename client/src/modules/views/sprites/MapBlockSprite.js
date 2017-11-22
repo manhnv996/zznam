@@ -63,7 +63,7 @@ var MapBlockSprite = cc.Sprite.extend({
                     this.arrow.removeFromParent();
                     this.arrow = null;
                 }
-                if (this.touchListener.__timeout) {
+                if (!isNaN(this.touchListener.__timeout)) {
                     clearTimeout(this.touchListener.__timeout);
                     this.touchListener.__timeout = null;
                 }
@@ -93,7 +93,7 @@ var MapBlockSprite = cc.Sprite.extend({
                     this.arrow.removeFromParent();
                     this.arrow = null;
                 }
-                if (this.touchListener.__timeout) {
+                if (!isNaN(this.touchListener.__timeout)) {
                     clearTimeout(this.touchListener.__timeout);
                     this.touchListener.__timeout = null;
                 }
@@ -134,8 +134,18 @@ var MapBlockSprite = cc.Sprite.extend({
             }.bind(this)
         });
         cc.eventManager.addListener(this.touchListener, 
-                this.lx + this.ly + ListenerPriority.offsetEventPriority);
+                Math.min(this.lx + ListenerPriority.offsetEventPriority,
+                        this.ly + ListenerPriority.offsetEventPriority));
 	},
+
+    // Update eventPriority when change location, called in setLogicPosition
+    updateEventPriority: function(priority) {
+        if (this.touchListener) {
+            priority = priority || Math.min(this.lx + ListenerPriority.offsetEventPriority,
+                        this.ly + ListenerPriority.offsetEventPriority);
+            cc.eventManager.setPriority(this.touchListener, priority);
+        }
+    },
 
     // Called in setLogicPosition
     caculateBoundingPoints: function() {
@@ -186,16 +196,21 @@ cc.Node.prototype.setLogicPosition = function(lx, ly) {
     }
     this.lx = lx;
     this.ly = ly;
+    // Update event priority
+    this.updateEventPriority();
+
     if (this.boundingPoints) {
         // Recaculate. if not exists boundingPoints, do not caculate
         this.caculateBoundingPoints();
     }
+    this.setLocalZOrder(Math.max(this.lx + this.blockSizeX, this.ly + this.blockSizeY));
+
     if (this.__isAnimation) {
-        // Do not calculate with animations
-        this.setLocalZOrder(this.lx + this.ly);
+        // Do not calculate with animations. Set dirrectly position
         this.setPosition(MapValues.logicToPosition(lx, ly));
         return;
     }
+    // Recaculate with normal sprite
     var contentSize = this.getContentSize();
     var point2 = MapValues.logicToPosition(lx, ly);
     var point1 = MapValues.logicToPosition(
@@ -207,7 +222,6 @@ cc.Node.prototype.setLogicPosition = function(lx, ly) {
             point1.x - this.blockSizeX * MapValues.iLength / 2;
     var dy = contentSize.height / 2 + 2 * point2.y - point1.y;
     
-    this.setLocalZOrder(this.lx + this.ly);
     this.setPosition(cc.p(dx, dy));
 }
 
