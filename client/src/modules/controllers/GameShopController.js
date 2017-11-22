@@ -35,6 +35,19 @@ var GameShopController = cc.Class.extend({
             if(listMachine[i].getType() == id) number++;
         }
         return number;
+    },
+
+    checkBorder: function (lx, ly) {
+        if(lx < 0 || ly < 0)
+            return false;
+        return true;
+    },
+
+    checkGold: function (price) {
+        var gold = user.getGold();
+        if (price <= gold)
+            return true;
+        return false;
     }
 });
 

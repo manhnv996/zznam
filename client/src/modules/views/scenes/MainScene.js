@@ -51,16 +51,16 @@ var MainScene = cc.Scene.extend({
 			MapLayer.instance.addChild(fieldSprite);
 			MapLayer.instance.fieldList.push(fieldSprite);
 		}
-		for (var i = 0; i < 3; i++){
-			var field = new Field(new Coordinate(17, 10 + i), i);
-			// var field = new Field(17, 10 + i, i);
-			asset.addField(field);
-////
-			var fieldSprite = new FieldSprite(MapLayer.instance, field.getFieldId(), field.getCoordinate().getCurrX(), field.getCoordinate().getCurrY());
-			// var fieldSprite = new FieldSprite(MapLayer.instance, field.getFieldId(), field.getCurrX(), field.getCurrY());
-			MapLayer.instance.addChild(fieldSprite);
-			MapLayer.instance.fieldList.push(fieldSprite);
-		}
+//		for (var i = 0; i < 3; i++){
+//			var field = new Field(new Coordinate(17, 10 + i), i);
+//			// var field = new Field(17, 10 + i, i);
+//			asset.addField(field);
+//////
+//			var fieldSprite = new FieldSprite(MapLayer.instance, field.getFieldId(), field.getCoordinate().getCurrX(), field.getCoordinate().getCurrY());
+//			// var fieldSprite = new FieldSprite(MapLayer.instance, field.getFieldId(), field.getCurrX(), field.getCurrY());
+//			MapLayer.instance.addChild(fieldSprite);
+//			MapLayer.instance.fieldList.push(fieldSprite);
+//		}
 		// cc.log(user.getAsset().getFieldList().length + "ddd");
 
 		var fieldList = user.getAsset().getFieldList();

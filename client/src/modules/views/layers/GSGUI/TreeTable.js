@@ -38,7 +38,7 @@ var TreeTable = cc.Layer.extend({
 
     tableCellSizeForIndex:function (table, idx) {
         //return cc.size(363, 142 * ((cc.winSize.width / 3) / 316));
-        return cc.size(363, 142 * ((cc.winSize.width / 3) / 316));
+        return cc.size((cc.winSize.width / 3), 142 * ((cc.winSize.width / 3) / 316));
     },
 
     tableCellAtIndex:function (table, idx) {
@@ -58,7 +58,7 @@ var TreeTable = cc.Layer.extend({
             imgBg.y = 0;
             imgBg.anchorX = 0;
             imgBg.anchorY = 0;
-            var scale = 363 / imgBg.getContentSize().width;
+            var scale = (cc.winSize.width / 3) / imgBg.getContentSize().width;
             imgBg.setScale(scale);
             cell.addChild(imgBg);
 

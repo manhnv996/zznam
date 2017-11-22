@@ -20,6 +20,8 @@ var _ = (function() {
         shop_btTree_n_png: r("button4-1.png"),
         shop_btTree_s_png: r("button4.png"),
         shop_slot_png: r("SLOT.png"),
+        bg_notify_png: "Art/Storage/BG.png",
+        activity_notify_png: "Art/Storage/Layer 24.png",
 
 /*        shop_field_png: r("icon chuong/odat2.png"),
         shop_lodge_ga_png: r("icon chuong/chuongGa.png"),

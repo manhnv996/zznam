@@ -4,6 +4,9 @@
 
 
 var LodgeTable = cc.Layer.extend({
+    _isHide: false,
+    _sprite: null,
+    _check: null,
 
     ctor: function () {
         this._super();
@@ -11,8 +14,6 @@ var LodgeTable = cc.Layer.extend({
     },
 
     init:function () {
-        var winSize = cc.director.getWinSize();
-
         var tableView = new cc.TableView(this, cc.size(363, cc.winSize.height / 9 * 8));
         tableView.setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL);
         tableView.x = 0;
@@ -41,11 +42,10 @@ var LodgeTable = cc.Layer.extend({
     },
 
     tableCellAtIndex:function (table, idx) {
-        cc.log("Create Cell " + idx);
-        ///var strValue = idx;
         var cell = table.dequeueCell();
         var level = user.getLevel();
-        var label;
+        var imgBg;
+        var id;
         var image;
         var title;
         var detail;
@@ -56,28 +56,33 @@ var LodgeTable = cc.Layer.extend({
 
         if (!cell) {
             cell = new cc.TableViewCell();
-            var imgBg = new cc.Sprite(res.shop_slot_png);
+            imgBg = new cc.Sprite(res.shop_slot_png);
             imgBg.x = 0;
             imgBg.y = 0;
             imgBg.anchorX = 0;
             imgBg.anchorY = 0;
-            var scale = 363 / imgBg.getContentSize().width;
+            var scale = (cc.winSize.width / 3) / imgBg.getContentSize().width;
             imgBg.setScale(scale);
-            cell.addChild(imgBg);
+            imgBg.tag = 1000;
 
             var box = imgBg.getBoundingBox();
 
             var goldImg = new cc.Sprite(res.gold_png);
-            goldImg.x = imgBg.getBoundingBox().width / 2;
+            goldImg.x = box.width / 2;
             goldImg.y = 0;
             goldImg.setAnchorPoint(0.5, -0.5);
-            cell.addChild(goldImg);
 
-            image = new cc.Sprite(res.infoCoopItem[idx].nameIconShop);
+            id = new cc.LabelTTF(res.infoCoopItem[idx].id);
+            id.tag = 0;
+            cell.addChild(id);
+
+            image = new ccui.Button(res.infoCoopItem[idx].nameIconShop);
+            //image = new cc.Sprite(res.infoCoopItem[idx].nameIconShop);
             image.x = box.width / 4 * 3;
             image.y = box.height / 2;
             var scaleImg = imgBg.getContentSize().height / image.getContentSize().height;
             image.setScale(scaleImg);
+            image.addTouchEventListener(this.touchEvent, this);
             image.tag = 1;
 
             title = new cc.LabelBMFont(res.infoCoopItem[idx].title, "fonts/outline/30.fnt");
@@ -114,6 +119,9 @@ var LodgeTable = cc.Layer.extend({
             price.setAnchorPoint(1, -0.5);
             price.tag = 5;
 
+            cell.addChild(imgBg);
+            cell.addChild(goldImg);
+
             cell.addChild(image);
             cell.addChild(title);
             cell.addChild(detail);
@@ -122,9 +130,13 @@ var LodgeTable = cc.Layer.extend({
 
             cc.log("create cell container " + idx);
         } else {
-            cc.log("abc" + idx);
+            id = cell.getChildByTag(0);
+            id.setString(res.infoCoopItem[idx].id);
+
             image = cell.getChildByTag(1);
-            image.setTexture(res.infoCoopItem[idx].nameIconShop);
+            //image.setTexture(res.infoCoopItem[idx].nameIconShop);
+            image.loadTextureNormal(res.infoCoopItem[idx].nameIconShop);
+            image.addTouchEventListener(this.touchEvent, this);
 
             title = cell.getChildByTag(2);
             title.setString(res.infoCoopItem[idx].title);
@@ -150,6 +162,8 @@ var LodgeTable = cc.Layer.extend({
 
             price = cell.getChildByTag(5);
             price.setString(res.infoCoopItem[idx].price);
+
+            //this.addTouchListener(image, id, imgBg.getContentSize().height / image.getContentSize().height);
         }
 
         return cell;
@@ -157,7 +171,133 @@ var LodgeTable = cc.Layer.extend({
 
     numberOfCellsInTableView:function (table) {
         return res.infoCoopItem.length;
+    },
+
+    touchEvent: function (sender, type) {
+        //var sprite = null;
+        var lstP = {x: 0, y : 0};
+        switch (type) {
+            case ccui.Widget.TOUCH_BEGAN:
+                cc.log("Touch Began");
+                break;
+            case ccui.Widget.TOUCH_MOVED:
+                //cc.log(sender.getTouchBeganPosition());
+                var movedP = sender.getTouchMovePosition();
+                var p = MapValues.screenPositionToLogic(movedP.x, movedP.y);
+                p.x = Math.floor(p.x);
+                p.y = Math.floor(p.y);
+                cc.log(p.x + " " + p.y);
+                if (!this._isHide) {
+                    GSLayer.instance.hide();
+                    this._isHide = true;
+                    var beganP = sender.getTouchBeganPosition();
+                    var createP = MapValues.screenPositionToLogic(beganP.x, beganP.y);
+                    createP.x = Math.floor(createP.x);
+                    createP.y = Math.floor(createP.y);
+                    switch (sender.parent.getChildByTag(0).getString()) {
+                        case "field":
+                            this._sprite = new ODatSprite(createP.x, createP.y, user.getAsset().getFieldList().length);
+                            MapLayer.instance.addChild(this._sprite);
+                            break;
+                        case "chicken_habitat":
+                            break;
+                        case "cow_habitat":
+                            break;
+                        case "pig_habitat":
+                            break;
+                        case "sheep_habitat":
+                            break;
+                        case "goat_habitat":
+                            break;
+                    }
+                }
+                cc.log(this._sprite);
+                if (p.x !== lstP.x || p.y !== lstP.y) {
+                    this._sprite.setLogicPosition(p.x, p.y);
+                    lstP = p;
+                    //cc.log(Math.floor(psl.x) + " : " + Math.floor(psl.y));
+                }
+                cc.log("Touch Moved");
+                break;
+            case ccui.Widget.TOUCH_ENDED:
+                cc.log("Touch Ended");
+                break;
+            case ccui.Widget.TOUCH_CANCELED:
+                var endP = MapValues.screenPositionToLogic(sender.getTouchEndPosition().x, sender.getTouchEndPosition().y);
+                endP.x = Math.floor(endP.x);
+                endP.y = Math.floor(endP.y);
+                cc.log(endP.x + " " + endP.y);
+                this._check = GameShopController.instance.checkBorder(endP.x, endP.y);
+                if(!this._check) {
+                    MapLayer.instance.removeChild(this._sprite);
+                } else {
+
+                }
+                GSLayer.instance.show();
+                this._isHide = false;
+                cc.log("Touch Canceled");
+                break;
+        }
     }
+
+    //addTouchListener: function (image, id, scale) {
+    //    var listener = cc.EventListener.create({
+    //        event: cc.EventListener.TOUCH_ONE_BY_ONE,
+    //        swallowTouches: false,
+    //        check: false,
+    //        sprite: null,
+    //        lstP: {x: 0, y: 0},
+    //        onTouchBegan: function (touch, event) {
+    //            //cc.log(id);
+    //            var target = event.getCurrentTarget();
+    //            var locationInNode = target.convertToNodeSpace(touch.getLocation());
+    //            var s = target.getContentSize();
+    //            var rect = cc.rect(0, 0, s.width, s.height);
+    //            if (cc.rectContainsPoint(rect, locationInNode)) {
+    //                cc.log("sprite began... x = " + locationInNode.x + ", y = " + locationInNode.y);
+    //                target.setScale(scale + 0.2);
+    //                return true;
+    //            }
+    //            return false;
+    //        },
+    //        onTouchMoved: function (touch, event) {
+    //            //var delta = touch.getDelta();
+    //            var mouse = touch.getLocation();
+    //            var p = MapValues.screenPositionToLogic(mouse.x, mouse.y);
+    //            p.x = Math.floor(p.x);
+    //            p.y = Math.floor(p.y);
+    //            if (!this._isHide) {
+    //                cc.log(p.x + " " + p.y);
+    //                GSLayer.instance.hide();
+    //                this._isHide = true;
+    //                if (id == "field") {
+    //                    cc.log(p);
+    //                    this.sprite = new ODatSprite(p.x, p.y, 3);
+    //                    cc.log("sprite: " + this.sprite);
+    //                    MapLayer.instance.addChild(this.sprite);
+    //                    /*var bakeryMachine = new BakeryMachine(new Coordinate(p.x, p.y));
+    //                     user.getAsset().addMachine(bakeryMachine);*/
+    //                    this.check = true;
+    //                }
+    //            }
+    //            if (p.x !== this.lstP.x || p.y !== this.lstP.y) {
+    //                this.sprite.setLogicPosition(p.x, p.y);
+    //                this.lstP = p;
+    //                //cc.log(Math.floor(psl.x) + " : " + Math.floor(psl.y));
+    //                cc.log("Touch Moved");
+    //            }
+    //        },
+    //        onTouchEnded: function (touch, event) {
+    //            var target = event.getCurrentTarget();
+    //            GSLayer.instance.show();
+    //            target.setScale(scale);
+    //            this._isHide = false;
+    //            cc.log("Touch Ended");
+    //        }
+    //    });
+    //
+    //    cc.eventManager.addListener(listener, image);
+    //}
 
 
 });

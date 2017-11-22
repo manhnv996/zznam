@@ -19,8 +19,7 @@ var GSDetailLayout = ccui.Layout.extend({
 
         var bg = new cc.Sprite(res.shop_bg_png);
         this._bg_size = bg.getContentSize();
-        var shop_size = cc.size(sizeWidthList, cc.winSize.height);
-        bg.setScale(shop_size.width / this._bg_size.width, shop_size.height / this._bg_size.height);
+        bg.setScale(sizeWidthList / this._bg_size.width, cc.winSize.height / this._bg_size.height);
         bg.setAnchorPoint(0, 0);
 
         //menu button
