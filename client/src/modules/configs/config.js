@@ -1,11 +1,15 @@
 var config = {};
 
 var ProductType = null;
+var GameInfo = null;
 
 
 function getSeedLevel(level) {
 
     var productTypeObj = null;
+    /*
+    Read from json file
+     */
     cc.loader.loadJson(res.cropconfig, function (error, data) {
         productTypeObj = data;
         ProductType = data;
@@ -15,7 +19,7 @@ function getSeedLevel(level) {
     var seedLevelList = [];
     for (var i = 0; i < productTypeObj.length; i++) {
 
-        if (productTypeObj[i].level <= (level + 9)) {
+        if (productTypeObj[i].level <= (level + 2)) {
             //seedLevelList.push(productTypeObj[i].id);
             seedLevelList.unshift(productTypeObj[i].id);
         }
@@ -74,7 +78,7 @@ function getProductObjByType(productId) {
 function getResAniIdBySeedType(seedType) {
     switch (seedType) {
         case ProductTypes.CROP_WHEAT:
-            return resAniId.luanuoc;
+            return resAniId.Luanuoc;
 
         case ProductTypes.CROP_CORN:
             return resAniId.Ngo;
@@ -171,4 +175,66 @@ function getSeedImgBySeedTypeAndQuantity(seedType, quantity) {
 
     }
 
+}
+
+
+function updateGameInfo(gameInfoJson){
+
+    var gameInfo = null;
+    /*
+    Read from json string
+     */
+    gameInfo = JSON.parse(gameInfoJson);
+
+
+    var foodStorage = new Storages(new Coordinate(gameInfo.asset.foodStorage.x, gameInfo.asset.foodStorage.y),
+        gameInfo.asset.foodStorage.storageType, gameInfo.asset.foodStorage.capacity);
+    for (var i = 0; i < gameInfo.asset.foodStorage.itemList.length; i++){
+        foodStorage.addItem(gameInfo.asset.foodStorage.itemList[i].typeItem, gameInfo.asset.foodStorage.itemList[i].quantity);
+    }
+
+    var warehouse = new Storages(new Coordinate(gameInfo.asset.warehouse.x, gameInfo.asset.warehouse.y),
+        gameInfo.asset.warehouse.storageType, gameInfo.asset.warehouse.capacity);
+    for (var i = 0; i < gameInfo.asset.warehouse.itemList.length; i++){
+        warehouse.addItem(gameInfo.asset.warehouse.itemList[i].typeItem, gameInfo.asset.warehouse.itemList[i].quantity);
+    }
+
+    var asset = new Asset(foodStorage, warehouse, null, null, null, null, null);
+    user = new User(asset);
+
+    user.level = gameInfo.level;
+    user.gold = gameInfo.gold;
+    user.ruby = gameInfo.ruby;
+    user.exp = gameInfo.exp;
+
+
+    for (var i = 0; i < gameInfo.asset.fieldList.length; i++){
+        var field = new Field(new Coordinate(gameInfo.asset.fieldList[i].x, gameInfo.asset.fieldList[i].y), gameInfo.asset.fieldList[i].fieldId);
+        user.getAsset().addField(field);
+
+
+        //field sprite
+        var fieldSprite = new FieldSprite(MapLayer.instance, field.getFieldId(), field.getCoordinate().getCurrX(), field.getCoordinate().getCurrY());
+        MapLayer.instance.addChild(fieldSprite);
+        MapLayer.instance.fieldList.push(fieldSprite);
+
+        if (gameInfo.asset.fieldList[i].plantType != null){
+            if (gameInfo.asset.fieldList[i].plantedTime != 0){
+                //
+                var plantType = gameInfo.asset.fieldList[i].plantType;
+                user.getAsset().getFieldList()[i].setPlantType(plantType);
+                //
+                var intTime = gameInfo.asset.fieldList[i].plantedTime;
+                var plantedTime = new Date();
+                plantedTime.setTime(intTime);
+
+                user.getAsset().getFieldList()[i].setPlantedTime(plantedTime);
+
+                MapLayer.instance.runAnimationPlantting(field.getFieldId(), plantType);
+            }
+        }
+
+    }
+
+    MainScene.instance.onGettedData();
 }

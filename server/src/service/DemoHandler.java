@@ -57,9 +57,9 @@ public class DemoHandler extends BaseClientRequestHandler {
             if (userInfo==null)
                 send(new ResponseMove(DemoError.ERROR.getValue(), new Point()), user);
             
-            userInfo.move(move.direction);
-            userInfo.saveModel(user.getId());            
-            send(new ResponseMove(DemoError.SUCCESS.getValue(), userInfo.position), user);
+//            userInfo.move(move.direction);
+//            userInfo.saveModel(user.getId());            
+//            send(new ResponseMove(DemoError.SUCCESS.getValue(), userInfo.position), user);
             
         } catch (Exception e) {
         }

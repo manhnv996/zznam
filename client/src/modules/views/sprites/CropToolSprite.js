@@ -66,10 +66,11 @@ var CropToolSprite = cc.Sprite.extend({
                 parent.disablePopup(null);
                 // parent.disablePopup(0);
                 target.removeFromParent(true);
-                cc.eventManager.removeListener(this.dragListener);
+                //cc.eventManager.removeListener(this.dragListener);
             }.bind(this)
         });
-        cc.eventManager.addListener(this.dragListener, ListenerPriority.plantingPriority);
+        cc.eventManager.addListener(this.dragListener, this);
+        //cc.eventManager.addListener(this.dragListener, ListenerPriority.plantingPriority);
     },
     render: function () {
 

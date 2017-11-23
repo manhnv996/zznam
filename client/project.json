@@ -18,6 +18,8 @@
         "src/**/*.js"
     ],
     "jsList": [
+        "src/data/SettingsResource.js",
+        "src/data/MainGuiResource.js",
         "src/data/MapResource.js",
         "src/data/ShopResource.js",
         "src/data/HavestResource.js",
@@ -115,6 +117,7 @@
         "src/modules/views/layers/GSGUI/GSLayer.js",
 
         "src/modules/views/layers/MapLayer.js",
-        "src/modules/views/scenes/MainScene.js"
+        "src/modules/views/scenes/MainScene.js",
+        "src/modules/views/layers/MainGuiLayer.js"
     ]
 }

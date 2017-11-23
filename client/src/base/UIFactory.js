@@ -45,3 +45,46 @@ gv.commonText = function(text, x, y){
         _lb.setColor(cc.color(220,220,220,255));
         return _lb;
 };
+
+gv.commonDialog = function(name, message){
+    var CommonDialog =  cc.Layer.extend({
+            ctor:function(){
+                this._super();
+                this.init();
+            },
+            init:function(){
+                var size = cc.director.getVisibleSize();
+                cc.log("visible size " + size.width+" "  + size.height);
+                //3. calculate the center point
+                var centerpos = cc.p(size.width / 2, size.height / 2);
+
+
+                var spritebg = new cc.Sprite(res.BG_SETTING_PNG);
+                cc.log("spritebg " + spritebg.width + " " + spritebg.height);
+                //spritebg.setScale(fr.clientConfig.getResourceScale().)
+                spritebg.setPosition(centerpos);
+                this.addChild(spritebg);
+
+                var labelTitle = new cc.LabelTTF(name, res.domcasua_ttf, 40);
+                labelTitle.setPosition(size.width/2, size.height/2 + spritebg.height/2-50);
+                this.addChild(labelTitle);
+
+                var labelMessenge = new cc.LabelTTF(message,res.domcasua_ttf, 40);
+                labelMessenge.setPosition(centerpos);
+                this.addChild(labelMessenge);
+
+                var btnTuChoi = new ccui.Button(res.tuchoi_png);
+                var btnTuChoiSize = btnTuChoi.getSize();
+                cc.log("btnTuChoiSize " + btnTuChoiSize.width + "  " + btnTuChoiSize.height);
+                btnTuChoi.setPosition(size.width/2 + spritebg.width/2 - btnTuChoiSize.width/2, size.height/2 + spritebg.height/2 - btnTuChoiSize.height/2);
+                btnTuChoi.addClickEventListener(this.onSelectClose.bind(this));
+                this.addChild(btnTuChoi);
+            },
+            onSelectClose:function(sender)
+            {
+                this.removeFromParent(true);
+            }
+        }
+    );
+    return new CommonDialog();
+};

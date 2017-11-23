@@ -27,42 +27,42 @@
   <skin name="default">
    <slot name="Layer 1" parent="Layer 1" z="0">
     <display name="Luami1/Layer 55 copy 6" type="image">
-     <transform x="-128" y="-64.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-128" y="-77.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 2" parent="Layer 2" z="1">
     <display name="Luami1/Layer 102 copy 4" type="image">
-     <transform x="-108.5" y="-64.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-108.5" y="-74.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 3" parent="Layer 3" z="2">
     <display name="Luami1/Layer 103 copy 17" type="image">
-     <transform x="-121" y="-77" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-121" y="-87" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 4" parent="Layer 4" z="3">
     <display name="Luami1/Layer 103 copy 11" type="image">
-     <transform x="-119.5" y="-81.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="-1"/>
+     <transform x="-119.5" y="-91.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="-1"/>
     </display>
    </slot>
    <slot name="Layer 5" parent="Layer 5" z="4">
     <display name="Luami1/Layer 102 copy 3" type="image">
-     <transform x="-128" y="-178" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-128" y="-188" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 6" parent="Layer 6" z="5">
     <display name="Luami1/Layer 102 copy 8" type="image">
-     <transform x="-109.5" y="-63" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-109.5" y="-73" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 7" parent="Layer 7" z="6">
     <display name="Luami1/Layer 104 copy" type="image">
-     <transform x="-44.5" y="-36.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-44.5" y="-46.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 8" parent="Layer 8" z="7">
     <display name="Luami1/Layer 104 copy" type="image">
-     <transform x="-44.55" y="-36" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-44.55" y="-46" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
   </skin>

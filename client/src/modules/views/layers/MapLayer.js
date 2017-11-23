@@ -502,8 +502,6 @@ var MapLayer = (function() {
 	            }.bind(this),
 	            onTouchEnded: function (touch, event) {
 					var target = event.getCurrentTarget();
-					//target.disableProgressBarAllFieldList();
-					//target.disablePopupAllFieldList();
 					// PopupLayer.instance.disablePopup();
 					// PopupLayer.instance.disableProgressBarInprogress();
 				}
@@ -582,6 +580,9 @@ var MapLayer = (function() {
 				this.setScale(newScale);
 				this.move(dx, dy);
 			}
+
+			PopupLayer.instance.disablePopup();
+			PopupLayer.instance.disableProgressBarInprogress();
 		},
 
 		handleKeyboard: function(keycode, event) {

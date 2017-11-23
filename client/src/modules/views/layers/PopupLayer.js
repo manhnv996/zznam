@@ -15,6 +15,7 @@ var PopupLayer = cc.Layer.extend({
         this._super();
 
 
+        this.pageCurr = 0;
         this.schedule(this.updateProgressBarInprogress, 0.2);
     },
 
@@ -92,9 +93,16 @@ var PopupLayer = cc.Layer.extend({
         this.progressBar.addChild(this.progress);
 
 
+        // crop name
+        this.timeRemain = new cc.LabelBMFont(getProductObjByType(fieldSelected.plantType).name, res.FONT_OUTLINE_50);
+        this.timeRemain.setPosition(cc.p(this.progressBar.width / 2, this.progressBar.height));
+        this.progressBar.addChild(this.timeRemain);
+
+
+
         // time remain
         this.timeRemain = new cc.LabelBMFont("", res.FONT_OUTLINE_50);
-        this.timeRemain.setPosition(cc.p(this.progressBar.width / 2, this.progressBar.height));
+        this.timeRemain.setPosition(cc.p(this.progressBar.width / 2, 0));
         // this.timeRemain.setPosition(cc.p(0, 0));
         this.progressBar.addChild(this.timeRemain);
 
@@ -278,7 +286,11 @@ var PopupLayer = cc.Layer.extend({
                 seed.addQuantityInfo();
 
                 this.popupItemList.push(seed);
-                this.addChild(seed);
+                // this.addChild(seed);
+            }
+
+            for (var i = this.popupItemList.length - 1; i >= 0; i--){
+                this.addChild(this.popupItemList[i]);
             }
 
 
@@ -294,7 +306,7 @@ var PopupLayer = cc.Layer.extend({
                 this.pageListNumber = [];
                 for (var i = 0; i < pageNumber; i++){
                     var page;
-                    if (i == 0){
+                    if (i == this.pageCurr){
                         page = new cc.Sprite(res.pageSelected);
                     } else {
                         page = new cc.Sprite(res.page);
@@ -307,9 +319,8 @@ var PopupLayer = cc.Layer.extend({
 
             }
 
-            this.pageCurr = 0;
-            this.setSeedListPosition(this.pageCurr, seedList);
 
+            this.setSeedListPosition(this.pageCurr, seedList);
 
         }
 
@@ -427,6 +438,7 @@ var PopupLayer = cc.Layer.extend({
     showNoticeFullFoodStorageBG: function () {
 
         this.addCloseBGEvent();
+        this.setPauseBackground(MapLayer.instance.fieldList, true);
 
 
         this.noticeBG = new cc.Sprite(res.bgNotice);
@@ -460,6 +472,7 @@ var PopupLayer = cc.Layer.extend({
             this.noticeBG = null;
         }
 
+        this.setPauseBackground(MapLayer.instance.fieldList, false);
     },
 
 
@@ -467,6 +480,7 @@ var PopupLayer = cc.Layer.extend({
     showSuggestBuyingSeedBG: function (seedType) {
 
         this.addCloseBGEvent();
+        this.setPauseBackground(MapLayer.instance.fieldList, true);
 
 
         this.noticeBG = new cc.Sprite(res.bgNotice2);
@@ -532,6 +546,19 @@ var PopupLayer = cc.Layer.extend({
         btBuy.addChild(rubi_buy_seed);
 
     },
+
+
+    setPauseBackground: function(listSprite, isPause){
+        if (isPause){
+            for (var i = 0; i < listSprite.length; i++){
+                listSprite[i].pause();
+            }
+        } else {
+            for (var i = 0; i < listSprite.length; i++){
+                listSprite[i].resume();
+            }
+        }
+    }
 
 
 });

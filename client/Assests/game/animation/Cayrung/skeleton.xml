@@ -1,5 +1,5 @@
 <dragonBones name="Cayrung" frameRate="24" version="2.3">
- <armature name="Cay thong nho">
+ <armature name="Cayrung">
   <bone name="Layer 2">
    <transform x="6.5" y="2.45" skX="0" skY="0" scX="1" scY="1"/>
   </bone>
@@ -62,129 +62,129 @@
   </bone>
   <skin name="default">
    <slot name="Layer 2" parent="Layer 2" z="0">
-    <display name="Cay xanh 2.psd Assets/Layer 23" type="image">
+    <display name="Cay xanh/Layer 23" type="image">
      <transform x="-102.5" y="-53" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 0" parent="Layer 0" z="2">
-    <display name="Cay xanh 2.psd Assets/Layer 03" type="image">
+    <display name="Cay xanh/Layer 03" type="image">
      <transform x="-108" y="-127.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
-    <display name="Cay xanh 2.psd Assets/Layer 0" type="image">
+    <display name="Cay xanh/Layer 0" type="image">
      <transform x="-84" y="-54" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 3" parent="Layer 3" z="3">
-    <display name="Cay xanh 2.psd Assets/Layer 33" type="image">
+    <display name="Cay xanh/Layer 33" type="image">
      <transform x="-60" y="-155.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
-    <display name="Cay xanh 2.psd Assets/Layer 3" type="image">
+    <display name="Cay xanh/Layer 3" type="image">
      <transform x="-93" y="-51" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 5" parent="Layer 5" z="1">
-    <display name="Cay xanh 2.psd Assets/cua3" type="image">
+    <display name="Cay xanh/cua3" type="image">
      <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="46" pY="46"/>
     </display>
-    <display name="Cay xanh 2.psd Assets/Layer 51" type="image">
+    <display name="Cay xanh/Layer 51" type="image">
      <transform x="-139" y="-115" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
-    <display name="Cay xanh 2.psd Assets/Layer 5" type="image">
+    <display name="Cay xanh/Layer 5" type="image">
      <transform x="-46.5" y="-45" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 6" parent="Layer 6" z="4">
-    <display name="Cay xanh 2.psd Assets/Layer 02" type="image">
+    <display name="Cay xanh/Layer 02" type="image">
      <transform x="-190.5" y="-232" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
-    <display name="Cay xanh 2.psd Assets/Layer 61" type="image">
+    <display name="Cay xanh/Layer 61" type="image">
      <transform x="-124" y="-77.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
-    <display name="Cay xanh 2.psd Assets/Layer 6" type="image">
+    <display name="Cay xanh/Layer 6" type="image">
      <transform x="-84.5" y="-92.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 7" parent="Layer 7" z="5">
-    <display name="Cay xanh 2.psd Assets/Layer 32" type="image">
+    <display name="Cay xanh/Layer 32" type="image">
      <transform x="-110.5" y="-286.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
-    <display name="Cay xanh 2.psd Assets/Layer 71" type="image">
+    <display name="Cay xanh/Layer 71" type="image">
      <transform x="-129.5" y="-105.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 20" parent="Layer 20" z="6">
-    <display name="Cay xanh 2.psd Assets/Layer 11" type="image">
+    <display name="Cay xanh/Layer 11" type="image">
      <transform x="-89.5" y="-52.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 11" parent="Layer 11" z="8">
-    <display name="Cay xanh 2.psd Assets/Layer 111" type="image">
+    <display name="Cay xanh/Layer 111" type="image">
      <transform x="-52.5" y="-42.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 11 copy" parent="Layer 11 copy" z="9">
-    <display name="Cay xanh 2.psd Assets/Layer 11 copy" type="image">
+    <display name="Cay xanh/Layer 11 copy" type="image">
      <transform x="-52.5" y="-42.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 11 copy 3" parent="Layer 11 copy 3" z="10">
-    <display name="Cay xanh 2.psd Assets/Layer 11 copy 3" type="image">
+    <display name="Cay xanh/Layer 11 copy 3" type="image">
      <transform x="-52.5" y="-42.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 11 copy 4" parent="Layer 11 copy 4" z="11">
-    <display name="Cay xanh 2.psd Assets/Layer 11 copy 4" type="image">
+    <display name="Cay xanh/Layer 11 copy 4" type="image">
      <transform x="-52.5" y="-42.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 11 copy 2" parent="Layer 11 copy 2" z="12">
-    <display name="Cay xanh 2.psd Assets/Layer 11 copy 2" type="image">
+    <display name="Cay xanh/Layer 11 copy 2" type="image">
      <transform x="-52.5" y="-42.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 2_0" parent="Layer 2_0" z="13">
-    <display name="Cay xanh 2.psd Assets/Layer 21" type="image">
+    <display name="Cay xanh/Layer 21" type="image">
      <transform x="-19.5" y="-22" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
-    <display name="Cay xanh 2.psd Assets/Layer 2" type="image">
+    <display name="Cay xanh/Layer 2" type="image">
      <transform x="-122" y="-56" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 1 copy 2" parent="Layer 1 copy 2" z="14">
-    <display name="Cay xanh 2.psd Assets/Layer 1 copy 2" type="image">
+    <display name="Cay xanh/Layer 1 copy 2" type="image">
      <transform x="-153.5" y="-289.5" skX="0" skY="0" scX="1" scY="1" pX="-17" pY="-97.05"/>
     </display>
    </slot>
    <slot name="Layer 9" parent="Layer 9" z="15">
-    <display name="Cay xanh 2.psd Assets/Layer 91" type="image">
+    <display name="Cay xanh/Layer 91" type="image">
      <transform x="-61" y="-54.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 8" parent="Layer 8" z="16">
-    <display name="Cay xanh 2.psd Assets/Layer 81" type="image">
+    <display name="Cay xanh/Layer 81" type="image">
      <transform x="-126.5" y="-86.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 4" parent="Layer 4" z="20">
-    <display name="Cay xanh 2.psd Assets/Layer 41" type="image">
+    <display name="Cay xanh/Layer 41" type="image">
      <transform x="-155" y="-115" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
-    <display name="Cay xanh 2.psd Assets/Layer 4" type="image">
+    <display name="Cay xanh/Layer 4" type="image">
      <transform x="-69" y="-45.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 29" parent="Layer 29" z="7">
-    <display name="Cay xanh 2.psd Assets/Layer 04" type="image">
+    <display name="Cay xanh/Layer 04" type="image">
      <transform x="-1.65" y="-79.95" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 1" parent="Layer 1" z="28">
-    <display name="Cay xanh 2.psd Assets/Layer 1" type="image">
+    <display name="Cay xanh/Layer 1" type="image">
      <transform x="-110.5" y="-61" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 28" parent="Layer 28" z="22">
-    <display name="Cay xanh 2.psd Assets/Layer 04" type="image">
+    <display name="Cay xanh/Layer 04" type="image">
      <transform x="-1.65" y="-79.95" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>

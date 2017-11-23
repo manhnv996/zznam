@@ -63,7 +63,7 @@ var FieldSprite = MapBlockSprite.extend({
                 if (cc.rectContainsPoint(rect, locationInNode)) {
                     //cc.log("sprite began... x = " + locationInNode.x + ", y = " + locationInNode.y);
 
-                    target.opacity = 225;
+                    target.opacity = 180;
                     touchListener._lock = true;
                     return true;
                 }
@@ -102,11 +102,17 @@ var FieldSprite = MapBlockSprite.extend({
     // When begin click
     onBeginClick: function() {
         this.setOpacity(180);
+        if (this.plantSprite){
+            this.plantSprite.setOpacity(180);
+        }
     },
 
     // When end click    
     onEndClick: function() {
         this.setOpacity(255);
+        if (this.plantSprite){
+            this.plantSprite.setOpacity(255);
+        }
     },
 
 
@@ -214,6 +220,30 @@ var FieldSprite = MapBlockSprite.extend({
             }
         }
 
+    },
+
+    runAction: function(action) {
+        if (this.plantSprite) {
+            this.plantSprite.runAction(action);
+        } else {
+            this._super(action);
+        }
+    },
+
+    stopAllActions: function() {
+        if (this.plantSprite) {
+            this.plantSprite.stopAllActions();
+        } else {
+            this._super();
+        }
+    },
+
+    setColor: function(color) {
+        if (this.plantSprite) {
+            this.plantSprite.setColor(color);
+        } else {
+            this._super(color);
+        }
     },
 
     // On finish move on map

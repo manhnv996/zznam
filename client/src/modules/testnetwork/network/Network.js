@@ -46,35 +46,86 @@ testnetwork.Connector = cc.Class.extend({
                 cc.log("RECEIVE PLANT_BOOST: " );
                 //
                 break;
-            //
-            case gv.CMD.RECEIVE_FIELD_STATUS:
-                cc.log("RECEIVE RECEIVE_FIELD_STATUS: ", packet.errorLog);
-                //
-                if (packet.errorLog != ErrorLog.SUCCESS){
-                    /*
-                    NOT Success
-                    INPROGRESS (update field status)
-                     */
-
-                    // fieldSelected = user.getAsset().getFieldById(packet.fieldId);
-                    // fieldSelected.setPlantType(packet.plantType);
-                    //
-                    // var plantedTime = new Date();
-                    // plantedTime.setTime(packet.plantedTime);
-                    // fieldSelected.setPlantedTime(plantedTime);
-                }
-                break;
             case gv.CMD.BUY_ITEM_BY_RUBI:
-                cc.log("RECEIVE BUY_ITEM_BY_RUBI", packet.errorLog);
+                cc.log("RECEIVE BUY_ITEM_BY_RUBI: ");
                 //
-                if (packet.errorLog != ErrorLog.SUCCESS){
-                    //Recovery
+                break;
+//          ////
+//            ////
+            case gv.CMD.GAME_INFO:
+                cc.log("RECEIVE GAME_INFO: ", packet.gameInfoJson);
 
-                    // if (user.getAsset().getFoodStorage().takeItem(packet.productType, 1)){
-                    //     user.addRuby(getProductObjByType(packet.productType).rPrice);
-                    // }
+                /*
+                INPROGRESS
+                read and update game info to client
+                map info not yet started
+                 */
+                updateGameInfo(packet.gameInfoJson);
+                break;
+            //
+            case gv.CMD.RESPONSE_ERROR_CODE:
+                cc.log("RECEIVE RESPONSE_ERROR_CODE: ", packet.errorLog);
+
+                break;
+
+            case gv.CMD.RESPONSE_SYNC_FIELD_STATUS:
+                cc.log("RECEIVE RESPONSE_SYNC_FIELD_STATUS: ", packet.fieldId);
+                //
+
+                var fieldSelected = user.getAsset().getFieldById(packet.fieldId);
+                fieldSelected.setPlantType(packet.plantType);
+
+                var plantedTime = new Date();
+                plantedTime.setTime(packet.longPlantedTime);
+                fieldSelected.setPlantedTime(plantedTime);
+
+                if (packet.plantType != null){
+                    if (packet.longPlantedTime != 0){
+                        //
+                        MapLayer.instance.runAnimationPlantting(fieldSelected.getFieldId(), fieldSelected.getPlantType());
+                    }
+                }
+
+                break;
+
+            case gv.CMD.RESPONSE_SYNC_FOOD_STORAGE_ITEM:
+                cc.log("RECEIVE RESPONSE_SYNC_STORAGE_ITEM: ", packet.productType);
+
+                var index = user.getAsset().getFoodStorage().getStorageItem(packet.productType);
+                if (index != null){
+
+                    if (packet.quantity < 0){
+                        user.getAsset().getFoodStorage().takeItem(packet.productType, 1);
+
+                    } else {
+                        var storageItem = user.getAsset().getFoodStorage().getItemList()[index];
+
+                        storageItem.typeItem = packet.productType;
+                        storageItem.quantity = packet.quantity;
+                    }
+
+                } else {
+                    user.getAsset().getFoodStorage().addItem(packet.productType, packet.quantity);
                 }
                 break;
+
+            case gv.CMD.RESPONSE_SYNC_USER_INFO:
+                cc.log("RECEIVE RESPONSE_SYNC_USER_INFO: ");
+
+                user.level = packet.level;
+                user.gold = packet.gold;
+                user.ruby = packet.ruby;
+                user.exp = packet.exp;
+
+                break;
+
+            case gv.CMD.RESPONSE_SYNC_STORAGE:
+                cc.log("RECEIVE RESPONSE_SYNC_STORAGE: ", packet.storageJsonString);
+                /*
+                Not yet started
+                 */
+                break;
+
         }
     },
     sendGetUserInfo:function()
@@ -114,7 +165,7 @@ testnetwork.Connector = cc.Class.extend({
     },
     sendPlantBoost: function (fieldId) {
         cc.log("sendPlantBoost: " + fieldId);
-        var pk = this.gameClient.getOutPacket(CmdSendCrop);
+        var pk = this.gameClient.getOutPacket(CmdSendPlantBoost);
         pk.pack(fieldId);
         this.gameClient.sendPacket(pk);
     },

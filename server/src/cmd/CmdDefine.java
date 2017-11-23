@@ -1,5 +1,7 @@
 package cmd;
 
+import cmd.send.demo.ResponseErrorCode;
+
 
 public class CmdDefine {
     public static final short CUSTOM_LOGIN = 1;
@@ -18,12 +20,22 @@ public class CmdDefine {
     //Log cmd
     public static final short MOVE = 2001;
     
+    //
+    public static final short GAME_INFO = 5099;    
+    public static final short RESPONSE_ERROR_CODE = 5098;
+    
     public static final short PLANT = 5001;
     public static final short CROP = 5002;
     public static final short PLANT_BOOST = 5003;
     public static final short BUY_ITEM_BY_RUBI = 5004;
     
-    public static final Short RESPONSE_FIELD_STATUS = 5011;
+//    public static final short RESPONSE_FIELD_STATUS = 5011;
+
+    public static final short RESPONSE_SYNC_USER_INFO = 5081;
+    public static final short RESPONSE_SYNC_FIELD_STATUS = 5082;
+    public static final short RESPONSE_SYNC_STORAGE = 5083;
+    public static final short RESPONSE_SYNC_FOOD_STORAGE_ITEM = 5084;
+    
     
     
     

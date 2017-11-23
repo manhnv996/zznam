@@ -119,3 +119,12 @@ for (var k in HavestResource) {
 
 /*g_resources = g_resources.concat(g_MapResource, g_HavestResource);*/
 
+
+//add resources in Art/Main Gui
+for (var k in MainGuiResource) {
+    res[k] = MainGuiResource[k];
+}
+//add resources in Art/Main Gui/setting
+for (var k in SettingsResource) {
+    res[k] = SettingsResource[k];
+}
