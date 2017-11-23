@@ -19,9 +19,7 @@ var MapCtrl = cc.Class.extend({
         for (var i = 0; i < MapConfigs.Init.width; i++) {
             this.map.push([]);
             for (var j = 0; j < MapConfigs.Init.height; j++) {
-                this.map[i].push({
-                    type: 0
-                });
+                this.map[i].push(0);
             }
         }
 
@@ -63,7 +61,7 @@ var MapCtrl = cc.Class.extend({
         for (var i = 0; i < user.map.length; i++) {
             var str = '';
             for (var j = 0; j < user.map[i].length; j++) {
-                if (user.map[i][j].type === 0) {
+                if (this.map[i][j] === 0) {
                     str += '0';
                 } else {
                     str += "*";
@@ -89,7 +87,7 @@ var MapCtrl = cc.Class.extend({
         x = x.x || x;
         if (x < MapConfigs.Init.width && x >= 0 &&
             y < MapConfigs.Init.height && y >=0) {
-            return this.map[x][y].type === 0;
+            return this.map[x][y] === 0;
         } else {
             return false;
         }
@@ -98,7 +96,7 @@ var MapCtrl = cc.Class.extend({
     checkValidBlock: function(x, y, width, height) {
         for (var i = 0; i < width; i++) {
             for (var j = 0; j < height; j++) {
-                // cc.log(x + i, y + j, this.map[x + i][y + j].type);
+                // cc.log(x + i, y + j, this.map[x + i][y + j]);
                 if (!this.checkValidPosition(x + i, y + j)) {
                     return false;
                 }
@@ -110,7 +108,7 @@ var MapCtrl = cc.Class.extend({
     removeMapAlias: function(x, y, width, height) {
         for (var i = 0; i < width; i++) {
             for (var j = 0; j < height; j++) {
-                this.map[x + i][y + j].type = 0;
+                this.map[x + i][y + j] = 0;
                 // cc.log("Remove", x + i, y + j, this.map[x + i][y + j]);
             }
         }
@@ -119,7 +117,7 @@ var MapCtrl = cc.Class.extend({
     addMapAlias: function(x, y, width, height, type) {
         for (var i = 0; i < width; i++) {
             for (var j = 0; j < height; j++) {
-                this.map[x + i][y + j] = { type: type };
+                this.map[x + i][y + j] = type;
             }
         }
     },
