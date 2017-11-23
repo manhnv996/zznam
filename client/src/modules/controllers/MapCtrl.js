@@ -19,7 +19,7 @@ var MapCtrl = cc.Class.extend({
         for (var i = 0; i < MapConfigs.Init.width; i++) {
             this.map.push([]);
             for (var j = 0; j < MapConfigs.Init.height; j++) {
-                this.map[i].push(0);
+                this.map[i].push(MapItemEnum.EMPTY);
             }
         }
 
@@ -61,7 +61,7 @@ var MapCtrl = cc.Class.extend({
         for (var i = 0; i < user.map.length; i++) {
             var str = '';
             for (var j = 0; j < user.map[i].length; j++) {
-                if (this.map[i][j] === 0) {
+                if (this.map[i][j] === MapItemEnum.EMPTY) {
                     str += '0';
                 } else {
                     str += "*";
@@ -74,12 +74,15 @@ var MapCtrl = cc.Class.extend({
     showMe: function() {
         cc.log("I am here");
     },
-    getField: function(x, y) {
+
+    getObject: function(x, y) {
         /*
          DONE
          */
         var pointLogic = MapValues.screenPositionToLogic(x, y);
-        return user.getAsset().getFieldByLogicPosition(Math.floor(pointLogic.x), Math.floor(pointLogic.y));
+
+        return {"typeObject": user.map[Math.floor(pointLogic.x)][Math.floor(pointLogic.y)],
+                "pointLogic": cc.p(Math.floor(pointLogic.x), Math.floor(pointLogic.y))};
     },
 
     checkValidPosition: function(x, y) {
