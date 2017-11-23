@@ -70,6 +70,7 @@ var CropToolSprite = cc.Sprite.extend({
             }.bind(this)
         });
         cc.eventManager.addListener(this.dragListener, this);
+        //cc.eventManager.addListener(this.dragListener, ListenerPriority.plantingPriority);
     },
     render: function () {
 

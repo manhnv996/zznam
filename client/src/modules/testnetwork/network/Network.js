@@ -72,12 +72,19 @@ testnetwork.Connector = cc.Class.extend({
                 cc.log("RECEIVE RESPONSE_SYNC_FIELD_STATUS: ", packet.fieldId);
                 //
 
-                 var fieldSelected = user.getAsset().getFieldById(packet.fieldId);
-                 fieldSelected.setPlantType(packet.plantType);
+                var fieldSelected = user.getAsset().getFieldById(packet.fieldId);
+                fieldSelected.setPlantType(packet.plantType);
 
-                 var plantedTime = new Date();
-                 plantedTime.setTime(packet.longPlantedTime);
-                 fieldSelected.setPlantedTime(plantedTime);
+                var plantedTime = new Date();
+                plantedTime.setTime(packet.longPlantedTime);
+                fieldSelected.setPlantedTime(plantedTime);
+
+                if (packet.plantType != null){
+                    if (packet.longPlantedTime != 0){
+                        //
+                        MapLayer.instance.runAnimationPlantting(fieldSelected.getFieldId(), fieldSelected.getPlantType());
+                    }
+                }
 
                 break;
 

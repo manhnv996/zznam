@@ -19,7 +19,7 @@ function getSeedLevel(level) {
     var seedLevelList = [];
     for (var i = 0; i < productTypeObj.length; i++) {
 
-        if (productTypeObj[i].level <= (level + 29)) {
+        if (productTypeObj[i].level <= (level + 2)) {
             //seedLevelList.push(productTypeObj[i].id);
             seedLevelList.unshift(productTypeObj[i].id);
         }
@@ -78,7 +78,7 @@ function getProductObjByType(productId) {
 function getResAniIdBySeedType(seedType) {
     switch (seedType) {
         case ProductTypes.CROP_WHEAT:
-            return resAniId.luanuoc;
+            return resAniId.Luanuoc;
 
         case ProductTypes.CROP_CORN:
             return resAniId.Ngo;
@@ -181,12 +181,6 @@ function getSeedImgBySeedTypeAndQuantity(seedType, quantity) {
 function updateGameInfo(gameInfoJson){
 
     var gameInfo = null;
-    //cc.loader.loadJson(gameInfoJson, function (error, data) {
-    //    gameInfo = data;
-    //    GameInfo = data;
-    //
-    //});
-
     /*
     Read from json string
      */

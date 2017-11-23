@@ -46,24 +46,54 @@ var PlantCtrl = cc.Class.extend({
 
 
     },
-    onDragCropTool: function(x, y) {
+
+    isFieldAndChangeBlock: function(x, y) {
         //
         var fieldSelected = MapCtrl.instance.getField(x, y);
 
-        if (fieldSelected != null){
+        if (fieldSelected != null) {
             if (this.firstDragField) {
                 this.lastFieldSelected = null;
             }
-            if (this.lastFieldSelected != null){
-                if (this.lastFieldSelected.getFieldId() == fieldSelected.getFieldId()){
+            if (this.lastFieldSelected != null) {
+                if (this.lastFieldSelected.getFieldId() == fieldSelected.getFieldId()) {
 
-                    return false;
+                    //return false;
+                    return null;
                 }
             }
             this.lastFieldSelected = fieldSelected;
             this.firstDragField = false;
 
 
+            //return true;
+            return fieldSelected;
+        }
+
+        //return false;
+        return null;
+    },
+
+    onDragCropTool: function(x, y) {
+        //
+        //var fieldSelected = MapCtrl.instance.getField(x, y);
+        //
+        //if (fieldSelected != null){
+        //    if (this.firstDragField) {
+        //        this.lastFieldSelected = null;
+        //    }
+        //    if (this.lastFieldSelected != null){
+        //        if (this.lastFieldSelected.getFieldId() == fieldSelected.getFieldId()){
+        //
+        //            return false;
+        //        }
+        //    }
+        //    this.lastFieldSelected = fieldSelected;
+        //    this.firstDragField = false;
+
+
+        var fieldSelected = this.isFieldAndChangeBlock(x, y);
+        if (fieldSelected != null){
 //            //
             var status = fieldSelected.checkStatus();
 
@@ -108,23 +138,9 @@ var PlantCtrl = cc.Class.extend({
 
     },
     onDragSeed: function(seedType, x, y) {
-        //
-        var fieldSelected = MapCtrl.instance.getField(x, y);
 
+        var fieldSelected = this.isFieldAndChangeBlock(x, y);
         if (fieldSelected != null){
-            if (this.firstDragField) {
-                this.lastFieldSelected = null;
-            }
-            if (this.lastFieldSelected != null){
-                if (this.lastFieldSelected.getFieldId() == fieldSelected.getFieldId()){
-
-                    return false;
-                }
-            }
-            this.lastFieldSelected = fieldSelected;
-            this.firstDragField = false;
-
-
 //            //
             var status = fieldSelected.checkStatus();
 
@@ -197,4 +213,6 @@ var PlantCtrl = cc.Class.extend({
 
 
 });
-PlantCtrl.instance = new PlantCtrl();
+
+// Moved to MainScene.js
+// PlantCtrl.instance = new PlantCtrl();

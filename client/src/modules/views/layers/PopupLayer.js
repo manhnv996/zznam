@@ -93,9 +93,16 @@ var PopupLayer = cc.Layer.extend({
         this.progressBar.addChild(this.progress);
 
 
+        // crop name
+        this.timeRemain = new cc.LabelBMFont(getProductObjByType(fieldSelected.plantType).name, res.FONT_OUTLINE_50);
+        this.timeRemain.setPosition(cc.p(this.progressBar.width / 2, this.progressBar.height));
+        this.progressBar.addChild(this.timeRemain);
+
+
+
         // time remain
         this.timeRemain = new cc.LabelBMFont("", res.FONT_OUTLINE_50);
-        this.timeRemain.setPosition(cc.p(this.progressBar.width / 2, this.progressBar.height));
+        this.timeRemain.setPosition(cc.p(this.progressBar.width / 2, 0));
         // this.timeRemain.setPosition(cc.p(0, 0));
         this.progressBar.addChild(this.timeRemain);
 

@@ -6,6 +6,7 @@
 var FieldSprite = MapBlockSprite.extend({
 
     fieldId: null,
+    field: null, // Field object
 
     plantSprite: null,
     seedType: null,
@@ -20,7 +21,10 @@ var FieldSprite = MapBlockSprite.extend({
 
     ctor: function(parent, fieldId, x, y) {
         //this._super();
-        this._super(res.field, 1, 1, x, y);
+        this._super(res.field, MapConfigs.Field.blockSizeX, 
+                MapConfigs.Field.blockSizeY, x, y,
+                MapItemEnum.FIELD
+        );
 
         //
         this.render(fieldId);
@@ -35,7 +39,10 @@ var FieldSprite = MapBlockSprite.extend({
     },
     render: function (fieldId) {
         this.fieldId = fieldId;
-
+        // Find field in asset
+        this.field = user.getAsset().getFieldList().find(function(f) {
+            return f.fieldId === fieldId;
+        });
     },
 
 
@@ -56,7 +63,7 @@ var FieldSprite = MapBlockSprite.extend({
                 if (cc.rectContainsPoint(rect, locationInNode)) {
                     //cc.log("sprite began... x = " + locationInNode.x + ", y = " + locationInNode.y);
 
-                    target.opacity = 225;
+                    target.opacity = 180;
                     touchListener._lock = true;
                     return true;
                 }
@@ -95,11 +102,17 @@ var FieldSprite = MapBlockSprite.extend({
     // When begin click
     onBeginClick: function() {
         this.setOpacity(180);
+        if (this.plantSprite){
+            this.plantSprite.setOpacity(180);
+        }
     },
 
     // When end click    
     onEndClick: function() {
         this.setOpacity(255);
+        if (this.plantSprite){
+            this.plantSprite.setOpacity(255);
+        }
     },
 
 
@@ -167,8 +180,11 @@ var FieldSprite = MapBlockSprite.extend({
 
         if (this.plantSprite != null){
 
-            var parsePlantTime = user.getAsset().getFieldList()[this.fieldId].getPlantedTime().getTime();
-            var parseCropTime = user.getAsset().getFieldList()[this.fieldId].getCropTime().getTime();
+            // var parsePlantTime = user.getAsset().getFieldList()[this.fieldId].getPlantedTime().getTime();
+            // var parseCropTime = user.getAsset().getFieldList()[this.fieldId].getCropTime().getTime();
+            var parsePlantTime = this.field.getPlantedTime().getTime();
+            var parseCropTime = this.field.getCropTime().getTime();
+            
             var currTime = new Date().getTime();
 
             duration = parseCropTime - parsePlantTime;
@@ -206,6 +222,39 @@ var FieldSprite = MapBlockSprite.extend({
 
     },
 
+    runAction: function(action) {
+        if (this.plantSprite) {
+            this.plantSprite.runAction(action);
+        } else {
+            this._super(action);
+        }
+    },
 
+    stopAllActions: function() {
+        if (this.plantSprite) {
+            this.plantSprite.stopAllActions();
+        } else {
+            this._super();
+        }
+    },
 
+    setColor: function(color) {
+        if (this.plantSprite) {
+            this.plantSprite.setColor(color);
+        } else {
+            this._super(color);
+        }
+    },
+
+    // On finish move on map
+    onFinishMove: function(lx, ly) {
+        cc.log("Field moved to", lx, ly);
+        
+        this.field.coordinate.x = lx;
+        this.field.coordinate.y = ly;
+        cc.log(this.field);
+        // Send to server
+        // ...
+        ///
+    }
 });

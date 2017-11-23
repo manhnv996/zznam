@@ -8,6 +8,7 @@ var Asset = cc.Class.extend({
     machineList: [],
     natureThingList: [],
     myShop: null,
+    map: [],
 
     ctor: function (foodStorage, warehouse, fieldList, animalLodgeList, machineList, natureThingList, myShop) {
         //

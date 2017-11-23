@@ -48,12 +48,10 @@
         "src/modules/testnetwork/ScreenNetwork.js",
 
         "src/modules/utils/rayCasting.js",
-
-        "src/modules/entities/CoordinatedObject.js",
-        "src/modules/entities/StorageItem.js",
-        "src/modules/entities/Storage.js",
+        "src/modules/configs/MapItemEnum.js",
 
         "src/modules/configs/MapConfigs.js",
+        "src/modules/configs/ListenerPriorityConfigs.js",
         "src/modules/configs/MapValues.js",
         "src/modules/views/sprites/MapBlockSprite.js",
         "src/modules/views/sprites/AnimationSprite.js",

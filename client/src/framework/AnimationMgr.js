@@ -11,6 +11,7 @@ fr.createAnimation = function(folderPath, key, object)
     fr.loadAnimationData(folderPath, key, object);
     return db.DBCCFactory.getInstance().buildArmatureNode(key);
 };
+
 fr.loadAnimationData = function(folderPath, key, object)
 {
     if(object != undefined && object != null)

@@ -31,9 +31,9 @@ public class ZPUserInfo extends DataModel {
         
         id = _id;
         
-        this.level = 10;
-        this.gold = 10;
-        this.ruby = 10;
+        this.level = 5;
+        this.gold = 100;
+        this.ruby = 100;
         this.exp = 0L;
         
         this.asset = asset;

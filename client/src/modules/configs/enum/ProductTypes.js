@@ -102,6 +102,241 @@ var ProductTypes = {
 //
 // }
 
+
+//[
+//    {
+//        "id": "crop_wheat",
+//        "harvest": "2",
+//        "time": "120",
+//        "level": "1",
+//        "name": "Lua",
+//        "harvestExp": "1",
+//        "percentMaterial": "1",
+//        "maxPrice": "3",
+//        "growTimeType": "1",
+//        "rPrice": "1",
+//        "instantPrice": "1",
+//
+//
+//        "animation_res": "game/animation/luanuoc",
+//        "plantAni": "Luanuoc_1",
+//
+//        "grow1": "Luanuoc_2",
+//        "grow2": "Luanuoc3",
+//        "grow3": "selected",
+//        "grow4": "Luanuoc_chin",
+//
+//        "cropAni": "Luanuoc_Harvest"
+//
+//    },
+//    {
+//        "id": "crop_corn",
+//        "harvest": "2",
+//        "time": "300",
+//        "level": "2",
+//        "name": "Ngo",
+//        "harvestExp": "1",
+//        "percentMaterial": "1",
+//        "maxPrice": "7",
+//        "growTimeType": "1",
+//        "rPrice": "1",
+//        "instantPrice": "1",
+//
+//
+//
+//        "animation_res": "game/animation/Ngo",
+//        "plantAni": "Ngo_hat",
+//
+//        "grow1": "Ngo_non",
+//        "grow2": "Ngo_Hoa",
+//        "grow3": "selected",
+//        "grow4": "Ngo_bap",
+//
+//
+//        "cropAni": "Ngo_Th"
+//    },
+//    {
+//        "id": "crop_carrot",
+//        "harvest": "2",
+//        "time": "600",
+//        "level": "9",
+//        "name": "Ca rot",
+//        "harvestExp": "2",
+//        "percentMaterial": "2",
+//        "maxPrice": "7",
+//        "growTimeType": "1",
+//        "rPrice": "2",
+//        "instantPrice": "2",
+//
+//
+//
+//        "animation_res": "game/animation/Carot",
+//        "plantAni": "Carot_mam",
+//
+//        "grow1": "Carot_La",
+//        "grow2": "Carot_nho",
+//        "grow3": "selected",
+//        "grow4": "Carot_chin",
+//
+//        "cropAni": "Carot_Harvest"
+//    },
+//    {
+//        "id": "crop_soybean",
+//        "harvest": "2",
+//        "time": "1200",
+//        "level": "5",
+//        "name": "Dau nanh",
+//        "harvestExp": "2",
+//        "percentMaterial": "2",
+//        "maxPrice": "10",
+//        "growTimeType": "1",
+//        "rPrice": "2",
+//        "instantPrice": "2",
+//
+//
+//
+//        "animation_res": "game/animation/DauHL",
+//        "plantAni": "DauHL_Mam",
+//
+//        "grow1": "DauHL_La",
+//        "grow2": "DauHL_Hoa",
+//        "grow3": "selected",
+//        "grow4": "DauHL_chin",
+//
+//        "cropAni": "DauHL_Harvest"
+//    },
+//    {
+//        "id": "crop_sugarcane",
+//        "harvest": "2",
+//        "time": "1800",
+//        "level": "7",
+//        "name": "Mia",
+//        "harvestExp": "3",
+//        "percentMaterial": "3",
+//        "maxPrice": "14",
+//        "growTimeType": "1",
+//        "rPrice": "3",
+//        "instantPrice": "3",
+//
+//
+//
+//        "animation_res": "game/animation/Mia",
+//        "plantAni": "Mia_mam",
+//
+//        "grow1": "Mia_non",
+//        "grow2": "Mia_nho",
+//        "grow3": "selected",
+//        "grow4": "Mia_to",
+//
+//        "cropAni": "Mia_Harvest"
+//    },
+//    {
+//        "id": "crop_indigo",
+//        "harvest": "2",
+//        "time": "7200",
+//        "level": "13",
+//        "name": "Hoa oai huong",
+//        "harvestExp": "5",
+//        "percentMaterial": "4",
+//        "maxPrice": "25",
+//        "growTimeType": "2",
+//        "rPrice": "5",
+//        "instantPrice": "5",
+//
+//
+//        "animation_res": "game/animation/OaiHuong",
+//        "plantAni": "OaiHuong_mam",
+//
+//        "grow1": "OaiHuong_nho",
+//        "grow2": "OaiHuong_hoanho",
+//        "grow3": "selected",
+//        "grow4": "OaiHuong_to",
+//
+//        "cropAni": "OaiHuong_TH"
+//
+//    },
+//    {
+//        "id": "crop_chili_pepper",
+//        "harvest": "2",
+//        "time": "14400",
+//        "level": "25",
+//        "name": "Ot",
+//        "harvestExp": "7",
+//        "percentMaterial": "5",
+//        "maxPrice": "36",
+//        "growTimeType": "2",
+//        "rPrice": "7",
+//        "instantPrice": "7",
+//
+//
+//        "animation_res": "game/animation/Ot",
+//        "plantAni": "Ot_Mam",
+//
+//        "grow1": "Ot_la",
+//        "grow2": "Ot_Hoa",
+//        "grow3": "selected",
+//        "grow4": "Ot_to",
+//
+//        "cropAni": "Ot_Harvest"
+//
+//
+//    },
+//    {
+//        "id": "crop_tomato",
+//        "harvest": "2",
+//        "time": "21600",
+//        "level": "30",
+//        "name": "Ca chua",
+//        "harvestExp": "8",
+//        "percentMaterial": "5",
+//        "maxPrice": "43",
+//        "growTimeType": "3",
+//        "rPrice": "8",
+//        "instantPrice": "8",
+//
+//
+//        "animation_res": "game/animation/Cachua",
+//        "plantAni": "Cachua_mam",
+//
+//        "grow1": "Cachua_non",
+//        "grow2": "Cachua_quaxanh",
+//        "grow3": "selected",
+//        "grow4": "Cachua_chin",
+//
+//        "cropAni": "Cachua_thuhoach"
+//
+//
+//    },
+//    {
+//        "id": "crop_strawberry",
+//        "harvest": "2",
+//        "time": "28800",
+//        "level": "34",
+//        "name": "Dau tay",
+//        "harvestExp": "10",
+//        "percentMaterial": "6",
+//        "maxPrice": "50",
+//        "growTimeType": "3",
+//        "rPrice": "10",
+//        "instantPrice": "10",
+//
+//
+//        "animation_res": "game/animation/Dautay",
+//        "plantAni": "Dau_mam",
+//
+//        "grow1": "Dau_la",
+//        "grow2": "Dau_hoa",
+//        "grow3": "selected",
+//        "grow4": "Dau_chin",
+//
+//        "cropAni": "Dau_Harvest"
+//
+//
+//    }
+//]
+
+
+
 function find_value(array, key) {
     // find will run the provided function for every object in array
     var obj_found = _.find(array, function(obj) {
