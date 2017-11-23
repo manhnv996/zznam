@@ -20,6 +20,9 @@ var _ = (function() {
         shop_btTree_n_png: r("button4-1.png"),
         shop_btTree_s_png: r("button4.png"),
         shop_slot_png: r("SLOT.png"),
+        bg_notify_png: "Art/Storage/BG2.png",
+        activity_notify_png: "Art/Storage/Layer 24.png",
+        close_png: "Art/Storage/tuchoi.png",
 
 /*        shop_field_png: r("icon chuong/odat2.png"),
         shop_lodge_ga_png: r("icon chuong/chuongGa.png"),
@@ -34,14 +37,15 @@ var _ = (function() {
         //shop_animal_cuu_png: r("icon vatnuoi/sheep.png"),
         //shop_animal_de_png: r("icon vatnuoi/goat.png"),
 
-        /*infoCoopItem: JSON.parse(jsb.fileUtils.getStringFromFile("res/config/gameshopconfig/gsCoopConfig.json")),
+        infoCoopItem: JSON.parse(jsb.fileUtils.getStringFromFile("res/config/gameshopconfig/gsCoopConfig.json")),
         infoAnimalItem: JSON.parse(jsb.fileUtils.getStringFromFile("res/config/gameshopconfig/gsAnimalConfig.json")),
-        infoMachineItem: JSON.parse(jsb.fileUtils.getStringFromFile("res/config/gameshopconfig/gsMachineConfig.json"))*/
-        infoShopItem: JSON.parse(jsb.fileUtils.getStringFromFile("res/config/gameshopconfig/shopConfigs.json"))
+        infoMachineItem: JSON.parse(jsb.fileUtils.getStringFromFile("res/config/gameshopconfig/gsMachineConfig.json")),
+        infoTreeItem: JSON.parse(jsb.fileUtils.getStringFromFile("res/config/gameshopconfig/gsTreeConfig.json"))
+        //infoShopItem: JSON.parse(jsb.fileUtils.getStringFromFile("res/config/gameshopconfig/shopConfigs.json"))
     };
 
     var g_ShopResource = [];
-    /*ShopResource.infoCoopItem.forEach(function(content) {
+    ShopResource.infoCoopItem.forEach(function(content) {
         g_ShopResource.push(content.nameIconShop);
     });
     ShopResource.infoAnimalItem.forEach(function(content) {
@@ -49,8 +53,8 @@ var _ = (function() {
     });
     ShopResource.infoMachineItem.forEach(function(content) {
         g_ShopResource.push(content.nameIconShop);
-    });*/
-    ShopResource.infoShopItem.forEach(function (content) {
+    });
+    ShopResource.infoTreeItem.forEach(function (content) {
         g_ShopResource.push(content.nameIconShop);
     });
     for (var k in ShopResource) {

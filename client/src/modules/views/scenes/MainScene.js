@@ -30,6 +30,14 @@ var MainScene = cc.Scene.extend({
 		MapCtrl.instance._showDebugMap();
 	},
 
+	onGettedData: function() {
+		GSLayer.instance = new GSLayer();
+		this.addChild(GSLayer.instance);
+
+		NotifyLayer.instance = new NotifyLayer();
+		this.addChild(NotifyLayer.instance);
+	},
+
 	init: function() {
 
 		gv.gameClient.connect();

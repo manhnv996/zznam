@@ -100,7 +100,8 @@ cc.game.onStart = function () {
         gv.poolObjects = new PoolObject();
         user = new User();
         testnetwork.connector = new testnetwork.Connector(gv.gameClient);
-		cc.director.runScene(new MainScene());
+        MainScene.instance = new MainScene();
+		cc.director.runScene(MainScene.instance);
 
     }, this);
 };
