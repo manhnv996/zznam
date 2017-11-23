@@ -236,5 +236,5 @@ function updateGameInfo(gameInfoJson){
 
     }
 
-
+    MainScene.instance.onGettedData();
 }

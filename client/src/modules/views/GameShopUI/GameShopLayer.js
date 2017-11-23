@@ -43,9 +43,9 @@ var GameShopLayer = cc.Layer.extend({
         this._gameShop.runAction(moveAction);
     },
 
-    updateData: function () {
+/*    updateData: function () {
         this.removeChildByName("GameShop");
         this.init();
         //this.show();
-    }
+    }*/
 });

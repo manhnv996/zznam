@@ -93,6 +93,7 @@ var MapCtrl = cc.Class.extend({
         }
     },
 
+    // Check valid ***
     checkValidBlock: function(x, y, width, height) {
         for (var i = 0; i < width; i++) {
             for (var j = 0; j < height; j++) {
@@ -103,6 +104,11 @@ var MapCtrl = cc.Class.extend({
             }
         }
         return true;
+    },
+
+    // Check valid of sprite
+    checkValidBlockSprite: function(sprite) {
+        this.checkValidBlock(sprite.lx, sprite.ly, sprite.blockSizeX, sprite.blockSizeY);
     },
 
     removeMapAlias: function(x, y, width, height) {
@@ -122,6 +128,7 @@ var MapCtrl = cc.Class.extend({
         }
     },
 
+    // Add to map matrix
     addSpriteAlias: function(sprite) {
         this.addMapAlias(sprite.lx, sprite.ly,
             sprite.blockSizeX, sprite.blockSizeY,

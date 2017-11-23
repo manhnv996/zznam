@@ -2,7 +2,7 @@
  * Created by CPU60075_LOCAL on 16/11/2017.
  */
 
-var GameShopBtnLayout = ccui.Layout.extend({
+var GSBtnLayout = ccui.Layout.extend({
     _statusGS: 0,
 
     ctor: function () {
