@@ -23,7 +23,7 @@ public class ZPUserInfo extends DataModel {
     private long exp = 0L;
     
     private Asset asset;
-    
+    private int[][] map;
     
 
     public ZPUserInfo(int _id, Asset asset) {

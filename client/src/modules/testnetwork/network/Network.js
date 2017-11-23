@@ -53,7 +53,7 @@ testnetwork.Connector = cc.Class.extend({
 //          ////
 //            ////
             case gv.CMD.GAME_INFO:
-                cc.log("RECEIVE GAME_INFO: ", packet.gameInfoJson);
+                cc.log("RECEIVE GAME_INFO: ", JSON.parse(packet.gameInfoJson));
 
                 /*
                 INPROGRESS
