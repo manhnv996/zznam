@@ -7,15 +7,18 @@ var NhaChinhSprite = MapBlockSprite.extend({
 	},
 
 	onClick: function() {
-		cc.log("Nha chinh is clicked");
+		
 	},
 
 	onBeginClick: function() {
-		this.setOpacity(210);
+		// this.setOpacity(210);
+		cc.log("Nha chinh is clicked");
+		
 	},
 
 	onEndClick: function() {
-		this.setOpacity(255);
+		// this.setOpacity(255);
+		
 	},
 
 	onFinishMove: function(lx, ly) {

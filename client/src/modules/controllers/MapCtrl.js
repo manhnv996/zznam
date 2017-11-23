@@ -11,8 +11,8 @@ var MapCtrl = cc.Class.extend({
         this.map = user.map; // Pass to user map
         this.initMapArray();
         this.renderNaturalThings();
-        MapLayer.instance.addChild(new SiloSprite(20, 20));
-        MapLayer.instance.addChild(new WareHouseSprite(18, 24));
+        // MapLayer.instance.addChild(new SiloSprite(20, 20));
+        // MapLayer.instance.addChild(new WareHouseSprite(18, 24));
     },
 
     initMapArray: function() {
@@ -88,7 +88,7 @@ var MapCtrl = cc.Class.extend({
         y = x.y || y;
         x = x.x || x;
         if (x < MapConfigs.Init.width && x >= 0 &&
-            y < MapConfigs.Init.height && x >=0) {
+            y < MapConfigs.Init.height && y >=0) {
             return this.map[x][y].type === 0;
         } else {
             return false;

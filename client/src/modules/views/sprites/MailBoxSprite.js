@@ -7,6 +7,6 @@ var MailBoxSprite = MapBlockSprite.extend({
 	},
 
 	onClick: function() {
-		
+		cc.log("Mailbox clicked");
 	}
 });
