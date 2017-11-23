@@ -110,7 +110,7 @@ var MapCtrl = cc.Class.extend({
 
     // Check valid of sprite
     checkValidBlockSprite: function(sprite) {
-        this.checkValidBlock(sprite.lx, sprite.ly, sprite.blockSizeX, sprite.blockSizeY);
+        return this.checkValidBlock(sprite.lx, sprite.ly, sprite.blockSizeX, sprite.blockSizeY);
     },
 
     removeMapAlias: function(x, y, width, height) {

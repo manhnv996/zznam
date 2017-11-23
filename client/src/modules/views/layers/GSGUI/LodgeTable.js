@@ -100,13 +100,23 @@ var LodgeTable = cc.Layer.extend({
             curslot = GameShopController.instance.getNumberLodge(res.infoCoopItem[idx].id);
             maxslot = 0;
 
-            if(level >= res.infoCoopItem[idx].level3) {
-                maxslot = 3;
-            } else if (res.infoCoopItem[idx].level2 <= level && level < res.infoCoopItem[idx].level3) {
-                maxslot = 2;
-            } else if (res.infoCoopItem[idx].level <= level && level < res.infoCoopItem[idx].level2) {
-                maxslot = 1;
+            var length = res.infoCoopItem[idx].level.length;
+            if(level >= res.infoCoopItem[idx].level[length - 1]) {
+                maxslot = length;
+            } else {
+                for(var i = 0; i < length - 1; i++) {
+                    if (res.infoCoopItem[idx].level[0] <= level && level < res.infoCoopItem[idx].level[length - 1]) {
+                        maxslot = i + 1;
+                    }
+                }
             }
+            //if(level >= res.infoCoopItem[idx].level3) {
+            //    maxslot = 3;
+            //} else if (res.infoCoopItem[idx].level2 <= level && level < res.infoCoopItem[idx].level3) {
+            //    maxslot = 2;
+            //} else if (res.infoCoopItem[idx].level <= level && level < res.infoCoopItem[idx].level2) {
+            //    maxslot = 1;
+            //}
 
             slot = new cc.LabelBMFont(curslot + "/" + maxslot, "fonts/outline/30.fnt");
             slot.x = box.width / 3 * 2;
@@ -128,7 +138,6 @@ var LodgeTable = cc.Layer.extend({
             cell.addChild(price);
             cell.addChild(slot);
 
-            cc.log("create cell container " + idx);
         } else {
             id = cell.getChildByTag(0);
             id.setString(res.infoCoopItem[idx].id);
@@ -149,13 +158,23 @@ var LodgeTable = cc.Layer.extend({
                 curslot = user.getAsset().getFieldList().length;
                 maxslot = GameShopController.instance.getMaxField();
             } else {
-                curslot = GameShopController.instance.getNumberLodge(res.infoCoopItem[idx].id);
-                if(level >= res.infoCoopItem[idx].level3) {
-                    maxslot = 3;
-                } else if (res.infoCoopItem[idx].level2 <= level && level < res.infoCoopItem[idx].level3) {
-                    maxslot = 2;
-                } else if (res.infoCoopItem[idx].level <= level && level < res.infoCoopItem[idx].level2) {
-                    maxslot = 1;
+                //curslot = GameShopController.instance.getNumberLodge(res.infoCoopItem[idx].id);
+                //if(level >= res.infoCoopItem[idx].level3) {
+                //    maxslot = 3;
+                //} else if (res.infoCoopItem[idx].level2 <= level && level < res.infoCoopItem[idx].level3) {
+                //    maxslot = 2;
+                //} else if (res.infoCoopItem[idx].level <= level && level < res.infoCoopItem[idx].level2) {
+                //    maxslot = 1;
+                //}
+                var length = res.infoCoopItem[idx].level.length;
+                if(level >= res.infoCoopItem[idx].level[length - 1]) {
+                    maxslot = length;
+                } else {
+                    for(var i = 0; i < length - 1; i++) {
+                        if (res.infoCoopItem[idx].level[0] <= level && level < res.infoCoopItem[idx].level[length - 1]) {
+                            maxslot = i + 1;
+                        }
+                    }
                 }
             }
             slot.setString(curslot + "/" + maxslot);
@@ -209,7 +228,7 @@ var LodgeTable = cc.Layer.extend({
                             break;
                     }
                 }
-                cc.log(this._sprite);
+                //cc.log(this._sprite);
                 if (p.x !== lstP.x || p.y !== lstP.y) {
                     this._sprite.setLogicPosition(p.x, p.y);
                     lstP = p;
@@ -221,13 +240,16 @@ var LodgeTable = cc.Layer.extend({
                 cc.log("Touch Ended");
                 break;
             case ccui.Widget.TOUCH_CANCELED:
-                var endP = MapValues.screenPositionToLogic(sender.getTouchEndPosition().x, sender.getTouchEndPosition().y);
-                endP.x = Math.floor(endP.x);
-                endP.y = Math.floor(endP.y);
-                cc.log(endP.x + " " + endP.y);
-                this._check = GameShopController.instance.checkBorder(endP.x, endP.y);
+                var endP = sender.getTouchEndPosition();
+                var endPl = MapValues.screenPositionToLogic(endP.x, endP.y);
+                endPl.x = Math.floor(endPl.x);
+                endPl.y = Math.floor(endPl.y);
+                cc.log(endPl.x + " " + endPl.y);
+                this._check = MapCtrl.instance.checkValidBlockSprite(this._sprite);
+                cc.log("this._check " +this._check);
                 if (!this._check) {
                     MapLayer.instance.removeChild(this._sprite);
+                    NotifyLayer.instance.notifyCantPut(endP.x, endP.y);
                 } else {
                     var missGold = GameShopController.instance.checkGold(sender.parent.getChildByTag(5).getString());
                     cc.log(missGold);
@@ -235,7 +257,7 @@ var LodgeTable = cc.Layer.extend({
                         MapLayer.instance.removeChild(this._sprite);
                         NotifyLayer.instance.notifyMissGold(missGold);
                     } else {
-
+                        MapCtrl.instance.addSpriteAlias(this._sprite);
                     }
                 }
                 GSLayer.instance.show();
