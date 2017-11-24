@@ -87,7 +87,8 @@ var StorageItemListLayer = cc.Layer.extend({
                 var button = cell.getChildByTag(i);
                 var label = cell.getChildByTag(10 + i);
                 if ((idx * 3 + i) < this._listItems.length) {
-                    button.loadTextureNormal(res.storage_carot);
+                    //cc.log("rs" + this._listItems[idx * 3 + i].getTypeItem()[3]);
+                    //button.loadTextureNormal(this._listItems[idx * 3 + i].getTypeItem()[3]);
                     button.addTouchEventListener(this.touchEvent, this);
                     label.setString(this._listItems[idx * 3 + i].getQuantityItem());
                 } else {

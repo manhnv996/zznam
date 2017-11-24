@@ -75,6 +75,7 @@
         "src/modules/configs/enum/ProductTypes.js",
         "src/modules/configs/enum/FieldStatusTypes.js",
         "src/modules/configs/enum/StorageTypes.js",
+        "src/modules/configs/enum/ProductResource.js",
         "src/modules/configs/config.js",
 
         "src/modules/controllers/PlantCtrl.js",
