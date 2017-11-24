@@ -656,7 +656,7 @@ var MapLayer = (function() {
 			if (index != null){
 				this.fieldList[index].cropAnimation(seedType);
 
-				this.fieldList[index].changeTexture(res.field);
+				//this.fieldList[index].changeTexture(res.field);
 			}
 
 		},

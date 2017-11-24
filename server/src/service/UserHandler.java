@@ -76,7 +76,7 @@ public class UserHandler extends BaseClientRequestHandler {
             if (userInfo == null) {
                 
 //                createUser(userInfo, user.getId());                
-                userInfo = createUser(1);
+                userInfo = createUser(user.getId());
                 
                 userInfo.saveModel(user.getId());                
 //                userInfo.saveModel(1);

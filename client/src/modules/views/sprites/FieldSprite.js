@@ -169,12 +169,12 @@ var FieldSprite = MapBlockSprite.extend({
     changeTexture: function (texture) {
         this.setTexture(texture);
     },
-    ////
+    //
     updateFieldStatus: function (curr, duration) {
 
         if (user.getAsset().getFieldList()[this.fieldId].getPlantedTime() == null){
 
-            this.changeTexture(res.field);
+            //this.changeTexture(res.field);
             return false;
         }
 
