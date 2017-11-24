@@ -14,6 +14,7 @@ import cmd.receive.user.RequestUserInfo;
 import cmd.send.demo.ResponseGameInfo;
 import cmd.send.demo.ResponseRequestUserInfo;
 
+import config.enums.ProductResource;
 import config.enums.ProductType;
 import config.enums.StorageType;
 
@@ -102,7 +103,7 @@ public class UserHandler extends BaseClientRequestHandler {
         Storage foodStorage = new Storage(StorageType.FOOD_STORAGE, 50, 10, 10);
         Storage warehouse = new Storage(StorageType.WAREHOUSE, 50, 8, 8);
         foodStorage.addItem(ProductType.CROP_CARROT, 5);
-        foodStorage.addItem(ProductType.CROP_SOYBEAN, 10);
+        foodStorage.addItem(ProductType.CROP_SOYBEAN,10);
         foodStorage.addItem(ProductType.CROP_INDIGO, 2);
         foodStorage.addItem(ProductType.CROP_TOMATO, 2);
         foodStorage.addItem(ProductType.CROP_STRAWBERRY, 2);

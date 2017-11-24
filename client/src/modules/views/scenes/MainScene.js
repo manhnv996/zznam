@@ -6,6 +6,7 @@ var MainScene = cc.Scene.extend({
 		MapCtrl.instance = new MapCtrl();
 		PlantCtrl.instance = new PlantCtrl();
 		GameShopController.instance = new GameShopController();
+		StorageCtrl.instance = new StorageCtrl();
 
 		// Init layers
 		MapLayer.instance = new MapLayer();

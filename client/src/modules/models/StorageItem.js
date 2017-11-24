@@ -2,6 +2,7 @@
 var StorageItem = cc.Class.extend({
 
     typeItem: null,
+    //resourceItem: null,
     quantity: 0,
 
     ctor: function (typeProduct, quantity) {
@@ -9,6 +10,7 @@ var StorageItem = cc.Class.extend({
         //this._super();
 
         this.render(typeProduct, quantity);
+        //this.resourceItem = resourceProduct;
 
     },
     render: function (typeProduct, quantity) {

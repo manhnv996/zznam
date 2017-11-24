@@ -5,12 +5,14 @@ import util.database.DataModel;
 public class StorageItem extends DataModel {
     
     private String typeItem;
+//    private String []resourceItem;
     private int quantity;
     
     public StorageItem(String typeItem, int quantity) {
         super();
         
         this.typeItem = typeItem;
+//        this.resourceItem = resourceItem;
         this.quantity = quantity;
     }
 

@@ -3,6 +3,6 @@
  */
 
 var StorageTypes = {
-    FOOD_STORAGE: 0,
-    WAREHOUSE: 1
+    FOOD_STORAGE: "FOOD_STORAGE",
+    WAREHOUSE: "WAREHOUSE"
 }

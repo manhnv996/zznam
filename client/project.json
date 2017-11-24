@@ -121,7 +121,7 @@
         "src/modules/views/layers/GSGUI/GSLayer.js",
 
         "src/modules/views/layers/StorageUI/StorageItemListLayer.js",
-        "src/modules/views/layers/StorageUI/UpgradeStorageLayer.js",
+        "src/modules/views/layers/StorageUI/UpgradeSiloLayer.js",
         "src/modules/views/layers/StorageUI/StorageLayer.js",
 
         "src/modules/views/layers/MapLayer.js",

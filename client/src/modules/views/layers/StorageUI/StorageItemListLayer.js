@@ -11,8 +11,9 @@ var StorageItemListLayer = cc.Layer.extend({
         this._listItems = listItems;
 
         var upgradeBtn = new ccui.Button(res.storage_upgrade_png);
-        upgradeBtn.x = 0;
-        upgradeBtn.y = 0;
+        upgradeBtn.x = cc.winSize.width / 4;
+        upgradeBtn.y = cc.winSize.width / 10 - cc.winSize.width / 12;
+        upgradeBtn.addTouchEventListener(this.touchUpgrade, this);
         this.addChild(upgradeBtn);
 
         //cc.log("wh" + this.width);
@@ -76,20 +77,20 @@ var StorageItemListLayer = cc.Layer.extend({
 
                 var label = new cc.LabelBMFont(20, res.FONT_OUTLINE_20);
                 label.x = (cc.winSize.width / 6) * i + cc.winSize.width / 12;
-                label.y = button.y - button.height / 2;
+                label.y = button.y - button.height / 2 - label.height / 3;
                 label.tag = 10 + i;
                 cell.addChild(label);
 
             }
             //
-        cc.log(this._listItems);
+        //cc.log(this._listItems);
             for (var i = 0; i < 3; i++) {
                 var button = cell.getChildByTag(i);
                 var label = cell.getChildByTag(10 + i);
                 if ((idx * 3 + i) < this._listItems.length) {
                     //cc.log("rs" + this._listItems[idx * 3 + i].getTypeItem()[3]);
                     //button.loadTextureNormal(this._listItems[idx * 3 + i].getTypeItem()[3]);
-                    button.addTouchEventListener(this.touchEvent, this);
+                    button.addTouchEventListener(this.touchItem, this);
                     label.setString(this._listItems[idx * 3 + i].getQuantityItem());
                 } else {
                     button.setVisible(false);
@@ -104,14 +105,33 @@ var StorageItemListLayer = cc.Layer.extend({
     },
 
     numberOfCellsInTableView:function (table) {
-        cc.log("numberOfCellsInTableView " + (this._listItems.length % 3) ? (Math.floor(this._listItems.length / 3) + 1) : (this._listItems.length / 3))
+        //cc.log("numberOfCellsInTableView " + (this._listItems.length % 3) ? (Math.floor(this._listItems.length / 3) + 1) : (this._listItems.length / 3))
         return (this._listItems.length % 3) ? (Math.floor(this._listItems.length / 3) + 1) : (this._listItems.length / 3);
     },
 
-    touchEvent: function (sender, type) {
+    touchItem: function (sender, type) {
         switch (type) {
             case ccui.Widget.TOUCH_BEGAN:
                 cc.log("Touch Button");
+                break;
+        }
+    },
+
+    touchUpgrade: function (sender, type) {
+        switch (type) {
+            case ccui.Widget.TOUCH_ENDED:
+                //if (this._type == StorageTypes.FOOD_STORAGE) {
+                    this.parent.switchTo(1);
+                //} else {
+                //    this.parent.switchTo(2);
+                //}
+                break;
+            case ccui.Widget.TOUCH_CANCELED:
+                //if (this._type == StorageTypes.FOOD_STORAGE) {
+                    this.parent.switchTo(1);
+                //} else {
+                //    this.parent.switchTo(2);
+                //}
                 break;
         }
     }

@@ -30,6 +30,9 @@ var _ = (function() {
         storage_soybean: "Art/Crops/Field/dau.png",
         storage_sugarcane: "Art/Crops/Field/mia.png",
 
+        storage_buy_tool: "Art/Crops/Gui-act/butoon-congG-1.png",
+        ruby_small: "Art/Crops/Gui-act/ngoc-nho.png",
+
         tooltip_png: "Art/Crops/Gui-act",
 
         upgradeSilo: JSON.parse(jsb.fileUtils.getStringFromFile("res/config/upgradeSiloConfig.json")),
