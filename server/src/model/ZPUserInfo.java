@@ -27,7 +27,8 @@ public class ZPUserInfo extends DataModel {
     private long exp = 0L;
     
     private Asset asset;
-    private int[][] map;
+//    private int[][] map;
+    private MapAlias map;
     
 
     public ZPUserInfo(int _id, Asset asset) {
@@ -41,21 +42,22 @@ public class ZPUserInfo extends DataModel {
         this.exp = 0L;
         
         this.asset = asset;
-        this.map = new int[32][32];
+//        this.map = new int[32][32];
         // Copy map from default map
-        for (int i = 0; i < 32; i++) {
-            for (int j = 0; j < 32; j++) {
-                this.map[i][j] = ConfigContainer.defaultMap[i][j];
-            }
-        }
+//        for (int i = 0; i < 32; i++) {
+//            for (int j = 0; j < 32; j++) {
+//                this.map[i][j] = ConfigContainer.defaultMap[i][j];
+//            }
+//        }
+        this.map = new MapAlias();
     }
     
-    public ZPUserInfo(int _id, String _name) {
-        super();
-        id = _id;
-        name = _name;
-//        position = new Point(0, 0);
-    }
+//    public ZPUserInfo(int _id, String _name) {
+//        super();
+//        id = _id;
+//        name = _name;
+////        position = new Point(0, 0);
+//    }
 
     
     public Asset getAsset() {
@@ -114,10 +116,14 @@ public class ZPUserInfo extends DataModel {
         return false;
     }
     
-    public int[][] getMap() {
-        return this.map;    
+    public MapAlias getMap() {
+//        public int[][] getMap() {
+        return map;    
     }
     
+    public void setMap(MapAlias map) {
+        this.map = map;    
+    }
     
     //
 //    public String toString() {

@@ -5,7 +5,7 @@ import java.util.List;
 
 import util.database.DataModel;
 
-public class Asset extends DataModel {
+public class Asset {
     
     private Storage foodStorage;
     private Storage warehouse;

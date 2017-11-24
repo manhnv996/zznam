@@ -179,7 +179,6 @@ function getSeedImgBySeedTypeAndQuantity(seedType, quantity) {
 
 
 function updateGameInfo(gameInfoJson){
-
     var gameInfo = null;
     /*
     Read from json string
@@ -213,8 +212,7 @@ function updateGameInfo(gameInfoJson){
     user.gold = gameInfo.gold;
     user.ruby = gameInfo.ruby;
     user.exp = gameInfo.exp;
-    user.map = gameInfo.map;
-
+    user.map = gameInfo.map.map;
     for (var i = 0; i < gameInfo.asset.fieldList.length; i++){
         var field = new Field(new Coordinate(gameInfo.asset.fieldList[i].x, gameInfo.asset.fieldList[i].y), gameInfo.asset.fieldList[i].fieldId);
 

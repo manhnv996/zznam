@@ -45,6 +45,8 @@ var MapCtrl = cc.Class.extend({
         var warehouseSprite = new WareHouseSprite(warehouse.coordinate.x, warehouse.coordinate.y);
         MapLayer.instance.addChild(siloSprite);
         MapLayer.instance.addChild(warehouseSprite);
+
+        // Add from server
         this.addSpriteAlias(siloSprite);
         this.addSpriteAlias(warehouseSprite);
     },
@@ -103,6 +105,8 @@ var MapCtrl = cc.Class.extend({
                 fieldSprite.plantAnimation(field.plantType);
             }
             MapLayer.instance.fieldList.push(fieldSprite);
+            
+            // Add from server
             this.addSpriteAlias(fieldSprite);
         }
     },

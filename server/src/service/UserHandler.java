@@ -78,7 +78,7 @@ public class UserHandler extends BaseClientRequestHandler {
             if (userInfo == null) {
                 
 //                createUser(userInfo, user.getId());                
-                userInfo = createUser(1);
+                userInfo = createUser(user.getId());
                 
                 userInfo.saveModel(user.getId());                
 //                userInfo.saveModel(1);
@@ -87,7 +87,7 @@ public class UserHandler extends BaseClientRequestHandler {
             send(new ResponseGameInfo(userInfo), user);
             
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
 
     }
