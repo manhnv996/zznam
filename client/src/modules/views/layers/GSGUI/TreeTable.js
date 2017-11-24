@@ -42,7 +42,7 @@ var TreeTable = cc.Layer.extend({
     },
 
     tableCellAtIndex:function (table, idx) {
-        cc.log("Create Cell " + idx);
+        //cc.log("Create Cell " + idx);
         var cell = table.dequeueCell();
         var image;
         var title;
@@ -51,7 +51,7 @@ var TreeTable = cc.Layer.extend({
         var price;
 
         if (!cell) {
-            cc.log("if: " + idx);
+            //cc.log("if: " + idx);
             cell = new cc.TableViewCell();
             var imgBg = new cc.Sprite(res.shop_slot_png);
             imgBg.x = 0;
@@ -106,9 +106,9 @@ var TreeTable = cc.Layer.extend({
             cell.addChild(price);
             cell.addChild(slot);
 
-            cc.log("create cell container " + idx);
+            //cc.log("create cell container " + idx);
         } else {
-            cc.log("else: " + idx);
+            //cc.log("else: " + idx);
             image = cell.getChildByTag(1);
             image.setTexture(res.infoTreeItem[idx].nameIconShop);
 

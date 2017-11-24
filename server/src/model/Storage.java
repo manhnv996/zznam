@@ -9,18 +9,28 @@ public class Storage extends CoordinateObject {
     private StorageType storageType;
     private int capacity;
     private List<StorageItem> itemList;
+    private int level;
     
     public Storage(StorageType storageType, int capacity, int x, int y) {
         super(x, y);
         
         this.storageType = storageType;
         this.capacity = capacity;
+        this.level = 0;
         itemList = new ArrayList<>();
     }
 
     
     public int getCapacity() {
         return capacity;
+    }
+    
+    public int getLevel() {
+        return level;
+    }
+    
+    public void upgradeLevel() {
+        level++;
     }
 
     public List<StorageItem> getItemList() {

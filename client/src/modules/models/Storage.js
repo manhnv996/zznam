@@ -1,20 +1,21 @@
 
 var Storages = CoordinatedObject.extend({
 
-    storageId: 0,
+    storageType: null,
     capacity: Infinity,
+    level: 0,
     itemList: [],
 
-    ctor: function (coordinate, storageId, capacity) {
+    ctor: function (coordinate, storageType, capacity) {
         //
         this._super(coordinate);
 
-        this.render(storageId, capacity);
+        this.render(storageType, capacity);
 
     },
-    render: function (storageId, capacity) {
+    render: function (storageType, capacity) {
 
-        this.storageId = storageId;
+        this.storageType = storageType;
         this.capacity = capacity;
 
         this.itemList = [];
@@ -108,5 +109,13 @@ var Storages = CoordinatedObject.extend({
         }
 
         return total;
+    },
+
+    getLevel: function () {
+        return this.level;
+    },
+
+    upgradeLevel: function () {
+        this.level++;
     }
 });

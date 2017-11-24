@@ -12,8 +12,17 @@ var _ = (function() {
         storage_V_png: r("butoon-V.png"),
         storage_back_png: r("button -back.png"),
         storage_upgrade_png: r("button -nangcap.png"),
-        SILO_full: r("Kho chứa đồ đã đầy!.png"),
+        silo_full: r("Kho chứa đồ đã đầy!.png"),
         warehouse_full: r("Kho lươngthuc.png"),
+
+        upgrade_ware_bolt: "Art/Tool/dinh2.png",
+        upgrade_ware_plank: "Art/Tool/go1.png",
+        upgrade_ware_ductTape: "Art/Tool/bangdinh.png",
+
+        upgrade_silo_nail: "Art/Tool/dinh3.png",
+        upgrade_silo_screw: "Art/Tool/dinh.png",
+        upgrade_silo_woodPanel: "Art/Tool/go2.png",
+
 
         upgradeSilo: JSON.parse(jsb.fileUtils.getStringFromFile("res/config/upgradeSiloConfig.json")),
         upgradeWarehouse: JSON.parse(jsb.fileUtils.getStringFromFile("res/config/upgradeWareConfig.json"))

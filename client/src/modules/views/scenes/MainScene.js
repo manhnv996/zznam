@@ -36,7 +36,7 @@ var MainScene = cc.Scene.extend({
 
 		StorageLayer.instance = new StorageLayer();
 		this.addChild(StorageLayer.instance);
-		StorageLayer.instance.initStorage();
+		StorageLayer.instance.initStorage(user.getAsset().getFoodStorage());
 
 		NotifyLayer.instance = new NotifyLayer();
 		this.addChild(NotifyLayer.instance);

@@ -9,10 +9,11 @@ var StorageLayer = cc.Layer.extend({
     },
 
     //itemList, capacity, level, type
-    initStorage: function (itemList, capacity) {
+    initStorage: function (storage) {
         //same background + 1 layout
         //2 layer: storage items (table view) + upgrade
         //layerMultiPlex(storage items, upgrade)) belong to layout
+        //upgrade.....
 
         var bg = new cc.Sprite(res.storage_bg_png);
         bg.x = cc.winSize.width / 2;
