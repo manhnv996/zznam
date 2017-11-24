@@ -14,7 +14,6 @@ var PlantCtrl = cc.Class.extend({
 
             var status = fieldSelected.checkStatus();
 
-
             if (status == FieldStatusTypes.EMPTY){
 
                 var seedShow = getSeedShow(user.getLevel());
@@ -69,7 +68,6 @@ var PlantCtrl = cc.Class.extend({
             //return true;
             return fieldSelected;
         }
-
         //return false;
         return null;
     },
@@ -91,12 +89,10 @@ var PlantCtrl = cc.Class.extend({
         //    this.lastFieldSelected = fieldSelected;
         //    this.firstDragField = false;
 
-
         var fieldSelected = this.isFieldAndChangeBlock(x, y);
         if (fieldSelected != null){
 //            //
             var status = fieldSelected.checkStatus();
-
             if (status == FieldStatusTypes.DONE){
                 //
                 var seedType = fieldSelected.getPlantType();
@@ -116,9 +112,7 @@ var PlantCtrl = cc.Class.extend({
 
                     //
                     cc.log("FLOW UpgradeStorage!!!!!!!!!!!!!!!!!!!");
-
                 } else {
-//
                     //send pk to server {packet{fieldId}}
                     testnetwork.connector.sendCrop(fieldSelected.getFieldId());
 /////
@@ -138,7 +132,6 @@ var PlantCtrl = cc.Class.extend({
 
     },
     onDragSeed: function(seedType, x, y) {
-
         var fieldSelected = this.isFieldAndChangeBlock(x, y);
         if (fieldSelected != null){
 //            //

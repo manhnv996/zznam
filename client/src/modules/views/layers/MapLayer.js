@@ -32,7 +32,7 @@ var MapLayer = (function() {
 
 			// Move to MapCtrl
 			// this.renderDefaultConstruct(); 
-			this.renderSample();
+			// this.renderSample();
 			this.setScale(0.4);
 			// Set map to center of screen, Note that setting scale before setting position.
 			var center = MapValues.logicToPosition(MapConfigs.Init.width / 2, MapConfigs.Init.height / 2);
@@ -641,17 +641,19 @@ var MapLayer = (function() {
 
 
 		runAnimationPlantting: function(fieldId, seedType){
-			var index = this.getIndexOfFieldList(fieldId);
-			if (index != null){
-
-				this.fieldList[index].plantAnimation(seedType);
-
+			// var index = this.getIndexOfFieldList(fieldId);
+			var field = this.fieldList.find(function(f) {
+				return f.fieldId === fieldId;
+			})
+			if (field){
+				field.plantAnimation(seedType);
 			}
 
 
 		},
 
 		runAnimationCrop: function (fieldId, seedType) {
+			cc.log("Run animation crop");
 			var index = this.getIndexOfFieldList(fieldId);
 			if (index != null){
 				this.fieldList[index].cropAnimation(seedType);

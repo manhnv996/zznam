@@ -206,34 +206,34 @@ function updateGameInfo(gameInfoJson){
     user.gold = gameInfo.gold;
     user.ruby = gameInfo.ruby;
     user.exp = gameInfo.exp;
-
+    user.map = gameInfo.map;
 
     for (var i = 0; i < gameInfo.asset.fieldList.length; i++){
         var field = new Field(new Coordinate(gameInfo.asset.fieldList[i].x, gameInfo.asset.fieldList[i].y), gameInfo.asset.fieldList[i].fieldId);
-        user.getAsset().addField(field);
 
-
+        // Moved render field to MapCtrl
         //field sprite
-        var fieldSprite = new FieldSprite(MapLayer.instance, field.getFieldId(), field.getCoordinate().getCurrX(), field.getCoordinate().getCurrY());
-        MapLayer.instance.addChild(fieldSprite);
-        MapLayer.instance.fieldList.push(fieldSprite);
+        // var fieldSprite = new FieldSprite(MapLayer.instance, field.getFieldId(), field.getCoordinate().getCurrX(), field.getCoordinate().getCurrY());
+        // MapLayer.instance.addChild(fieldSprite);
+        // MapLayer.instance.fieldList.push(fieldSprite);
 
-        if (gameInfo.asset.fieldList[i].plantType != null){
-            if (gameInfo.asset.fieldList[i].plantedTime != 0){
+        if (gameInfo.asset.fieldList[i].plantType){
+            if (gameInfo.asset.fieldList[i].plantedTime !== 0){
                 //
                 var plantType = gameInfo.asset.fieldList[i].plantType;
-                user.getAsset().getFieldList()[i].setPlantType(plantType);
+                field.setPlantType(plantType);
                 //
                 var intTime = gameInfo.asset.fieldList[i].plantedTime;
                 var plantedTime = new Date();
                 plantedTime.setTime(intTime);
 
-                user.getAsset().getFieldList()[i].setPlantedTime(plantedTime);
+                field.setPlantedTime(plantedTime);
 
-                MapLayer.instance.runAnimationPlantting(field.getFieldId(), plantType);
+                // MapLayer.instance.runAnimationPlantting(field.getFieldId(), plantType);
             }
         }
 
+        user.getAsset().addField(field);
     }
 
     MainScene.instance.onGettedData();

@@ -11,14 +11,15 @@ var CoordinatedObject = cc.Class.extend({
         // this._super();
 
         // cc.log("ctor coordinateobject:");
-        this.render(coordinate);
-    },
-    render: function (coordinate) {
-        //
         this.coordinate = coordinate;
-        // this.lx = x;
-        // this.ly = y;
     },
+
+    // render: function (coordinate) {
+    //     //
+    //     this.coordinate = coordinate;
+    //     // this.lx = x;
+    //     // this.ly = y;
+    // },
 
     // //
     // getCurrX: function () {

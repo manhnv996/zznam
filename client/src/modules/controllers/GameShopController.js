@@ -44,7 +44,7 @@ var GameShopController = cc.Class.extend({
     },
 
     checkGold: function (price) {
-        cc.log(price);
+        // cc.log(price);
         var gold = user.getGold();
         var missGold = 0;
         if (price > gold)

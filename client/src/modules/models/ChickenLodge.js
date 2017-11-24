@@ -13,10 +13,10 @@ var ChickenLodge = AnimalLodge.extend({
 
 
     },
-    render: function () {
-        //
+    // render: function () {
+    //     //
 
-    },
+    // },
 
     getCurrentSlot: function () {
         return this.chickenList.length;
