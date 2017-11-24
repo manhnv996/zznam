@@ -221,6 +221,10 @@ var FieldSprite = MapBlockSprite.extend({
                 // this.plantSprite.getAnimation().gotoAndPlay(plantTypeObj.plantAni,-1, -1, 1);
 
             }
+
+            if (!this.plantSprite.isVisible()){
+                this.plantSprite.setVisible(true);
+            }
         }
 
     },

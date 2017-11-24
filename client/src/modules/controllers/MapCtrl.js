@@ -36,6 +36,7 @@ var MapCtrl = cc.Class.extend({
         // cc.log("Silo", user.asset.foodStorage);
         // MapLayer.instance.addChild(new SiloSprite(20, 20));
         // MapLayer.instance.addChild(new WareHouseSprite(18, 24));
+        this.renderUserInfo();
     },
 
     renderStorages: function() {
@@ -47,6 +48,13 @@ var MapCtrl = cc.Class.extend({
         MapLayer.instance.addChild(warehouseSprite);
         this.addSpriteAlias(siloSprite);
         this.addSpriteAlias(warehouseSprite);
+    },
+
+    renderUserInfo: function() {
+        MainGuiLayer.instance.labelLevel.setString(user.getLevel());
+        MainGuiLayer.instance.labelGold.setString(user.getGold());
+        MainGuiLayer.instance.labelRuby.setString(user.getRuby());
+        //MainGuiLayer.instance.labelExp.setString(user.getExp());
     },
 
     renderDefaultConstruct: function() {

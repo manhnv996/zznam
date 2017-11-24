@@ -47,8 +47,8 @@ var PopupLayer = cc.Layer.extend({
                 return false;
             }
 
-            this.progress.setScale(curr / duration, 1);
-            this.progress.setPositionX(this.progressBar.width / 2 + 28 - 180 + this.progress.getScaleX() * 180);
+            this.progress.setPercent(curr / duration * 100);
+
 
             //
             var remain = new Date();
@@ -89,10 +89,14 @@ var PopupLayer = cc.Layer.extend({
         this.progressBar.setPosition(fieldScreenPosition.x, fieldScreenPosition.y);
 
 
-        this.progress = cc.Sprite.create(res.progress);
-        this.progress.setScale(0, 1);
-        this.progress.setPosition(this.progressBar.width / 2 + 28 - 148, this.progressBar.height / 2);
+//
+        this.progress = new ccui.LoadingBar();
+        this.progress.loadTexture(res.progress);
+        this.progress.setPosition(this.progressBar.width / 2 + 28, this.progressBar.height / 2);
+        this.progress.setPercent(0);
         this.progressBar.addChild(this.progress);
+
+
 
 
         // crop name
