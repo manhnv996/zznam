@@ -3,7 +3,7 @@
  */
 
 var StorageItemListLayer = cc.Layer.extend({
-    _listItems: null,
+    _listItems: [],
 
     ctor: function (listItems) {
         this._super();
@@ -49,7 +49,8 @@ var StorageItemListLayer = cc.Layer.extend({
     },
 
     tableCellSizeForIndex:function (table, idx) {
-        return cc.size(cc.winSize.width / 2, (cc.winSize.height / 5 * 2) / 3);
+        //cc.log("cell width " + cc.winSize.width / 2);
+        return cc.size(cc.winSize.width / 2, (cc.winSize.height / 5 * 2) / 2);
     },
 
     tableCellAtIndex:function (table, idx) {
@@ -57,27 +58,40 @@ var StorageItemListLayer = cc.Layer.extend({
         //var level = user.getLevel();
         var button = [];
         var label = [];
-        //var itemType;
+        //var itemType = [];
 
+        //cc.log("create cell" + idx);
         //if (!cell) {
             cell = new cc.TableViewCell();
 
+        //cc.log("cell width " + cell.getBoundingBox().width);
+
             for (var i = 0; i < 3; i++) {
                 button[i] = new ccui.Button(res.storage_apple);
-                button[i].x = (cell.width / 3) * i + cell.width / 6;
-                button[i].y = cell.height / 2;
+                button[i].x = (cc.winSize.width / 6) * i + cc.winSize.width / 12;
+                button[i].y = (cc.winSize.height / 5 * 2) / 4;
+                //button[i].x = 0;
+                //button[i].y = 0;
                 button[i].setZoomScale(-0.1);
                 cell.addChild(button[i]);
 
-                label[i] = new cc.LabelBMFont(0, res.FONT_OUTLINE_20);
-                label[i].x = (cell.width / 3) * i + cell.width / 6;
-                label[i].y = 0;
+                label[i] = new cc.LabelBMFont(20, res.FONT_OUTLINE_20);
+                label[i].x = (cc.winSize.width / 6) * i + cc.winSize.width / 12;
+                label[i].y = button[i].y - button[i].height / 2;
                 cell.addChild(label[i]);
-            }
 
+            }
+            //
+        cc.log(this._listItems);
             for (var i = 0; i < 3; i++) {
-                if ((idx * 3 + i) < length) {
-                    
+
+                if ((idx * 3 + i) < this._listItems.length) {
+                    button[i].loadTextureNormal(res.storage_carot);
+                    //button[i].addTouchEventListener(this.touchEvent, this);
+                    label[i].setString(this._listItems[idx * 3 + i].getQuantityItem());
+                } else {
+                    button[i].setVisible(false);
+                    label[i].setVisible(false);
                 }
             }
         //} else {
@@ -88,7 +102,12 @@ var StorageItemListLayer = cc.Layer.extend({
     },
 
     numberOfCellsInTableView:function (table) {
+        cc.log("numberOfCellsInTableView " + (this._listItems.length % 3) ? (Math.floor(this._listItems.length / 3) + 1) : (this._listItems.length / 3))
         return (this._listItems.length % 3) ? (Math.floor(this._listItems.length / 3) + 1) : (this._listItems.length / 3);
     }
+
+    //touchEvent: function (sender, type) {
+    //
+    //}
 
 });
