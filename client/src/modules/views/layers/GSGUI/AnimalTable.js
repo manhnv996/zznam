@@ -97,20 +97,32 @@ var AnimalTable = cc.Layer.extend({
             slot.y = box.height / 5 * 4;
             slot.tag = 4;
 
-            if (curslot < res.infoAnimalItem[idx].slot){
-                price = new cc.LabelBMFont(res.infoAnimalItem[idx].price1, "fonts/outline/30.fnt");
+            var p;
+            //if (curslot < res.infoAnimalItem[idx].slot){
+            //    price = new cc.LabelBMFont(res.infoAnimalItem[idx].price1, "fonts/outline/30.fnt");
+            //} else {
+            //    if (numberLodge == 2) {
+            //        price = new cc.LabelBMFont(res.infoAnimalItem[idx].price2, "fonts/outline/30.fnt");
+            //    } else if (numberLodge == 3) {
+            //        if (curslot < res.infoAnimalItem[idx].slot * 2) {
+            //            price = new cc.LabelBMFont(res.infoAnimalItem[idx].price2, "fonts/outline/30.fnt");
+            //        } else {
+            //            price = new cc.LabelBMFont(res.infoAnimalItem[idx].price3, "fonts/outline/30.fnt");
+            //        }
+            //    }
+            //}
+            if (curslot < res.infoAnimalItem[idx].slot) {
+                p = res.infoAnimalItem[idx].price[0];
             } else {
-                if (numberLodge == 2) {
-                    price = new cc.LabelBMFont(res.infoAnimalItem[idx].price2, "fonts/outline/30.fnt");
-                } else if (numberLodge == 3) {
-                    if (curslot < res.infoAnimalItem[idx].slot * 2) {
-                        price = new cc.LabelBMFont(res.infoAnimalItem[idx].price2, "fonts/outline/30.fnt");
-                    } else {
-                        price = new cc.LabelBMFont(res.infoAnimalItem[idx].price3, "fonts/outline/30.fnt");
+                for (var i = 1; i <= numberLodge - 1; i++) {
+                    if (res.infoAnimalItem[idx].slot * i <= curslot && curslot < res.infoAnimalItem[idx].slot * (i + 1)) {
+                        p = res.infoAnimalItem[idx].price[i];
+                        break;
                     }
                 }
             }
-                //price = new cc.LabelBMFont(res.infoAnimalItem[idx].price, "fonts/outline/30.fnt");
+
+            price = new cc.LabelBMFont(p, "fonts/outline/30.fnt");
             price.x = box.width / 5 * 2;
             price.y = 0;
             price.setAnchorPoint(1, -0.5);
@@ -141,20 +153,33 @@ var AnimalTable = cc.Layer.extend({
             slot = cell.getChildByTag(4);
             slot.setString(curslot + "/" + maxslot);
 
-            price = cell.getChildByTag(5);
-            if (curslot < res.infoAnimalItem[idx].slot){
-                price.setString(res.infoAnimalItem[idx].price1);
+            var p;
+            if (curslot < res.infoAnimalItem[idx].slot) {
+                p = res.infoAnimalItem[idx].price[0];
             } else {
-                if (numberLodge == 2) {
-                    price.setString(res.infoAnimalItem[idx].price2);
-                } else if (numberLodge == 3) {
-                    if (curslot < res.infoAnimalItem[idx].slot * 2) {
-                        price.setString(res.infoAnimalItem[idx].price2);
-                    } else {
-                        price.setString(res.infoAnimalItem[idx].price3);
+                for (var i = 1; i <= numberLodge - 1; i++) {
+                    if (res.infoAnimalItem[idx].slot * i <= curslot && curslot < res.infoAnimalItem[idx].slot * (i + 1)) {
+                        p = res.infoAnimalItem[idx].price[i];
+                        break;
                     }
                 }
             }
+
+            price = cell.getChildByTag(5);
+            price.setString(p);
+            //if (curslot < res.infoAnimalItem[idx].slot){
+            //    price.setString(res.infoAnimalItem[idx].price1);
+            //} else {
+            //    if (numberLodge == 2) {
+            //        price.setString(res.infoAnimalItem[idx].price2);
+            //    } else if (numberLodge == 3) {
+            //        if (curslot < res.infoAnimalItem[idx].slot * 2) {
+            //            price.setString(res.infoAnimalItem[idx].price2);
+            //        } else {
+            //            price.setString(res.infoAnimalItem[idx].price3);
+            //        }
+            //    }
+            //}
         }
 
         return cell;

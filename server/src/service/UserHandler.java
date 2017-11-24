@@ -108,16 +108,17 @@ public class UserHandler extends BaseClientRequestHandler {
 //        foodStorage.addItem(ProductType.CROP_STRAWBERRY, 2);
         
         Asset asset = new Asset(foodStorage, warehouse, null);
-        for (int i = 1; i < 7; i++){
+        for (int i = 1; i < 4; i++){
             Field field = new Field(0, 18, 10 + i);
             asset.addField(field);
         }
+        System.out.println("Field number" + asset.getFieldList().size());
         asset.getFieldById(1).setPlantType(ProductType.CROP_CARROT);
         asset.getFieldById(1).setPlantedTime(new Date().getTime());
         
         ZPUserInfo userInfo = new ZPUserInfo(userId, asset);
         
-        for (int i = 0; i < 6; i++){
+        for (int i = 0; i < 3; i++){
             System.out.println("field" + asset.getFieldById(i).getFieldId() + ", " + asset.getFieldById(i).getPlantType() + ", " + asset.getFieldById(i).getPlantedTime());
         }
         

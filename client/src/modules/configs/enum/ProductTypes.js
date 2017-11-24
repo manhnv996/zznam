@@ -12,7 +12,13 @@ var ProductTypes = {
     CROP_TOMATO: "crop_tomato",
     CROP_STRAWBERRY: "crop_strawberry",
 
+    TOOL_NAIL: "tool_nail",
+    TOOL_SCREW: "tool_screw",
+    TOOL_WOODPANEL: "tool_woodPanel",
 
+    TOOL_BOLT: "tool_bolt",
+    TOOL_PLANK: "tool_plank",
+    TOOL_DUCTTAPE: "tool_ductTape"
 
     //GOOD_EGG: 10,
     //GOOF_MILK: 11,

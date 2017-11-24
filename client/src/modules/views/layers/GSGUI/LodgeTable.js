@@ -82,7 +82,6 @@ var LodgeTable = cc.Layer.extend({
             image.y = box.height / 2;
             var scaleImg = imgBg.getContentSize().height / image.getContentSize().height;
             image.setScale(scaleImg);
-            image.addTouchEventListener(this.touchEvent, this);
             image.tag = 1;
 
             title = new cc.LabelBMFont(res.infoCoopItem[idx].title, "fonts/outline/30.fnt");
@@ -129,6 +128,10 @@ var LodgeTable = cc.Layer.extend({
             price.setAnchorPoint(1, -0.5);
             price.tag = 5;
 
+            if (level >= res.infoCoopItem[idx].level[0] || curslot < maxslot) {
+                image.addTouchEventListener(this.touchEvent, this);
+            }
+
             cell.addChild(imgBg);
             cell.addChild(goldImg);
 
@@ -145,7 +148,6 @@ var LodgeTable = cc.Layer.extend({
             image = cell.getChildByTag(1);
             //image.setTexture(res.infoCoopItem[idx].nameIconShop);
             image.loadTextureNormal(res.infoCoopItem[idx].nameIconShop);
-            image.addTouchEventListener(this.touchEvent, this);
 
             title = cell.getChildByTag(2);
             title.setString(res.infoCoopItem[idx].title);
@@ -157,6 +159,9 @@ var LodgeTable = cc.Layer.extend({
             if(res.infoCoopItem[idx].id == "field"){
                 curslot = user.getAsset().getFieldList().length;
                 maxslot = GameShopController.instance.getMaxField();
+                if (curslot < maxslot) {
+                    image.addTouchEventListener(this.touchEvent, this);
+                }
             } else {
                 //curslot = GameShopController.instance.getNumberLodge(res.infoCoopItem[idx].id);
                 //if(level >= res.infoCoopItem[idx].level3) {
@@ -175,6 +180,10 @@ var LodgeTable = cc.Layer.extend({
                             maxslot = i + 1;
                         }
                     }
+                }
+
+                if (level >= res.infoCoopItem[idx].level[0] || curslot < maxslot) {
+                    image.addTouchEventListener(this.touchEvent, this);
                 }
             }
             slot.setString(curslot + "/" + maxslot);
@@ -216,23 +225,25 @@ var LodgeTable = cc.Layer.extend({
                             this._sprite = new ODatSprite(createP.x, createP.y, user.getAsset().getFieldList().length);
                             MapLayer.instance.addChild(this._sprite);
                             break;
-                        case "chicken_habitat":
-                            break;
-                        case "cow_habitat":
-                            break;
-                        case "pig_habitat":
-                            break;
-                        case "sheep_habitat":
-                            break;
-                        case "goat_habitat":
-                            break;
+                        //case "chicken_habitat":
+                        //    break;
+                        //case "cow_habitat":
+                        //    break;
+                        //case "pig_habitat":
+                        //    break;
+                        //case "sheep_habitat":
+                        //    break;
+                        //case "goat_habitat":
+                        //    break;
                     }
                 }
                 //cc.log(this._sprite);
-                if (p.x !== lstP.x || p.y !== lstP.y) {
-                    this._sprite.setLogicPosition(p.x, p.y);
-                    lstP = p;
-                    //cc.log(Math.floor(psl.x) + " : " + Math.floor(psl.y));
+                if (this._sprite) {
+                    if (p.x !== lstP.x || p.y !== lstP.y) {
+                        this._sprite.setLogicPosition(p.x, p.y);
+                        lstP = p;
+                        //cc.log(Math.floor(psl.x) + " : " + Math.floor(psl.y));
+                    }
                 }
                 cc.log("Touch Moved");
                 break;
@@ -240,24 +251,26 @@ var LodgeTable = cc.Layer.extend({
                 cc.log("Touch Ended");
                 break;
             case ccui.Widget.TOUCH_CANCELED:
-                var endP = sender.getTouchEndPosition();
-                var endPl = MapValues.screenPositionToLogic(endP.x, endP.y);
-                endPl.x = Math.floor(endPl.x);
-                endPl.y = Math.floor(endPl.y);
-                cc.log(endPl.x + " " + endPl.y);
-                this._check = MapCtrl.instance.checkValidBlockSprite(this._sprite);
-                cc.log("this._check " +this._check);
-                if (!this._check) {
-                    MapLayer.instance.removeChild(this._sprite);
-                    NotifyLayer.instance.notifyCantPut(endP.x, endP.y);
-                } else {
-                    var missGold = GameShopController.instance.checkGold(sender.parent.getChildByTag(5).getString());
-                    cc.log(missGold);
-                    if (missGold) {
+                if (this._sprite) {
+                    var endP = sender.getTouchEndPosition();
+                    var endPl = MapValues.screenPositionToLogic(endP.x, endP.y);
+                    endPl.x = Math.floor(endPl.x);
+                    endPl.y = Math.floor(endPl.y);
+                    cc.log(endPl.x + " " + endPl.y);
+                    this._check = MapCtrl.instance.checkValidBlockSprite(this._sprite);
+                    cc.log("this._check " + this._check);
+                    if (!this._check) {
                         MapLayer.instance.removeChild(this._sprite);
-                        NotifyLayer.instance.notifyMissGold(missGold);
+                        NotifyLayer.instance.notifyCantPut(endP.x, endP.y);
                     } else {
-                        MapCtrl.instance.addSpriteAlias(this._sprite);
+                        var missGold = GameShopController.instance.checkGold(sender.parent.getChildByTag(5).getString());
+                        cc.log(missGold);
+                        if (missGold) {
+                            MapLayer.instance.removeChild(this._sprite);
+                            NotifyLayer.instance.notifyMissGold(missGold);
+                        } else {
+                            MapCtrl.instance.addSpriteAlias(this._sprite);
+                        }
                     }
                 }
                 GSLayer.instance.show();

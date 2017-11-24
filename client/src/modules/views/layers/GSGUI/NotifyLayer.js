@@ -11,8 +11,8 @@ var NotifyLayer = cc.Layer.extend({
 
     notifyMissGold: function (gold) {
         this._layoutMissGold = new ccui.Layout();
-        this._layoutMissGold.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
-        this._layoutMissGold.setBackGroundColor(cc.color.RED);
+        //this._layoutMissGold.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
+        //this._layoutMissGold.setBackGroundColor(cc.color.RED);
         this._layoutMissGold.x = cc.winSize.width / 2;
         this._layoutMissGold.y = cc.winSize.height / 2;
         this._layoutMissGold.setAnchorPoint(0.5, 0.5);

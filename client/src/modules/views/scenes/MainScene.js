@@ -34,6 +34,10 @@ var MainScene = cc.Scene.extend({
 		GSLayer.instance = new GSLayer();
 		this.addChild(GSLayer.instance);
 
+		StorageLayer.instance = new StorageLayer();
+		this.addChild(StorageLayer.instance);
+		StorageLayer.instance.initStorage();
+
 		NotifyLayer.instance = new NotifyLayer();
 		this.addChild(NotifyLayer.instance);
 	},
@@ -41,7 +45,7 @@ var MainScene = cc.Scene.extend({
 	init: function() {
 
 		gv.gameClient.connect();
-		testnetwork.connector.sendLoginRequest();
+		//testnetwork.connector.sendLoginRequest();
 
 
 //		////    TEST//
