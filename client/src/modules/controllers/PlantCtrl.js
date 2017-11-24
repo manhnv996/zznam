@@ -23,7 +23,9 @@ var PlantCtrl = cc.Class.extend({
                 //
                 this.firstDragEmptyField = true;
                 this.firstDragField = true;
+
                 //
+                this.lastBlockSelected = null;
 
             } else if (status == FieldStatusTypes.DONE){
                 /*
@@ -32,7 +34,9 @@ var PlantCtrl = cc.Class.extend({
                 PopupLayer.instance.showToolPopup(fieldId);
 
                 this.firstShowNotice = false;
+
                 //
+                this.lastBlockSelected = null;
             } else {
                 /*
                 Show status
@@ -46,24 +50,55 @@ var PlantCtrl = cc.Class.extend({
 
 
     },
+
+    isFieldAndChangeBlock: function(x, y) {
+        //
+        var objectLogic = MapCtrl.instance.getObject(x, y);
+
+        if (this.firstDragField) {
+            this.lastBlockSelected = null;
+        }
+        if (this.lastBlockSelected != null) {
+            if (this.lastBlockSelected.typeObject  == objectLogic.typeObject &&
+                this.lastBlockSelected.pointLogic.x == objectLogic.pointLogic.x &&
+                this.lastBlockSelected.pointLogic.y == objectLogic.pointLogic.y) {
+
+                //return false;
+                return null;
+            }
+        }
+        this.lastBlockSelected = objectLogic;
+        this.firstDragField = false;
+
+        if (objectLogic.typeObject == MapItemEnum.FIELD) {
+
+            return user.getAsset().getFieldByLogicPosition(objectLogic.pointLogic.x, objectLogic.pointLogic.y);
+        }
+
+        //return false;
+        return null;
+    },
+
     onDragCropTool: function(x, y) {
         //
-        var fieldSelected = MapCtrl.instance.getField(x, y);
+        //var fieldSelected = MapCtrl.instance.getField(x, y);
+        //
+        //if (fieldSelected != null){
+        //    if (this.firstDragField) {
+        //        this.lastFieldSelected = null;
+        //    }
+        //    if (this.lastFieldSelected != null){
+        //        if (this.lastFieldSelected.getFieldId() == fieldSelected.getFieldId()){
+        //
+        //            return false;
+        //        }
+        //    }
+        //    this.lastFieldSelected = fieldSelected;
+        //    this.firstDragField = false;
 
+
+        var fieldSelected = this.isFieldAndChangeBlock(x, y);
         if (fieldSelected != null){
-            if (this.firstDragField) {
-                this.lastFieldSelected = null;
-            }
-            if (this.lastFieldSelected != null){
-                if (this.lastFieldSelected.getFieldId() == fieldSelected.getFieldId()){
-
-                    return false;
-                }
-            }
-            this.lastFieldSelected = fieldSelected;
-            this.firstDragField = false;
-
-
 //            //
             var status = fieldSelected.checkStatus();
 
@@ -108,23 +143,9 @@ var PlantCtrl = cc.Class.extend({
 
     },
     onDragSeed: function(seedType, x, y) {
-        //
-        var fieldSelected = MapCtrl.instance.getField(x, y);
 
+        var fieldSelected = this.isFieldAndChangeBlock(x, y);
         if (fieldSelected != null){
-            if (this.firstDragField) {
-                this.lastFieldSelected = null;
-            }
-            if (this.lastFieldSelected != null){
-                if (this.lastFieldSelected.getFieldId() == fieldSelected.getFieldId()){
-
-                    return false;
-                }
-            }
-            this.lastFieldSelected = fieldSelected;
-            this.firstDragField = false;
-
-
 //            //
             var status = fieldSelected.checkStatus();
 
@@ -145,7 +166,7 @@ var PlantCtrl = cc.Class.extend({
 
                         PopupLayer.instance.showSuggestBuyingSeedBG(seedType);
                         /*
-                        INPROGRESS
+                        done
                         FLOW BUY SEED
                         Show Popup
                          */
@@ -197,4 +218,6 @@ var PlantCtrl = cc.Class.extend({
 
 
 });
-PlantCtrl.instance = new PlantCtrl();
+
+// Moved to MainScene.js
+// PlantCtrl.instance = new PlantCtrl();

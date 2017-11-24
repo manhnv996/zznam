@@ -19,7 +19,7 @@ function getSeedLevel(level) {
     var seedLevelList = [];
     for (var i = 0; i < productTypeObj.length; i++) {
 
-        if (productTypeObj[i].level <= (level + 29)) {
+        if (productTypeObj[i].level <= (level + 2)) {
             //seedLevelList.push(productTypeObj[i].id);
             seedLevelList.unshift(productTypeObj[i].id);
         }
@@ -78,7 +78,7 @@ function getProductObjByType(productId) {
 function getResAniIdBySeedType(seedType) {
     switch (seedType) {
         case ProductTypes.CROP_WHEAT:
-            return resAniId.luanuoc;
+            return resAniId.Luanuoc;
 
         case ProductTypes.CROP_CORN:
             return resAniId.Ngo;
@@ -181,12 +181,6 @@ function getSeedImgBySeedTypeAndQuantity(seedType, quantity) {
 function updateGameInfo(gameInfoJson){
 
     var gameInfo = null;
-    //cc.loader.loadJson(gameInfoJson, function (error, data) {
-    //    gameInfo = data;
-    //    GameInfo = data;
-    //
-    //});
-
     /*
     Read from json string
      */
@@ -198,12 +192,19 @@ function updateGameInfo(gameInfoJson){
     for (var i = 0; i < gameInfo.asset.foodStorage.itemList.length; i++){
         foodStorage.addItem(gameInfo.asset.foodStorage.itemList[i].typeItem, gameInfo.asset.foodStorage.itemList[i].quantity);
     }
+    //var siloSprite = new SiloSprite(foodStorage.getCoordinate().getCurrX(), foodStorage.getCoordinate().getCurrY());
+    //MapLayer.instance.addChild(siloSprite);
+    //MapCtrl.instance.addSpriteAlias(siloSprite);
 
     var warehouse = new Storages(new Coordinate(gameInfo.asset.warehouse.x, gameInfo.asset.warehouse.y),
         gameInfo.asset.warehouse.storageType, gameInfo.asset.warehouse.capacity);
     for (var i = 0; i < gameInfo.asset.warehouse.itemList.length; i++){
         warehouse.addItem(gameInfo.asset.warehouse.itemList[i].typeItem, gameInfo.asset.warehouse.itemList[i].quantity);
     }
+    //var warehouseSprite = new WareHouseSprite(warehouse.getCoordinate().getCurrX(), warehouse.getCoordinate().getCurrY());
+    //MapLayer.instance.addChild(warehouseSprite);
+    //MapCtrl.instance.addSpriteAlias(warehouseSprite);
+
 
     var asset = new Asset(foodStorage, warehouse, null, null, null, null, null);
     user = new User(asset);
@@ -223,6 +224,8 @@ function updateGameInfo(gameInfoJson){
         var fieldSprite = new FieldSprite(MapLayer.instance, field.getFieldId(), field.getCoordinate().getCurrX(), field.getCoordinate().getCurrY());
         MapLayer.instance.addChild(fieldSprite);
         MapLayer.instance.fieldList.push(fieldSprite);
+        // add to user.map
+        MapCtrl.instance.addSpriteAlias(fieldSprite);
 
         if (gameInfo.asset.fieldList[i].plantType != null){
             if (gameInfo.asset.fieldList[i].plantedTime != 0){
@@ -242,5 +245,5 @@ function updateGameInfo(gameInfoJson){
 
     }
 
-
+    MainScene.instance.onGettedData();
 }

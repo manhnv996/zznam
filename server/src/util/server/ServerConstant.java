@@ -26,4 +26,6 @@ public class ServerConstant {
     public static final boolean DEV_ENVIRONMENT = (ConfigHandle.instance().getLong("devEnvironment") == 1);
     public static final String GG_STORE = ConfigHandle.instance().get("gg_store_url").trim();
     public static final String SS_STORE = ConfigHandle.instance().get("ss_store_url").trim();
+    
+    public static final int CUSTOM_LOGIN = ConfigHandle.instance().getLong("custom_login").intValue();
 }

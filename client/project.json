@@ -18,6 +18,7 @@
         "src/**/*.js"
     ],
     "jsList": [
+        "src/data/FontsResource.js",
         "src/data/SettingsResource.js",
         "src/data/MainGuiResource.js",
         "src/data/MapResource.js",
@@ -48,12 +49,10 @@
         "src/modules/testnetwork/ScreenNetwork.js",
 
         "src/modules/utils/rayCasting.js",
-
-        "src/modules/entities/CoordinatedObject.js",
-        "src/modules/entities/StorageItem.js",
-        "src/modules/entities/Storage.js",
+        "src/modules/configs/MapItemEnum.js",
 
         "src/modules/configs/MapConfigs.js",
+        "src/modules/configs/ListenerPriorityConfigs.js",
         "src/modules/configs/MapValues.js",
         "src/modules/views/sprites/MapBlockSprite.js",
         "src/modules/views/sprites/AnimationSprite.js",
@@ -108,7 +107,15 @@
         "src/modules/views/GameShopUI/GameShopLayer.js",
         "src/modules/views/GameShopUI/GameShopBtnLayout.js",
         "src/modules/views/GameShopUI/GameShopDetailLayout.js",
-        "src/modules/views/GameShopUI/DragSprite.js",
+
+        "src/modules/views/layers/GSGUI/NotifyLayer.js",
+        "src/modules/views/layers/GSGUI/LodgeTable.js",
+        "src/modules/views/layers/GSGUI/AnimalTable.js",
+        "src/modules/views/layers/GSGUI/MachineTable.js",
+        "src/modules/views/layers/GSGUI/TreeTable.js",
+        "src/modules/views/layers/GSGUI/GSBtnLayout.js",
+        "src/modules/views/layers/GSGUI/GSDetailLayout.js",
+        "src/modules/views/layers/GSGUI/GSLayer.js",
 
         "src/modules/views/layers/MapLayer.js",
         "src/modules/views/scenes/MainScene.js",

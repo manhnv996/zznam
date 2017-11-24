@@ -1,6 +1,13 @@
 var MainScene = cc.Scene.extend({
 	ctor: function() {
 		this._super();
+
+		// Init controllers
+		MapCtrl.instance = new MapCtrl();
+		PlantCtrl.instance = new PlantCtrl();
+		GameShopController.instance = new GameShopController();
+
+		// Init layers
 		MapLayer.instance = new MapLayer();
 		this.addChild(MapLayer.instance);
 
@@ -20,6 +27,15 @@ var MainScene = cc.Scene.extend({
 		this._super();
 		MapCtrl.instance.init();
 		this.init();
+		MapCtrl.instance._showDebugMap();
+	},
+
+	onGettedData: function() {
+		GSLayer.instance = new GSLayer();
+		this.addChild(GSLayer.instance);
+
+		NotifyLayer.instance = new NotifyLayer();
+		this.addChild(NotifyLayer.instance);
 	},
 
 	init: function() {
@@ -27,11 +43,11 @@ var MainScene = cc.Scene.extend({
 		//gv.gameClient.connect();
 		//testnetwork.connector.sendLoginRequest();
 
-		gv.username = "fresher001";
-		gv.password = "fresher";
-
-
-		gv.gameClient.connect();
+		//gv.username = "fresher001";
+		//gv.password = "fresher";
+        //
+        //
+		//gv.gameClient.connect();
 
 
 //		////    TEST//

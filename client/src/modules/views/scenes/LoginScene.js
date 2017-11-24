@@ -84,11 +84,14 @@ var LoginLayer = cc.Layer.extend({
         cc.log("this.lblLog.setString("+"Connect fail: );")
         this.lblLog.setString("Connect fail: " + text);
     },
-    onFinishLogin:function()
-    {
-        this.lblLog.setString("Finish login!");
-        cc.director.runScene(new MainScene());
-    }
+    //onFinishLogin:function()
+    //{
+    //    this.lblLog.setString("Finish login!");
+    //    //cc.director.runScene(new MainScene());
+    //
+    //    MainScene.instance = new MainScene();
+    //    cc.director.runScene(MainScene.instance);
+    //}
 });
 
 var LoginScene = cc.Scene.extend({

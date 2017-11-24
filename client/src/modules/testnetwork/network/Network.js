@@ -26,7 +26,10 @@ testnetwork.Connector = cc.Class.extend({
                 break;
             case gv.CMD.USER_LOGIN:
                 this.sendGetUserInfo();
-                cc.director.runScene(new MainScene());
+
+                MainScene.instance = new MainScene();
+                cc.director.runScene(MainScene.instance);
+
                 break;
             case gv.CMD.USER_INFO:
                 //fr.getCurrentScreen().onUserInfo(packet.name, packet.x, packet.y);
@@ -75,12 +78,19 @@ testnetwork.Connector = cc.Class.extend({
                 cc.log("RECEIVE RESPONSE_SYNC_FIELD_STATUS: ", packet.fieldId);
                 //
 
-                 var fieldSelected = user.getAsset().getFieldById(packet.fieldId);
-                 fieldSelected.setPlantType(packet.plantType);
+                var fieldSelected = user.getAsset().getFieldById(packet.fieldId);
+                fieldSelected.setPlantType(packet.plantType);
 
-                 var plantedTime = new Date();
-                 plantedTime.setTime(packet.longPlantedTime);
-                 fieldSelected.setPlantedTime(plantedTime);
+                var plantedTime = new Date();
+                plantedTime.setTime(packet.longPlantedTime);
+                fieldSelected.setPlantedTime(plantedTime);
+
+                if (packet.plantType != null){
+                    if (packet.longPlantedTime != 0){
+                        //
+                        MapLayer.instance.runAnimationPlantting(fieldSelected.getFieldId(), fieldSelected.getPlantType());
+                    }
+                }
 
                 break;
 
@@ -132,8 +142,6 @@ testnetwork.Connector = cc.Class.extend({
         this.gameClient.sendPacket(pk);
     },
     sendLoginRequest: function (username, password) {
-
-
         cc.log("sendLoginRequest");
         cc.log("sendingLoginRequest with: " + username + "===" + password);
         //this.getSessionKeyAndUserId();
@@ -185,11 +193,6 @@ testnetwork.Connector = cc.Class.extend({
                 }
             }
         }.bind(this);
-
-        //cc.log("sendLoginRequest");
-        //var pk = this.gameClient.getOutPacket(CmdSendLogin);
-        //pk.pack(this._userName);
-        //this.gameClient.sendPacket(pk);
     },
     sendMove:function(direction){
         cc.log("SendMove:" + direction);

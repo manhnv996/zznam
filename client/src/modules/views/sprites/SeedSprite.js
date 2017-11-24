@@ -114,7 +114,7 @@ var SeedSprite = cc.Sprite.extend({
 
                     parent.disablePopup(seedType);
                     target.removeFromParent(true);
-                    cc.eventManager.removeListener(this.dragListener);
+                    //cc.eventManager.removeListener(this.dragListener);
                 }
 
             }.bind(this)

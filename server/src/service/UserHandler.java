@@ -71,15 +71,15 @@ public class UserHandler extends BaseClientRequestHandler {
 
     private void getUserInfo(User user) {
         try {
-//            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
-            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(1, ZPUserInfo.class);
+            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
+//            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(1, ZPUserInfo.class);
             if (userInfo == null) {
                 
 //                createUser(userInfo, user.getId());                
                 userInfo = createUser(1);
                 
-//                userInfo.saveModel(user.getId());                
-                userInfo.saveModel(1);
+                userInfo.saveModel(user.getId());                
+//                userInfo.saveModel(1);
             }
             
             send(new ResponseGameInfo(userInfo), user);

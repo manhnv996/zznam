@@ -23,14 +23,14 @@ var GameShopBtnLayout = ccui.Layout.extend({
         switch (type) {
             case ccui.Widget.TOUCH_BEGAN:
                 sender.setScale((size.height / 5) / sender.getContentSize().height - 0.1);
+                break;
+            case ccui.Widget.TOUCH_ENDED:
                 if (this._statusGS == 0) {
                     this.getParent().show();
                 } else {
                     this.getParent().hide();
                 }
                 this._statusGS = (this._statusGS + 1) % 2;
-                break;
-            case ccui.Widget.TOUCH_ENDED:
                 sender.setScale((size.height / 5) / sender.getContentSize().height);
                 break;
             default:
