@@ -73,15 +73,15 @@ public class UserHandler extends BaseClientRequestHandler {
 
     private void getUserInfo(User user) {
         try {
-//            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
-            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(1, ZPUserInfo.class);
+            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
+//            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(1, ZPUserInfo.class);
             if (userInfo == null) {
                 
 //                createUser(userInfo, user.getId());                
                 userInfo = createUser(1);
                 
-//                userInfo.saveModel(user.getId());                
-                userInfo.saveModel(1);
+                userInfo.saveModel(user.getId());                
+//                userInfo.saveModel(1);
             }
             
             send(new ResponseGameInfo(userInfo), user);
@@ -110,9 +110,6 @@ public class UserHandler extends BaseClientRequestHandler {
 
         foodStorage.addItem(ProductType.CROP_CARROT, 5);
         foodStorage.addItem(ProductType.CROP_SOYBEAN, 10);
-//        foodStorage.addItem(ProductType.CROP_INDIGO, 2);
-//        foodStorage.addItem(ProductType.CROP_TOMATO, 2);
-//        foodStorage.addItem(ProductType.CROP_STRAWBERRY, 2);
         
         Asset asset = new Asset(foodStorage, warehouse, null);
         for (int i = 1; i < 7; i++){

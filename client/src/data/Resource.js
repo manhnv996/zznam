@@ -128,3 +128,8 @@ for (var k in MainGuiResource) {
 for (var k in SettingsResource) {
     res[k] = SettingsResource[k];
 }
+
+//add resources in /fonts/
+for (var k in FontResource) {
+    res[k] = FontResource[k];
+}

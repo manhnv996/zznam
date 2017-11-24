@@ -1,4 +1,5 @@
 var MapItemEnum = {
+	EMPTY: 0,
 	SILO: 1,
 	WAREHOUSE: 2,
 	FIELD: 3,

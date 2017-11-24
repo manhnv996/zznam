@@ -94,6 +94,7 @@ var FieldSprite = MapBlockSprite.extend({
             }.bind(this)
         });
         cc.eventManager.addListener(touchListener, this.lx + this.ly);
+        //cc.eventManager.addListener(touchListener, this);
     },
 
     // When click

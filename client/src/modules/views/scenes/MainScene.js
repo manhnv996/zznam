@@ -38,8 +38,14 @@ var MainScene = cc.Scene.extend({
 
 	init: function() {
 
-		gv.gameClient.connect();
-		// testnetwork.connector.sendLoginRequest();
+		//gv.gameClient.connect();
+		//testnetwork.connector.sendLoginRequest();
+
+		//gv.username = "fresher001";
+		//gv.password = "fresher";
+        //
+        //
+		//gv.gameClient.connect();
 
 
 //		////    TEST//

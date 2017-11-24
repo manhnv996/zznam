@@ -19,11 +19,17 @@ testnetwork.Connector = cc.Class.extend({
         switch (cmd)
         {
             case gv.CMD.HAND_SHAKE:
-                this.sendLoginRequest();
+                //this.sendLoginRequest();
+                cc.log(gv.username +"====" + gv.password);
+                this.sendLoginRequest(gv.username, gv.password);
+
                 break;
             case gv.CMD.USER_LOGIN:
                 this.sendGetUserInfo();
-                //fr.getCurrentScreen().onFinishLogin();
+
+                MainScene.instance = new MainScene();
+                cc.director.runScene(MainScene.instance);
+
                 break;
             case gv.CMD.USER_INFO:
                 //fr.getCurrentScreen().onUserInfo(packet.name, packet.x, packet.y);
@@ -136,11 +142,58 @@ testnetwork.Connector = cc.Class.extend({
         pk.pack();
         this.gameClient.sendPacket(pk);
     },
-    sendLoginRequest: function () {
+    sendLoginRequest: function (username, password) {
         cc.log("sendLoginRequest");
-        var pk = this.gameClient.getOutPacket(CmdSendLogin);
-        pk.pack(this._userName);
-        this.gameClient.sendPacket(pk);
+        cc.log("sendingLoginRequest with: " + username + "===" + password);
+        //this.getSessionKeyAndUserId();
+        var xhr = cc.loader.getXMLHttpRequest();
+        var url = "http://myplay.apps.zing.vn/sso3/login.php?username=" + username + "&password=" + password;
+        xhr.open("GET", url);
+        xhr.setRequestHeader("Content-Type", "text/plain");
+        xhr.send();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && ( xhr.status >= 200 && xhr.status <= 207 )) {
+                var httpStatus = xhr.statusText;
+                var response = xhr.responseText;
+                var jsonData = JSON.parse(response);
+                var error = jsonData["error"];
+                var accessToken = jsonData["sessionKey"];
+                var userid = jsonData["userid"];
+
+                if (error == "0") {
+                    var url2 = "http://zplogin.g6.zing.vn/?service_name=getSessionKey&gameId=100&distribution=&clientInfo=&social=zingme&accessToken=";
+                    cc.log("HTTP Response : error : " + error);
+                    xhr.open("GET", url2 + accessToken);
+                    xhr.setRequestHeader("Content-Type", "text/plain");
+                    xhr.send();
+                    xhr.onreadystatechange = function () {
+                        cc.log("Networking away");
+
+                        if (xhr.readyState == 4 && ( xhr.status >= 200 && xhr.status <= 207 )) {
+                            var httpStatus = xhr.statusText;
+                            cc.log(httpStatus);
+
+                            var response = xhr.responseText;
+                            //cc.log(response);
+
+                            //parse to json object;
+                            var jsonData = JSON.parse(response);
+                            var error2 = jsonData["error"];
+                            var sessionKey2 = jsonData["sessionKey"];
+                            var openId = jsonData["openId"];
+                            var expired_time = jsonData["expired_time"];
+                            cc.log("HTTP Response : error2 : " + error2);
+                            cc.log("HTTP Response : sessionKey2 : " + sessionKey2);
+                            //cc.log("HTTP Response : openId : " + openId);
+                            //cc.log("HTTP Response : expired_time : " + expired_time);
+                            var pk = this.gameClient.getOutPacket(CmdSendLogin);
+                            pk.pack(sessionKey2, userid);
+                            this.gameClient.sendPacket(pk);
+                        }
+                    }.bind(this, userid);
+                }
+            }
+        }.bind(this);
     },
     sendMove:function(direction){
         cc.log("SendMove:" + direction);

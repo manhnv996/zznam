@@ -103,7 +103,7 @@ var MapCtrl = cc.Class.extend({
                 fieldSprite.plantAnimation(field.plantType);
             }
             MapLayer.instance.fieldList.push(fieldSprite);
-            // this.addSpriteAlias(fieldSprite);
+            this.addSpriteAlias(fieldSprite);
         }
     },
 
@@ -128,12 +128,15 @@ var MapCtrl = cc.Class.extend({
     showMe: function() {
         cc.log("I am here");
     },
-    getField: function(x, y) {
+
+    getObject: function(x, y) {
         /*
          DONE
          */
         var pointLogic = MapValues.screenPositionToLogic(x, y);
-        return user.getAsset().getFieldByLogicPosition(Math.floor(pointLogic.x), Math.floor(pointLogic.y));
+
+        return {"typeObject": user.map[Math.floor(pointLogic.x)][Math.floor(pointLogic.y)],
+                "pointLogic": cc.p(Math.floor(pointLogic.x), Math.floor(pointLogic.y))};
     },
 
     checkValidPosition: function(x, y) {

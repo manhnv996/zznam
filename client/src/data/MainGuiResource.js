@@ -15,6 +15,10 @@ var _ = (function() {
         EXP_221_PNG: 		r("exp-221.png"),
         MOVE_2_PNG: 		r("move2.png"),
         STAR_1_PNG: 			r("star1.png"),
+        PRELOADER_CHRISTMAS_PNG: 			"Art/preloader.png",
+        PRELOADER_LOADING_4_PNG: 			"Art/loading4.png",
+        PRELOADER_SUMMER_PNG: 		"Art/loading he copy.png",
+        PRETTY_BG_DIALOG_PNG: 		"Art/Truck Order/Gui-oders/BG.png"
     };
 
     var g_MainGuiResource = [];

@@ -192,12 +192,19 @@ function updateGameInfo(gameInfoJson){
     for (var i = 0; i < gameInfo.asset.foodStorage.itemList.length; i++){
         foodStorage.addItem(gameInfo.asset.foodStorage.itemList[i].typeItem, gameInfo.asset.foodStorage.itemList[i].quantity);
     }
+    //var siloSprite = new SiloSprite(foodStorage.getCoordinate().getCurrX(), foodStorage.getCoordinate().getCurrY());
+    //MapLayer.instance.addChild(siloSprite);
+    //MapCtrl.instance.addSpriteAlias(siloSprite);
 
     var warehouse = new Storages(new Coordinate(gameInfo.asset.warehouse.x, gameInfo.asset.warehouse.y),
         gameInfo.asset.warehouse.storageType, gameInfo.asset.warehouse.capacity);
     for (var i = 0; i < gameInfo.asset.warehouse.itemList.length; i++){
         warehouse.addItem(gameInfo.asset.warehouse.itemList[i].typeItem, gameInfo.asset.warehouse.itemList[i].quantity);
     }
+    //var warehouseSprite = new WareHouseSprite(warehouse.getCoordinate().getCurrX(), warehouse.getCoordinate().getCurrY());
+    //MapLayer.instance.addChild(warehouseSprite);
+    //MapCtrl.instance.addSpriteAlias(warehouseSprite);
+
 
     var asset = new Asset(foodStorage, warehouse, null, null, null, null, null);
     user = new User(asset);
