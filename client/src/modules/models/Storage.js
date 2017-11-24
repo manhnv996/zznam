@@ -30,6 +30,10 @@ var Storages = CoordinatedObject.extend({
 
     },
 
+    getStorageType: function () {
+        return this.storageType;
+    },
+
     getCapacity: function () {
         return this.capacity;
     },

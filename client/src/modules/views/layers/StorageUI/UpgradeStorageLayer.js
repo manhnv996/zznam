@@ -4,7 +4,7 @@
 
 var UpgradeStorageLayer = cc.Layer.extend({
 
-    ctor: function (type) {
+    ctor: function (type, level) {
         this._super();
     }
 });

@@ -5,6 +5,7 @@
 var GSLayer = cc.Layer.extend({
     _btnGameShop: null,
     _gameShop: null,
+    _listener: null,
 
     ctor: function () {
         this._super();
@@ -21,6 +22,8 @@ var GSLayer = cc.Layer.extend({
         this._btnGameShop.runAction(moveActionBtn);
         var moveAction = cc.moveTo(0.1, cc.p(-(cc.winSize.width / 3 + cc.winSize.width / 7), 0));
         this._gameShop.runAction(moveAction);
+
+        //cc.eventManager.removeEventListener(this._listener);
     },
 
     show: function () {
@@ -28,5 +31,15 @@ var GSLayer = cc.Layer.extend({
         this._btnGameShop.runAction(moveActionBtn);
         var moveAction = cc.moveTo(0.1, cc.p(0, 0));
         this._gameShop.runAction(moveAction);
+
+        //block listener
+        //this._listener = cc.EventListener.create(
+        //    setSwallows: true;
+        //    onTouchBegan: function(touch, event) {
+        //        return true;
+        //    },
+        //
+        //);
+        //cc.eventManager.addListener(this._listener, -1);
     }
 });

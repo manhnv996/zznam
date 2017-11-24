@@ -19,14 +19,25 @@ var StorageLayer = cc.Layer.extend({
         bg.x = cc.winSize.width / 2;
         bg.y = cc.winSize.height / 2;
         this.addChild(bg);
-        cc.log("abc");
 
         var layout = new ccui.Layout();
-        layout.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
-        layout.setBackGroundColor(cc.color.RED);
+        //layout.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
+        //layout.setBackGroundColor(cc.color.RED);
         layout.x = cc.winSize.width / 4;
-        layout.y = cc.winSize.height / 4;
-        layout.setContentSize(cc.winSize.width / 2, cc.winSize.height / 5 * 2);
+        layout.y = bg.y - bg.height / 2;
+        layout.setContentSize(cc.winSize.width / 2, cc.winSize.height / 2);
         this.addChild(layout);
+
+        cc.log("abc");
+
+        var itemListLayer = new StorageItemListLayer(storage.getItemList());
+        //var upgradeLayer = new UpgradeStorageLayer(storage.getStorageType(), storage.getLevel());
+
+        //var multiLayer = new cc.LayerMultiplex(itemListLayer, upgradeLayer);
+        var multiLayer = new cc.LayerMultiplex(itemListLayer);
+
+        multiLayer.switchTo(0);
+
+        layout.addChild(multiLayer);
     }
 });

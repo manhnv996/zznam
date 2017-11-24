@@ -14,20 +14,29 @@ var LodgeTable = cc.Layer.extend({
     },
 
     init:function () {
+        //var layoutColor = new ccui.Layout();
+        //layoutColor.setContentSize(cc.winSize.width / 3, cc.winSize.height / 9 * 8);
+        //layoutColor.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
+        //layoutColor.setBackGroundColor(cc.color.RED);
+
         var tableView = new cc.TableView(this, cc.size(363, cc.winSize.height / 9 * 8));
         tableView.setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL);
         tableView.x = 0;
         tableView.y = 0;
         tableView.setDelegate(this);
         tableView.setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN);
-        this.addChild(tableView);
         tableView.reloadData();
+
+        this.addChild(tableView);
+        //
+        //layoutColor.addChild(tableView);
+        //this.addChild(layoutColor);
 
         return true;
     },
 
     scrollViewDidScroll:function (view) {
-
+        //this.setSwallowTouches(false);
     },
     scrollViewDidZoom:function (view) {
 
@@ -38,7 +47,7 @@ var LodgeTable = cc.Layer.extend({
     },
 
     tableCellSizeForIndex:function (table, idx) {
-        return cc.size(363, 142 * ((cc.winSize.width / 3) / 316));
+        return cc.size(363, 142 * (363 / 316));
     },
 
     tableCellAtIndex:function (table, idx) {
@@ -61,7 +70,8 @@ var LodgeTable = cc.Layer.extend({
             imgBg.y = 0;
             imgBg.anchorX = 0;
             imgBg.anchorY = 0;
-            var scale = (cc.winSize.width / 3) / imgBg.getContentSize().width;
+            //var scale = (cc.winSize.width / 3) / imgBg.getContentSize().width;
+            var scale = 363 / imgBg.getContentSize().width;
             imgBg.setScale(scale);
             imgBg.tag = 1000;
 
