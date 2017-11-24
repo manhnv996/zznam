@@ -112,6 +112,9 @@
 
         "src/modules/views/layers/MapLayer.js",
         "src/modules/views/scenes/MainScene.js",
-        "src/modules/views/layers/MainGuiLayer.js"
+        "src/modules/views/scenes/LoginScene.js",
+        "src/modules/views/scenes/PreloaderScene.js",
+        "src/modules/views/layers/MainGuiLayer.js",
+        "src/modules/views/layers/SettingsLayer.js"
     ]
 }

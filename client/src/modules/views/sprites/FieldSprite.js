@@ -85,6 +85,7 @@ var FieldSprite = MapBlockSprite.extend({
             }.bind(this)
         });
         cc.eventManager.addListener(touchListener, this.lx + this.ly);
+        //cc.eventManager.addListener(touchListener, this);
     },
 
     // When click
@@ -94,12 +95,12 @@ var FieldSprite = MapBlockSprite.extend({
 
     // When begin click
     onBeginClick: function() {
-        this.setOpacity(180);
+        //this.setOpacity(180);
     },
 
     // When end click    
     onEndClick: function() {
-        this.setOpacity(255);
+        //this.setOpacity(255);
     },
 
 

@@ -99,8 +99,8 @@ cc.game.onStart = function () {
         gv.gameClient = new GameClient();
         gv.poolObjects = new PoolObject();
         testnetwork.connector = new testnetwork.Connector(gv.gameClient);
-		cc.director.runScene(new MainScene());
-
+		//cc.director.runScene(new MainScene());
+        cc.director.runScene(new PreloaderScene());
     }, this);
 };
 cc.game.run();

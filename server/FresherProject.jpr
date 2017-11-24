@@ -11,9 +11,9 @@
    <list n="contentSets">
       <string v="oracle.jdeveloper.model.PathsConfiguration/javaContentSet"/>
       <string v="oracle.ide.model.ResourcePaths/resourcesContentSet"/>
-      <string v="oracle.jdeveloper.model.J2eeSettings/webContentSet"/>
       <string v="oracle.mds.internal.dt.ide.MDSLibraryCustCSProvider/mdsContentSet"/>
       <string v="oracle.mds.internal.dt.ide.MDSADFLibVirtualNodeCSProvider/mdsLibVirtualNodeContentSet"/>
+      <string v="oracle.jdeveloper.model.J2eeSettings/webContentSet"/>
       <string v="oracle.jdeveloper.offlinedb.model.OfflineDBProjectSettings/offlineDBContentSet"/>
       <string v="oracle.adfdtinternal.model.ide.settings.ADFMSettings/adfmContentSet"/>
       <string v="oracle.bm.commonIde.data.project.ModelerProjectSettings/modelersContentSet"/>
@@ -80,6 +80,14 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
+            <value n="id" v="Httpclient_4.5.2.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Httpcore_4.4.4.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
             <value n="id" v="Json.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
@@ -101,14 +109,6 @@
          </hash>
          <hash>
             <value n="id" v="Xstream-1.3.1.jar"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="Httpclient_4.5.2.jar"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="Httpcore_4.4.4.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>
@@ -179,6 +179,24 @@
             </hash>
             <hash>
                <list n="classPath">
+                  <url path="lib/httpclient_4.5.2.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Httpclient_4.5.2.jar"/>
+               <value n="id" v="Httpclient_4.5.2.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="lib/httpcore_4.4.4.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Httpcore_4.4.4.jar"/>
+               <value n="id" v="Httpcore_4.4.4.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
                   <url path="lib/json.jar" jar-entry=""/>
                </list>
                <value n="deployedByDefault" v="true"/>
@@ -231,24 +249,6 @@
                <value n="id" v="Xstream-1.3.1.jar"/>
                <value n="locked" v="true"/>
             </hash>
-            <hash>
-               <list n="classPath">
-                  <url path="lib/httpclient_4.5.2.jar" jar-entry=""/>
-               </list>
-               <value n="deployedByDefault" v="true"/>
-               <value n="description" v="Httpclient_4.5.2.jar"/>
-               <value n="id" v="Httpclient_4.5.2.jar"/>
-               <value n="locked" v="true"/>
-            </hash>
-            <hash>
-               <list n="classPath">
-                  <url path="lib/httpcore_4.4.4.jar" jar-entry=""/>
-               </list>
-               <value n="deployedByDefault" v="true"/>
-               <value n="description" v="Httpcore_4.4.4.jar"/>
-               <value n="id" v="Httpcore_4.4.4.jar"/>
-               <value n="locked" v="true"/>
-            </hash>
          </list>
       </hash>
       <list n="libraryReferences">
@@ -281,6 +281,14 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
+            <value n="id" v="Httpclient_4.5.2.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Httpcore_4.4.4.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
             <value n="id" v="Json.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
@@ -302,14 +310,6 @@
          </hash>
          <hash>
             <value n="id" v="Xstream-1.3.1.jar"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="Httpclient_4.5.2.jar"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="Httpcore_4.4.4.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>
