@@ -39,7 +39,7 @@ var AnimalTable = cc.Layer.extend({
     },
 
     tableCellAtIndex:function (table, idx) {
-        cc.log("Create Cell " + idx);
+        // cc.log("Create Cell " + idx);
         var cell = table.dequeueCell();
         var image;
         var title;
@@ -122,9 +122,9 @@ var AnimalTable = cc.Layer.extend({
             cell.addChild(price);
             cell.addChild(slot);
 
-            cc.log("create cell container " + idx);
+            // cc.log("create cell container " + idx);
         } else {
-            cc.log("abc" + idx);
+            // cc.log("abc" + idx);
             image = cell.getChildByTag(1);
             image.setTexture(res.infoAnimalItem[idx].nameIconShop);
 

@@ -5,67 +5,121 @@
 var MapCtrl = cc.Class.extend({
     // Map property referenced to user.map
     map: null, // [{ type: MapItemEnum, [anotherKey]: [anotherValue] }]
+    ctor: function() {
+        this.renderDefaultConstruct();
+    },
 
+    // Call when loaded data from server
     init: function() {
         // MapLayer.instance.addChild(new ODatSprite(10, 10));
+        // cc.log("User map:", user.map.length);
+        // for (var i = 0; i < user.map.length; i++) {
+        //     var str = "";
+        //     for (var j = 0; j < user.map[i].length; j++) {
+        //         str += user.map[i] + " ";
+        //     }
+        //     cc.log(str);
+        // }
+        cc.log("MapCtrl inited");
         this.map = user.map; // Pass to user map
-        this.initMapArray();
         this.renderNaturalThings();
+
+        var debugUser = {} // Not show map
+        for (var k in user) {
+            if (k !== 'map') {
+                debugUser[k] = user[k];
+            }
+        }
+        cc.log("User", debugUser);
+        this.renderStorages();
+        this.renderPlants();
+        // cc.log("Silo", user.asset.foodStorage);
         // MapLayer.instance.addChild(new SiloSprite(20, 20));
         // MapLayer.instance.addChild(new WareHouseSprite(18, 24));
     },
 
-    initMapArray: function() {
-        for (var i = 0; i < MapConfigs.Init.width; i++) {
-            this.map.push([]);
-            for (var j = 0; j < MapConfigs.Init.height; j++) {
-                this.map[i].push(MapItemEnum.EMPTY);
-            }
-        }
+    renderStorages: function() {
+        var silo = user.asset.foodStorage;
+        var warehouse = user.asset.warehouse;
+        var siloSprite = new SiloSprite(silo.coordinate.x, silo.coordinate.y);
+        var warehouseSprite = new WareHouseSprite(warehouse.coordinate.x, warehouse.coordinate.y);
+        MapLayer.instance.addChild(siloSprite);
+        MapLayer.instance.addChild(warehouseSprite);
+        this.addSpriteAlias(siloSprite);
+        this.addSpriteAlias(warehouseSprite);
+    },
+
+    renderDefaultConstruct: function() {
+        // for (var i = 0; i < MapConfigs.Init.width; i++) {
+        //     this.map.push([]);
+        //     for (var j = 0; j < MapConfigs.Init.height; j++) {
+        //         this.map[i].push(0);
+        //     }
+        // }
 
         // Nha chinh
         var NhaChinhConfigs = MapConfigs.NhaChinh;
-        this.addMapAlias(NhaChinhConfigs.position.x, NhaChinhConfigs.position.y,
-                NhaChinhConfigs.blockSizeX, NhaChinhConfigs.blockSizeY,
-                MapItemEnum.NHA_CHINH);
+        // this.addMapAlias(NhaChinhConfigs.position.x, NhaChinhConfigs.position.y,
+        //         NhaChinhConfigs.blockSizeX, NhaChinhConfigs.blockSizeY,
+        //         MapItemEnum.NHA_CHINH);
         var nhaChinh = new NhaChinhSprite(NhaChinhConfigs.position);
         MapLayer.instance.addChild(nhaChinh);
 
         // Truck Order
         var TruckOrderConfigs = MapConfigs.TruckOrder;
-        this.addMapAlias(TruckOrderConfigs.position.x, TruckOrderConfigs.position.y,
-                TruckOrderConfigs.blockSizeX, TruckOrderConfigs.blockSizeY,
-                MapItemEnum.TRUCK_ORDER);
+        // this.addMapAlias(TruckOrderConfigs.position.x, TruckOrderConfigs.position.y,
+        //         TruckOrderConfigs.blockSizeX, TruckOrderConfigs.blockSizeY,
+        //         MapItemEnum.TRUCK_ORDER);
         var truckOrder = new TruckOrderSprite(TruckOrderConfigs.position);
         MapLayer.instance.addChild(truckOrder);
 
         // Mailbox
         var MailBoxConfigs = MapConfigs.MailBox;
-        this.addMapAlias(MailBoxConfigs.position.x, MailBoxConfigs.position.y,
-                MailBoxConfigs.blockSizeX, MailBoxConfigs.blockSizeY,
-                MapItemEnum.MAIL_BOX);
+        // this.addMapAlias(MailBoxConfigs.position.x, MailBoxConfigs.position.y,
+        //         MailBoxConfigs.blockSizeX, MailBoxConfigs.blockSizeY,
+        //         MapItemEnum.MAIL_BOX);
         var mailBox = new MailBoxSprite(MailBoxConfigs.position);
         MapLayer.instance.addChild(mailBox);
 
         // Roadshop
         var RoadShopConfigs = MapConfigs.RoadShop;
-        this.addMapAlias(RoadShopConfigs.position.x, RoadShopConfigs.position.y,
-                RoadShopConfigs.blockSizeX, RoadShopConfigs.blockSizeY,
-                MapItemEnum.ROAD_SHOP);
+        // this.addMapAlias(RoadShopConfigs.position.x, RoadShopConfigs.position.y,
+        //         RoadShopConfigs.blockSizeX, RoadShopConfigs.blockSizeY,
+        //         MapItemEnum.ROAD_SHOP);
         var roadShop = new RoadShopSprite(RoadShopConfigs.position);
         MapLayer.instance.addChild(roadShop);
+    },
 
+    renderPlants: function() {
+        var fieldList = user.asset.fieldList;
+        for (var i = 0; i < fieldList.length; i++) {
+            var field = fieldList[i];
+            var fieldSprite = new FieldSprite(
+                    field.getFieldId(),
+                    field.getCoordinate().getCurrX(),
+                    field.getCoordinate().getCurrY());
+            MapLayer.instance.addChild(fieldSprite);
+            if (field.plantType) {
+                fieldSprite.plantAnimation(field.plantType);
+            }
+            MapLayer.instance.fieldList.push(fieldSprite);
+            this.addSpriteAlias(fieldSprite);
+        }
     },
 
     _showDebugMap: function() {
         for (var i = 0; i < user.map.length; i++) {
             var str = '';
             for (var j = 0; j < user.map[i].length; j++) {
-                if (this.map[i][j] === MapItemEnum.EMPTY) {
-                    str += '0';
+                if (this.map[i][j] === 0) {
+                    str += '[]';
                 } else {
-                    str += "*";
+                    str += this.map[i][j];
+                    if (this.map[i][j] < 10) {
+                        str += " "
+                    }
                 }
+                
             }
             cc.log(str);
         }

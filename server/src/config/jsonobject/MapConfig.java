@@ -1,0 +1,23 @@
+package config.jsonobject;
+//
+import config.jsonobject.map.InitObject;
+import config.jsonobject.map.NhaChinhObject;
+import config.jsonobject.map.TruckOrderObject;
+import config.jsonobject.map.MailBoxObject;
+import config.jsonobject.map.RoadShopObject;
+import config.jsonobject.map.SiloObject;
+import config.jsonobject.map.WarehouseObject;
+import config.jsonobject.map.RoadObject;
+
+
+public class MapConfig {
+    public String name;
+    public InitObject Init;
+    public NhaChinhObject NhaChinh;
+    public TruckOrderObject TruckOrder;
+    public MailBoxObject MailBox;
+    public RoadShopObject RoadShop;
+    public SiloObject Silo;
+    public WarehouseObject Warehouse;
+    public RoadObject Road;
+}

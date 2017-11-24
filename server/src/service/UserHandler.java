@@ -17,6 +17,8 @@ import cmd.send.demo.ResponseRequestUserInfo;
 import config.enums.ProductType;
 import config.enums.StorageType;
 
+import config.utils.ConfigContainer;
+
 import extension.FresherExtension;
 
 import java.util.Date;
@@ -99,9 +101,14 @@ public class UserHandler extends BaseClientRequestHandler {
 
     public static ZPUserInfo createUser(int userId){
         
-        Storage foodStorage = new Storage(StorageType.FOOD_STORAGE, 30, 10, 10);
-        Storage warehouse = new Storage(StorageType.WAREHOUSE, 30, 8, 8);
-        foodStorage.addItem(ProductType.CROP_CARROT, 12);
+        Storage foodStorage = new Storage(StorageType.FOOD_STORAGE, 30, 
+                ConfigContainer.mapConfig.Silo.position.x,
+                ConfigContainer.mapConfig.Silo.position.y);
+        Storage warehouse = new Storage(StorageType.WAREHOUSE, 30, 
+                ConfigContainer.mapConfig.Warehouse.position.x,
+                ConfigContainer.mapConfig.Warehouse.position.y);
+
+        foodStorage.addItem(ProductType.CROP_CARROT, 5);
         foodStorage.addItem(ProductType.CROP_SOYBEAN, 10);
         
         Asset asset = new Asset(foodStorage, warehouse, null);

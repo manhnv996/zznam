@@ -22,6 +22,8 @@ import cmd.receive.authen.RequestLogin;
 import config.enums.ProductType;
 import config.enums.StorageType;
 
+import config.utils.ConfigContainer;
+
 import eventhandler.LoginSuccessHandler;
 import eventhandler.LogoutHandler;
 
@@ -33,6 +35,7 @@ import model.Storage;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import service.DemoHandler;
@@ -127,6 +130,8 @@ public class FresherExtension extends BZExtension {
         addEventHandler(BZEventType.USER_LOGIN, LoginSuccessHandler.class);
         addEventHandler(BZEventType.USER_LOGOUT, LogoutHandler.class);
         addEventHandler(BZEventType.USER_DISCONNECT, LogoutHandler.class);
+        ConfigContainer.init();
+        // System.out.println("[+] Value " + ConfigContainer.mapConfig.Init.height);
 //        doTest();
     }
 	
