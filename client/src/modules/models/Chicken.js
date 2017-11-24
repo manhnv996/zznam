@@ -12,13 +12,13 @@ var Chicken = Animal.extend({
         //this._super();
         Animal.prototype.init(isFeeded, feefedTime);
 
-        this.render();
+        // this.render();
 
     },
-    render: function () {
-        //
+    // render: function () {
+    //     //
 
-    },
+    // },
     feed: function () {
         //boolean
     },

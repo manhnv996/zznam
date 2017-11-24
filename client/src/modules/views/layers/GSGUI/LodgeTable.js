@@ -128,7 +128,7 @@ var LodgeTable = cc.Layer.extend({
             cell.addChild(price);
             cell.addChild(slot);
 
-            cc.log("create cell container " + idx);
+            // cc.log("create cell container " + idx);
         } else {
             id = cell.getChildByTag(0);
             id.setString(res.infoCoopItem[idx].id);

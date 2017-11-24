@@ -102,7 +102,8 @@ cc.game.onStart = function () {
         testnetwork.connector = new testnetwork.Connector(gv.gameClient);
 
 		//cc.director.runScene(new MainScene());
-        cc.director.runScene(new PreloaderScene());
+        PreloaderScene.instance = new PreloaderScene();
+        cc.director.runScene(PreloaderScene.instance);
 
         //MainScene.instance = new MainScene();
 		//cc.director.runScene(MainScene.instance);

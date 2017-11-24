@@ -14,17 +14,17 @@ var Field = CoordinatedObject.extend({
 
         this.coordinate = coordinate;
 
-        this.render(fieldId);
+        // this.render(fieldId);
 
         //cc.log("x " + CoordinatedObject.prototype.getCoordinate().call(this));
 
-    },
-    render: function (fieldId) {
+    // },
+    // render: function (fieldId) {
         //
         this.fieldId = fieldId;
 
-        this.plantType = null;
-        this.plantedTime = null;
+        // this.plantType = null;
+        // this.plantedTime = null;
 
 
         //this._super().changeCoordinate();
@@ -81,15 +81,18 @@ var Field = CoordinatedObject.extend({
     },
     crop: function () {
         //return ProductType
+        cc.log("Crop called");
         if (this.checkStatus() == FieldStatusTypes.DONE){
-
+            cc.log("Done");
             //////////user is global variable
             if (user.getAsset().getFoodStorage().addItem(this.plantType, 2)){
 
                 user.addExp(getProductObjByType((this.plantType)).harvestExp);
 
                 var productCrop = this.plantType;
-                this.render(this.fieldId);
+                this.plantType = null;
+                this.plantedTime = null;
+                // this.render(this.fieldId);
 
                 return productCrop;
             }

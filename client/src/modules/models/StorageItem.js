@@ -8,10 +8,10 @@ var StorageItem = cc.Class.extend({
         //
         //this._super();
 
-        this.render(typeProduct, quantity);
+    //     this.render(typeProduct, quantity);
 
-    },
-    render: function (typeProduct, quantity) {
+    // },
+    // render: function (typeProduct, quantity) {
 
         this.typeItem = typeProduct;
         this.quantity = quantity;

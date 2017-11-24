@@ -19,11 +19,13 @@ var FieldSprite = MapBlockSprite.extend({
     isShowProgressBar: false,
 
 
-    ctor: function(parent, fieldId, x, y) {
+    // ctor: function(parent, fieldId, x, y) {
+    ctor: function(fieldId, x, y) {
         //this._super();
-        this._super(res.field, MapConfigs.Field.blockSizeX, 
-                MapConfigs.Field.blockSizeY, x, y,
-                MapItemEnum.FIELD
+        this._super(res.field,
+                MapConfigs.Field.size.width, 
+                MapConfigs.Field.size.height,
+                x, y, MapItemEnum.FIELD
         );
 
         //
@@ -169,12 +171,12 @@ var FieldSprite = MapBlockSprite.extend({
     changeTexture: function (texture) {
         this.setTexture(texture);
     },
-    ////
+    //
     updateFieldStatus: function (curr, duration) {
 
         if (user.getAsset().getFieldList()[this.fieldId].getPlantedTime() == null){
 
-            this.changeTexture(res.field);
+            //this.changeTexture(res.field);
             return false;
         }
 

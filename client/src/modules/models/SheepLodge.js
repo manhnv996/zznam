@@ -13,10 +13,10 @@ var SheepLodge = AnimalLodge.extend({
 
 
     },
-    render: function () {
-        //
+    // render: function () {
+    //     //
 
-    },
+    // },
 
     getCurrentSlot: function () {
         return this.sheepList.length;

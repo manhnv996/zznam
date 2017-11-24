@@ -3,7 +3,6 @@ var MainScene = cc.Scene.extend({
 		this._super();
 
 		// Init controllers
-		MapCtrl.instance = new MapCtrl();
 		PlantCtrl.instance = new PlantCtrl();
 		GameShopController.instance = new GameShopController();
 
@@ -14,20 +13,17 @@ var MainScene = cc.Scene.extend({
 		PopupLayer.instance = new PopupLayer();
 		this.addChild(PopupLayer.instance);
 
-		var mainGuiLayer = new MainGuiLayer();
-		this.addChild(mainGuiLayer);
+		MainGuiLayer.instance = new MainGuiLayer();
+		this.addChild(MainGuiLayer.instance);
 
+		MapCtrl.instance = new MapCtrl();
+		
 		cc.log("Start Scene");
-
-
-
 	},
 
 	onEnter: function() {
 		this._super();
-		MapCtrl.instance.init();
 		this.init();
-		MapCtrl.instance._showDebugMap();
 	},
 
 	onGettedData: function() {
@@ -36,6 +32,8 @@ var MainScene = cc.Scene.extend({
 
 		NotifyLayer.instance = new NotifyLayer();
 		this.addChild(NotifyLayer.instance);
+		MapCtrl.instance.init();
+		MapCtrl.instance._showDebugMap();
 	},
 
 	init: function() {

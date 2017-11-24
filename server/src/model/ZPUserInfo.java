@@ -7,10 +7,14 @@ import java.awt.Point;
 
 import java.util.Date;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import service.DemoHandler.DemoDirection;
 import service.DemoHandler.MaxPosition;
 
 import util.database.DataModel;
+import config.utils.ConfigContainer;
 
 public class ZPUserInfo extends DataModel {
     // Zing me
@@ -23,7 +27,7 @@ public class ZPUserInfo extends DataModel {
     private long exp = 0L;
     
     private Asset asset;
-    
+    private int[][] map;
     
 
     public ZPUserInfo(int _id, Asset asset) {
@@ -37,8 +41,14 @@ public class ZPUserInfo extends DataModel {
         this.exp = 0L;
         
         this.asset = asset;
+        this.map = new int[32][32];
+        // Copy map from default map
+        for (int i = 0; i < 32; i++) {
+            for (int j = 0; j < 32; j++) {
+                this.map[i][j] = ConfigContainer.defaultMap[i][j];
+            }
+        }
     }
-    
     
     public ZPUserInfo(int _id, String _name) {
         super();
@@ -104,7 +114,9 @@ public class ZPUserInfo extends DataModel {
         return false;
     }
     
-    
+    public int[][] getMap() {
+        return this.map;    
+    }
     
     
     //

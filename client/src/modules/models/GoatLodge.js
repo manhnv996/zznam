@@ -13,10 +13,10 @@ var GoatLodge = AnimalLodge.extend({
 
 
     },
-    render: function () {
-        //
+    // render: function () {
+    //     //
 
-    },
+    // },
 
     getCurrentSlot: function () {
         return this.cowList.length;

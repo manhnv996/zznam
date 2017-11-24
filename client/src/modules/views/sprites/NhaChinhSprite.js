@@ -1,8 +1,9 @@
 var NhaChinhSprite = MapBlockSprite.extend({
 	ctor: function(x, y) {
-		this._super(res.NHA_CHINH_PNG, MapConfigs.NhaChinh.blockSizeX, MapConfigs.NhaChinh.blockSizeY, x, y,
-				MapItemEnum.NHA_CHINH
-			);
+		this._super(res.NHA_CHINH_PNG, 
+			MapConfigs.NhaChinh.size.width, MapConfigs.NhaChinh.size.height, 
+			x, y, MapItemEnum.NHA_CHINH
+		);
 		this.registerTouchEvents();
 	},
 
