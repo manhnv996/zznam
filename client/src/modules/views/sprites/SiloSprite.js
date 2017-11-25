@@ -14,7 +14,7 @@ var SiloSprite = AnimationSprite.extend({
 	},
 
 	onClick: function() {
-		cc.log("Silo clicked");
+		StorageLayer.instance.initStorage(user.getAsset().getFoodStorage());
 	},
 
 	onFinishMove: function(lx, ly) {

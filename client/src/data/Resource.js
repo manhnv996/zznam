@@ -106,6 +106,10 @@ for (var k in ShopResource) {
     res[k] = ShopResource[k];
 }
 
+for (var k in StorageResource) {
+    res[k] = StorageResource[k];
+}
+
 for (var i in res) {
     g_resources.push(res[i]);
 }

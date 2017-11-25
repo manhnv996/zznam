@@ -14,6 +14,7 @@ import cmd.receive.user.RequestUserInfo;
 import cmd.send.demo.ResponseGameInfo;
 import cmd.send.demo.ResponseRequestUserInfo;
 
+import config.enums.ProductResource;
 import config.enums.ProductType;
 import config.enums.StorageType;
 
@@ -130,12 +131,13 @@ public class UserHandler extends BaseClientRequestHandler {
             Field field = new Field(0, 18, 10 + i);
             asset.addField(field);
         }
+        System.out.println("Field number" + asset.getFieldList().size());
         asset.getFieldById(1).setPlantType(ProductType.CROP_CARROT);
         asset.getFieldById(1).setPlantedTime(new Date().getTime());
         
         ZPUserInfo userInfo = new ZPUserInfo(userId, asset);
         
-        for (int i = 0; i < 6; i++){
+        for (int i = 0; i < 3; i++){
             System.out.println("field" + asset.getFieldById(i).getFieldId() + ", " + asset.getFieldById(i).getPlantType() + ", " + asset.getFieldById(i).getPlantedTime());
         }
         

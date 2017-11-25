@@ -23,6 +23,7 @@
         "src/data/MainGuiResource.js",
         "src/data/MapResource.js",
         "src/data/ShopResource.js",
+        "src/data/StorageResource.js",
         "src/data/HavestResource.js",
         "src/data/Resource.js",
         "src/data/ResourceAnimation.js",
@@ -78,11 +79,14 @@
         "src/modules/configs/enum/ErrorLog.js",
         "src/modules/configs/enum/ProductTypes.js",
         "src/modules/configs/enum/FieldStatusTypes.js",
+        "src/modules/configs/enum/StorageTypes.js",
+        "src/modules/configs/enum/ProductResource.js",
         "src/modules/configs/config.js",
 
         "src/modules/controllers/PlantCtrl.js",
         "src/modules/controllers/MapCtrl.js",
         "src/modules/controllers/GameShopController.js",
+        "src/modules/controllers/StorageCtrl.js",
 
         "src/modules/models/CoordinatedObject.js",
         "src/modules/models/Coordinate.js",
@@ -120,6 +124,11 @@
         "src/modules/views/layers/GSGUI/GSBtnLayout.js",
         "src/modules/views/layers/GSGUI/GSDetailLayout.js",
         "src/modules/views/layers/GSGUI/GSLayer.js",
+
+        "src/modules/views/layers/StorageUI/StorageItemListLayer.js",
+        "src/modules/views/layers/StorageUI/UpgradeSiloLayer.js",
+        "src/modules/views/layers/StorageUI/UpgradeWareLayer.js",
+        "src/modules/views/layers/StorageUI/StorageLayer.js",
 
         "src/modules/views/layers/MapLayer.js",
         "src/modules/views/scenes/MainScene.js",
