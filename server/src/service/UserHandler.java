@@ -108,10 +108,10 @@ public class UserHandler extends BaseClientRequestHandler {
 
     public static ZPUserInfo createUser(int userId){
         
-        Storage foodStorage = new Storage(StorageType.FOOD_STORAGE, 30, 
+        Storage foodStorage = new Storage(StorageType.FOOD_STORAGE, 50, 
                 ConfigContainer.mapConfig.Silo.position.x,
                 ConfigContainer.mapConfig.Silo.position.y);
-        Storage warehouse = new Storage(StorageType.WAREHOUSE, 30, 
+        Storage warehouse = new Storage(StorageType.WAREHOUSE, 50, 
                 ConfigContainer.mapConfig.Warehouse.position.x,
                 ConfigContainer.mapConfig.Warehouse.position.y);
 

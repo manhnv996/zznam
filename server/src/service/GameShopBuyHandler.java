@@ -15,10 +15,13 @@ import cmd.receive.gameshop.RequestBuyMapObject;
 
 import cmd.send.demo.ResponseErrorCode;
 
+import config.enums.MapItemEnum;
+
 import config.jsonobject.ShopCoopConfig;
 
 import config.utils.ConfigContainer;
 
+import model.Field;
 import model.ZPUserInfo;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
@@ -28,7 +31,7 @@ import org.slf4j.LoggerFactory;
 
 public class GameShopBuyHandler extends BaseClientRequestHandler{
     
-    public static short PLANT_MULTI_IDS = 7000;
+    public static short GAMESHOP_MULTI_IDS = 7000;
     private final Logger logger = LoggerFactory.getLogger("GameShopBuyHandler");
     
     public GameShopBuyHandler() {
@@ -68,21 +71,36 @@ public class GameShopBuyHandler extends BaseClientRequestHandler{
         int width;
         int height;
         int price;
+        int mapType;
         if (req.type.equals("field")) {
             width = ConfigContainer.mapConfig.Field.size.width;
             height = ConfigContainer.mapConfig.Field.size.height;
             price = ConfigContainer.getCoopPrice(req.type);
+            mapType = MapItemEnum.FIELD;
         } else {
             return;
         }
         
         if (userInfo.getMap().checkValidBlock(req.x, req.y, width, height)) {
-            if (price > userInfo.getGold()) {
-                
+            if (price <= userInfo.getGold()) {
+                userInfo.getMap().addMapAlias(req.x, req.y, width, height, mapType);
+                Field fieldModel = new Field(req.id, req.x, req.y);
+                if (userInfo.getAsset().addField(fieldModel)) {
+                    System.out.println("OK Buy");
+                    send(new ResponseErrorCode((short) 0), user);
+                } else {
+                    //send error cant add field//////
+//                    System.out.println("Can't add field");
+                    send(new ResponseErrorCode((short)-1), user);
+                    return;
+                }
             } else {
-                
+//                System.out.println("Not enough gold");
+                send(new ResponseErrorCode((short)-1), user);
+                return;
             }
         } else {
+//            System.out.println("Collision");
             send(new ResponseErrorCode((short)-1), user);
             return;
         }

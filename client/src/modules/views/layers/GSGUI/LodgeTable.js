@@ -138,9 +138,11 @@ var LodgeTable = cc.Layer.extend({
             price.setAnchorPoint(1, -0.5);
             price.tag = 5;
 
-            if (level >= res.infoCoopItem[idx].level[0] || curslot < maxslot) {
-                image.addTouchEventListener(this.touchEvent, this);
-            }
+            //bug k chặn đc sự kiện touch
+            //cc.log("If Level unlock " + res.infoCoopItem[idx].level[0]);
+            //if (level >= res.infoCoopItem[idx].level[0] || curslot < maxslot) {
+            //    image.addTouchEventListener(this.touchEvent, this);
+            //}
 
             cell.addChild(imgBg);
             cell.addChild(goldImg);
@@ -170,6 +172,7 @@ var LodgeTable = cc.Layer.extend({
             if(res.infoCoopItem[idx].id == "field"){
                 curslot = user.getAsset().getFieldList().length;
                 maxslot = GameShopController.instance.getMaxField();
+                cc.log("Field slot " + curslot + " " + maxslot);
                 if (curslot < maxslot) {
                     image.addTouchEventListener(this.touchEvent, this);
                 }
@@ -192,7 +195,8 @@ var LodgeTable = cc.Layer.extend({
                         }
                     }
                 }
-
+                cc.log("Level User " + level);
+                //cc.log("Level unlock " + res.infoCoopItem[idx].level[0]);
                 if (level >= res.infoCoopItem[idx].level[0] || curslot < maxslot) {
                     image.addTouchEventListener(this.touchEvent, this);
                 }
@@ -288,8 +292,10 @@ var LodgeTable = cc.Layer.extend({
                                     user.getAsset().addField(fieldModel);
                                     MapLayer.instance.fieldList.push(this._sprite);
                                     this._sprite.field = fieldModel;
+                                    user.reduceGold(sender.parent.getChildByTag(5).getString());
                                     // Send server
                                     testnetwork.connector.sendBuyMapObjectRequest(this._sprite.fieldId, sender.parent.getChildByTag(0).getString(), this._sprite.lx, this._sprite.ly);
+                                    cc.log("Send server buy field");
                                     //...
                                     break;
                                 //case "chicken_habitat":
@@ -307,6 +313,7 @@ var LodgeTable = cc.Layer.extend({
                         }
                     }
                 }
+                this._sprite = null;
                 GSLayer.instance.show();
                 this._isHide = false;
                 // cc.log("Touch Canceled");
