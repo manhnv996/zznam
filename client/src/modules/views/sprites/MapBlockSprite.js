@@ -27,60 +27,48 @@ var MapBlockSprite = cc.Sprite.extend({
             onTouchBegan: function (touch, event) {
                 var touchLocation = touch.getLocation();
                 var location = MapValues.screenPositionToMapPosition(touchLocation.x, touchLocation.y);
-                
                 this.touchListener.__isMoved = false; // Disable, enable onClick event
                 // this.touchListener.__moveSprite = false; // Enable moving sprite
+                this.touchListener.autoMoveVer = 0;
+                this.touchListener.autoMoveHor = 0;
 
                 // Check if is click inside sprite
                 if (rayCasting(location, this.boundingPoints)) {
                     this.onBeginClick();
                     if (!lockMoveMode) {
-                        this.touchListener.__timeout = setTimeout(function() {
-                            // disable onClick event after long click
-                            this.touchListener.__isMoved = true;
+                        if (this.touchListener.__moveSprite === true) {
+                            // When sprite is in moving mode
+                            // cc.log("Continue schedule update");
+                            this.scheduleUpdate();
+                        } else {
+                            // When sprite is normal
+                            this.touchListener.__timeout = setTimeout(function() {
+                                // disable onClick event after long click
+                                this.touchListener.__isMoved = true;
+                                PopupLayer.instance.showArrow(touchLocation.x, touchLocation.y, function() {
+                                    // Activate move sprite mode
+                                    this.touchListener.__moveSprite = true;
+                                    this.touchListener.lstMouse = touchLocation;
+                                    // Enable highest priority for this listener and zOrder
+                                    this.updateEventPriority(1);                          
+                                    this.setLocalZOrder(1000);
+                                    // Enable Tint action
+                                    var action = new cc.Sequence([new cc.TintBy(0.8, -100, -100, -100), new cc.TintBy(0.8, 100, 100, 100)]);
+                                    this.runAction(new cc.RepeatForever(action));
 
-                            // this.arrow = fr.createAnimationById(resAniId.Arrow1);
-                            // this.arrow.gotoAndPlay('1', -1, 1.0);
-                            // this.arrow.setPosition(
-                            //     cc.p(this.getContentSize().width / 2,
-                            //     this.getContentSize().height)
-                            // );
-                            // this.addChild(this.arrow);
-                            // this.arrow.setCompleteListener(function() {
-                            //     // Activate move sprite mode
-                            //     this.touchListener.__moveSprite = true;
-                            //     // Enable highest priority for this listener and zOrder
-                            //     this.updateEventPriority(1);                          
-                            //     this.setLocalZOrder(1000);
-                            //     // Enable Tint action
-                            //     var action = new cc.Sequence([new cc.TintBy(0.8, -100, -100, -100), new cc.TintBy(0.8, 100, 100, 100)]);
-                            //     this.runAction(new cc.RepeatForever(action));
-
-                            //     // Save original position
-                            //     this.touchListener.originalPosition = this.getLogicPosition();
-                            //     this.touchListener.lstLocation = this.touchListener.originalPosition;
-                            //     // Remove itself from map alias
-                            //     MapCtrl.instance.removeSpriteAlias(this);
-                            //     // cc.log("Move sprite mode activated");
-                            // }.bind(this));
-                            PopupLayer.instance.showArrow(touchLocation.x, touchLocation.y, function() {
-                                // Activate move sprite mode
-                                this.touchListener.__moveSprite = true;
-                                // Enable highest priority for this listener and zOrder
-                                this.updateEventPriority(1);                          
-                                this.setLocalZOrder(1000);
-                                // Enable Tint action
-                                var action = new cc.Sequence([new cc.TintBy(0.8, -100, -100, -100), new cc.TintBy(0.8, 100, 100, 100)]);
-                                this.runAction(new cc.RepeatForever(action));
-
-                                // Save original position
-                                this.touchListener.originalPosition = this.getLogicPosition();
-                                this.touchListener.lstLocation = this.touchListener.originalPosition;
-                                // Remove itself from map alias
-                                MapCtrl.instance.removeSpriteAlias(this);
-                                // cc.log("Move sprite mode activated");
-                            }.bind(this));
-                        }.bind(this), 500);
+                                    // Save original position
+                                    this.touchListener.originalPosition = this.getLogicPosition();
+                                    this.touchListener.lstLocation = this.touchListener.originalPosition;
+                                    // Remove itself from map alias
+                                    MapCtrl.instance.removeSpriteAlias(this);
+                                    // cc.log("Move sprite mode activated");
+                                    // ScheduleUpdate automove
+                                    cc.log('Start schedule update');
+                                    this.scheduleUpdate();
+                                }.bind(this));
+                            }.bind(this), 500);
+                        }
+                        
                     }
                     return true;
                 } else {
@@ -132,6 +120,7 @@ var MapBlockSprite = cc.Sprite.extend({
 
             onTouchMoved: function(touch, event) {
                 // Move map and disable onclick
+
                 this.touchListener.__isMoved = true;
                 // if (this.arrow) {
                 //     this.arrow.removeFromParent();
@@ -139,22 +128,45 @@ var MapBlockSprite = cc.Sprite.extend({
                 // }
                 PopupLayer.instance.removeArrow();
                 if (!isNaN(this.touchListener.__timeout)) {
+                    // Move intime of timeout
                     clearTimeout(this.touchListener.__timeout);
                     this.touchListener.__timeout = null;
                 }
+
                 if (this.touchListener.__moveSprite) {
                     // Move sprite
                     var location = touch.getLocation();
-                    var logic = MapValues.screenPositionToLogic(location.x, location.y);
-                    logic.x = Math.floor(logic.x);
-                    logic.y = Math.floor(logic.y);
-                    if (this.touchListener.lstLocation.x !== logic.x || 
-                            this.touchListener.lstLocation.y !== logic.y) {
-                        // cc.log("Map Alias", this.mapAliasType);
-                        // cc.log("move to", logic, MapCtrl.instance.checkValidBlock(logic.x, logic.y, this.blockSizeX, this.blockSizeY, this.mapAliasType));
-                        this.touchListener.lstLocation = logic;
-                        this.setLogicPosition(logic, true);
+                    this.touchListener.lstMouse = location;
+                    var winSize = cc.winSize;
+                    var BORDER_AUTO_MOVE = 100;
+
+                    // Auto moving when mouse nears borders
+                    if (location.x < BORDER_AUTO_MOVE) {
+                        this.touchListener.autoMoveHor = -1;
+                    } else if (winSize.width - location.x < BORDER_AUTO_MOVE) {
+                        this.touchListener.autoMoveHor = 1;
+                    } else {
+                        this.touchListener.autoMoveHor = 0;
                     }
+
+                    if (location.y < BORDER_AUTO_MOVE) {
+                        this.touchListener.autoMoveVer = -1;
+                    } else if (winSize.height - location.y < BORDER_AUTO_MOVE) {
+                        this.touchListener.autoMoveVer = 1;
+                    } else {
+                        this.touchListener.autoMoveVer = 0;
+                    }
+                    /* Move in update function */
+                    // var logic = MapValues.screenPositionToLogic(location.x, location.y);
+                    // logic.x = Math.floor(logic.x);
+                    // logic.y = Math.floor(logic.y);
+                    // if (this.touchListener.lstLocation.x !== logic.x || 
+                    //         this.touchListener.lstLocation.y !== logic.y) {
+                    //     // cc.log("Map Alias", this.mapAliasType);
+                    //     // cc.log("move to", logic, MapCtrl.instance.checkValidBlock(logic.x, logic.y, this.blockSizeX, this.blockSizeY, this.mapAliasType));
+                    //     this.touchListener.lstLocation = logic;
+                    //     this.setLogicPosition(logic, true);
+                    // }
                 } else {
                     // Move map
                     var delta = touch.getDelta();
@@ -178,6 +190,8 @@ var MapBlockSprite = cc.Sprite.extend({
                     if (!MapCtrl.instance.checkValidBlock(this.touchListener.lstLocation.x, this.touchListener.lstLocation.y, this.blockSizeX, this.blockSizeY)) {
                         this.setLogicPosition(this.touchListener.originalPosition, true);
                     }
+                    cc.log('Unschedule update');
+                    this.unscheduleUpdate();
                 }
 
                 !this.touchListener.__isMoved && this.onClick();
@@ -258,6 +272,25 @@ var MapBlockSprite = cc.Sprite.extend({
         MapLayer.instance.addChild(dot4);
         MapLayer.instance.addChild(dot5);
         MapLayer.instance.addChild(dot6);
+    },
+
+    update: function(dt) {
+        var location = this.touchListener.lstMouse;
+        var logic = MapValues.screenPositionToLogic(location.x, location.y);
+        logic.x = Math.floor(logic.x);
+        logic.y = Math.floor(logic.y);
+        if (this.touchListener.lstLocation.x !== logic.x || 
+                this.touchListener.lstLocation.y !== logic.y) {
+            // cc.log("Map Alias", this.mapAliasType);
+            // cc.log("move to", logic, MapCtrl.instance.checkValidBlock(logic.x, logic.y, this.blockSizeX, this.blockSizeY, this.mapAliasType));
+            this.touchListener.lstLocation = logic;
+            this.setLogicPosition(logic, true);
+        }
+        if (this.touchListener.autoMoveHor || this.touchListener.autoMoveVer) {
+            var dx = this.touchListener.autoMoveHor * dt * 150;
+            var dy = this.touchListener.autoMoveVer * dt * 150;
+            MapLayer.instance.move(-dx, -dy);
+        }
     }
 });
 
