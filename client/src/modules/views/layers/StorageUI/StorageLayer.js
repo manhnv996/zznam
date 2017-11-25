@@ -35,11 +35,22 @@ var StorageLayer = cc.Layer.extend({
 
         this._layoutStorage.setContentSize(bg.getContentSize());
 
+        //Close Button
         var closeBtn = new ccui.Button(res.close_png);
         closeBtn.setZoomScale(-0.1);
         closeBtn.addTouchEventListener(this.touchCloseStorage, this);
         closeBtn.setPosition(this._layoutStorage.width * 19 / 20, this._layoutStorage.height * 4 / 5);
+        closeBtn.setScale(0.9);
         this._layoutStorage.addChild(closeBtn);
+
+        //Progress Bar
+        var progressLayout = new ccui.Layout();
+        progressLayout.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
+        progressLayout.setBackGroundColor(cc.color.YELLOW);
+        progressLayout.x = this._layoutStorage.width / 100 * 27;
+        progressLayout.y = this._layoutStorage.height / 100 * 86;
+        progressLayout.setContentSize(this._layoutStorage.width / 11 * 5, this._layoutStorage.height / 100 * 6);
+        this._layoutStorage.addChild(progressLayout);
 
         var upgradeLayer;
         var type = storage.getStorageType();
@@ -79,6 +90,7 @@ var StorageLayer = cc.Layer.extend({
         layout.addChild(this._multiLayer);
 
         this.addChild(this._layoutStorage);
+        this.setScale(cc.winSize.height / this._layoutStorage.height);
     },
 
     getMultiLayer: function () {

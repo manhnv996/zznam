@@ -39,7 +39,7 @@ var UpgradeWareLayer = cc.Layer.extend({
 
         var label = new cc.LabelBMFont("0/7", res.FONT_OUTLINE_20);
         label.x = layout.width / 2;
-        label.y = sprite.y - sprite.height / 2 - label.height / 2;
+        label.y = sprite.y - sprite.height / 2 - label.height / 4;
 
         var layoutBtn = new ccui.Layout();
         layoutBtn.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
@@ -86,7 +86,7 @@ var UpgradeWareLayer = cc.Layer.extend({
 
         label = new cc.LabelBMFont("0/7", res.FONT_OUTLINE_20);
         label.x = layout.width / 2;
-        label.y = sprite.y - sprite.height / 2 - label.height / 2;
+        label.y = sprite.y - sprite.height / 2 - label.height / 4;
 
         layoutBtn = new ccui.Layout();
         layoutBtn.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
@@ -131,9 +131,10 @@ var UpgradeWareLayer = cc.Layer.extend({
         sprite = new cc.Sprite(res.upgrade_ware_plank);
         sprite.x = layout.width / 2;
         sprite.y = layout.height / 4 * 3;
+
         label = new cc.LabelBMFont("0/7", res.FONT_OUTLINE_20);
         label.x = layout.width / 2;
-        label.y = sprite.y - sprite.height / 2 - label.height / 2;
+        label.y = sprite.y - sprite.height / 2 - label.height / 4;
 
         layoutBtn = new ccui.Layout();
         layoutBtn.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
@@ -167,6 +168,31 @@ var UpgradeWareLayer = cc.Layer.extend({
         layoutT.addChild(layout);
         //cc.log("upgrade silo");
 
+        //Label Next Capacity
+        var nextCapacity = new cc.LabelBMFont("Sức chứa sau nâng cấp : " + res.upgradeSilo[this._level + 1].capacity, res.FONT_NORMAL_30);
+        nextCapacity.color = cc.color(77, 41, 1);
+        nextCapacity.setBoundingWidth(layoutT.width / 3);
+        nextCapacity.setAlignment(cc.TEXT_ALIGNMENT_CENTER);
+        nextCapacity.x = layoutT.width / 6 * 5;
+        nextCapacity.y = layoutT.height / 5 * 3;
+        layoutT.addChild(nextCapacity);
+
+        //Label....
+        var infoLable = new cc.LabelBMFont("(*) Vật phẩm nâng cấp có được từ thu hoạch cây trồng, nhà máy, vật nuôi ...", res.FONT_NORMAL_20);
+        infoLable.color = cc.color(77, 41, 1);
+        infoLable.setBoundingWidth(layoutT.width / 3 * 2);
+        infoLable.setAlignment(cc.TEXT_ALIGNMENT_CENTER);
+        infoLable.x = layoutT.width / 3;
+        infoLable.y = layoutT.height / 10;
+        layoutT.addChild(infoLable);
+
+        //Button V
+        var  buttonV = new ccui.Button(res.storage_V_png);
+        buttonV.x = layoutT.width / 6 * 5;
+        buttonV.y = layoutT.height / 5;
+        buttonV.setScale(0.9);
+        buttonV.setTouchEnabled(false);
+        layoutT.addChild(buttonV);
     },
 
     touchBackBtn: function (sender, type){
