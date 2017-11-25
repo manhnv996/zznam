@@ -102,6 +102,9 @@ cc.game.onStart = function () {
         testnetwork.connector = new testnetwork.Connector(gv.gameClient);
 
 		//cc.director.runScene(new MainScene());
+        cc.log("Preload some animations");
+        fr.preloadAnimation(['SILO', 'Barn', 'Carot', 'DauHL', 'Cayrung',
+                'Dato', 'Vungnuoc1', 'Danho']);
         cc.director.runScene(new PreloaderScene());
 
         //MainScene.instance = new MainScene();

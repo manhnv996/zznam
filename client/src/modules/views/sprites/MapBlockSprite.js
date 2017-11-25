@@ -189,6 +189,7 @@ var MapBlockSprite = cc.Sprite.extend({
                 if (this.touchListener.__moveSprite) {
                     if (!MapCtrl.instance.checkValidBlock(this.touchListener.lstLocation.x, this.touchListener.lstLocation.y, this.blockSizeX, this.blockSizeY)) {
                         this.setLogicPosition(this.touchListener.originalPosition, true);
+                        MapLayer.instance.moveToLogic(this.touchListener.originalPosition, 2);
                     }
                     cc.log('Unschedule update');
                     this.unscheduleUpdate();

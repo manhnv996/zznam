@@ -35,11 +35,15 @@ var MapLayer = (function() {
 			// this.renderSample();
 			this.setScale(0.4);
 			// Set map to center of screen, Note that setting scale before setting position.
-			var center = MapValues.logicToPosition(MapConfigs.Init.width / 2, MapConfigs.Init.height / 2);
-			this.setPosition(cc.p((this.width / 2 - center.x) * this.scale, (this.height / 2 - center.y) * this.scale));
+			// Make start animation
+			var center = cc.p(MapConfigs.Init.width / 2, MapConfigs.Init.height / 2 + 4);
+			this.moveToLogic(center);
+
+			var center = cc.p(MapConfigs.Init.width / 2, MapConfigs.Init.height / 2);
+			this.moveToLogic(center, 2);
+			// cc.log("Move to", center);
+			// this.setPosition(cc.p((this.width / 2 - center.x) * this.scale, (this.height / 2 - center.y) * this.scale));
 			this.initEvent();
-
-
 
 			this.initFieldList();
 		},
@@ -560,6 +564,23 @@ var MapLayer = (function() {
 //
 			// PopupLayer.instance.disablePopup();
 			// PopupLayer.instance.disableProgressBarInprogress();
+		},
+
+		moveToLogic: function(lx, ly, time) {
+			if (lx.x) {
+				time = ly;
+				ly = lx.y;
+				lx = lx.x;
+			}
+			var p = MapValues.logicToPosition(lx, ly);
+			var caculateP = cc.p((this.width / 2 - p.x) * this.scale, (this.height / 2 - p.y) * this.scale);
+			if (time) {
+				cc.log("Time", time);
+				var action = new cc.MoveTo(time, caculateP).easing(cc.easeExponentialOut());
+				this.runAction(action);
+			} else {
+				this.setPosition(caculateP);
+			}
 		},
 
 		zoom: function(sign, cursor) {
