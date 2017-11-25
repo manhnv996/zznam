@@ -79,5 +79,17 @@
       "width": 1,
       "height": 1
     }
+  },
+  "BigNatureThing": {
+    "size": {
+      "width": 2,
+      "height": 2
+    }
+  },
+  "SmallNatureThing": {
+    "size": {
+      "width": 1,
+      "height": 1
+    }
   }
 }

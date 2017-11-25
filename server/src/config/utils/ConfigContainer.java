@@ -96,7 +96,20 @@ public class ConfigContainer {
             defaultNatural.add(nobj);
             int x = Integer.parseInt(jobj.get("x").getAsString());
             int y = Integer.parseInt(jobj.get("y").getAsString());
-            defaultMap[x][y] = MapItemEnum.NATURE_THING;
+            int width = 0;
+            int height = 0;
+            if (nobj.type.equals("forest_swamp") || nobj.type.equals("forest_big_stone_1")) {
+                width = ConfigContainer.mapConfig.BigNatureThing.size.width;
+                height = ConfigContainer.mapConfig.BigNatureThing.size.height;
+            } else {
+                width = ConfigContainer.mapConfig.SmallNatureThing.size.width;
+                height = ConfigContainer.mapConfig.SmallNatureThing.size.height;
+            }
+            for (int i = 0; i < width; i++) {
+                for (int j = 0; j < height; j++) {
+                    defaultMap[x + i][y + j] = MapItemEnum.NATURE_THING;
+                }
+            }
 //            System.out.println("[Value] " + jobj.get("id").getAsString());
         }
     }

@@ -161,3 +161,17 @@ MapConfigs.Warehouse = {
 		height: 3
 	}
 }
+
+MapConfigs.VungNuoc = {
+	size: {
+		width: 2,
+		height: 2
+	}
+}
+
+MapConfigs.Tree = {
+	size: {
+		width: 1,
+		height: 1
+	}
+}

@@ -205,22 +205,29 @@ var MapCtrl = cc.Class.extend({
     },
 
     renderNaturalThings: function() {
-        var types = {
-            forest_small_tree_1: 1,
-            forest_big_tree_1: 2,
-            forest_big_tree_2: 3,
-            forest_small_tree_2: 4,
-            forest_big_stone_1: null,
-            forest_small_stone_1: null
-        };
+        
         for (var i = 0; i < user.asset.natureThingList.length; i++) {
             var x = user.asset.natureThingList[i].x;
             var y = user.asset.natureThingList[i].y;
             var id = user.asset.natureThingList[i].id;
-            if (user.asset.natureThingList[i].type === 'forest_swamp') {
+            var typeName = user.asset.natureThingList[i].type;
+            if (typeName === 'forest_swamp') {
                 var sprite = new VungnuocSprite(x, y, id);
                 MapLayer.instance.addChild(sprite);
+            } else if (typeName === 'forest_big_stone_1') {
+                var sprite = new DatoSprite(x, y, id);
+                MapLayer.instance.addChild(sprite);
+            } else if (typeName === 'forest_small_stone_1' ) {
+                var sprite = new DanhoSprite(x, y, id);
+                MapLayer.instance.addChild(sprite);
             } else {
+                // Trees
+                var types = {
+                    forest_small_tree_1: 1,
+                    forest_big_tree_1: 2,
+                    forest_big_tree_2: 3,
+                    forest_small_tree_2: 4
+                };
                 var type = types[user.asset.natureThingList[i].type];
                 if (type) {
                     var sprite = new CayRungSprite(x, y, type, id);
@@ -229,8 +236,10 @@ var MapCtrl = cc.Class.extend({
                     cc.log("missing", user.asset.natureThingList[i].type);
                 }
             }
-            
         }
+
+        var sprite = new DanhoSprite(0, 2, 1);
+        MapLayer.instance.addChild(sprite);
         // var configs = cc.loader.getRes("config/mapInit.json");
         // for (var k in configs) {
         //     var item = configs[k];

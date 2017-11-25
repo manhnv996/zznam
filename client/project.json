@@ -66,6 +66,8 @@
         "src/modules/views/sprites/BakerySprite.js",
         "src/modules/views/sprites/CayRungSprite.js",
         "src/modules/views/sprites/VungnuocSprite.js",
+        "src/modules/views/sprites/DatoSprite.js",
+        "src/modules/views/sprites/DanhoSprite.js",
 
         "src/modules/views/layers/PopupLayer.js",
 
