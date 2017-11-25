@@ -289,6 +289,7 @@ var LodgeTable = cc.Layer.extend({
                                     MapLayer.instance.fieldList.push(this._sprite);
                                     this._sprite.field = fieldModel;
                                     // Send server
+                                    testnetwork.connector.sendBuyMapObjectRequest(this._sprite.fieldId, sender.parent.getChildByTag(0).getString(), this._sprite.lx, this._sprite.ly);
                                     //...
                                     break;
                                 //case "chicken_habitat":
@@ -302,6 +303,7 @@ var LodgeTable = cc.Layer.extend({
                                 //case "goat_habitat":
                                 //    break;
                             }
+                            //Send Server
                         }
                     }
                 }
