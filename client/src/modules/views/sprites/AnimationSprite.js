@@ -3,7 +3,7 @@ var AnimationSprite = MapBlockSprite.extend({
 	__boundingBox: null,
 	// __fixNaturePosition: false,
 
-	ctor: function(aniId, blockSizeX, blockSizeY, lx, ly, mapAliasType, fixNaturePosition) {
+	ctor: function(aniId, blockSizeX, blockSizeY, lx, ly, mapAliasType) {
 		this._super(undefined, blockSizeX, blockSizeY, lx, ly, mapAliasType);
 
 		this.content = fr.createAnimationById(aniId, this);

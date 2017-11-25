@@ -8,9 +8,6 @@ import config.utils.ProductUtil;
 
 import java.nio.ByteBuffer;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import model.ZPUserInfo;
 
 public class ResponseGameInfo extends BaseMsg {

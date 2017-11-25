@@ -39,14 +39,31 @@ var MapBlockSprite = cc.Sprite.extend({
                             // disable onClick event after long click
                             this.touchListener.__isMoved = true;
 
-                            this.arrow = fr.createAnimationById(resAniId.Arrow1);
-                            this.arrow.gotoAndPlay('1', -1, 1.0);
-                            this.arrow.setPosition(
-                                cc.p(this.getContentSize().width / 2,
-                                this.getContentSize().height)
-                            );
-                            this.addChild(this.arrow);
-                            this.arrow.setCompleteListener(function() {
+                            // this.arrow = fr.createAnimationById(resAniId.Arrow1);
+                            // this.arrow.gotoAndPlay('1', -1, 1.0);
+                            // this.arrow.setPosition(
+                            //     cc.p(this.getContentSize().width / 2,
+                            //     this.getContentSize().height)
+                            // );
+                            // this.addChild(this.arrow);
+                            // this.arrow.setCompleteListener(function() {
+                            //     // Activate move sprite mode
+                            //     this.touchListener.__moveSprite = true;
+                            //     // Enable highest priority for this listener and zOrder
+                            //     this.updateEventPriority(1);                          
+                            //     this.setLocalZOrder(1000);
+                            //     // Enable Tint action
+                            //     var action = new cc.Sequence([new cc.TintBy(0.8, -100, -100, -100), new cc.TintBy(0.8, 100, 100, 100)]);
+                            //     this.runAction(new cc.RepeatForever(action));
+
+                            //     // Save original position
+                            //     this.touchListener.originalPosition = this.getLogicPosition();
+                            //     this.touchListener.lstLocation = this.touchListener.originalPosition;
+                            //     // Remove itself from map alias
+                            //     MapCtrl.instance.removeSpriteAlias(this);
+                            //     // cc.log("Move sprite mode activated");
+                            // }.bind(this));
+                            PopupLayer.instance.showArrow(touchLocation.x, touchLocation.y, function() {
                                 // Activate move sprite mode
                                 this.touchListener.__moveSprite = true;
                                 // Enable highest priority for this listener and zOrder
@@ -90,7 +107,7 @@ var MapBlockSprite = cc.Sprite.extend({
                         }
                         // Reupdate event priority and zOrder
                         this.updateEventPriority();
-                        this.setLocalZOrder(Math.max(this.lx + this.blockSizeX, this.ly + this.blockSizeY));
+                        // this.setLocalZOrder(Math.max(this.lx + this.blockSizeX, this.ly + this.blockSizeY));
                         // Disable tint action and set default color
                         this.stopAllActions();
                         this.setColor(cc.color(255, 255, 255));
@@ -116,10 +133,11 @@ var MapBlockSprite = cc.Sprite.extend({
             onTouchMoved: function(touch, event) {
                 // Move map and disable onclick
                 this.touchListener.__isMoved = true;
-                if (this.arrow) {
-                    this.arrow.removeFromParent();
-                    this.arrow = null;
-                }
+                // if (this.arrow) {
+                //     this.arrow.removeFromParent();
+                //     this.arrow = null;
+                // }
+                PopupLayer.instance.removeArrow();
                 if (!isNaN(this.touchListener.__timeout)) {
                     clearTimeout(this.touchListener.__timeout);
                     this.touchListener.__timeout = null;
@@ -146,10 +164,11 @@ var MapBlockSprite = cc.Sprite.extend({
             
             onTouchEnded: function(touch, event) {
                 this.onEndClick();
-                if (this.arrow) {
-                    this.arrow.removeFromParent();
-                    this.arrow = null;
-                }
+                PopupLayer.instance.removeArrow();
+                // if (this.arrow) {
+                //     this.arrow.removeFromParent();
+                //     this.arrow = null;
+                // }
                 if (!isNaN(this.touchListener.__timeout)) {
                     clearTimeout(this.touchListener.__timeout);
                     this.touchListener.__timeout = null;
@@ -214,6 +233,31 @@ var MapBlockSprite = cc.Sprite.extend({
             bottomPoint, leftPoint, topLeftPoint, 
             topRightPoint, rightPoint
         ];
+    },
+
+    _showBoundingPoints: function() {
+        cc.log("Show Debug bounding points");
+        var dot1 = new cc.Sprite(res.DOT2_PNG);
+        var dot2 = new cc.Sprite(res.DOT2_PNG);
+        var dot3 = new cc.Sprite(res.DOT2_PNG);
+        var dot4 = new cc.Sprite(res.DOT2_PNG);
+        var dot5 = new cc.Sprite(res.DOT2_PNG);
+        var dot6 = new cc.Sprite(res.DOT2_PNG);
+
+        dot1.setPosition(this.boundingPoints[0]);
+        dot2.setPosition(this.boundingPoints[1]);
+        dot3.setPosition(this.boundingPoints[2]);
+        dot4.setPosition(this.boundingPoints[3]);
+        dot5.setPosition(this.boundingPoints[4]);
+        cc.log("lx", this.lx, "ly", this.ly);
+        dot6.setPosition(MapValues.logicToPosition(this.lx, this.ly));
+
+        MapLayer.instance.addChild(dot1);
+        MapLayer.instance.addChild(dot2);
+        MapLayer.instance.addChild(dot3);
+        MapLayer.instance.addChild(dot4);
+        MapLayer.instance.addChild(dot5);
+        MapLayer.instance.addChild(dot6);
     }
 });
 

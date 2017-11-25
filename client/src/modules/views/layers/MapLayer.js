@@ -3,7 +3,7 @@ var lstScale = 1.0;
 
 var MapLayer = (function() {
 	var SCALE_RATIO = 0.05;
-	var __DEBUG = true;
+	var __DEBUG = false;
 
 	return cc.Layer.extend({
 		LEFT_LIMIT: null,

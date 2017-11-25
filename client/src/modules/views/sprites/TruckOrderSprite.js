@@ -10,5 +10,15 @@ var TruckOrderSprite = MapBlockSprite.extend({
 
 	onClick: function() {
 		cc.log("TruckOrder clicked");
+	},
+	
+	onBeginClick: function() {
+		// this.setOpacity(210);
+		this.setColor(cc.color(200, 200, 200));
+	},
+
+	onEndClick: function() {
+		// this.setOpacity(255);
+		this.setColor(cc.color(255, 255, 255));
 	}
 });

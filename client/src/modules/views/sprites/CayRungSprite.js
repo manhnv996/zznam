@@ -4,9 +4,9 @@ var CayRungSprite = AnimationSprite.extend({
 
 	ctor: function(x, y, type, id) {
 		this._super(resAniId.Cayrung,
-				MapConfigs.Tree.size.width,
-				MapConfigs.Tree.size.height, 
-				x, y, 17, MapItemEnum.NATURE_THING);
+				MapConfigs.SmallNatureThing.size.width,
+				MapConfigs.SmallNatureThing.size.height, 
+				x, y, MapItemEnum.NATURE_THING);
 		this.treeType = type || this.treeType;
 		this.natureId = id;
 		this.play(2 * this.treeType - 1);
@@ -14,7 +14,7 @@ var CayRungSprite = AnimationSprite.extend({
 	},
 
 	onClick: function() {
-		cc.log("Cayrung is clicked", this.lx, this.ly);
+		cc.log("Cayrung is clicked", "lx:", this.lx, "ly:", this.ly, "id:", this.natureId);
 		this.play(2 * this.treeType - 1);
 		// this.play(2 * this.treeType);
 	},
