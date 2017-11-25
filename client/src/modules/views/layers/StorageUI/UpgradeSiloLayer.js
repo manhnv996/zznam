@@ -47,6 +47,7 @@ var UpgradeSiloLayer = cc.Layer.extend({
 
         var btn = new ccui.Button(res.storage_buy_tool);
         btn.tag = 1;
+        //btn.setZoomScale(-0.1);
         layoutBtn.setContentSize(btn.getContentSize().width, btn.getContentSize().height);
         layoutBtn.x = layout.width / 2;
         layoutBtn.y = label.y - label.height / 2 - btn.getContentSize().height / 2;
@@ -54,11 +55,17 @@ var UpgradeSiloLayer = cc.Layer.extend({
         btn.x = layoutBtn.width / 2;
         btn.y = layoutBtn.height / 2;
         layoutBtn.addChild(btn);
-        //
-        //var ruby = new cc.Sprite(res.ruby_small);
-        //ruby.x = layoutBtn.width / 4 * 3;
-        //ruby.y = layoutBtn.height / 4 * 3;
-        //layoutBtn.addChild(ruby);
+
+        var ruby = new cc.Sprite(res.ruby_small);
+        ruby.x = layoutBtn.width / 4 * 3;
+        ruby.y = layoutBtn.height / 4;
+        //cc.log("ruby" + ruby);
+        layoutBtn.addChild(ruby);
+
+        var numberRuby = new cc.LabelBMFont("20", res.FONT_OUTLINE_20);
+        numberRuby.x = layoutBtn.width / 3;
+        numberRuby.y = layoutBtn.height / 4;
+        layoutBtn.addChild(numberRuby);
 
         layout.addChild(sprite);
         layout.addChild(label);
@@ -76,14 +83,43 @@ var UpgradeSiloLayer = cc.Layer.extend({
         sprite = new cc.Sprite(res.upgrade_silo_screw);
         sprite.x = layout.width / 2;
         sprite.y = layout.height / 4 * 3;
+
+        label = new cc.LabelBMFont("0/7", res.FONT_OUTLINE_20);
+        label.x = layout.width / 2;
+        label.y = sprite.y - sprite.height / 2 - label.height / 2;
+
+        layoutBtn = new ccui.Layout();
+        layoutBtn.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
+        layoutBtn.setBackGroundColor(cc.color.BLACK);
+
+        btn = new ccui.Button(res.storage_buy_tool);
+        btn.tag = 2;
+        //btn.setZoomScale(-0.1);
+        layoutBtn.setContentSize(btn.getContentSize().width, btn.getContentSize().height);
+        layoutBtn.x = layout.width / 2;
+        layoutBtn.y = label.y - label.height / 2 - btn.getContentSize().height / 2;
+        layoutBtn.setAnchorPoint(0.5, 0.5);
+        btn.x = layoutBtn.width / 2;
+        btn.y = layoutBtn.height / 2;
+        layoutBtn.addChild(btn);
+
+        ruby = new cc.Sprite(res.ruby_small);
+        ruby.x = layoutBtn.width / 4 * 3;
+        ruby.y = layoutBtn.height / 4;
+        //cc.log("ruby" + ruby);
+        layoutBtn.addChild(ruby);
+
+        numberRuby = new cc.LabelBMFont("20", res.FONT_OUTLINE_20);
+        numberRuby.x = layoutBtn.width / 3;
+        numberRuby.y = layoutBtn.height / 4;
+        layoutBtn.addChild(numberRuby);
+
         layout.addChild(sprite);
-        //label = new cc.LabelBMFont("", res.FONT_OUTLINE_20);
-        //btn = new ccui.Button();
-        //btn.tag = 2;
-        //layout.addChild(label);
-        //layout.addChild(btn);
+        layout.addChild(label);
+        layout.addChild(layoutBtn);
         layoutT.addChild(layout);
 
+        //WOODPANEL
         layout = new ccui.Layout();
         layout.x = layoutT.width * 4 / 9;
         layout.y = layoutT.height;
@@ -91,16 +127,45 @@ var UpgradeSiloLayer = cc.Layer.extend({
         layout.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
         layout.setBackGroundColor(cc.color.WHITE);
         layout.setContentSize(layoutT.width * 2 / 9, layoutT.height / 4 * 3);
+
         sprite = new cc.Sprite(res.upgrade_silo_woodPanel);
         sprite.x = layout.width / 2;
         sprite.y = layout.height / 4 * 3;
+        label = new cc.LabelBMFont("0/7", res.FONT_OUTLINE_20);
+        label.x = layout.width / 2;
+        label.y = sprite.y - sprite.height / 2 - label.height / 2;
+
+        layoutBtn = new ccui.Layout();
+        layoutBtn.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
+        layoutBtn.setBackGroundColor(cc.color.BLACK);
+
+        btn = new ccui.Button(res.storage_buy_tool);
+        btn.tag = 2;
+        //btn.setZoomScale(-0.1);
+        layoutBtn.setContentSize(btn.getContentSize().width, btn.getContentSize().height);
+        layoutBtn.x = layout.width / 2;
+        layoutBtn.y = label.y - label.height / 2 - btn.getContentSize().height / 2;
+        layoutBtn.setAnchorPoint(0.5, 0.5);
+        btn.x = layoutBtn.width / 2;
+        btn.y = layoutBtn.height / 2;
+        layoutBtn.addChild(btn);
+
+        ruby = new cc.Sprite(res.ruby_small);
+        ruby.x = layoutBtn.width / 4 * 3;
+        ruby.y = layoutBtn.height / 4;
+        //cc.log("ruby" + ruby);
+        layoutBtn.addChild(ruby);
+
+        numberRuby = new cc.LabelBMFont("20", res.FONT_OUTLINE_20);
+        numberRuby.x = layoutBtn.width / 3;
+        numberRuby.y = layoutBtn.height / 4;
+        layoutBtn.addChild(numberRuby);
+
         layout.addChild(sprite);
-        //label = new cc.LabelBMFont("", res.FONT_OUTLINE_20);
-        //btn = new ccui.Button();
-        //btn.tag = 3;
-        //layout.addChild(label);
-        //layout.addChild(btn);
+        layout.addChild(label);
+        layout.addChild(layoutBtn);
         layoutT.addChild(layout);
+        //cc.log("upgrade silo");
 
     },
 

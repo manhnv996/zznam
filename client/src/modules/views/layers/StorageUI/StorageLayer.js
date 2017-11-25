@@ -4,6 +4,7 @@
 
 var StorageLayer = cc.Layer.extend({
     _layoutStorage: null,
+    _multiLayer: null,
 
     ctor: function () {
         this._super();
@@ -64,20 +65,24 @@ var StorageLayer = cc.Layer.extend({
         layout.setContentSize(cc.winSize.width / 2, cc.winSize.height / 2);
         this._layoutStorage.addChild(layout);
 
-        cc.log("abc " + type);
+        //cc.log("abc " + type);
 
         var itemListLayer = new StorageItemListLayer(storage.getItemList());
         //var upgradeLayer = new UpgradeSiloLayer(storage.getLevel());
         //var upgradeLayer = new UpgradeWareLayer(storage.getLevel());
 
-        var multiLayer = new cc.LayerMultiplex(itemListLayer, upgradeLayer);
+        this._multiLayer = new cc.LayerMultiplex(itemListLayer, upgradeLayer);
         //var multiLayer = new cc.LayerMultiplex(itemListLayer);
 
-        multiLayer.switchTo(0);
+        this._multiLayer.switchTo(0);
 
-        layout.addChild(multiLayer);
+        layout.addChild(this._multiLayer);
 
         this.addChild(this._layoutStorage);
+    },
+
+    getMultiLayer: function () {
+        return this._multiLayer;
     },
 
     touchCloseStorage: function (sender, type) {
