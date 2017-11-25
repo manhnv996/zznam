@@ -249,15 +249,14 @@ var FieldSprite = MapBlockSprite.extend({
         }
     },
 
-    // On finish move on map
+    // On finish move on map, update model and push to server
     onFinishMove: function(lx, ly) {
         cc.log("Field moved to", lx, ly);
         
         this.field.coordinate.x = lx;
         this.field.coordinate.y = ly;
-        cc.log(this.field);
         // Send to server
-        // ...
+        testnetwork.connector.sendMoveField(this.fieldId, lx, ly);
         ///
     }
 });

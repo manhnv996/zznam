@@ -5,7 +5,7 @@ MapConfigs.Init = {
 	height: 32,
 	defaultScale: 0.4,
 	padding: {
-		top: 100,
+		top: 300,
 		left: 100,
 		bottom: 100,
 		right: 100

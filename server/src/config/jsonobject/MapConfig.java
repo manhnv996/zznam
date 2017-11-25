@@ -1,5 +1,6 @@
 package config.jsonobject;
 //
+import config.jsonobject.map.FieldObject;
 import config.jsonobject.map.InitObject;
 import config.jsonobject.map.NhaChinhObject;
 import config.jsonobject.map.TruckOrderObject;
@@ -20,4 +21,5 @@ public class MapConfig {
     public SiloObject Silo;
     public WarehouseObject Warehouse;
     public RoadObject Road;
+    public FieldObject Field;
 }

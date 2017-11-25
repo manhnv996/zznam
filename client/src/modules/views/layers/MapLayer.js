@@ -184,6 +184,9 @@ var MapLayer = (function() {
 					MapConfigs.Song.endX,
 					i * riverSide2BlockSizeY
 				));
+				if (i === 0) {
+					sprite.setLocalZOrder(2);
+				}
 				this.addChild(sprite);
 			}
 
@@ -488,8 +491,9 @@ var MapLayer = (function() {
 					var position = MapValues.screenPositionToLogic(mousePos.x, mousePos.y);
 					position.x = Math.floor(position.x);
 					position.y = Math.floor(position.y);
-					cc.log('Map Clicked', position, MapCtrl.instance.checkValidPosition(position));
-					
+					if (__DEBUG) {
+						cc.log('Map Clicked', position);
+					}
 //
 					PopupLayer.instance.disablePopup();
 					PopupLayer.instance.disableProgressBarInprogress();

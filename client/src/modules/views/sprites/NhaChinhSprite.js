@@ -4,25 +4,20 @@ var NhaChinhSprite = MapBlockSprite.extend({
 			MapConfigs.NhaChinh.size.width, MapConfigs.NhaChinh.size.height, 
 			x, y, MapItemEnum.NHA_CHINH
 		);
-		this.registerTouchEvents();
+		this.registerTouchEvents(true);
 	},
 
 	onClick: function() {
-		
+		cc.log("Nha chinh is clicked");
 	},
 
 	onBeginClick: function() {
 		// this.setOpacity(210);
-		cc.log("Nha chinh is clicked");
-		
+		this.setColor(cc.color(200, 200, 200));
 	},
 
 	onEndClick: function() {
 		// this.setOpacity(255);
-		
-	},
-
-	onFinishMove: function(lx, ly) {
-		cc.log("House moved to", lx, ly);
+		this.setColor(cc.color(255, 255, 255));
 	}
 });

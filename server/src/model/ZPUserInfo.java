@@ -1,5 +1,6 @@
 package model;
 
+import config.enums.MapItemEnum;
 import config.enums.ProductType;
 import config.enums.StorageType;
 
@@ -15,6 +16,8 @@ import service.DemoHandler.MaxPosition;
 
 import util.database.DataModel;
 import config.utils.ConfigContainer;
+
+import java.util.List;
 
 public class ZPUserInfo extends DataModel {
     // Zing me
@@ -50,6 +53,27 @@ public class ZPUserInfo extends DataModel {
 //            }
 //        }
         this.map = new MapAlias();
+        // Add silo to map
+        Storage silo = this.asset.getFoodStorage();
+        this.map.addMapAlias(silo.getX(), silo.getY(), 
+                     ConfigContainer.mapConfig.Silo.size.width,
+                     ConfigContainer.mapConfig.Silo.size.height,
+                     MapItemEnum.SILO);
+        // Add warehouse to map
+        Storage warehouse = this.asset.getWarehouse();
+        this.map.addMapAlias(warehouse.getX(), warehouse.getY(),
+                    ConfigContainer.mapConfig.Warehouse.size.width,
+                    ConfigContainer.mapConfig.Warehouse.size.height,
+                    MapItemEnum.WAREHOUSE);
+        // Add Fields to map
+        List<Field> fieldList = this.asset.getFieldList();
+        for (int i = 0; i < fieldList.size(); i++) {
+            Field field = fieldList.get(i);
+            this.map.addMapAlias(field.getX(), field.getY(),
+                    ConfigContainer.mapConfig.Field.size.width,
+                    ConfigContainer.mapConfig.Field.size.height,
+                    MapItemEnum.FIELD);
+        }
     }
     
 //    public ZPUserInfo(int _id, String _name) {

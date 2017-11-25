@@ -204,8 +204,8 @@ function updateGameInfo(gameInfoJson){
     //MapLayer.instance.addChild(warehouseSprite);
     //MapCtrl.instance.addSpriteAlias(warehouseSprite);
 
-
-    var asset = new Asset(foodStorage, warehouse, null, null, null, null, null);
+                        //foodStorage, warehouse, fieldList, animalLodgeList, machineList, natureThingList, myShop
+    var asset = new Asset(foodStorage, warehouse, null, null, null, gameInfo.asset.natureThingList, null);
     user = new User(asset);
 
     user.level = gameInfo.level;

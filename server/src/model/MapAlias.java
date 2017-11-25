@@ -17,6 +17,33 @@ public class MapAlias{
     }
     
     public int[][] getMap() {
-        return this.map;    
+        return this.map;
+    }
+    
+    public void addMapAlias(int x, int y, int width, int height, int type) {
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                this.map[x + i][y + j] = type;
+            }
+        }
+    }
+    
+    public void removeMapAlias(int x, int y, int width, int height) {
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                this.map[x + i][y + j] = 0;
+            }
+        }
+    }
+    
+    public boolean checkValidBlock(int x, int y, int width, int height) {
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                if (this.map[x + i][y + j] != 0) {
+                    return false;    
+                }
+            }
+        }
+        return true;
     }
 }

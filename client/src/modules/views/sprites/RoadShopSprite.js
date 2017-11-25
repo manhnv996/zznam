@@ -5,7 +5,7 @@ var RoadShopSprite = MapBlockSprite.extend({
 			MapConfigs.RoadShop.size.height,
 			x, y, MapItemEnum.ROAD_SHOP
 		);
-		this.registerTouchEvents();
+		this.registerTouchEvents(true);
 	},
 
 	onClick: function() {

@@ -39,6 +39,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import service.DemoHandler;
+import service.MapHandler;
 import service.PlantHandler;
 import service.UserHandler;
 
@@ -124,7 +125,7 @@ public class FresherExtension extends BZExtension {
         //  
         addRequestHandler(PlantHandler.PLANT_MULTI_IDS, PlantHandler.class);
         //
-        
+        addRequestHandler(MapHandler.MAP_MULTI_IDS, MapHandler.class);
 		
         trace(" Event Handler ");
         addEventHandler(BZEventType.USER_LOGIN, LoginSuccessHandler.class);
@@ -143,7 +144,7 @@ public class FresherExtension extends BZExtension {
         foodStorage.addItem(ProductType.CROP_CARROT, 5);
         foodStorage.addItem(ProductType.CROP_SOYBEAN, 10);
         
-        Asset asset = new Asset(foodStorage, warehouse, null);        
+        Asset asset = new Asset(foodStorage, warehouse, null, null);        
         for (int i = 0; i < 6; i++){
             Field field = new Field(0, 18, 10 + i);
             asset.addField(field);

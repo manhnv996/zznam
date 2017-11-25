@@ -17,14 +17,20 @@ import cmd.send.demo.ResponseRequestUserInfo;
 import config.enums.ProductType;
 import config.enums.StorageType;
 
+import config.jsonobject.map.NaturalObject;
+
 import config.utils.ConfigContainer;
 
 import extension.FresherExtension;
 
+import java.util.ArrayList;
 import java.util.Date;
+
+import java.util.List;
 
 import model.Asset;
 import model.Field;
+import model.NatureThing;
 import model.Storage;
 import model.ZPUserInfo;
 
@@ -111,7 +117,15 @@ public class UserHandler extends BaseClientRequestHandler {
         foodStorage.addItem(ProductType.CROP_CARROT, 5);
         foodStorage.addItem(ProductType.CROP_SOYBEAN, 10);
         
-        Asset asset = new Asset(foodStorage, warehouse, null);
+        // Load natural thingList
+        List<NatureThing> natureThingList = new ArrayList<>();
+        for (int i = 0; i < ConfigContainer.defaultNatural.size(); i++) {
+            NaturalObject nObj = ConfigContainer.defaultNatural.get(i);
+            NatureThing nt = new NatureThing(nObj.id, nObj.type, nObj.x, nObj.y);
+            natureThingList.add(nt);
+//            System.out.println("id" + nObj.id + " type" + nObj.type);
+        }
+        Asset asset = new Asset(foodStorage, warehouse, null, natureThingList);
         for (int i = 1; i < 7; i++){
             Field field = new Field(0, 18, 10 + i);
             asset.addField(field);

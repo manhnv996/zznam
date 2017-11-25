@@ -22,7 +22,6 @@ var MapCtrl = cc.Class.extend({
         // }
         cc.log("MapCtrl inited");
         this.map = user.map; // Pass to user map
-        this.renderNaturalThings();
 
         var debugUser = {} // Not show map
         for (var k in user) {
@@ -33,6 +32,7 @@ var MapCtrl = cc.Class.extend({
         cc.log("User", debugUser);
         this.renderStorages();
         this.renderPlants();
+        this.renderNaturalThings();
         // cc.log("Silo", user.asset.foodStorage);
         // MapLayer.instance.addChild(new SiloSprite(20, 20));
         // MapLayer.instance.addChild(new WareHouseSprite(18, 24));
@@ -47,8 +47,8 @@ var MapCtrl = cc.Class.extend({
         MapLayer.instance.addChild(warehouseSprite);
 
         // Add from server
-        this.addSpriteAlias(siloSprite);
-        this.addSpriteAlias(warehouseSprite);
+        // this.addSpriteAlias(siloSprite);
+        // this.addSpriteAlias(warehouseSprite);
     },
 
     renderDefaultConstruct: function() {
@@ -107,7 +107,7 @@ var MapCtrl = cc.Class.extend({
             MapLayer.instance.fieldList.push(fieldSprite);
             
             // Add from server
-            this.addSpriteAlias(fieldSprite);
+            // this.addSpriteAlias(fieldSprite);
         }
     },
 
@@ -205,28 +205,54 @@ var MapCtrl = cc.Class.extend({
     },
 
     renderNaturalThings: function() {
-        var configs = cc.loader.getRes("config/mapInit.json");
-        for (var k in configs) {
-            var item = configs[k];
-            switch (item.id) {
-                case "forest_big_tree_1":
-                    break;
-                case "forest_small_tree_1":
-                    break;
-                case "forest_big_stone_1":
-                    break;
-                case "forest_small_stone_1":
-                    break;
-                case "forest_big_tree_2":
-                    break;
-                case "forest_small_tree_2":
-                    break;
-                case "forest_swamp":
-                    break;
-                default:
-                    return cc.log("Unhandled natural", item.id);
+        var types = {
+            forest_small_tree_1: 1,
+            forest_big_tree_1: 2,
+            forest_big_tree_2: 3,
+            forest_small_tree_2: 4,
+            forest_big_stone_1: null,
+            forest_small_stone_1: null
+        };
+        for (var i = 0; i < user.asset.natureThingList.length; i++) {
+            var x = user.asset.natureThingList[i].x;
+            var y = user.asset.natureThingList[i].y;
+            var id = user.asset.natureThingList[i].id;
+            if (user.asset.natureThingList[i].type === 'forest_swamp') {
+                var sprite = new VungnuocSprite(x, y, id);
+                MapLayer.instance.addChild(sprite);
+            } else {
+                var type = types[user.asset.natureThingList[i].type];
+                if (type) {
+                    var sprite = new CayRungSprite(x, y, type, id);
+                    MapLayer.instance.addChild(sprite);
+                } else {
+                    cc.log("missing", user.asset.natureThingList[i].type);
+                }
             }
+            
         }
+        // var configs = cc.loader.getRes("config/mapInit.json");
+        // for (var k in configs) {
+        //     var item = configs[k];
+        //     switch (item.id) {
+        //         case "forest_big_tree_1":
+        //             break;
+        //         case "forest_small_tree_1":
+        //             break;
+        //         case "forest_big_stone_1":
+        //             break;
+        //         case "forest_small_stone_1":
+        //             break;
+        //         case "forest_big_tree_2":
+        //             break;
+        //         case "forest_small_tree_2":
+        //             break;
+        //         case "forest_swamp":
+        //             break;
+        //         default:
+        //             return cc.log("Unhandled natural", item.id);
+        //     }
+        // }
     }
 });
 
