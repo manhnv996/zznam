@@ -165,15 +165,15 @@ var MapBlockSprite = cc.Sprite.extend({
             }.bind(this)
         });
         cc.eventManager.addListener(this.touchListener, 
-                Math.min(this.lx + ListenerPriority.offsetEventPriority,
-                        this.ly + ListenerPriority.offsetEventPriority));
+                Math.max(this.lx + ListenerPriority.offsetEventPriority + this.blockSizeX,
+                        this.ly + ListenerPriority.offsetEventPriority + this.blockSizeY));
 	},
 
     // Update eventPriority when change location, called in setLogicPosition
     updateEventPriority: function(priority) {
         if (this.touchListener) {
-            priority = priority || Math.min(this.lx + ListenerPriority.offsetEventPriority,
-                        this.ly + ListenerPriority.offsetEventPriority);
+            priority = priority || Math.max(this.lx + ListenerPriority.offsetEventPriority + this.blockSizeX,
+                        this.ly + ListenerPriority.offsetEventPriority + this.blockSizeY);
             cc.eventManager.setPriority(this.touchListener, priority);
         }
     },
@@ -236,7 +236,13 @@ cc.Node.prototype.setLogicPosition = function(lx, ly, notUpdatePriority) {
     }
     if (!notUpdatePriority) {
         this.updateEventPriority();
-        this.setLocalZOrder(Math.max(this.lx + this.blockSizeX, this.ly + this.blockSizeY));
+        this.setLocalZOrder(
+            this.lx + this.blockSizeX > this.ly + this.blockSizeY
+            ? (this.lx + this.blockSizeX + (this.ly + this.blockSizeY) / 32) * 10
+            : (this.ly + this.blockSizeY + (this.lx + this.blockSizeX) / 32) * 10
+        );
+            // Math.max(this.lx + this.blockSizeX, this.ly + this.blockSizeY));
+        // this.setLocalZOrder(this.lx + this.blockSizeX +this.ly + this.blockSizeY);
     }
 
     if (this.__isAnimation) {

@@ -14,7 +14,7 @@ var CayRungSprite = AnimationSprite.extend({
 	},
 
 	onClick: function() {
-		cc.log("Cayrung is clicked");
+		cc.log("Cayrung is clicked", this.lx, this.ly);
 		this.play(2 * this.treeType - 1);
 		// this.play(2 * this.treeType);
 	},

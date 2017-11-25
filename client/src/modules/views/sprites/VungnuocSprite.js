@@ -12,7 +12,7 @@ var VungnuocSprite = AnimationSprite.extend({
 	},
 
 	onClick: function() {
-		cc.log("Vungnuoc clicked", this.x, this.y);
+		cc.log("Vungnuoc clicked", this.lx, this.ly);
 		this.play("swamp_collect");
 	},
 

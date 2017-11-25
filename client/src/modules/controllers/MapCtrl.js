@@ -204,6 +204,16 @@ var MapCtrl = cc.Class.extend({
         );
     },
 
+    /*
+    var gr = [];
+    var gr.Cayrung = Object.extend
+    type = Cayrung
+    new gr[type]();
+    type -> ten class
+    var l = {};
+    l.forest_swamp = VungnuocSprite;
+    */
+
     renderNaturalThings: function() {
         
         for (var i = 0; i < user.asset.natureThingList.length; i++) {
@@ -218,6 +228,7 @@ var MapCtrl = cc.Class.extend({
                 var sprite = new DatoSprite(x, y, id);
                 MapLayer.instance.addChild(sprite);
             } else if (typeName === 'forest_small_stone_1' ) {
+                cc.log("Danho", x, y);
                 var sprite = new DanhoSprite(x, y, id);
                 MapLayer.instance.addChild(sprite);
             } else {
@@ -238,8 +249,8 @@ var MapCtrl = cc.Class.extend({
             }
         }
 
-        var sprite = new DanhoSprite(0, 2, 1);
-        MapLayer.instance.addChild(sprite);
+        // var sprite = new DanhoSprite(0, 2, 1);
+        // MapLayer.instance.addChild(sprite);
         // var configs = cc.loader.getRes("config/mapInit.json");
         // for (var k in configs) {
         //     var item = configs[k];

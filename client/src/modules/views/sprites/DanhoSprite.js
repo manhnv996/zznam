@@ -7,10 +7,10 @@ var DanhoSprite = AnimationSprite.extend({
 
 	onClick: function() {
 		this.play("2");
-		cc.log("DanhoSprite is clicked");
+		cc.log("DanhoSprite is clicked", this.lx, this.ly);
 	},
 
 	_offset: function() {
-		return cc.p(- MapValues.iLength / 2, - MapValues.jLength);
+		return cc.p(0, - MapValues.jLength / 2);
 	}
 });
