@@ -16,7 +16,7 @@ var ProductTypes = {
 
     TOOL_BOLT : "tool_bolt",
     TOOL_PLANK : "tool_plank",
-    TOOL_DUCTTAPE : "tool_ductTape",
+    TOOL_DUCTTAPE : "tool_ductTape"
 
     //GOOD_EGG: 10,
     //GOOF_MILK: 11,
@@ -39,6 +39,14 @@ var ProductTypes = {
     //CUT_SHOVEL: 34
 
 };
+
+function getKeyByValue(value) {
+    for (var k in ProductTypes) {
+        if (ProductTypes[k] === value) {
+            return k;
+        }
+    }
+}
 
 
 // ,

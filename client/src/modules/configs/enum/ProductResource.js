@@ -9,10 +9,10 @@ var ProductResource = {
     CROP_SOYBEAN: ["Đậu Tương", "Thu hoạch sau", "20 phút", "Art/Crops/Field/dau.png"],
     CROP_SUGARCANE: ["Mía", "Thu hoạch sau", "30 phút", "Art/Crops/Field/mia.png"],
 
-    CROP_CHILI: ["crop_chili_pepper", "Thu hoạch sau", "0 phút", "Art/Crops/Field/mia.png"],
-    CROP_INDIGO: ["crop_indigo", "Thu hoạch sau", "0 phút", "Art/Crops/Field/mia.png"],
-    CROP_TOMATO: ["crop_tomato", "Thu hoạch sau", "0 phút", "Art/Crops/Field/mia.png"],
-    CROP_STRAWBERRY: ["crop_strawberry", "Thu hoạch sau", "0 phút", "Art/Crops/Field/mia.png"],
+    CROP_CHILI: ["Ớt", "Thu hoạch sau", "0 phút", "Art/Crops/Field/vhili pepper.png"],
+    CROP_INDIGO: ["Hoa Oải Hương", "Thu hoạch sau", "2 giờ", "Art/Crops/Field/indigo.png"],
+    CROP_TOMATO: ["Cà Chua", "Thu hoạch sau", "0 phút", "Art/Crops/Field/tomato.png"],
+    CROP_STRAWBERRY: ["Mâm Xôi", "Thu hoạch từ bụi Mâm Xôi", "18 giờ", "Art/Crops/Field/strawberry.png"],
 
     TOOL_NAIL: ["Hộp Đinh", "Để nâng cấp Kho Lương Thực", "", "Art/Tool/dinh3.png"],
     TOOL_SCREW: ["Đinh Vít", "Để nâng cấp Kho Lương Thực", "", "Art/Tool/dinh.png"],

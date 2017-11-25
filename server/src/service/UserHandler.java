@@ -105,8 +105,8 @@ public class UserHandler extends BaseClientRequestHandler {
         foodStorage.addItem(ProductType.CROP_CARROT, 5);
         foodStorage.addItem(ProductType.CROP_SOYBEAN,10);
         foodStorage.addItem(ProductType.CROP_INDIGO, 2);
-        foodStorage.addItem(ProductType.CROP_TOMATO, 2);
-        foodStorage.addItem(ProductType.CROP_STRAWBERRY, 2);
+        foodStorage.addItem(ProductType.CROP_TOMATO, 3);
+        foodStorage.addItem(ProductType.CROP_STRAWBERRY, 4);
         
         Asset asset = new Asset(foodStorage, warehouse, null);
         for (int i = 1; i < 4; i++){

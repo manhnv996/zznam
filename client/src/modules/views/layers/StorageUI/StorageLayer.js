@@ -43,29 +43,38 @@ var StorageLayer = cc.Layer.extend({
         closeBtn.setScale(0.9);
         this._layoutStorage.addChild(closeBtn);
 
-        //Progress Bar
-        var progressLayout = new ccui.Layout();
-        progressLayout.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
-        progressLayout.setBackGroundColor(cc.color.YELLOW);
-        progressLayout.x = this._layoutStorage.width / 100 * 27;
-        progressLayout.y = this._layoutStorage.height / 100 * 86;
-        progressLayout.setContentSize(this._layoutStorage.width / 11 * 5, this._layoutStorage.height / 100 * 6);
-        this._layoutStorage.addChild(progressLayout);
-
         var upgradeLayer;
         var type = storage.getStorageType();
         var name = new cc.LabelBMFont("", res.FONT_OUTLINE_30);
         name.x = this._layoutStorage.width / 2;
         name.y = this._layoutStorage.height * 4 / 5;
+
+        var total = StorageCtrl.instance.getTotalItems(storage.getItemList());
+        var capacity = storage.getCapacity();
         cc.log("FoodStorage " + (type == StorageTypes.FOOD_STORAGE));
         if (type == StorageTypes.FOOD_STORAGE) {
-            name.setString("Kho lương thực : " + StorageCtrl.instance.getTotalItems(storage.getItemList()) + "/" + storage.getCapacity());
+            name.setString("Kho lương thực : " + total + "/" + capacity);
             upgradeLayer = new UpgradeSiloLayer(storage.getLevel());
         } else {
-            name.setString("Nhà kho : " + StorageCtrl.instance.getTotalItems(storage.getItemList()) + "/" + storage.getCapacity());
+            name.setString("Nhà kho : " + total + "/" + capacity);
             upgradeLayer = new UpgradeWareLayer(storage.getLevel());
         }
         this._layoutStorage.addChild(name);
+
+        //Progress Bar
+        var progressLayout = new ccui.Layout();
+        //progressLayout.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
+        //progressLayout.setBackGroundColor(cc.color.YELLOW);
+        progressLayout.x = this._layoutStorage.width / 100 * 27;
+        progressLayout.y = this._layoutStorage.height / 100 * 86;
+        progressLayout.setContentSize(this._layoutStorage.width / 11 * 5, this._layoutStorage.height / 100 * 6);
+        this._layoutStorage.addChild(progressLayout);
+
+        var arrow = new cc.Sprite(res.storage_arrow);
+        arrow.x = progressLayout.width * (total / capacity);
+        arrow.y = progressLayout.height / 2;
+        arrow.setScale(progressLayout.height / arrow.getContentSize().height);
+        progressLayout.addChild(arrow);
 
         var layout = new ccui.Layout();
         //layout.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
@@ -90,7 +99,7 @@ var StorageLayer = cc.Layer.extend({
         layout.addChild(this._multiLayer);
 
         this.addChild(this._layoutStorage);
-        this.setScale(cc.winSize.height / this._layoutStorage.height);
+        this.setScale((cc.winSize.height - 20) / this._layoutStorage.height);
     },
 
     getMultiLayer: function () {

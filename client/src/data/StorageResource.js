@@ -12,6 +12,7 @@ var _ = (function() {
         storage_V_png: r("butoon-V.png"),
         storage_back_png: r("button -back.png"),
         storage_upgrade_png: r("nangcap.png"),
+        storage_arrow: r("muiten.png"),
         silo_full: r("Kho chứa đồ đã đầy!.png"),
         warehouse_full: r("Kho lươngthuc.png"),
 
@@ -43,6 +44,10 @@ var _ = (function() {
     g_StorageResource.push("Art/Crops/Field/apple.png");
     g_StorageResource.push("Art/Crops/Field/caroot.png");
     g_StorageResource.push("Art/Crops/Field/crops.png");
+    g_StorageResource.push("Art/Crops/Field/vhili pepper.png");
+    g_StorageResource.push("Art/Crops/Field/indigo.png");
+    g_StorageResource.push("Art/Crops/Field/tomato.png");
+    g_StorageResource.push("Art/Crops/Field/strawberry.png");
     g_StorageResource.push("Art/Tool/dinh2.png");
     g_StorageResource.push("Art/Tool/go1.png");
     g_StorageResource.push("Art/Tool/bangdinh.png");
