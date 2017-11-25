@@ -1,0 +1,95 @@
+{
+  "name": "Hoang Kien",
+  "Init": {
+    "width": 32,
+    "height": 32
+  },
+  "NhaChinh": {
+    "position": {
+      "x": 14,
+      "y": 14
+    },
+    "size": {
+      "width": 4,
+      "height": 4
+    }
+  },
+  "TruckOrder": {
+    "position": {
+      "x": 14,
+      "y": 19
+    },
+    "size": {
+      "width": 1,
+      "height": 2
+    }
+  },
+  "MailBox": {
+    "position": {
+      "x": 13,
+      "y": 31
+    },
+    "size": {
+      "width": 1,
+      "height": 1
+    }
+  },
+  "RoadShop": {
+    "position": {
+      "x": 19,
+      "y": 30
+    },
+    "size": {
+      "width": 2,
+      "height": 2
+    }
+  },
+  "Silo": {
+    "position": {
+      "x": 11,
+      "y": 10
+    },
+    "size": {
+      "width": 2,
+      "height": 2
+    }
+  },
+  "Warehouse": {
+    "position": {
+      "x": 14,
+      "y": 7
+    },
+    "size": {
+      "width": 3,
+      "height": 3
+    }
+  },
+  "Road": {
+    "from": {
+      "x": 15,
+      "y": 18
+    },
+    "to": {
+      "x": 16,
+      "y": 31
+    }
+  },
+  "Field": {
+    "size": {
+      "width": 1,
+      "height": 1
+    }
+  },
+  "BigNatureThing": {
+    "size": {
+      "width": 2,
+      "height": 2
+    }
+  },
+  "SmallNatureThing": {
+    "size": {
+      "width": 1,
+      "height": 1
+    }
+  }
+}

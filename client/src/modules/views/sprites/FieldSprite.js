@@ -19,15 +19,17 @@ var FieldSprite = MapBlockSprite.extend({
     isShowProgressBar: false,
 
 
-    ctor: function(parent, fieldId, x, y) {
+    // ctor: function(parent, fieldId, x, y) {
+    ctor: function(fieldId, x, y) {
         //this._super();
-        this._super(res.field, MapConfigs.Field.blockSizeX, 
-                MapConfigs.Field.blockSizeY, x, y,
-                MapItemEnum.FIELD
+        this._super(res.field,
+                MapConfigs.Field.size.width, 
+                MapConfigs.Field.size.height,
+                x, y, MapItemEnum.FIELD
         );
 
         //
-        this.render(fieldId);
+        // this.render(fieldId);
 
         // this.addTouchEventListener(parent, fieldId);
         this.registerTouchEvents();
@@ -36,8 +38,8 @@ var FieldSprite = MapBlockSprite.extend({
         this.schedule(this.updateFieldStatus, 0.5);
         //this.schedule(this.updateProgressBarInprogress, 0.2);
 
-    },
-    render: function (fieldId) {
+    // },
+    // render: function (fieldId) {
         this.fieldId = fieldId;
         // Find field in asset
         this.field = user.getAsset().getFieldList().find(function(f) {
@@ -80,7 +82,7 @@ var FieldSprite = MapBlockSprite.extend({
             }.bind(this),
 
             onTouchEnded: function (touch, event) {
-                cc.log("sprite onTouchesEnded.. ");
+                // cc.log("sprite onTouchesEnded.. ");
                 // var target = event.getCurrentTarget();
                 var target = this;
                 target.opacity = 255;
@@ -92,6 +94,7 @@ var FieldSprite = MapBlockSprite.extend({
             }.bind(this)
         });
         cc.eventManager.addListener(touchListener, this.lx + this.ly);
+        //cc.eventManager.addListener(touchListener, this);
     },
 
     // When click
@@ -170,8 +173,14 @@ var FieldSprite = MapBlockSprite.extend({
     },
     ////
     updateFieldStatus: function (curr, duration) {
+        // var field = user.getAsset().getFieldList().find(function(f) {
+        //     return f.field === this.fieldId;
+        // });
+        if (!this.field) {
+            return;
+        }        
 
-        if (user.getAsset().getFieldList()[this.fieldId].getPlantedTime() == null){
+        if (this.field.getPlantedTime() == null){
 
             this.changeTexture(res.field);
             return false;
@@ -246,15 +255,14 @@ var FieldSprite = MapBlockSprite.extend({
         }
     },
 
-    // On finish move on map
+    // On finish move on map, update model and push to server
     onFinishMove: function(lx, ly) {
         cc.log("Field moved to", lx, ly);
         
         this.field.coordinate.x = lx;
         this.field.coordinate.y = ly;
-        cc.log(this.field);
         // Send to server
-        // ...
+        testnetwork.connector.sendMoveField(this.fieldId, lx, ly);
         ///
     }
 });

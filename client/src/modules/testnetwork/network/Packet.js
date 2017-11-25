@@ -25,8 +25,10 @@ gv.CMD.RESPONSE_SYNC_FIELD_STATUS = 5082;
 gv.CMD.RESPONSE_SYNC_STORAGE = 5083;
 gv.CMD.RESPONSE_SYNC_FOOD_STORAGE_ITEM = 5084;
 
-
-
+// Map
+gv.CMD.MOVE_FIELD = 6001;
+gv.CMD.MOVE_STORAGE = 6002;
+gv.CMD.RESPONSE_MOVE = 6100;
 
 testnetwork = testnetwork||{};
 testnetwork.packetMap = {};
@@ -175,7 +177,36 @@ CmdSendBuyItemByRubi = fr.OutPacket.extend(
     }
 );
 
+// Map
+CmdSendMoveStorage = fr.OutPacket.extend({
+    ctor: function() {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.MOVE_STORAGE);
+    },
+    pack: function(type, x, y) {
+        this.packHeader();
+        this.putShort(type);
+        this.putInt(x);
+        this.putInt(y);
+        this.updateSize();
+    }
+});
 
+CmdSendMoveField = fr.OutPacket.extend({
+    ctor: function() {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.MOVE_FIELD);
+    },
+    pack: function(id, x, y) {
+        this.packHeader();
+        this.putInt(id);
+        this.putInt(x);
+        this.putInt(y);
+        this.updateSize();
+    }
+})
 
 /**
  * InPacket
@@ -406,3 +437,12 @@ testnetwork.packetMap[gv.CMD.RESPONSE_SYNC_FOOD_STORAGE_ITEM] = fr.InPacket.exte
 );
 
 
+// Map
+testnetwork.packetMap[gv.CMD.RESPONSE_MOVE] = fr.InPacket.extend({
+    ctor: function() {
+        this._super();
+    },
+    readData: function() {
+        this.error = this.getInt();
+    }
+});

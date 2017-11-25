@@ -10,10 +10,10 @@ var Storages = CoordinatedObject.extend({
         //
         this._super(coordinate);
 
-        this.render(storageType, capacity);
+    //     this.render(storageId, capacity);
 
-    },
-    render: function (storageType, capacity) {
+    // },
+    // render: function (storageId, capacity) {
 
         this.storageType = storageType;
         this.capacity = capacity;

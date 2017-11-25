@@ -4,6 +4,8 @@ import bitzero.server.entities.User;
 import bitzero.server.extensions.BaseClientRequestHandler;
 import bitzero.server.extensions.data.DataCmd;
 
+import bitzero.util.socialcontroller.bean.UserInfo;
+
 import cmd.CmdDefine;
 import cmd.receive.demo.RequestBuyItemByRubi;
 
@@ -88,8 +90,8 @@ public class PlantHandler extends BaseClientRequestHandler {
 //    /////////////
     public void processPlant(User user, RequestPlant plant){
         try {
-//            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
-            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(1, ZPUserInfo.class);
+            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
+//            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(1, ZPUserInfo.class);
             if (userInfo == null){
 //                send(new ResponseFieldStatus(ErrorLog.ERROR_USER_NOT_FOUND.getValue(), null), user);
                 return;
@@ -106,8 +108,8 @@ public class PlantHandler extends BaseClientRequestHandler {
             if (errorCode == ErrorLog.SUCCESS.getValue()){
                 send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
 
-//                userInfo.saveModel(user.getId());
-                userInfo.saveModel(1);
+                userInfo.saveModel(user.getId());
+//                userInfo.saveModel(1);
             } else {
                 send(new ResponseSyncFieldStatus(errorCode, userInfo.getAsset().getFieldById(plant.fieldId)), user);
                 
@@ -125,8 +127,8 @@ public class PlantHandler extends BaseClientRequestHandler {
     
     public void processCrop(User user, RequestCrop crop){
         try {
-//            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
-            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(1, ZPUserInfo.class);
+            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
+//            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(1, ZPUserInfo.class);
             if (userInfo == null){
 //                send(new ResponseFieldStatus(ErrorLog.ERROR_USER_NOT_FOUND.getValue(), null), user);
                 return;
@@ -139,8 +141,8 @@ public class PlantHandler extends BaseClientRequestHandler {
             if (errorCode == ErrorLog.SUCCESS.getValue()){
                 send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
 
-//                userInfo.saveModel(user.getId());
-                userInfo.saveModel(1);
+                userInfo.saveModel(user.getId());
+//                userInfo.saveModel(1);
             } else {
                 send(new ResponseSyncFieldStatus(errorCode, userInfo.getAsset().getFieldById(crop.fieldId)), user);
                 
@@ -159,8 +161,8 @@ public class PlantHandler extends BaseClientRequestHandler {
     
     public void processPlantBoost(User user, RequestPlantBoost boost){
         try {
-//            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
-            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(1, ZPUserInfo.class);
+            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
+//            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(1, ZPUserInfo.class);
             if (userInfo == null){
 //                send(new ResponseFieldStatus(ErrorLog.ERROR_USER_NOT_FOUND.getValue(), null), user);   
                 return;
@@ -173,8 +175,8 @@ public class PlantHandler extends BaseClientRequestHandler {
             if (errorCode == ErrorLog.SUCCESS.getValue()){
                 send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
 
-//                userInfo.saveModel(user.getId());
-                userInfo.saveModel(1);
+                userInfo.saveModel(user.getId());
+//                userInfo.saveModel(1);
             } else {
                 send(new ResponseSyncFieldStatus(errorCode, userInfo.getAsset().getFieldById(boost.fieldId)), user);
                 
@@ -190,8 +192,8 @@ public class PlantHandler extends BaseClientRequestHandler {
     
     public void processBuyItemByRubi(User user, RequestBuyItemByRubi buyItem){
         try {
-//            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
-            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(1, ZPUserInfo.class);
+            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
+//            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(1, ZPUserInfo.class);
             if (userInfo == null){
 //                send(new ResponseBuyItemByRubi(ErrorLog.ERROR_USER_NOT_FOUND.getValue(), buyItem.productType), user);
                 return;
@@ -201,8 +203,8 @@ public class PlantHandler extends BaseClientRequestHandler {
             if (userInfo.reduceRuby(rubi)){
                 if (userInfo.getAsset().getFoodStorage().addItem(buyItem.productType, 1)){
 
-    //                userInfo.saveModel(user.getId());
-                    userInfo.saveModel(1);
+                    userInfo.saveModel(user.getId());
+//                    userInfo.saveModel(1);
                     
                     send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
                     return;

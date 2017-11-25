@@ -5,7 +5,7 @@ MapConfigs.Init = {
 	height: 32,
 	defaultScale: 0.4,
 	padding: {
-		top: 100,
+		top: 300,
 		left: 100,
 		bottom: 100,
 		right: 100
@@ -14,26 +14,34 @@ MapConfigs.Init = {
 
 MapConfigs.NhaChinh = {
 	position: { x: 14, y: 14 },
-	blockSizeX: 4,
-	blockSizeY: 4
+	size: {
+		width: 4,
+		height: 4
+	}
 };
 
 MapConfigs.TruckOrder = {
 	position: { x: 14, y: 19 },
-	blockSizeX: 1,
-	blockSizeY: 2
+	size: {
+		width: 1,
+		height: 2
+	}
 }
 
 MapConfigs.MailBox = {
 	position: { x: 13, y: 31 },
-	blockSizeX: 1,
-	blockSizeY: 1
+	size: {
+		width: 1,
+		height: 1
+	}
 }
 
 MapConfigs.RoadShop = {
 	position: { x: 19, y: 30 },
-	blockSizeX: 2,
-	blockSizeY: 2
+	size: {
+		width: 2,
+		height: 2
+	}
 }
 
 MapConfigs.Song = {
@@ -71,7 +79,7 @@ MapConfigs.Road2 = {
 	position: {
 		x: MapConfigs.NhaChinh.position.x + 2
 	},
-	startPoint: (MapConfigs.NhaChinh.position.y + MapConfigs.NhaChinh.blockSizeY / 2) / 2,
+	startPoint: (MapConfigs.NhaChinh.position.y + MapConfigs.NhaChinh.size.height / 2) / 2,
 	joinSegmentOffset: {
 		x: 40,
 		y: 10
@@ -134,6 +142,36 @@ MapConfigs.DuongRay = {
 };
 
 MapConfigs.Field = {
-	blockSizeX: 1,
-	blockSizeY: 1
+	size: {
+		width: 1,
+		height: 1
+	}
 };
+
+MapConfigs.Silo = {
+	size: {
+		width: 2,
+		height: 2
+	}
+}
+
+MapConfigs.Warehouse = {
+	size: {
+		width: 3,
+		height: 3
+	}
+}
+
+MapConfigs.VungNuoc = {
+	size: {
+		width: 2,
+		height: 2
+	}
+}
+
+MapConfigs.Tree = {
+	size: {
+		width: 1,
+		height: 1
+	}
+}

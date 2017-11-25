@@ -1,0 +1,192 @@
+<dragonBones name="Barn" frameRate="24" version="2.3">
+ <armature name="Barn">
+  <bone name="Layer 80">
+   <transform x="-3.45" y="190.5" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="Layer 190 copy 2">
+   <transform x="18.55" y="188.5" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="Layer 187 copy 2">
+   <transform x="261.55" y="147" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="Group 2">
+   <transform x="-7.45" y="63.5" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="Layer 187 copy">
+   <transform x="65.55" y="260.5" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="Layer 81">
+   <transform x="229.55" y="156" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="Layer 3">
+   <transform x="-115.4" y="-118.95" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <skin name="default">
+   <slot name="Layer 80" parent="Layer 80" z="0">
+    <display name="Barn3/Layer 80" type="image">
+     <transform x="-383.5" y="-191.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Layer 190 copy 2" parent="Layer 190 copy 2" z="1">
+    <display name="Barn3/Layer 190 copy 2" type="image">
+     <transform x="-302.5" y="-151.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Layer 187 copy 2" parent="Layer 187 copy 2" z="2">
+    <display name="Barn3/Layer 187 copy 2" type="image">
+     <transform x="-36.5" y="-40" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Group 2" parent="Group 2" z="3">
+    <display name="Barn3/Group 2" type="image">
+     <transform x="-269.5" y="-251.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Layer 187 copy" parent="Layer 187 copy" z="4">
+    <display name="Barn3/Layer 187 copy" type="image">
+     <transform x="-48.5" y="-52.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Layer 81" parent="Layer 81" z="5">
+    <display name="Barn3/Layer 81" type="image">
+     <transform x="-40.5" y="-62" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Layer 3" parent="Layer 3" z="6">
+    <display name="Barn3/wind1" type="image">
+     <transform x="0" y="100" skX="0" skY="0" scX="1" scY="1" pX="100" pY="200"/>
+    </display>
+   </slot>
+  </skin>
+  <animation name="idle" fadeInTime="0.3" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="Layer 80" scale="1" offset="0">
+    <frame z="0" duration="1">
+     <transform x="-3.45" y="190.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <colorTransform aO="0" rO="0" gO="0" bO="0" aM="80" rM="100" gM="100" bM="100"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 190 copy 2" scale="1" offset="0">
+    <frame z="1" duration="1">
+     <transform x="18.55" y="188.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 187 copy 2" scale="1" offset="0">
+    <frame z="2" duration="1">
+     <transform x="261.55" y="147" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Group 2" scale="1" offset="0">
+    <frame z="3" duration="1">
+     <transform x="-7.45" y="63.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 187 copy" scale="1" offset="0">
+    <frame z="4" duration="1">
+     <transform x="65.55" y="260.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 81" scale="1" offset="0">
+    <frame z="5" duration="1">
+     <transform x="229.55" y="156" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 3" scale="1" offset="0">
+    <frame z="6" duration="1">
+     <transform x="-115.4" y="-118.95" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="selected" fadeInTime="0" duration="19" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="Layer 80" scale="1" offset="0">
+    <frame z="0" duration="19">
+     <transform x="-3.45" y="190.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <colorTransform aO="0" rO="0" gO="0" bO="0" aM="80" rM="100" gM="100" bM="100"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 190 copy 2" scale="1" offset="0">
+    <frame z="1" duration="19">
+     <transform x="18.55" y="188.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 187 copy 2" scale="1" offset="0">
+    <frame z="2" duration="3">
+     <transform x="261.55" y="147" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="2" tweenEasing="0" duration="4">
+     <transform x="261.55" y="147" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="2" tweenEasing="0" duration="5">
+     <transform x="261.55" y="105" skX="0" skY="0" scX="1" scY="1.18" pX="0" pY="0.05"/>
+    </frame>
+    <frame z="2" tweenEasing="0" duration="5">
+     <transform x="261.55" y="153" skX="0" skY="0" scX="1" scY="0.85" pX="0" pY="0"/>
+    </frame>
+    <frame z="2" duration="2">
+     <transform x="261.55" y="147" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Group 2" scale="1" offset="0">
+    <frame z="3" tweenEasing="0" duration="4">
+     <transform x="-7.45" y="63.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="3" tweenEasing="0" duration="6">
+     <transform x="-7.45" y="42.5" skX="0" skY="0" scX="1" scY="1.05" pX="0" pY="0"/>
+    </frame>
+    <frame z="3" tweenEasing="0" duration="4">
+     <transform x="-7.45" y="67.5" skX="0" skY="0" scX="1" scY="0.98" pX="0" pY="0"/>
+    </frame>
+    <frame z="3" duration="5">
+     <transform x="-7.45" y="63.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 187 copy" scale="1" offset="0">
+    <frame z="4" tweenEasing="0" duration="5">
+     <transform x="65.55" y="260.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="0" duration="4">
+     <transform x="65.55" y="222.5" skX="0" skY="0" scX="1" scY="1.15" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="0" duration="3">
+     <transform x="65.55" y="265.5" skX="0" skY="0" scX="1" scY="0.87" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" duration="7">
+     <transform x="65.55" y="260.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 81" scale="1" offset="0">
+    <frame z="5" tweenEasing="0" duration="4">
+     <transform x="229.55" y="156" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="5" tweenEasing="0" duration="3">
+     <transform x="229.05" y="113" skX="0" skY="0" scX="1" scY="1.16" pX="0" pY="0"/>
+    </frame>
+    <frame z="5" tweenEasing="0" duration="3">
+     <transform x="229.55" y="163" skX="0" skY="0" scX="1" scY="0.79" pX="0" pY="0"/>
+    </frame>
+    <frame z="5" duration="9">
+     <transform x="229.55" y="156" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 3" scale="1" offset="0">
+    <frame z="6" tweenEasing="0" duration="4">
+     <transform x="-115.4" y="-118.95" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="6" tweenEasing="0" duration="3">
+     <transform x="-115.4" y="-152" skX="0" skY="0" scX="1" scY="1.09" pX="0" pY="0"/>
+    </frame>
+    <frame z="6" tweenEasing="0" duration="2">
+     <transform x="-115.4" y="-124" skX="0" skY="0" scX="1" scY="0.97" pX="0" pY="-0.05"/>
+    </frame>
+    <frame z="6" tweenEasing="0" duration="2">
+     <transform x="-115.4" y="-122.95" skX="0" skY="0" scX="1" scY="1.06" pX="0" pY="-0.1"/>
+    </frame>
+    <frame z="6" tweenEasing="0" duration="3">
+     <transform x="-115.4" y="-117.95" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="6" duration="5">
+     <transform x="-115.4" y="-118.95" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+ </armature>
+</dragonBones>

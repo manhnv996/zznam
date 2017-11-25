@@ -11,10 +11,10 @@ var Animal = cc.Class.extend({
         //
         //this._super();
 
-        this.render(isFeeded, feefedTime);
+    //     this.render(isFeeded, feefedTime);
 
-    },
-    render: function (isFeeded, feefedTime) {
+    // },
+    // render: function (isFeeded, feefedTime) {
         //
         this.isFeeded = isFeeded;
         this.feededTime = feefedTime;

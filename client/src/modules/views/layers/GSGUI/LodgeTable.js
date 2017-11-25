@@ -151,6 +151,7 @@ var LodgeTable = cc.Layer.extend({
             cell.addChild(price);
             cell.addChild(slot);
 
+            // cc.log("create cell container " + idx);
         } else {
             id = cell.getChildByTag(0);
             id.setString(res.infoCoopItem[idx].id);
@@ -222,7 +223,7 @@ var LodgeTable = cc.Layer.extend({
                 var p = MapValues.screenPositionToLogic(movedP.x, movedP.y);
                 p.x = Math.floor(p.x);
                 p.y = Math.floor(p.y);
-                cc.log(p.x + " " + p.y);
+                // cc.log(p.x + " " + p.y);
                 if (!this._isHide) {
                     GSLayer.instance.hide();
                     this._isHide = true;
@@ -232,7 +233,7 @@ var LodgeTable = cc.Layer.extend({
                     createP.y = Math.floor(createP.y);
                     switch (sender.parent.getChildByTag(0).getString()) {
                         case "field":
-                            this._sprite = new ODatSprite(createP.x, createP.y, user.getAsset().getFieldList().length);
+                            this._sprite = new FieldSprite(user.getAsset().getFieldList().length, createP.x, createP.y);
                             MapLayer.instance.addChild(this._sprite);
                             break;
                         //case "chicken_habitat":
@@ -255,10 +256,10 @@ var LodgeTable = cc.Layer.extend({
                         //cc.log(Math.floor(psl.x) + " : " + Math.floor(psl.y));
                     }
                 }
-                cc.log("Touch Moved");
+                // cc.log("Touch Moved");
                 break;
             case ccui.Widget.TOUCH_ENDED:
-                cc.log("Touch Ended");
+                // cc.log("Touch Ended");
                 break;
             case ccui.Widget.TOUCH_CANCELED:
                 if (this._sprite) {
@@ -266,9 +267,9 @@ var LodgeTable = cc.Layer.extend({
                     var endPl = MapValues.screenPositionToLogic(endP.x, endP.y);
                     endPl.x = Math.floor(endPl.x);
                     endPl.y = Math.floor(endPl.y);
-                    cc.log(endPl.x + " " + endPl.y);
+                    // cc.log(endPl.x + " " + endPl.y);
                     this._check = MapCtrl.instance.checkValidBlockSprite(this._sprite);
-                    cc.log("this._check " + this._check);
+                    // cc.log("this._check " + this._check);
                     if (!this._check) {
                         MapLayer.instance.removeChild(this._sprite);
                         NotifyLayer.instance.notifyCantPut(endP.x, endP.y);
@@ -279,13 +280,34 @@ var LodgeTable = cc.Layer.extend({
                             MapLayer.instance.removeChild(this._sprite);
                             NotifyLayer.instance.notifyMissGold(missGold);
                         } else {
+                            // Success
                             MapCtrl.instance.addSpriteAlias(this._sprite);
+                            switch (sender.parent.getChildByTag(0).getString()) {
+                                case "field":
+                                    var fieldModel = new Field(new Coordinate(this._sprite.lx, this._sprite.ly), this._sprite.fieldId);
+                                    user.getAsset().addField(fieldModel);
+                                    MapLayer.instance.fieldList.push(this._sprite);
+                                    this._sprite.field = fieldModel;
+                                    // Send server
+                                    //...
+                                    break;
+                                //case "chicken_habitat":
+                                //    break;
+                                //case "cow_habitat":
+                                //    break;
+                                //case "pig_habitat":
+                                //    break;
+                                //case "sheep_habitat":
+                                //    break;
+                                //case "goat_habitat":
+                                //    break;
+                            }
                         }
                     }
                 }
                 GSLayer.instance.show();
                 this._isHide = false;
-                cc.log("Touch Canceled");
+                // cc.log("Touch Canceled");
                 break;
         }
     }

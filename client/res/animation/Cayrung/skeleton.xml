@@ -1,5 +1,5 @@
 <dragonBones name="Cayrung" frameRate="24" version="2.3">
- <armature name="Cay thong nho">
+ <armature name="Cayrung">
   <bone name="Layer 2">
    <transform x="6.5" y="2.45" skX="0" skY="0" scX="1" scY="1"/>
   </bone>

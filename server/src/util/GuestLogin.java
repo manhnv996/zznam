@@ -27,6 +27,15 @@ public class GuestLogin {
 
         return userInfo;
     }
+    
+    public static UserInfo setInfo(int userId, String username) {
+        UserInfo userInfo = new UserInfo();
+        userInfo.setUserId(Integer.toString(userId));
+        userInfo.setUsername(username);
+        userInfo.setHeadurl("");
+
+        return userInfo;
+    }
 
     public static void init() {
         int count = ServerConstant.FARM_ID_COUNT_FROM;

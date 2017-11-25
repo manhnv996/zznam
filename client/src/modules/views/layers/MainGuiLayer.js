@@ -46,6 +46,9 @@ var MainGuiLayer = cc.Layer.extend({
 
         this.addChild(btnFriends);
 
+
+
+
         // 6. create a BuyCoin button and set it's position at the top right of screensize
         var btnBuyGold = new ccui.Button(res.BUTTON_CONG_2);
         var btnBuyGoldSize = btnBuyGold.getSize();
@@ -54,15 +57,14 @@ var MainGuiLayer = cc.Layer.extend({
         btnBuyGold.addClickEventListener(this.onSelectBuyGold.bind(this));
         this.addChild(btnBuyGold);
 
-        var imageGold = new ccui.ImageView(res.STAR_1_PNG);
+        var imageGold = new ccui.ImageView(res.gold);
         var imageGoldSize = imageGold.getSize();
         cc.log("imageGold " + imageGoldSize.width + "  " + imageGoldSize.height);
-        imageGold.setPosition(size.width - (btnBuyGoldSize.width + imageGoldSize.width/2), size.height - btnBuyGoldSize.height/2);
+        imageGold.setPosition(size.width - (btnBuyGoldSize.width + imageGoldSize.width), size.height - btnBuyGoldSize.height/2);
         this.addChild(imageGold);
 
-        this.labelGold = new cc.LabelTTF("3.433", "Helvetica", 30);
-        this.labelGold.setColor(cc.color(255, 255, 255));
-        this.labelGold.setPosition(size.width - (btnBuyGoldSize.width + 1.5*imageGoldSize.width ),size.height - btnBuyGoldSize.height/2 );
+        this.labelGold = new cc.LabelBMFont(user.getGold(), res.FONT_OUTLINE_30);
+        this.labelGold.setPosition(size.width - (btnBuyGoldSize.width + imageGoldSize.width + this.labelGold.width),size.height - btnBuyGoldSize.height/2 );
         this.addChild(this.labelGold);
 
 
@@ -70,20 +72,21 @@ var MainGuiLayer = cc.Layer.extend({
         var btnBuyRuby = new ccui.Button(res.BUTTON_CONG_2);
         var btnBuyRubySize = btnBuyRuby.getSize();
         cc.log("btnBuyRuby " + btnBuyRubySize.width + "  " + btnBuyRubySize.height);
-        btnBuyRuby.setPosition(size.width - btnBuyRubySize.width/2, size.height - 3*btnBuyRubySize.height/2);
+        btnBuyRuby.setPosition(size.width - btnBuyRubySize.width/2, size.height - btnBuyGold.height - btnBuyRubySize.height/2);
         btnBuyRuby.addClickEventListener(this.onSelectBuyRuby.bind(this));
         this.addChild(btnBuyRuby);
 
-        var imageRuby = new ccui.ImageView(res.STAR_1_PNG);
+        var imageRuby = new ccui.ImageView(res.rubi);
         var imageRubySize = imageRuby.getSize();
         cc.log("imageRuby " + imageRubySize.width + "  " + imageRubySize.height);
-        imageRuby.setPosition(size.width - (btnBuyRubySize.width + imageRubySize.width/2), size.height - 3*btnBuyRubySize.height/2);
+        imageRuby.setPosition(size.width - (btnBuyRubySize.width + imageRubySize.width), size.height - btnBuyGoldSize.height - btnBuyRubySize.height/2);
         this.addChild(imageRuby);
 
-        this.labelRuby = new cc.LabelTTF("439", "Helvetica", 30);
-        this.labelRuby.setColor(cc.color(255, 255, 255));
-        this.labelRuby.setPosition(size.width - ( btnBuyRubySize.width + 1.5* imageRubySize.width ), size.height - 3*btnBuyRubySize.height/2);
+        this.labelRuby = new cc.LabelBMFont(user.getRuby(), res.FONT_OUTLINE_30);
+        this.labelRuby.setPosition(size.width - ( btnBuyRubySize.width + imageRubySize.width + this.labelRuby.width), size.height - 3*btnBuyRubySize.height/2);
         this.addChild(this.labelRuby);
+
+
 
         // 8. create a search button and set it's position below btnBuyCoin
         var btnSearch = new ccui.Button(res.STAR_1_PNG);
@@ -106,8 +109,7 @@ var MainGuiLayer = cc.Layer.extend({
         imageExp_221.setPosition(center_top_pos.x -.5*imageExp_221Size.width/2, center_top_pos.y);
         this.addChild(imageExp_221);
 
-        this.labelExp = new cc.LabelTTF(this.exp+ "/" + this.max_exp, "Helvetica", 30);
-        this.labelExp.setColor(cc.color(255, 255, 255));
+        this.labelExp = new cc.LabelBMFont(user.getExp() + "/" + this.max_exp, res.FONT_OUTLINE_30);
         this.labelExp.setPosition(center_top_pos);
         this.addChild(this.labelExp);
 
@@ -117,10 +119,10 @@ var MainGuiLayer = cc.Layer.extend({
         imageLevel.setPosition(center_top_pos.x-imageExp_111Size.width/2,center_top_pos.y);
         this.addChild(imageLevel);
 
-        this.labelLevel = new cc.LabelTTF("18", "Helvetica", 30);
-        this.labelLevel.setColor(cc.color(255, 255, 255));
+        this.labelLevel = new cc.LabelBMFont(user.getLevel(), res.FONT_OUTLINE_30);
         this.labelLevel.setPosition(center_top_pos.x - imageExp_111Size.width/2,center_top_pos.y);
         this.addChild(this.labelLevel);
+
 
         this.lblLog = gv.commonText(fr.Localization.text("..."), size.width*0.4, size.height*0.05);
         this.addChild(this.lblLog);
@@ -145,13 +147,8 @@ var MainGuiLayer = cc.Layer.extend({
     },
     onSelectSettings:function(sender)
     {
-        //this.lblLog.setString("Coming soon!");
-        var name = "Thông báo";
-        var message = "Bạn có muốn thoát game?";
-        //var settingsDialog =  gv.commonDialog(name, message);
-        //this.addChild(settingsDialog);
-        //var btnBack = gv.commonButton(200, 64, 600 - 120, 50,"Back");
-        //this.addChild(btnBack);
+        var settingsLayer = new SettingsLayer();
+        this.addChild(settingsLayer);
     },
     onSelectBuyGold:function(sender){
         cc.log("==onSelectBuyGold clicked");

@@ -4,6 +4,9 @@
 
 var gv = gv||{};
 
+gv.username = null;
+gv.password = null;
+
 gv.commonButton = function(w, h, x, y, text){
     if(text === undefined)
         text = "";

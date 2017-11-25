@@ -3,7 +3,6 @@ var MainScene = cc.Scene.extend({
 		this._super();
 
 		// Init controllers
-		MapCtrl.instance = new MapCtrl();
 		PlantCtrl.instance = new PlantCtrl();
 		GameShopController.instance = new GameShopController();
 		StorageCtrl.instance = new StorageCtrl();
@@ -18,17 +17,14 @@ var MainScene = cc.Scene.extend({
 		var mainGuiLayer = new MainGuiLayer();
 		this.addChild(mainGuiLayer);
 
+		MapCtrl.instance = new MapCtrl();
+		
 		cc.log("Start Scene");
-
-
-
 	},
 
 	onEnter: function() {
 		this._super();
-		MapCtrl.instance.init();
 		this.init();
-		MapCtrl.instance._showDebugMap();
 	},
 
 	onGettedData: function() {
@@ -37,17 +33,25 @@ var MainScene = cc.Scene.extend({
 
 		StorageLayer.instance = new StorageLayer();
 		this.addChild(StorageLayer.instance);
-		StorageLayer.instance.initStorage(user.getAsset().getFoodStorage());
+		// StorageLayer.instance.initStorage(user.getAsset().getFoodStorage());
 		//StorageLayer.instance.getMultiLayer().switchTo(1);
 
 		NotifyLayer.instance = new NotifyLayer();
 		this.addChild(NotifyLayer.instance);
+		MapCtrl.instance.init();
+		MapCtrl.instance._showDebugMap();
 	},
 
 	init: function() {
 
-		gv.gameClient.connect();
+		//gv.gameClient.connect();
 		//testnetwork.connector.sendLoginRequest();
+
+		//gv.username = "fresher001";
+		//gv.password = "fresher";
+        //
+        //
+		//gv.gameClient.connect();
 
 
 //		////    TEST//

@@ -77,14 +77,16 @@ var PopupLayer = cc.Layer.extend({
         this.addChild(this.progressBar);
 
 
-        var index = MapLayer.instance.getIndexOfFieldList(fieldId);
+        // var index = MapLayer.instance.getIndexOfFieldList(fieldId);
         //cc.log("index = " + index);
-        if (index != null) {
-            var fieldSelected = user.getAsset().getFieldById(MapLayer.instance.fieldList[index].fieldId);
-            //
-            var fieldScreenPosition = MapValues.logicToScreenPosition(fieldSelected.getCoordinate().getCurrX(), fieldSelected.getCoordinate().getCurrY());
-            this.progressBar.setPosition(fieldScreenPosition.x, fieldScreenPosition.y);
-        }
+        
+        // var fieldSelected = user.getAsset().getFieldById(MapLayer.instance.fieldList[index].fieldId);
+        var fieldSelected = user.asset.fieldList.find(function(field) {
+            return field.fieldId === fieldId;
+        });
+        //
+        var fieldScreenPosition = MapValues.logicToScreenPosition(fieldSelected.getCoordinate().getCurrX(), fieldSelected.getCoordinate().getCurrY());
+        this.progressBar.setPosition(fieldScreenPosition.x, fieldScreenPosition.y);
 
 
         this.progress = cc.Sprite.create(res.progress);
