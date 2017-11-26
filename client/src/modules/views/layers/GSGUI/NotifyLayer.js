@@ -122,12 +122,32 @@ var NotifyLayer = cc.Layer.extend({
         fullSilo.y = this._layoutFullSilo.height / 5 * 2;
 
         var buttonV = new ccui.Button(res.storage_V_png);
+        buttonV.setScale(0.9);
+        buttonV.setZoomScale(-0.1);
+        buttonV.x = this._layoutFullSilo.width / 3 * 2;
+        buttonV.y = this._layoutFullSilo.height / 4;
+        buttonV.setAnchorPoint(1, 0.5);
+        buttonV.addTouchEventListener(function (sender, type) {
+            switch (type) {
+                case ccui.Widget.TOUCH_ENDED:
+                    this._layoutFullSilo.removeFromParent(true);
+                    StorageLayer.instance.initStorage(user.getAsset().getFoodStorage());
+                    StorageLayer.instance._multiLayer.switchTo(1);
+                    break;
+                case ccui.Widget.TOUCH_CANCELED:
+                    this._layoutFullSilo.removeFromParent(true);
+                    StorageLayer.instance.initStorage(user.getAsset().getFoodStorage());
+                    StorageLayer.instance._multiLayer.switchTo(1);
+                    break;
+            }
+        }, this);
 
         this._layoutFullSilo.addChild(bg);
         this._layoutFullSilo.addChild(fullSilo);
         this._layoutFullSilo.addChild(title);
+        this._layoutFullSilo.addChild(buttonV);
         this.addChild(this._layoutFullSilo);
-        //this.setScale((cc.winSize.height - 20) / this._layoutMissGold.height);
+        this.setScale((cc.winSize.height - 20) / this._layoutMissGold.height);
     },
 
     touchCloseButtonLayout: function (sender, type) {
