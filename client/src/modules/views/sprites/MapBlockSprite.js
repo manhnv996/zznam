@@ -70,7 +70,7 @@ var MapBlockSprite = cc.Sprite.extend({
                                 this.touchListener.lstMouse = touchLocation;
                                 // Enable highest priority for this listener and zOrder
                                 this.updateEventPriority(1);                          
-                                this.setLocalZOrder(1000);
+                                this.setLocalZOrder(10000);
                                 // Enable Tint action
                                 var action = new cc.Sequence([new cc.TintBy(0.8, -100, -100, -100), new cc.TintBy(0.8, 100, 100, 100)]);
                                 this.runAction(new cc.RepeatForever(action));
@@ -196,7 +196,8 @@ var MapBlockSprite = cc.Sprite.extend({
                 }
 
                 if (this.touchListener.__moveSprite) {
-                    if (!MapCtrl.instance.checkValidBlock(this.touchListener.lstLocation.x, this.touchListener.lstLocation.y, this.blockSizeX, this.blockSizeY)) {
+                    if (!MapCtrl.instance.checkValidBlock(this.touchListener.lstLocation.x,
+                            this.touchListener.lstLocation.y, this.blockSizeX, this.blockSizeY)) {
                         this.setLogicPosition(this.touchListener.originalPosition, true);
                         MapLayer.instance.moveToLogic(this.touchListener.originalPosition, 2);
                     }
@@ -210,18 +211,31 @@ var MapBlockSprite = cc.Sprite.extend({
                 !this.touchListener.__isMoved && this.onClick();
             }.bind(this)
         });
-        cc.eventManager.addListener(this.touchListener, 
-                Math.max(this.lx + ListenerPriority.offsetEventPriority + this.blockSizeX,
-                        this.ly + ListenerPriority.offsetEventPriority + this.blockSizeY));
+        // cc.eventManager.addListener(this.touchListener, 
+        //         Math.max(this.lx + ListenerPriority.offsetEventPriority + this.blockSizeX,
+        //                 this.ly + ListenerPriority.offsetEventPriority + this.blockSizeY));
+        cc.eventManager.addListener(this.touchListener, this.getPriority());
 	},
 
     // Update eventPriority when change location, called in setLogicPosition
     updateEventPriority: function(priority) {
         if (this.touchListener) {
-            priority = priority || Math.max(this.lx + ListenerPriority.offsetEventPriority + this.blockSizeX,
-                        this.ly + ListenerPriority.offsetEventPriority + this.blockSizeY);
-            cc.eventManager.setPriority(this.touchListener, priority);
+            cc.eventManager.setPriority(this.touchListener, priority || this.getPriority());
         }
+    },
+
+    updateZOrder: function(zOrder) {
+        this.setLocalZOrder(
+            zOrder || this.getPriority()
+        );
+    },
+
+    getPriority: function() {
+        return parseInt(ListenerPriority.offsetEventPriority + (
+            this.lx + this.blockSizeX > this.ly + this.blockSizeY
+            ? (this.lx + this.blockSizeX + (this.ly + this.blockSizeY) / 32) * 100
+            : (this.ly + this.blockSizeY + (this.lx + this.blockSizeX) / 32) * 100
+        ));
     },
 
     // Called in setLogicPosition
@@ -326,11 +340,7 @@ cc.Node.prototype.setLogicPosition = function(lx, ly, notUpdatePriority) {
     }
     if (!notUpdatePriority) {
         this.updateEventPriority();
-        this.setLocalZOrder(
-            this.lx + this.blockSizeX > this.ly + this.blockSizeY
-            ? (this.lx + this.blockSizeX + (this.ly + this.blockSizeY) / 32) * 10
-            : (this.ly + this.blockSizeY + (this.lx + this.blockSizeX) / 32) * 10
-        );
+        this.updateZOrder();
             // Math.max(this.lx + this.blockSizeX, this.ly + this.blockSizeY));
         // this.setLocalZOrder(this.lx + this.blockSizeX +this.ly + this.blockSizeY);
     }

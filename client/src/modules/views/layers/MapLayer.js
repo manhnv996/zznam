@@ -526,8 +526,7 @@ var MapLayer = (function() {
 					// PopupLayer.instance.disableProgressBarInprogress();
 				}.bind(this)
 	        });
-	        cc.eventManager.addListener(this.touchListener,
-	        		MapConfigs.Init.width + MapConfigs.Init.height + ListenerPriority.offsetEventPriority);
+	        cc.eventManager.addListener(this.touchListener, 100 * Math.max(MapConfigs.Init.width + 5, MapConfigs.Init.height + 5));
 	        
 	        cc.log("Register map touch event with priority", MapConfigs.Init.width + MapConfigs.Init.height);
 	        var mouseListener = cc.EventListener.create({
