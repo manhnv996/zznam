@@ -5,6 +5,7 @@
 var NotifyLayer = cc.Layer.extend({
     _layoutMissGold: null,
     _layoutFullSilo: null,
+    _layoutFullWare: null,
 
     ctor: function () {
         this._super();
@@ -147,7 +148,59 @@ var NotifyLayer = cc.Layer.extend({
         this._layoutFullSilo.addChild(title);
         this._layoutFullSilo.addChild(buttonV);
         this.addChild(this._layoutFullSilo);
-        this.setScale((cc.winSize.height - 20) / this._layoutMissGold.height);
+        this.setScale((cc.winSize.height - 20) / this._layoutFullSilo.height);
+    },
+
+    notifyFullWare: function () {
+        this._layoutFullWare = new ccui.Layout();
+        //this._layoutFullSilo.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
+        //this._layoutFullSilo.setBackGroundColor(cc.color.RED);
+        this._layoutFullWare.x = cc.winSize.width / 2;
+        this._layoutFullWare.y = cc.winSize.height / 2;
+        this._layoutFullWare.setAnchorPoint(0.5, 0.5);
+
+        var bg = new cc.Sprite(res.bg_notify_png);
+        bg.x = 0;
+        bg.y = 0;
+        bg.setAnchorPoint(0, 0);
+
+        this._layoutFullWare.setContentSize(bg.getContentSize());
+
+        var title = new cc.LabelBMFont("Thông Báo", res.FONT_OUTLINE_50);
+        title.x = this._layoutFullWare.width / 2;
+        title.y = this._layoutFullWare.height / 8 * 7;
+
+        var fullSilo = new cc.Sprite(res.warehouse_full);
+        fullSilo.x = this._layoutFullWare.width / 2;
+        fullSilo.y = this._layoutFullWare.height / 5 * 2;
+
+        var buttonV = new ccui.Button(res.storage_V_png);
+        buttonV.setScale(0.9);
+        buttonV.setZoomScale(-0.1);
+        buttonV.x = this._layoutFullWare.width / 3 * 2;
+        buttonV.y = this._layoutFullWare.height / 4;
+        //buttonV.setAnchorPoint(1, 0.5);
+        buttonV.addTouchEventListener(function (sender, type) {
+            switch (type) {
+                case ccui.Widget.TOUCH_ENDED:
+                    this._layoutFullWare.removeFromParent(true);
+                    StorageLayer.instance.initStorage(user.getAsset().getWarehouse());
+                    StorageLayer.instance._multiLayer.switchTo(1);
+                    break;
+                case ccui.Widget.TOUCH_CANCELED:
+                    this._layoutFullWare.removeFromParent(true);
+                    StorageLayer.instance.initStorage(user.getAsset().getWarehouse());
+                    StorageLayer.instance._multiLayer.switchTo(1);
+                    break;
+            }
+        }, this);
+
+        this._layoutFullWare.addChild(bg);
+        this._layoutFullWare.addChild(fullSilo);
+        this._layoutFullWare.addChild(title);
+        this._layoutFullWare.addChild(buttonV);
+        this.addChild(this._layoutFullWare);
+        this.setScale((cc.winSize.height - 20) / this._layoutFullWare.height);
     },
 
     touchCloseButtonLayout: function (sender, type) {
