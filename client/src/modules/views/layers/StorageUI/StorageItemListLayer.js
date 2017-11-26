@@ -75,9 +75,9 @@ var StorageItemListLayer = cc.Layer.extend({
                 button.tag = i;
                 cell.addChild(button);
 
-                //var resource = null;
-                //resource.tag = 20 + i;
-                //cell.addChild(resource);
+                var keyItem = new cc.LabelTTF("");
+                keyItem.tag = 20 + i;
+                cell.addChild(keyItem);
 
                 var label = new cc.LabelBMFont(20, res.FONT_OUTLINE_20);
                 label.x = (cc.winSize.width / 6) * i + cc.winSize.width / 12;
@@ -91,12 +91,13 @@ var StorageItemListLayer = cc.Layer.extend({
             for (var i = 0; i < 3; i++) {
                 var button = cell.getChildByTag(i);
                 var label = cell.getChildByTag(10 + i);
-                //var resource = cell.getChildByTag(20 + i);
+                var keyItem = cell.getChildByTag(20 + i);
                 if ((idx * 3 + i) < this._listItems.length) {
                     //cc.log("rs" + this._listItems[idx * 3 + i].getTypeItem()[3]);
                     //button.loadTextureNormal(this._listItems[idx * 3 + i].getTypeItem()[3]);
                     var key = getKeyByValue(this._listItems[idx * 3 + i].getTypeItem());
-                    resource = ProductResource[key];
+                    keyItem.setString(key);
+                    cc.log("itemResource " + keyItem.getString());
                     //cc.log(getKeyByValue(this._listItems[idx * 3 + i].getTypeItem()));
                     button.loadTextureNormal(ProductResource[key][3]);
                     button.addTouchEventListener(this.touchItem, this);

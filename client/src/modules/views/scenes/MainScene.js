@@ -41,7 +41,7 @@ var MainScene = cc.Scene.extend({
 		MapCtrl.instance.init();
 		MapCtrl.instance._showDebugMap();
 
-		NotifyLayer.instance.notifyFullWare();
+		//NotifyLayer.instance.notifyFullWare();
 	},
 
 	init: function() {
