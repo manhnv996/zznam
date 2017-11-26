@@ -18,7 +18,7 @@ var InertiaEngine = cc.Node.extend({
 	},
 
 	init: function(startPoint) {
-		cc.log("Start recording");
+		// cc.log("Start recording");
 		this.time = 0;
 		this.count = 0;
 		this.currentPoint = startPoint;
@@ -31,7 +31,7 @@ var InertiaEngine = cc.Node.extend({
 	},
 
 	stopAndGetVelocity: function(endPoint) {
-		cc.log("Stop recording");
+		// cc.log("Stop recording");
 		if (!endPoint) {
 			endPoint = cc.p(0, 0);
 		}

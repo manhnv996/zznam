@@ -704,7 +704,7 @@ var MapLayer = cc.Layer.extend({
 			this.scheduleUpdate();
 		}
 		this.velocity = velocity;
-		cc.log("velocity", velocity);
+		// cc.log("velocity", velocity);
 	},
 
 	uninertia: function() {
