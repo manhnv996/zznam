@@ -42,7 +42,10 @@ var MapBlockSprite = cc.Sprite.extend({
                             this.scheduleUpdate();
                         } else {
                             // When sprite is normal
-                            this.touchListener.__timeout = setTimeout(function() {
+                            this.touchListener.outOfHoldTimeCallback = function() {
+                                // cc.log("outOfHoldTimeCallback started");
+                                // Set lock scheduling to false after started
+                                this.touchListener.scheduling = false;
                                 // disable onClick event after long click
                                 this.touchListener.__isMoved = true;
                                 PopupLayer.instance.showArrow(touchLocation.x, touchLocation.y, function() {
@@ -63,10 +66,13 @@ var MapBlockSprite = cc.Sprite.extend({
                                     MapCtrl.instance.removeSpriteAlias(this);
                                     // cc.log("Move sprite mode activated");
                                     // ScheduleUpdate automove
-                                    cc.log('Start schedule update');
+                                    // cc.log('Start schedule update');
                                     this.scheduleUpdate();
                                 }.bind(this));
-                            }.bind(this), 500);
+                            }.bind(this);
+                            // cc.log("Start schedule outOfHoldTimeCallback");
+                            this.scheduleOnce(this.touchListener.outOfHoldTimeCallback, 0.5);
+                            this.touchListener.scheduling = true;
                         }
                         
                     }
@@ -99,20 +105,6 @@ var MapBlockSprite = cc.Sprite.extend({
                         // Disable tint action and set default color
                         this.stopAllActions();
                         this.setColor(cc.color(255, 255, 255));
-
-                        // for (var i = 0; i < user.map.length; i++) {
-                        //     var str = '';
-                        //     for (var j = 0; j < user.map[i].length; j++) {
-                        //         if (user.map[i][j].type === 0) {
-                        //             str += '0';
-                        //         } else if (user.map[i][j].type === undefined) {
-                        //             str += "u";
-                        //         } else {
-                        //             str += "*";
-                        //         }
-                        //     }
-                        //     cc.log(str);
-                        // }
                     }
                 }
                 return false;
@@ -127,10 +119,12 @@ var MapBlockSprite = cc.Sprite.extend({
                 //     this.arrow = null;
                 // }
                 PopupLayer.instance.removeArrow();
-                if (!isNaN(this.touchListener.__timeout)) {
-                    // Move intime of timeout
-                    clearTimeout(this.touchListener.__timeout);
-                    this.touchListener.__timeout = null;
+
+                if (this.touchListener.scheduling) {
+                    // When callback didnot be excuted and move
+                    this.touchListener.scheduling = false;
+                    // cc.log("Canceled schedule outOfHoldTimeCallback");
+                    this.unschedule(this.touchListener.outOfHoldTimeCallback);
                 }
 
                 if (this.touchListener.__moveSprite) {
@@ -177,21 +171,20 @@ var MapBlockSprite = cc.Sprite.extend({
             onTouchEnded: function(touch, event) {
                 this.onEndClick();
                 PopupLayer.instance.removeArrow();
-                // if (this.arrow) {
-                //     this.arrow.removeFromParent();
-                //     this.arrow = null;
-                // }
-                if (!isNaN(this.touchListener.__timeout)) {
-                    clearTimeout(this.touchListener.__timeout);
-                    this.touchListener.__timeout = null;
-                }
                 
+                if (this.touchListener.scheduling) {
+                    // When callback didnot be executed 
+                    this.touchListener.scheduling = false;
+                    // cc.log("Canceled schedule outOfHoldTimeCallback");
+                    this.unschedule(this.touchListener.outOfHoldTimeCallback);
+                }
+
                 if (this.touchListener.__moveSprite) {
                     if (!MapCtrl.instance.checkValidBlock(this.touchListener.lstLocation.x, this.touchListener.lstLocation.y, this.blockSizeX, this.blockSizeY)) {
                         this.setLogicPosition(this.touchListener.originalPosition, true);
                         MapLayer.instance.moveToLogic(this.touchListener.originalPosition, 2);
                     }
-                    cc.log('Unschedule update');
+                    // cc.log('Unschedule update');
                     this.unscheduleUpdate();
                 }
 
