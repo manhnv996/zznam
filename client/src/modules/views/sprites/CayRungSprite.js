@@ -10,7 +10,7 @@ var CayRungSprite = AnimationSprite.extend({
 		this.treeType = type || this.treeType;
 		this.natureId = id;
 		this.play(2 * this.treeType - 1);
-		this.registerTouchEvents(true);
+		this.registerTouchEvents({ lockMove: true });
 	},
 
 	onClick: function() {

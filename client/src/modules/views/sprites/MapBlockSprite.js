@@ -19,7 +19,11 @@ var MapBlockSprite = cc.Sprite.extend({
     onFinishMove: function(lx, ly) {},
 
     // Register touch event, call this in constructor
-	registerTouchEvents: function(lockMoveMode) {
+	registerTouchEvents: function(option) {
+        option = option || { lockMove: false };
+        // Get options
+        var lockMoveMode = option.lockMove;
+        // 
         this.caculateBoundingPoints();
         this.touchListener = cc.EventListener.create({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -32,49 +36,59 @@ var MapBlockSprite = cc.Sprite.extend({
                 this.touchListener.autoMoveVer = 0;
                 this.touchListener.autoMoveHor = 0;
 
+                // Disable all popup
+                PopupLayer.instance.disableAllPopup();
+
                 // Check if is click inside sprite
                 if (rayCasting(location, this.boundingPoints)) {
                     this.onBeginClick();
+                    if (this.touchListener.__moveSprite === true) {
+                        // When sprite is in moving mode
+                        // cc.log("Continue schedule update");
+                        this.scheduleUpdate();
+                        // Do not capture velocity in here
+                        return true;
+                    }
+                    // Stop Map inertia and capture velocity
+                    MapLayer.instance.uninertia();
+                    InertiaEngine.instance.init(touchLocation);
                     if (!lockMoveMode) {
-                        if (this.touchListener.__moveSprite === true) {
-                            // When sprite is in moving mode
-                            // cc.log("Continue schedule update");
-                            this.scheduleUpdate();
-                        } else {
-                            // When sprite is normal
-                            this.touchListener.outOfHoldTimeCallback = function() {
-                                // cc.log("outOfHoldTimeCallback started");
-                                // Set lock scheduling to false after started
-                                this.touchListener.scheduling = false;
-                                // disable onClick event after long click
-                                this.touchListener.__isMoved = true;
-                                PopupLayer.instance.showArrow(touchLocation.x, touchLocation.y, function() {
-                                    // Activate move sprite mode
-                                    this.touchListener.__moveSprite = true;
-                                    this.touchListener.lstMouse = touchLocation;
-                                    // Enable highest priority for this listener and zOrder
-                                    this.updateEventPriority(1);                          
-                                    this.setLocalZOrder(1000);
-                                    // Enable Tint action
-                                    var action = new cc.Sequence([new cc.TintBy(0.8, -100, -100, -100), new cc.TintBy(0.8, 100, 100, 100)]);
-                                    this.runAction(new cc.RepeatForever(action));
+                        // When sprite is normal
+                        // set timeout
+                        this.touchListener.outOfHoldTimeCallback = function() {
+                            // cc.log("outOfHoldTimeCallback started");
+                            // Set lock scheduling to false after started
+                            this.touchListener.scheduling = false;
+                            // disable onClick event after long click
+                            this.touchListener.__isMoved = true;
+                            PopupLayer.instance.showArrow(touchLocation.x, touchLocation.y, function() {
+                                // Activate move sprite mode
+                                // Stop InertialEngine recording
+                                InertiaEngine.instance.stopAndGetVelocity();
+                                
+                                this.touchListener.__moveSprite = true;
+                                this.touchListener.lstMouse = touchLocation;
+                                // Enable highest priority for this listener and zOrder
+                                this.updateEventPriority(1);                          
+                                this.setLocalZOrder(1000);
+                                // Enable Tint action
+                                var action = new cc.Sequence([new cc.TintBy(0.8, -100, -100, -100), new cc.TintBy(0.8, 100, 100, 100)]);
+                                this.runAction(new cc.RepeatForever(action));
 
-                                    // Save original position
-                                    this.touchListener.originalPosition = this.getLogicPosition();
-                                    this.touchListener.lstLocation = this.touchListener.originalPosition;
-                                    // Remove itself from map alias
-                                    MapCtrl.instance.removeSpriteAlias(this);
-                                    // cc.log("Move sprite mode activated");
-                                    // ScheduleUpdate automove
-                                    // cc.log('Start schedule update');
-                                    this.scheduleUpdate();
-                                }.bind(this));
-                            }.bind(this);
-                            // cc.log("Start schedule outOfHoldTimeCallback");
-                            this.scheduleOnce(this.touchListener.outOfHoldTimeCallback, 0.5);
-                            this.touchListener.scheduling = true;
-                        }
-                        
+                                // Save original position
+                                this.touchListener.originalPosition = this.getLogicPosition();
+                                this.touchListener.lstLocation = this.touchListener.originalPosition;
+                                // Remove itself from map alias
+                                MapCtrl.instance.removeSpriteAlias(this);
+                                // cc.log("Move sprite mode activated");
+                                // ScheduleUpdate automove
+                                // cc.log('Start schedule update');
+                                this.scheduleUpdate();
+                            }.bind(this));
+                        }.bind(this);
+                        // cc.log("Start schedule outOfHoldTimeCallback");
+                        this.scheduleOnce(this.touchListener.outOfHoldTimeCallback, 0.5);
+                        this.touchListener.scheduling = true;
                     }
                     return true;
                 } else {
@@ -111,8 +125,10 @@ var MapBlockSprite = cc.Sprite.extend({
             }.bind(this),
 
             onTouchMoved: function(touch, event) {
-                // Move map and disable onclick
+                // Add new move position to InertialEngine
+                InertiaEngine.instance.setPoint(touch.getLocation());
 
+                // Move map and disable onclick
                 this.touchListener.__isMoved = true;
                 // if (this.arrow) {
                 //     this.arrow.removeFromParent();
@@ -186,6 +202,9 @@ var MapBlockSprite = cc.Sprite.extend({
                     }
                     // cc.log('Unschedule update');
                     this.unscheduleUpdate();
+                } else {
+                    var velocity = InertiaEngine.instance.stopAndGetVelocity(touch.getLocation());
+                    MapLayer.instance.inertia(velocity);
                 }
 
                 !this.touchListener.__isMoved && this.onClick();

@@ -4,7 +4,7 @@ var NhaChinhSprite = MapBlockSprite.extend({
 			MapConfigs.NhaChinh.size.width, MapConfigs.NhaChinh.size.height, 
 			x, y, MapItemEnum.NHA_CHINH
 		);
-		this.registerTouchEvents(true);
+		this.registerTouchEvents({ lockMove: true });
 	},
 
 	onClick: function() {

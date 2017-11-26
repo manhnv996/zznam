@@ -8,7 +8,7 @@ var DanhoSprite = AnimationSprite.extend({
 			x, y, MapItemEnum.NATURE_THING);
 		this.natureId = id;
 		this.play("1");
-		this.registerTouchEvents();
+		this.registerTouchEvents({ lockMove: true });
 	},
 
 	onClick: function() {

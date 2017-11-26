@@ -36,6 +36,8 @@ var MapCtrl = cc.Class.extend({
         // cc.log("Silo", user.asset.foodStorage);
         // MapLayer.instance.addChild(new SiloSprite(20, 20));
         // MapLayer.instance.addChild(new WareHouseSprite(18, 24));
+        InertiaEngine.instance = new InertiaEngine();
+        MainScene.instance.addChild(InertiaEngine.instance);
     },
 
     renderStorages: function() {

@@ -5,7 +5,7 @@ var TruckOrderSprite = MapBlockSprite.extend({
 			MapConfigs.TruckOrder.size.height, 
 			x, y, MapItemEnum.TRUCK_ORDER
 		);
-		this.registerTouchEvents(true);
+		this.registerTouchEvents({ lockMove: true });
 	},
 
 	onClick: function() {

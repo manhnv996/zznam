@@ -8,7 +8,7 @@ var VungnuocSprite = AnimationSprite.extend({
 				x, y, MapItemEnum.NATURE_THING);
 		this.natureId = id;
 		this.play("swamp_idle");
-		this.registerTouchEvents(true);
+		this.registerTouchEvents({ lockMove: true });
 	},
 
 	onClick: function() {

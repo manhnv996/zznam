@@ -38,14 +38,17 @@ var MapLayer = (function() {
 			// Make start animation
 			var center = cc.p(MapConfigs.Init.width / 2, MapConfigs.Init.height / 2 + 4);
 			this.moveToLogic(center);
-
-			var center = cc.p(MapConfigs.Init.width / 2, MapConfigs.Init.height / 2);
-			this.moveToLogic(center, 2);
 			// cc.log("Move to", center);
 			// this.setPosition(cc.p((this.width / 2 - center.x) * this.scale, (this.height / 2 - center.y) * this.scale));
 			this.initEvent();
 
 			this.initFieldList();
+		},
+
+		onEnter: function() {
+			this._super();
+			center = cc.p(MapConfigs.Init.width / 2, MapConfigs.Init.height / 2);
+			this.moveToLogic(center, 2);
 		},
 
 		initBorder: function() {
@@ -498,21 +501,30 @@ var MapLayer = (function() {
 					if (__DEBUG) {
 						cc.log('Map Clicked', position);
 					}
-//
-					PopupLayer.instance.disablePopup();
-					PopupLayer.instance.disableProgressBarInprogress();
+	            	
+	            	// Stop inertia and capture velocity
+	            	this.uninertia();
+					InertiaEngine.instance.init(mousePos);
+
+					// Disable planting popup
+					PopupLayer.instance.disableAllPopup();
 					return true;
-	            },
+	            }.bind(this),
 	            onTouchMoved: function(touch, event) {
+	            	// Add new move position to InertialEngine
+					InertiaEngine.instance.setPoint(touch.getLocation());
 	            	var delta = touch.getDelta();
 	       			this.move(delta.x, delta.y);
 
 	            }.bind(this),
 	            onTouchEnded: function (touch, event) {
-					var target = event.getCurrentTarget();
+	            	// Caculate velocity and add ineria
+					var velocity = InertiaEngine.instance.stopAndGetVelocity(touch.getLocation());
+					// cc.log("v =", this.velocity);
+					this.inertia(velocity);
 					// PopupLayer.instance.disablePopup();
 					// PopupLayer.instance.disableProgressBarInprogress();
-				}
+				}.bind(this)
 	        });
 	        cc.eventManager.addListener(this.touchListener,
 	        		MapConfigs.Init.width + MapConfigs.Init.height + ListenerPriority.offsetEventPriority);
@@ -575,7 +587,7 @@ var MapLayer = (function() {
 			var p = MapValues.logicToPosition(lx, ly);
 			var caculateP = cc.p((this.width / 2 - p.x) * this.scale, (this.height / 2 - p.y) * this.scale);
 			if (time) {
-				cc.log("Time", time);
+				// cc.log("Time", time);
 				var action = new cc.MoveTo(time, caculateP).easing(cc.easeExponentialOut());
 				this.runAction(action);
 			} else {
@@ -687,5 +699,32 @@ var MapLayer = (function() {
 			}
 
 		},
+
+		inertia: function(velocity) {
+			if (!this.scheduling) {
+				this.scheduling = true;
+				this.scheduleUpdate();
+			}
+			this.velocity = velocity;
+			cc.log("velocity", velocity);
+		},
+
+		uninertia: function() {
+			if (this.scheduling) {
+				this.unscheduleUpdate();
+				this.scheduling = false;
+			}
+		},
+
+		update: function(dt) {
+			var dx = this.velocity.x * dt;
+			var dy = this.velocity.y * dt;
+			this.velocity.x *= 0.9;
+			this.velocity.y *= 0.9;
+			if (dx * dx + dy * dy < 0.5) {
+				return this.uninertia();
+			}
+			this.move(dx, dy);
+		}
 	});
 })();

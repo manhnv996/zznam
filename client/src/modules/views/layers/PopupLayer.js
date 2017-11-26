@@ -580,5 +580,10 @@ var PopupLayer = cc.Layer.extend({
             this.arrow.removeFromParent();
             this.arrow = null;
         }
+    },
+
+    disableAllPopup: function() {
+        this.disablePopup();
+        this.disableProgressBarInprogress();
     }
 });

@@ -8,7 +8,7 @@ var DatoSprite = AnimationSprite.extend({
 			x, y, MapItemEnum.NATURE_THING);
 		this.natureId = id;
 		this.play("forest_big_stone_1_idle");
-		this.registerTouchEvents();
+		this.registerTouchEvents({ lockMove: true });
 	},
 
 	onClick: function() {
