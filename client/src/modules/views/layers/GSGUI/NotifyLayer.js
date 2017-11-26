@@ -4,6 +4,7 @@
 
 var NotifyLayer = cc.Layer.extend({
     _layoutMissGold: null,
+    _layoutFullSilo: null,
 
     ctor: function () {
         this._super();
@@ -59,8 +60,10 @@ var NotifyLayer = cc.Layer.extend({
         ruby.addChild(rubyNeeded);
 
         var close = new ccui.Button(res.close_png);
+        close.tag = 1;
         close.setZoomScale(-0.1);
         close.addTouchEventListener(this.touchCloseButtonLayout, this);
+        close.setScale(0.9);
         close.setPosition(this._layoutMissGold.width * 19 / 20, this._layoutMissGold.height * 7 / 8);
 
         this._layoutMissGold.addChild(bg);
@@ -72,22 +75,12 @@ var NotifyLayer = cc.Layer.extend({
         this._layoutMissGold.addChild(close);
 
         this.addChild(this._layoutMissGold);
+        this.setScale((cc.winSize.height - 20) / this._layoutMissGold.height);
     },
 
-    closeNotifyMissGold: function () {
-        this._layoutMissGold.removeFromParent(true);
-    },
-
-    touchCloseButtonLayout: function (sender, type) {
-        switch (type) {
-            case ccui.Widget.TOUCH_ENDED:
-                this.closeNotifyMissGold();
-                break;
-            case ccui.Widget.TOUCH_CANCELED:
-                this.closeNotifyMissGold();
-                break;
-        }
-    },
+    //closeNotifyMissGold: function () {
+    //    this._layoutMissGold.removeFromParent(true);
+    //},
 
     notifyCantPut: function (x, y) {
         var label = new cc.LabelBMFont("Không thể đặt", res.FONT_OUTLINE_20);
@@ -103,5 +96,52 @@ var NotifyLayer = cc.Layer.extend({
             label.removeFromParent(true);
         }, 2400);
 
+    },
+
+    notifyFullSilo: function () {
+        this._layoutFullSilo = new ccui.Layout();
+        //this._layoutFullSilo.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
+        //this._layoutFullSilo.setBackGroundColor(cc.color.RED);
+        this._layoutFullSilo.x = cc.winSize.width / 2;
+        this._layoutFullSilo.y = cc.winSize.height / 2;
+        this._layoutFullSilo.setAnchorPoint(0.5, 0.5);
+
+        var bg = new cc.Sprite(res.bg_notify_png);
+        bg.x = 0;
+        bg.y = 0;
+        bg.setAnchorPoint(0, 0);
+
+        this._layoutFullSilo.setContentSize(bg.getContentSize());
+
+        var title = new cc.LabelBMFont("Thông Báo", res.FONT_OUTLINE_50);
+        title.x = this._layoutFullSilo.width / 2;
+        title.y = this._layoutFullSilo.height / 8 * 7;
+
+        var fullSilo = new cc.Sprite(res.silo_full);
+        fullSilo.x = this._layoutFullSilo.width / 2;
+        fullSilo.y = this._layoutFullSilo.height / 5 * 2;
+
+        var buttonV = new ccui.Button(res.storage_V_png);
+
+        this._layoutFullSilo.addChild(bg);
+        this._layoutFullSilo.addChild(fullSilo);
+        this._layoutFullSilo.addChild(title);
+        this.addChild(this._layoutFullSilo);
+        //this.setScale((cc.winSize.height - 20) / this._layoutMissGold.height);
+    },
+
+    touchCloseButtonLayout: function (sender, type) {
+        switch (type) {
+            case ccui.Widget.TOUCH_ENDED:
+                if(sender.tag === 1) {
+                    this._layoutMissGold.removeFromParent(true);
+                }
+                break;
+            case ccui.Widget.TOUCH_CANCELED:
+                if(sender.tag === 1) {
+                    this._layoutMissGold.removeFromParent(true);
+                }
+                break;
+        }
     }
 });

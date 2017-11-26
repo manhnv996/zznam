@@ -102,9 +102,9 @@ var StorageLayer = cc.Layer.extend({
         this.setScale((cc.winSize.height - 20) / this._layoutStorage.height);
     },
 
-    getMultiLayer: function () {
-        return this._multiLayer;
-    },
+    //getMultiLayer: function () {
+    //    return this._multiLayer;
+    //},
 
     touchCloseStorage: function (sender, type) {
         switch (type) {

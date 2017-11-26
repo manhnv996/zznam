@@ -40,6 +40,8 @@ var MainScene = cc.Scene.extend({
 		this.addChild(NotifyLayer.instance);
 		MapCtrl.instance.init();
 		MapCtrl.instance._showDebugMap();
+
+		NotifyLayer.instance.notifyFullSilo();
 	},
 
 	init: function() {
