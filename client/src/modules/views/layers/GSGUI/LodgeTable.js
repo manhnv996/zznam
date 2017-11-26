@@ -7,6 +7,7 @@ var LodgeTable = cc.Layer.extend({
     _isHide: false,
     _sprite: null,
     _check: null,
+    _tableView: null,
 
     ctor: function () {
         this._super();
@@ -19,15 +20,15 @@ var LodgeTable = cc.Layer.extend({
         //layoutColor.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
         //layoutColor.setBackGroundColor(cc.color.RED);
 
-        var tableView = new cc.TableView(this, cc.size(363, cc.winSize.height / 9 * 8));
-        tableView.setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL);
-        tableView.x = 0;
-        tableView.y = 0;
-        tableView.setDelegate(this);
-        tableView.setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN);
-        tableView.reloadData();
+        this._tableView = new cc.TableView(this, cc.size(363, cc.winSize.height / 9 * 8));
+        this._tableView.setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL);
+        this._tableView.x = 0;
+        this._tableView.y = 0;
+        this._tableView.setDelegate(this);
+        this._tableView.setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN);
+        this._tableView.reloadData();
 
-        this.addChild(tableView);
+        this.addChild(this._tableView);
         //
         //layoutColor.addChild(tableView);
         //this.addChild(layoutColor);
@@ -63,7 +64,7 @@ var LodgeTable = cc.Layer.extend({
         var maxslot = 0;
         var price;
 
-        if (!cell) {
+        //if (!cell) {
             cell = new cc.TableViewCell();
             imgBg = new cc.Sprite(res.shop_slot_png);
             imgBg.x = 0;
@@ -106,26 +107,35 @@ var LodgeTable = cc.Layer.extend({
             detail.color = cc.color(77, 41, 1);
             detail.tag = 3;
 
-            curslot = GameShopController.instance.getNumberLodge(res.infoCoopItem[idx].id);
-            maxslot = 0;
+            //curslot = GameShopController.instance.getNumberLodge(res.infoCoopItem[idx].id);
+            //maxslot = 0;
 
-            var length = res.infoCoopItem[idx].level.length;
-            if(level >= res.infoCoopItem[idx].level[length - 1]) {
-                maxslot = length;
+            //cc.log("Block touch listener " + (level >= res.infoCoopItem[idx].level[0] && curslot < maxslot));
+            //bug k chặn đc sự kiện touch
+            //cc.log("If Level unlock " + res.infoCoopItem[idx].level[0]);
+            if(res.infoCoopItem[idx].id == "field"){
+                curslot = user.getAsset().getFieldList().length;
+                maxslot = GameShopController.instance.getMaxField();
+                //cc.log("Field slot " + curslot + " " + maxslot);
+                if (curslot < maxslot) {
+                    image.addTouchEventListener(this.touchEvent, this);
+                }
             } else {
-                for(var i = 0; i < length - 1; i++) {
-                    if (res.infoCoopItem[idx].level[0] <= level && level < res.infoCoopItem[idx].level[length - 1]) {
-                        maxslot = i + 1;
+                curslot = GameShopController.instance.getNumberLodge(res.infoCoopItem[idx].id);
+                var length = res.infoCoopItem[idx].level.length;
+                if(level >= res.infoCoopItem[idx].level[length - 1]) {
+                    maxslot = length;
+                } else {
+                    for(var i = 0; i < length - 1; i++) {
+                        if (res.infoCoopItem[idx].level[i] <= level && level < res.infoCoopItem[idx].level[i + 1]) {
+                            maxslot = i + 1;
+                        }
                     }
                 }
+                if (level >= res.infoCoopItem[idx].level[0] && curslot < maxslot) {
+                    image.addTouchEventListener(this.touchEvent, this);
+                }
             }
-            //if(level >= res.infoCoopItem[idx].level3) {
-            //    maxslot = 3;
-            //} else if (res.infoCoopItem[idx].level2 <= level && level < res.infoCoopItem[idx].level3) {
-            //    maxslot = 2;
-            //} else if (res.infoCoopItem[idx].level <= level && level < res.infoCoopItem[idx].level2) {
-            //    maxslot = 1;
-            //}
 
             slot = new cc.LabelBMFont(curslot + "/" + maxslot, "fonts/outline/30.fnt");
             slot.x = box.width / 3 * 2;
@@ -138,11 +148,6 @@ var LodgeTable = cc.Layer.extend({
             price.setAnchorPoint(1, -0.5);
             price.tag = 5;
 
-            //bug k chặn đc sự kiện touch
-            //cc.log("If Level unlock " + res.infoCoopItem[idx].level[0]);
-            //if (level >= res.infoCoopItem[idx].level[0] || curslot < maxslot) {
-            //    image.addTouchEventListener(this.touchEvent, this);
-            //}
 
             cell.addChild(imgBg);
             cell.addChild(goldImg);
@@ -154,58 +159,50 @@ var LodgeTable = cc.Layer.extend({
             cell.addChild(slot);
 
             // cc.log("create cell container " + idx);
-        } else {
-            id = cell.getChildByTag(0);
-            id.setString(res.infoCoopItem[idx].id);
-
-            image = cell.getChildByTag(1);
-            //image.setTexture(res.infoCoopItem[idx].nameIconShop);
-            image.loadTextureNormal(res.infoCoopItem[idx].nameIconShop);
-
-            title = cell.getChildByTag(2);
-            title.setString(res.infoCoopItem[idx].title);
-
-            detail = cell.getChildByTag(3);
-            detail.setString(res.infoCoopItem[idx].detail);
-
-            slot = cell.getChildByTag(4);
-            if(res.infoCoopItem[idx].id == "field"){
-                curslot = user.getAsset().getFieldList().length;
-                maxslot = GameShopController.instance.getMaxField();
-                cc.log("Field slot " + curslot + " " + maxslot);
-                if (curslot < maxslot) {
-                    image.addTouchEventListener(this.touchEvent, this);
-                }
-            } else {
-                //curslot = GameShopController.instance.getNumberLodge(res.infoCoopItem[idx].id);
-                //if(level >= res.infoCoopItem[idx].level3) {
-                //    maxslot = 3;
-                //} else if (res.infoCoopItem[idx].level2 <= level && level < res.infoCoopItem[idx].level3) {
-                //    maxslot = 2;
-                //} else if (res.infoCoopItem[idx].level <= level && level < res.infoCoopItem[idx].level2) {
-                //    maxslot = 1;
-                //}
-                var length = res.infoCoopItem[idx].level.length;
-                if(level >= res.infoCoopItem[idx].level[length - 1]) {
-                    maxslot = length;
-                } else {
-                    for(var i = 0; i < length - 1; i++) {
-                        if (res.infoCoopItem[idx].level[0] <= level && level < res.infoCoopItem[idx].level[length - 1]) {
-                            maxslot = i + 1;
-                        }
-                    }
-                }
-                cc.log("Level User " + level);
-                //cc.log("Level unlock " + res.infoCoopItem[idx].level[0]);
-                if (level >= res.infoCoopItem[idx].level[0] || curslot < maxslot) {
-                    image.addTouchEventListener(this.touchEvent, this);
-                }
-            }
-            slot.setString(curslot + "/" + maxslot);
-
-            price = cell.getChildByTag(5);
-            price.setString(res.infoCoopItem[idx].price);
-        }
+        //} else {
+        //    id = cell.getChildByTag(0);
+        //    id.setString(res.infoCoopItem[idx].id);
+        //
+        //    image = cell.getChildByTag(1);
+        //    //image.setTexture(res.infoCoopItem[idx].nameIconShop);
+        //    image.loadTextureNormal(res.infoCoopItem[idx].nameIconShop);
+        //
+        //    title = cell.getChildByTag(2);
+        //    title.setString(res.infoCoopItem[idx].title);
+        //
+        //    detail = cell.getChildByTag(3);
+        //    detail.setString(res.infoCoopItem[idx].detail);
+        //
+        //    slot = cell.getChildByTag(4);
+        //    if(res.infoCoopItem[idx].id == "field"){
+        //        curslot = user.getAsset().getFieldList().length;
+        //        maxslot = GameShopController.instance.getMaxField();
+        //        cc.log("Field slot " + curslot + " " + maxslot);
+        //        if (curslot < maxslot) {
+        //            image.addTouchEventListener(this.touchEvent, this);
+        //        }
+        //    } else {
+        //        var length = res.infoCoopItem[idx].level.length;
+        //        if(level >= res.infoCoopItem[idx].level[length - 1]) {
+        //            maxslot = length;
+        //        } else {
+        //            for(var i = 0; i < length - 1; i++) {
+        //                if (res.infoCoopItem[idx].level[i] <= level && level < res.infoCoopItem[idx].level[i + 1]) {
+        //                    maxslot = i + 1;
+        //                }
+        //            }
+        //        }
+        //        cc.log("Level User " + level);
+        //        //cc.log("Level unlock " + res.infoCoopItem[idx].level[0]);
+        //        if (level >= res.infoCoopItem[idx].level[0] && curslot < maxslot) {
+        //            image.addTouchEventListener(this.touchEvent, this);
+        //        }
+        //    }
+        //    slot.setString(curslot + "/" + maxslot);
+        //
+        //    price = cell.getChildByTag(5);
+        //    price.setString(res.infoCoopItem[idx].price);
+        //}
 
         return cell;
     },
@@ -315,6 +312,7 @@ var LodgeTable = cc.Layer.extend({
                 }
                 this._sprite = null;
                 GSLayer.instance.show();
+                this._tableView.reloadData();
                 this._isHide = false;
                 // cc.log("Touch Canceled");
                 break;

@@ -127,7 +127,7 @@ public class UserHandler extends BaseClientRequestHandler {
 //            System.out.println("id" + nObj.id + " type" + nObj.type);
         }
         Asset asset = new Asset(foodStorage, warehouse, null, natureThingList);
-        for (int i = 1; i < 7; i++){
+        for (int i = 1; i < 5; i++){
             Field field = new Field(0, 18, 10 + i);
             asset.addField(field);
         }

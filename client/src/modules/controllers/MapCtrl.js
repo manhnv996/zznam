@@ -29,7 +29,7 @@ var MapCtrl = cc.Class.extend({
                 debugUser[k] = user[k];
             }
         }
-        cc.log("User", debugUser);
+        //cc.log("User", debugUser);
         this.renderStorages();
         this.renderPlants();
         this.renderNaturalThings();
