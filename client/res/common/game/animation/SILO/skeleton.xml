@@ -1,0 +1,55 @@
+<dragonBones name="SILO" frameRate="24" version="2.3">
+ <armature name="SILO">
+  <bone name="Layer 1">
+   <transform x="-8" y="128" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="Layer 2">
+   <transform x="-11.5" y="206" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <skin name="default">
+   <slot name="Layer 1" parent="Layer 1" z="0">
+    <display name="silo2/Layer 188 copy 3" type="image">
+     <transform x="-266" y="-142" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Layer 2" parent="Layer 2" z="1">
+    <display name="silo2/Levels 1" type="image">
+     <transform x="-125.5" y="-492" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+  </skin>
+  <animation name="idle" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="Layer 1" scale="1" offset="0">
+    <frame z="0" duration="1">
+     <transform x="-8" y="128" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="1" tweenEasing="0" duration="1">
+     <transform x="-11.5" y="206" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="selected" fadeInTime="0" duration="15" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="Layer 1" scale="1" offset="0">
+    <frame z="0" duration="15">
+     <transform x="-8" y="128" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="1" tweenEasing="0" duration="4">
+     <transform x="-11.5" y="206" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="1" tweenEasing="0" duration="4">
+     <transform x="-11.5" y="177.95" skX="0" skY="0" scX="1" scY="1.09" pX="0" pY="0"/>
+    </frame>
+    <frame z="1" tweenEasing="0" duration="6">
+     <transform x="-11.5" y="204.05" skX="0" skY="0" scX="1" scY="0.89" pX="0" pY="-0.05"/>
+    </frame>
+    <frame z="1" duration="1">
+     <transform x="-11.5" y="206" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+ </armature>
+</dragonBones>

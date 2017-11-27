@@ -5,7 +5,7 @@ var MailBoxSprite = MapBlockSprite.extend({
 			MapConfigs.MailBox.size.height,
 			x, y, MapItemEnum.MAIL_BOX
 		);
-		this.registerTouchEvents();
+		this.registerTouchEvents(true);
 	},
 
 	onClick: function() {

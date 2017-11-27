@@ -2,6 +2,7 @@
 var StorageItem = cc.Class.extend({
 
     typeItem: null,
+    //resourceItem: null,
     quantity: 0,
 
     ctor: function (typeProduct, quantity) {

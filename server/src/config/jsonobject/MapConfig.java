@@ -1,5 +1,6 @@
 package config.jsonobject;
 //
+import config.jsonobject.map.FieldObject;
 import config.jsonobject.map.InitObject;
 import config.jsonobject.map.NhaChinhObject;
 import config.jsonobject.map.TruckOrderObject;
@@ -8,6 +9,8 @@ import config.jsonobject.map.RoadShopObject;
 import config.jsonobject.map.SiloObject;
 import config.jsonobject.map.WarehouseObject;
 import config.jsonobject.map.RoadObject;
+import config.jsonobject.map.SmallNatureThingObject;
+import config.jsonobject.map.BigNatureThingObject;
 
 
 public class MapConfig {
@@ -20,4 +23,7 @@ public class MapConfig {
     public SiloObject Silo;
     public WarehouseObject Warehouse;
     public RoadObject Road;
+    public FieldObject Field;
+    public BigNatureThingObject BigNatureThing;
+    public SmallNatureThingObject SmallNatureThing;
 }

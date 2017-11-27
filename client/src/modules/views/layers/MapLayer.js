@@ -3,7 +3,7 @@ var lstScale = 1.0;
 
 var MapLayer = (function() {
 	var SCALE_RATIO = 0.05;
-	var __DEBUG = true;
+	var __DEBUG = false;
 
 	return cc.Layer.extend({
 		LEFT_LIMIT: null,
@@ -184,6 +184,9 @@ var MapLayer = (function() {
 					MapConfigs.Song.endX,
 					i * riverSide2BlockSizeY
 				));
+				if (i === 0) {
+					sprite.setLocalZOrder(2);
+				}
 				this.addChild(sprite);
 			}
 
@@ -488,8 +491,9 @@ var MapLayer = (function() {
 					var position = MapValues.screenPositionToLogic(mousePos.x, mousePos.y);
 					position.x = Math.floor(position.x);
 					position.y = Math.floor(position.y);
-					cc.log('Map Clicked', position, MapCtrl.instance.checkValidPosition(position));
-					
+					if (__DEBUG) {
+						cc.log('Map Clicked', position);
+					}
 //
 					PopupLayer.instance.disablePopup();
 					PopupLayer.instance.disableProgressBarInprogress();

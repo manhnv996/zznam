@@ -14,17 +14,24 @@ import cmd.receive.user.RequestUserInfo;
 import cmd.send.demo.ResponseGameInfo;
 import cmd.send.demo.ResponseRequestUserInfo;
 
+import config.enums.ProductResource;
 import config.enums.ProductType;
 import config.enums.StorageType;
+
+import config.jsonobject.map.NaturalObject;
 
 import config.utils.ConfigContainer;
 
 import extension.FresherExtension;
 
+import java.util.ArrayList;
 import java.util.Date;
+
+import java.util.List;
 
 import model.Asset;
 import model.Field;
+import model.NatureThing;
 import model.Storage;
 import model.ZPUserInfo;
 
@@ -87,7 +94,7 @@ public class UserHandler extends BaseClientRequestHandler {
             send(new ResponseGameInfo(userInfo), user);
             
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
 
     }
@@ -111,17 +118,26 @@ public class UserHandler extends BaseClientRequestHandler {
         foodStorage.addItem(ProductType.CROP_CARROT, 5);
         foodStorage.addItem(ProductType.CROP_SOYBEAN, 10);
         
-        Asset asset = new Asset(foodStorage, warehouse, null);
+        // Load natural thingList
+        List<NatureThing> natureThingList = new ArrayList<>();
+        for (int i = 0; i < ConfigContainer.defaultNatural.size(); i++) {
+            NaturalObject nObj = ConfigContainer.defaultNatural.get(i);
+            NatureThing nt = new NatureThing(nObj.id, nObj.type, nObj.x, nObj.y);
+            natureThingList.add(nt);
+//            System.out.println("id" + nObj.id + " type" + nObj.type);
+        }
+        Asset asset = new Asset(foodStorage, warehouse, null, natureThingList);
         for (int i = 1; i < 7; i++){
             Field field = new Field(0, 18, 10 + i);
             asset.addField(field);
         }
+        System.out.println("Field number" + asset.getFieldList().size());
         asset.getFieldById(1).setPlantType(ProductType.CROP_CARROT);
         asset.getFieldById(1).setPlantedTime(new Date().getTime());
         
         ZPUserInfo userInfo = new ZPUserInfo(userId, asset);
         
-        for (int i = 0; i < 6; i++){
+        for (int i = 0; i < 3; i++){
             System.out.println("field" + asset.getFieldById(i).getFieldId() + ", " + asset.getFieldById(i).getPlantType() + ", " + asset.getFieldById(i).getPlantedTime());
         }
         

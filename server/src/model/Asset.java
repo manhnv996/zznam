@@ -5,13 +5,14 @@ import java.util.List;
 
 import util.database.DataModel;
 
-public class Asset extends DataModel {
+public class Asset {
     
     private Storage foodStorage;
     private Storage warehouse;
     private List<Field> fieldList;
+    private List<NatureThing> natureThingList;
     
-    public Asset(Storage foodStorage, Storage warehouse, List<Field> fieldList) {
+    public Asset(Storage foodStorage, Storage warehouse, List<Field> fieldList, List<NatureThing> natureThingList) {
         super();
         
         this.foodStorage = foodStorage;
@@ -20,6 +21,11 @@ public class Asset extends DataModel {
         this.fieldList = new ArrayList<Field>();
         if (fieldList != null){
             this.fieldList = fieldList;
+        }
+        if (natureThingList == null) {
+            this.natureThingList = new ArrayList<>();
+        } else {
+            this.natureThingList = natureThingList;
         }
     }
 

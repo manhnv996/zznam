@@ -5,6 +5,7 @@ var MainScene = cc.Scene.extend({
 		// Init controllers
 		PlantCtrl.instance = new PlantCtrl();
 		GameShopController.instance = new GameShopController();
+		StorageCtrl.instance = new StorageCtrl();
 
 		// Init layers
 		MapLayer.instance = new MapLayer();
@@ -29,6 +30,11 @@ var MainScene = cc.Scene.extend({
 	onGettedData: function() {
 		GSLayer.instance = new GSLayer();
 		this.addChild(GSLayer.instance);
+
+		StorageLayer.instance = new StorageLayer();
+		this.addChild(StorageLayer.instance);
+		// StorageLayer.instance.initStorage(user.getAsset().getFoodStorage());
+		//StorageLayer.instance.getMultiLayer().switchTo(1);
 
 		NotifyLayer.instance = new NotifyLayer();
 		this.addChild(NotifyLayer.instance);

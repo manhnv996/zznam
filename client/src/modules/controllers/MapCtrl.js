@@ -22,7 +22,6 @@ var MapCtrl = cc.Class.extend({
         // }
         cc.log("MapCtrl inited");
         this.map = user.map; // Pass to user map
-        this.renderNaturalThings();
 
         var debugUser = {} // Not show map
         for (var k in user) {
@@ -33,6 +32,7 @@ var MapCtrl = cc.Class.extend({
         cc.log("User", debugUser);
         this.renderStorages();
         this.renderPlants();
+        this.renderNaturalThings();
         // cc.log("Silo", user.asset.foodStorage);
         // MapLayer.instance.addChild(new SiloSprite(20, 20));
         // MapLayer.instance.addChild(new WareHouseSprite(18, 24));
@@ -46,8 +46,10 @@ var MapCtrl = cc.Class.extend({
         var warehouseSprite = new WareHouseSprite(warehouse.coordinate.x, warehouse.coordinate.y);
         MapLayer.instance.addChild(siloSprite);
         MapLayer.instance.addChild(warehouseSprite);
-        this.addSpriteAlias(siloSprite);
-        this.addSpriteAlias(warehouseSprite);
+
+        // Add from server
+        // this.addSpriteAlias(siloSprite);
+        // this.addSpriteAlias(warehouseSprite);
     },
 
     renderUserInfo: function() {
@@ -111,7 +113,9 @@ var MapCtrl = cc.Class.extend({
                 fieldSprite.plantAnimation(field.plantType);
             }
             MapLayer.instance.fieldList.push(fieldSprite);
-            this.addSpriteAlias(fieldSprite);
+            
+            // Add from server
+            // this.addSpriteAlias(fieldSprite);
         }
     },
 
@@ -173,7 +177,7 @@ var MapCtrl = cc.Class.extend({
 
     // Check valid of sprite
     checkValidBlockSprite: function(sprite) {
-        this.checkValidBlock(sprite.lx, sprite.ly, sprite.blockSizeX, sprite.blockSizeY);
+        return this.checkValidBlock(sprite.lx, sprite.ly, sprite.blockSizeX, sprite.blockSizeY);
     },
 
     removeMapAlias: function(x, y, width, height) {
@@ -208,29 +212,75 @@ var MapCtrl = cc.Class.extend({
         );
     },
 
+    /*
+    var gr = [];
+    var gr.Cayrung = Object.extend
+    type = Cayrung
+    new gr[type]();
+    type -> ten class
+    var l = {};
+    l.forest_swamp = VungnuocSprite;
+    */
+
     renderNaturalThings: function() {
-        var configs = cc.loader.getRes("config/mapInit.json");
-        for (var k in configs) {
-            var item = configs[k];
-            switch (item.id) {
-                case "forest_big_tree_1":
-                    break;
-                case "forest_small_tree_1":
-                    break;
-                case "forest_big_stone_1":
-                    break;
-                case "forest_small_stone_1":
-                    break;
-                case "forest_big_tree_2":
-                    break;
-                case "forest_small_tree_2":
-                    break;
-                case "forest_swamp":
-                    break;
-                default:
-                    return cc.log("Unhandled natural", item.id);
+        
+        for (var i = 0; i < user.asset.natureThingList.length; i++) {
+            var x = user.asset.natureThingList[i].x;
+            var y = user.asset.natureThingList[i].y;
+            var id = user.asset.natureThingList[i].id;
+            var typeName = user.asset.natureThingList[i].type;
+            if (typeName === 'forest_swamp') {
+                var sprite = new VungnuocSprite(x, y, id);
+                MapLayer.instance.addChild(sprite);
+            } else if (typeName === 'forest_big_stone_1') {
+                var sprite = new DatoSprite(x, y, id);
+                MapLayer.instance.addChild(sprite);
+            } else if (typeName === 'forest_small_stone_1' ) {
+                cc.log("Danho", x, y);
+                var sprite = new DanhoSprite(x, y, id);
+                MapLayer.instance.addChild(sprite);
+            } else {
+                // Trees
+                var types = {
+                    forest_small_tree_1: 1,
+                    forest_big_tree_1: 2,
+                    forest_big_tree_2: 3,
+                    forest_small_tree_2: 4
+                };
+                var type = types[user.asset.natureThingList[i].type];
+                if (type) {
+                    var sprite = new CayRungSprite(x, y, type, id);
+                    MapLayer.instance.addChild(sprite);
+                } else {
+                    cc.log("missing", user.asset.natureThingList[i].type);
+                }
             }
         }
+
+        // var sprite = new DanhoSprite(0, 2, 1);
+        // MapLayer.instance.addChild(sprite);
+        // var configs = cc.loader.getRes("config/mapInit.json");
+        // for (var k in configs) {
+        //     var item = configs[k];
+        //     switch (item.id) {
+        //         case "forest_big_tree_1":
+        //             break;
+        //         case "forest_small_tree_1":
+        //             break;
+        //         case "forest_big_stone_1":
+        //             break;
+        //         case "forest_small_stone_1":
+        //             break;
+        //         case "forest_big_tree_2":
+        //             break;
+        //         case "forest_small_tree_2":
+        //             break;
+        //         case "forest_swamp":
+        //             break;
+        //         default:
+        //             return cc.log("Unhandled natural", item.id);
+        //     }
+        // }
     }
 });
 
