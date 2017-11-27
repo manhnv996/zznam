@@ -1,6 +1,4 @@
-lang_auto_text    ="Thử hiển thị localize text trên gui"
-lang_hello    ="Xin chào!"
-HELLO    ="Hello \n Guys Sơn hâm he he he é é "
+﻿HELLO    ="Hello \n Guys Sơn hâm he he he é é "
 HELLO2    ="===Hello \n Guys"
 NAME_SILO    ="Kho Lương Thực : "
 NAME_WARE_HOUSE    ="Nhà Kho :"

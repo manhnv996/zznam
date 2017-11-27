@@ -102,6 +102,7 @@ cc.game.onStart = function () {
         testnetwork.connector = new testnetwork.Connector(gv.gameClient);
 
 		//cc.director.runScene(new MainScene());
+        fr.Localization.getInstance().setCurrentLanguage('vi');
         cc.director.runScene(new PreloaderScene());
 
         //MainScene.instance = new MainScene();

@@ -18,7 +18,7 @@ var ProductResource = {
     TOOL_SCREW: ["Đinh Vít", "Để nâng cấp Kho Lương Thực", "", "Art/Tool/dinh.png", 10],
     TOOL_WOODPANEL: ["Ván Đôi", "Để nâng cấp Kho Lương Thực", "", "Art/Tool/go2.png", 15],
 
-    TOOL_BOLT: ["Đinh Ốc", "Để nâng cấp Nhà Kho", "", "Art/Tool/dinh2.png", 5],
-    TOOL_PLANK: ["Ván dài", "Để nâng cấp Nhà Kho", "", "Art/Tool/go1.png", 10],
-    TOOL_DUCTTAPE: ["Băng Keo", "Để nâng cấp Nhà Kho", "", "Art/Tool/bangdinh.png", 15]
+    TOOL_BOLT: ["Đinh Ốc", "Để nâng cấp Nhà Kho", "", "Art/Tool/dinh2.png", 7],
+    TOOL_PLANK: ["Ván dài", "Để nâng cấp Nhà Kho", "", "Art/Tool/go1.png", 9],
+    TOOL_DUCTTAPE: ["Băng Keo", "Để nâng cấp Nhà Kho", "", "Art/Tool/bangdinh.png", 11]
 };

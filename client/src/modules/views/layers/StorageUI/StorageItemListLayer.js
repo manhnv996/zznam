@@ -28,8 +28,8 @@ var StorageItemListLayer = cc.Layer.extend({
         listItem.reloadData();
 
         var layout = ccui.Layout();
-        layout.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
-        layout.setBackGroundColor(cc.color.GREEN);
+        //layout.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
+        //layout.setBackGroundColor(cc.color.GREEN);
         layout.setContentSize(cc.winSize.width / 2, cc.winSize.height / 5 * 2);
         layout.x = 0;
         layout.y = cc.winSize.height / 10;

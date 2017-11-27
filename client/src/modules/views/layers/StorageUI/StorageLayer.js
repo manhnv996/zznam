@@ -51,7 +51,7 @@ var StorageLayer = cc.Layer.extend({
 
         var total = StorageCtrl.instance.getTotalItems(storage.getItemList());
         var capacity = storage.getCapacity();
-        cc.log("FoodStorage " + (type == StorageTypes.FOOD_STORAGE));
+        //cc.log("FoodStorage " + (type == StorageTypes.FOOD_STORAGE));
         if (type == StorageTypes.FOOD_STORAGE) {
             name.setString("Kho lương thực : " + total + "/" + capacity);
             upgradeLayer = new UpgradeSiloLayer(storage.getLevel());
@@ -101,8 +101,9 @@ var StorageLayer = cc.Layer.extend({
         this.addChild(this._layoutStorage);
         //this.setScale((cc.winSize.height - 20) / this._layoutStorage.height);
         var scale = (cc.winSize.height - 20) / this._layoutStorage.height;
-        var scaleTo = cc.scaleTo(0.05, scale, scale);
-        this._layoutStorage.runAction(scaleTo);
+        var scaleTo1 = cc.scaleTo(0.07, scale + 0.1, scale + 0.1);
+        var scaleTo2 = cc.scaleTo(0.12, scale, scale);
+        this._layoutStorage.runAction(cc.sequence(scaleTo1, scaleTo2));
     },
 
     //getMultiLayer: function () {

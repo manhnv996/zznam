@@ -88,7 +88,7 @@ var NotifyLayer = cc.Layer.extend({
     //},
 
     notifyCantPut: function (x, y) {
-        var label = new cc.LabelBMFont("Không thể đặt", res.FONT_OUTLINE_20);
+        var label = new cc.LabelBMFont(fr.Localization.text("Text_can_not_place"), res.FONT_OUTLINE_20);
         label.x = x;
         label.y = y;
         this.addChild(label);
