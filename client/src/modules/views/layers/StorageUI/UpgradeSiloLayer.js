@@ -42,10 +42,10 @@ var UpgradeSiloLayer = cc.Layer.extend({
 
         //cc.log("Product Type : " + ProductTypes.TOOL_NAIL);
         var numberItem = 0;
-        var numberNeed = res.upgradeSilo[level + 1].tool_nail;
+        var numberNeed = res.upgradeSilo[this._level + 1].tool_nail;
         var numberRuby = 0;
-        if (user.getAsset().getFoodStorage().getItem(ProductTypes.TOOL_NAIL)){
-            numberItem = user.getAsset().getFoodStorage().getItem(ProductTypes.TOOL_NAIL).quantity;
+        if (user.getAsset().getWarehouse().getItem(ProductTypes.TOOL_NAIL)){
+            numberItem = user.getAsset().getWarehouse().getItem(ProductTypes.TOOL_NAIL).quantity;
         }
 
         var label = new cc.LabelBMFont(numberItem + "/" + numberNeed, res.FONT_OUTLINE_20);
@@ -91,8 +91,6 @@ var UpgradeSiloLayer = cc.Layer.extend({
         numberRubyLabel.tag = 11;
         layoutBtn.addChild(numberRubyLabel);
 
-
-
         layout.addChild(sprite);
         layout.addChild(label);
         layout.addChild(layoutBtn);
@@ -111,10 +109,10 @@ var UpgradeSiloLayer = cc.Layer.extend({
         sprite.y = layout.height / 4 * 3;
 
         numberItem = 0;
-        numberNeed = res.upgradeSilo[level + 1].tool_screw;
+        numberNeed = res.upgradeSilo[this._level + 1].tool_screw;
         numberRuby = 0;
-        if (user.getAsset().getFoodStorage().getItem(ProductTypes.TOOL_SCREW)){
-            numberItem = user.getAsset().getFoodStorage().getItem(ProductTypes.TOOL_SCREW).quantity;
+        if (user.getAsset().getWarehouse().getItem(ProductTypes.TOOL_SCREW)){
+            numberItem = user.getAsset().getWarehouse().getItem(ProductTypes.TOOL_SCREW).quantity;
         }
 
         label = new cc.LabelBMFont(numberItem + "/" + numberNeed, res.FONT_OUTLINE_20);
@@ -177,10 +175,10 @@ var UpgradeSiloLayer = cc.Layer.extend({
         sprite.y = layout.height / 4 * 3;
 
         numberItem = 0;
-        numberNeed = res.upgradeSilo[level + 1].tool_woodPanel;
+        numberNeed = res.upgradeSilo[this._level + 1].tool_woodPanel;
         numberRuby = 0;
-        if (user.getAsset().getFoodStorage().getItem(ProductTypes.TOOL_WOODPANEL)){
-            numberItem = user.getAsset().getFoodStorage().getItem(ProductTypes.TOOL_WOODPANEL).quantity;
+        if (user.getAsset().getWarehouse().getItem(ProductTypes.TOOL_WOODPANEL)){
+            numberItem = user.getAsset().getWarehouse().getItem(ProductTypes.TOOL_WOODPANEL).quantity;
         }
 
         label = new cc.LabelBMFont(numberItem + "/" + numberNeed, res.FONT_OUTLINE_20);
@@ -268,36 +266,48 @@ var UpgradeSiloLayer = cc.Layer.extend({
     touchBuyTool: function (sender, type) {
         switch (type) {
             case ccui.Widget.TOUCH_ENDED:
+            case ccui.Widget.TOUCH_CANCELED:
                 cc.log("Touch Buy Item");
                 var ruby = parseInt(sender.parent.getChildByTag(sender.tag + 10).getString());
-                if (ruby > user.getRuby) {
+                if (ruby > user.getRuby()) {
                     //Notify
                 } else {
                     user.reduceRuby(ruby);
                     sender.parent.setVisible(false);
-                    var label = sender.parent.getChildByTag(sender.tag + 20);
+                    var label = sender.parent.parent.getChildByTag(sender.tag + 20);
+                    //cc.log("Label " + label.getString());
                     var productType;
+                    var numberAdd;
                     switch (sender.tag) {
                         case 1: //nail
                             cc.log("Buy Nail " + ruby);
-                            label.setString(res.upgradeSilo[level + 1].tool_nail + "/" + res.upgradeSilo[level + 1].tool_nail);
+                            label.setString(res.upgradeSilo[this._level + 1].tool_nail + "/" + res.upgradeSilo[this._level + 1].tool_nail);
+                            productType = ProductTypes.TOOL_NAIL;
+                            numberAdd = ruby / ProductResource.TOOL_NAIL[4];
                             this._check_nail = true;
                             break;
                         case 2: //screw
                             cc.log("Buy Screw" + ruby);
-                            label.setString(res.upgradeSilo[level + 1].tool_screw + "/" + res.upgradeSilo[level + 1].tool_screw);
+                            label.setString(res.upgradeSilo[this._level + 1].tool_screw + "/" + res.upgradeSilo[this._level + 1].tool_screw);
+                            productType = ProductTypes.TOOL_SCREW;
+                            numberAdd = ruby / ProductResource.TOOL_SCREW[4];
                             this._check_screw = true;
                             break;
                         case 3: //woodpanel
                             cc.log("Buy Woodpanel" + ruby);
-                            label.setString(res.upgradeSilo[level + 1].tool_woodPanel + "/" + res.upgradeSilo[level + 1].tool_woodPanel);
+                            label.setString(res.upgradeSilo[this._level + 1].tool_woodPanel + "/" + res.upgradeSilo[this._level + 1].tool_woodPanel);
+                            productType = ProductTypes.TOOL_WOODPANEL;
+                            numberAdd = ruby / ProductResource.TOOL_SCREW[4];
                             this._check_woodpanel = true;
                             break
                     }
+                    //add Item to Storage
+                    //cc.log("product type " + productType);
+                    //cc.log("number add " + numberAdd);
+                    user.getAsset().getWarehouse().addItem(productType, numberAdd);
+                    //send server
+                    testnetwork.connector.sendBuyTool(productType, numberAdd);
                 }
-
-                break;
-            case ccui.Widget.TOUCH_CANCELED:
                 break;
         }
     },
@@ -305,8 +315,6 @@ var UpgradeSiloLayer = cc.Layer.extend({
     touchBackBtn: function (sender, type){
         switch (type) {
             case ccui.Widget.TOUCH_ENDED:
-                //this.parent.switchTo(0);
-                //break;
             case ccui.Widget.TOUCH_CANCELED:
                 this.parent.switchTo(0);
                 break;

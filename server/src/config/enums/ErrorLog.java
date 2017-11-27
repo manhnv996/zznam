@@ -25,7 +25,11 @@ public enum ErrorLog {
     ERROR_BUY_MAP_OBJECT_COLLISION((short) 70),
     ERROR_BUY_GOLD_NOT_ENOUGH((short) 71),
     ERROR_BUY_CANT_ADD_FIELD((short) 72),
-    ERROR_BUY_GOLD_NOT_REDUCE((short) 73);
+    ERROR_BUY_GOLD_NOT_REDUCE((short) 73),
+    
+    ERROR_BUY_TOOL_RUBY_NOT_ENOUGH((short) 80),
+    ERROR_BUY_TOOL_RUBY_NOT_REDUCE((short) 81),
+    ERROR_CANT_ADD_TOOL((short) 82);
                                     
 
 

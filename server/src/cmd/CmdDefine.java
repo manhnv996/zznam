@@ -42,6 +42,8 @@ public class CmdDefine {
     
     public static final short BUY_MAP_OBJECT_REQUEST = 7001;
     
+    public static final short BUY_TOOL_REQUEST = 8001;
+    
     public static final short GET_FRIENDS = 3001;
     public static final short FRIEND_SEND_MESSAGE = 3002;
     public static final short MESSAGE_GET_BOX = 3003;

@@ -23,6 +23,7 @@
    <hash n="oracle.ide.model.ResourcePaths">
       <hash n="resourcesContentSet">
          <list n="pattern-filters">
+            <string v="+src/config/json/tool.json"/>
             <string v="+src/config/json/shopCoopconfig.json"/>
             <string v="+src/config/json/mapInin.json"/>
             <string v="+src/config/json/mapconfig.json"/>

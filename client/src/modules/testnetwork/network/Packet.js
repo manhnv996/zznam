@@ -33,6 +33,9 @@ gv.CMD.RESPONSE_MOVE = 6100;
 //Shop
 gv.CMD.BUY_MAP_OBJECT_REQUEST = 7001;
 
+//Storage
+gv.CMD.BUY_TOOL_REQUEST = 8001;
+
 testnetwork = testnetwork||{};
 testnetwork.packetMap = {};
 
@@ -223,6 +226,20 @@ CmdSendBuyMapObjectRequest = fr.OutPacket.extend({
         this.putString(type);
         this.putInt(x);
         this.putInt(y);
+        this.updateSize();
+    }
+});
+
+CmdSendBuyToolRequest = fr.OutPacket.extend({
+    ctor: function () {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.BUY_TOOL_REQUEST );
+    },
+    pack: function (productType, number) {
+        this.packHeader();
+        this.putString(productType);
+        this.putInt(number);
         this.updateSize();
     }
 })

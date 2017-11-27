@@ -91,7 +91,7 @@ public class GameShopBuyHandler extends BaseClientRequestHandler{
                         if (userInfo.getAsset().addField(fieldModel)) {
                             if (userInfo.reduceGold(price)) {
                                 System.out.println("OK Buy");
-                                send(new ResponseErrorCode((short) 0), user);
+                                send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
                             } else {
                                 send(new ResponseErrorCode(ErrorLog.ERROR_BUY_GOLD_NOT_REDUCE.getValue()), user);
                                 return;
