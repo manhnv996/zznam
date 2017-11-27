@@ -39,6 +39,7 @@ var AnimationSprite = MapBlockSprite.extend({
 			width: this.__boundingBox.width,
 			height: this.__boundingBox.height
 		};
+		// return this.content.getBoundingBox();
 	},
 
 	// Override

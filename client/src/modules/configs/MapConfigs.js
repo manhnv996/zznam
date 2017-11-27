@@ -162,14 +162,14 @@ MapConfigs.Warehouse = {
 	}
 }
 
-MapConfigs.VungNuoc = {
+MapConfigs.BigNatureThing = {
 	size: {
 		width: 2,
 		height: 2
 	}
 }
 
-MapConfigs.Tree = {
+MapConfigs.SmallNatureThing = {
 	size: {
 		width: 1,
 		height: 1

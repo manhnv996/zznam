@@ -102,13 +102,16 @@ cc.game.onStart = function () {
         testnetwork.connector = new testnetwork.Connector(gv.gameClient);
 
 		//cc.director.runScene(new MainScene());
+        fr.Localization.getInstance().setCurrentLanguage('vi');
+
+        cc.log("Preload some animations");
+        fr.preloadAnimation(['SILO', 'Barn', 'Carot', 'DauHL', 'Cayrung',
+                'Dato', 'Vungnuoc1', 'Danho']);
         PreloaderScene.instance = new PreloaderScene();
         cc.director.runScene(PreloaderScene.instance);
 
         //MainScene.instance = new MainScene();
 		//cc.director.runScene(MainScene.instance);
-
-
     }, this);
 };
 cc.game.run();

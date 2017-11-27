@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import config.enums.MapItemEnum;
 
+import config.jsonobject.ShopCoopConfig;
 import config.jsonobject.map.NaturalObject;
 
 import java.util.ArrayList;
@@ -19,11 +20,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+
 public class ConfigContainer {
     public static MapConfig mapConfig;
     private static Gson gson = new Gson();
     public static int[][] defaultMap;
     public static List<NaturalObject> defaultNatural;
+    
+    public static ShopCoopConfig[] shopCoopConfig;
+    
     
     public static void init() {
         // Load map config
@@ -112,6 +117,21 @@ public class ConfigContainer {
             }
 //            System.out.println("[Value] " + jobj.get("id").getAsString());
         }
+        try {
+            shopCoopConfig = gson.fromJson(new FileReader("src/config/json/shopCoopconfig.json"), ShopCoopConfig[].class);
+            System.out.println(shopCoopConfig[0].type);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();    
+        }
+    }
+    
+    public static int getCoopPrice (String type) {
+        for (int i = 0; i < shopCoopConfig.length; i++) {
+            if (shopCoopConfig[i].type.equals(type)) {
+                return shopCoopConfig[i].price;
+            }
+        }
+        return 0;
     }
     
     public static String toJSON(Object obj) {

@@ -12,7 +12,6 @@ import cmd.CmdDefine;
 import cmd.receive.user.RequestUserInfo;
 
 import cmd.send.demo.ResponseGameInfo;
-import cmd.send.demo.ResponseRequestUserInfo;
 
 import config.enums.ProductResource;
 import config.enums.ProductType;
@@ -108,10 +107,10 @@ public class UserHandler extends BaseClientRequestHandler {
 
     public static ZPUserInfo createUser(int userId){
         
-        Storage foodStorage = new Storage(StorageType.FOOD_STORAGE, 30, 
+        Storage foodStorage = new Storage(StorageType.FOOD_STORAGE, 50, 
                 ConfigContainer.mapConfig.Silo.position.x,
                 ConfigContainer.mapConfig.Silo.position.y);
-        Storage warehouse = new Storage(StorageType.WAREHOUSE, 30, 
+        Storage warehouse = new Storage(StorageType.WAREHOUSE, 50, 
                 ConfigContainer.mapConfig.Warehouse.position.x,
                 ConfigContainer.mapConfig.Warehouse.position.y);
 
@@ -127,7 +126,8 @@ public class UserHandler extends BaseClientRequestHandler {
 //            System.out.println("id" + nObj.id + " type" + nObj.type);
         }
         Asset asset = new Asset(foodStorage, warehouse, null, natureThingList);
-        for (int i = 1; i < 7; i++){
+        
+        for (int i = 1; i < 5; i++){
             Field field = new Field(0, 18, 10 + i);
             asset.addField(field);
         }

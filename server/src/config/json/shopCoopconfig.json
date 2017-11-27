@@ -1,0 +1,26 @@
+[
+  {
+    "type": "field",
+    "price": 1
+  },
+  {
+    "type": "chicken_habitat",
+    "price": 5
+  },
+  {
+    "type": "cow_habitat",
+    "price": 20
+  },
+  {
+    "type": "pig_habitat",
+    "price": 150
+  },
+  {
+    "type": "sheep_habitat",
+    "price": 300
+  },
+  {
+    "type": "goat_habitat",
+    "price": 1000
+  }
+]

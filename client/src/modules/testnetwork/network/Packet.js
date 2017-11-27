@@ -30,6 +30,9 @@ gv.CMD.MOVE_FIELD = 6001;
 gv.CMD.MOVE_STORAGE = 6002;
 gv.CMD.RESPONSE_MOVE = 6100;
 
+//Shop
+gv.CMD.BUY_MAP_OBJECT_REQUEST = 7001;
+
 testnetwork = testnetwork||{};
 testnetwork.packetMap = {};
 
@@ -202,6 +205,22 @@ CmdSendMoveField = fr.OutPacket.extend({
     pack: function(id, x, y) {
         this.packHeader();
         this.putInt(id);
+        this.putInt(x);
+        this.putInt(y);
+        this.updateSize();
+    }
+});
+
+CmdSendBuyMapObjectRequest = fr.OutPacket.extend({
+    ctor: function () {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.BUY_MAP_OBJECT_REQUEST);
+    },
+    pack: function (id, type, x, y) {
+        this.packHeader();
+        this.putInt(id);
+        this.putString(type);
         this.putInt(x);
         this.putInt(y);
         this.updateSize();

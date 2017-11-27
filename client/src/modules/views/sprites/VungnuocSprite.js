@@ -3,17 +3,17 @@ var VungnuocSprite = AnimationSprite.extend({
 
 	ctor: function(x, y, id) {
 		this._super(resAniId.Vungnuoc1, 
-				MapConfigs.VungNuoc.size.width,
-				MapConfigs.VungNuoc.size.height,
-				x, y, 17, MapItemEnum.NATURE_THING);
+				MapConfigs.BigNatureThing.size.width,
+				MapConfigs.BigNatureThing.size.height,
+				x, y, MapItemEnum.NATURE_THING);
 		this.natureId = id;
 		this.play("swamp_idle");
-		this.registerTouchEvents(true);
+		this.registerTouchEvents({ lockMove: true });
 	},
 
 	onClick: function() {
-		cc.log("Vungnuoc clicked", this.lx, this.ly);
-		this.play("swamp_collect");
+		cc.log("Vungnuoc clicked", "lx:", this.lx, "ly:", this.ly, "id:", this.natureId);
+		this.play("swamp_select");
 	},
 
 	_offset: function() {

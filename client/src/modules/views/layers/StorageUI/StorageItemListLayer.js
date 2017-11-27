@@ -4,6 +4,7 @@
 
 var StorageItemListLayer = cc.Layer.extend({
     _listItems: [],
+    _layoutDetail: null,
 
     ctor: function (listItems) {
         this._super();
@@ -27,8 +28,8 @@ var StorageItemListLayer = cc.Layer.extend({
         listItem.reloadData();
 
         var layout = ccui.Layout();
-        layout.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
-        layout.setBackGroundColor(cc.color.GREEN);
+        //layout.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
+        //layout.setBackGroundColor(cc.color.GREEN);
         layout.setContentSize(cc.winSize.width / 2, cc.winSize.height / 5 * 2);
         layout.x = 0;
         layout.y = cc.winSize.height / 10;
@@ -75,6 +76,10 @@ var StorageItemListLayer = cc.Layer.extend({
                 button.tag = i;
                 cell.addChild(button);
 
+                var keyItem = new cc.LabelTTF("");
+                keyItem.tag = 20 + i;
+                cell.addChild(keyItem);
+
                 var label = new cc.LabelBMFont(20, res.FONT_OUTLINE_20);
                 label.x = (cc.winSize.width / 6) * i + cc.winSize.width / 12;
                 label.y = button.y - button.height / 2 - label.height / 3;
@@ -87,11 +92,12 @@ var StorageItemListLayer = cc.Layer.extend({
             for (var i = 0; i < 3; i++) {
                 var button = cell.getChildByTag(i);
                 var label = cell.getChildByTag(10 + i);
+                var keyItem = cell.getChildByTag(20 + i);
                 if ((idx * 3 + i) < this._listItems.length) {
-                    //cc.log("rs" + this._listItems[idx * 3 + i].getTypeItem()[3]);
-                    //button.loadTextureNormal(this._listItems[idx * 3 + i].getTypeItem()[3]);
                     var key = getKeyByValue(this._listItems[idx * 3 + i].getTypeItem());
-                    cc.log(getKeyByValue(this._listItems[idx * 3 + i].getTypeItem()));
+                    keyItem.setString(key);
+                    keyItem.setVisible(false);
+                    //cc.log("itemResource " + keyItem.getString());
                     button.loadTextureNormal(ProductResource[key][3]);
                     button.addTouchEventListener(this.touchItem, this);
                     label.setString(this._listItems[idx * 3 + i].getQuantityItem());
@@ -115,7 +121,12 @@ var StorageItemListLayer = cc.Layer.extend({
     touchItem: function (sender, type) {
         switch (type) {
             case ccui.Widget.TOUCH_BEGAN:
-                cc.log("Touch Button");
+                cc.log("Touch Button Product");
+
+                break;
+            case ccui.Widget.TOUCH_ENDED:
+                break;
+            case ccui.Widget.TOUCH_CANCELED:
                 break;
         }
     },

@@ -3,7 +3,7 @@ var _ = (function() {
 		return "Art/Map/" + _res;
 	}
 	var MapResource = {
-	    GRASS_BLOCK: 	r("grass-lock1x1.png"),
+	    GRASS_BLOCK: 	r("grass-lock1x1-2.png"),
 	    ROAD_PNG: 		r("road.png"),
 	    NOI_DUONG_PNG: 	r("noi duong.png"),
 	    ROAD_02_PNG: 	r("road02.png"),

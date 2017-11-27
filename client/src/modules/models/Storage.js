@@ -58,6 +58,18 @@ var Storages = CoordinatedObject.extend({
         }
         return null;
     },
+
+    getItem: function (productType) {
+        //return Item of productType in list
+        for (var i in this.getItemList()){
+            if (this.getItemList()[i].getTypeItem() == productType){
+                return this.getItemList()[i];
+            }
+
+        }
+        return null;
+    },
+
     getItemList: function () {
         //StorageItem
         return this.itemList;

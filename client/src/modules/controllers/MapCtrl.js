@@ -29,13 +29,15 @@ var MapCtrl = cc.Class.extend({
                 debugUser[k] = user[k];
             }
         }
-        cc.log("User", debugUser);
+        // cc.log("User", debugUser);
         this.renderStorages();
         this.renderPlants();
         this.renderNaturalThings();
         // cc.log("Silo", user.asset.foodStorage);
         // MapLayer.instance.addChild(new SiloSprite(20, 20));
         // MapLayer.instance.addChild(new WareHouseSprite(18, 24));
+        InertiaEngine.instance = new InertiaEngine();
+        MainScene.instance.addChild(InertiaEngine.instance);
         this.renderUserInfo();
     },
 
@@ -236,7 +238,6 @@ var MapCtrl = cc.Class.extend({
                 var sprite = new DatoSprite(x, y, id);
                 MapLayer.instance.addChild(sprite);
             } else if (typeName === 'forest_small_stone_1' ) {
-                cc.log("Danho", x, y);
                 var sprite = new DanhoSprite(x, y, id);
                 MapLayer.instance.addChild(sprite);
             } else {
@@ -257,8 +258,9 @@ var MapCtrl = cc.Class.extend({
             }
         }
 
-        // var sprite = new DanhoSprite(0, 2, 1);
+        // var sprite = new CayRungSprite(0, 2, 4, 1000);
         // MapLayer.instance.addChild(sprite);
+        // sprite._showBoundingPoints();
         // var configs = cc.loader.getRes("config/mapInit.json");
         // for (var k in configs) {
         //     var item = configs[k];
