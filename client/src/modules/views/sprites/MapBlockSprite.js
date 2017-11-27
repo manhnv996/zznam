@@ -99,8 +99,6 @@ var MapBlockSprite = cc.Sprite.extend({
                         var newLocation = this.touchListener.lstLocation;
                         var originalPosition = this.touchListener.originalPosition;
                         // cc.log("Finish move to", newLocation);
-                        // Recovery to map alias
-                        MapCtrl.instance.addSpriteAlias(this);
                         if (MapCtrl.instance.checkValidBlock(newLocation.x, newLocation.y, this.blockSizeX, this.blockSizeY)) {
                             this.setLogicPosition(newLocation);
                             
@@ -114,6 +112,8 @@ var MapBlockSprite = cc.Sprite.extend({
                         } else {
                             this.setLogicPosition(originalPosition);
                         }
+                        // Recovery to map alias
+                        MapCtrl.instance.addSpriteAlias(this);
                         // Reupdate event priority and zOrder
                         this.updateEventPriority();
                         // this.setLocalZOrder(Math.max(this.lx + this.blockSizeX, this.ly + this.blockSizeY));
