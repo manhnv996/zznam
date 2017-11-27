@@ -232,7 +232,7 @@ var FieldSprite = MapBlockSprite.extend({
     },
 
     runAction: function(action) {
-        if (this.plantSprite) {
+        if (this.seedType) {
             this.plantSprite.runAction(action);
         } else {
             this._super(action);
@@ -240,7 +240,7 @@ var FieldSprite = MapBlockSprite.extend({
     },
 
     stopAllActions: function() {
-        if (this.plantSprite) {
+        if (this.seedType) {
             this.plantSprite.stopAllActions();
         } else {
             this._super();
@@ -248,7 +248,7 @@ var FieldSprite = MapBlockSprite.extend({
     },
 
     setColor: function(color) {
-        if (this.plantSprite) {
+        if (this.seedType) {
             this.plantSprite.setColor(color);
         } else {
             this._super(color);
