@@ -235,6 +235,7 @@ var LodgeTable = cc.Layer.extend({
                     switch (sender.parent.getChildByTag(0).getString()) {
                         case "field":
                             this._sprite = new FieldSprite(user.getAsset().getFieldList().length, createP.x, createP.y);
+                            this._sprite.setLocalZOrder(10000);
                             MapLayer.instance.addChild(this._sprite);
                             break;
                         //case "chicken_habitat":
@@ -252,7 +253,7 @@ var LodgeTable = cc.Layer.extend({
                 //cc.log(this._sprite);
                 if (this._sprite) {
                     if (p.x !== lstP.x || p.y !== lstP.y) {
-                        this._sprite.setLogicPosition(p.x, p.y);
+                        this._sprite.setLogicPosition(p.x, p.y, true);
                         lstP = p;
                         //cc.log(Math.floor(psl.x) + " : " + Math.floor(psl.y));
                     }
@@ -283,6 +284,7 @@ var LodgeTable = cc.Layer.extend({
                         } else {
                             // Success
                             MapCtrl.instance.addSpriteAlias(this._sprite);
+                            this._sprite.setLogicPosition(this._sprite.lx, this._sprite.ly);
                             switch (sender.parent.getChildByTag(0).getString()) {
                                 case "field":
                                     var fieldModel = new Field(new Coordinate(this._sprite.lx, this._sprite.ly), this._sprite.fieldId);

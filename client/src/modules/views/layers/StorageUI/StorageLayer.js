@@ -100,9 +100,10 @@ var StorageLayer = cc.Layer.extend({
 
         this.addChild(this._layoutStorage);
         //this.setScale((cc.winSize.height - 20) / this._layoutStorage.height);
+        this._layoutStorage.setScale(0.5);
         var scale = (cc.winSize.height - 20) / this._layoutStorage.height;
-        var scaleTo1 = cc.scaleTo(0.07, scale + 0.1, scale + 0.1);
-        var scaleTo2 = cc.scaleTo(0.12, scale, scale);
+        var scaleTo1 = cc.scaleTo(0.2, scale + 0.15, scale + 0.15);
+        var scaleTo2 = cc.scaleTo(0.15, scale, scale);
         this._layoutStorage.runAction(cc.sequence(scaleTo1, scaleTo2));
     },
 

@@ -75,6 +75,7 @@ var MapCtrl = cc.Class.extend({
         //         NhaChinhConfigs.blockSizeX, NhaChinhConfigs.blockSizeY,
         //         MapItemEnum.NHA_CHINH);
         var nhaChinh = new NhaChinhSprite(NhaChinhConfigs.position);
+        //MapLayer.instance.debugSprite = nhaChinh;
         MapLayer.instance.addChild(nhaChinh);
 
         // Truck Order

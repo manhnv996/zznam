@@ -191,7 +191,7 @@ var UpgradeSiloLayer = cc.Layer.extend({
         //layoutBtn.setBackGroundColor(cc.color.BLACK);
 
         btn = new ccui.Button(res.storage_buy_tool);
-        btn.tag = 2;
+        btn.tag = 3;
         //btn.setZoomScale(-0.1);
         layoutBtn.setContentSize(btn.getContentSize().width, btn.getContentSize().height);
         layoutBtn.x = layout.width / 2;
@@ -267,18 +267,23 @@ var UpgradeSiloLayer = cc.Layer.extend({
             case ccui.Widget.TOUCH_ENDED:
                 cc.log("Touch Buy Item");
                 var ruby = parseInt(sender.parent.getChildByTag(sender.tag + 10).getString());
-                switch (sender.tag) {
-                    case 1: //nail
-                        cc.log("Buy Nail " + ruby);
-
-                        break;
-                    case 2: //screw
-                        cc.log("Buy Screw");
-                        break;
-                    case 3: //woodpanel
-                        cc.log('Buy Woodpanel');
-                        break
+                if (ruby > user.getRuby) {
+                    //Notify
+                } else {
+                    switch (sender.tag) {
+                        case 1: //nail
+                            cc.log("Buy Nail " + ruby);
+                            
+                            break;
+                        case 2: //screw
+                            cc.log("Buy Screw" + ruby);
+                            break;
+                        case 3: //woodpanel
+                            cc.log("Buy Woodpanel" + ruby);
+                            break
+                    }
                 }
+
                 break;
             case ccui.Widget.TOUCH_CANCELED:
                 break;
