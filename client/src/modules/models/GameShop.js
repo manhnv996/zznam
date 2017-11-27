@@ -4,6 +4,7 @@
 
 var GameShop = cc.Class.extend({
     maxField: 6,
+    lastLevel: 1,
 
     getMaxField: function () {
         return this.maxField;

@@ -12,6 +12,7 @@ var _ = (function() {
         BTN_CHANGE_NAME_PNG: 	r("btn_change_name.png"),
         BTN_EFFECT_OFF_PNG: 	r("btn_effect_off.png"),
         BTN_EFFECT_ON_PNG: 		r("btn_effect_on.png"),
+        BTN_FEEDBACK_PNG: 		r("btn_feedback.png"),
         BUTTON_HOI_PNG: 		r("buttohn-hi.png"),
         BUTTON_HUONGDAN_PNG: 		r("button-huongdan.png"),
         BUTTON_ZINGME_DANGNHAP_PNG: 	r("button-zingme dangnhap.png"),
@@ -21,7 +22,6 @@ var _ = (function() {
         TU_CHOI_PNG:    r("tuchoi.png"),
         //_PNG:    r(".png"),
         DONG_Y_PNG:    r("Đồng ý.png")
-
 
     };
 

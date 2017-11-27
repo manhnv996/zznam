@@ -14,15 +14,24 @@ import cmd.receive.user.RequestUserInfo;
 import cmd.send.demo.ResponseGameInfo;
 import cmd.send.demo.ResponseRequestUserInfo;
 
+import config.enums.ProductResource;
 import config.enums.ProductType;
 import config.enums.StorageType;
 
+import config.jsonobject.map.NaturalObject;
+
+import config.utils.ConfigContainer;
+
 import extension.FresherExtension;
 
+import java.util.ArrayList;
 import java.util.Date;
+
+import java.util.List;
 
 import model.Asset;
 import model.Field;
+import model.NatureThing;
 import model.Storage;
 import model.ZPUserInfo;
 
@@ -71,21 +80,21 @@ public class UserHandler extends BaseClientRequestHandler {
 
     private void getUserInfo(User user) {
         try {
-//            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
-            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(1, ZPUserInfo.class);
+            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
+//            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(1, ZPUserInfo.class);
             if (userInfo == null) {
                 
 //                createUser(userInfo, user.getId());                
-                userInfo = createUser(1);
+                userInfo = createUser(user.getId());
                 
-//                userInfo.saveModel(user.getId());                
-                userInfo.saveModel(1);
+                userInfo.saveModel(user.getId());                
+//                userInfo.saveModel(1);
             }
             
             send(new ResponseGameInfo(userInfo), user);
             
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
 
     }
@@ -99,25 +108,36 @@ public class UserHandler extends BaseClientRequestHandler {
 
     public static ZPUserInfo createUser(int userId){
         
-        Storage foodStorage = new Storage(StorageType.FOOD_STORAGE, 30, 10, 10);
-        Storage warehouse = new Storage(StorageType.WAREHOUSE, 30, 8, 8);
+        Storage foodStorage = new Storage(StorageType.FOOD_STORAGE, 50, 
+                ConfigContainer.mapConfig.Silo.position.x,
+                ConfigContainer.mapConfig.Silo.position.y);
+        Storage warehouse = new Storage(StorageType.WAREHOUSE, 50, 
+                ConfigContainer.mapConfig.Warehouse.position.x,
+                ConfigContainer.mapConfig.Warehouse.position.y);
+
         foodStorage.addItem(ProductType.CROP_CARROT, 5);
         foodStorage.addItem(ProductType.CROP_SOYBEAN, 10);
-//        foodStorage.addItem(ProductType.CROP_INDIGO, 2);
-//        foodStorage.addItem(ProductType.CROP_TOMATO, 2);
-//        foodStorage.addItem(ProductType.CROP_STRAWBERRY, 2);
         
-        Asset asset = new Asset(foodStorage, warehouse, null);
-        for (int i = 1; i < 7; i++){
+        // Load natural thingList
+        List<NatureThing> natureThingList = new ArrayList<>();
+        for (int i = 0; i < ConfigContainer.defaultNatural.size(); i++) {
+            NaturalObject nObj = ConfigContainer.defaultNatural.get(i);
+            NatureThing nt = new NatureThing(nObj.id, nObj.type, nObj.x, nObj.y);
+            natureThingList.add(nt);
+//            System.out.println("id" + nObj.id + " type" + nObj.type);
+        }
+        Asset asset = new Asset(foodStorage, warehouse, null, natureThingList);
+        for (int i = 1; i < 5; i++){
             Field field = new Field(0, 18, 10 + i);
             asset.addField(field);
         }
+        System.out.println("Field number" + asset.getFieldList().size());
         asset.getFieldById(1).setPlantType(ProductType.CROP_CARROT);
         asset.getFieldById(1).setPlantedTime(new Date().getTime());
         
         ZPUserInfo userInfo = new ZPUserInfo(userId, asset);
         
-        for (int i = 0; i < 6; i++){
+        for (int i = 0; i < 3; i++){
             System.out.println("field" + asset.getFieldById(i).getFieldId() + ", " + asset.getFieldById(i).getPlantType() + ", " + asset.getFieldById(i).getPlantedTime());
         }
         

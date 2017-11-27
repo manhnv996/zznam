@@ -1,2 +1,3 @@
 lang_auto_text    ="Test localization on gui"
 lang_hello    ="Hello!"
+Text_can_not_place    ="Cannot place"

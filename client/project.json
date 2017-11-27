@@ -18,10 +18,12 @@
         "src/**/*.js"
     ],
     "jsList": [
+        "src/data/FontsResource.js",
         "src/data/SettingsResource.js",
         "src/data/MainGuiResource.js",
         "src/data/MapResource.js",
         "src/data/ShopResource.js",
+        "src/data/StorageResource.js",
         "src/data/HavestResource.js",
         "src/data/Resource.js",
         "src/data/ResourceAnimation.js",
@@ -48,6 +50,7 @@
         "src/modules/testnetwork/ScreenNetwork.js",
 
         "src/modules/utils/rayCasting.js",
+        "src/modules/utils/inertiaEngine.js",
         "src/modules/configs/MapItemEnum.js",
 
         "src/modules/configs/MapConfigs.js",
@@ -63,6 +66,10 @@
         "src/modules/views/sprites/SiloSprite.js",
         "src/modules/views/sprites/WareHouseSprite.js",
         "src/modules/views/sprites/BakerySprite.js",
+        "src/modules/views/sprites/CayRungSprite.js",
+        "src/modules/views/sprites/VungnuocSprite.js",
+        "src/modules/views/sprites/DatoSprite.js",
+        "src/modules/views/sprites/DanhoSprite.js",
 
         "src/modules/views/layers/PopupLayer.js",
 
@@ -73,11 +80,14 @@
         "src/modules/configs/enum/ErrorLog.js",
         "src/modules/configs/enum/ProductTypes.js",
         "src/modules/configs/enum/FieldStatusTypes.js",
+        "src/modules/configs/enum/StorageTypes.js",
+        "src/modules/configs/enum/ProductResource.js",
         "src/modules/configs/config.js",
 
         "src/modules/controllers/PlantCtrl.js",
         "src/modules/controllers/MapCtrl.js",
         "src/modules/controllers/GameShopController.js",
+        "src/modules/controllers/StorageCtrl.js",
 
         "src/modules/models/CoordinatedObject.js",
         "src/modules/models/Coordinate.js",
@@ -116,8 +126,16 @@
         "src/modules/views/layers/GSGUI/GSDetailLayout.js",
         "src/modules/views/layers/GSGUI/GSLayer.js",
 
+        "src/modules/views/layers/StorageUI/StorageItemListLayer.js",
+        "src/modules/views/layers/StorageUI/UpgradeSiloLayer.js",
+        "src/modules/views/layers/StorageUI/UpgradeWareLayer.js",
+        "src/modules/views/layers/StorageUI/StorageLayer.js",
+
         "src/modules/views/layers/MapLayer.js",
         "src/modules/views/scenes/MainScene.js",
-        "src/modules/views/layers/MainGuiLayer.js"
+        "src/modules/views/scenes/LoginScene.js",
+        "src/modules/views/scenes/PreloaderScene.js",
+        "src/modules/views/layers/MainGuiLayer.js",
+        "src/modules/views/layers/SettingsLayer.js"
     ]
 }

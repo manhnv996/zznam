@@ -2,16 +2,17 @@
 var StorageItem = cc.Class.extend({
 
     typeItem: null,
+    //resourceItem: null,
     quantity: 0,
 
     ctor: function (typeProduct, quantity) {
         //
         //this._super();
 
-        this.render(typeProduct, quantity);
+    //     this.render(typeProduct, quantity);
 
-    },
-    render: function (typeProduct, quantity) {
+    // },
+    // render: function (typeProduct, quantity) {
 
         this.typeItem = typeProduct;
         this.quantity = quantity;

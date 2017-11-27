@@ -11,9 +11,9 @@ var NatureThing = CoordinatedObject.extend({
 
 
     },
-    render: function () {
-        //
+    // render: function () {
+    //     //
 
-    }
+    // }
 
 });

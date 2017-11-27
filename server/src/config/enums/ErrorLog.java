@@ -20,7 +20,13 @@ public enum ErrorLog {
     ERROR_STORAGE_NOT_REDUCE((short) 20),
     ERROR_STORAGE_NOT_ADD((short) 21),
 
-    ERROR_RUBY_NOT_REDUCE((short) 30);
+    ERROR_RUBY_NOT_REDUCE((short) 30),
+    
+    ERROR_BUY_MAP_OBJECT_COLLISION((short) 70),
+    ERROR_BUY_GOLD_NOT_ENOUGH((short) 71),
+    ERROR_BUY_CANT_ADD_FIELD((short) 72),
+    ERROR_BUY_GOLD_NOT_REDUCE((short) 73);
+                                    
 
 
     private final short value;

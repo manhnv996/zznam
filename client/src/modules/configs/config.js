@@ -179,7 +179,6 @@ function getSeedImgBySeedTypeAndQuantity(seedType, quantity) {
 
 
 function updateGameInfo(gameInfoJson){
-
     var gameInfo = null;
     /*
     Read from json string
@@ -192,48 +191,54 @@ function updateGameInfo(gameInfoJson){
     for (var i = 0; i < gameInfo.asset.foodStorage.itemList.length; i++){
         foodStorage.addItem(gameInfo.asset.foodStorage.itemList[i].typeItem, gameInfo.asset.foodStorage.itemList[i].quantity);
     }
+    //var siloSprite = new SiloSprite(foodStorage.getCoordinate().getCurrX(), foodStorage.getCoordinate().getCurrY());
+    //MapLayer.instance.addChild(siloSprite);
+    //MapCtrl.instance.addSpriteAlias(siloSprite);
 
     var warehouse = new Storages(new Coordinate(gameInfo.asset.warehouse.x, gameInfo.asset.warehouse.y),
         gameInfo.asset.warehouse.storageType, gameInfo.asset.warehouse.capacity);
     for (var i = 0; i < gameInfo.asset.warehouse.itemList.length; i++){
         warehouse.addItem(gameInfo.asset.warehouse.itemList[i].typeItem, gameInfo.asset.warehouse.itemList[i].quantity);
     }
+    //var warehouseSprite = new WareHouseSprite(warehouse.getCoordinate().getCurrX(), warehouse.getCoordinate().getCurrY());
+    //MapLayer.instance.addChild(warehouseSprite);
+    //MapCtrl.instance.addSpriteAlias(warehouseSprite);
 
-    var asset = new Asset(foodStorage, warehouse, null, null, null, null, null);
+                        //foodStorage, warehouse, fieldList, animalLodgeList, machineList, natureThingList, myShop
+    var asset = new Asset(foodStorage, warehouse, null, null, null, gameInfo.asset.natureThingList, null);
     user = new User(asset);
 
     user.level = gameInfo.level;
     user.gold = gameInfo.gold;
     user.ruby = gameInfo.ruby;
     user.exp = gameInfo.exp;
-
-
+    user.map = gameInfo.map.map;
     for (var i = 0; i < gameInfo.asset.fieldList.length; i++){
         var field = new Field(new Coordinate(gameInfo.asset.fieldList[i].x, gameInfo.asset.fieldList[i].y), gameInfo.asset.fieldList[i].fieldId);
-        user.getAsset().addField(field);
 
-
+        // Moved render field to MapCtrl
         //field sprite
-        var fieldSprite = new FieldSprite(MapLayer.instance, field.getFieldId(), field.getCoordinate().getCurrX(), field.getCoordinate().getCurrY());
-        MapLayer.instance.addChild(fieldSprite);
-        MapLayer.instance.fieldList.push(fieldSprite);
+        // var fieldSprite = new FieldSprite(MapLayer.instance, field.getFieldId(), field.getCoordinate().getCurrX(), field.getCoordinate().getCurrY());
+        // MapLayer.instance.addChild(fieldSprite);
+        // MapLayer.instance.fieldList.push(fieldSprite);
 
-        if (gameInfo.asset.fieldList[i].plantType != null){
-            if (gameInfo.asset.fieldList[i].plantedTime != 0){
+        if (gameInfo.asset.fieldList[i].plantType){
+            if (gameInfo.asset.fieldList[i].plantedTime !== 0){
                 //
                 var plantType = gameInfo.asset.fieldList[i].plantType;
-                user.getAsset().getFieldList()[i].setPlantType(plantType);
+                field.setPlantType(plantType);
                 //
                 var intTime = gameInfo.asset.fieldList[i].plantedTime;
                 var plantedTime = new Date();
                 plantedTime.setTime(intTime);
 
-                user.getAsset().getFieldList()[i].setPlantedTime(plantedTime);
+                field.setPlantedTime(plantedTime);
 
-                MapLayer.instance.runAnimationPlantting(field.getFieldId(), plantType);
+                // MapLayer.instance.runAnimationPlantting(field.getFieldId(), plantType);
             }
         }
 
+        user.getAsset().addField(field);
     }
 
     MainScene.instance.onGettedData();

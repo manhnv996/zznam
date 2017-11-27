@@ -12,15 +12,15 @@ var User = cc.Class.extend({
         //
         //this._super();
 
-        this.render(asset);
+    //     this.render(asset);
 
-    },
-    render: function (asset) {
+    // },
+    // render: function (asset) {
         //
-        this.level = 1;
-        this.gold = 100;
-        this.ruby = 100;
-        this.exp = 0;
+        //this.level = 1;
+        //this.gold = 100;
+        //this.ruby = 100;
+        //this.exp = 0;
 
         this.asset = asset;
     },
@@ -52,9 +52,15 @@ var User = cc.Class.extend({
 
     addGold: function (number) {
         this.gold += number;
+
+        //
+        MainGuiLayer.instance.labelGold.setString(this.gold);
     },
     addRuby: function (number) {
         this.ruby += number;
+
+        //
+        MainGuiLayer.instance.labelRuby.setString(this.ruby);
     },
     addExp: function (number) {
         this.exp += number;
@@ -68,6 +74,9 @@ var User = cc.Class.extend({
     reduceGold: function (number) {
         if (this.getGold() >= number){
             this.gold -= number;
+
+            //
+            MainGuiLayer.instance.labelGold.setString(this.gold);
             return true;
         }
         return false;
@@ -76,6 +85,9 @@ var User = cc.Class.extend({
     reduceRuby: function (number) {
         if (this.getRuby() >= number){
             this.ruby -= number;
+
+            //
+            MainGuiLayer.instance.labelRuby.setString(this.ruby);
             return true;
         }
         return false;

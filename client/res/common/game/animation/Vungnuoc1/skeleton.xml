@@ -1,5 +1,5 @@
 <dragonBones name="Vungnuoc1" frameRate="24" version="2.3">
- <armature name="Vungnuoc">
+ <armature name="Vungnuoc1">
   <bone name="vung nuoc copy 2">
    <transform x="248.5" y="109" skX="0" skY="0" scX="1" scY="1"/>
   </bone>

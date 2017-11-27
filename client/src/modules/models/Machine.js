@@ -11,10 +11,10 @@ var Machine = CoordinatedObject.extend({
 
 
     },
-    render: function () {
-        //
+    // render: function () {
+    //     //
 
-    },
+    // },
     createProduct: function () {
         //boolean
 

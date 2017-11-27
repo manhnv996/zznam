@@ -42,6 +42,7 @@ var HavestResource = {
     ten: "res/Art/Crops/Gui-act/ten.png",
     btBoost: "res/Art/Crops/Gui-act/button-energy2.png",
     rubi: "res/Art/Crops/Gui-act/hethat/ngoc-nho.png",
+    gold: "res/Art/Truck Order/Gui-oders/gold1.png",
 
     btTurnPage: "res/Art/Crops/Gui-act/button.png",
     pageSelected: "res/Art/Crops/Gui-act/page1.png",
@@ -56,7 +57,7 @@ var HavestResource = {
     bgNotice: "res/Art/Storage/gui-thongbao.png",
     msgFullFoodStorage: "res/Art/Storage/Kho lươngthuc.png",
     btTick:"res/Art/Storage/butoon-V.png",
-    bgNotice2:"res/Art/Storage/BG.png",
+    bgNotice2:"res/Art/Storage/BG2.png",
     btCancle:"res/Art/Storage/tuchoi.png",
     btSuggest:"res/Art/Storage/Layer 24.png",
 

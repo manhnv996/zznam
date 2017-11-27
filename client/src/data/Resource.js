@@ -106,6 +106,10 @@ for (var k in ShopResource) {
     res[k] = ShopResource[k];
 }
 
+for (var k in StorageResource) {
+    res[k] = StorageResource[k];
+}
+
 for (var i in res) {
     g_resources.push(res[i]);
 }
@@ -127,4 +131,9 @@ for (var k in MainGuiResource) {
 //add resources in Art/Main Gui/setting
 for (var k in SettingsResource) {
     res[k] = SettingsResource[k];
+}
+
+//add resources in /fonts/
+for (var k in FontResource) {
+    res[k] = FontResource[k];
 }
