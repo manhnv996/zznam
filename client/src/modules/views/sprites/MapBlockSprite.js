@@ -10,7 +10,7 @@ var MapBlockSprite = cc.Sprite.extend({
 		this.blockSizeY = blockSizeY;
         this.mapAliasType = mapAliasType;
 		this.setLogicPosition(x, y);
-	},
+    },
 
     // Override there methods in inherited class
     onClick: function() {},
@@ -262,15 +262,22 @@ var MapBlockSprite = cc.Sprite.extend({
         );
 
         var contentSize = this.getContentSize();
+        // var topLeftPoint = cc.p(
+        //     leftPoint.x,
+        //     bottomPoint.y + contentSize.height
+        // );
         var topLeftPoint = cc.p(
-            leftPoint.x,
+            bottomPoint.x - contentSize.width / 2,
             bottomPoint.y + contentSize.height
         );
+        // var topRightPoint = cc.p(
+        //     rightPoint.x,
+        //     bottomPoint.y + contentSize.height
+        // );
         var topRightPoint = cc.p(
-            rightPoint.x,
+            bottomPoint.x + contentSize.width / 2,
             bottomPoint.y + contentSize.height
         );
-
         // Polygon with 5 verts
         this.boundingPoints = [
             bottomPoint, leftPoint, topLeftPoint, 
@@ -279,6 +286,7 @@ var MapBlockSprite = cc.Sprite.extend({
     },
 
     _showBoundingPoints: function() {
+        this.caculateBoundingPoints();
         cc.log("Show Debug bounding points");
         var dot1 = new cc.Sprite(res.DOT2_PNG);
         var dot2 = new cc.Sprite(res.DOT2_PNG);
@@ -294,7 +302,14 @@ var MapBlockSprite = cc.Sprite.extend({
         dot5.setPosition(this.boundingPoints[4]);
         cc.log("lx", this.lx, "ly", this.ly);
         dot6.setPosition(MapValues.logicToPosition(this.lx, this.ly));
-
+        
+        dot1.setLocalZOrder(100000);
+        dot2.setLocalZOrder(100000);
+        dot3.setLocalZOrder(100000);
+        dot4.setLocalZOrder(100000);
+        dot5.setLocalZOrder(100000);
+        dot6.setLocalZOrder(100000);
+        
         MapLayer.instance.addChild(dot1);
         MapLayer.instance.addChild(dot2);
         MapLayer.instance.addChild(dot3);

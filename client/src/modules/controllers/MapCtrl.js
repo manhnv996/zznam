@@ -250,7 +250,7 @@ var MapCtrl = cc.Class.extend({
             }
         }
 
-        // var sprite = new DanhoSprite(0, 2, 1);
+        // var sprite = new CayRungSprite(0, 2, 4, 1000);
         // MapLayer.instance.addChild(sprite);
         // sprite._showBoundingPoints();
         // var configs = cc.loader.getRes("config/mapInit.json");
