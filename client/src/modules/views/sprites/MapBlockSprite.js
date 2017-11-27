@@ -99,9 +99,10 @@ var MapBlockSprite = cc.Sprite.extend({
                         var newLocation = this.touchListener.lstLocation;
                         var originalPosition = this.touchListener.originalPosition;
                         // cc.log("Finish move to", newLocation);
+                        // Recovery to map alias
+                        MapCtrl.instance.addSpriteAlias(this);
                         if (MapCtrl.instance.checkValidBlock(newLocation.x, newLocation.y, this.blockSizeX, this.blockSizeY)) {
                             this.setLogicPosition(newLocation);
-                            MapCtrl.instance.addSpriteAlias(this);
                             
                             // Callback when successfully moved
                             // check if original location is different with new location
@@ -200,6 +201,7 @@ var MapBlockSprite = cc.Sprite.extend({
                             this.touchListener.lstLocation.y, this.blockSizeX, this.blockSizeY)) {
                         this.setLogicPosition(this.touchListener.originalPosition, true);
                         MapLayer.instance.moveToLogic(this.touchListener.originalPosition, 2);
+                        NotifyLayer.instance.notifyCantPut(touch.getLocation());
                     }
                     // cc.log('Unschedule update');
                     this.unscheduleUpdate();
