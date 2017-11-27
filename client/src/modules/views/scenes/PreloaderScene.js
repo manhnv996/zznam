@@ -28,6 +28,7 @@ var PreloaderLayer = cc.Layer.extend({
         var loadingBarFrame = new cc.Sprite(res.EXP_111_PNG);
         loadingBarFrame.setPosition(center_bottom_pos);
         this.addChild(loadingBarFrame);
+
         this.loadingBar = new ccui.LoadingBar();
         this.loadingBar.setName("PreloadingBar");
         this.loadingBar.loadTexture(res.EXP_221_PNG);
