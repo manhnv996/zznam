@@ -112,7 +112,8 @@ var MapCtrl = cc.Class.extend({
                     field.getCoordinate().getCurrY());
             MapLayer.instance.addChild(fieldSprite);
             if (field.plantType) {
-                fieldSprite.plantAnimation(field.plantType);
+                fieldSprite.createAni(field.plantType);
+
             }
             MapLayer.instance.fieldList.push(fieldSprite);
             
