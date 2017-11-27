@@ -96,6 +96,9 @@ var InertiaEngine = cc.Node.extend({
 
 	caculateAverageVelocity: function(velocities) {
 		var aVelocity = cc.p(0, 0);
+		if (velocities.length === 0) {
+			return aVelocity;
+		}
 		for (var i = 0; i < velocities.length; i++) {
 			aVelocity.x += velocities[i].x;
 			aVelocity.y += velocities[i].y;
