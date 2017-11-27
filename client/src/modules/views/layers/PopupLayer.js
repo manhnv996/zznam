@@ -47,8 +47,8 @@ var PopupLayer = cc.Layer.extend({
                 return false;
             }
 
-            this.progress.setScale(curr / duration, 1);
-            this.progress.setPositionX(this.progressBar.width / 2 + 28 - 180 + this.progress.getScaleX() * 180);
+            this.progress.setPercent(curr / duration * 100);
+
 
             //
             var remain = new Date();
@@ -89,10 +89,14 @@ var PopupLayer = cc.Layer.extend({
         this.progressBar.setPosition(fieldScreenPosition.x, fieldScreenPosition.y);
 
 
-        this.progress = cc.Sprite.create(res.progress);
-        this.progress.setScale(0, 1);
-        this.progress.setPosition(this.progressBar.width / 2 + 28 - 148, this.progressBar.height / 2);
+//
+        this.progress = new ccui.LoadingBar();
+        this.progress.loadTexture(res.progress);
+        this.progress.setPosition(this.progressBar.width / 2 + 28, this.progressBar.height / 2);
+        this.progress.setPercent(0);
         this.progressBar.addChild(this.progress);
+
+
 
 
         // crop name
@@ -560,7 +564,30 @@ var PopupLayer = cc.Layer.extend({
                 listSprite[i].resume();
             }
         }
+    },
+
+    showArrow: function(x, y, callback) {
+        this.arrow = fr.createAnimationById(resAniId.Arrow1, this);
+        this.arrow.gotoAndPlay('1', -1, 1.0);
+        this.arrow.setCompleteListener(callback);
+        this.arrow.setScale(0.5);
+        // Recaculate position
+        var boundingbox = this.arrow.getBoundingBox();
+        var position = cc.p(x - boundingbox.width / 2, y + boundingbox.height);
+
+        this.arrow.setPosition(position);
+        this.addChild(this.arrow);
+    },
+
+    removeArrow: function() {
+        if (this.arrow) {
+            this.arrow.removeFromParent();
+            this.arrow = null;
+        }
+    },
+
+    disableAllPopup: function() {
+        this.disablePopup();
+        this.disableProgressBarInprogress();
     }
-
-
 });

@@ -16,6 +16,8 @@ var MainScene = cc.Scene.extend({
 
 		//var mainGuiLayer = new MainGuiLayer();
 		//this.addChild(mainGuiLayer);
+		//MainGuiLayer.instance = new MainGuiLayer();
+		//this.addChild(MainGuiLayer.instance);
 
 		MapCtrl.instance = new MapCtrl();
 		

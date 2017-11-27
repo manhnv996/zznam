@@ -124,8 +124,8 @@ var MainGuiLayer = cc.Layer.extend({
         this.addChild(this.labelLevel);
 
 
-        this.lblLog = gv.commonText(fr.Localization.text("..."), size.width*0.4, size.height*0.05);
-        this.addChild(this.lblLog);
+        // this.lblLog = gv.commonText(fr.Localization.text("..."), size.width*0.4, size.height*0.05);
+        // this.addChild(this.lblLog);
 
 
         ////6. create a menu and assign onPlay event callback to it.

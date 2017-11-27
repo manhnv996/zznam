@@ -171,7 +171,7 @@ var FieldSprite = MapBlockSprite.extend({
     changeTexture: function (texture) {
         this.setTexture(texture);
     },
-    ////
+    //
     updateFieldStatus: function (curr, duration) {
         // var field = user.getAsset().getFieldList().find(function(f) {
         //     return f.field === this.fieldId;
@@ -182,7 +182,7 @@ var FieldSprite = MapBlockSprite.extend({
 
         if (this.field.getPlantedTime() == null){
 
-            this.changeTexture(res.field);
+            //this.changeTexture(res.field);
             return false;
         }
 
@@ -227,12 +227,16 @@ var FieldSprite = MapBlockSprite.extend({
                 // this.plantSprite.getAnimation().gotoAndPlay(plantTypeObj.plantAni,-1, -1, 1);
 
             }
+
+            if (!this.plantSprite.isVisible()){
+                this.plantSprite.setVisible(true);
+            }
         }
 
     },
 
     runAction: function(action) {
-        if (this.plantSprite) {
+        if (this.seedType) {
             this.plantSprite.runAction(action);
         } else {
             this._super(action);
@@ -240,7 +244,7 @@ var FieldSprite = MapBlockSprite.extend({
     },
 
     stopAllActions: function() {
-        if (this.plantSprite) {
+        if (this.seedType) {
             this.plantSprite.stopAllActions();
         } else {
             this._super();
@@ -248,7 +252,7 @@ var FieldSprite = MapBlockSprite.extend({
     },
 
     setColor: function(color) {
-        if (this.plantSprite) {
+        if (this.seedType) {
             this.plantSprite.setColor(color);
         } else {
             this._super(color);
