@@ -1,4 +1,1186 @@
-Key,vi,en,id,
-lang_auto_text,Thử hiển thị localize text trên gui,Test localization on gui,,sdsds
-//,,,,
-lang_hello,Xin chào!,Hello!,,sdsds
+Key,Localized_vn,Localized_en,Localized_indo
+﻿HELLO,Hello \n Guys Sơn hâm he he he é é ,Hello \n Guys Sơn hâm he he he é é ,"Hello \n Guys Sơn hâm he he he é é "";"
+HELLO2,===Hello \n Guys,===Hello \n Guys,"===Hello \n Guys"";"
+NAME_SILO,Kho Lương Thực : ,Silo : ,Gudang Pangan
+NAME_WARE_HOUSE,Nhà Kho :,Warehouse :,Gudang Pangan
+NAME_TAB_EMPTY_FIELD,Ô Ruộng,Field,petak Sawah
+NAME_TAB_FRUIT_APPLE,Táo,Apple,Apel
+NAME_TAB_FRUIT_RASPBERRY,Mâm Xôi,Raspberry,Raspberry
+NAME_TAB_FRUIT_BLACKBERRY,Phúc Bồn Tử,Blackberry,Blackberry
+NAME_TAB_FRUIT_CACAO,Ca Cao,Cacao,Kakao
+NAME_TAB_FRUIT_CHERRY,Anh Đào,Cherry,Ceri
+NAME_TAB_FRUIT_COFFEE,Cà Phê,Coffee,Kopi
+NAME_TAB_CHICKEN,Gà,Chicken,Ayam
+NAME_TAB_COW,Bò Sữa,Cow,Sapi perahan
+NAME_TAB_PIG,Heo,Pig,Babi
+NAME_TAB_SHEEP,Cừu,Sheep,Domba
+NAME_TAB_GOAT,Dê,Goat,Kambing
+NAME_TAB_CHICKEN_HABITAT,Chuồng Gà,Chicken Habitat,Kandang Ayam
+NAME_TAB_COW_HABITAT,Chuồng Bò,Cow Habitat,Kandang Sapi
+NAME_TAB_PIG_HABITAT,Chuồng Heo,Pig Habitat,Kandang Babi
+NAME_TAB_SHEEP_HABITAT,Chuồng Cừu,Sheep Habitat,Kandang Domba
+NAME_TAB_GOAT_HABITAT,Chuồng Dê,Goat Habitat,Kandang Kambing
+NAME_TAB_CAT_HOUSE,Chuồng mèo,Cat House,Kandang Kucing
+NAME_TAB_DOG_HOUSE,Chuồng chó,Dog House,Kandang Anjing
+NAME_TAB_TABBY_CAT,Mèo vàng,Tabby Cat,Kucing Emas
+NAME_TAB_RETRIEVER,Chó lông vàng,Retriever,Anjing kulit kuning
+NAME_TAB_CALICO_CAT,Mèo khoang vàng,Calico Cat,Kucing berkulit bundar kuning
+NAME_TAB_TUXEDO_CAT,Mèo đen,Tuxedo Cat,Kucing Hitam
+NAME_TAB_HOUND_DOG,Chó lạp sườn,Hound,Anjing Hound
+NAME_TAB_PINSCHER_DOG,Chó chăn cừu,Pinscher,Anjung Pinscher
+NAME_TAB_BROWN_BEAR,Gấu nâu,Brown Bear,Brown Bear
+NAME_TAB_WHITE_BEAR,Gấu trắng,White Bear,White Bear
+NAME_TAB_BLACK_BEAR,Gấu đen,Black Bear,Black Bear
+NAME_TAB_BEAR_HOUSE,Chuồng gấu,House Bear,House Bear
+TITLE_INFO,Thông Báo,Announcement,Pengumuman
+TITLE_CONFIRM,Xác Nhận,Confirm,Konfirmasi
+Text_Info_Full_Inv,Kho đã đầy !,Barn Full!,Gudang sudah penuh
+TEXT_NOT_ENOUGH_RESOURCE,Bạn thiếu vật phẩm,Not Enough Resources,Anda kurang barang
+Text_Detail_Upgrade_Inv,Sức chứa sau nâng cấp :,Increase Storeage to :,Daya muat setelah upgrade
+empty_field_name,Ô đất trống,Empty Field,tanah kosong
+chicken_habitat_name,Chuồng Gà,Chicken Habitat,Kandang Ayam
+cow_habitat_name,Chuồng Bò,Cow Habitat,Kandang Sapi
+pig_habitat_name,Chuồng Heo,Pig Habitat,Kandang Babi
+sheep_habitat_name,Chuồng Cừu,Sheep Habitat,Kandang Domba
+goat_habitat_name,Chuồng Dê,Goat Habitat,Kandang Kambing
+gold_name,Tiền vàng,Gold,Emas
+good_egg_name,Trứng Gà,Egg,Telur Ayam
+good_milk_name,Sữa Bò,Milk,Susu Sapi
+good_bacon_name,Thịt Ba Rọi,Bacon,Daging bagian perut
+good_wool_name,Lông Cừu,Wool,Rambut Domda
+good_goat_milk_name,Sữa Dê,Goat Milk,Susu Kambing
+product_bread_name,Bánh Mì,Bread,Roti
+product_corn_bread_name,Bánh Bắp,Corn Bread,Kue Jagung
+product_cookie_name,Bánh Quy,Cookie,Kue biskuit
+product_raspberry_muffin_name,Bánh Mâm Xôi,Raspberry Muffin,Kue Rapsberry
+product_blackberry_muffin_name,Bánh Phúc Bồn Tử,Blackberry Muffin,Kue Blackberry
+product_pizza_name,Pizza,Pizza,Pizza
+product_spicy_pizza_name,Pizza Cay,Spicy Pizza,Pizza Pedas
+product_potato_bread_name,Bánh Khoai Tây,Potato Bread,Kue Kentang
+food_chicken_name,Thức Ăn Gà,chicken Feed,Pangan Ayam
+food_cow_name,Thức Ăn Bò,Cow Feed,Pangan Sapi
+food_pig_name,Thức Ăn Heo,Pig Feed,Pangan Babi
+food_sheep_name,Thức Ăn Cừu,Sheep Feed,Pangan Domba
+food_goat_name,Thức Ăn Dê,Goar Feed,Pangan Kambing
+product_cream_name,Kem Tươi,Cream,Es krim segar
+product_butter_name,Bơ,Butter,Mentega
+product_cheese_name,Phô Mai,Cheese,Keju
+product_goat_cheese_name,Phô  Mai Dê,Goat Cheese,Keju Kambing
+product_brown_sugar_name,Đường Vàng,Brown Sugar,Gula kuning
+product_white_sugar_name,Đường Cát Trắng,White Sugar,Guna Putih
+product_syrup_name,Mật Mía,Syrup,Madu Tebu
+product_popcorn_name,Bắp rang,Popcorn,Popcorn
+product_buttered_popcorn_name,Bắp Rang Bơ,Buttered Popcor,Popcorn Mentega
+product_chili_popcorn_name,Bắp rang cay,Chili Popcorn,Popcorn Pedas
+product_pancake_name,Bánh Bột Mỳ,Pancake,Terigu
+product_bacon_and_eggs_name,Trứng Ốp La,Bacon and Eggs,Telur Mata Sapi
+product_hamburger_name,Hamburger,Hamburger,Hamburger
+product_roasted_tomatoes_name,Cà Chua Nướng,Roasted Tomatoes,Tomato bakar
+product_baked_potato_name,Khoai Nướng Bơ,Baked Potato,Kentang goreng mentega
+product_pumpkin_pie_name,Bánh Bí Ngô,Pumpkin Pie,Kue Labu
+product_carrot_pie_name,Bánh Cà Rốt,Carrot Pie,Kue Wortel
+product_bacon_pie_name,Bánh Thịt Nướng,Bacon Pie,Kue Daging Bakar
+product_apple_pie_name,Bánh Táo,Apple Pie,Kue Apel
+product_feta_pie_name,Bánh Phô Mai Tươi,Feta Pie,Kue Keju Segar
+product_casserole_name,Bánh Thịt Bỏ Lò,Casserole,Kue daging panggang
+product_shepherds_pie_name,Bánh Khoai Nhân Thịt,Shepherds Pie,Kue Kentang isi daging
+product_sweater_name,Áo Len,Sweater,Baju Wol
+product_blue_woolly_hat_name,Mũ Len Xanh,Blue Woolly Hat,Topi Wol Hijau
+product_blue_sweater_name,Áo Len Xanh,Blue Sweater,Baju Wol Hijau
+product_carrot_cake_name,Bánh Kem Cà Rốt,Carrot Cake,Kue Es Krim Wortel
+product_cream_cake_name,Bánh Kem Tươi,Cream Cake,Kue Es Krim Segar
+product_red_berry_cake_name,Bánh Kem Mâm Xôi,Redberry Cake,Kue Es Krim Raspberry
+product_cheese_cake_name,Bánh Kem Phô Mai,Cheese Cake,Kue Es Krim Keju
+product_strawberry_cake_name,Bánh Kem Dâu,Strawberry Cake,Kue Es Krim Strawbery
+product_chocolate_cake_name,Bánh Kem Sôcôla,Chocolate Cake,Kue Es Krim Coklat
+product_potato_feta_cake_name,Bánh Khoai Phô Mai,Feta Cake,Kue Kentang Keju
+metal_silver_bar_name,Bạc Thỏi,Silver Bar,Perak batangan
+metal_gold_bar_name,Vàng Thỏi,Gold Bar,Emas Batangan
+metal_platinum_bar_name,Bạch Kim Thỏi,Platinum Bar,Platinum Batangan
+product_apple_juice_name,Nước Táo,Apple Juice,Jus Apel
+product_carrot_juice_name,Nước Cà Rốt,Carrot Juice,Jus Wortel
+product_tomato_juice_name,Nước Cà Chua, Tomato Juice,Jus Tomat
+product_cherry_juice_name,Nước Anh Đào, Cherry Juice,Jus Ceri
+product_berry_juice_name,Nước Mâm Xôi, Berry Juice,Jus Rapsberry
+product_vanilla_ice_cream_name,Kem Vani , Vanilla Ice Cream ,Es Krim Vani
+product_cherry_popsicle_name,Kem Anh Đào,Cherry Ice Cream,Es Krim Ceri
+product_strawberry_ice_cream_name,Kem Dâu,Strawberry Ice Cream,Es Krim Strawberry
+product_chocolate_ice_cream_name,Kem Sôcôla,Chocolate Ice Cream�,Es Krim Coklat
+product_apple_jam_name,Mứt Táo,Apple Jam,Manisan Apel
+product_blackberry_jam_name,Mứt Phúc Bồn Tử,Blackberry Jam,Manisan Blackberry
+product_cherry_jam_name,Mứt Anh Đào,Cherry Jam,Manisan Ceri
+product_raspberry_jam_name,Mứt Mâm Xôi,Raspberry Jam,Manisan Raspberry
+jewel_bracelet_name,Vòng Tay,Bracelet,Gelang
+jewel_necklace_name,Vòng Cổ,Necklace,Kalung
+jewel_diamon_ring_name,Nhẫn Kim Cương,Rubi Ring,Cincin Berlian
+product_espresso_name,Cà Phê Espresso,Espresso,Kopi Espresso
+product_cafe_latte_name,Cà Phê Sữa,Café Latte,Kopi Susu
+product_cafe_mocha_name,Cà Phê Kem Tươi,Café Mocha,Kopi Es Krim Segar
+product_hot_chocolate_name,Sôcôla Nóng,Hot Chocolate,Coklat Panas
+product_raspberry_mocha_name,Cà Phê Mâm Xôi,Raspberry Mocha,Kopi Raspberry
+product_toffee_name,Kẹo Bơ Hạnh Nhân,Toffee,Permen Mentega Badam
+product_caramel_apple_name,Kẹo Táo,Caramel Apple,Permen Apel
+product_jelly_beans_name,Kẹo Dẻo,Jelly Beans,Permen Jeli
+product_lollipop_name,Kẹo Mút,Lollipop,Permen Lolipop
+Product_cafe_moche_name,Cà Phê Kem Tươi,Cà Phê Kem Tươi,Kopi Mocha
+product_cafe_moche_name,Cà Phê Kem Tươi,Cà Phê Kem Tươi,Kopi Mocha
+product_cafe_letter_name,Ca Phê Sữa,Ca Phê Sữa,Kopi Susu
+product_chocolate_name,Kẹo Sôcôla,Chocolate,Permen Coklat
+tool_dynamite_name,Thuốc Nổ,Dynamite,Bahan ledak
+tool_demolition_charge_name,Mìn Phá Đá,TNT Barrel,Ranjau penghancur batu
+tool_axe_name,Rìu,Axe,Kapak
+tool_saw_name,Cưa,Saw,Gergaji
+tool_shovel_name,Xẻng,Shovel,Sekop
+tool_nail_name,Hộp Đinh,Nail,Kotak paku
+tool_screw_name,Đinh Vít,Screw,Baut Pengikat
+tool_woodPanel_name,Ván Đôi,Wood Panel,Papan kayu pasangan
+tool_bolt_name,Đinh Ốc,Bolt,Baut tajam
+tool_plank_name,Ván Dài,Plank,Papan kayu panjang
+tool_ductTape_name,Băng Keo,Duct Tape,Perban
+tool_land_deed_name,Giấy chứng nhận,Land Deed,Sertifikat
+tool_mallet_name,Búa,Mallet,Balu
+tool_marker_stake_name,Cọc gỗ,Marker Stake,Kayu Pancang
+crop_wheat_name,Lúa Mì,Wheat,Gandum
+crop_corn_name,Bắp,Corn,Jagung
+crop_carrot_name,Cà Rốt,Carrot,Wortel
+crop_soybean_name,Đậu Tương,Soybean,Kedelai
+crop_sugarcane_name,Mía,Sugarcane,Tebu
+crop_lavender_name,Hoa Oải Hương,Lavender,Bunga Lavender
+crop_pumpkin_name,Bí Ngô,Pumpkin,Labu
+crop_chili_name,Ớt,Chili,Cabai
+crop_tomato_name,Cà Chua,Tomato,Tomat
+crop_potato_name,Khoai Tây,Potato,Kentang
+crop_strawberry_name,Dâu Tây,Strawberry,Strauberry
+chicken_habitat_name,Chuồng Gà,Chicken Habitat,Kandang Ayam
+cow_habitat_name,Chuồng Bò,Cow Habitat,Kandang Sapi
+pig_habitat_name,Chuồng Heo,Pig Habitat,Kandang Babi
+sheep_habitat_name,Chuồng Cừu,Sheep Habitat,Kandang Domba
+goat_habitat_name,Chuồng Dê,Goat Habitat,Kandang Kambing
+fruit_apple_name,Táo,Apple,Apel
+fruit_raspberry_name,Mâm Xôi,Raspberry,Rapsberry
+fruit_cherry_name,Anh Đào,Cherry,Ceri
+fruit_blackberry_name,Phúc Bồn Tử,Blackberry,Blackberry
+fruit_cacao_name,Ca Cao,CaCao,Kakao
+fruit_coffee_name,Cà Phê,Coffee,Kopi
+feed_mill_name,Máy Xay Thức Ăn,Feed Mill,Blender
+bakery_name,Lò Bánh Mì,Bakery,Oven Roti
+dairy_name,Xưởng Làm Bơ,Dairy,Pabrik Mentega
+sugar_mill_name,Máy Làm Đường,Sugar Mill,Mesin Gula
+popcorn_pot_name,Xe Bắp Rang,Popcorn Pot,kerobak popcorn
+bbq_grill_name,Lò Nướng BBQ,BBQ Grill,Oven BBQ
+pie_oven_name,Máy Nướng Bánh,Pie Oven,Oven Kue
+loom_name,Máy Dệt,Loom,Mesin Tenun
+cake_oven_name,Máy Bánh Kem,Cake Oven,Mesin Kue Es Krim
+smelter_name,Lò Nung,Smelter,Pembakar
+juice_press_name,Máy Ép Trái Cây,Juice Press,Mesin Pemeras buah-buahan
+icecream_maker_name,Máy Làm Kem,Icecream Maker,Mesin Pembuat Es Krim
+jam_maker_name,Máy Làm Mứt,Jam Maker,Mesin pembuat manisan
+jeweler_name,Xưởng Chế Tác,Jeweler,Bengkel emas
+coffee_kiosk_name,Quán Cà Phê,Coffee Kiosk,kedai kopi
+candy_machine_name,Máy Làm Kẹo,Candy Machine,Mesin pembuat permen
+chicken_name,Gà tồ,Gà tồ,Ayam konyol
+cow_name,Bò sữa,Bò sữa,Sapi perahan
+pig_name,Heo béo,Heo béo,Babi gendut
+sheep_name,Cừu bông,Cừu bông,Domba kapas
+goat_name,Dê già,Dê già,Kambing tua
+crop_chili_pepper_name,Ớt,Chili Pepper,Cabai
+crop_indigo_name,Hoa Oải Hương,Lavender,Bunga Lavender
+product_cafe_latte_name,Cà Phê Sữa,Café Latte,Kopi Susu
+product_cafe_mocha_name,Cà Phê Kem Tươi,Café Mocha,Kopi Es Krim Segar
+jewel_diamond_ring_name,Nhẫn rubi,Rubi Ring,Cincin Rubi
+soup_kitchen_name,Lò súp,Soup Kitchen,Dapur Sup
+sauce_maker_name,Máy nước sốt,Sauce Maker,Sauce Maker
+sushi_bar_name,Tiệm sushi,Sushi Bar,Sushi Bar
+salad_bar_name,Tiệm salad,Salad Bar,Salad Bar
+sandwich_bar_name,Tiệm bánh kẹp,Sandwich Bar,Sandwich Bar
+lure_machine_name,Máy làm lưới,Net maker,Net Maker
+lobster_machine_name,Máy hấp tôm,Lobster Sauna,Lobster Sauna
+fruit_lemon_name,Cây chanh,Lemon tree,Pohon Lemon
+fruit_olive_name,Cây oliu,Olive,Olive
+toolfish_fishing_net_name,Lưới đánh cá,Fishing Net,Jaring Ikan
+toolfish_mystery_net_name,Lưới đánh cá VIP,Mystery Net,Jaring Misterius
+toolfish_lobster_trap_name,Lướt bắt tôm,Lobster Net,Jaring Lobster
+seafood_fish_fillet_name,Phi lê cá,Fish Fillet,Fish Fillet
+seafood_lobster_name,Tôm hấp
+product_fish_name,Phi lê cá
+product_lobster_name,Tôm hấp,Lobster,Lobster
+crop_rice_name,Lúa nước,Rice,Nasi
+crop_lettuce_name,Rau salad,Lettuce,Selada
+product_tomato_soup_name,Súp cà chua,Tomato Soup,Tomato Soup
+product_fish_soup_name,Súp cá,Fish Soup,Fish Soup
+product_lobster_soup_name,Súp tôm hùm,Lobster Soup,Lobster Soup
+product_soy_sauce_name,Nước tương,Soy Sauce,Soy Sauce
+product_olive_oil_name,Dầu ô liu,Olive Oil,Olive Oil
+product_mayonnaise_name,mayonnaise,Mayonnaise,Mayonnaise
+product_sushi_roll_name,Sushi cuộn,Sushi roll,Sushi roll
+product_lobster_sushi_name,Sushi tôm hùm,Lobster Sushi,Lobster Sushi
+product_egg_sushi_name,Sushi trứng,Egg Sushi,Egg Sushi
+product_feta_salad_name,Salad feta,Feta Salad,Feta Salad
+product_blt_salad_name,Salad thịt nguội,Bacon Salad,Bacon Salad
+product_seafood_salad_name,Salad hải sản,Seafood Salad,Seafood Salad
+product_blt_toast_name,Bánh kẹp Toast,Bacon Toast,Bacon Toast
+product_veggie_bagel_name,Bánh kẹp cà,Veggie Bagel,Veggie Bagel
+product_egg_sandwich_name,Bánh kẹp trứng,Egg Sandwich,Egg Sandwich
+product_frutti_di_mare_pizza_name,Pizza hải sản,Frutti di Mare Pizza,Frutti di Mare Pizza
+product_chocolate_popcorn_name,Bắp rang cacao,Chocolate Popcorn,Chocolate Popcorn
+product_fish_and_chips_name,Cá nướng khoai,Fish and Chips,Fish and Chips
+product_fish_pie_name,Bánh sốt cá,Fish Pie,Fish Pie
+product_red_scarf_name,Khăn quàng,Red Scarf,Red Scarf
+product_strawberry_jam_name,Mứt dâu,Strawberry Jam,Strawberry Jam
+product_lobster_name,Tôm hấp,Lobster,Lobster
+lobster_machine_description,Hấp tôm,Lobster Sauna,Mesin Lobster
+lure_machine_description,"Làm lưới đánh bắt tôm,cá",Produces Nets,Menghasilkan jaring
+feed_mill_description,Sản xuất thức ăn,Produces Animal Feed,Produksi makanan
+bakery_description,Sản xuất bánh mỳ,Bakes Goods,Produksi Roti
+dairy_description,Sản xuất bơ,Produces Dairy Goods,Produksi Mentega
+sugar_mill_description,Sản xuất đường,Produces Sugar Goods,Produksi Gula
+popcorn_pot_description,Làm bắp rang,Produces Popcorn,Membuat popcorn
+bbq_grill_description,Nướng các món BBQ,Grills Food,Memanggang masakan-masakan BBQ
+pie_oven_description,Nướng các loại bánh,Bakes Pies,Memanggang jenis-jenis kue
+loom_description,Dệt quần áo,Weaves Clothing,Menenun pakaian
+cake_oven_description,Làm bánh kem,Bakes Cakes,Membuat kue Es Krim
+smelter_description,Luyện kim,Process ore into metal,Metalurgi
+juice_press_description,Ép nước hoa quả,Presses juice,Membuat jus buah-buahan
+icecream_maker_description,Làm kem các loại,Makes Ice Cream,Membuat bermacam-macam Es Krim
+jam_maker_description,Làm mứt các loại,Makes Jam,Membuat bermacam-macam manisan
+jeweler_description,Chế tác trang sức,Makes Jewelry,Membuat perhiasan
+coffee_kiosk_description,Cà Phê các loại,Produces hot drinks,Kopi berbagai jenis
+candy_machine_description,Sản xuất kẹo,Produces candy,produksi permen
+soup_kitchen_description,Sản xuất súp,Makes Soup,Membuat Sup
+sauce_maker_description,Sản xuất nước sốt,Makes Sauce,Membuat Saus
+sushi_bar_description,Làm sushi,Makes Sushi,Membuat Sushi
+salad_bar_description,Làm salad,Makes Salad,Membuat Salad
+sandwich_bar_description,Làm bánh kẹp,Makes Sanwich,Membuat Sandwich
+toolfish_fishing_net_description,Sản xuất từ máy làm lưới
+toolfish_mystery_net_description,Sản xuất từ máy làm lưới
+toolfish_lobster_trap_description,Sản xuất từ máy làm lưới
+empty_field_detail_tab,Để gieo trồng,Grow Crops,Untuk dipanen
+chicken_habitat_detail_tab,Chứa được 6 con,Home for 6 Chickens,Cukup buat 6 ekor
+cow_habitat_detail_tab,Chứa được 5 con,Home for 5 cows,cukup buat 5 ekor
+pig_habitat_detail_tab,Chứa được 5 con,Home for 5 pigs,cukup buat 5 ekor
+sheep_habitat_detail_tab,Chứa được 5 con,Home for 5 sheep,cukup buat 5 ekor
+goat_habitat_detail_tab,Chứa được 5 con,Home for 4 Goat,cukup buat 5 ekor
+fruit_apple_detail_tab,Thu hoạch 3 lần,Collect three times,Pemanenan 3 kali
+fruit_raspberry_detail_tab,Thu hoạch 3 lần, Collect three times,Pemanenan 3 kali
+fruit_cherry_detail_tab,Thu hoạch 3 lần, Collect three times,Pemanenan 3 kali
+fruit_blackberry_detail_tab,Thu hoạch 3 lần, Collect three times,Pemanenan 3 kali
+fruit_cacao_detail_tab,Thu hoạch 3 lần, Collect three times,Pemanenan 3 kali
+fruit_coffee_detail_tab,Thu hoạch 3 lần, Collect three times,Pemanenan 3 kali
+feed_mill_detail_tab,Để sản xuất thức ăn,Produces Animal Food,Pemanenan 3 kali
+bakery_detail_tab,Để nướng bánh,Bakes Goods,Untuk memanggang kue
+dairy_detail_tab,Làm bơ sữa,Produces Dairy Goods,membuat mentega
+sugar_mill_detail_tab,Làm đường mía,Produces Sugar Goods,Untuk membuat mentega
+popcorn_pot_detail_tab,Làm bắp rang,Produces Popcorn,membuat popcorn
+bbq_grill_detail_tab,Để nướng thức ăn,Grills Goods,Untuk memanggang makanan
+pie_oven_detail_tab,Làm bánh nướng,Bakes Pies,membuat kue panggang
+loom_detail_tab,Dệt quần áo,Weaves Clothing,menenun pakaian
+cake_oven_detail_tab,Làm bánh kem,Bakes Cakes,membuat kue Es Krim
+smelter_detail_tab,Đúc kim loại,Process metal,Menempah logam
+juice_press_detail_tab,Để làm nước ép trái cây,Produces Juice,Untuk membuat jus buah-buahan
+icecream_maker_detail_tab,Làm kem,Makes Ice Creams,Membuat Es Krim
+jam_maker_detail_tab,Làm mứt,Makes Jam,Membuat manisan
+jeweler_detail_tab,Chế tạo trang sức,Makes Jewelry,Membuat perhiasan
+coffee_kiosk_detail_tab,Chế biến Cà phê,Produces Drinks,Mengolah Kopi
+candy_machine_detail_tab,Làm kẹo,Produces Candy,Membuat Permen
+chicken_detail_tab,Đẻ trứng,Produces Egg in 20 min,Bertelur nanti
+cow_detail_tab,Cho sữa,Produces Milk in 1h,Kasih susu nanti
+pig_detail_tab,Cho thịt,Produces Bacon in 4h,Kasih daging nanti
+sheep_detail_tab,Cho len cừu,Produces Wool in 6h,Kasih wol domba nanti
+goat_detail_tab,Cho sữa dê,Produces Goat milk in 8h,kasih susu kambing nanti
+cat_house_detail_tab,Chứa được 3 con,Home for 3 Cats,cukup untuk 3 ekor
+dog_house_detail_tab,Chứa được 3 con,Home for 3 Dogs,cukup untuk 3 ekor
+retriever_detail_tab,Nuôi được kinh nghiệm,Feed to collect EXP,budidaya dapat exp
+tabby_cat_detail_tab,Nuôi được kinh nghiệm,Feed to collect EXP,budidaya dapat exp
+calico_cat_detail_tab,Nuôi được kinh nghiệm,Feed to collect EXP,budidaya dapat exp
+tuxedo_cat_detail_tab,Nuôi được kinh nghiệm,Feed to collect EXP,budidaya dapat exp
+hound_dog_detail_tab,Nuôi được kinh nghiệm,Feed to collect EXP,budidaya dapat exp
+pinscher_dog_detail_tab,Nuôi được kinh nghiệm,Feed to collect EXP,budidaya dapat exp
+brown_bear_detail_tab,Nuôi được kinh nghiệm,Feed to collect EXP,Beri makan untuk mendapatkan EXP
+white_bear_detail_tab,Nuôi được kinh nghiệm,Feed to collect EXP,Beri makan untuk mendapatkan EXP
+black_bear_detail_tab,Nuôi được kinh nghiệm,Feed to collect EXP,Beri makan untuk mendapatkan EXP
+bear_house_detail_tab,Chứa được 3 con,Home for 3 bears,Kandang untuk 3 ekor Beruang
+soup_kitchen_detail_tab,Làm súp,Makes Soup,Membuat Sup
+sauce_maker_detail_tab,Làm nước sốt,Makes Sauce,Membuat Saus
+sushi_bar_detail_tab,Làm sushi,Makes Sushi,Membuat Sushi
+salad_bar_detail_tab,Làm salad,Makes Salads,Membuat Salad
+sandwich_bar_detail_tab,Làm bánh kẹp,Makes Sandwich,Membuat Sandwich
+lure_machine_detail_tab,Làm lưới,Produces Nets,Menghasilkan Jaring
+lobster_machine_detail_tab,Hấp tôm,Lobster Sauna,Mengolah Lobster
+fruit_olive_detail_tab,Thu hoạch 3 lần,Collect three times,Memetik tiga kali
+fruit_lemon_detail_tab,Thu hoạch 3 lần,Harvest 3 times,Memetik 3 kali
+seafood_fish_fillet_description,Thu được từ đánh bắt
+seafood_lobster_description,Thu được từ đánh bắt
+product_fish_description,Thu được từ đánh bắt
+product_lobster_description,Được sản xuất từ Máy hấp tôm
+empty_field_description,Dùng để trồng cây,Grow Crops,Untuk menanam pohon
+chicken_habitat_description,Dùng để nuôi gà,Home for 6 Chickens,untuk budidaya ayam
+cow_habitat_description,Dùng để nuôi bò,Home for 5 Cows,untuk budidaya sapi
+pig_habitat_description,Dùng để nuôi heo,Home for 5 Pigs,untuk budidaya babi
+sheep_habitat_description,Dùng để nuôi cừu,Home for 5 Sheeps,untuk budidaya domba
+goat_habitat_description,Dùng để nuôi dê,Home for 4 Goats,untuk budidaya kambing
+gold_description,Chi dùng trong trang trại,Buy farm stuff,Hanya digunakan dalam perkebunan
+chicken_name,Gà tồ,Gà tồ,Ayam konyol
+cow_name,Bò sữa,Bò sữa,Sapi perahan
+pig_name,Heo béo,Heo béo,Babi gendut
+sheep_name,Cừu bông,Cừu bông,Domba kapas
+goat_name,Dê già,Dê già,Kambing tua
+chicken_description,Có thể đẻ trứng,Produces Egg,Bisa kasih telur
+cow_description,Có thể cho sữa,Produces Milk,bisa kasih susu
+pig_description,Có thể cho ba rọi,Produces Bacon,bisa kasih daging perut
+sheep_description,Có thể cho lông,Produces Wool,bisa kasih rambut
+goat_description,Có thể cho sữa,Produces Milk,bisa kasih susu
+good_egg_description,Thu hoạch được từ Gà,Collect from Chicken,Hasilan dari Ayam
+good_milk_description,Thu hoạch được từ Bò,Collect from Cow,Hasilan dari Sapi
+good_bacon_description,Thu hoạch được từ Heo,Collect from Pig,Hasilan dari Babi
+good_wool_description,Thu hoạch được từ Cừu,Collect from Sheep,Hasilan dari Domba
+good_goat_milk_description,Thu hoạch được từ Dê,Collect from Goat,Hasilan dari Kambing
+product_bread_description,Được chế biến tại Lò Bánh Mì,Produce in Bakery,Dibuat di oven roti
+product_corn_bread_description,Được chế biến tại Lò Bánh Mì,Produce in Bakery,Dibuat di oven roti
+product_cookie_description, Được chế biến tại Lò Bánh Mì,Produce in Bakery,Dibuat di oven roti
+product_raspberry_muffin_description, Được chế biến tại Lò Bánh Mì,Produce in Bakery,Dibuat di oven roti
+product_blackberry_muffin_description, Được chế biến tại Lò Bánh Mì,Produce in Bakery,Dibuat di oven roti
+product_pizza_description, Được chế biến tại Lò Bánh Mì,Produce in Bakery,Dibuat di oven roti
+product_spicy_pizza_description, Được chế biến tại Lò Bánh Mì,Produce in Bakery,Dibuat di oven roti
+product_potato_bread_description, Được chế biến tại Lò Bánh Mì,Produce in Bakery,Dibuat di oven roti
+food_chicken_description, Được chế biến từ Máy Nghiền Thức Ăn,Produce in Feed Mill,Dibuat di oven roti
+food_cow_description,Được chế biến từ Máy Nghiền Thức Ăn,Produce in Feed Mill,Dibuat di Mesin Penggiling bahan makanan
+food_pig_description,Được chế biến từ Máy Nghiền Thức Ăn,Produce in Feed Mill,Dibuat di Mesin Penggiling bahan makanan
+food_sheep_description,Được chế biến từ Máy Nghiền Thức Ăn,Produce in Feed Mill,Dibuat di Mesin Penggiling bahan makanan
+food_goat_description,Được chế biến từ Máy Nghiền Thức Ăn,Produce in Feed Mill,Dibuat di Mesin Penggiling bahan makanan
+product_cream_description,Được chế biến tại Xưởng Làm Bơ,Produce in Dairy,Dibuat di Bengkel Mentega
+product_butter_description,Được chế biến tại Xưởng Làm Bơ,Produce in Dairy,Dibuat di Bengkel Mentega
+product_cheese_description,Được chế biến tại Xưởng Làm Bơ,Produce in Dairy,Dibuat di Bengkel Mentega
+product_goat_cheese_description,Được chế biến tại Xưởng Làm Bơ,Produce in Dairy,Dibuat di Bengkel Mentega
+product_brown_sugar_description,Được chế biến từ Máy Làm Đường,Produce in Sugar Mill,Dibuat di Mesin Gula
+product_white_sugar_description,Được chế biến từ Máy Làm Đường,Produce in Sugar Mill,Dibuat di Mesin Gula
+product_syrup_description,Được chế biến từ Máy Làm Đường,Produce in Sugar Mill,Dibuat di Mesin Gula
+product_popcorn_description,Được chế biến từ Xe Bắp Rang,Produce in Popcorn Pot,Dibuat di kerobak popcorn
+product_buttered_popcorn_description,Được chế biến từ Xe Bắp Rang,Produce in Popcorn Pot,Dibuat di kerobak popcorn
+product_chili_popcorn_description,Được chế biến từ Xe Bắp Rang,Produce in Popcorn Pot,Dibuat di kerobak popcorn
+product_pancake_description,Được chế biến từ Bếp Nướng BBQ,Produce in BBQ Grill,Dibuat di Pembakar BBQ
+product_bacon_and_eggs_description,Được chế biến từ Bếp Nướng BBQ,Produce in BBQ Grill,Dibuat di Pembakar BBQ
+product_hamburger_description,Được chế biến từ Bếp Nướng BBQ,Produce in BBQ Grill,Dibuat di Pembakar BBQ
+product_roasted_tomatoes_description,Được chế biến từ Bếp Nướng BBQ,Produce in BBQ Grill,Dibuat di Pembakar BBQ
+product_baked_potato_description,Được chế biến từ Bếp Nướng BBQ,Produce in BBQ Grill,Dibuat di Pembakar BBQ
+product_pumpkin_pie_description,Được chế biến từ Máy Nướng Bánh,Produce in Pie Oven,Dibuat di Pemanggang Roti
+product_carrot_pie_description,Được chế biến từ Máy Nướng Bánh,Produce in Pie Oven,Dibuat di Pemanggang Roti
+product_bacon_pie_description,Được chế biến từ Máy Nướng Bánh,Produce in Pie Oven,Dibuat di Pemanggang Roti
+product_apple_pie_description,Được chế biến từ Máy Nướng Bánh,Produce in Pie Oven,Dibuat di Pemanggang Roti
+product_feta_pie_description,Được chế biến từ Máy Nướng Bánh,Produce in Pie Oven,Dibuat di Pemanggang Roti
+product_casserole_description,Được chế biến từ Máy Nướng Bánh,Produce in Pie Oven,Dibuat di Pemanggang Roti
+product_shepherds_pie_description,Được chế biến từ Máy Nướng Bánh,Produce in Pie Oven,Dibuat di Pemanggang Roti
+product_sweater_description,Được sản xuất từ Máy Dệt,Produce in Loom,Dibuat di Mesin Tenun
+product_blue_woolly_hat_description,Được sản xuất từ Máy Dệt,Produce in Loom,Dibuat di Mesin Tenun
+product_blue_sweater_description,Được sản xuất từ Máy Dệt,Produce in Loom,Dibuat di Mesin Tenun
+product_carrot_cake_description,Được chế biến từ Máy Bánh Kem,Produce in Cake Oven,Dibuat di Mesin Kue Es Krim
+product_cream_cake_description,Được chế biến từ Máy Bánh Kem,Produce in Cake Oven,Dibuat di Mesin Kue Es Krim
+product_red_berry_cake_description,Được chế biến từ Máy Bánh Kem,Produce in Cake Oven,Dibuat di Mesin Kue Es Krim
+product_cheese_cake_description,Được chế biến từ Máy Bánh Kem,Produce in Cake Oven,Dibuat di Mesin Kue Es Krim
+product_strawberry_cake_description,Được chế biến từ Máy Bánh Kem,Produce in Cake Oven,Dibuat di Mesin Kue Es Krim
+product_chocolate_cake_description,Được chế biến từ Máy Bánh Kem,Produce in Cake Oven,Dibuat di Mesin Kue Es Krim
+product_potato_feta_cake_description,Được chế biến từ Máy Bánh Kem,Produce in Cake Oven,Dibuat di Mesin Kue Es Krim
+metal_silver_bar_description,Được sản xuất từ Lò Nung,Produce in Smelter,Dibuat di oven
+metal_gold_bar_description,Được sản xuất từ Lò Nung,Produce in Smelter,Dibuat di Peleburan batu adi
+metal_platinum_bar_description,Được sản xuất từ Lò Nung,Produce in Smelter,Dibuat di Peleburan batu adi
+product_apple_juice_description,Được chế biến từ Máy Ép Nước Quả,Produce in Juice Press,Dibuat di mesin jus
+product_carrot_juice_description,Được chế biến từ Máy Ép Trái Cây,Produce in Juice Press,Dibuat di mesin jus
+product_tomato_juice_description,Được chế biến từ Máy Ép Trái Cây,Produce in Juice Press,Dibuat di mesin jus
+product_cherry_juice_description,Được chế biến từ Máy Ép Trái Cây,Produce in Juice Press,Dibuat di mesin jus
+product_berry_juice_description,Được chế biến từ Máy Ép Trái Cây,Produce in Juice Press,Dibuat di mesin jus
+product_vanilla_ice_cream_description,Được chế biến từ Máy Làm Kem,Produce in Icecream Maker,Dibuat di mesin Es krim
+product_cherry_popsicle_description,Được chế biến từ Máy Làm Kem,Produce in Icecream Maker,Dibuat di mesin Es Krim
+product_strawberry_ice_cream_description,Được chế biến từ Máy Làm Kem,Produce in Icecream Maker,Dibuat di mesin Es Krim
+product_chocolate_ice_cream_description,Được chế biến từ Máy Làm Kem,Produce in Icecream Maker,Dibuat di mesin Es krim
+product_apple_jam_description,Được chế biến từ Máy Làm Mứt,Produce in Jam Maker,Dibuat di mesin manisan
+product_blackberry_jam_description,Được chế biến từ Máy Làm Mứt,Produce in Jam Maker,Dibuat di mesin manisan
+product_cherry_jam_description,Được chế biến từ Máy Làm Mứt,Produce in Jam Maker,Dibuat di mesin manisan
+product_raspberry_jam_description,Được chế biến từ Máy Làm Mứt,Produce in Jam Maker,Dibuat di mesin manisan
+jewel_bracelet_description,Được sản xuất từ Xưởng Chế Tác,Produce in Jeweler,Dibuat di bengkel prosesing batu adi
+jewel_necklace_description,Được sản xuất từ Xưởng Chế Tác,Produce in Jeweler,Dibuat di bengkel prosesing batu adi
+jewel_diamond_ring_description,Được sản xuất từ Xưởng Chế Tác,Produce in Jeweler,Dibuat di bengkel prosesing batu adi
+product_espresso_description,Được chế biến từ Quán Cà Phê,Produce in Coffee Kiosk,Dibuat di warkop
+product_cafe_latte_description,Được chế biến từ Quán Cà Phê,Produce in Coffee Kiosk,Dibuat di warkop
+product_cafe_mocha_description,Được chế biến từ Quán Cà Phê,Produce in Coffee Kiosk,Dibuat di warkop
+product_hot_chocolate_description,Được chế biến từ Quán Cà Phê,Produce in Coffee Kiosk,Dibuat di warkop
+product_raspberry_mocha_description,Được chế biến từ Quán Cà Phê,Produce in Coffee Kiosk,Dibuat di warkop
+product_toffee_description,Được chế biến từ Máy Làm Kẹo,Produce in Candy Machine,Dibuat di mesin permen
+product_caramel_apple_description,Được chế biến từ Máy Làm Kẹo,Produce in Candy Machine,Dibuat di mesin permen
+product_jelly_beans_description,Được chế biến từ Máy Làm Kẹo,Produce in Candy Machine,Dibuat di mesin permen
+product_lollipop_description,Được chế biến từ Máy Làm Kẹo,Produce in Candy Machine,Dibuat di mesin permen
+product_chocolate_description,Được chế biến từ Máy Làm Kẹo,Produce in Candy Machine,Dibuat di mesin permen
+tool_dynamite_description,Dùng để dọn đá nhỏ,Use to destroy small rocks,Digunakan untuk membersihkan batu kerikil
+tool_demolition_charge_description,Dùng để dọn đá tảng,Use to destroy large rocks,Digunakan untuk membersihkan batu besar
+tool_axe_description,Dùng để chặt cây nhỏ,Use to chop down small trees,Digunakan untuk menebang pohon kecil
+tool_saw_description,Dùng để cưa cây to,Use to chop down large trees,Digunakan untuk menggergaji pohon besar
+tool_shovel_description,Dùng để dọn vũng nước đọng,Use to remove bogs,Digunakan untuk membersihkan kubangan air
+tool_nail_description,Để nâng cấp Kho lương thực,Use to upgrade Silo,Untuk mengupgrade gudang pangan
+tool_screw_description,Để nâng cấp Kho lương thực,Use to upgrade Silo,Untuk mengupgrade gudang pangan
+tool_woodPanel_description,Để nâng cấp Kho lương thực,Use to upgrade Silo,Untuk mengupgrade gudang pangan
+tool_bolt_description,Để nâng cấp Nhà kho,Use to upgrade Barn,Untuk mengupgrade gudang
+tool_plank_description,Để nâng cấp nhà kho,Use to upgrade Barn,Untuk mengupgrade gudang
+tool_ductTape_description,Để nâng cấp nhà kho,Use to upgrade Barn,Untuk mengupgrade gudang
+tool_land_deed_description,Để mở rộng đất,Use to expand your Farm,Untuk memperluas tanah
+tool_mallet_description,Để mở rộng đất,Use to expand your Farm,Untuk memperluas tanah
+tool_marker_stake_description,Để mở rộng đất,Use to expand your Farm,Untuk memperluas tanah
+crop_wheat_description,Thu hoạch sau,Harvest in,memanen nanti
+crop_corn_description,Thu hoạch sau,Harvest in,memanen nanti
+crop_carrot_description,Thu hoạch sau,Harvest in,memanen nanti
+crop_soybean_description,Thu hoạch sau,Harvest in,memanen nanti
+crop_sugarcane_description,Thu hoạch sau,Harvest in,memanen nanti
+crop_lavender_description,Thu hoạch sau,Harvest in,memanen nanti
+crop_indigo_description,Thu hoạch sau,Harvest in,memanen nanti
+crop_pumpkin_description,Thu hoạch sau,Harvest in,memanen nanti
+crop_chili_description,Thu hoạch sau,Harvest in,memanen nanti
+crop_chili_pepper_description,Thu hoạch sau,Harvest in,memanen nanti
+crop_tomato_description,Thu hoạch sau,Harvest in,memanen nanti
+crop_potato_description,Thu hoạch sau,Harvest in,memanen nanti
+crop_strawberry_description,Thu hoạch sau,Harvest in,memanen nanti
+ore_gold_name,Vàng vụn,Gold ore,bijih emas
+ore_platinum_name,Bạch kim vụn,Platium ore,bijih platinum
+ore_silver_name,Bạc vụn,Silver ore,bijih perak
+ore_gold_description,Có được từ Hầm mỏ,Collect from mine,Diperoleh dari tambang
+ore_platinum_description,Có được từ Hầm mỏ,Collect from mine,Diperoleh dari tambang
+ore_silver_description,Có dược từ Hầm mỏ,Collect from mine,Diperoleh dari tambang
+crop_rice_description,Thu hoạch sau,Harvest in,Memanen dalam
+crop_lettuce_description,Thu hoạch sau,Harvest in,Memanen dalam
+product_tomato_soup_description,Được chế biến từ Lò súp
+product_fish_soup_description,Được chế biến từ Lò súp
+product_lobster_soup_description,Được chế biến từ Lò súp
+product_soy_sauce_description,Được chế biến từ Máy nước sốt
+product_olive_oil_description,Được chế biến từ Máy nước sốt
+product_mayonnaise_description,Được chế biến từ Máy nước sốt
+product_sushi_roll_description,Được chế biến từ Tiệm sushi
+product_lobster_sushi_description,Được chế biến từ Tiệm sushi
+product_egg_sushi_description,Được chế biến từ Tiệm sushi
+product_feta_salad_description,Được chế biến từ Tiệm salad
+product_blt_salad_description,Được chế biến từ Tiệm salad
+product_seafood_salad_description,Được chế biến từ Tiệm salad
+product_blt_toast_description,Được chế biến từ Tiệm bánh kẹp
+product_veggie_bagel_description,Được chế biến từ Tiệm bánh kẹp
+product_egg_sandwich_description,Được chế biến từ Tiệm bánh kẹp
+product_frutti_di_mare_pizza_description,Được sản xuất từ Lò bánh mỳ
+product_chocolate_popcorn_description,Được sản xuất từ Xe bắp rang
+product_fish_and_chips_description,Được sản xuất từ Lò nướng BBQ
+product_fish_pie_description,Được sản xuất từ Máy nướng bánh
+product_red_scarf_description,Được sản xuất từ Máy dệt
+product_strawberry_jam_description,Được sản xuất từ Máy làm mứt
+product_lobster_description,Được sản xuất từ Máy hấp tôm
+Text_time_second,giây,second,detik
+Text_time_minute,phút,minute,menit
+Text_time_hour,giờ,hour,jam
+Text_time_day,ngày,day,hari
+Text_You_Have,Bạn có :,You have :,Anda punya
+Text_can_not_move,Không thể di chuyển,Not enough space here,Tak bisa digerakkan
+Text_can_not_place,Không thể đặt,Not enough space here,Tak bisa ditempatkan
+Text_full_ware_house,Nhà kho đầy,Warehouse is full,Gudang penuh
+Text_unlock_at,Mở tại cấp,Unlock at,Buka pada tingkat
+Text_place_pet,Đặt con vật tại chuồng tương ứng,Animal needs a different pen,Menempatkan ternak pada kandang yang sesuai
+Text_full_pet,"Chuồng đã đầy vật nuôi, không đặt thêm được",Pen is full,"Gudang sudah penuh ternak, tidak bisa tambah"
+Text_out_money,Bạn không đủ tiền vàng,Not enough gold,Anda tidak punya cukup emas
+Text_guide_order_table,Hãy chọn các đơn hàng phía bên trái bảng,Select an order from the left,Pilihlah pesanan di sebelah kiri atas papan
+Text_info_crop_last,"Đây là hạt giống duy nhất trong kho lương thực, bạn có muốn sử dụng không?","This is the last crop of this type, use anyway?","Inilah bibit satu-satunya di gudang pangan, Anda ingin menggunakannya?"
+Text_info_up_level,Nông trại bạn đạt cấp,Your Farm is now level,kebun Anda mencapai tingkat
+Text_talk_info_npc_1_1,Kinh doanh tốt chứ bạn.Tôi đang cần mua vài món,"Good business, yes ? I want to buy a few stuff:","Bisnis kamu bagus?, saya ingin membeli beberapa barang"
+Text_talk_info_npc_1_2,Bạn bán cho tôi món này nhé,Please I want to get these:,Kamu jual barang ini kepada saya yah
+Text_change_game_zing_popup,"Tài khoản %SOCIAL% đang có game Farmery cũ tên: %NAME%, level: %LEVEL%, bạn có muốn chơi game cũ hay game hiện tại?","Your Facebook account linked to Farm name: %NAME%, level: %LEVEL%, Do you want to recover this Farm, or use the current Farm ?","Account Facebook sudah ada game Farmery lama dengan nama %NAME% ,%LEVEL%, Anda ingin main game lama atau game baru?"
+Text_load_old_game_cmd,Lấy lại game cũ,Recover my old Farm,Main game lama
+Text_keep_current_game_cmd,Tiếp tục chơi game mới,Keep current Farm,Terus main game baru
+title_tut_2,THU HOẠCH,HARVESTING,memanen
+title_tut_5,GIEO HẠT,PLANTING,menyebar bibit
+title_tut_12,LẤY TRỨNG,HARVESTING,ambil telur
+title_tut_15,MUA 1 CON GÀ,BUY A CHICKEN,beli satu ekor ayam
+title_tut_18,CHO GÀ ĂN,FEED A CHICKEN,kasih makan ayam
+title_tut_24,SẢN XUẤT BÁNH MÌ,PRODUCE BREAD,produksi roti
+title_tut_31,DI CHUYỂN,MOVE FARM AROUND,bergerak
+title_tut_9,HẠT GIỐNG LỚN,GROWING CROPS,bibit besar
+text_intro_tut_1,Xin chào chủ nông trang mới. Tôi tên là Gà Tồ. Tôi sẽ giúp bạn làm quen với công việc của nông trang này nhé!,Hello dear farmer. I am Chicken. Let me help you out with these farm stuff !,"Salam pemilik kebun baru. Nama saya Ayam Konyol, Saya akan membantu Anda mencaritahu pekerjaan di kebun ini yah"
+text_intro_tut_2,Hãy xem kĩ cách hướng dẫn thu hoạch sau nhé!,Please see how we harvest the crops !,Perhatikan instruksi pemanenan nanti yah
+text_intro_tut_5,"Giờ là cách gieo hạt: Hãy chọn 1 ô ruộng, lấy hạt giống và gieo hạt nhé !","Now the seeding part: select a farm slot, pick and plant a seed !","Sekarang adalah cara menyebar bibit, pilihlah satu petak sawah, ambil bibit dan menyebarkannya yah"
+text_intro_tut_7,Bây giờ hãy chờ hạt giống phát triển. Mỗi ô ruộng khi thu hoạch sẽ cho bạn 2 hạt giống.,Wait for the crop to grow. One farm slot gives two crops!,"Sekarang tunggu bibit tumbuh, setiap petak akan menghasilkan 2 bibit"
+text_intro_tut_8,Thật tuyệt! Bạn nên trở thành một chủ trang trại sớm hơn! Bạn học mọi thứ rất nhanh. Đây là phần thưởng cho bạn.,Amazing ! You learn so fast. You gonna be a terrific farmer soon! Please accept this gift.,"Luar biasa! Anda mestinya menjadi pemilik kebun lebih awal! Anda belajar sangat cepat, inilah hadiah untuk Anda"
+text_intro_tut_9,Bây giờ là đến phần vật nuôi. Bạn hãy nhớ mỗi vật nuôi sẽ ở trong 1 chuồng nhất định.,Now for the farm animals. They need their own pens. Now I will show you how to harvest!,"Sekarang ialah bagian ternak, ingat setiap ternak ditempatkan di satu kandang sendiri, sekarang adalah cara mendapat hasil ternak"
+text_intro_tut_13,Bây giờ sẽ là cách thu hoạch vật nuôi.Hãy kéo chiếc giỏ qua những con gà để thu hoạch trứng.,Use the basket to pickup the eggs,Menarik kantong lewat ayam untuk ambil telur
+text_intro_tut_16,Bạn cần mua thêm vật nuôi? Chạm vào biểu tượng cửa hàng góc trái màn hình để mua.Kéo con gà cần mua từ cửa hàng thả vào chuồng nhé!,"More farm animals can be purchased by using the shop in the left corner. Move the chicken to the pen, shall we?","Anda ingin membeli ternak lagi, sentuh lambang toko di pojok kiri layar untuk membeli, tarik ayam yang ingin Anda beli dan lepaskan ke kandang Anda yah"
+text_intro_tut_19,Bây giờ bạn cho gà ăn bằng cách chọn vào chuồng rồi kéo thức ăn qua những con gà đang đói nhé !,"Now we feed the chicken by select the pen, then drag the chicken food to the chicken!",Sekarang Anda kasih ayam makan dengan cara pilih kandang dan tarik pakan lewat ayam yang sedang lapar
+text_intro_tut_21,Nông sản bạn thu được có thể đem chế biến thành nhiều món ăn ngon. Hãy thử 1 chiếc bánh mì mới ra lò xem.,Crops can be used as ingredients to produce excellent food. Let’s make a bread !,Hasil pertanian yang diperoleh bisa diolah menjadi banyak masakan yang enak. Cobalah satu roti yang baru jadi ini
+text_intro_tut_22,Bây giờ chúng ta sẽ học cách làm bánh.,Let’s make a bread,Sekarang kita akan belajar cara membuat kue
+text_intro_tut_25,Sản phẩm chế biến sẽ được nhiều người mua hơn đấy.Còn rất nhiều máy sản xuất trong cửa hàng để bạn mua thêm.,Food makes excellent sales. There are many more machines to be purchased in the shop!,Produk olahan akan mendapat lebih banyak pelanggan. Masih ada sangat banyak mesin produksi di toko untuk Anda
+text_intro_tut_27,Trang trại cũng có máy xay thức ăn cho vật nuôi đấy. Bạn cùng tôi đến thu hoạch những gói thức ăn đã xay xong nhé !,There is a Feed Mill in the farm! Let get some animal food from there!,Di kebun juga ada mesin penggiling pakan untuk ternak. Marilah bersama saya mengambil kantong pakan yang sudah selesai dibikin
+text_intro_tut_28,Để chắc chắn rằng vật nuôi của bạn không bao giờ bị bỏ đói. Tôi sẽ tặng bạn 1 máy xay thức ăn cho vật nuôi. Hãy cùng đi xem nhé.,"The chicken seems hungry, let’s go and check the Feed Mill out!",Untuk memastikan bahwa ternak Anda tidak kelaparan. Saya akan kasih Anda 1 mesin penggiling pakan. Ayo kita melihatnya
+text_intro_tut_30,Khi lên cấp bạn có thêm ô ruộng để trồng trọt. Hiện giờ bạn có thêm 3 ô đất trong cửa hàng. Hãy vào cửa hàng để lấy chúng ra nhé.,You get more farm slots when you level up! Now we have three more slots waiting in the shop!,"Ketika naik level, Anda akan mendapat tambahan petak untuk penanaman. Sekarang Anda dapat 3 petak tanah lagi. Marilah kita ke toko untuk mengambilnya"
+text_intro_tut_32,Bạn còn nhớ cách gieo hạt giống chứ? Hãy gieo thêm nhiều hạt giống nào.,"Dear farmer, do you still remember how to plant a seed? Let’s plant some more!",Anda masih ingat cara menyebar bibit? Menyebarkan lebih banyak lagi yah
+text_intro_tut_34,Bạn có thể di chuyển mọi thứ trong trang trại của mình và đặt chúng ở nơi bạn muốn. Đây là cách di chuyển.,You can move stuff around your Farm. This is how we do it:,Anda bisa memindahkan semua barang dalam kebun dan tempatkannya di tempat yang diinginkan. Inilah cara memindahkannya
+text_intro_tut_36,"Có khách ghé thăm, hỏi thăm anh ấy xem có việc gì ?","Ahh, we have a guest, let’s ask him what’s up !","Ada tamu lewat, tanyakan ada apa yah"
+text_intro_tut_38,"Xe giao hàng tới rồi,chiếc xe này sẽ giúp chúng ta giao các đơn hàng ở các nơi.","Truck has arrived, this may be handy for us to deliver our crops!","Mobil barang sudah tiba, mobil ini akan membantu kita mengirim barang pesanan ke semua tempat"
+text_intro_tut_39,Đây là nơi nhận các đơn hàng cần được giao. Bạn hãy làm theo các đơn đặt hàng này để kiếm thêm thu nhập cho trang trại nhé.,This is where we received orders! Let’s complete these orders and earn income for our Farm!,Ini tempat menerima pesanan yang perlu dikirim. Kirimkan barang pesanan untuk mendapat pendapatan tambahan yah
+text_intro_tut_41,"Xe đang trên đường đến địa điểm giao hàng rồi, Khi xe quay lại mang theo phần thưởng về. Hãy chạm vào xe để lấy phần thưởng dành cho bạn","The truck is delivering our crops. When the truck comes back, touch the coins to earn them!",Mobil sedang menuju ke tempat pesanan. Ketika pulang akan membawa hadiah. Sentuh mobil untuk mendapat hadiah Anda
+text_intro_tut_finish,Và đấy là những công việc đơn giản của một chủ nông trang. Cũng đơn giản mà phải không. Chúc bạn có những thời gian vui vẻ nhé.,These are works of professional farmers I knew ! Wish you have a good and happy time with your Farm!,Dan semua pekerjaan sederhana ini akan dilakukan seorang pemilik kebun. Sederhana bukan. Selamat bermain
+fruit_apple_description,Thu hoạch từ cây Táo,Harvest from Apple tree,Hasil panenan buah apel
+fruit_raspberry_description,Thu hoạch từ bụi Mâm xôi,Harvest from Raspberry tree,Hasil panenan dari pohon raspberry
+fruit_cherry_description,Thu hoạch từ cây Anh Đào,Harvest from Cherry tree,Hasil panenan dari pohon ceri
+fruit_blackberry_description,Thu hoạch từ bụi Phúc Bồn Tử,Harvest from Blackberry tree,Hasil panenan dari pohon Blackberry
+fruit_cacao_description,Thu hoạch từ cây Ca Cao,Harvest from Cacao tree,Hasil panenan dari pohon kopi
+fruit_coffee_description,Thu hoạch từ bụi Cà Phê,Harvest from Coffee tree,
+fruit_lemon_description,Thu hoạch từ cây Chanh,Harvest from lemon tree,Memetik dari Pohon Lemon
+fruit_olive_description,Thu hoạch từ cây Oliu,Harvest from olive tree,Memetik dari Pohon Zaitun
+text_intro_tut_50,Bây giờ là đến phần vật nuôi. Bạn hãy nhớ mỗi vật nuôi sẽ ở trong 1 chuồng nhất định. Bây giờ bạn hãy mua cho mình mấy con gà nhé!
+text_intro_tut_51,"Để mua vật nuôi. Bạn hãy chạm vào biểu tượng cửa hàng ở góc trái dưới màn hình điện thoại, vào phần vật nuôi để mua. Kéo vật nuôi cần mua ra khỏi cửa hàng và thả vào chuồng của chúng."
+text_intro_tut_52,"Các con gà cần thời gian để đẻ trứng, nhưng khi bạn cần thu hoạch trứng ngay thì hãy ấn vào nút Rubi để thu hoạch ngay nhé!"
+text_intro_tut_53,Đó là cách bạn mua thêm vật nuôi. Bây giờ bạn hãy cho gà ăn bằng cách chọn vào chuồng rồi thả thức ăn vào những con gà đang đói nhé!
+text_intro_tut_54,Để có ngay bánh mì mà không cần chờ đợi thì bạn hãy nhấn vào nút rubi bên dưới để hoàn thành ngay nhé.
+text_intro_tut_55,Bây giờ việc cuối cùng của bạn là đặt tên cho trang trại của mình. Hãy chọn cái tên thật hay và độc đáo nhé!
+text_intro_tut_56,Nông sản bạn thu được có thể đem chế biến thành nhiều món ăn ngon. Bây giờ chúng ta sẽ học cách làm bánh.
+text_intro_tut_57,Bánh mì chín hết rùi. Hãy thử chiêc bánh mì mới ra lò xem sao nha!
+text_disconnect,Mất liên lạc với trang trại,Lost contact with Farm,Kehilangan kontak dengan kebun
+text_unlock,Có tại cấp,Unlock at,Muncul di level
+text_detail_have_item_upgrade,"Vật phẩm nâng cấp có được từ thu hoạch cây trồng,nhà máy,vật nuôi ...","Items can be found when harvesting crops, machines, animals...","Barang upgrade diperoleh dari hasil panenan pohon, pabrik, ternak"
+text_wait_order_come_back,"Đợi hết thời gian chờ hoặc tăng tốc bằng ruby, đơn hàng tiếp theo sẽ đến nha bạn.",Wait for the count down or use ruby to speed up the next order,"Menunggu sampai habis waktu tunggu atau mendorong kecepatan dengan ruby, pesanan berikutnya akan tiba dirumah Anda"
+text_loading,Đang kết nối...,Connecting to Farm...,Sedang menghubungkan
+text_coming_soon,Sắp ra mắt!,Coming soon!,Segera diluncurkan
+txt_not_input_enough_user_pass,Bạn chưa nhập tài khoản hoặc mật khẩu!,Please input username or password!,Anda belum memasukkan ID atau password
+txt_waiting,Xin chờ...,Please wait...,Tunggu sebentar yah
+text_can_not_login,Tài khoản đăng nhập không đúng!,Username or password incorrect,ID tidak benar
+txt_cant_connect_to_server,Không kết nối được với server!,Lost contact with Server!,Tidak bisa menghubungkan dengan server
+text_try_cmd,Thử lại,Try again,Coba lagi
+text_exit_game_cmd,Thoát game,Quit Farm,Keluar
+text_exit_game_alert,Bạn có muốn thoát game?,Do you want to quit game?,Apa Anda ingin keluar game?
+text_to_use_gem,Để thực hiện hành động,To proceed now,Untuk melakukan tindakan
+text_create_new_sale,Bán\nvật phẩm,Sell\nitems,Menjual/ barang
+text_edit_road_shop,Sửa đồ bán,Edit items,Mereparasi barang jualan
+text_sold,Đã bán!,Sold!,Sudah dijual
+text_some_one_bought_item,"Xin lỗi, đã có người mua sản phẩm này","Sorry, item have been bought","Maaf, sudah ada orang lain yang membeli barang ini"
+text_not_enough_level_road_shop,Cần level %LEVEL%!,Require level %LEVEL%!,Butuh level %LEVEL%
+title_gui_exchange_rubi,ĐỔI RUBI,Get Ruby,Tukar Rubi
+title_gui_exchange_money,ĐỔI VÀNG,Get Gold,Tukar Emas
+title_item_bag_gem_1,Túi nhỏ,Medium bag,Kantong kecil
+title_item_bag_gem_2,Túi vừa,Large bag,Kantong sedang
+title_item_bag_gem_3,Túi lớn,Huge bag,Kantong besar
+text_upgrade_success,NÂNG CẤP THÀNH CÔNG,Upgrade Success !,Upgrade sukses
+text_need_level_unlock_road_shop,Cửa hàng sẽ được mở ở level 7!,Shop unlocks at level 7!,Toko akan dibuka pada level 7
+text_need_level_unlock_newspaper,Tờ báo sẽ được mở ở level 7!,Newspaper unlock at level 7!,Koran akan dibuka pada level 7
+text_upgrade_storage_later,Hiện tại chưa thể nâng cấp tiếp !,Upgrade currently unavailable!,Sekarang belum bisa upgrade lagi
+text_btn_back,Trở về,Back,kembali
+text_btn_upgrade,Nâng cấp kho,Upgrade !,mengupgrade gudang
+text_btn_deleiver_npc,Đồng ý bán!,Here you are,Sejutu menjual!
+text_btn_delete_npc,Xin lỗi tôi bán hết rùi!,Sorry I am out of this,Maaf saya sudah juga semua
+text_btn_later_npc,Xin chờ một chút!,Please wait a moment,Tunggu sebentar yah!
+text_notification_all_crop_ready,Đến giờ thu hoạch cây trồng rồi bạn ơi,Crops are ready to harvest!,Sudah sampat saat panenan pohon
+text_notification_chicken_ready,Các con gà đã đẻ trứng!,Eggs are ready to pickup!,Ayam-ayam sudah bertelur
+text_notification_cow_ready,Các con bò đang chờ bạn lấy sữa!,Milk bottles are ready to collect!,Sapi-sapi sedang menunggu diambil susu
+text_notification_pig_ready,Thu hoạch thịt heo nào!,Bacon is ready!,Ayo ambil daging babi
+text_notification_sheep_ready,Thu hoạch lông cừu nào!,Sheeps are waiting for you!,Ayo ambil rambut domba
+text_notification_building_contruction_ready,%NAME% đã xây xong. Bạn vào khai trương nào,%NAME% is ready. Let’s have a grand opening,%NAME% telah dibangun. Anda masuk meresmikannya yah
+text_notification_player_please_come_back,Các con vật nuôi đang rất nhớ bạn!,The farm animals are missing you so much!,Ternak sangat rindu Anda
+text_detail_confirm_exchange_gem,Bạn muốn mua %RUBI% ruby với giá %TIEN% đồng ?,Do you want to buy %RUBI% ruby by the price of %TIEN% ?,Apa Anda ingin membeli %RUBI% dengan harga VND %Uang%
+text_detail_confirm_exchange_gold,Bạn muốn mua %GOLD% vàng với giá %TIEN% đồng ?,Do you want to buy %GOLD% gold by the price of %TIEN% đồng ?,Apa Anda ingin membeli %Emas% dengan harga VND %Uang%
+text_btn_vote_farmery,BÌNH CHỌN,Vote!,Pilih
+text_btn_cancel_vote,BỎ QUA,Not now!,Lewat
+text_title_vote_farmery,Bình chọn nhận quà,Vote for Farmery,Pilih untuk memperoleh kado
+text_detail_vote_farmery,Hãy bình chọn cho FARMERY để nhận ngay phần quà tặng hấp dẫn!,Feeling good? Let’s vote for Farmery,Pilih-lah FARMERY untuk mendapat kado yang menarik
+text_note_vote_farmery,Cơ hội chỉ có một,The only chance,Kesempatan hanya satu saja
+text_update_version_alert,Game có phiên bản cập nhật mới!,Farmery has a fresh update !,Ada update baru
+text_update,Cập nhật,Update now!,Update
+text_unlock_mine,"Mỏ sản xuất các nguyên liệu kim loại\n và rubi, được mở tại cấp","Mine produces ore\n and ruby, unlock at level",Tambang berbagai jenis logam dan rubi dibuka pada level
+title_gui_ticket_table,Vé của bạn,Your current tickets,Tiket Anda
+title_detail_gui_ticket_table,Vé có được khi bán đơn hàng màu xanh và được dùng để đổi các vật phẩm đặc biệt.,"Tickets found when complete green order, used to exchange for special items!",Tiket diperoleh ketika menjual pesanan warna hijau dan digunakan untuk tukar barang-barang khas
+text_can_not_login_by_socket_server,Có sự cố khi kiểm tra thông tin đăng nhập!\nXin thử lại!,Error found when trying to login!\nPlease try again!,Ada masalah dalam pemeriksaan informasi akses! Silakan coba lagi
+advertise_3h,Quảng cáo trong\n3 tiếng,Advertise for\n3 hours,Iklan dalam waktu 3 jam
+time_ads_free_left,Miễn phí quảng cáo:\n,Free advertising:\n,Iklan gratis
+text_create_advertisement,Đăng tin,Post now,Memuat berita
+text_select_type_card,Chọn loại thẻ nạp!,Select card types!,Pilih jenis voucher
+text_process_send_card,Đang gửi thông tin thẻ nạp!,Sending card information!,Sedang mengirim informasi voucher
+text_wait_process_card,Xin đợi xử lý xong thông tin thẻ nạp trước!,Please wait for card processing,Tolong tunggu sampai informasi voucher diproses
+text_card_payment_success,Nạp thẻ thành công!,Top up success!,pengisian voucher sukses
+text_card_payment_unsuccess,"Nạp thẻ không thành công, xin vui lòng thử lại!","Top up unsuccessful, please try again","pengisian voucher gagal, silakan coba lagi"
+text_header_card_payment,NẠP THẺ CÀO,CARD TOP UP,Mengisi voucher
+text_btn_register_facebook,FACEBOOK - ĐĂNG NHẬP,FACEBOOK - LOGIN,FACEBOOK - Akses
+text_btn_out_facebook,FACEBOOK - ĐĂNG XUẤT,FACEBOOK - LOGOUT,FACEBOOK - Keluar
+text_change_name_farmery,ĐỔI TÊN NÔNG TRẠI,CHANGE FARM NAME,Mengubah nama kebun
+text_info_error_of_user,BÁO LỖI - GÓP Ý,REPORT ISSUES,Lapor eror - sumbangan pendapat
+mine_name,Mỏ kim loại,Mine,Tambang logam
+text_not_enough_money_repair_mine,Bạn không đủ tiền để sửa chữa mỏ !,Not enough gold to repair old mine!,Anda tidak cukup uang untuk memperbaiki tambang
+text_store_item_shop,Trong kho:,In stock:,Dalam gudang
+deco_ban_an_name,Bàn Ăn,Dinning table,Meja makan
+deco_ban_an_detail_tab,,,
+deco_bu_nhin_rom_name,Bù Nhìn Rơm,Scarecrow,orang-orangan sawah
+deco_bu_nhin_rom_detail_tab,,,
+deco_cay_canh_vang_name,Cây Đơn Vàng,Yellow tree,Pohon Asoka Jambon Kuning
+deco_cay_canh_vang_detail_tab,,,
+deco_cay_canh_xanh_name,Cây Đơn Xanh,Green tree,Pohon Asoka Jambon Hijau
+deco_cay_canh_xanh_detail_tab,,,
+deco_cay_phat_tai_name,Thiết Mộc Lan,Lucky tree,Pohon Hanjuang
+deco_cay_phat_tai_detail_tab,,,
+deco_cay_thong_vang_name,Thông Vàng,Yellow pine,Pohon Cemara Kuning
+deco_cay_thong_vang_detail_tab,,,
+deco_cay_thong_xanh_name,Thông Xanh,Green pine,Pohon Cemara Hijau
+deco_cay_thong_xanh_detail_tab,,,
+deco_cay_uon_vang_name,Linh Sam Vàng,Yellow bonsai,Pohon Cemara Douglas Kuning
+deco_cay_uon_vang_detail_tab,,,
+deco_cay_uon_xanh_name,Linh Sam Xanh,Green bonsai,Pohon Cemara Douglas Hijau
+deco_cay_uon_xanh_detail_tab,,,
+deco_chau_hoa_cuc_name,Chậu Hoa Cúc,Small flower,Vas bunga krisan
+deco_chau_hoa_cuc_detail_tab,,,
+deco_chu_lun_name,Chú Lùn,Statue,Kurcaci
+deco_chu_lun_detail_tab,,,
+deco_coi_xay_gio_name,Cối Xay Gió,Windmill,Kincir angin
+deco_coi_xay_gio_detail_tab,,,
+deco_co_gai_name,Tượng Thiếu Nữ,Girl statue,Patung gadis
+deco_co_gai_detail_tab,,,
+dai_phun_nuoc_trang_name,Đài Phun Bạc,Silver Fountain,Menara pemancur perak
+dai_phun_nuoc_trang_detail_tab,,,
+dai_phun_nuoc_vang_name,Đài Phun Vàng,Golden Fountain,Menara pemancur emas
+dai_phun_nuoc_vang_detail_tab,,,
+deco_den_go_cao_name,Đèn Gỗ Treo,Lantern,Lampu kayu gantung
+deco_den_go_cao_detail_tab,,,
+deco_den_go_thap_name,Đèn Vườn Gỗ,Wooden lamp,Lampu kayu taman
+deco_den_go_thap_detail_tab,,,
+deco_den_sat_cao_name,Đèn Đường,Road light,Lampu jalan
+deco_den_sat_cao_detail_tab,,,
+deco_den_sat_thap_name,Đèn Vườn,Garden light,Lampu taman
+deco_den_sat_thap_detail_tab,,,
+deco_hoa_huong_duong_name,Hoa Hướng Dương,Sunflower,Bunga matahari
+deco_hoa_huong_duong_detail_tab,,,
+deco_may_cay_name,Máy Cày,Tractor,Mesin bajak
+deco_may_cay_detail_tab,,,
+deco_nha_uong_tra_name,Nhà Uống Trà,Tea house,Rumah minum the
+deco_nha_uong_tra_detail_tab,,,
+deco_oc_sen_name,Vỏ Ốc,Snail shell,Kulit keong
+deco_oc_sen_detail_tab,,,
+deco_rom_nho_name,Đụm Rơm Nhỏ,Small haystack,Gundulan jerami kecil
+deco_rom_nho_detail_tab,,,
+deco_rom_to_name,Đụm Rơm To,Huge haystack,Gundulan jerami besar
+deco_rom_to_detail_tab,,,
+deco_rom_tron_name,Cuộn Rơm,Hay circle,Gulungan jerami
+deco_rom_tron_detail_tab,,,
+deco_sieu_oto_name,Xe hơi,Car,mobil
+deco_sieu_oto_detail_tab,,,
+deco_thien_nga_name,Bình Thiên Nga,Swan statue,Vas angsa
+deco_thien_nga_detail_tab,,,
+deco_xe_co_rom_name,Xe Kút Kít Rơm,Hay Wheelbarrow,kerobak jerami
+deco_xe_co_rom_detail_tab,,,
+deco_xe_dap_hong_name,Xe Đạp Hồng,Pink bicycle,sepeda pink
+deco_xe_dap_hong_detail_tab,,,
+deco_xe_dap_xanh_name,Xe Đạp Xanh,Green bicycle,sepeda hijau
+deco_xe_dap_xanh_detail_tab,,,
+deco_xe_kutkit_name,Xe kút kít,Wheelbarrow,gerobak
+deco_xe_kutkit_detail_tab,,,
+xich_du_name,Xích Đu Trắng,White swing,ayunan putih
+xich_du_detail_tab,,,
+deco_hang_rao_cay_name,Hàng Rào Cây,Plant fence,pagar pohon
+deco_hang_rao_cay_detail_tab,,,
+deco_duong_da_name,Đường Đá,Rock path,jalan batu
+deco_duong_da_detail_tab,,,
+deco_duong_gach_name,Gạch Nung,Brick path,Batu bata
+deco_duong_gach_detail_tab,,,
+deco_duong_gach_vien_xanh_name,Đá Hoa Cương,Marble path,batu granit
+deco_duong_gach_vien_xanh_detail_tab,,,
+deco_hang_rao_cam_name,Hàng Rào Thu,Autumn fence,pagar musim gugur
+deco_hang_rao_cam_detail_tab,,,
+deco_hang_rao_cay_name,Hàng Rào Cây,Plant fence,pagar pohon
+deco_hang_rao_cay_detail_tab,,,
+deco_hang_rao_cay_hoa_name,Hàng Rào Hoa,Flower fence,pagar bunga
+deco_hang_rao_cay_hoa_detail_tab,,,
+deco_hang_rao_go_name,Hàng Rào Gỗ,Wooden fence,pagar kayu
+deco_hang_rao_go_detail_tab,,,
+deco_hang_rao_go_trang_name,Hàng Rào Trắng,White fence,pagar putih
+deco_hang_rao_go_trang_detail_tab,,,
+deco_hang_rao_hoa_hong_name,Hàng Rào Hồng,Pink fence,pagar pink
+deco_hang_rao_hoa_hong_detail_tab,,,
+deco_hang_rao_lam_name,Hàng Rào Đông,Winter fence,pagar musim dingin
+deco_hang_rao_lam_detail_tab,,,
+deco_hang_rao_vang_name,Hàng Rào Hạ,Summer fence,pagar musim panas
+deco_hang_rao_vang_detail_tab,,,
+deco_hang_rao_xanh_name,Hàng Rào Xuân,Spring fence,pagar musim Semi
+deco_hang_rao_xanh_detail_tab,,,
+deco_tuong_gach_name,Tường Gạch,Brick wall,Dinding baru bata
+deco_tuong_gach_detail_tab,,,
+ho_canh_nho_name,Hồ Cá 1,Small fish pond,kolam ikan 1
+ho_canh_nho_detail_tab,,,
+ho_canh_name,Hồ Cá 2,Large fish pond,kolam ikan 2
+ho_canh_detail_tab,,,
+ho_canh_to_name,Hồ Cá 3,Famous fish pond,kolam ikan 3
+ho_canh_to_detail_tab,,,
+bep_nuong_thit_name,Bếp Nướng,Grill BBQ,oven
+bep_nuong_thit_detail_tab,,,
+ghe_bang_go_nau_name,Ghế Gỗ,Wooden chair,kursi kayu
+ghe_bang_go_nau_detail_tab,,,
+ghe_bang_go_trang_name,Ghế Trắng,White chair,kursi putih
+ghe_bang_go_trang_detail_tab,,,
+ghe_bang_co_hoa_name,Ghế Kiểu,Fashion chair,kursi gaya
+ghe_bang_co_hoa_detail_tab,,,
+hoa_dia_lan_do_name,Địa Lan Đỏ,Red orchid,Anggrek merah
+hoa_dia_lan_do_detail_tab,,,
+hoa_dia_lan_vang_name,Địa Lan Vàng,Yellow orchid,Anggrek kuning
+hoa_dia_lan_vang_detail_tab,,,
+hoa_tulip_do_name,Hoa Tulip Đỏ,Red tulip,bunga Tulip merah
+hoa_tulip_do_detail_tab,,,
+hoa_tulip_tim_name,Hoa Tulip Tím,Pink tulip,bunga tulip ungu
+hoa_tulip_tim_detail_tab,,,
+deco_thung_go_name,Thùng gỗ,Large wooden box,barel kayu
+deco_thung_go_detail_tab,,,
+deco_thung_go_nhom_name,Thùng gỗ nhóm,Wooden boxes,barel kayu dan aluminium
+deco_thung_go_nhom_detail_tab,,,
+deco_nha_uong_tra_2_name,Nhà uống trà 2,Large tea house,rumah minum the 2
+deco_nha_uong_tra_2_detail_tab,,,
+deco_noel_bo_keo_name,Bó kẹo,Candy crush,permen
+deco_noel_bo_keo_detail_tab,,,
+deco_noel_cay_nhap_nhanh_name,Cây tuyết,Snow tree,pohon salju
+deco_noel_cay_nhap_nhanh_detail_tab,,,
+deco_noel_cay_thong_trang_tri_name,Cây thông noel,Christmas tree,pohon natal
+deco_noel_cay_thong_trang_tri_detail_tab,,,
+deco_noel_chu_noel_name,Chữ Noel,Noel letters,huruf Natal
+deco_noel_chu_noel_detail_tab,,,
+deco_noel_chu_x_mas_name,Chữ Xmas,Xmas letters,huruf Xmas
+deco_noel_chu_x_mas_detail_tab,,,
+deco_noel_den_vuon_keo_noel_name,Đèn kẹo,Candy light,lampu permen
+deco_noel_den_vuon_keo_noel_detail_tab,,,
+deco_noel_hang_rao_giang_sinh_name,Hàng rào noel,Xmas fence,pagar natal
+deco_noel_hang_rao_giang_sinh_detail_tab,,,
+deco_noel_hoa_trang_nguyen_name,Hoa trạng nguyên,PhD flower,bunga kastuba
+deco_noel_hoa_trang_nguyen_detail_tab,,,
+deco_noel_qua_noel_name,Gói quà noel,Xmas gift,kado natal
+deco_noel_qua_noel_detail_tab,,,
+deco_noel_nen_noel_name,Đèn cầy,Merry light,lampu minyak
+deco_noel_nen_noel_detail_tab,,,
+deco_noel_nguoi_tuyet_xanh_name,Người tuyết 1,Snowman,boneka salju 1
+deco_noel_nguoi_tuyet_xanh_detail_tab,,,
+deco_noel_nguoi_tuyet_do_name,Người tuyết 2,Large snowman,boneka salju 2
+deco_noel_nguoi_tuyet_do_detail_tab,,,
+deco_noel_tuong_noel_nam_name,Tượng noel,Xmas statue,patung natal
+deco_noel_tuong_noel_nam_detail_tab,,,
+deco_noel_tuong_noel_nu_name,Công chúa tuyết,Snow princess,Putri salju
+deco_noel_tuong_noel_nu_detail_tab,,,
+deco_noel_xe_truot_tuyet_name,Xe trượt, ice resurfacer,kereta salju
+deco_noel_xe_truot_tuyet_detail_tab,,,
+deco_noel_qua_noel_xanh_name,Quà xanh,Green gift box,kado hijau
+deco_noel_qua_noel_xanh_detail_tab,,,
+deco_noel_qua_noel_hong_name,Quà hồng,Pink gift box,kado pink
+deco_noel_qua_noel_hong_detail_tab,,,
+deco_noel_qua_noel_do_name,Quà đỏ,Red gift box,kado merah
+deco_noel_qua_noel_do_detail_tab,,,
+deco_noel_bong_do_name,Bóng đỏ,Red ball,balon merah
+deco_noel_bong_do_detail_tab,,,
+deco_noel_bong_xanh_name,Bóng xanh,Green ball,balon hijau
+deco_noel_bong_xanh_detail_tab,,,
+deco_noel_bong_nhieu_mau_name,Bóng nhiều màu,Multi colored ball,balon banyak warna
+deco_noel_bong_nhieu_mau_detail_tab,,,
+deco_tet_phao_name,Dây pháo,fire cracker,fire cracker
+deco_tet_phao_detail_tab,,,
+deco_tet_tuong_than_tai_name,Tượng Thần Tài,Wealth God,Wealth God
+deco_tet_tuong_than_tai_detail_tab,,,
+deco_tet_lan_tet_name,Con Lân,Unicorn,Unicorn
+deco_tet_lan_tet_detail_tab,,,
+deco_tet_banh_chung_name,Bánh chưng,Square cake,Square cake
+deco_tet_banh_chung_detail_tab,,,
+deco_tet_dua_hau_tet_name,Dưa hấu vuông,Square melon,Square melon
+deco_tet_dua_hau_tet_detail_tab,,,
+deco_tet_hoa_cat_tuong_name,Hoa cát tường,Good fortune flower,Good fortune flower
+deco_tet_hoa_cat_tuong_detail_tab,,,
+deco_tet_hoa_chuong_name,Hoa chuông,Bell flower,Bell flower
+deco_tet_hoa_chuong_detail_tab,,,
+deco_tet_hoa_hong_name,Hoa hồng,Roses,Roses
+deco_tet_hoa_hong_detail_tab,,,
+deco_tet_hoa_hue_tu_phuong_name,Huệ Tứ Phương,Sky flower,Sky flower
+deco_tet_hoa_hue_tu_phuong_detail_tab,,,
+deco_tet_hoa_ly_name,Hoa ly,Healing flower,Healing flower
+deco_tet_hoa_ly_detail_tab,,,
+deco_tet_meo_than_tai_do_name,Mèo thần tài đỏ,Red Wealth Cat,Red Wealth Cat
+deco_tet_meo_than_tai_do_detail_tab,,,
+deco_tet_meo_than_tai_xanh_name,Mèo thần tài xanh,Green Wealth Cat,Green Wealth Cat
+deco_tet_meo_than_tai_xanh_detail_tab,,,
+deco_tet_tuong_ngua_name,Tượng Giáp Ngọ,Handsome Horse statue,Handsome Horse statue
+deco_tet_tuong_ngua_detail_tab,,,
+deco_tet_cay_mai_name,Cây mai,Yellow Beauty,Yellow Beauty
+deco_tet_cay_mai_detail_tab,,,
+deco_tet_cay_dao_name,Cây đào,Red Beauty,Red Beauty
+deco_tet_cay_dao_detail_tab,,,
+deco_tet_hang_rao_tet_name,Hàng rào đèn lồng,Latern fence,Latern fence
+deco_tet_hang_rao_tet_detail_tab,,,
+deco_tet_cay_quat_name,Cây quất,Kumquat tree,Kumquat tree
+deco_tet_cay_quat_detail_tab,,,
+deco_tet_bong_do_tet_name,Bóng đỏ,Red balloon,Red balloon
+deco_tet_bong_do_tet_detail_tab,,,
+deco_tet_bong_vang_tet_name,Bóng vàng,Yellow balloon,Yellow balloon
+deco_tet_bong_vang_tet_detail_tab,,,
+deco_tet_bong_xanh_la_tet_name,Bóng xanh lá,Green balloon,Green balloon
+deco_tet_bong_xanh_la_tet_detail_tab,,,
+deco_tet_bong_xanh_tet_name,Bóng xanh biển,Blue balloon,Blue balloon
+deco_tet_bong_xanh_tet_detail_tab,,,
+deco_tet_thoi_vang_name,Thỏi vàng,Golden Bar,Golden Bar
+deco_tet_thoi_vang_detail_tab,,,
+text_not_place_pet_full_house,Chuồng không còn chỗ trống,Not enough space in pen,kandang sudah penuh
+text_not_place_pet_other_house,Hãy đặt vào chuồng tương ứng của thú,Animal needs a different pen,tempatkan pada kandang yang sesuai
+text_not_place_pet_not_house,Hãy mua chuồng cho thú nuôi trước nhé,Buy a pen for this animal first,beli kandang dulu yah
+text_time_boat_departure,Thời gian tàu rời bến,Time for plane to depart,waktu kapal berangkat
+text_time_boat_arrive,Thời gian tàu cập bến,Time for plane to arrive,waktu kapal berlabuh
+text_bonus_finish_order,Hoàn thành đơn hàng:,Finish order:,pesanan selesai
+text_help_order_boat,Nhờ giúp đỡ,Ask for help,minta bantuan
+text_get_now_order_boat,Tàu đến ngay,Get plane now,kapal segera datang
+text_info_next_order_boat,Đơn hàng sắp tới:,Next orders:,pesanan mendatang
+text_title_gui_order_boat,ĐƠN HÀNG TÀU,PLANE ORDER,pesanan kapal
+text_unlock_dock_boat,"Bến cảng dùng để thực hiện bán hàng hóa,\n được mở tại cấp","Plane dock to sell more crops,\n unlock at level","dermaga untuk berdagang,\n dibuka pada tingkat"
+text_not_enough_money_repair_dock,Bạn không đủ tiền để sửa chữa bến cảng !,Not enough gold to repair Plane Dock !,Uang tidak cukup untuk reparasi dermaga
+text_confirm_money_do_repair_dock,Bạn muốn sửa chữa bến cảng ?,Do you want to repair the Plane Dock ?,Anda ingin mereparasi dermaga
+text_confirm_money_do_repair_mine,Bạn muốn sửa chữa mỏ ?,Do you want to repair Old Mine ?,Anda ingin memperbaiki tambang
+dock_boat_name,Bến cảng,Plane Dock,pelabuhan
+text_move_plane_now_no_order,Bạn muốn hủy chuyến hàng này không ?\n Tàu bay sẽ trở lại sau với các đơn hàng khác.,Do you want to cancel this plane shipment ?\n The Plane will be back with different order.,Anda ingin membatalkan transaksi ini?\n pesawat akan kembali nanti dengan pesanan lain
+text_finished_order_boat,Đã được hoàn thành,Order finished,terlaksana
+text_notice_title,Thông báo,Information,pengumuman
+text_btn_receive_bonus,Nhận,Get reward,terima
+text_no_notice,Không có thông báo nào!,There is no new information!,tidak ada berita!
+download_image_error_txt,Không tải ảnh được!,Could not load contents!,Tidak bisa mendownload foto
+downloading_image_txt,Đang tải ảnh...,Content loading...,sedang mendownload foto
+text_expand_header,Mở rộng đất,Expand land,memperluas tanah
+text_need_link_other_land,Phải gần vùng đất đã mở rộng!,Need to expand adjacient land first!,harus dekat tanah yang sudah diperluas
+text_need_level_expand_land,Chức năng mở rộng đất cần level 22!,Expand land requires level 22!,Fungsi perluasan dibolehkan pada level 22
+text_expand_title,Mở rộng đất,Expand land,memperluas tanah
+text_discount_header,GIÁ TỐT MỖI NGÀY,Good price every day,harga baik setiap hari
+text_discount_description,Khuyến mãi giảm @PERCENT@%\n,Sale @PERCENT@%\n,diskon @Persen@%\n hari ini
+text_btn_get_deal,Đồng ý,Agree,setuju
+text_discription_pop_deal,Bạn đồng ý mua món hàng này không?,Do you agree to buy this item?,Anda ingin beli barang ini?
+text_bought_deal,Hãy đợi gói khuyến mãi tiếp theo\nbạn nhé!,Please wait for next deal.\nDear farmer!,Tunggu paket diskon besok yah
+text_need_gold_expand,(Thiếu 5000),(Missing 5000),(kurang 5000)
+title_leve_up,LÊN CẤP,LEVEL UP,naik level
+text_time_remain,Thời gian còn lại:,Time remains:,waktu sisa:
+text_detail_reindeer_full,Các bạn Tuần lộc đã no rùi. Tuần lộc đi chơi Noel một lúc nha.,Các bạn Tuần lộc đã no rùi. Tuần lộc đi chơi Noel một lúc nha.,Rusa kutub sudah kenyang. Rusa kutub ingin main sebentar yah
+text_time_next_feed_reindeer,Thời gian cho đợt tiếp theo:,Thời gian cho đợt tiếp theo:,waktu untuk gelombang berikutnya
+text_title_exchange_candy_to_gift,ĐỔI KẸO LẤY QUÀ,ĐỔI KẸO LẤY QUÀ,Tukar permen dengan kado
+text_num_candy,Tổng số kẹo:,Tổng số kẹo:,jumlah permen
+text_intro_feed_reindeer,Bạn hãy quay máy Thực đơn để chọn thức ăn cho Tuần lộc nhé!,Bạn hãy quay máy Thực đơn để chọn thức ăn cho Tuần lộc nhé!,Putarkan mesin Menu untuk memilih makanan untuk rusa kutub yah
+text_good_meal_reindeer,Chúc ăn ngon,Chúc ăn ngon,selamat makan
+text_reselect_food_reindeer,Đổi món ăn,Đổi món ăn,tukar makanan
+text_push_button,NHẤN,NHẤN,tekan
+text_select_food_reindeer,Chọn món,Chọn món,pilih makanan
+text_time_remain_select_food_reindeer_next,Thời gian chọn món ăn sắp tới còn:,Thời gian chọn món ăn sắp tới còn:,Waktu pilih makanan berikutnya tinggal:
+text_time_remain_feed_reindeer,Thời gian ăn còn lại:,Thời gian ăn còn lại:,Waktu makan sisanya:
+text_time_remain_feed_reindeer_next,Thời gian ăn sắp tới còn:,Thời gian ăn sắp tới còn:,Waktu makan berikutnya tinggal
+text_not_enought_candy_reindeer,Không đủ kẹo rùi,Không đủ kẹo rùi,tidak cukup permen
+text_info_status_reindeer,Độ no,Độ no,taraf kekenyangan
+text_title_ranking_gui,BẢNG XẾP HẠNG,BẢNG XẾP HẠNG,daftar peringkat
+text_title_guide,HƯỚNG DẪN,HƯỚNG DẪN,instruksi
+text_btn_exchange_gift,Đổi quà,Đổi quà,tukar kado
+text_title_info_lager,THÔNG BÁO,THÔNG BÁO,pengumuman
+text_Reindeer_talk_1,Ăn ăn,Ăn ăn,makan ayo
+text_Reindeer_talk_2,Em đói,Em đói,saya lapar
+text_Reindeer_talk_3,T.T,T.T,T.T
+text_quote_eat_reindeer_1,No quá,No quá,Kenyang amat
+text_quote_eat_reindeer_2,Ngon lém,Ngon lém,enak sekali
+text_quote_eat_reindeer_3,Đua tốp nè,Đua tốp nè,lomba masuk top
+text_quote_eat_reindeer_4,La la ...,La la ...,la la...
+text_quote_eat_reindeer_5,Nữa nha,Nữa nha,lagi yah
+text_quote_eat_reindeer_6,Măm măm ...,Măm măm ...,nyam nyam...
+text_tet_horse_talk_1,Đổi lì xì,Đổi lì xì,Đổi lì xì
+text_tet_horse_talk_2,Nhận nhiều quà,Nhận nhiều quà,Nhận nhiều quà
+text_tet_horse_talk_3,Phát Tài,Phát Tài,Phát Tài
+text_tet_horse_talk_4,Phát Lộc,Phát Lộc,Phát Lộc
+text_tet_horse_talk_5,Vạn sự như ý,Vạn sự như ý,Vạn sự như ý
+text_tet_horse_talk_6,Lì xì lấy hên,Lì xì lấy hên,Lì xì lấy hên
+text_tet_horse_talk_7,Mừng xuân mới,Mừng xuân mới,Mừng xuân mới
+text_warning_time__back_reindeer,Tuần lộc sẽ quay lại sau:,Tuần lộc sẽ quay lại sau:,nanti rusa kutub akan kembali
+text_warning_time_eat_reindeer,Tuần lộc sẽ ăn sau:,Tuần lộc sẽ ăn sau:,nanti rusa kutub akan makan
+text_warning_time_finish_eat_reindeer,Tuần lộc sẽ kết thúc thời gian ăn sau:,Tuần lộc sẽ kết thúc thời gian ăn sau:,waktu rusa kutub makan akan berakhir setelah:
+text_warning_time_exchange_candy_reindeer,Thời gian đổi quà còn:,Thời gian đổi quà còn:,Waktu tukar kado tingga:
+text_warning_finish_event_noel,"Thời gian cho tuần lộc ăn đã hết, bạn đổi quà đi nha!","Thời gian cho tuần lộc ăn đã hết, bạn đổi quà đi nha!","Th?i gian cho tu?n l?c ăn đ? h?t, b?n đ?i quà đi nha!"
+text_finish_event_noel,Sự kiện Noel-2013 đã kết thúc. Hẹn gặp lại mùa Noel năm sau nha!,Sự kiện Noel-2013 đã kết thúc. Hẹn gặp lại mùa Noel năm sau nha!,S? ki?n Noel-2013 đ? k?t thúc. H?n g?p l?i mùa Noel năm sau nha!
+text_bag_gift_1,Túi quà nhỏ,Túi quà nhỏ,kantong kado kecil
+text_bag_gift_2,Giỏ quà,Giỏ quà,buket kado
+text_bag_gift_3,Giỏ quà lớn,Giỏ quà lớn,buket kado besar
+text_title_reiceive_gift,BẢNG NHẬN QUÀ,Congratulations!,Papan penerimaan kado
+text_detail_receive_gift,Bạn nhận được:,You received :,Anda mendapat:
+text_detail_chance_receive_gift,Bạn có cơ hội nhận được các món quà sau,You have a chance to get the following:,Anda berkesempatan mendapat kado-kado:
+text_title_chance_receive_gift,THÔNG TIN,Information,informasi
+text_text__detail_guide_noel,Hướng dẫn tham gia sự kiện Tuần lộc tham ăn,Hướng dẫn tham gia sự kiện Tuần lộc tham ăn,Instruksi ikut event Rusa kutub rakus
+text_title_exchange_lixi_horse_2014,ĐỔI BAO LÌ XÌ,ĐỔI BAO LÌ XÌ,ĐỔI BAO LÌ XÌ
+text_title_select_lixi_horse_2014,HÁI LỘC ĐẦU NĂM,HÁI LỘC ĐẦU NĂM,HÁI LỘC ĐẦU NĂM
+text_btn_exchange_lixi,Đổi lì xì,Đổi lì xì,Đổi lì xì
+text_btn_exchange_now,Đổi ngay,Đổi ngay,Đổi ngay
+text_detail_select_lixi_horse_2014,"Hãy chọn cho mình 1 hộp quà, các phần thưởng hấp dẫn đang chờ bạn!","Hãy chọn cho mình 1 hộp quà, các phần thưởng hấp dẫn đang chờ bạn!","Hãy chọn cho mình 1 hộp quà, các phần thưởng hấp dẫn đang chờ bạn!"
+text_tip_select_lixi_horse_2014,"Lưu ý: Móng ngựa rơi ra khi thu hoạch cây, vật phẩm sản xuất, hoàn thành các đơn hàng.","Lưu ý: Móng ngựa rơi ra khi thu hoạch cây, vật phẩm sản xuất, hoàn thành các đơn hàng.","Lưu ý: Móng ngựa rơi ra khi thu hoạch cây, vật phẩm sản xuất, hoàn thành các đơn hàng."
+text_guide_1_event_horse_2014,Bước 1: Thu hoạch- hoàn thành đơn hàng xe và tàu để thu thập những chiếc móng ngựa may mắn!,Bước 1: Thu hoạch- hoàn thành đơn hàng xe và tàu để thu thập những chiếc móng ngựa may mắn!,Bước 1: Thu hoạch- hoàn thành đơn hàng xe và tàu để thu thập những chiếc móng ngựa may mắn!
+text_guide_2_event_horse_2014,Bước 2: Đổi bao lì xì!,Bước 2: Đổi bao lì xì!,Bước 2: Đổi bao lì xì!
+text_guide_3_event_horse_2014,Bước 3: Chọn hộp quà ưng ý!,Bước 3: Chọn hộp quà ưng ý!,Bước 3: Chọn hộp quà ưng ý!
+text_guide_4_event_horse_2014,Bước 4: Nhận quà,Bước 4: Nhận quà,Bước 4: Nhận quà
+text_title_guide_event_horse_2014,HƯỚNG DẪN SỰ KIỆN TẾT,HƯỚNG DẪN SỰ KIỆN TẾT,HƯỚNG DẪN SỰ KIỆN TẾT
+text_luck_box_rubi_to_open,Để mở hòm quà,To open the chest,To open the chest
+text_title_spin_car,VÒNG QUAY MAY MẮN,LUCKY DRAW,LUCKY DRAW
+text_btn_respin_spin_car,Để quay tiếp,To spin again,To spin again
+text_respin_spin_car,Quay tiếp,Spin again,Spin again
+text_quote_npc_pipi_hire,Chào tình iu nha. Bạn muốn thuê tớ phải không ?,"Hello love, do you want to hire me ^^ ?","Halo cinta, apakah kamu ingin mempekerjakan aku?"
+text_sleep_waiting_pipi_hire,"zzz...tớ mệt quá, tớ phải nghỉ chút đã đây, mệt quá bạn ah... hic hic",zzz...I am so tired I need a bit rest hix hix,"Zzz�aku sangat lelah, aku butuh sedikit istirahat hix hix"
+text_time_waitting_pipi_hire,Thời gian sắp tới:,Time to next finding:,Waktu untuk pencarian berikutnya :
+text_time_expire_pipi_hire,Thời gian thuê còn:,Hiring time:,Waktu perekrutan :
+text_intro_pipi_hire_box_npc,"Hân hạnh được làm quen với tình iu, khi nào có nhiều đồ cần mua hãy gọi tớ nhé. Chỉ cần chạm vào khay hàng là tớ tới lun thui.hihi","So glad to meet you love, if you want to find items, just call me by tapping the basket. hih","Senang bertemu denganmu, cinta. Jika kamu ingin mencari item, panggil saja aku dengan menekan keranjang. Hihi."
+text_btn_not_hire,"Không, cám ơn.","No, thanks.","Tidak, terima kasih."
+text_quote_select_item_buy_pipi,"Vui quá, có hàng rùi. Bạn muốn chọn món nào ?","Yay, I found the items. What of these do you like ?","Hore, aku menemukan itemnya. Apa ini yang kamu sukai?"
+text_btn_find_item_pipi,Bắt đầu tìm,Start finding,Mulai mencari
+text_title_find_item_pipi,BẠN MUỐN TÌM GÌ ?,FINDING TARGET,Mencari target
+text_unlock_pipi,Pipi sẽ ghé thăm nhà bạn tại cấp,Pipi will arrive at level,Pipi akan tiba pada level
+deco_spin_chu_lun_name,Chú lùn,Statue,Patung
+deco_spin_chu_lun_detail_tab,,,
+deco_spin_tuong_gom_nam_name,Tượng gốmm nam,Boy statue,Patung anak laki-laki
+deco_spin_tuong_gom_nam_detail_tab,,,
+deco_spin_tuong_gom_nu_name,Tượng gốm nữ,Girl statue,Patung anak perempuan
+deco_spin_tuong_gom_nu_detail_tab,,,
+deco_spin_xe_dap_hong_name,Xe đạp hồng,Pink bicycle,Sepeda pink
+deco_spin_xe_dap_hong_detail_tab,,,
+deco_spin_xe_dap_xanh_name,Xe đạp xanh,Green bicycle,Sepeda hijau
+deco_spin_xe_dap_xanh_detail_tab,,,
+title_gui_pay_rubi_receive_gift,NẠP RUBI NHẬN QUÀ MÊ LY,GET RUBY GET MORE GIFTS,Dapatkan Ruby dan lebih banyak hadiah
+text_note_gui_pay_rubi_receive_gift,Lưu ý: Không tính Rubi khuyến mại,Notice: only Top up rubies count,Catatan : hanya Ruby hasil top-up yang dihitung
+text_payed_rubi,Tổng đã nạp:,Total top up rubies:,Total Top-up Ruby :
+text_intro_pay_rubi,Nạp Rubi và nhận ngay những phần quà hấp dẫn. Chạm vào gói quà để biết phần quà bạn nhé!,Top up rubies and receive these free gifts. Touch the gift box to see the gifts!,Top-up Ruby dan dapatkan hadiah-hadiah gratis ini. Pilih Gift Box untuk melihat hadiah-hadiah tersebut!
+text_received_gift_pay_rubi,ĐÃ NHẬN,RECEIVED,Diterima
+text_btn_tab_friend,BẠN BÈ,FRIENDS,Teman
+text_btn_tab_following,THEO DÕI,FOLLOWING,Mengikuti
+text_follow_friend,Đã đánh dấu và hiện tên trong danh sách bạn.,Farm followed and appears in friendlist,Farm diikuti dan tampil di daftar
+text_defollow_friend,Đã hủy đánh dấu với nhà hiện tại.,Farm removed from follow list.,Farm dihapus dari daftar yang diikuti
+text_max_follow_friend,Không thể đánh dấu nhà này.\nSố người đánh dấu đã đủ.,Unable to follow this Farm.\nMaximum following reached.,Tidak bisa mengikuti Farm ini.\nTelah mencapai jumlah maksimal.
+text_guide_follow_friend,Danh sách những người bạn đang theo dõi bạn ở đây nha!,Your following list appears here,Daftar farm yang diikuti tampil disini
+text_title_order_neighbor,BẢNG ĐƠN HÀNG,ORDER BOARD,Papan Pemesanan
+text_title_exchange_payment_card,NẠP THẺ,CARD TOP UP,Top-up melalui Kartu
+text_title_exchange_payment_sms,NẠP TIN NHẮN,SMS TOP UP,Top-up melalui SMS
+text_title_exchange_payment_atm,NẠP THẺ ATM,ATM TOP UP,Top-up melalui ATM
+text_btn_cancel_send_card,Quay lại,Back,Kembali
+text_btn_send_card,Nạp thẻ,Top up,Top-up
+text_code_card_pay,Mã số thẻ,Card number,Nomor kartu
+text_number_card_pay,Số seri,Card seri number,Nomor seri kartu
+text_info_pay_rubi_success,NẠP RUBY THÀNH CÔNG,TOP UP RUBY SUCCESS,Top-up Ruby berhasil
+text_info_pay_gold_success,NẠP GOLD THÀNH CÔNG,TOP UP GOLD SUCCESS,Top-up Gold berhasil
+text_not_enough_money_repair_fishing_dock,Bạn không đủ tiền sửa chữa bến tàu cá !,Not enough gold to repair submarine dock!,Tidak cukup Gold untuk memperbaiki dermaga!
+text_confirm_money_do_repair_fishing_dock,Bạn muốn sửa chữa bến tàu cá?,Do you want to repair submarine dock?,Apakah kamu ingin memperbaiki dermaga?
+fishing_house_name,Bến tàu cá,Submarine dock,Dermaga
+fishing_dock_boat_name,"Lưới bắt tôm, cá","Fish, shrimp net",Kapal nelayan
+text_title_upgrade_expand_boat,MỞ RỘNG TÀU THUYỀN,EXPAND DOCK,Perluas Dermaga
+text_error_no_lobster_machine,Bạn chưa có máy hấp tôm.\n Hãy vào cửa hàng mua máy đã nhé!,You do not have lobster machine yet.\n Please purchase one at the shop!,Kamu belum memiliki Lobster Sauna.\n Silahkan beli di Shop terlebih dahulu!
+text_error_full_lobster_machine,Máy hấp tôm đã dầy rùi !,Lobster machine is full!,Lobster Sauna penuh!
+text_error_full_lobster_machine_upgrade,Máy hấp tôm đã đầy rùi.\n Hãy nâng cấp máy hấp tôm lên nha, Lobster machine is full.\n Please consider upgrade it,Lobster Sauna penuh.\n Silahkan upgrade terlebih dahulu
+text_error_not_built_done_lobster_machine,Máy hấp tôm chưa xây xong !,Lobster machine is being built !,Lobster Sauna sedang dibangun!
+text_confirm_upgrade_lobster_pool,Bạn muốn nâng câp máy hấp tôm ?,Do you want to build a lobster machine ?,Apakah kamu ingin mengupgrade Lobster Sauna?
+text_error_max_level_lobster_pool,Máy hấp tôm đã đạt cấp cao nhất rùi !,Lobster machine is upgraded max !,Lobster Sauna telah diupgrade hingga maksimal!
+text_unlock_dock_fishing,"Bến cảng tàu cá thực hiện đánh bắt tôm, cá,\n được mở tại cấp","Submarine dock performs fishing,\n unlock at level","Memancing di dermaga,\n terbuka pada level"
+text_guide_dock_fishing,Hãy chạm vào tàu cá để đánh bắt tôm cá nha bạn !,Touch the submarine to start fishsing!,Pilih dermaga untuk memulai memancing!
+text_error_not_unlock_dock_fishing,Hãy sửa chữa bến cảng tàu cá trước bạn nhé !,Please repair the submarine dock first!,Belum mencapai level yang dibutuhkan untuk memancing!
+text_error_not_enought_money_upgade_lobster,Bạn không đủ tiền để nâng cấp máy hấp tôm!,Not enough gold to repair submarine dock!,Tidak cukup Gold untuk mengupgrade Lobster Sauna!
+text_guide_pay_atm,Tỉ lệ qui đổi:\n %RUBI% VND = 1 Rubi,Exchange rate:\n %RUBI% VND = 1 Rubi,Kurs:\n %Ruby%Rp = 1 Ruby
+text_btn_pay_atm,Nạp tiền,Top up,Top-up
+text_label_level,Cấp:,Level:,Level:
+text_warning_dealing_payment_later,Tạm thời chưa giao dịch được.\n Bạn hãy thử lại lần sau nhé,Service is temporily unavailable.\n Please try again,Layanan sementara ini tidak tersedia.\n Silahkan coba lagi
+text_warning_dealing_type_payment_later,Tạm thời chưa giao dịch được.\n Bạn hãy thử lại bằng kênh khác nhé, Service is temporily unavailable.\n Please try different methods,Layanan sementara ini tidak tersedia.\n Silahkan coba metode lain
+text_warning_harvest_lobster_wait_1,Đợi tôm chín đã bạn nhé,Please wait for the lobster to be ready,Silahkan menunggu hingga Lobster siap
+text_warning_harvest_lobster_wait_2,Thả lưới bắt tôm trước đã bạn nhé,Please spin the lobster net first,Harap memutar jaring Lobster terlebih dahulu
+deco_spin_moto_do_name,Môtô đỏ,Red motorcycle,Sepeda Motor Merah
+deco_spin_moto_do_detail_tab,,,
+deco_spin_vespa_do_name,Vespa đỏ,Red Vespa,Vespa Merah
+deco_spin_vespa_do_detail_tab,,,
+deco_spin_moto_xanh_name,Môtô xanh,Blue Vespa,Sepeda Motor Biru
+deco_spin_moto_xanh_detail_tab,,,
+deco_cuu_jackson_name,Cừu Jackson,Jackson the Sheep,Jackson the Sheep
+deco_cuu_jackson_detail_tab,,,
+deco_spin_vespa_xanh_name,Vespa xanh,Blue Vespa,Vespa Biru
+deco_spin_vespa_xanh_detail_tab,,,
+deco_heo_et_name,Heo E.T,Alien the Pig,Alien the Pig
+deco_heo_et_detail_tab,,,
+deco_rao_xanh_ngoc_name,Rào xanh ngọc,Saphere fence,Pagar Sapphire
+deco_rao_xanh_ngoc_detail_tab,,,
+deco_gach_vang_name,Gạch vàng,Golden brick,Bata Emas
+deco_gach_vang_detail_tab,,,
+deco_hang_rao_sat_name,Hàng rào sắt,Iron fence,Pagar Besi
+deco_hang_rao_sat_detail_tab,,,
+deco_hang_rao_hong_name,Hàng rào hồng,Pink fence,Pagar Pink
+deco_hang_rao_hong_detail_tab,,,
+deco_tuong_vang_name,Tường vàng 9999,9999 Golden wall,Tembok Emas
+deco_tuong_vang_detail_tab,,,
+deco_gach_xanh_name,Gạch Xanh,Blue brick,Bata Biru
+deco_gach_xanh_detail_tab,,,
+deco_san_go_name,Gạch Xanh,Blue brick,Pagar Kayu
+deco_san_go_detail_tab,Sàn gỗ,,
+title_purchasing_issue,Nạp Tiền,Payment,Pembayaran
+title_connection_issue,Kết Nối,Connectivity,Konektivitas
+title_lost_farm,Mất Tài Khoản,Lost account,Kehilangan Akun
+title_report_problem,Báo lỗi,Bugs,Bug
+title_feedback,Góp ý,Suggestions,Saran
+title_achivement,THÀNH TỰU,ACHIEVEMENTS,PRESTASI
+achivement_title_0,Beep Beep!,Beep Beep!,Bip Bip
+achivement_title_1,Tiểu thương,Small business,Small Business
+achivement_title_2,Cha-Ching,Cha-Ching,Cha-ching
+achivement_title_3,Thương nhân,Business man,Businessman
+achivement_title_4,Đại gia trứng,Egg master,Egg Master
+achivement_title_5,Đại gia sữa,Milk master,Milk Master
+achivement_title_6,Đại gia thịt heo,Bacon master,Bacon Master
+achivement_title_7,Thợ xén lông cừu,Wool master,Wool Master
+achivement_title_8,Đại gia sữa dê,Goat milk master,Goat Milk Master
+achivement_title_9,Nông dân tài ba,Pro Farmer,Farmer Professional
+achivement_title_10,Người vận chuyển,The transporter,The Transporter
+achivement_title_11,Chăn nuôi tài ba,Master of the animals,Master of the Animals
+achivement_title_12,Thuyền trưởng,ACE !,ACE!
+achivement_title_13,Người bán hàng,The saleman,The Saleman
+achivement_title_14,Trang trại thời đại,The modern farm,Modern Farm
+achivement_title_15,Trang trại trong mơ,The dream farm,Dream Farm
+achivement_title_16,Chủ vựa trái cây,Fruit master,Fruit Master
+achivement_title_17,Mâm xôi & Phúc bồn tử,Berries master,Berries Master
+achivement_title_18,Thợ đào vàng,The Miner,The Miner
+achivement_title_19,Nhà giả kim thuật,The Alchemist,The Alchemist
+achivement_title_20,Bạn thân,Best friend,Best Friend
+achivement_title_21,Chăm sóc,The Carer,The Career
+achivement_title_22,Tạo dựng quan hệ,The Social,The Social
+achivement_title_23,Địa chỉ,Address,Address
+achivement_title_24,Đánh cược,The Gambler,The Gambler
+achivement_title_25,Thợ săn điểm,The Achiever,The Archiever
+achivement_title_26,Thần rừng,The Tree master,The Tree Master
+achivement_text_0,Hoàn thành @@ đơn hàng,Complete @@ order,Menyelesaikan @@ pesanan
+achivement_text_1,Bán hàng cho khách ghé qua @@ lần,Complete sale for customers @@ times,Menjual ke konsumen @@ kali
+achivement_text_2,Kiếm được @@ tiền vàng từ việc bán hàng tại quầy hàng cá nhân,Earn @@ gold from roadside shop,Memperoleh @@ gold dari toko di tepi jalan
+achivement_text_3,Kiếm được @@ tiền vàng từ việc đóng hàng vào thùng hàng trên tàu,Earn @@ gold from complete plane orders,Memperoleh @@ gold dari pesanan pesawat
+achivement_text_4,Thu hoạch @@ trứng,Pickup @@ eggs,Mengambil @@ telur
+achivement_text_5,Thu hoạch @@ bình sữa bò,Collect @@ milk bottles,Mengumpulkan @@ botol susu
+achivement_text_6,Thu hoạch @@ thịt ba chỉ,Collect @@ bacons,Mengumpulkan @@ daging
+achivement_text_7,Thu hoạch lông cừu @@ lần,Collect wool @@ times,Mengumpulkan wol @@ kali
+achivement_text_8,Thu hoạch @@ bình sữa dê,Collect @@ goat milk bottles,Mengumpulkan @@ botol susu kambing
+achivement_text_9,Thu hoạch @@ ô ruộng trong @TIME phút,Collect @@ farm slots in @TIME minutes,Memanen @@ lahan dalam @TIME menit
+achivement_text_10,Hoàn thành @@ giao hàng trong @TIME phút,Complete @@ order in @TIME minutes,Menyelesaikan @@ pesanan dalam @TIME menit
+achivement_text_11,Thu hoạch @@ nông sản từ vật nuôi trong @TIME phút,Collect @@ items from animals in @TIME minutes,Mengumpulkan @@ item dari ternak dalam @TIME menit
+achivement_text_12,Hoàn thành liên tiếp @@ đơn hàng của tàu thủy,Complete continuosly @@ Plane order,Menyelesaikan @@ pesanan pesawat secara berturut-turut
+achivement_text_13,Đặt quảng cáo trên báo @@ lần,Place advertisement @@ times,Memasang iklan @@ kali
+achivement_text_14,Xây dựng đủ @@ máy sản xuất,Build at least @@ production machine,Membangun setidaknya @@ mesin produksi
+achivement_text_15,Trang trí nông trại của BẠN bằng @@ tiền vàng,Decorate you farm with items worth @@ gold,Dekorasi Farm kamu dengan item senilai @@ gold
+achivement_text_16,Thu hoạch @@ trái cây,Pick up @@ fruits,Mengambil @@ buah-buahan
+achivement_text_17,Thu hoạch @@ mâm xôi và phúc bồn tử,Pick up @@ raspberry and blackberry,Mengambil @@ Raspberry dan Blackberry
+achivement_text_18,Khai thác @@ vàng vụn,Pick up @@ Gold ore,Mengambil @@ Gold Ore
+achivement_text_19,Sản xuất @@ thỏi kim loại,Produce @@ metal bar,Memproduksi @@ Metal Bar
+achivement_text_20,Mua @@ vật cảnh,Purchase @@ decoration,Membeli @@ dekorasi
+achivement_text_21,Cho vật cảnh của BẠN ăn @@ lần,Feed your pet @@ times,Memberi makan peliharaanmu @@ kali
+achivement_text_22,Giúp bạn bè đóng hàng vào thùng trong những đơn đặt hàng tàu thủy @@ lần,Help your friends with their Plane orders @@ times,Menolong teman kamu dengan Pesanan Pesawat @@ kali
+achivement_text_23,Mở rộng trang trại của BẠN @@ lần,Expand your farm @@ times,Memperluas Farm kamu @@ kali
+achivement_text_24,Quay bánh xe may mắn trong ngày @@ lần,Roll lucky spin @@ times,Memutar Lucky Spin @@ kali
+achivement_text_25,"Đạt @@ điểm trên bảng điểm ""Thuyền trưởng","Đạt @@ điểm trên bảng điểm ""Thuyền trưởng",Memperoleh @@ poin di papan skor
+achivement_text_26,Hồi sinh @@ cây xanh,Hồi sinh @@ cây xanh,Menghidupkan @@ pohon hijau
+text_unlock_guild,Thương hội được mở tại cấp @,Merchant Guild can be opened at level @,Merchant Guild bisa dibuka pada level @
+text_not_enough_money_repair_guild,Bạn không đủ tiền sửa chữa nhà thương hội,Not enough gold to repair Merchant Guild,Tidak cukup Gold untuk memperbaiki Merchant Guild
+text_confirm_money_do_repair_guild,Bạn muốn sửa chữa nhà thương hội,Do you want to repair Merchant Guild?,Apakah kamu ingin memperbaiki Merchant Guild?
+text_create_new_guild,Lập hội mới,Create new Guild,Membuat Guild baru
+text_name_guild,Tên hội:,Guild name:,Nama Guild :
+text_logo_guild,Cờ hội:,Guild flag:,Bendera Guild :
+text_level_require_member,Cấp độ hội viên:,Min require level:,Minimal level :
+text_btn_choose_logo_guild,Chọn,Choose,Ganti
+text_btn_create_guild,Lập hội,Create Guild,Buat Guild
+text_member_guild,Hội viên:,Guild Members:,Anggota Guild :
+text_btn_join_guild,Gia nhập,Join,Bergabung
+text_btn_back_guild,Quay lại,Back,Kembali
+text_btn_go_out_guild,Rời nhóm,Leave Guild,Keluar dari Guild
+text_btn_choose_logo_guild,Chọn,Choose,Ganti
+text_not_enought_money_create_guild,Bạn không đủ tiền tạo thương hội,Not enough gold to create Merchant Guild,Tidak cukup Gold untuk membuat Merchant Guild
+text_info_sucess_create_guild,Bạn vừa tạo thương Hội thành công,Merchant Guild created successfully!,Berhasil membuat Merchant Guild!
+guild_house_name,Nhà thương hội,Merchant Guild Headquarter,Markas Merchant Guild
+text_role_guild_1,Hội trưởng,Grandmaster,Grandmaster
+text_role_guild_3,Hội phó,Master,Master
+text_role_guild_2,Hội viên,Merchant,Merchant
+text_confirm_leave_guild,"Bạn muốn rời khỏi thương hội phải không?\n Sau khi rời khỏi, 5 phút sau bạn mới có thể tiếp tục tham gia vào thương hội khác.","Do you want to leave the Merchant Guild ?\n If left, it will takes another 5 mins  before you can join other Merchant Guild.","Apakah kamu ingin meninggalkan Merchant Guild?\n Jika kamu keluar, maka harus menunggu 5 menit untuk bisa bergabung dengan Merchant Guild lain."
+text_action_delay_guild,Còn @ hoạt động mới được bắt đầu,There are @ mins left to join another Guild,Tersisa @ menit untuk bisa bergabung dengan Merchant Guild lain
+text_info_role_boss_guild,Bạn vừa được chuyển quyền làm hội trưởng thương hội,You have just been granted the seat of Grandmaster,Kamu baru saja diberikan jabatan Grandmaster
+text_require_level_guild,Yêu cầu cấp:,Require Level:,Membutuhkan level :
+text_request_join_guild,Đã gửi đăng kí gia nhập thương hội @,Request to join Merchant Guild sent @,Permintaan untuk bergabung dengan Merchant Guild telah dikirimkan @
+text_full_join_guild,"Thương hội này đã đủ người, bạn hãy tìm thương hội khác nhé.","Merchant Guild is full, please try to join another Guild.","Merchant Guild penuh, silahkan mencoba bergabung dengan Merchant Guild lain."
+text_not_level_join_guild,"Cấp độ của bạn không đủ để gia nhập thương hội, cần đạt cấp độ @ để gia nhập","Farm level does not meet this Merchant Guild requirement, the require level is @ to join.","Level Farm tidak memenuhi persyaratan Merchant Guild, dibutuhkan level @ untuk bergabung."
+text_require_join_guild,Xin vào hội,Request to join Guild,Permintaan untuk bergabung dengan Merchant Guild
+text_intro_guild_none,"Chưa có thương hội nào, bạn hãy tạo thương hội mới nhé.",There is no Merchant Guild yet ! Create one ?,Saat ini belum ada Merchant Guild! Apakah kamu ingin membuatnya?
+text_title_gui_guild,HỘI NHÓM THƯƠNG HỘI,MERCHANT GUI,Merchant Guild
+text_info_none_request_join_guild,Chưa có thư mới.,There is no new mail,Tidak ada pesan baru
+text_info_accecpt_join_guild,Chúc mừng bạn được vào thương hội @,You are welcomed to join the Merchant Guild,Kamu diizinkan bergabung dengan Merchant Guild
+text_error_not_exist_guild,Thương hội không tồn tại,Merchant Guild does not exist,Merchant Guild tidak ada
+text_error_mem_had_in_guild,Hội viên đã ở trong thương hội khác rùi,Merchant joined other Merchant Guild,Merchant telah bergabung dengan Merchant Guild lain
+text_error_full_mem_guild,"Thương hội đã tối đa hội viên, hãy chọn thương hội khác","Merchant Guild is full, please try to join another Guild.","Merchant Guild penuh, silahkan mencoba bergabung dengan Merchant Guild lain."
+text_disable_double_rubi,Nhấn 2 lần dùng ruby,Double Tap Ruby confirmation,Konfirmasi tekan dua kali untuk menggunakan Ruby
+text_enable_double_rubi,Nhấn 1 lần dùng ruby,Single Tap use Ruby,Tekan satu kali untuk menggunakan Ruby
+text_max_num_sell_shop_guild,Bạn chỉ được bán tối đa 3 đơn hàng,The maximum basket is three,Jumlah maksimal keranjang adalah tiga
+text_error_buy_other_guild,Hàng đã được mua bởi hội viên khác rùi.,Item bought by other merchant member.,Item dibeli oleh anggota Merchant lain.
+text_error_sell_slot_orther_guild,Hàng đã được đăng tại ô này rùi.\n Bạn đăng ở ô khác nhé.,This basket has already been taken.\n Please try others.,Keranjang ini sudah diambil.\n Silahkan mencoba yang lain.
+text_error_exprire_order_guild,Đơn hàng đã hết hạn,This sale is expired,Penjualan ini telah berakhir
+text_disconnect_chat_server,Không kết nối được với hệ thống tin nhắn.,Chat server not responding.,Server chat tidak memberikan respon.
+text_not_had_in_guild,Bạn chưa tham gia vào thương hội.,You have not join any Merchant Guild yet.,Kamu belum bergabung dengan Merchant Guild.
+text_btn_kick_member_guild,Trục xuất,Kick,Keluarkan
+text_btn_visit_member_guild,Thăm,Visit,Kunjungi
+text_connect_success_server_chat,Kết nối thành công,Chat server connect success,Server chat terhubung dengan sukses
+text_intro_guild_shop,Hãy tham gia vào thương hội để được trao đổi vật phẩm bạn nhé,Please join a Merchant Guild to start trading,Silahkan bergabung dengan Merchant Guild untuk memulai transaksi
+text_btn_close_text_info,Đóng,Close,Tutup
+text_confirm_kick_out_mem_guild,Hội chủ muốn trục xuất thành viên @ ra khỏi thương hội?,Grandmaster wants to expel this merchant out of the Guild ?,Grandmaster ingin mengeluarkan Merchant ini dari Guild?
+text_info_to_mem_kick_out_guild,Bạn vừa bị Hội chủ trục xuất khỏi thương hội.,You have just been expelled out of the Guild,Kamu baru saja dikeluarkan dari Merchant Guild.
+text_name_server_chat,Hệ thống,System,Sistem
+text_time_ago,trước,ago,lalu
+text_error_trading_guild,Lỗi giao dịch,Trading error encountered,Kesalahan transaksi terjadi
+text_notify_mem_go_out_guild,Hội viên @ vừa rời khỏi thương hội,Merchant @ just left the Merchant Guild,Merchant @ baru saja meninggalkan Merchant Guild
+text_notify_mem_kick_guild,Hội chủ đã trục xuất hội viên @ ra khỏi thương hội,Grand Master just expelled merchant @ out of the Merchant Guild,Grand Master baru saja mengeluarkan Merchant @ dari Merchant Guild
+text_notify_new_mem_guild,Chào mừng @ đã tham gia thương hội,Welcome merchant @ joined the Merchant Guild,Selamat datang! Merchant @ bergabung dengan Merchant Guild
+text_notif_product_exprire_sell_guild,Vật phẩm @ vừa hết thời gian rao bán trong cửa hàng thương hội.,Item @ sale time expired.,Waktu penjualan item @ berakhir.
+text_not_enough_gold_edit_info_guild,Bạn không đủ tiền để cập nhập thương hội,Not enough gold to update the Guild info,Tidak cukup Gold untuk mengupdate info Guild
+text_edit_info_guild_success,Bạn đã cập nhập thương hội thành công.,Guild info updated successfully.,Info Guild berhasil diupdate.
+text_btn_edit_info_guild,Cập nhập,Update,Update
+text_warning_not_change_info_guild,Bạn chưa thay đổi thông tin hội,Guild info have not been updated,Info Guild belum diupdate.
+text_not_accept_join_guild,Thương hội @ đã từ chối đăng ký gia nhập của bạn,Merchant Guild @ declined your request,Merchant Guild @ menolak permintaan kamu
+text_warning_sell_shop_guild,Sản phẩm sẽ bị xóa sau @ nếu không được mua.,Goods will be cleared in @ if unbought.,Barang akan dibersihkan dalam @ apabila tidak terjual.
+text_title_giftcode,GIFT CODE,GIFTCODE,Gift Code
+text_enter_giftcode,Nhập Gift Code,Enter Giftcode,Masukkan Gift Code
+text_info_giftcode_not_exist,"Gift code không hợp lệ, vui lòng kiểm tra lại",Giftcode doesn't exist,Gift Code tidak terdaftar
+text_info_giftcode_wrong_level,Gift code này không dành cho level của bạn,Your level does not match this giftcode requirement.,Gift Code ini tidak sesuai dengan level kamu
+text_info_giftcode_expired,Gift code đã hết hạn,Giftcode expired,Gift Code telah kadaluarsa
+text_info_giftcode_has_used,Gift code này đã được sử dụng,This giftcode has been used,Gift Code ini telah digunakan sebelumnya
+text_info_giftcode_fan_page,Fan Page,Fan Page,Fan Page
+text_warning_full_member_request_guild,"Thương hội hiện tại đã quá số lượng người xin gia nhập,\n bạn hãy chọn hội khác nhé!"
+cay_co_name,Cây cọ,Grass tree,Alang-alang
+cay_co_detail_tab,,,
+cay_dua_name,Cây dừa,Coconut tree,Pohon Kelapa
+cay_dua_detail_tab,,,
+van_hoa_name,Ván hoa,Flower plank,Papan Bunga
+van_hoa_detail_tab,,,
+van_soc_name,Ván sọc,Zebra plank,Zebra Cross
+van_soc_detail_tab,,,
+deco_ban_ghe_he_name,Bàn ghế hè,Summer chairs,Kursi Musim Panas
+deco_ban_ghe_he_detail_tab,,,
+chai_thu_name,Chai thư,Letter Bottle,Botol Surat
+chai_thu_detail_tab,,,
+be_boi_mini_name,Bể bơi mini,Mini pool,Kolam Kecil
+be_boi_mini_detail_tab,,,
+deco_be_boi_mua_he_name,Bể bơi mùa hè,Summer pool,Kolam Musim Panas
+deco_be_boi_mua_he_detail_tab,,,
+lau_dai_cat_name,Lâu đài cát,Sand castle,Istana Pasir
+lau_dai_cat_detail_tab,,,
+bong_sao_bien_name,Bóng sao biển,Starfish ball,Bola Bintang Laut
+bong_sao_bien_detail_tab,,,
+bong_muc_name,Bóng mực,Squid ball,Bola Gurita
+bong_muc_detail_tab,,,
+bong_ca_name,Bóng cá,Fish ball,Bola Ikan
+bong_ca_detail_tab,,,
+deco_vua_thuy_te_name,Vua thủy tề,Poisedon,Poseidon
+deco_vua_thuy_te_detail_tab,,,
+deco_nang_tien_ca_name,Nàng tiên cá,Mermaid,Putri Duyung
+deco_nang_tien_ca_detail_tab,,,
+deco_hang_rao_tim_name,Hàng rào tím,Pink fence,Pagar Pink
+deco_hang_rao_tim_detail_tab,,,
+text_btn_promote_apps,Chơi thử,Try now !,Download
+title_gui_shop,CỬA HÀNG,SHOP,Shop
+text_put_on_shop,ĐẶT LÊN QUẦY,Put on Shop,Masukkan ke Shop
+text_get_reward,Nhận thưởng,Get Reward,Ambil Hadiah
+text_intro_change_farm_name,Hãy chọn một cái tên thật ấn tượng cho Nông trại của mình!,Please pick a beautiful name for your farm !,Silahkan gunakan nama yang menarik untuk Farm kamu!
+title_gui_change_farm_name,CHỌN TÊN NÔNG TRẠI,Pick a Name,Namai Farm Kamu
+title_gui_sell_off,Khuyến mãi đặc biệt,Special Offer,Special Offer
+text_btn_now_pay,Nạp ngay,Buy now !,Buy now !
+text_btn_now_buy,Mua ngay
+text_detail_gui_sell_off,Chúc mừng bạn nhận được cơ hội tham gia\n chương trình khuyến mãi đặc biệt,Congratulation ! You received a special offer program !,Congratulation ! You received a special offer program !
+text_detail_promo_gold,Chương trình khuyến mại nạp vàng.,Gold special offer !,Gold special offer !
+text_detail_promo_rubi,Chương trình khuyến mại nạp ruby.,Ruby special offer !,Ruby special offer !
+text_detail_promo_rubi_gold,Chương trình khuyến mại nạp ruby và vàng.,Huge special offer !,Huge special offer !
+title_spin_help_gift,QUAY SỐ,Lucky Spin,Lucky Spin
+text_spin_help_gift,QUAY,Spin,Spin
+text_stop_help_gift,DỪNG,Stop,Stop
+text_need_level_unlock_help_gift,Quay số được mở ở level 19!,Open at level 19!,Open at level 19!
+text_warning_out_of_point_spin,"Bạn không có đủ mặt cười, \n hãy sang giúp đỡ tàu bạn để kiếm thêm nhé.","Not enough smileys to spin,\n help your friends to get more !","Not enough smileys to spin,\n help your friends to get more !"
+text_warning_not_enought_level,Bạn chưa đủ cấp độ để mua.,Require higher farm level.,Require higher farm level.
+text_reloading_avatar,Cập nhập avatar
+title_setting_table,Bảng cài đặt
+mail_header_purchasing_issue,[Farmery] Nạp Tiền,[Farmery] Payment,[Farmery] Payment
+mail_header_connection_issue,[Farmery] Kết Nối,[Farmery] Connectivity,[Farmery] Connectivity
+mail_header_lost_farm,[Farmery] Mất Tài Khoản,[Farmery] Lost Account,[Farmery] Lost Account
+mail_header_report_problem,[Farmery] Báo lỗi,[Farmery] Bugs report,[Farmery] Bugs report
+mail_header_feedback,[Farmery] Góp ý,[Farmery] Suggestions,[Farmery] Suggestions
+mail_content_common,Mô tả:,Descriptions:,Descriptions:
+mail_content_lost_farm, Xin cung cấp thông tin:/n Tên game bị mất: -\n Cấp độ: -\n Địa chỉ facebook: -\n\n\n, Please provide information:/n Lost farm name: -\n Cấp độ: -\n Facebook address: -\n\n\n,Please provide information:/n Lost farm name: -\n Cấp độ: -\n Facebook address: -\n\n\n
+mail_content_info,\n\n -----DO NOT DELETE!-----\nGame: @GAME@\nVersion code: @VERSION_CODE@\nPlayerID: 4032\nFacebookId: @FB_ID@\nGameCenterId: @GAME_CENTER_ID@\nCategory: @CATEGORY@\nDevice Type: @DEVICE_TYPE@\nOS Version: @OS_VERSION@\nPlatform: @PLATFORM@\nAvailable Memory: @AVAIL_MEMORY@\n ------------------------,\n\n -----DO NOT DELETE!-----\nGame: @GAME@\nVersion code: @VERSION_CODE@\nPlayerID: 4032\nFacebookId: @FB_ID@\nGameCenterId: @GAME_CENTER_ID@\nCategory: @CATEGORY@\nDevice Type: @DEVICE_TYPE@\nOS Version: @OS_VERSION@\nPlatform: @PLATFORM@\nAvailable Memory: @AVAIL_MEMORY@\n ------------------------,"\n\n -----DO NOT DELETE!-----\nGame: @GAME@\nVersion code: @VERSION_CODE@\nPlayerID: 4032\nFacebookId: @FB_ID@\nGameCenterId: @GAME_CENTER_ID@\nCategory: @CATEGORY@\nDevice Type: @DEVICE_TYPE@\nOS Version: @OS_VERSION@\nPlatform: @PLATFORM@\nAvailable Memory: @AVAIL_MEMORY@\n ------------------------"";"
