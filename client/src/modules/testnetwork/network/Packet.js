@@ -7,6 +7,8 @@ gv.CMD.HAND_SHAKE = 0;
 gv.CMD.USER_LOGIN = 1;
 
 gv.CMD.USER_INFO = 1001;
+gv.CMD.GET_USER = 1002; // New
+
 gv.CMD.MOVE = 2001;
 
 
@@ -225,7 +227,19 @@ CmdSendBuyMapObjectRequest = fr.OutPacket.extend({
         this.putInt(y);
         this.updateSize();
     }
-})
+});
+
+CmdSendGetUser = fr.OutPacket.extend({
+    ctor: function() {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.GET_USER);
+    },
+    pack: function() {
+        this.packHeader();
+        this.updateSize();
+    }
+});
 
 /**
  * InPacket
@@ -463,5 +477,102 @@ testnetwork.packetMap[gv.CMD.RESPONSE_MOVE] = fr.InPacket.extend({
     },
     readData: function() {
         this.error = this.getInt();
+    }
+});
+
+// New get Info
+testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
+    ctor: function() {
+        this._super();
+        this.user = { asset: {}, map: [] };
+    },
+
+    readData: function() {
+        this.unpackBasicInfo();
+        this.unpackMap();
+        this.unpackFieldList();
+        this.unpackNatureThingList();
+        this.unpackStorages();
+    },
+
+    unpackBasicInfo: function() {
+        this.user.id = this.getInt();
+        this.user.name = this.getString();
+        this.user.level = this.getInt();
+        this.user.gold = this.getInt();
+        this.user.ruby = this.getInt();
+        this.user.exp = this.getLong();
+    },
+
+    unpackMap: function() {
+        for (var i = 0; i < MapConfigs.Init.width; i++) {
+            this.user.map.push([]);
+            for (var j = 0; j < MapConfigs.Init.height; j++) {
+                this.user.map[i].push(this.getInt());
+            }
+        }
+    },
+
+    unpackFieldList: function() {
+        this.user.asset.fieldList = [];
+        // Get field list size
+        var size = this.getInt();
+        // Get each field
+        for (var i = 0; i < size; i++) {
+            this.user.asset.fieldList.push(this.unpackField());
+        }
+    },
+
+    unpackField: function() {
+        var field = {};
+        field.x = this.getInt();
+        field.y = this.getInt();
+        field.fieldId = this.getInt();
+        field.plantType = this.getString();
+        field.plantedTime = this.getLong();
+        return field;
+    },
+
+    unpackNatureThingList: function() {
+        this.user.asset.natureThingList = [];
+        var size = this.getInt();
+        for (var i = 0; i < size; i++) {
+            this.user.asset.natureThingList.push(this.unpackNatureThing());
+        }
+    },
+
+    unpackNatureThing: function() {
+        var natureThing = {};
+        natureThing.x = this.getInt();
+        natureThing.y = this.getInt();
+        natureThing.id = this.getInt();
+        natureThing.type = this.getString();
+        return natureThing;
+    },
+
+    unpackStorages: function() {
+        this.user.asset.foodStorage = this.unpackStorage();
+        this.user.asset.warehouse = this.unpackStorage();
+    },
+
+    unpackStorage: function() {
+        var storage = {};
+        storage.storageType = this.getString();
+        storage.capacity = this.getInt();
+        storage.level = this.getInt();
+        // Unpack storage item list
+        storage.itemList = [];
+        var size = this.getInt();
+        for (var i = 0; i < size; i++) {
+            storage.itemList.push(this.unpackStorageItem());
+        }
+        return storage;
+    },
+
+    unpackStorageItem: function() {
+        var item = {};
+        item.typeItem = this.getString();
+        item.quantity = this.getInt();
+        return item;
     }
 });

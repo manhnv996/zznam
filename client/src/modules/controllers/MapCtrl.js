@@ -23,12 +23,12 @@ var MapCtrl = cc.Class.extend({
         cc.log("MapCtrl inited");
         this.map = user.map; // Pass to user map
 
-        var debugUser = {} // Not show map
-        for (var k in user) {
-            if (k !== 'map') {
-                debugUser[k] = user[k];
-            }
-        }
+        // var debugUser = {} // Not show map
+        // for (var k in user) {
+        //     if (k !== 'map') {
+        //         debugUser[k] = user[k];
+        //     }
+        // }
         // cc.log("User", debugUser);
         this.renderStorages();
         this.renderPlants();

@@ -12,7 +12,7 @@ var Field = CoordinatedObject.extend({
         // this._super(x, y);
         // CoordinatedObject.prototype.render(coordinate);
 
-        this.coordinate = coordinate;
+        // this.coordinate = coordinate;
 
         // this.render(fieldId);
 
