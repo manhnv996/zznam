@@ -40,7 +40,9 @@ public class CmdDefine {
     public static final short MOVE_STORAGE = 6002;
     public static final short RESPONSE_MOVE = 6100;
     
+    
     public static final short BUY_MAP_OBJECT_REQUEST = 7001;
+    
     
     public static final short GET_FRIENDS = 3001;
     public static final short FRIEND_SEND_MESSAGE = 3002;

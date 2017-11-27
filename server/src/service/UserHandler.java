@@ -12,7 +12,6 @@ import cmd.CmdDefine;
 import cmd.receive.user.RequestUserInfo;
 
 import cmd.send.demo.ResponseGameInfo;
-import cmd.send.demo.ResponseRequestUserInfo;
 
 import config.enums.ProductResource;
 import config.enums.ProductType;
@@ -127,6 +126,7 @@ public class UserHandler extends BaseClientRequestHandler {
 //            System.out.println("id" + nObj.id + " type" + nObj.type);
         }
         Asset asset = new Asset(foodStorage, warehouse, null, natureThingList);
+        
         for (int i = 1; i < 5; i++){
             Field field = new Field(0, 18, 10 + i);
             asset.addField(field);

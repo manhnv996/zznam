@@ -33,6 +33,10 @@ var LodgeTable = cc.Layer.extend({
         //layoutColor.addChild(tableView);
         //this.addChild(layoutColor);
 
+        //
+        //layoutColor.addChild(tableView);
+        //this.addChild(layoutColor);
+
         return true;
     },
 
@@ -136,6 +140,13 @@ var LodgeTable = cc.Layer.extend({
                     image.addTouchEventListener(this.touchEvent, this);
                 }
             }
+            //if(level >= res.infoCoopItem[idx].level3) {
+            //    maxslot = 3;
+            //} else if (res.infoCoopItem[idx].level2 <= level && level < res.infoCoopItem[idx].level3) {
+            //    maxslot = 2;
+            //} else if (res.infoCoopItem[idx].level <= level && level < res.infoCoopItem[idx].level2) {
+            //    maxslot = 1;
+            //}
 
             slot = new cc.LabelBMFont(curslot + "/" + maxslot, "fonts/outline/30.fnt");
             slot.x = box.width / 3 * 2;

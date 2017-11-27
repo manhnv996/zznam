@@ -252,7 +252,6 @@ var UpgradeSiloLayer = cc.Layer.extend({
         buttonV.setScale(0.9);
         buttonV.setTouchEnabled(false);
         layoutT.addChild(buttonV);
-
         if (this._check_nail && this._check_screw && this._check_woodpanel) {
             buttonV.addTouchEventListener(this.touchUpgradeSilo, this);
         }

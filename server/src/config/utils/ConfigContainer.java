@@ -20,12 +20,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+
 public class ConfigContainer {
     public static MapConfig mapConfig;
     private static Gson gson = new Gson();
     public static int[][] defaultMap;
     public static List<NaturalObject> defaultNatural;
+    
     public static ShopCoopConfig[] shopCoopConfig;
+    
     
     public static void init() {
         // Load map config

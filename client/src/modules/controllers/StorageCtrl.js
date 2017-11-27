@@ -7,7 +7,7 @@ var StorageCtrl = cc.Class.extend({
      getTotalItems: function (listItems) {
           var number = 0;
           for(var i = 0; i < listItems.length; i++) {
-          number += listItems[i].getQuantityItem();
+               number += listItems[i].getQuantityItem();
           }
           return number;
      }
