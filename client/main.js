@@ -105,12 +105,11 @@ cc.game.onStart = function () {
         cc.log("Preload some animations");
         fr.preloadAnimation(['SILO', 'Barn', 'Carot', 'DauHL', 'Cayrung',
                 'Dato', 'Vungnuoc1', 'Danho']);
-        cc.director.runScene(new PreloaderScene());
+        PreloaderScene.instance = new PreloaderScene();
+        cc.director.runScene(PreloaderScene.instance);
 
         //MainScene.instance = new MainScene();
 		//cc.director.runScene(MainScene.instance);
-
-
     }, this);
 };
 cc.game.run();

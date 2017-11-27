@@ -171,7 +171,7 @@ var FieldSprite = MapBlockSprite.extend({
     changeTexture: function (texture) {
         this.setTexture(texture);
     },
-    ////
+    //
     updateFieldStatus: function (curr, duration) {
         // var field = user.getAsset().getFieldList().find(function(f) {
         //     return f.field === this.fieldId;
@@ -182,7 +182,7 @@ var FieldSprite = MapBlockSprite.extend({
 
         if (this.field.getPlantedTime() == null){
 
-            this.changeTexture(res.field);
+            //this.changeTexture(res.field);
             return false;
         }
 
@@ -226,6 +226,10 @@ var FieldSprite = MapBlockSprite.extend({
             } else {    // < / 2
                 // this.plantSprite.getAnimation().gotoAndPlay(plantTypeObj.plantAni,-1, -1, 1);
 
+            }
+
+            if (!this.plantSprite.isVisible()){
+                this.plantSprite.setVisible(true);
             }
         }
 

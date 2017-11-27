@@ -684,7 +684,6 @@ var MapLayer = cc.Layer.extend({
 			field.plantAnimation(seedType);
 		}
 
-
 	},
 
 	runAnimationCrop: function (fieldId, seedType) {
@@ -695,7 +694,6 @@ var MapLayer = cc.Layer.extend({
 
 			this.fieldList[index].changeTexture(res.field);
 		}
-
 	},
 
 	inertia: function(velocity) {
