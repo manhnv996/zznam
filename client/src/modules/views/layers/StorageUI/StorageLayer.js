@@ -99,7 +99,10 @@ var StorageLayer = cc.Layer.extend({
         layout.addChild(this._multiLayer);
 
         this.addChild(this._layoutStorage);
-        this.setScale((cc.winSize.height - 20) / this._layoutStorage.height);
+        //this.setScale((cc.winSize.height - 20) / this._layoutStorage.height);
+        var scale = (cc.winSize.height - 20) / this._layoutStorage.height;
+        var scaleTo = cc.scaleTo(0.05, scale, scale);
+        this._layoutStorage.runAction(scaleTo);
     },
 
     //getMultiLayer: function () {

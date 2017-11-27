@@ -4,6 +4,7 @@
 
 var StorageItemListLayer = cc.Layer.extend({
     _listItems: [],
+    _layoutDetail: null,
 
     ctor: function (listItems) {
         this._super();
@@ -93,12 +94,10 @@ var StorageItemListLayer = cc.Layer.extend({
                 var label = cell.getChildByTag(10 + i);
                 var keyItem = cell.getChildByTag(20 + i);
                 if ((idx * 3 + i) < this._listItems.length) {
-                    //cc.log("rs" + this._listItems[idx * 3 + i].getTypeItem()[3]);
-                    //button.loadTextureNormal(this._listItems[idx * 3 + i].getTypeItem()[3]);
                     var key = getKeyByValue(this._listItems[idx * 3 + i].getTypeItem());
                     keyItem.setString(key);
-                    cc.log("itemResource " + keyItem.getString());
-                    //cc.log(getKeyByValue(this._listItems[idx * 3 + i].getTypeItem()));
+                    keyItem.setVisible(false);
+                    //cc.log("itemResource " + keyItem.getString());
                     button.loadTextureNormal(ProductResource[key][3]);
                     button.addTouchEventListener(this.touchItem, this);
                     label.setString(this._listItems[idx * 3 + i].getQuantityItem());
@@ -122,7 +121,12 @@ var StorageItemListLayer = cc.Layer.extend({
     touchItem: function (sender, type) {
         switch (type) {
             case ccui.Widget.TOUCH_BEGAN:
-                cc.log("Touch Button");
+                cc.log("Touch Button Product");
+
+                break;
+            case ccui.Widget.TOUCH_ENDED:
+                break;
+            case ccui.Widget.TOUCH_CANCELED:
                 break;
         }
     },

@@ -289,10 +289,11 @@ var LodgeTable = cc.Layer.extend({
                                     user.getAsset().addField(fieldModel);
                                     MapLayer.instance.fieldList.push(this._sprite);
                                     this._sprite.field = fieldModel;
-                                    user.reduceGold(sender.parent.getChildByTag(5).getString());
                                     // Send server
-                                    testnetwork.connector.sendBuyMapObjectRequest(this._sprite.fieldId, sender.parent.getChildByTag(0).getString(), this._sprite.lx, this._sprite.ly);
-                                    cc.log("Send server buy field");
+                                    testnetwork.connector.sendBuyMapObjectRequest(this._sprite.fieldId,
+                                        sender.parent.getChildByTag(0).getString(),
+                                        this._sprite.lx, this._sprite.ly);
+                                    //cc.log("Send server buy field");
                                     //...
                                     break;
                                 //case "chicken_habitat":
@@ -306,6 +307,9 @@ var LodgeTable = cc.Layer.extend({
                                 //case "goat_habitat":
                                 //    break;
                             }
+                            cc.log("Gold User" + user.getGold());
+                            user.reduceGold(sender.parent.getChildByTag(5).getString());
+                            MainGuiLayer.instance.labelGold.setString(user.getGold());
                             //Send Server
                         }
                     }

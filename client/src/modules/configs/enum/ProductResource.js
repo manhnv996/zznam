@@ -14,11 +14,11 @@ var ProductResource = {
     CROP_TOMATO: ["Cà Chua", "Thu hoạch sau", "0 phút", "Art/Crops/Field/tomato.png"],
     CROP_STRAWBERRY: ["Mâm Xôi", "Thu hoạch từ bụi Mâm Xôi", "18 giờ", "Art/Crops/Field/strawberry.png"],
 
-    TOOL_NAIL: ["Hộp Đinh", "Để nâng cấp Kho Lương Thực", "", "Art/Tool/dinh3.png"],
-    TOOL_SCREW: ["Đinh Vít", "Để nâng cấp Kho Lương Thực", "", "Art/Tool/dinh.png"],
-    TOOL_WOODPANEL: ["Ván Đôi", "Để nâng cấp Kho Lương Thực", "", "Art/Tool/go2.png"],
+    TOOL_NAIL: ["Hộp Đinh", "Để nâng cấp Kho Lương Thực", "", "Art/Tool/dinh3.png", 5],
+    TOOL_SCREW: ["Đinh Vít", "Để nâng cấp Kho Lương Thực", "", "Art/Tool/dinh.png", 10],
+    TOOL_WOODPANEL: ["Ván Đôi", "Để nâng cấp Kho Lương Thực", "", "Art/Tool/go2.png", 15],
 
-    TOOL_BOLT: ["Đinh Ốc", "Để nâng cấp Nhà Kho", "", "Art/Tool/dinh2.png"],
-    TOOL_PLANK: ["Ván dài", "Để nâng cấp Nhà Kho", "", "Art/Tool/go1.png"],
-    TOOL_DUCTTAPE: ["Băng Keo", "Để nâng cấp Nhà Kho", "", "Art/Tool/bangdinh.png"]
+    TOOL_BOLT: ["Đinh Ốc", "Để nâng cấp Nhà Kho", "", "Art/Tool/dinh2.png", 5],
+    TOOL_PLANK: ["Ván dài", "Để nâng cấp Nhà Kho", "", "Art/Tool/go1.png", 10],
+    TOOL_DUCTTAPE: ["Băng Keo", "Để nâng cấp Nhà Kho", "", "Art/Tool/bangdinh.png", 15]
 };

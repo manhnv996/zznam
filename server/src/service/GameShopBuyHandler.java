@@ -15,6 +15,7 @@ import cmd.receive.gameshop.RequestBuyMapObject;
 
 import cmd.send.demo.ResponseErrorCode;
 
+import config.enums.ErrorLog;
 import config.enums.MapItemEnum;
 
 import config.jsonobject.ShopCoopConfig;
@@ -84,24 +85,33 @@ public class GameShopBuyHandler extends BaseClientRequestHandler{
         if (userInfo.getMap().checkValidBlock(req.x, req.y, width, height)) {
             if (price <= userInfo.getGold()) {
                 userInfo.getMap().addMapAlias(req.x, req.y, width, height, mapType);
-                Field fieldModel = new Field(req.id, req.x, req.y);
-                if (userInfo.getAsset().addField(fieldModel)) {
-                    System.out.println("OK Buy");
-                    send(new ResponseErrorCode((short) 0), user);
-                } else {
-                    //send error cant add field//////
-//                    System.out.println("Can't add field");
-                    send(new ResponseErrorCode((short)-1), user);
-                    return;
-                }
+                switch (mapType) {
+                    case MapItemEnum.FIELD:
+                        Field fieldModel = new Field(req.id, req.x, req.y);
+                        if (userInfo.getAsset().addField(fieldModel)) {
+                            if (userInfo.reduceGold(price)) {
+                                System.out.println("OK Buy");
+                                send(new ResponseErrorCode((short) 0), user);
+                            } else {
+                                send(new ResponseErrorCode(ErrorLog.ERROR_BUY_GOLD_NOT_REDUCE.getValue()), user);
+                                return;
+                            }
+                        } else {
+                            //send error cant add field//////
+                        //  System.out.println("Can't add field");
+                            send(new ResponseErrorCode(ErrorLog.ERROR_BUY_CANT_ADD_FIELD.getValue()), user);
+                            return;
+                        }
+                        break;
+                }  
             } else {
 //                System.out.println("Not enough gold");
-                send(new ResponseErrorCode((short)-1), user);
+                send(new ResponseErrorCode(ErrorLog.ERROR_BUY_GOLD_NOT_ENOUGH.getValue()), user);
                 return;
             }
         } else {
 //            System.out.println("Collision");
-            send(new ResponseErrorCode((short)-1), user);
+            send(new ResponseErrorCode(ErrorLog.ERROR_BUY_MAP_OBJECT_COLLISION.getValue()), user);
             return;
         }
         

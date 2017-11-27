@@ -14,8 +14,8 @@ var MainScene = cc.Scene.extend({
 		PopupLayer.instance = new PopupLayer();
 		this.addChild(PopupLayer.instance);
 
-		var mainGuiLayer = new MainGuiLayer();
-		this.addChild(mainGuiLayer);
+		//var mainGuiLayer = new MainGuiLayer();
+		//this.addChild(mainGuiLayer);
 
 		MapCtrl.instance = new MapCtrl();
 		
@@ -28,6 +28,9 @@ var MainScene = cc.Scene.extend({
 	},
 
 	onGettedData: function() {
+		MainGuiLayer.instance = new MainGuiLayer();
+		this.addChild(MainGuiLayer.instance);
+
 		GSLayer.instance = new GSLayer();
 		this.addChild(GSLayer.instance);
 
@@ -41,7 +44,7 @@ var MainScene = cc.Scene.extend({
 		MapCtrl.instance.init();
 		MapCtrl.instance._showDebugMap();
 
-		//NotifyLayer.instance.notifyFullWare();
+		//NotifyLayer.instance.notifyFullSilo();
 	},
 
 	init: function() {

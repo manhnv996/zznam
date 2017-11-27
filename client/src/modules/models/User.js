@@ -17,10 +17,10 @@ var User = cc.Class.extend({
     // },
     // render: function (asset) {
         //
-        this.level = 1;
-        this.gold = 100;
-        this.ruby = 100;
-        this.exp = 0;
+        //this.level = 1;
+        //this.gold = 100;
+        //this.ruby = 100;
+        //this.exp = 0;
 
         this.asset = asset;
     },

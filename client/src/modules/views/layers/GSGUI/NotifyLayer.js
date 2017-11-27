@@ -76,7 +76,11 @@ var NotifyLayer = cc.Layer.extend({
         this._layoutMissGold.addChild(close);
 
         this.addChild(this._layoutMissGold);
-        this.setScale((cc.winSize.height - 20) / this._layoutMissGold.height);
+        //this.setScale((cc.winSize.height - 20) / this._layoutMissGold.height);
+
+        var scale = (cc.winSize.height - 20) / this._layoutMissGold.height;
+        var scaleTo = cc.scaleTo(0.05, scale, scale);
+        this._layoutMissGold.runAction(scaleTo);
     },
 
     //closeNotifyMissGold: function () {
@@ -148,7 +152,11 @@ var NotifyLayer = cc.Layer.extend({
         this._layoutFullSilo.addChild(title);
         this._layoutFullSilo.addChild(buttonV);
         this.addChild(this._layoutFullSilo);
-        this.setScale((cc.winSize.height - 20) / this._layoutFullSilo.height);
+        //this.setScale((cc.winSize.height - 20) / this._layoutFullSilo.height);
+
+        var scale = (cc.winSize.height - 20) / this._layoutFullSilo.height;
+        var scaleTo = cc.scaleTo(0.05, scale, scale);
+        this._layoutFullSilo.runAction(scaleTo);
     },
 
     notifyFullWare: function () {
@@ -200,7 +208,11 @@ var NotifyLayer = cc.Layer.extend({
         this._layoutFullWare.addChild(title);
         this._layoutFullWare.addChild(buttonV);
         this.addChild(this._layoutFullWare);
-        this.setScale((cc.winSize.height - 20) / this._layoutFullWare.height);
+        //this.setScale((cc.winSize.height - 20) / this._layoutFullWare.height);
+
+        var scale = (cc.winSize.height - 20) / this._layoutFullWare.height;
+        var scaleTo = cc.scaleTo(0.05, scale, scale);
+        this._layoutFullWare.runAction(scaleTo);
     },
 
     touchCloseButtonLayout: function (sender, type) {
