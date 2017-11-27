@@ -311,7 +311,7 @@ var LodgeTable = cc.Layer.extend({
                             }
                             cc.log("Gold User" + user.getGold());
                             user.reduceGold(sender.parent.getChildByTag(5).getString());
-                            MainGuiLayer.instance.labelGold.setString(user.getGold());
+                            //MainGuiLayer.instance.labelGold.setString(user.getGold());
                             //Send Server
                         }
                     }
