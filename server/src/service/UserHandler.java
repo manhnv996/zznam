@@ -14,7 +14,6 @@ import cmd.receive.user.RequestUserInfo;
 import cmd.send.demo.ResponseGameInfo;
 import cmd.send.demo.ResponseRequestUserInfo;
 
-import config.enums.ProductResource;
 import config.enums.ProductType;
 import config.enums.StorageType;
 
@@ -117,6 +116,15 @@ public class UserHandler extends BaseClientRequestHandler {
 
         foodStorage.addItem(ProductType.CROP_CARROT, 5);
         foodStorage.addItem(ProductType.CROP_SOYBEAN, 10);
+        
+//        warehouse.addItem(ProductType.TOOL_NAIL, 5);
+        warehouse.addItem(ProductType.TOOL_SCREW, 3);
+        warehouse.addItem(ProductType.TOOL_WOODPANEL, 5);
+        
+        warehouse.addItem(ProductType.TOOL_BOLT, 1);
+        warehouse.addItem(ProductType.TOOL_PLANK, 4);
+        warehouse.addItem(ProductType.TOOL_DUCTTAPE, 2);
+        
         
         // Load natural thingList
         List<NatureThing> natureThingList = new ArrayList<>();

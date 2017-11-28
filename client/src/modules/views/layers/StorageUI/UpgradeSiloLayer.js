@@ -7,11 +7,14 @@ var UpgradeSiloLayer = cc.Layer.extend({
     _check_nail: false,
     _check_screw: false,
     _check_woodpanel: false,
+    _buttonV: null,
 
     ctor: function (level) {
         this._super();
 
         this._level = level;
+
+        cc.log("Level SILO " + this._level);
 
         var layoutT = ccui.Layout();
         //layoutT.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
@@ -80,7 +83,7 @@ var UpgradeSiloLayer = cc.Layer.extend({
             layoutBtn.setVisible(false);
             this._check_nail = true;
         } else {
-            numberRuby = (numberNeed - numberItem) * ProductResource.TOOL_NAIL[4];
+            numberRuby = (numberNeed - numberItem) * ProductResource.TOOL_NAIL[5];
             //numberRuby.tag = 11;
             //layoutBtn.addChild(numberRuby);
         }
@@ -90,6 +93,9 @@ var UpgradeSiloLayer = cc.Layer.extend({
         numberRubyLabel.y = layoutBtn.height / 4;
         numberRubyLabel.tag = 11;
         layoutBtn.addChild(numberRubyLabel);
+        cc.log("numberRuby" + numberRuby);
+
+        cc.log("numberRubyLabel" + numberRubyLabel.getString());
 
         layout.addChild(sprite);
         layout.addChild(label);
@@ -147,7 +153,7 @@ var UpgradeSiloLayer = cc.Layer.extend({
             layoutBtn.setVisible(false);
             this._check_screw = true;
         } else {
-            numberRuby = (numberNeed - numberItem) * ProductResource.TOOL_SCREW[4];
+            numberRuby = (numberNeed - numberItem) * ProductResource.TOOL_SCREW[5];
         }
 
         numberRubyLabel = new cc.LabelBMFont(numberRuby, res.FONT_OUTLINE_20);
@@ -213,7 +219,7 @@ var UpgradeSiloLayer = cc.Layer.extend({
             layoutBtn.setVisible(false);
             this._check_woodpanel = true;
         } else {
-            numberRuby = (numberNeed - numberItem) * ProductResource.TOOL_WOODPANEL[4];
+            numberRuby = (numberNeed - numberItem) * ProductResource.TOOL_WOODPANEL[5];
         }
 
         numberRubyLabel = new cc.LabelBMFont(numberRuby, res.FONT_OUTLINE_20);
@@ -229,7 +235,8 @@ var UpgradeSiloLayer = cc.Layer.extend({
         //cc.log("upgrade silo");
 
         //Label Next Capacity
-        var nextCapacity = new cc.LabelBMFont("Sức chứa sau nâng cấp : " + res.upgradeSilo[this._level + 1].capacity, res.FONT_NORMAL_30);
+        var nextCapacity = new cc.LabelBMFont(fr.Localization.text("Text_Detail_Upgrade_Inv") +  " " + res.upgradeSilo[this._level + 1].capacity, res.FONT_NORMAL_30);
+        //var nextCapacity = new cc.LabelBMFont(fr.Localization.text("text_unlock_detail") +  " " + res.upgradeSilo[this._level + 1].capacity, res.FONT_NORMAL_30);
         nextCapacity.color = cc.color(77, 41, 1);
         nextCapacity.setBoundingWidth(layoutT.width / 3);
         nextCapacity.setAlignment(cc.TEXT_ALIGNMENT_CENTER);
@@ -238,7 +245,7 @@ var UpgradeSiloLayer = cc.Layer.extend({
         layoutT.addChild(nextCapacity);
 
         //Label....
-        var infoLable = new cc.LabelBMFont("(*) Vật phẩm nâng cấp có được từ thu hoạch cây trồng, nhà máy, vật nuôi ...", res.FONT_NORMAL_20);
+        var infoLable = new cc.LabelBMFont("(*) " + fr.Localization.text("text_detail_have_item_upgrade"), res.FONT_NORMAL_20);
         infoLable.color = cc.color(77, 41, 1);
         infoLable.setBoundingWidth(layoutT.width / 3 * 2);
         infoLable.setAlignment(cc.TEXT_ALIGNMENT_CENTER);
@@ -247,20 +254,21 @@ var UpgradeSiloLayer = cc.Layer.extend({
         layoutT.addChild(infoLable);
 
         //Button V
-        var  buttonV = new ccui.Button(res.storage_V_png);
-        buttonV.x = layoutT.width / 6 * 5;
-        buttonV.y = layoutT.height / 5;
-        buttonV.setScale(0.9);
-        buttonV.setTouchEnabled(false);
-        layoutT.addChild(buttonV);
+        this._buttonV = new ccui.Button(res.storage_V_png);
+        this._buttonV.x = layoutT.width / 6 * 5;
+        this._buttonV.y = layoutT.height / 5;
+        this._buttonV.setScale(0.9);
+        //buttonV.setTouchEnabled(false);
+        layoutT.addChild(this._buttonV);
 
-        if (this._check_nail && this._check_screw && this._check_woodpanel) {
-            buttonV.addTouchEventListener(this.touchUpgradeSilo, this);
-        }
+        //cc.log("this._check_nail && this._check_screw && this._check_woodpanel " + (this._check_nail && this._check_screw && this._check_woodpanel));
+        this.checkButtonV();
     },
 
-    touchUpgradeSilo: function () {
-
+    checkButtonV: function () {
+        if (this._check_nail && this._check_screw && this._check_woodpanel) {
+            this._buttonV.addTouchEventListener(this.touchUpgradeSilo, this);
+        }
     },
 
     touchBuyTool: function (sender, type) {
@@ -283,23 +291,23 @@ var UpgradeSiloLayer = cc.Layer.extend({
                             cc.log("Buy Nail " + ruby);
                             label.setString(res.upgradeSilo[this._level + 1].tool_nail + "/" + res.upgradeSilo[this._level + 1].tool_nail);
                             productType = ProductTypes.TOOL_NAIL;
-                            numberAdd = ruby / ProductResource.TOOL_NAIL[4];
+                            numberAdd = ruby / ProductResource.TOOL_NAIL[5];
                             this._check_nail = true;
                             break;
                         case 2: //screw
                             cc.log("Buy Screw" + ruby);
                             label.setString(res.upgradeSilo[this._level + 1].tool_screw + "/" + res.upgradeSilo[this._level + 1].tool_screw);
                             productType = ProductTypes.TOOL_SCREW;
-                            numberAdd = ruby / ProductResource.TOOL_SCREW[4];
+                            numberAdd = ruby / ProductResource.TOOL_SCREW[5];
                             this._check_screw = true;
                             break;
                         case 3: //woodpanel
                             cc.log("Buy Woodpanel" + ruby);
                             label.setString(res.upgradeSilo[this._level + 1].tool_woodPanel + "/" + res.upgradeSilo[this._level + 1].tool_woodPanel);
                             productType = ProductTypes.TOOL_WOODPANEL;
-                            numberAdd = ruby / ProductResource.TOOL_SCREW[4];
+                            numberAdd = ruby / ProductResource.TOOL_SCREW[5];
                             this._check_woodpanel = true;
-                            break
+                            break;
                     }
                     //add Item to Storage
                     //cc.log("product type " + productType);
@@ -307,6 +315,28 @@ var UpgradeSiloLayer = cc.Layer.extend({
                     user.getAsset().getWarehouse().addItem(productType, numberAdd);
                     //send server
                     testnetwork.connector.sendBuyTool(productType, numberAdd);
+
+                    //Unlock button V
+                    this.checkButtonV();
+                }
+                break;
+        }
+    },
+
+    touchUpgradeSilo: function (sender, type) {
+        cc.log("touchUpgradeSilo");
+        switch (type) {
+            case ccui.Widget.TOUCH_ENDED:
+            case ccui.Widget.TOUCH_CANCELED:
+                //upgrade storage ---> sendserver
+                if (user.getAsset().getFoodStorage().upgrade(ProductTypes.TOOL_NAIL, res.upgradeSilo[this._level + 1].tool_nail,
+                        ProductTypes.TOOL_SCREW, res.upgradeSilo[this._level + 1].tool_screw,
+                        ProductTypes.TOOL_WOODPANEL, res.upgradeSilo[this._level + 1].tool_woodPanel)) {
+                    user.getAsset().getFoodStorage().setCapacity(res.upgradeSilo[this._level + 1].capacity);
+                    StorageLayer.instance._layoutStorage.removeFromParent(true);
+
+                    //send server
+                    testnetwork.connector.sendUpgradeStorage(StorageTypes.FOOD_STORAGE, (this._level + 1));
                 }
                 break;
         }

@@ -35,6 +35,7 @@ gv.CMD.BUY_MAP_OBJECT_REQUEST = 7001;
 
 //Storage
 gv.CMD.BUY_TOOL_REQUEST = 8001;
+gv.CMD.UPGRADE_STORAGE_REQUEST = 8002;
 
 testnetwork = testnetwork||{};
 testnetwork.packetMap = {};
@@ -240,6 +241,20 @@ CmdSendBuyToolRequest = fr.OutPacket.extend({
         this.packHeader();
         this.putString(productType);
         this.putInt(number);
+        this.updateSize();
+    }
+});
+
+CmdSendUpgradeStorageRequest = fr.OutPacket.extend({
+    ctor: function () {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.UPGRADE_STORAGE_REQUEST);
+    },
+    pack: function (storageType, level) {
+        this.packHeader();
+        this.putString(storageType);
+        this.putInt(level);
         this.updateSize();
     }
 })
