@@ -9,6 +9,7 @@ var _ = (function() {
         AM_THANH_PNG: 	r("amthanh.png"),
         AMTHANH_TURN_ON_PNG: 		r("amthanh- turn on.png"),
         BG_SETTING_PNG: 	r("bg_setting.png"),
+        BG_2_PNG: 	"Art/Storage/BG2.png",
         BTN_CHANGE_NAME_PNG: 	r("btn_change_name.png"),
         BTN_EFFECT_OFF_PNG: 	r("btn_effect_off.png"),
         BTN_EFFECT_ON_PNG: 		r("btn_effect_on.png"),

@@ -215,6 +215,12 @@ public class OrderUtil {
 //                }
 //            }
             
+            for (int k = 0; k < productCategory.size(); k++){
+                
+                
+            }
+            
+            
         }
         return productList;
     }

@@ -43,7 +43,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import service.DemoHandler;
+import service.GameShopBuyHandler;
+import service.MapHandler;
 import service.PlantHandler;
+import service.StorageHandler;
 import service.UserHandler;
 
 import util.GuestLogin;
@@ -129,8 +132,11 @@ public class FresherExtension extends BZExtension {
         //  
         addRequestHandler(PlantHandler.PLANT_MULTI_IDS, PlantHandler.class);
         //
+        addRequestHandler(MapHandler.MAP_MULTI_IDS, MapHandler.class);
         
-		
+        addRequestHandler(GameShopBuyHandler.GAMESHOP_MULTI_IDS, GameShopBuyHandler.class);
+        addRequestHandler(StorageHandler.STORAGE_MULTI_IDS, StorageHandler.class);
+        
         trace(" Event Handler ");
         addEventHandler(BZEventType.USER_LOGIN, LoginSuccessHandler.class);
         addEventHandler(BZEventType.USER_LOGOUT, LogoutHandler.class);
@@ -142,7 +148,22 @@ public class FresherExtension extends BZExtension {
 	
 	
 	
-	
+    public static void setupUserInfo(){
+        Storage foodStorage = new Storage(StorageType.FOOD_STORAGE, 50, 10, 10);
+        Storage warehouse = new Storage(StorageType.WAREHOUSE, 50, 8, 8);
+        foodStorage.addItem(ProductType.CROP_CARROT, 5);
+        foodStorage.addItem(ProductType.CROP_SOYBEAN, 10);
+        
+        Asset asset = new Asset(foodStorage, warehouse, null, null);        
+        for (int i = 0; i < 6; i++){
+            Field field = new Field(0, 18, 10 + i);
+            asset.addField(field);
+        }
+        asset.getFieldById(1).setPlantType("crop_corn");
+
+//        user = new ZPUserInfo(asset);
+        System.out.println("Setup!!!!!!!!!");
+    }
     
     
 /*

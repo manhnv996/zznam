@@ -10,6 +10,10 @@ import java.nio.ByteBuffer;
 
 import java.util.List;
 
+import model.Animal;
+import model.AnimalLodge;
+import model.ChickenLodge;
+import model.CowLodge;
 import model.Field;
 import model.NatureThing;
 import model.Storage;
@@ -34,6 +38,7 @@ public class ResponseUser extends BaseMsg {
         this.packFieldList();
         this.packNatureThingList();
         this.packStorages();
+        this.packAnimalLodges();
         
         return packBuffer(this.bf);
     }
@@ -149,5 +154,45 @@ public class ResponseUser extends BaseMsg {
     private void packStorageItem(StorageItem item) {
         putStr(bf, item.getTypeItem());
         bf.putInt(item.getQuantity());
+    }
+    
+    private void packAnimalLodges() {
+        List<AnimalLodge> animalLodgeList = user.getAsset().getAnimalLodgeList();
+        int size = animalLodgeList.size();
+        // Pack size
+        bf.putInt(size);
+        // Pack each AnimalLodges
+        for (int i = 0; i < size; i++) {
+            this.packAnimalLodge(animalLodgeList.get(i));        
+        }
+    }
+    
+    private void packAnimalLodge(AnimalLodge lodge) {
+        String type = "";
+        if (lodge instanceof ChickenLodge) {
+            type = "CHICKEN_LODGE";
+        } else if (lodge instanceof CowLodge) {
+            type = "COW_LODGE";    
+        }
+        // Pack Lodge type
+        putStr(bf, type);
+        bf.putInt(lodge.getX());
+        bf.putInt(lodge.getY());
+        bf.putInt(lodge.getId());
+        bf.putLong(lodge.getStartBuildTime());
+        bf.putInt(lodge.isCompleted() ? 1 : 0);
+        // Pack animal list
+        List<Animal> animalList = lodge.getAnimalList();
+        int size = animalList.size();
+        bf.putInt(size);
+        for (int i = 0; i < size; i++) {
+            this.packAnimal(animalList.get(i));    
+        }
+    }
+    
+    private void packAnimal(Animal animal) {
+        bf.putInt(animal.getId());
+        bf.putInt(animal.isFeeded() ? 1 : 0);
+        bf.putLong(animal.getFeededTime());
     }
 }

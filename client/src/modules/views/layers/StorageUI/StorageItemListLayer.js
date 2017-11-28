@@ -98,7 +98,7 @@ var StorageItemListLayer = cc.Layer.extend({
                     keyItem.setString(key);
                     keyItem.setVisible(false);
                     //cc.log("itemResource " + keyItem.getString());
-                    button.loadTextureNormal(ProductResource[key][3]);
+                    button.loadTextureNormal(ProductResource[key][4]);
                     button.addTouchEventListener(this.touchItem, this);
                     label.setString(this._listItems[idx * 3 + i].getQuantityItem());
                 } else {
@@ -135,11 +135,11 @@ var StorageItemListLayer = cc.Layer.extend({
         switch (type) {
             case ccui.Widget.TOUCH_ENDED:
                 //if (this._type == StorageTypes.FOOD_STORAGE) {
-                    this.parent.switchTo(1);
+                //    this.parent.switchTo(1);
                 //} else {
                 //    this.parent.switchTo(2);
                 //}
-                break;
+                //break;
             case ccui.Widget.TOUCH_CANCELED:
                 //if (this._type == StorageTypes.FOOD_STORAGE) {
                     this.parent.switchTo(1);

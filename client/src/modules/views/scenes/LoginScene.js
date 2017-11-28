@@ -20,7 +20,7 @@ var LoginLayer = cc.Layer.extend({
         //add username edittext
         this.userNameBox =  new cc.EditBox(cc.size(400, 70), new cc.Scale9Sprite(res.LAYER_24_PNG));
         this.userNameBox.setPosition(centerpos.x, 5*centerpos.y/4);
-        this.userNameBox.setFont("American Typewriter", 60);
+        this.userNameBox.setFont("Paint Boy", 60);
         this.userNameBox.setPlaceHolder("username");
         this.userNameBox.setString("zznamspozz79");
         this.addChild(this.userNameBox);
@@ -28,7 +28,7 @@ var LoginLayer = cc.Layer.extend({
         //add password edittext
         this.passwordBox=  new cc.EditBox(cc.size(400, 70), new cc.Scale9Sprite(res.LAYER_24_PNG));
         this.passwordBox.setPosition(centerpos.x, 4*centerpos.y/4);
-        this.passwordBox.setFont("American Typewriter", 60);
+        this.passwordBox.setFont("Paint Boy", 60);
         this.passwordBox.setPlaceHolder("password");
         this.passwordBox.setString("altkhm979");
         this.passwordBox.setInputFlag(cc.EDITBOX_INPUT_FLAG_PASSWORD);

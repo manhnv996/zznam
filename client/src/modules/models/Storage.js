@@ -24,9 +24,15 @@ var Storages = CoordinatedObject.extend({
 
     },
 
-    upgrade: function () {
+    upgrade: function (product1, n1, product2, n2, product3, n3) {
         //boolean
-
+        if (user.getAsset().getWarehouse().takeItem(product1, n1) &&
+            user.getAsset().getWarehouse().takeItem(product2, n2) &&
+            user.getAsset().getWarehouse().takeItem(product3, n3)) {
+            this.level++;
+            return true;
+        }
+        return false;
     },
 
     getStorageType: function () {
@@ -126,11 +132,8 @@ var Storages = CoordinatedObject.extend({
         return total;
     },
 
-    getLevel: function () {
-        return this.level;
-    },
-
-    upgradeLevel: function () {
-        this.level++;
+    setCapacity: function (nextCapacity) {
+        this.capacity = nextCapacity;
     }
+
 });

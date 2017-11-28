@@ -270,5 +270,19 @@ testnetwork.Connector = cc.Class.extend({
         var pk = this.gameClient.getOutPacket(CmdSendBuyMapObjectRequest);
         pk.pack(id, type, x, y);
         this.gameClient.sendPacket(pk);
+    },
+
+    sendBuyTool: function (productType, number) {
+        cc.log("Buy Tool");
+        var pk = this.gameClient.getOutPacket(CmdSendBuyToolRequest);
+        pk.pack(productType, number);
+        this.gameClient.sendPacket(pk);
+    },
+
+    sendUpgradeStorage: function (storageType, level) {
+        cc.log("Upgrade " + storageType + " to level " + level);
+        var pk = this.gameClient.getOutPacket(CmdSendUpgradeStorageRequest);
+        pk.pack(storageType, level);
+        this.gameClient.sendPacket(pk);
     }
 });

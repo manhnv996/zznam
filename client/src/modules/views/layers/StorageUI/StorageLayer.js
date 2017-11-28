@@ -49,15 +49,16 @@ var StorageLayer = cc.Layer.extend({
         name.x = this._layoutStorage.width / 2;
         name.y = this._layoutStorage.height * 4 / 5;
 
-        var total = StorageCtrl.instance.getTotalItems(storage.getItemList());
+        var total = storage.getCurrentQuantity();
         var capacity = storage.getCapacity();
         //cc.log("FoodStorage " + (type == StorageTypes.FOOD_STORAGE));
         if (type == StorageTypes.FOOD_STORAGE) {
-            name.setString("Kho lương thực : " + total + "/" + capacity);
-            upgradeLayer = new UpgradeSiloLayer(storage.getLevel());
+            name.setString(fr.Localization.text("NAME_SILO") + total + "/" + capacity);
+            upgradeLayer = new UpgradeSiloLayer(storage.level);
+            //cc.log("UpgradeSiloLayer " + storage.level);
         } else {
-            name.setString("Nhà kho : " + total + "/" + capacity);
-            upgradeLayer = new UpgradeWareLayer(storage.getLevel());
+            name.setString(fr.Localization.text("NAME_WARE_HOUSE") + total + "/" + capacity);
+            upgradeLayer = new UpgradeWareLayer(storage.level);
         }
         this._layoutStorage.addChild(name);
 

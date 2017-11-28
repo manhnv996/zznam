@@ -1,0 +1,9 @@
+{
+    "tool_nail" : {"price":5},
+    "tool_screw" : {"price":10},
+    "tool_woodPanel" : {"price":15},
+
+    "tool_bolt" : {"price":7},
+    "tool_plank" : {"price":9},
+    "tool_ductTape" : {"price":11}
+}

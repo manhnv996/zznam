@@ -1,0 +1,660 @@
+[
+  {
+    "level": 0,
+    "tool_nail": 0,
+    "tool_screw": 0,
+    "tool_woodPanel": 0,
+    "capacity": 50
+  },
+  {
+    "level": 1,
+    "tool_nail": 1,
+    "tool_screw": 1,
+    "tool_woodPanel": 1,
+    "capacity": 75
+  },
+  {
+    "level": 2,
+    "tool_nail": 2,
+    "tool_screw": 2,
+    "tool_woodPanel": 2,
+    "capacity": 100
+  },
+  {
+    "level": 3,
+    "tool_nail": 3,
+    "tool_screw": 3,
+    "tool_woodPanel": 3,
+    "capacity": 125
+  },
+  {
+    "level": 4,
+    "tool_nail": 4,
+    "tool_screw": 4,
+    "tool_woodPanel": 4,
+    "capacity": 150
+  },
+  {
+    "level": 5,
+    "tool_nail": 5,
+    "tool_screw": 5,
+    "tool_woodPanel": 5,
+    "capacity": 175
+  },
+  {
+    "level": 6,
+    "tool_nail": 6,
+    "tool_screw": 6,
+    "tool_woodPanel": 6,
+    "capacity": 200
+  },
+  {
+    "level": 7,
+    "tool_nail": 7,
+    "tool_screw": 7,
+    "tool_woodPanel": 7,
+    "capacity": 225
+  },
+  {
+    "level": 8,
+    "tool_nail": 8,
+    "tool_screw": 8,
+    "tool_woodPanel": 8,
+    "capacity": 250
+  },
+  {
+    "level": 9,
+    "tool_nail": 9,
+    "tool_screw": 9,
+    "tool_woodPanel": 9,
+    "capacity": 275
+  },
+  {
+    "level": 10,
+    "tool_nail": 10,
+    "tool_screw": 10,
+    "tool_woodPanel": 10,
+    "capacity": 300
+  },
+  {
+    "level": 11,
+    "tool_nail": 11,
+    "tool_screw": 11,
+    "tool_woodPanel": 11,
+    "capacity": 325
+  },
+  {
+    "level": 12,
+    "tool_nail": 12,
+    "tool_screw": 12,
+    "tool_woodPanel": 12,
+    "capacity": 350
+  },
+  {
+    "level": 13,
+    "tool_nail": 13,
+    "tool_screw": 13,
+    "tool_woodPanel": 13,
+    "capacity": 375
+  },
+  {
+    "level": 14,
+    "tool_nail": 14,
+    "tool_screw": 14,
+    "tool_woodPanel": 14,
+    "capacity": 400
+  },
+  {
+    "level": 15,
+    "tool_nail": 15,
+    "tool_screw": 15,
+    "tool_woodPanel": 15,
+    "capacity": 425
+  },
+  {
+    "level": 16,
+    "tool_nail": 16,
+    "tool_screw": 16,
+    "tool_woodPanel": 16,
+    "capacity": 450
+  },
+  {
+    "level": 17,
+    "tool_nail": 17,
+    "tool_screw": 17,
+    "tool_woodPanel": 17,
+    "capacity": 475
+  },
+  {
+    "level": 18,
+    "tool_nail": 18,
+    "tool_screw": 18,
+    "tool_woodPanel": 18,
+    "capacity": 500
+  },
+  {
+    "level": 19,
+    "tool_nail": 19,
+    "tool_screw": 19,
+    "tool_woodPanel": 19,
+    "capacity": 525
+  },
+  {
+    "level": 20,
+    "tool_nail": 20,
+    "tool_screw": 20,
+    "tool_woodPanel": 20,
+    "capacity": 550
+  },
+  {
+    "level": 21,
+    "tool_nail": 21,
+    "tool_screw": 21,
+    "tool_woodPanel": 21,
+    "capacity": 575
+  },
+  {
+    "level": 22,
+    "tool_nail": 22,
+    "tool_screw": 22,
+    "tool_woodPanel": 22,
+    "capacity": 600
+  },
+  {
+    "level": 23,
+    "tool_nail": 23,
+    "tool_screw": 23,
+    "tool_woodPanel": 23,
+    "capacity": 625
+  },
+  {
+    "level": 24,
+    "tool_nail": 24,
+    "tool_screw": 24,
+    "tool_woodPanel": 24,
+    "capacity": 650
+  },
+  {
+    "level": 25,
+    "tool_nail": 25,
+    "tool_screw": 25,
+    "tool_woodPanel": 25,
+    "capacity": 675
+  },
+  {
+    "level": 26,
+    "tool_nail": 26,
+    "tool_screw": 26,
+    "tool_woodPanel": 26,
+    "capacity": 700
+  },
+  {
+    "level": 27,
+    "tool_nail": 27,
+    "tool_screw": 27,
+    "tool_woodPanel": 27,
+    "capacity": 725
+  },
+  {
+    "level": 28,
+    "tool_nail": 28,
+    "tool_screw": 28,
+    "tool_woodPanel": 28,
+    "capacity": 750
+  },
+  {
+    "level": 29,
+    "tool_nail": 29,
+    "tool_screw": 29,
+    "tool_woodPanel": 29,
+    "capacity": 775
+  },
+  {
+    "level": 30,
+    "tool_nail": 30,
+    "tool_screw": 30,
+    "tool_woodPanel": 30,
+    "capacity": 800
+  },
+  {
+    "level": 31,
+    "tool_nail": 31,
+    "tool_screw": 31,
+    "tool_woodPanel": 31,
+    "capacity": 825
+  },
+  {
+    "level": 32,
+    "tool_nail": 32,
+    "tool_screw": 32,
+    "tool_woodPanel": 32,
+    "capacity": 850
+  },
+  {
+    "level": 33,
+    "tool_nail": 33,
+    "tool_screw": 33,
+    "tool_woodPanel": 33,
+    "capacity": 875
+  },
+  {
+    "level": 34,
+    "tool_nail": 34,
+    "tool_screw": 34,
+    "tool_woodPanel": 34,
+    "capacity": 900
+  },
+  {
+    "level": 35,
+    "tool_nail": 35,
+    "tool_screw": 35,
+    "tool_woodPanel": 35,
+    "capacity": 925
+  },
+  {
+    "level": 36,
+    "tool_nail": 36,
+    "tool_screw": 36,
+    "tool_woodPanel": 36,
+    "capacity": 950
+  },
+  {
+    "level": 37,
+    "tool_nail": 37,
+    "tool_screw": 37,
+    "tool_woodPanel": 37,
+    "capacity": 975
+  },
+  {
+    "level": 38,
+    "tool_nail": 38,
+    "tool_screw": 38,
+    "tool_woodPanel": 38,
+    "capacity": 1000
+  },
+  {
+    "level": 39,
+    "tool_nail": 39,
+    "tool_screw": 39,
+    "tool_woodPanel": 39,
+    "capacity": 1050
+  },
+  {
+    "level": 40,
+    "tool_nail": 40,
+    "tool_screw": 40,
+    "tool_woodPanel": 40,
+    "capacity": 1100
+  },
+  {
+    "level": 41,
+    "tool_nail": 41,
+    "tool_screw": 41,
+    "tool_woodPanel": 41,
+    "capacity": 1150
+  },
+  {
+    "level": 42,
+    "tool_nail": 42,
+    "tool_screw": 42,
+    "tool_woodPanel": 42,
+    "capacity": 1200
+  },
+  {
+    "level": 43,
+    "tool_nail": 43,
+    "tool_screw": 43,
+    "tool_woodPanel": 43,
+    "capacity": 1250
+  },
+  {
+    "level": 44,
+    "tool_nail": 44,
+    "tool_screw": 44,
+    "tool_woodPanel": 44,
+    "capacity": 1300
+  },
+  {
+    "level": 45,
+    "tool_nail": 45,
+    "tool_screw": 45,
+    "tool_woodPanel": 45,
+    "capacity": 1350
+  },
+  {
+    "level": 46,
+    "tool_nail": 46,
+    "tool_screw": 46,
+    "tool_woodPanel": 46,
+    "capacity": 1400
+  },
+  {
+    "level": 47,
+    "tool_nail": 47,
+    "tool_screw": 47,
+    "tool_woodPanel": 47,
+    "capacity": 1450
+  },
+  {
+    "level": 48,
+    "tool_nail": 48,
+    "tool_screw": 48,
+    "tool_woodPanel": 48,
+    "capacity": 1500
+  },
+  {
+    "level": 49,
+    "tool_nail": 49,
+    "tool_screw": 49,
+    "tool_woodPanel": 49,
+    "capacity": 1550
+  },
+  {
+    "level": 50,
+    "tool_nail": 50,
+    "tool_screw": 50,
+    "tool_woodPanel": 50,
+    "capacity": 1600
+  },
+  {
+    "level": 51,
+    "tool_nail": 51,
+    "tool_screw": 51,
+    "tool_woodPanel": 51,
+    "capacity": 1650
+  },
+  {
+    "level": 52,
+    "tool_nail": 52,
+    "tool_screw": 52,
+    "tool_woodPanel": 52,
+    "capacity": 1700
+  },
+  {
+    "level": 53,
+    "tool_nail": 53,
+    "tool_screw": 53,
+    "tool_woodPanel": 53,
+    "capacity": 1750
+  },
+  {
+    "level": 54,
+    "tool_nail": 54,
+    "tool_screw": 54,
+    "tool_woodPanel": 54,
+    "capacity": 1800
+  },
+  {
+    "level": 55,
+    "tool_nail": 55,
+    "tool_screw": 55,
+    "tool_woodPanel": 55,
+    "capacity": 1850
+  },
+  {
+    "level": 56,
+    "tool_nail": 56,
+    "tool_screw": 56,
+    "tool_woodPanel": 56,
+    "capacity": 1900
+  },
+  {
+    "level": 57,
+    "tool_nail": 57,
+    "tool_screw": 57,
+    "tool_woodPanel": 57,
+    "capacity": 1950
+  },
+  {
+    "level": 58,
+    "tool_nail": 58,
+    "tool_screw": 58,
+    "tool_woodPanel": 58,
+    "capacity": 2000
+  },
+  {
+    "level": 59,
+    "tool_nail": 59,
+    "tool_screw": 59,
+    "tool_woodPanel": 59,
+    "capacity": 2050
+  },
+  {
+    "level": 60,
+    "tool_nail": 60,
+    "tool_screw": 60,
+    "tool_woodPanel": 60,
+    "capacity": 2100
+  },
+  {
+    "level": 61,
+    "tool_nail": 61,
+    "tool_screw": 61,
+    "tool_woodPanel": 61,
+    "capacity": 2150
+  },
+  {
+    "level": 62,
+    "tool_nail": 62,
+    "tool_screw": 62,
+    "tool_woodPanel": 62,
+    "capacity": 2200
+  },
+  {
+    "level": 63,
+    "tool_nail": 63,
+    "tool_screw": 63,
+    "tool_woodPanel": 63,
+    "capacity": 2250
+  },
+  {
+    "level": 64,
+    "tool_nail": 64,
+    "tool_screw": 64,
+    "tool_woodPanel": 64,
+    "capacity": 2300
+  },
+  {
+    "level": 65,
+    "tool_nail": 65,
+    "tool_screw": 65,
+    "tool_woodPanel": 65,
+    "capacity": 2350
+  },
+  {
+    "level": 66,
+    "tool_nail": 66,
+    "tool_screw": 66,
+    "tool_woodPanel": 66,
+    "capacity": 2400
+  },
+  {
+    "level": 67,
+    "tool_nail": 67,
+    "tool_screw": 67,
+    "tool_woodPanel": 67,
+    "capacity": 2450
+  },
+  {
+    "level": 68,
+    "tool_nail": 68,
+    "tool_screw": 68,
+    "tool_woodPanel": 68,
+    "capacity": 2500
+  },
+  {
+    "level": 69,
+    "tool_nail": 69,
+    "tool_screw": 69,
+    "tool_woodPanel": 69,
+    "capacity": 2550
+  },
+  {
+    "level": 70,
+    "tool_nail": 70,
+    "tool_screw": 70,
+    "tool_woodPanel": 70,
+    "capacity": 2600
+  },
+  {
+    "level": 71,
+    "tool_nail": 71,
+    "tool_screw": 71,
+    "tool_woodPanel": 71,
+    "capacity": 2650
+  },
+  {
+    "level": 72,
+    "tool_nail": 72,
+    "tool_screw": 72,
+    "tool_woodPanel": 72,
+    "capacity": 2700
+  },
+  {
+    "level": 73,
+    "tool_nail": 73,
+    "tool_screw": 73,
+    "tool_woodPanel": 73,
+    "capacity": 2750
+  },
+  {
+    "level": 74,
+    "tool_nail": 74,
+    "tool_screw": 74,
+    "tool_woodPanel": 74,
+    "capacity": 2800
+  },
+  {
+    "level": 75,
+    "tool_nail": 75,
+    "tool_screw": 75,
+    "tool_woodPanel": 75,
+    "capacity": 2850
+  },
+  {
+    "level": 76,
+    "tool_nail": 76,
+    "tool_screw": 76,
+    "tool_woodPanel": 76,
+    "capacity": 2900
+  },
+  {
+    "level": 77,
+    "tool_nail": 77,
+    "tool_screw": 77,
+    "tool_woodPanel": 77,
+    "capacity": 2950
+  },
+  {
+    "level": 78,
+    "tool_nail": 78,
+    "tool_screw": 78,
+    "tool_woodPanel": 78,
+    "capacity": 3000
+  },
+  {
+    "level": 79,
+    "tool_nail": 79,
+    "tool_screw": 79,
+    "tool_woodPanel": 79,
+    "capacity": 3050
+  },
+  {
+    "level": 80,
+    "tool_nail": 80,
+    "tool_screw": 80,
+    "tool_woodPanel": 80,
+    "capacity": 3100
+  },
+  {
+    "level": 81,
+    "tool_nail": 81,
+    "tool_screw": 81,
+    "tool_woodPanel": 81,
+    "capacity": 3150
+  },
+  {
+    "level": 82,
+    "tool_nail": 82,
+    "tool_screw": 82,
+    "tool_woodPanel": 82,
+    "capacity": 3200
+  },
+  {
+    "level": 83,
+    "tool_nail": 83,
+    "tool_screw": 83,
+    "tool_woodPanel": 83,
+    "capacity": 3250
+  },
+  {
+    "level": 84,
+    "tool_nail": 84,
+    "tool_screw": 84,
+    "tool_woodPanel": 84,
+    "capacity": 3300
+  },
+  {
+    "level": 85,
+    "tool_nail": 85,
+    "tool_screw": 85,
+    "tool_woodPanel": 85,
+    "capacity": 3350
+  },
+  {
+    "level": 86,
+    "tool_nail": 86,
+    "tool_screw": 86,
+    "tool_woodPanel": 86,
+    "capacity": 3400
+  },
+  {
+    "level": 87,
+    "tool_nail": 87,
+    "tool_screw": 87,
+    "tool_woodPanel": 87,
+    "capacity": 3450
+  },
+  {
+    "level": 88,
+    "tool_nail": 88,
+    "tool_screw": 88,
+    "tool_woodPanel": 88,
+    "capacity": 3500
+  },
+  {
+    "level": 89,
+    "tool_nail": 89,
+    "tool_screw": 89,
+    "tool_woodPanel": 89,
+    "capacity": 3550
+  },
+  {
+    "level": 90,
+    "tool_nail": 90,
+    "tool_screw": 90,
+    "tool_woodPanel": 90,
+    "capacity": 3600
+  },
+  {
+    "level": 91,
+    "tool_nail": 91,
+    "tool_screw": 91,
+    "tool_woodPanel": 91,
+    "capacity": 3650
+  },
+  {
+    "level": 92,
+    "tool_nail": 92,
+    "tool_screw": 92,
+    "tool_woodPanel": 92,
+    "capacity": 3700
+  },
+  {
+    "level": 93,
+    "tool_nail": 93,
+    "tool_screw": 93,
+    "tool_woodPanel": 93,
+    "capacity": 3750
+  }
+]
