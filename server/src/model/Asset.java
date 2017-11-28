@@ -11,8 +11,10 @@ public class Asset {
     private Storage warehouse;
     private List<Field> fieldList;
     private List<NatureThing> natureThingList;
+    private List<AnimalLodge> animalLodgeList;
     
-    public Asset(Storage foodStorage, Storage warehouse, List<Field> fieldList, List<NatureThing> natureThingList) {
+    public Asset(Storage foodStorage, Storage warehouse, 
+                 List<Field> fieldList, List<NatureThing> natureThingList) {
         super();
         
         this.foodStorage = foodStorage;
@@ -27,6 +29,7 @@ public class Asset {
         } else {
             this.natureThingList = natureThingList;
         }
+        this.animalLodgeList = new ArrayList<>();
     }
 
     
@@ -80,5 +83,9 @@ public class Asset {
     
     public List<NatureThing> getNatureThingList() {
         return this.natureThingList;    
+    }
+    
+    public List<AnimalLodge> getAnimalLodgeList() {
+        return this.animalLodgeList;
     }
 }
