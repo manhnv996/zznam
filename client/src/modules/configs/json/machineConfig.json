@@ -1,0 +1,72 @@
+[
+  {
+    "id" : "4",
+    "name": "creamery",
+    "level": "6",
+    "first_price": "50",
+    "second_price":"0", //= 0 means can't buy
+    "time":"7200",
+    "exp_build":"20",
+    "build_express": "11",
+    "rubi_speed_up":"1",
+    "slot_amount":"2",
+    "first_slot_price":"6",
+    "next_slot_price":"3"
+  },
+  {
+    "id" : "5",
+    "name": "bakery",
+    "level": "1",
+    "first_price": "20",
+    "second_price":"0",
+    "time":"10",
+    "exp_build":"3",
+    "build_express": "1",
+    "rubi_speed_up":"1",
+    "slot_amount":"2",
+    "first_slot_price":"6",
+    "next_slot_price":"3"
+  },
+  {
+    "id" : "6",
+    "name": "sugar_maker",
+    "level": "7",
+    "first_price": "350",
+    "second_price":"0",
+    "time":"21600",
+    "exp_build":"34",
+    "build_express": "21",
+    "rubi_speed_up":"1",
+    "slot_amount":"2",
+    "first_slot_price":"6",
+    "next_slot_price":"3"
+  },
+  {
+    "id" : "7",
+    "name": "food_grinder",
+    "level": "1",
+    "first_price": "5",
+    "second_price":"3795",
+    "time":"40",
+    "exp_build":"4",
+    "build_express": "1",
+    "rubi_speed_up":"1",
+    "slot_amount":"3",
+    "first_slot_price":"6",
+    "next_slot_price":"3"
+  },
+  {
+    "id" : "8",
+    "name": "popcorn_maker",
+    "level": "8",
+    "first_price": "1180",
+    "second_price":"0",
+    "time":"28800",
+    "exp_build":"39",
+    "build_express": "21",
+    "rubi_speed_up":"1",
+    "slot_amount":"2",
+    "first_slot_price":"6",
+    "next_slot_price":"3"
+  }
+]
