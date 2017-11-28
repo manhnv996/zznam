@@ -24,6 +24,8 @@ import config.enums.StorageType;
 
 import config.utils.ConfigContainer;
 
+import config.utils.OrderUtil;
+
 import eventhandler.LoginSuccessHandler;
 import eventhandler.LogoutHandler;
 
@@ -113,6 +115,7 @@ public class FresherExtension extends BZExtension {
 		
 		//
 //        setupUserInfo();
+        System.out.println(OrderUtil.randomTypeNumber(2));
     }
 
     public void init() {

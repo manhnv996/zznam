@@ -112,8 +112,12 @@ public class UserHandler extends BaseClientRequestHandler {
         foodStorage.addItem(ProductType.CROP_SOYBEAN, 10);
         
         Asset asset = new Asset(foodStorage, warehouse, null);
-        for (int i = 1; i < 7; i++){
-            Field field = new Field(0, 18, 10 + i);
+        for (int i = 0; i < 3; i++){
+            Field field = new Field(0, 19, 20 + i);
+            asset.addField(field);
+        }
+        for (int i = 0; i < 3; i++){
+            Field field = new Field(0, 20, 20 + i);
             asset.addField(field);
         }
         asset.getFieldById(1).setPlantType(ProductType.CROP_CARROT);
