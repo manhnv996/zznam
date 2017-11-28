@@ -8,9 +8,6 @@ import config.utils.ProductUtil;
 
 import java.nio.ByteBuffer;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import model.ZPUserInfo;
 
 public class ResponseGameInfo extends BaseMsg {
@@ -24,11 +21,12 @@ public class ResponseGameInfo extends BaseMsg {
     
     @Override
     public byte[] createData() {
-        ByteBuffer bf = makeBuffer();
-        
         //put jsonstring
         String gameInfoJson = ProductUtil.convertGameInfoToJsonString(gameInfo);
-        System.out.println("gameInfo" + gameInfoJson);
+//        System.out.println("gameInfo" + gameInfoJson);
+        ByteBuffer bf = ByteBuffer.allocate(gameInfoJson.length() + 3);
+        bf.put(Byte.valueOf((byte)0).byteValue());
+//        System.out.println("Length " + gameInfoJson.length());
         putStr(bf, gameInfoJson);
         
         return packBuffer(bf);

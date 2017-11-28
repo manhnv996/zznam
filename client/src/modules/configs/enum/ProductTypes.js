@@ -1,18 +1,22 @@
-
 var ProductTypes = {
+    CROP_WHEAT : "crop_wheat",
+    CROP_CORN : "crop_corn",
+    CROP_CARROT : "crop_carrot",
+    CROP_SOYBEAN : "crop_soybean",
+    CROP_SUGARCANE : "crop_sugarcane",
 
-    CROP_WHEAT: "crop_wheat",
-    CROP_CORN: "crop_corn",
-    CROP_CARROT: "crop_carrot",
-    CROP_SOYBEAN: "crop_soybean",
-    CROP_SUGARCANE: "crop_sugarcane",
+    CROP_INDIGO : "crop_indigo",
+    CROP_CHILI : "crop_chili_pepper",
+    CROP_TOMATO : "crop_tomato",
+    CROP_STRAWBERRY : "crop_strawberry",
 
-    CROP_CHILI: "crop_chili_pepper",
-    CROP_INDIGO: "crop_indigo",
-    CROP_TOMATO: "crop_tomato",
-    CROP_STRAWBERRY: "crop_strawberry",
+    TOOL_NAIL : "tool_nail",
+    TOOL_SCREW : "tool_screw",
+    TOOL_WOODPANEL : "tool_woodPanel",
 
-
+    TOOL_BOLT : "tool_bolt",
+    TOOL_PLANK : "tool_plank",
+    TOOL_DUCTTAPE : "tool_ductTape"
 
     //GOOD_EGG: 10,
     //GOOF_MILK: 11,
@@ -35,6 +39,14 @@ var ProductTypes = {
     //CUT_SHOVEL: 34
 
 };
+
+function getKeyByValue(value) {
+    for (var k in ProductTypes) {
+        if (ProductTypes[k] === value) {
+            return k;
+        }
+    }
+}
 
 
 // ,

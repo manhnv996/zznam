@@ -132,7 +132,12 @@ testnetwork.Connector = cc.Class.extend({
                 Not yet started
                  */
                 break;
-
+            case gv.CMD.RESPONSE_MOVE:
+                cc.log("RESPONSE_MOVE Error: ", packet.error);
+                if (packet.error !== 0) {
+                    cc.log("[E] Error occurs");
+                }
+                break;
         }
     },
     sendGetUserInfo:function()
@@ -228,9 +233,27 @@ testnetwork.Connector = cc.Class.extend({
         var pk = this.gameClient.getOutPacket(CmdSendBuyItemByRubi);
         pk.pack(productType);
         this.gameClient.sendPacket(pk);
+    },
+
+    // Map
+    sendMoveStorage: function(type, x, y) {
+        cc.log("Send move Storage", type);
+        var pk = this.gameClient.getOutPacket(CmdSendMoveStorage);
+        pk.pack(type, x, y);
+        this.gameClient.sendPacket(pk);
+    },
+
+    sendMoveField: function(id, x, y) {
+        cc.log("Send move Field", id, x, y);
+        var pk = this.gameClient.getOutPacket(CmdSendMoveField);
+        pk.pack(id, x, y);
+        this.gameClient.sendPacket(pk);
+    },
+
+    sendBuyMapObjectRequest: function (id, type, x, y) {
+        cc.log("Send buy request");
+        var pk = this.gameClient.getOutPacket(CmdSendBuyMapObjectRequest);
+        pk.pack(id, type, x, y);
+        this.gameClient.sendPacket(pk);
     }
-
 });
-
-
-

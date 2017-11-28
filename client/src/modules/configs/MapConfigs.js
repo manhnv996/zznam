@@ -5,7 +5,7 @@ MapConfigs.Init = {
 	height: 32,
 	defaultScale: 0.4,
 	padding: {
-		top: 100,
+		top: 300,
 		left: 100,
 		bottom: 100,
 		right: 100
@@ -159,5 +159,19 @@ MapConfigs.Warehouse = {
 	size: {
 		width: 3,
 		height: 3
+	}
+}
+
+MapConfigs.BigNatureThing = {
+	size: {
+		width: 2,
+		height: 2
+	}
+}
+
+MapConfigs.SmallNatureThing = {
+	size: {
+		width: 1,
+		height: 1
 	}
 }

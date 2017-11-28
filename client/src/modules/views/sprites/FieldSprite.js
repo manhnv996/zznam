@@ -29,7 +29,7 @@ var FieldSprite = MapBlockSprite.extend({
         );
 
         //
-        this.render(fieldId);
+        // this.render(fieldId);
 
         // this.addTouchEventListener(parent, fieldId);
         this.registerTouchEvents();
@@ -38,8 +38,8 @@ var FieldSprite = MapBlockSprite.extend({
         this.schedule(this.updateFieldStatus, 0.5);
         //this.schedule(this.updateProgressBarInprogress, 0.2);
 
-    },
-    render: function (fieldId) {
+    // },
+    // render: function (fieldId) {
         this.fieldId = fieldId;
         // Find field in asset
         this.field = user.getAsset().getFieldList().find(function(f) {
@@ -82,7 +82,7 @@ var FieldSprite = MapBlockSprite.extend({
             }.bind(this),
 
             onTouchEnded: function (touch, event) {
-                cc.log("sprite onTouchesEnded.. ");
+                // cc.log("sprite onTouchesEnded.. ");
                 // var target = event.getCurrentTarget();
                 var target = this;
                 target.opacity = 255;
@@ -173,8 +173,14 @@ var FieldSprite = MapBlockSprite.extend({
     },
     //
     updateFieldStatus: function (curr, duration) {
+        // var field = user.getAsset().getFieldList().find(function(f) {
+        //     return f.field === this.fieldId;
+        // });
+        if (!this.field) {
+            return;
+        }        
 
-        if (user.getAsset().getFieldList()[this.fieldId].getPlantedTime() == null){
+        if (this.field.getPlantedTime() == null){
 
             //this.changeTexture(res.field);
             return false;
@@ -230,7 +236,7 @@ var FieldSprite = MapBlockSprite.extend({
     },
 
     runAction: function(action) {
-        if (this.plantSprite) {
+        if (this.seedType) {
             this.plantSprite.runAction(action);
         } else {
             this._super(action);
@@ -238,7 +244,7 @@ var FieldSprite = MapBlockSprite.extend({
     },
 
     stopAllActions: function() {
-        if (this.plantSprite) {
+        if (this.seedType) {
             this.plantSprite.stopAllActions();
         } else {
             this._super();
@@ -246,22 +252,21 @@ var FieldSprite = MapBlockSprite.extend({
     },
 
     setColor: function(color) {
-        if (this.plantSprite) {
+        if (this.seedType) {
             this.plantSprite.setColor(color);
         } else {
             this._super(color);
         }
     },
 
-    // On finish move on map
+    // On finish move on map, update model and push to server
     onFinishMove: function(lx, ly) {
         cc.log("Field moved to", lx, ly);
         
         this.field.coordinate.x = lx;
         this.field.coordinate.y = ly;
-        cc.log(this.field);
         // Send to server
-        // ...
+        testnetwork.connector.sendMoveField(this.fieldId, lx, ly);
         ///
     }
 });

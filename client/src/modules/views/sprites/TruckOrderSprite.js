@@ -5,10 +5,20 @@ var TruckOrderSprite = MapBlockSprite.extend({
 			MapConfigs.TruckOrder.size.height, 
 			x, y, MapItemEnum.TRUCK_ORDER
 		);
-		this.registerTouchEvents();
+		this.registerTouchEvents({ lockMove: true });
 	},
 
 	onClick: function() {
 		cc.log("TruckOrder clicked");
+	},
+	
+	onBeginClick: function() {
+		// this.setOpacity(210);
+		this.setColor(cc.color(200, 200, 200));
+	},
+
+	onEndClick: function() {
+		// this.setOpacity(255);
+		this.setColor(cc.color(255, 255, 255));
 	}
 });

@@ -51,8 +51,6 @@ var LoginLayer = cc.Layer.extend({
         this.addChild(this.lblLog);
 
 
-
-
     },
     onClickLogin: function(){
         cc.log("==onplay clicked");

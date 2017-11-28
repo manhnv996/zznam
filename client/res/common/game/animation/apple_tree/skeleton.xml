@@ -1,5 +1,5 @@
 <dragonBones name="CayTao" frameRate="24" version="2.3">
- <armature name="apple_tree">
+ <armature name="CayTao">
   <bone name="Bong">
    <transform x="9.85" y="-3.45" skX="0" skY="0" scX="1" scY="1"/>
   </bone>

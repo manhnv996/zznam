@@ -5,6 +5,7 @@ var MainScene = cc.Scene.extend({
 		// Init controllers
 		PlantCtrl.instance = new PlantCtrl();
 		GameShopController.instance = new GameShopController();
+		StorageCtrl.instance = new StorageCtrl();
 
 		// Init layers
 		MapLayer.instance = new MapLayer();
@@ -13,8 +14,10 @@ var MainScene = cc.Scene.extend({
 		PopupLayer.instance = new PopupLayer();
 		this.addChild(PopupLayer.instance);
 
-		MainGuiLayer.instance = new MainGuiLayer();
-		this.addChild(MainGuiLayer.instance);
+		//var mainGuiLayer = new MainGuiLayer();
+		//this.addChild(mainGuiLayer);
+		//MainGuiLayer.instance = new MainGuiLayer();
+		//this.addChild(MainGuiLayer.instance);
 
 		MapCtrl.instance = new MapCtrl();
 		
@@ -27,13 +30,23 @@ var MainScene = cc.Scene.extend({
 	},
 
 	onGettedData: function() {
+		MainGuiLayer.instance = new MainGuiLayer();
+		this.addChild(MainGuiLayer.instance);
+
 		GSLayer.instance = new GSLayer();
 		this.addChild(GSLayer.instance);
+
+		StorageLayer.instance = new StorageLayer();
+		this.addChild(StorageLayer.instance);
+		// StorageLayer.instance.initStorage(user.getAsset().getFoodStorage());
+		//StorageLayer.instance.getMultiLayer().switchTo(1);
 
 		NotifyLayer.instance = new NotifyLayer();
 		this.addChild(NotifyLayer.instance);
 		MapCtrl.instance.init();
 		MapCtrl.instance._showDebugMap();
+
+		//NotifyLayer.instance.notifyFullSilo();
 	},
 
 	init: function() {

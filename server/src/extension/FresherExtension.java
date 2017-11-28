@@ -115,7 +115,6 @@ public class FresherExtension extends BZExtension {
 		
 		//
 //        setupUserInfo();
-        System.out.println(OrderUtil.randomTypeNumber(2));
     }
 
     public void init() {
@@ -140,22 +139,7 @@ public class FresherExtension extends BZExtension {
 	
 	
 	
-	public static void setupUserInfo(){
-        Storage foodStorage = new Storage(StorageType.FOOD_STORAGE, 30, 10, 10);
-        Storage warehouse = new Storage(StorageType.WAREHOUSE, 30, 8, 8);
-        foodStorage.addItem(ProductType.CROP_CARROT, 5);
-        foodStorage.addItem(ProductType.CROP_SOYBEAN, 10);
-        
-        Asset asset = new Asset(foodStorage, warehouse, null);        
-        for (int i = 0; i < 6; i++){
-            Field field = new Field(0, 18, 10 + i);
-            asset.addField(field);
-        }
-        asset.getFieldById(1).setPlantType("crop_corn");
-
-//        user = new ZPUserInfo(asset);
-        System.out.println("Setup!!!!!!!!!");
-    }
+	
     
     
 /*

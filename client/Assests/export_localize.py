@@ -35,6 +35,9 @@ def export_to_lang(file_path, out_dir):
             else:
                 if row[0].find('//') == -1:
                     print row[0]
+                    if len(row) < length:
+                        print "- Not process"
+                        continue
                     for i in range(1, length):
                         text = row[i]
                         data[header[i]] = data[header[i]] + row[0] + '    ="' + text + '"\n'
