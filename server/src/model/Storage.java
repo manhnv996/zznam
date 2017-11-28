@@ -119,4 +119,12 @@ public class Storage extends CoordinateObject {
         return false;
     }
     
+    public String getStorageStringType() {
+        if (this.storageType == StorageType.FOOD_STORAGE) {
+            return "FOOD_STORAGE";    
+        } else {
+            return "WAREHOUSE";
+        }
+    }
+    
 }

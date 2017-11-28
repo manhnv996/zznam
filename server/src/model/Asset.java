@@ -77,4 +77,8 @@ public class Asset {
         
         return null;
     }
+    
+    public List<NatureThing> getNatureThingList() {
+        return this.natureThingList;    
+    }
 }

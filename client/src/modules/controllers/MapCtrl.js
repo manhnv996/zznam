@@ -23,12 +23,12 @@ var MapCtrl = cc.Class.extend({
         cc.log("MapCtrl inited");
         this.map = user.map; // Pass to user map
 
-        var debugUser = {} // Not show map
-        for (var k in user) {
-            if (k !== 'map') {
-                debugUser[k] = user[k];
-            }
-        }
+        // var debugUser = {} // Not show map
+        // for (var k in user) {
+        //     if (k !== 'map') {
+        //         debugUser[k] = user[k];
+        //     }
+        // }
         // cc.log("User", debugUser);
         this.renderStorages();
         this.renderPlants();
@@ -75,6 +75,7 @@ var MapCtrl = cc.Class.extend({
         //         NhaChinhConfigs.blockSizeX, NhaChinhConfigs.blockSizeY,
         //         MapItemEnum.NHA_CHINH);
         var nhaChinh = new NhaChinhSprite(NhaChinhConfigs.position);
+        //MapLayer.instance.debugSprite = nhaChinh;
         MapLayer.instance.addChild(nhaChinh);
 
         // Truck Order
@@ -226,10 +227,10 @@ var MapCtrl = cc.Class.extend({
     */
 
     renderNaturalThings: function() {
-        
         for (var i = 0; i < user.asset.natureThingList.length; i++) {
-            var x = user.asset.natureThingList[i].x;
-            var y = user.asset.natureThingList[i].y;
+
+            var x = user.asset.natureThingList[i].coordinate.x;
+            var y = user.asset.natureThingList[i].coordinate.y;
             var id = user.asset.natureThingList[i].id;
             var typeName = user.asset.natureThingList[i].type;
             if (typeName === 'forest_swamp') {

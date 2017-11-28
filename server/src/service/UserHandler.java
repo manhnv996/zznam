@@ -13,6 +13,8 @@ import cmd.receive.user.RequestUserInfo;
 
 import cmd.send.demo.ResponseGameInfo;
 
+import cmd.send.user.ResponseUser;
+
 import config.enums.ProductResource;
 import config.enums.ProductType;
 import config.enums.StorageType;
@@ -68,11 +70,15 @@ public class UserHandler extends BaseClientRequestHandler {
     public void handleClientRequest(User user, DataCmd dataCmd) {
         try {
             switch (dataCmd.getId()) {
-            case CmdDefine.GET_USER_INFO:
+            case CmdDefine.GET_USER_INFO: // Old. Do not use
                 RequestUserInfo reqInfo = new RequestUserInfo(dataCmd);                
                 getUserInfo(user);
                 break;
+            case CmdDefine.GET_USER: // New get user
+                returnUser(user);
+                break;
             }
+            
         } catch (Exception e) {
             logger.warn("USERHANDLER EXCEPTION " + e.getMessage());
             logger.warn(ExceptionUtils.getStackTrace(e));
@@ -106,6 +112,21 @@ public class UserHandler extends BaseClientRequestHandler {
             e.printStackTrace();
         }
 
+    }
+    
+    // Return all user information as Binary
+    private void returnUser(User user) {
+        ZPUserInfo userInfo = null;
+        try {
+            userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
+            if (userInfo == null) {
+                userInfo = createUser(user.getId());
+                userInfo.saveModel(user.getId());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        send(new ResponseUser(userInfo), user);
     }
 
     private void userDisconnect(User user) {

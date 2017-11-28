@@ -49,6 +49,7 @@ var UpgradeSiloLayer = cc.Layer.extend({
         }
 
         var label = new cc.LabelBMFont(numberItem + "/" + numberNeed, res.FONT_OUTLINE_20);
+        label.tag = 21;
         label.x = layout.width / 2;
         //label.y = sprite.y - sprite.height / 2 - label.height / 2;
         label.y = sprite.y - sprite.height / 2 - label.height / 4;
@@ -117,6 +118,7 @@ var UpgradeSiloLayer = cc.Layer.extend({
         }
 
         label = new cc.LabelBMFont(numberItem + "/" + numberNeed, res.FONT_OUTLINE_20);
+        label.tag = 22;
         label.x = layout.width / 2;
         //label.y = sprite.y - sprite.height / 2 - label.height / 2;
         label.y = sprite.y - sprite.height / 2 - label.height / 4;
@@ -182,6 +184,7 @@ var UpgradeSiloLayer = cc.Layer.extend({
         }
 
         label = new cc.LabelBMFont(numberItem + "/" + numberNeed, res.FONT_OUTLINE_20);
+        label.tag = 23;
         label.x = layout.width / 2;
         //label.y = sprite.y - sprite.height / 2 - label.height / 2;
         label.y = sprite.y - sprite.height / 2 - label.height / 4;
@@ -191,7 +194,7 @@ var UpgradeSiloLayer = cc.Layer.extend({
         //layoutBtn.setBackGroundColor(cc.color.BLACK);
 
         btn = new ccui.Button(res.storage_buy_tool);
-        btn.tag = 2;
+        btn.tag = 3;
         //btn.setZoomScale(-0.1);
         layoutBtn.setContentSize(btn.getContentSize().width, btn.getContentSize().height);
         layoutBtn.x = layout.width / 2;
@@ -266,18 +269,32 @@ var UpgradeSiloLayer = cc.Layer.extend({
             case ccui.Widget.TOUCH_ENDED:
                 cc.log("Touch Buy Item");
                 var ruby = parseInt(sender.parent.getChildByTag(sender.tag + 10).getString());
-                switch (sender.tag) {
-                    case 1: //nail
-                        cc.log("Buy Nail " + ruby);
-
-                        break;
-                    case 2: //screw
-                        cc.log("Buy Screw");
-                        break;
-                    case 3: //woodpanel
-                        cc.log('Buy Woodpanel');
-                        break
+                if (ruby > user.getRuby) {
+                    //Notify
+                } else {
+                    user.reduceRuby(ruby);
+                    sender.parent.setVisible(false);
+                    var label = sender.parent.getChildByTag(sender.tag + 20);
+                    var productType;
+                    switch (sender.tag) {
+                        case 1: //nail
+                            cc.log("Buy Nail " + ruby);
+                            label.setString(res.upgradeSilo[level + 1].tool_nail + "/" + res.upgradeSilo[level + 1].tool_nail);
+                            this._check_nail = true;
+                            break;
+                        case 2: //screw
+                            cc.log("Buy Screw" + ruby);
+                            label.setString(res.upgradeSilo[level + 1].tool_screw + "/" + res.upgradeSilo[level + 1].tool_screw);
+                            this._check_screw = true;
+                            break;
+                        case 3: //woodpanel
+                            cc.log("Buy Woodpanel" + ruby);
+                            label.setString(res.upgradeSilo[level + 1].tool_woodPanel + "/" + res.upgradeSilo[level + 1].tool_woodPanel);
+                            this._check_woodpanel = true;
+                            break
+                    }
                 }
+
                 break;
             case ccui.Widget.TOUCH_CANCELED:
                 break;
@@ -287,8 +304,8 @@ var UpgradeSiloLayer = cc.Layer.extend({
     touchBackBtn: function (sender, type){
         switch (type) {
             case ccui.Widget.TOUCH_ENDED:
-                this.parent.switchTo(0);
-                break;
+                //this.parent.switchTo(0);
+                //break;
             case ccui.Widget.TOUCH_CANCELED:
                 this.parent.switchTo(0);
                 break;

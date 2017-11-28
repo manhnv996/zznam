@@ -24,7 +24,7 @@ var Asset = cc.Class.extend({
         this.fieldList = (fieldList == null) ? [] : fieldList;
         this.animalLodgeList = (animalLodgeList == null) ? [] : animalLodgeList;
         this.machineList = (machineList == null) ? [] : machineList;
-        this.natureThingList = (natureThingList == null) ? [] : natureThingList;
+        this.natureThingList = natureThingList || [];
         this.myShop = myShop;
         // this.fieldList = [];
     },

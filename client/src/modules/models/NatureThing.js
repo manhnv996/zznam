@@ -3,13 +3,14 @@
  */
 
 var NatureThing = CoordinatedObject.extend({
+	type: '',
+	id: 0,
 
-
-    ctor: function () {
+    ctor: function (coordinate, type, id) {
         //
-        //this._super();
-
-
+        this._super(coordinate);
+        this.type = type;
+        this.id = id;
     },
     // render: function () {
     //     //
