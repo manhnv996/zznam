@@ -9,4 +9,11 @@ public class ProductConfig {
     public int exp;
     public int maxPrice;
     public int levelUnlock;
+    
+    
+    
+//    public boolean sortByLevel(){
+//        
+//        return true;
+//    }
 }

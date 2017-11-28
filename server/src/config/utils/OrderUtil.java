@@ -25,13 +25,13 @@ public class OrderUtil {
     public static int randomTypeNumber(int level){
         float random = (float) Math.random();
         if (level < 7){
-            random *= 2;
+//            random *= 2;
             if (random > 0.6){
                 return 2;
             }
             return 1;
         } else if (level < 10){
-            random *= 3;
+//            random *= 3;
             if (random > 0.6){
                 return 3;
             } else if (random > 0.3){
@@ -40,7 +40,7 @@ public class OrderUtil {
                 return 1;
             }
         } else if (level < 16){
-            random *= 4;
+//            random *= 4;
             if (random > 0.7){
                 return 4;
             } else if (random > 0.4){
@@ -51,7 +51,7 @@ public class OrderUtil {
                 return 1;
             }
         } else if (level < 21){
-            random *= 5;
+//            random *= 5;
             if (random > 0.8){
                 return 5;
             } else if (random > 0.5){
@@ -64,7 +64,7 @@ public class OrderUtil {
                 return 1;
             }
         } else if (level < 31){
-            random *= 6;
+//            random *= 6;
             if (random > 0.8){
                 return 6;
             } else if (random > 0.5){
@@ -79,7 +79,7 @@ public class OrderUtil {
                 return 1;
             }
         } if (level < 41){
-            random *= 6;
+//            random *= 6;
             if (random > 0.8){
                 return 6;
             } else if (random > 0.55){
@@ -94,7 +94,7 @@ public class OrderUtil {
                 return 1;
             }
         } else {
-            random *= 6;
+//            random *= 6;
             if (random > 0.75){
                 return 6;
             } else if (random > 0.50){
@@ -169,37 +169,57 @@ public class OrderUtil {
         
         int typeNumber = randomTypeNumber(level);
         for (int i = 0; i < typeNumber; i++){
-            ProductCategory category = randomCategory(level);
+//            ProductCategory category = randomCategory(level);
+            ProductCategory category = ProductCategory.LIVESTOCK_PRODUCT;
             
             List<ProductConfig> productCategory = ProductUtil.getProductConfObjByCategory(category);
+            productCategory = ProductUtil.sortProductListByRandomProduct(productCategory);
+            
             if (productList.size() == 0){
                 productList.add(productCategory.get(0));
                 continue;
             }
-            for (int j = 0; j < productList.size(); j++){
-                for (int k = 0; k < productCategory.size(); k++){
-                    if (!productList.get(j).id.equals(productCategory.get(k).id)){
+            for (int k = 0; k < productCategory.size(); k++){
+                for (int j = 0; j < productList.size(); j++){
+                    if (productList.get(j).id.equals(productCategory.get(k).id)){
                         
-                        productList.add(productCategory.get(k));
                         break;
                     }
-                    
-                }
-                if (productList.size() >= i + 1){
+                    productList.add(productCategory.get(k));
                     break;
                 }
+//                if (productList.size() >= i + 1){
+                    for (int j = 0; j < productList.size() - 1; j++){
+                        if (productList.get(j).id.equals(productList.get(productList.size() - 1))){
+                            productList.remove(productList.size() - 1);
+                            break;
+                        }
+                    }
+//                    break;
+//                }
             }
             
             
             
+//            for (int j = 0; j < productList.size(); j++){
+//                for (int k = 0; k < productCategory.size(); k++){
+//                    if (!productList.get(j).id.equals(productCategory.get(k).id)){
+//                        
+//                        productList.add(productCategory.get(k));
+//                        break;
+//                    }
+//                    
+//                }
+//                if (productList.size() >= i + 1){
+//                    break;
+//                }
+//            }
             
         }
-        
-        
-        
-        
         return productList;
     }
+    
+    
     
     
     

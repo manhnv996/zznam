@@ -18,10 +18,13 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.zip.ZipEntry;
 
 import model.Storage;
+import model.StorageItem;
 import model.ZPUserInfo;
 
 /**
@@ -89,6 +92,18 @@ public class ProductUtil {
         return cps;
     }
     
+    public static List<ProductConfig> toProductConfigList(){
+        
+        ProductConfig[] products = toProductConfigArray();
+        List<ProductConfig> productList = new ArrayList<>();
+        
+        for (int i = 0; i < products.length; i++){
+            productList.add(products[i]);
+        }
+        
+        return productList;
+    }
+    
     public static ProductConfig getProductConfObjByType(String productId){
         
         ProductConfig[] products = toProductConfigArray();
@@ -135,6 +150,80 @@ public class ProductUtil {
 
         return list;
     }
+    
+    
+    public static List<ProductConfig> randomSortProductConfByCategory(ProductCategory category){
+        
+        List<ProductConfig> productCategory = ProductUtil.getProductConfObjByCategory(category);
+        
+        float random = (float) Math.random();
+        if (random > 0.3){
+            //random all product
+            
+        } else if (random > 0.15){
+            //orderby level
+            
+        } else {
+            //orderby itemStorage (quantity)
+            
+        }
+        
+        
+        return productCategory;
+    }
+    
+    
+    
+    
+    public static List<ProductConfig> sortProductListByRandomProduct(List<ProductConfig> productList){
+
+        Collections.sort(productList, new Comparator<ProductConfig>() {
+            @Override
+            public int compare(ProductConfig a, ProductConfig b) {
+                // -1 - less than, 1 - greater than, 0 - equal, all inversed for descending
+                return (int) Math.floor(Math.random() * 2) - 1;
+            }
+        });
+        
+        return productList;
+    }
+    
+    public static List<ProductConfig> sortProductListByLevelUnlock(List<ProductConfig> productList){
+        
+        Collections.sort(productList, new Comparator<ProductConfig>() {
+            @Override
+            public int compare(ProductConfig a, ProductConfig b) {
+                // -1 - less than, 1 - greater than, 0 - equal, all inversed for descending
+                return b.levelUnlock > a.levelUnlock ? -1 : (b.levelUnlock < a.levelUnlock) ? 1 : 0;    //level inc
+            }
+        });
+        
+        return productList;
+    }
+    
+    public static List<ProductConfig> sortProductListByQuantityOfStorageItem(List<ProductConfig> productList){
+
+        Collections.sort(productList, new Comparator<ProductConfig>() {
+            @Override
+            public int compare(ProductConfig a, ProductConfig b) {
+                // -1 - less than, 1 - greater than, 0 - equal, all inversed for descending
+                return b.levelUnlock > a.levelUnlock ? -1 : (b.levelUnlock < a.levelUnlock) ? 1 : 0;    //level inc
+                
+                /*
+                 * INPROGRESS
+                 */
+                
+            }
+        });
+        
+        return productList;
+    }
+    
+    
+    
+    
+    
+    
     
     //
     public static String convertStorageToJsonString(Storage storage){

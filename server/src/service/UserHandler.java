@@ -26,6 +26,8 @@ import config.utils.ConfigContainer;
 
 import config.utils.OrderUtil;
 
+import config.utils.ProductUtil;
+
 import extension.FresherExtension;
 
 import java.util.ArrayList;
@@ -100,12 +102,6 @@ public class UserHandler extends BaseClientRequestHandler {
             }
             
             
-            List<ProductConfig> productList = OrderUtil.randomTypeProduct(8);
-            for (int i = 0; i < productList.size(); i++){
-                System.out.println(productList.get(i).id);
-            }
-            
-            
             send(new ResponseGameInfo(userInfo), user);
             
         } catch (Exception e) {
@@ -126,6 +122,18 @@ public class UserHandler extends BaseClientRequestHandler {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
+        
+        
+                    
+        List<ProductConfig> productList2 = ProductUtil.toProductConfigList();
+        
+        List<ProductConfig> productList = OrderUtil.randomTypeProduct(18);
+        for (int i = 0; i < productList.size(); i++){
+            System.out.println(productList.get(i).id);
+        }
+        
+        System.out.println("here is log");
         send(new ResponseUser(userInfo), user);
     }
 
