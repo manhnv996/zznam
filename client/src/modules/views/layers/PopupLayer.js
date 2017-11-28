@@ -16,7 +16,7 @@ var PopupLayer = cc.Layer.extend({
 
 
         this.pageCurr = 0;
-        this.schedule(this.updateProgressBarInprogress, 0.2);
+        //this.schedule(this.updateProgressBarInprogress, 0.2);
     },
 
 
@@ -30,7 +30,6 @@ var PopupLayer = cc.Layer.extend({
     },
 
     updateProgressBarInprogress: function () {
-
         if (this.isShowProgressBar){
 //          ///
             var fieldId = this.fieldId;
@@ -77,7 +76,12 @@ var PopupLayer = cc.Layer.extend({
 
         this.progressBar = cc.Sprite.create(res.progressbar);
         this.progressBar.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
+
         this.progressBar.setScale(0.5);
+        var action1 = new cc.ScaleTo(0.1, 0.55);
+        var action2 = new cc.ScaleTo(0.1, 0.5);
+        this.progressBar.runAction(cc.sequence(action1, cc.delayTime(0.01), action2));
+
         this.addChild(this.progressBar);
 
 
@@ -141,6 +145,9 @@ var PopupLayer = cc.Layer.extend({
         }
         this.isShowProgressBar = true;
 
+
+        this.unschedule(this.updateProgressBarInprogress);
+        this.schedule(this.updateProgressBarInprogress, 0.2);
     },
     disableProgressBarInprogress: function () {
 
@@ -154,6 +161,7 @@ var PopupLayer = cc.Layer.extend({
             this.progressBar = null;
             // }
 
+            this.unschedule(this.updateProgressBarInprogress);
         }
     },
 
