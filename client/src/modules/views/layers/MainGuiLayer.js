@@ -100,13 +100,10 @@ var MainGuiLayer = cc.Layer.extend({
         this.loadingBar = new ccui.LoadingBar();
         this.loadingBar.setName("ExpBar");
         this.loadingBar.loadTexture(res.EXP_221_PNG);
-        this.loadingBar.setPosition(center_top_pos);
-        this.loadingBar.setPercent(50);
+        this.loadingBar.setPosition(center_top_pos.width, center_top_pos.height);
+        this.loadingBar.setPercent(Math.floor(user.exp * 100 / this.max_exp));
         this.addChild( this.loadingBar);
 
-        this.loadingBar.setName("PreloadingBar");
-        this.loadingBar.loadTexture(res.EXP_221_PNG);
-        this.loadingBar.setPercent(0);
 
         this.labelExp = new cc.LabelBMFont(user.getExp() + "/" + this.max_exp, res.FONT_OUTLINE_30);
         this.labelExp.setPosition(center_top_pos);
@@ -146,7 +143,7 @@ var MainGuiLayer = cc.Layer.extend({
     onSelectBuyGold:function(sender){
         cc.log("==onSelectBuyGold clicked");
         if (this.isShowPopup == false){
-            CommonPopup.instance  = new CommonPopup("Cấu Hình", res.BG_SETTING_PNG, null, true);
+            CommonPopup.instance  = new CommonPopup("Cấu Hình", res.BG_2_PNG, true);
 
             this.addChild(CommonPopup.instance);
 

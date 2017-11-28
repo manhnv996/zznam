@@ -1,13 +1,12 @@
 var CommonPopup = cc.Layer.extend({
     title: null,
-    content: null,
     background: null,
     hasCloseButton: false,
-    ctor:function(title, background, content, hasCloseButton){
+    centerpos : null,
+    ctor:function(title, background, hasCloseButton){
         this._super();
         this.title = title;
         this.background = background;
-        this.content = content;
         this.hasCloseButton  = hasCloseButton;
         this.init();
     },
@@ -17,7 +16,7 @@ var CommonPopup = cc.Layer.extend({
         var size = cc.director.getVisibleSize();
         cc.log("visible size " + size.width+" "  + size.height);
         //3. calculate the center point
-        var centerpos = cc.p(size.width / 2, size.height / 2);
+        this.centerpos = cc.p(size.width / 2, size.height / 2);
 
 
 
@@ -25,11 +24,11 @@ var CommonPopup = cc.Layer.extend({
         var spritebg = new cc.Sprite(this.background);
         cc.log("spritebg " + spritebg.width + " " + spritebg.height);
         //spritebg.setScale(fr.clientConfig.getResourceScale().)
-        spritebg.setPosition(centerpos);
+        spritebg.setPosition(this.centerpos);
         this.addChild(spritebg);
 
         //set title
-        var labelTitle = new cc.LabelBMFont(this.title, res.FONT_NORMAL_50);
+        var labelTitle = new cc.LabelBMFont(this.title, res.FONT_OUTLINE_50);
         labelTitle.setPosition(size.width/2, size.height/2 + spritebg.height/2-50);
         this.addChild(labelTitle);
 
@@ -44,13 +43,14 @@ var CommonPopup = cc.Layer.extend({
         }
 
         //set animation
-        var action1 = new cc.ScaleTo(0.1, 1.35);
+        var action1 = new cc.ScaleTo(0.1, 1.25);
         var action2 = new cc.ScaleTo(0.1, 1.15);
         this.runAction(cc.sequence(action1, cc.delayTime(0.01), action2));
 
-        var commonButton = new CommonButton("Login");
-        commonButton.setPosition(centerpos);
-        this.addChild(commonButton);
+        //add test button
+        //var commonButton = new CommonButton("Login");
+        //commonButton.setPosition(centerpos);
+        //this.addChild(commonButton);
 
     },
     onSelectClose:function(sender)
@@ -67,15 +67,15 @@ var CommonButton =  ccui.Scale9Sprite.extend(
         ctor: function (title) {
             this._super(res.LAYER_24_PNG);
             this.title = title;
-
             this.init();
         },
         init: function(){
-            var height = this.x;
-            var width = this.y;
+            var height = this.getOriginalSize().height;
+            var width = this.getOriginalSize().width;
+            cc.log(height + "===========" + width);
             var centerpos = cc.p(width / 2, height / 2);
 
-            var title = cc.LabelBMFont(title, res.FONT_OUTLINE_30);
+            var title = cc.LabelBMFont(this.title, res.FONT_OUTLINE_30);
             title.setPosition(centerpos);
             this.addChild(title);
         }
