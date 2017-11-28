@@ -164,13 +164,43 @@ public class OrderUtil {
     
     
     public static List<ProductConfig> randomTypeProduct(int level){
+        
         List<ProductConfig> productList = new ArrayList<>();
-        for (int i = 0; i < randomTypeNumber(level); i++){
+        
+        int typeNumber = randomTypeNumber(level);
+        for (int i = 0; i < typeNumber; i++){
+            ProductCategory category = randomCategory(level);
+            
+            List<ProductConfig> productCategory = ProductUtil.getProductConfObjByCategory(category);
+            if (productList.size() == 0){
+                productList.add(productCategory.get(0));
+                continue;
+            }
+            for (int j = 0; j < productList.size(); j++){
+                for (int k = 0; k < productCategory.size(); k++){
+                    if (!productList.get(j).id.equals(productCategory.get(k).id)){
+                        
+                        productList.add(productCategory.get(k));
+                        break;
+                    }
+                    
+                }
+                if (productList.size() >= i + 1){
+                    break;
+                }
+            }
+            
+            
+            
             
         }
         
-        return null;
+        
+        
+        
+        return productList;
     }
+    
     
     
     

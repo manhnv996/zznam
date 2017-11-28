@@ -22,6 +22,8 @@ import cmd.receive.authen.RequestLogin;
 import config.enums.ProductType;
 import config.enums.StorageType;
 
+import config.jsonobject.ProductConfig;
+
 import config.utils.ConfigContainer;
 
 import config.utils.OrderUtil;
@@ -115,6 +117,7 @@ public class FresherExtension extends BZExtension {
 		
 		//
 //        setupUserInfo();
+        
     }
 
     public void init() {

@@ -17,9 +17,12 @@ import config.enums.ProductResource;
 import config.enums.ProductType;
 import config.enums.StorageType;
 
+import config.jsonobject.ProductConfig;
 import config.jsonobject.map.NaturalObject;
 
 import config.utils.ConfigContainer;
+
+import config.utils.OrderUtil;
 
 import extension.FresherExtension;
 
@@ -89,6 +92,13 @@ public class UserHandler extends BaseClientRequestHandler {
                 userInfo.saveModel(user.getId());                
 //                userInfo.saveModel(1);
             }
+            
+            
+            List<ProductConfig> productList = OrderUtil.randomTypeProduct(8);
+            for (int i = 0; i < productList.size(); i++){
+                System.out.println(productList.get(i).id);
+            }
+            
             
             send(new ResponseGameInfo(userInfo), user);
             
