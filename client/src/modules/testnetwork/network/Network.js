@@ -25,7 +25,7 @@ testnetwork.Connector = cc.Class.extend({
 
                 break;
             case gv.CMD.USER_LOGIN:
-                this.sendGetUserInfo();
+                // this.sendGetUserInfo(); // Old. Do not use
                 this.sendGetUser();
 
                 MainScene.instance = new MainScene();
@@ -71,9 +71,10 @@ testnetwork.Connector = cc.Class.extend({
                 updateGameInfo(packet.gameInfoJson);
                 break;
             //
-            case gv.CMD.GET_USER:
+            case gv.CMD.GET_USER: // New
                 cc.log("[N] RECEIVE GET_USER");
                 // process packet.user here
+                onReceiveUser(packet.user);
                 break;
 
             case gv.CMD.RESPONSE_ERROR_CODE:

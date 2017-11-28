@@ -225,10 +225,10 @@ var MapCtrl = cc.Class.extend({
     */
 
     renderNaturalThings: function() {
-        
         for (var i = 0; i < user.asset.natureThingList.length; i++) {
-            var x = user.asset.natureThingList[i].x;
-            var y = user.asset.natureThingList[i].y;
+
+            var x = user.asset.natureThingList[i].coordinate.x;
+            var y = user.asset.natureThingList[i].coordinate.y;
             var id = user.asset.natureThingList[i].id;
             var typeName = user.asset.natureThingList[i].type;
             if (typeName === 'forest_swamp') {

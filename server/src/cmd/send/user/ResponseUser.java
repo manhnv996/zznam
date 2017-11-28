@@ -127,6 +127,8 @@ public class ResponseUser extends BaseMsg {
      * Pack a storage
      */
     private void packStorage(Storage storage) {
+        bf.putInt(storage.getX());
+        bf.putInt(storage.getY());
         putStr(bf, storage.getStorageStringType());
         bf.putInt(storage.getCapacity());
         bf.putInt(storage.getLevel());

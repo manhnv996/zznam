@@ -33,8 +33,12 @@ var PopupLayer = cc.Layer.extend({
 
         if (this.isShowProgressBar){
 //          ///
-            var parsePlantTime = user.getAsset().getFieldList()[this.fieldId].getPlantedTime().getTime();
-            var parseCropTime = user.getAsset().getFieldList()[this.fieldId].getCropTime().getTime();
+            var fieldId = this.fieldId;
+            var field = user.asset.fieldList.find(function(f) {
+                return f.fieldId === fieldId;
+            });
+            var parsePlantTime = field.getPlantedTime().getTime();
+            var parseCropTime = field.getCropTime().getTime();
             var currTime = new Date().getTime();
 
             var duration = parseCropTime - parsePlantTime;

@@ -501,7 +501,7 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         this.user.level = this.getInt();
         this.user.gold = this.getInt();
         this.user.ruby = this.getInt();
-        this.user.exp = this.getLong();
+        this.user.exp = this.getLong(); // Warning, framwork return string
     },
 
     unpackMap: function() {
@@ -557,6 +557,8 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
 
     unpackStorage: function() {
         var storage = {};
+        storage.x = this.getInt();
+        storage.y = this.getInt();
         storage.storageType = this.getString();
         storage.capacity = this.getInt();
         storage.level = this.getInt();
