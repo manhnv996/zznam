@@ -101,7 +101,7 @@ var MachineTable = cc.Layer.extend({
             detail.tag = 3;
 
 
-            if (level < res.infoMachineItem[idx].level) {
+/*            if (level < res.infoMachineItem[idx].level) {
                 detail.setString(fr.Localization.text("text_unlock_detail") + res.infoMachineItem[idx].level);
             } else {
                 curslot = GameShopController.instance.getNumberMachine(res.infoMachineItem[idx].id);
@@ -110,7 +110,7 @@ var MachineTable = cc.Layer.extend({
                 if (curslot < maxslot) {
                     image.addTouchEventListener(this.touchEvent, this);
                 }
-            }
+            }*/
 
             slot = new cc.LabelBMFont(curslot + "/" + maxslot, "fonts/outline/30.fnt");
             slot.x = box.width / 3 * 2;
