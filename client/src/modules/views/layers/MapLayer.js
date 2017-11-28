@@ -30,7 +30,7 @@ var MapLayer = cc.Layer.extend({
 
 		// Move to MapCtrl
 		// this.renderDefaultConstruct(); 
-		 this.renderSample();
+		// this.renderSample();
 		this.setScale(0.4);
 		// Set map to center of screen, Note that setting scale before setting position.
 		// Make start animation
@@ -471,9 +471,10 @@ var MapLayer = cc.Layer.extend({
 		// this.setScale(0.7);
 		// this.addChild(bakery);
 		// cc.log(bakery.getBoundingBox());
-		var bakery = new BakerySprite(4, 5);
 
 
+
+		var bakery = new BakerySprite(20, 20);
 		this.bakery = bakery;
 		// setInterval(function() {
 		// 	cc.log(bakery._getContentSize());

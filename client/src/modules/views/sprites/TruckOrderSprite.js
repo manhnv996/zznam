@@ -9,7 +9,7 @@ var TruckOrderSprite = MapBlockSprite.extend({
 	},
 
 	onClick: function() {
-		cc.log("TruckOrder clicked");
+		cc.log("TruckOrder clicked", this.getLocalZOrder(), this.lx, this.ly, this.blockSizeX, this.blockSizeY);
 	},
 	
 	onBeginClick: function() {

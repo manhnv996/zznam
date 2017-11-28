@@ -39,10 +39,11 @@ public class ZPUserInfo extends DataModel {
         
         id = _id;
         
-        this.level = 16;
+        this.level = 1;
         this.gold = 10;
         this.ruby = 10;
         this.exp = 0L;
+        this.name = "";
         
         this.asset = asset;
 //        this.map = new int[32][32];
@@ -147,6 +148,14 @@ public class ZPUserInfo extends DataModel {
     
     public void setMap(MapAlias map) {
         this.map = map;    
+    }
+    
+    public String getName() {
+        return this.name;    
+    }
+    
+    public void setName(String name) {
+        this.name = name;    
     }
     
     //

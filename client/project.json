@@ -97,6 +97,7 @@
         "src/modules/models/Storage.js",
         "src/modules/models/Asset.js",
         "src/modules/models/User.js",
+        "src/modules/models/NatureThing.js",
 
         "src/modules/models/AnimalLodge.js",
         "src/modules/models/ChickenLodge.js",

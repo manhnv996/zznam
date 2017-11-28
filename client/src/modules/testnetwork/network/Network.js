@@ -25,7 +25,8 @@ testnetwork.Connector = cc.Class.extend({
 
                 break;
             case gv.CMD.USER_LOGIN:
-                this.sendGetUserInfo();
+                // this.sendGetUserInfo(); // Old. Do not use
+                this.sendGetUser();
 
                 MainScene.instance = new MainScene();
                 cc.director.runScene(MainScene.instance);
@@ -58,7 +59,7 @@ testnetwork.Connector = cc.Class.extend({
                 break;
 //          ////
 //            ////
-            case gv.CMD.GAME_INFO:
+            case gv.CMD.GAME_INFO: // Old
                 // cc.log("RECEIVE GAME_INFO: ", JSON.parse(packet.gameInfoJson));
                 cc.log("RECEIVE GAME_INFO: ");
 
@@ -70,6 +71,12 @@ testnetwork.Connector = cc.Class.extend({
                 updateGameInfo(packet.gameInfoJson);
                 break;
             //
+            case gv.CMD.GET_USER: // New
+                cc.log("[N] RECEIVE GET_USER");
+                // process packet.user here
+                onReceiveUser(packet.user);
+                break;
+
             case gv.CMD.RESPONSE_ERROR_CODE:
                 cc.log("RECEIVE RESPONSE_ERROR_CODE: ", packet.errorLog);
 
@@ -140,13 +147,21 @@ testnetwork.Connector = cc.Class.extend({
                 break;
         }
     },
-    sendGetUserInfo:function()
+    sendGetUserInfo:function() // Old
     {
         cc.log("sendGetUserInfo");
         var pk = this.gameClient.getOutPacket(CmdSendUserInfo);
         pk.pack();
         this.gameClient.sendPacket(pk);
     },
+
+    sendGetUser: function() {
+        cc.log("[N] sendGetUser");
+        var pk = this.gameClient.getOutPacket(CmdSendGetUser);
+        pk.pack();
+        this.gameClient.sendPacket(pk);
+    },
+
     sendLoginRequest: function (username, password) {
         cc.log("sendLoginRequest");
         cc.log("sendingLoginRequest with: " + username + "===" + password);
@@ -254,6 +269,20 @@ testnetwork.Connector = cc.Class.extend({
         cc.log("Send buy request");
         var pk = this.gameClient.getOutPacket(CmdSendBuyMapObjectRequest);
         pk.pack(id, type, x, y);
+        this.gameClient.sendPacket(pk);
+    },
+
+    sendBuyTool: function (productType, number) {
+        cc.log("Buy Tool");
+        var pk = this.gameClient.getOutPacket(CmdSendBuyToolRequest);
+        pk.pack(productType, number);
+        this.gameClient.sendPacket(pk);
+    },
+
+    sendUpgradeStorage: function (storageType, level) {
+        cc.log("Upgrade " + storageType + " to level " + level);
+        var pk = this.gameClient.getOutPacket(CmdSendUpgradeStorageRequest);
+        pk.pack(storageType, level);
         this.gameClient.sendPacket(pk);
     }
 });

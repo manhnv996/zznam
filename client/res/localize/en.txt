@@ -1140,6 +1140,7 @@ mail_header_lost_farm    ="[Farmery] Lost Account"
 mail_header_report_problem    ="[Farmery] Bugs report"
 mail_header_feedback    ="[Farmery] Suggestions"
 mail_content_common    ="Descriptions:"
+text_unlock_detail = "Open at level "
 mail_content_lost_farm    =" Please provide information:/n Lost farm name: -\n Cấp độ: -\n Facebook address: -\n\n\n"
 mail_content_info    ="\n\n -----DO NOT DELETE!-----\nGame: @GAME@\nVersion code: @VERSION_CODE@\nPlayerID: 4032\nFacebookId: @FB_ID@\nGameCenterId: @GAME_CENTER_ID@\nCategory: @CATEGORY@\nDevice Type: @DEVICE_TYPE@\nOS Version: @OS_VERSION@\nPlatform: @PLATFORM@\nAvailable Memory: @AVAIL_MEMORY@\n ------------------------"
 

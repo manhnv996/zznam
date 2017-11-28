@@ -8,7 +8,7 @@ var User = cc.Class.extend({
     asset: null,
     map: [],
     
-    ctor: function (asset) {
+    ctor: function (asset, map) {
         //
         //this._super();
 
@@ -23,6 +23,7 @@ var User = cc.Class.extend({
         //this.exp = 0;
 
         this.asset = asset;
+        this.map = map || this.map;
     },
 
 

@@ -6,10 +6,9 @@ var Storages = CoordinatedObject.extend({
     level: 0,
     itemList: [],
 
-    ctor: function (coordinate, storageType, capacity) {
+    ctor: function (coordinate, storageType, capacity, level) {
         //
         this._super(coordinate);
-
     //     this.render(storageId, capacity);
 
     // },
@@ -17,7 +16,7 @@ var Storages = CoordinatedObject.extend({
 
         this.storageType = storageType;
         this.capacity = capacity;
-
+        this.level = level || 0;
         this.itemList = [];
         //this.itemList.push(new StorageItem(ProductTypes.CROP_CARROT.TYPE, 5));
         //this.itemList.push(new StorageItem(ProductTypes.CROP_WHEAT.TYPE, 4));
@@ -25,9 +24,15 @@ var Storages = CoordinatedObject.extend({
 
     },
 
-    upgrade: function () {
+    upgrade: function (product1, n1, product2, n2, product3, n3) {
         //boolean
-
+        if (user.getAsset().getWarehouse().takeItem(product1, n1) &&
+            user.getAsset().getWarehouse().takeItem(product2, n2) &&
+            user.getAsset().getWarehouse().takeItem(product3, n3)) {
+            this.level++;
+            return true;
+        }
+        return false;
     },
 
     getStorageType: function () {
@@ -127,11 +132,8 @@ var Storages = CoordinatedObject.extend({
         return total;
     },
 
-    getLevel: function () {
-        return this.level;
-    },
-
-    upgradeLevel: function () {
-        this.level++;
+    setCapacity: function (nextCapacity) {
+        this.capacity = nextCapacity;
     }
+
 });

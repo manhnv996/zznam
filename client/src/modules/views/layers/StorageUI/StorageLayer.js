@@ -49,15 +49,16 @@ var StorageLayer = cc.Layer.extend({
         name.x = this._layoutStorage.width / 2;
         name.y = this._layoutStorage.height * 4 / 5;
 
-        var total = StorageCtrl.instance.getTotalItems(storage.getItemList());
+        var total = storage.getCurrentQuantity();
         var capacity = storage.getCapacity();
         //cc.log("FoodStorage " + (type == StorageTypes.FOOD_STORAGE));
         if (type == StorageTypes.FOOD_STORAGE) {
-            name.setString("Kho lương thực : " + total + "/" + capacity);
-            upgradeLayer = new UpgradeSiloLayer(storage.getLevel());
+            name.setString(fr.Localization.text("NAME_SILO") + total + "/" + capacity);
+            upgradeLayer = new UpgradeSiloLayer(storage.level);
+            //cc.log("UpgradeSiloLayer " + storage.level);
         } else {
-            name.setString("Nhà kho : " + total + "/" + capacity);
-            upgradeLayer = new UpgradeWareLayer(storage.getLevel());
+            name.setString(fr.Localization.text("NAME_WARE_HOUSE") + total + "/" + capacity);
+            upgradeLayer = new UpgradeWareLayer(storage.level);
         }
         this._layoutStorage.addChild(name);
 
@@ -100,9 +101,10 @@ var StorageLayer = cc.Layer.extend({
 
         this.addChild(this._layoutStorage);
         //this.setScale((cc.winSize.height - 20) / this._layoutStorage.height);
+        this._layoutStorage.setScale(0.5);
         var scale = (cc.winSize.height - 20) / this._layoutStorage.height;
-        var scaleTo1 = cc.scaleTo(0.07, scale + 0.1, scale + 0.1);
-        var scaleTo2 = cc.scaleTo(0.12, scale, scale);
+        var scaleTo1 = cc.scaleTo(0.2, scale + 0.15, scale + 0.15);
+        var scaleTo2 = cc.scaleTo(0.15, scale, scale);
         this._layoutStorage.runAction(cc.sequence(scaleTo1, scaleTo2));
     },
 
