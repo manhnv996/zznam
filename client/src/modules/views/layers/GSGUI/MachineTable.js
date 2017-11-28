@@ -47,6 +47,7 @@ var MachineTable = cc.Layer.extend({
         // cc.log("Create Cell " + idx);
         ///var strValue = idx;
         var cell = table.dequeueCell();
+        var level = user.getLevel();
         var image;
         var title;
         var detail;
@@ -99,8 +100,17 @@ var MachineTable = cc.Layer.extend({
             detail.color = cc.color(77, 41, 1);
             detail.tag = 3;
 
-            curslot = GameShopController.instance.getNumberMachine(res.infoMachineItem[idx].id);
-            maxslot = res.infoMachineItem[idx].number;
+
+            if (level < res.infoMachineItem[idx].level) {
+                detail.setString(fr.Localization.text("text_unlock_detail") + res.infoMachineItem[idx].level);
+            } else {
+                curslot = GameShopController.instance.getNumberMachine(res.infoMachineItem[idx].id);
+                maxslot = res.infoMachineItem[idx].number;
+
+                if (curslot < maxslot) {
+                    image.addTouchEventListener(this.touchEvent, this);
+                }
+            }
 
             slot = new cc.LabelBMFont(curslot + "/" + maxslot, "fonts/outline/30.fnt");
             slot.x = box.width / 3 * 2;
