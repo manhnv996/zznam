@@ -181,7 +181,7 @@ var UpgradeWareLayer = cc.Layer.extend({
         layoutBtn.setBackGroundColor(cc.color.BLACK);
 
         btn = new ccui.Button(res.storage_buy_tool);
-        btn.tag = 2;
+        btn.tag = 3;
         //btn.setZoomScale(-0.1);
         layoutBtn.setContentSize(btn.getContentSize().width, btn.getContentSize().height);
         layoutBtn.x = layout.width / 2;

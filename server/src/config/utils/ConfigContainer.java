@@ -91,6 +91,7 @@ public class ConfigContainer {
         JsonObject obj = null;
         try {
             obj = parser.parse(new FileReader("src/config/json/mapInit.json")).getAsJsonObject();
+            System.out.println("Get " + obj.get("1").getAsJsonObject().get("id").getAsString());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
