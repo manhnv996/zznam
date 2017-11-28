@@ -9,7 +9,7 @@ package config.enums;
  *
  * @author nguyenvanmanh
  */
-public class StorageType {
-    public static final String FOOD_STORAGE = "FOOD_STORAGE";
-    public static final String WAREHOUSE = "WAREHOUSE";
+public enum StorageType {
+    FOOD_STORAGE,
+    WAREHOUSE;
 }

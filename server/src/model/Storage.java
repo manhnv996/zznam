@@ -8,12 +8,12 @@ import java.util.List;
 
 public class Storage extends CoordinateObject {
     
-    private String storageType;
+    private StorageType storageType;
     private int capacity;
     private List<StorageItem> itemList;
     private int level;
     
-    public Storage(String storageType, int capacity, int x, int y) {
+    public Storage(StorageType storageType, int capacity, int x, int y) {
         super(x, y);
         
         this.storageType = storageType;
@@ -133,7 +133,7 @@ public class Storage extends CoordinateObject {
         this.capacity = capacity;
     }
     
-    public String getStoragetype() {
+    public StorageType getStoragetype() {
         return this.storageType;
     }
     

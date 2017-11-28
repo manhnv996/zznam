@@ -143,7 +143,7 @@ public class StorageHandler extends BaseClientRequestHandler{
         Storage storage = null;
         
         try {
-            if (StorageType.FOOD_STORAGE.equals(reqUpgrade.storageType)) {
+            if (StorageType.FOOD_STORAGE.toString().equals(reqUpgrade.storageType)) {
                 storage = userInfo.getAsset().getFoodStorage();
                 obj = parser.parse(new FileReader("src/config/json/upgradeSiloConfigs.json")).getAsJsonArray();
                 number1 = obj.get(reqUpgrade.level).getAsJsonObject().get("tool_nail").getAsInt();

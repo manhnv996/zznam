@@ -121,7 +121,7 @@ public class UserHandler extends BaseClientRequestHandler {
         warehouse.addItem(ProductType.TOOL_SCREW, 3);
         warehouse.addItem(ProductType.TOOL_WOODPANEL, 5);
         
-        warehouse.addItem(ProductType.TOOL_BOLT, 1);
+//        warehouse.addItem(ProductType.TOOL_BOLT, 1);
         warehouse.addItem(ProductType.TOOL_PLANK, 4);
         warehouse.addItem(ProductType.TOOL_DUCTTAPE, 2);
         

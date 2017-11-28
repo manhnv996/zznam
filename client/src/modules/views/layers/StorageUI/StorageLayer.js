@@ -55,7 +55,7 @@ var StorageLayer = cc.Layer.extend({
         if (type == StorageTypes.FOOD_STORAGE) {
             name.setString(fr.Localization.text("NAME_SILO") + total + "/" + capacity);
             upgradeLayer = new UpgradeSiloLayer(storage.level);
-            cc.log("UpgradeSiloLayer " + storage.level);
+            //cc.log("UpgradeSiloLayer " + storage.level);
         } else {
             name.setString(fr.Localization.text("NAME_WARE_HOUSE") + total + "/" + capacity);
             upgradeLayer = new UpgradeWareLayer(storage.level);

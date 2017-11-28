@@ -14,7 +14,7 @@ var UpgradeSiloLayer = cc.Layer.extend({
 
         this._level = level;
 
-        cc.log("Level SILO " + this._level);
+        //cc.log("Level SILO " + this._level);
 
         var layoutT = ccui.Layout();
         //layoutT.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
@@ -305,7 +305,7 @@ var UpgradeSiloLayer = cc.Layer.extend({
                             cc.log("Buy Woodpanel" + ruby);
                             label.setString(res.upgradeSilo[this._level + 1].tool_woodPanel + "/" + res.upgradeSilo[this._level + 1].tool_woodPanel);
                             productType = ProductTypes.TOOL_WOODPANEL;
-                            numberAdd = ruby / ProductResource.TOOL_SCREW[5];
+                            numberAdd = ruby / ProductResource.TOOL_WOODPANEL[5];
                             this._check_woodpanel = true;
                             break;
                     }
