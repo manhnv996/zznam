@@ -9,10 +9,15 @@ import com.google.gson.Gson;
 
 import config.enums.ErrorLog;
 
+import config.enums.ProductCategory;
+
 import config.jsonobject.CropProduct;
+import config.jsonobject.ProductConfig;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipEntry;
 
@@ -52,6 +57,7 @@ public class ProductUtil {
     }
     
     
+    //
     public static CropProduct[] toCropProductArray(/*String jsonFile*/){
         
         Gson gson = new Gson();
@@ -59,7 +65,6 @@ public class ProductUtil {
         
         return cps;
     }
-    
     
     public static CropProduct getProductObjByType(String productId){
         
@@ -75,6 +80,63 @@ public class ProductUtil {
     }
     
     
+    //
+    public static ProductConfig[] toProductConfigArray(/*String jsonFile*/){
+        
+        Gson gson = new Gson();
+        ProductConfig[] cps = gson.fromJson(readFile("src\\config\\json\\productconfig.json"), ProductConfig[].class);
+        
+        return cps;
+    }
+    
+    public static ProductConfig getProductConfObjByType(String productId){
+        
+        ProductConfig[] products = toProductConfigArray();
+        
+        for (int i = 0; i < products.length; i++) {
+            if (products[i].id.equals(productId)) {
+                return products[i];
+            }
+        }
+
+        return null;
+    }
+    
+    public static List<ProductConfig> getProductConfObjByCategory(ProductCategory category){
+        
+        ProductConfig[] products = toProductConfigArray();
+        List<ProductConfig> list = new ArrayList<>();
+        
+        switch (category){
+            case CROP_PRODUCT:
+                for (int i = 0; i < products.length; i++) {
+                    if (products[i].id.contains("crop_")) {
+                        list.add(products[i]);
+                    }
+                }
+                break;
+            case MACHINE_PRODUCT:
+                for (int i = 0; i < products.length; i++) {
+                    if (products[i].id.contains("product_")) {
+                        list.add(products[i]);
+                    }
+                }
+                break;
+            case LIVESTOCK_PRODUCT:
+                for (int i = 0; i < products.length; i++) {
+                    if (products[i].id.contains("good_")) {
+                        list.add(products[i]);
+                    }
+                }
+                break;
+            default:
+                
+        }
+
+        return list;
+    }
+    
+    //
     public static String convertStorageToJsonString(Storage storage){
         
         Gson gson = new Gson();
