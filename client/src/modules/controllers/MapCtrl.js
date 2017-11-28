@@ -39,6 +39,10 @@ var MapCtrl = cc.Class.extend({
         InertiaEngine.instance = new InertiaEngine();
         MainScene.instance.addChild(InertiaEngine.instance);
         this.renderUserInfo();
+        //
+        //var bakery = new BakerySprite(20, 20);
+        //MapLayer.instance.addChild(bakery);
+        //bakery.play("loop1");
     },
 
     renderStorages: function() {

@@ -12,9 +12,8 @@
     "reduceRubyTime": 10,
     "slot": 2,
     "number": 1,
-    "title": "Lò Bánh Mì",
-    "detail": "Để nướng bánh",
-    "name": "NAME_TAB_LOBANHMI",
+    "detail": "bakery_detail_tab",
+    "name": "bakery_name",
     "nameIconShop": "Art/Shop/icon xuong/loBanhMi.png"
   },
   {
@@ -30,9 +29,8 @@
     "reduceRubyTime": 40,
     "slot": 3,
     "number": 2,
-    "title": "Máy Xay Thức Ăn",
-    "detail": "Để sản xuất thức ăn",
-    "name": "NAME_TAB_MAYXAYTHUCAN",
+    "detail": "feed_mill_detail_tab",
+    "name": "feed_mill_name",
     "nameIconShop": "Art/Shop/icon xuong/mayXayThucAn.png"
   },
   {
@@ -48,9 +46,8 @@
     "reduceRubyTime": 40,
     "slot": 2,
     "number": 1,
-    "title": "Xưởng Làm Bơ",
-    "detail": "Làm bơ sữa",
-    "name": "NAME_TAB_XUONGLAMBO",
+    "detail": "dairy_detail_tab",
+    "name": "dairy_name",
     "nameIconShop": "Art/Shop/icon xuong/xuongLamBo.png"
   },
   {
@@ -66,9 +63,8 @@
     "reduceRubyTime": 1200,
     "slot": 2,
     "number": 1,
-    "title": "Máy Làm Đường",
-    "detail": "Làm đường mía",
-    "name": "NAME_TAB_MAYLAMDUONG",
+    "detail": "sugar_mill_detail_tab",
+    "name": "sugar_mill_name",
     "nameIconShop": "Art/Shop/icon xuong/mayLamDuong.png"
   },
   {
@@ -84,9 +80,8 @@
     "reduceRubyTime": 1371,
     "slot": 2,
     "number": 1,
-    "title": "Xe Bắp Rang",
-    "detail": "Làm bắp rang",
-    "name": "NAME_TAB_XEBAPRANG",
+    "detail": "popcorn_pot_detail_tab",
+    "name": "popcorn_pot_name",
     "nameIconShop": "Art/Shop/icon xuong/xeBapRang.png"
   }
 ]
