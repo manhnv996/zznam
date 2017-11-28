@@ -9,7 +9,6 @@ var Storages = CoordinatedObject.extend({
     ctor: function (coordinate, storageType, capacity, level) {
         //
         this._super(coordinate);
-
     //     this.render(storageId, capacity);
 
     // },
@@ -17,8 +16,7 @@ var Storages = CoordinatedObject.extend({
 
         this.storageType = storageType;
         this.capacity = capacity;
-        this.level = level;
-
+        this.level = level || 0;
         this.itemList = [];
         //this.itemList.push(new StorageItem(ProductTypes.CROP_CARROT.TYPE, 5));
         //this.itemList.push(new StorageItem(ProductTypes.CROP_WHEAT.TYPE, 4));

@@ -96,6 +96,7 @@
         "src/modules/models/Storage.js",
         "src/modules/models/Asset.js",
         "src/modules/models/User.js",
+        "src/modules/models/NatureThing.js",
 
         "src/modules/models/AnimalLodge.js",
         "src/modules/models/ChickenLodge.js",
@@ -136,6 +137,7 @@
         "src/modules/views/scenes/LoginScene.js",
         "src/modules/views/scenes/PreloaderScene.js",
         "src/modules/views/layers/MainGuiLayer.js",
+        "src/modules/views/layers/popup/CommonPopup.js",
         "src/modules/views/layers/SettingsLayer.js"
     ]
 }

@@ -35,7 +35,7 @@ var FieldSprite = MapBlockSprite.extend({
         this.registerTouchEvents();
 
 ///////////
-        this.schedule(this.updateFieldStatus, 0.5);
+//        this.schedule(this.updateFieldStatus, 0.5);
         //this.schedule(this.updateProgressBarInprogress, 0.2);
 
     // },
@@ -119,23 +119,30 @@ var FieldSprite = MapBlockSprite.extend({
     },
 
 
-    plantAnimation: function (seedType) {
-
+    createAni: function(seedType){
         this.removeAllChildrenWithCleanup(true);
+
+        this.seedType = seedType;
+
+        this.plantSprite = fr.createAnimationById(getResAniIdBySeedType(seedType), this);
+        this.plantSprite.setPosition(cc.p(0, this.height));
+        this.plantSprite.setVisible(true);
+        this.addChild(this.plantSprite);
+
+        this.isPlant = false;
+        this.unschedule(this.updateFieldStatus);
+        this.schedule(this.updateFieldStatus, 0.5);
+    },
+
+    plantAnimation: function (seedType) {
+        //this.removeAllChildrenWithCleanup(true);
 
         if (this.fieldId != null){
 
             var plantTypeObj = getProductObjByType(seedType);
 
-            //
-            this.seedType = seedType;
 
-            this.plantSprite = fr.createAnimationById(getResAniIdBySeedType(seedType), this);
-
-            this.plantSprite.setPosition(cc.p(0, this.height));
-            this.plantSprite.setVisible(true);
-
-            this.addChild(this.plantSprite);
+            this.createAni(seedType);
             // this.plantSprite.getAnimation().setTimeScale(1);
             this.plantSprite.getAnimation().gotoAndPlay(plantTypeObj.plantAni, -1, -1, 1);
 
@@ -144,6 +151,11 @@ var FieldSprite = MapBlockSprite.extend({
             this.isGrow3 = false;
             this.isGrow2 = false;
             this.isGrow1 = false;
+
+            this.isPlant = true;
+
+            this.unschedule(this.updateFieldStatus);
+            this.schedule(this.updateFieldStatus, 0.5);
         }
     },
     cropAnimation: function (seedType) {
@@ -177,12 +189,15 @@ var FieldSprite = MapBlockSprite.extend({
         //     return f.field === this.fieldId;
         // });
         if (!this.field) {
+
+            this.unschedule(this.updateFieldStatus);
             return;
         }        
 
         if (this.field.getPlantedTime() == null){
 
             //this.changeTexture(res.field);
+            this.unschedule(this.updateFieldStatus);
             return false;
         }
 
@@ -209,6 +224,7 @@ var FieldSprite = MapBlockSprite.extend({
 
                 }
                 this.isGrow3 = true;
+                this.unschedule(this.updateFieldStatus);
 
             } else if (curr >= duration * 3 / 4) {
                 //
@@ -224,8 +240,11 @@ var FieldSprite = MapBlockSprite.extend({
                 }
                 this.isGrow1 = true;
             } else {    // < / 2
-                // this.plantSprite.getAnimation().gotoAndPlay(plantTypeObj.plantAni,-1, -1, 1);
+                if (!this.isPlant){
+                    this.plantSprite.getAnimation().gotoAndPlay(plantTypeObj.plantAni,-1, -1, 1);
 
+                }
+                this.isPlant = true;
             }
 
             if (!this.plantSprite.isVisible()){

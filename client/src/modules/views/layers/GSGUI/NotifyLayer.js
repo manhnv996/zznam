@@ -235,5 +235,25 @@ var NotifyLayer = cc.Layer.extend({
                 }
                 break;
         }
+    },
+
+    notifyCantPut: function (x, y) {
+        if (x.x) {
+            y = x.y;
+            x = x.x;
+        }
+        var label = new cc.LabelBMFont("Không thể đặt", res.FONT_OUTLINE_20);
+        label.x = x;
+        label.y = y;
+        this.addChild(label);
+        var fadeIn = cc.fadeIn(0.2);
+        var move = cc.moveTo(2, cc.p(x, y + 25));
+        var fadeOut = cc.fadeOut(0.2);
+        label.runAction(cc.sequence(fadeIn, move, fadeOut));
+
+        setTimeout(function () {
+            label.removeFromParent(true);
+        }, 2400);
+
     }
 });

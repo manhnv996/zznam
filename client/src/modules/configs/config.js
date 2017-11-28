@@ -243,3 +243,83 @@ function updateGameInfo(gameInfoJson){
 
     MainScene.instance.onGettedData();
 }
+
+// New
+function onReceiveUser(userInfo) {
+    // Add FoodStorage
+    var foodStorage = new Storages(
+        new Coordinate(userInfo.asset.foodStorage.x,
+            userInfo.asset.foodStorage.y),
+        userInfo.asset.foodStorage.storageType,
+        userInfo.asset.foodStorage.capacity,
+        userInfo.asset.foodStorage.level
+    );
+    // Add FoodStorage itemlist
+    for (var i = 0; i < userInfo.asset.foodStorage.itemList.length; i++){
+        foodStorage.addItem(
+            userInfo.asset.foodStorage.itemList[i].typeItem,
+            userInfo.asset.foodStorage.itemList[i].quantity
+        );
+    }
+    
+    // Add Warehouse
+    var warehouse = new Storages(
+        new Coordinate(userInfo.asset.warehouse.x,
+            userInfo.asset.warehouse.y),
+        userInfo.asset.warehouse.storageType,
+        userInfo.asset.warehouse.capacity,
+        userInfo.asset.warehouse.level
+    );
+
+    // Add Warehouse item list    
+    for (var i = 0; i < userInfo.asset.warehouse.itemList.length; i++){
+        warehouse.addItem(
+            userInfo.asset.warehouse.itemList[i].typeItem,
+            userInfo.asset.warehouse.itemList[i].quantity
+        );
+    }
+
+    // Add NatureThingList
+    var natureThingList = [];
+    for (var i = 0; i < userInfo.asset.natureThingList.length; i++) {
+        var natureThing = new NatureThing(
+            new Coordinate(userInfo.asset.natureThingList[i].x,
+                userInfo.asset.natureThingList[i].y),
+            userInfo.asset.natureThingList[i].type,
+            userInfo.asset.natureThingList[i].id
+        );
+        natureThingList.push(natureThing);
+    }
+
+    // Add Field list
+    var fieldList = [];
+    for (var i = 0; i < userInfo.asset.fieldList.length; i++) {
+        var field = new Field(
+            new Coordinate(userInfo.asset.fieldList[i].x,
+                userInfo.asset.fieldList[i].y),
+            userInfo.asset.fieldList[i].fieldId,
+            userInfo.asset.fieldList[i].plantType || null,
+            new Date(parseInt(userInfo.asset.fieldList[i].plantedTime))
+        );
+        fieldList.push(field);
+    }
+
+    var animalLodgeList = [];
+    var machineList = [];
+    var myShop = null;
+
+    var asset = new Asset(
+        foodStorage, warehouse, fieldList, animalLodgeList,
+        machineList, natureThingList, myShop
+    );
+
+    // cc.log("Asset", asset);
+
+    // Create user
+    user = new User(asset, userInfo.map);
+    user.level = userInfo.level;
+    user.gold = userInfo.gold;
+    user.ruby = userInfo.ruby;
+    user.exp = userInfo.exp;
+    MainScene.instance.onGettedData();
+}

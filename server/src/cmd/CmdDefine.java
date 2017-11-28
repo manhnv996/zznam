@@ -14,7 +14,7 @@ public class CmdDefine {
 
 
     public static final short GET_USER_INFO = 1001;
-   
+    public static final short GET_USER = 1002; // New get user
    
     //Log cmd
     public static final short MOVE = 2001;
@@ -39,6 +39,7 @@ public class CmdDefine {
     public static final short MOVE_FIELD = 6001;
     public static final short MOVE_STORAGE = 6002;
     public static final short RESPONSE_MOVE = 6100;
+    
     
     public static final short BUY_MAP_OBJECT_REQUEST = 7001;
     

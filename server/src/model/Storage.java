@@ -137,4 +137,12 @@ public class Storage extends CoordinateObject {
         return this.storageType;
     }
     
+    public String getStorageStringType() {
+        if (this.storageType == StorageType.FOOD_STORAGE) {
+            return "FOOD_STORAGE";    
+        } else {
+            return "WAREHOUSE";
+        }
+    }
+    
 }

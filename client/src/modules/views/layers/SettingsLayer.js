@@ -27,12 +27,12 @@ var SettingsLayer = cc.Layer.extend({
         spritebg.setPosition(centerpos);
         this.addChild(spritebg);
 
-        var btnTuChoi = new ccui.Button(res.TU_CHOI_PNG);
-        var btnTuChoiSize = btnTuChoi.getSize();
-        cc.log("btnTuChoiSize " + btnTuChoiSize.width + "  " + btnTuChoiSize.height);
-        btnTuChoi.setPosition(size.width/2 + spritebg.width/2 - btnTuChoiSize.width/2, size.height/2 + spritebg.height/2 - btnTuChoiSize.height/2);
-        btnTuChoi.addClickEventListener(this.onSelectClose.bind(this));
-        this.addChild(btnTuChoi);
+        var btnClose = new ccui.Button(res.TU_CHOI_PNG);
+        var btnCloseSize = btnClose.getSize();
+        cc.log("btnCloseSize " + btnCloseSize.width + "  " + btnCloseSize.height);
+        btnClose.setPosition(size.width/2 + spritebg.width/2 - btnCloseSize.width/2, size.height/2 + spritebg.height/2 - btnCloseSize.height/2);
+        btnClose.addClickEventListener(this.onSelectClose.bind(this));
+        this.addChild(btnClose);
 
         this.btnLogout = new ccui.Button(res.BUTTON_ZINGME_PNG);
         this.btnLogout.setPosition(centerpos.x - spritebg.width/5, centerpos.y + spritebg.height/6 );
@@ -73,7 +73,6 @@ var SettingsLayer = cc.Layer.extend({
 
 
 
-
     },
     onEnter:function(){
         this._super();
@@ -110,6 +109,7 @@ var SettingsLayer = cc.Layer.extend({
     {
         cc.log("onSelectBtnSound");
         if ( this.effect == "on"){
+            //todo set logic to effect
             //this.btnEffect.setNormalImage(res.BTN_EFFECT_OFF_PNG);
             //this.btnEffect.loadTextures(res.BTN_EFFECT_OFF_PNG);
             this.effect = "off";

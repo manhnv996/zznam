@@ -213,7 +213,7 @@ var MapBlockSprite = cc.Sprite.extend({
                 !this.touchListener.__isMoved && this.onClick();
             }.bind(this)
         });
-        // cc.eventManager.addListener(this.touchListener, 
+        // cc.eventManager.addListener(this.touchListener,
         //         Math.max(this.lx + ListenerPriority.offsetEventPriority + this.blockSizeX,
         //                 this.ly + ListenerPriority.offsetEventPriority + this.blockSizeY));
         cc.eventManager.addListener(this.touchListener, this.getPriority());
@@ -331,8 +331,8 @@ var MapBlockSprite = cc.Sprite.extend({
             this.setLogicPosition(logic, true);
         }
         if (this.touchListener.autoMoveHor || this.touchListener.autoMoveVer) {
-            var dx = this.touchListener.autoMoveHor * dt * 150;
-            var dy = this.touchListener.autoMoveVer * dt * 150;
+            var dx = this.touchListener.autoMoveHor * dt * 250;
+            var dy = this.touchListener.autoMoveVer * dt * 250;
             MapLayer.instance.move(-dx, -dy);
         }
     }
