@@ -471,6 +471,9 @@ var MapLayer = cc.Layer.extend({
 		// this.setScale(0.7);
 		// this.addChild(bakery);
 		// cc.log(bakery.getBoundingBox());
+
+
+
 		var bakery = new BakerySprite(20, 20);
 		this.bakery = bakery;
 		// setInterval(function() {
@@ -478,6 +481,12 @@ var MapLayer = cc.Layer.extend({
 		// }, 500);
 
 		this.addChild(this.bakery);
+
+
+		var foodGringer = new FoodGringer(20, 20);
+		//this.foodGringer = foodGringer;
+		this.addChild(foodGringer);
+		cc.log(foodGringer.getContentSize());
 
 		// var Lamb = fr.createAnimationById(resAniId.bakery, this);
 		// this.addChild(Lamb);
@@ -535,6 +544,27 @@ var MapLayer = cc.Layer.extend({
 			}.bind(this)
 		});
 		cc.eventManager.addListener(mouseListener, this);
+
+        var multiTouchListener = cc.EventListener.create({
+        	event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+        	onTouchesBegan: function(touch, event) {
+        		cc.log("onTouchesBegan");
+        	},
+        	
+        	onTouchesCancelled: function(touch, event) {
+        		cc.log("onTouchesCancelled");
+        	},
+        	
+        	onTouchesEnded: function(touch, event) {
+        		cc.log("onTouchesEnded");
+        	},
+        	
+        	onTouchesMoved: function(touch, event) {
+        		cc.log("onTouchesMoved");
+        	}
+        });
+		cc.eventManager.addListener(multiTouchListener, this);
+		
 		this.centerPoint = cc.p(
 			this.getContentSize().width / 2,
 			this.getContentSize().height / 2

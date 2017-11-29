@@ -75,6 +75,13 @@ public class ZPUserInfo extends DataModel {
                     ConfigContainer.mapConfig.Field.size.height,
                     MapItemEnum.FIELD);
         }
+        
+        // Add Lodge to map
+        List<AnimalLodge> lodgeList = this.asset.getAnimalLodgeList();
+        for (int i = 0; i < lodgeList.size(); i++) {
+            AnimalLodge lodge = lodgeList.get(i);
+            
+        }
     }
     
 //    public ZPUserInfo(int _id, String _name) {

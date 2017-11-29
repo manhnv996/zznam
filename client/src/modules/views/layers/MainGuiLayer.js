@@ -59,7 +59,7 @@ var MainGuiLayer = cc.Layer.extend({
         this.addChild(imageGold);
 
         this.labelGold = new cc.LabelBMFont(user.getGold(), res.FONT_OUTLINE_30);
-        this.labelGold.setPosition(size.width - (btnBuyGoldSize.width + imageGoldSize.width + this.labelGold.width),size.height - btnBuyGoldSize.height/2 );
+        this.labelGold.setPosition(size.width - (btnBuyGoldSize.width + imageGoldSize.width + this.labelGold.width *2),size.height - btnBuyGoldSize.height/2 );
         this.addChild(this.labelGold);
 
 
@@ -78,7 +78,7 @@ var MainGuiLayer = cc.Layer.extend({
         this.addChild(imageRuby);
 
         this.labelRuby = new cc.LabelBMFont(user.getRuby(), res.FONT_OUTLINE_30);
-        this.labelRuby.setPosition(size.width - ( btnBuyRubySize.width + imageRubySize.width + this.labelRuby.width), size.height - 3*btnBuyRubySize.height/2);
+        this.labelRuby.setPosition(size.width - ( btnBuyRubySize.width + imageRubySize.width + this.labelRuby.width * 1.5), size.height - 3*btnBuyRubySize.height/2);
         this.addChild(this.labelRuby);
 
 
@@ -100,7 +100,7 @@ var MainGuiLayer = cc.Layer.extend({
         this.loadingBar = new ccui.LoadingBar();
         this.loadingBar.setName("ExpBar");
         this.loadingBar.loadTexture(res.EXP_221_PNG);
-        this.loadingBar.setPosition(center_top_pos.width, center_top_pos.height);
+        this.loadingBar.setPosition(center_top_pos);
         this.loadingBar.setPercent(Math.floor(user.exp * 100 / this.max_exp));
         this.addChild( this.loadingBar);
 

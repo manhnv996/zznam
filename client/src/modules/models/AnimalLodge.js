@@ -22,6 +22,9 @@ var AnimalLodge = ConstructedObject.extend({
     getCurrentSlot: function () {
         //
         return this.animalList.length;
+    },
+    getType: function() {
+        return this.type;
     }
 
 });

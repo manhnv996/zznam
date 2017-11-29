@@ -10,7 +10,6 @@ var GameShopController = cc.Class.extend({
     },
 
     getNumberLodge: function (id) {
-        return 5;
         var number = 0;
         var listLodge = user.getAsset().getAnimalLodgeList();
         for(var i = 0; i < listLodge.length; i++){
@@ -20,11 +19,12 @@ var GameShopController = cc.Class.extend({
     },
 
     getNumberAnimal: function (id) {
-        return 5;
         var number = 0;
+        // Change to lodge id
+        var lodge = id + '_habitat';
         var listLodge = user.getAsset().getAnimalLodgeList();
         for(var i = 0; i < listLodge.length; i++){
-            if(listLodge[i].getType() == id)
+            if(listLodge[i].getType() == lodge)
                 number += listLodge[i].getCurrentSlot();
         }
         return number;

@@ -171,14 +171,7 @@ public class ResponseUser extends BaseMsg {
     
     // Pack AN animal lodge
     private void packAnimalLodge(AnimalLodge lodge) {
-        if (lodge.getType() == AnimalLodgeEnum.CHICKEN_LODGE) {
-            putStr(bf, "CHICKEN_LODGE");
-        } else if (lodge.getType() == AnimalLodgeEnum.COW_LODGE) {
-            putStr(bf, "COW_LODGE");    
-        } else {
-            putStr(bf, "UNDEFINED");    
-        }
-        // Pack Lodge type
+        putStr(bf, lodge.getType().toString());
         bf.putInt(lodge.getX());
         bf.putInt(lodge.getY());
         bf.putInt(lodge.getId());
@@ -194,11 +187,7 @@ public class ResponseUser extends BaseMsg {
     }
     
     private void packAnimal(Animal animal) {
-        if (animal.getType() == AnimalEnum.COW) {
-            putStr(bf, "COW");    
-        } else {
-            putStr(bf, "CHICKEN");    
-        }
+        putStr(bf, animal.getType().toString());    
         bf.putInt(animal.getId());
         bf.putInt(animal.isFeeded() ? 1 : 0);
         bf.putLong(animal.getFeededTime());

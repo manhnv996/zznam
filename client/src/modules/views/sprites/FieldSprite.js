@@ -99,7 +99,8 @@ var FieldSprite = MapBlockSprite.extend({
 
     // When click
     onClick: function() {
-        PlantCtrl.instance.onFieldSelected(this.fieldId);
+        PlantCtrl.instance.onFieldSele
+        cted(this.fieldId);
     },
 
     // When begin click

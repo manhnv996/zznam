@@ -39,6 +39,12 @@ var MapCtrl = cc.Class.extend({
         InertiaEngine.instance = new InertiaEngine();
         MainScene.instance.addChild(InertiaEngine.instance);
         this.renderUserInfo();
+
+        var foodGringer = new FoodGringer(20, 20);
+        //this.foodGringer = foodGringer;
+        MapLayer.instance.addChild(foodGringer);
+        cc.log(foodGringer.getContentSize());
+
     },
 
     renderStorages: function() {
