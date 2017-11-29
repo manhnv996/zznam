@@ -3,10 +3,9 @@ var Asset = cc.Class.extend({
 
     foodStorage: Storages,
     warehouse: Storages,
-    fieldList: [],
-    animalLodgeList: [],
-    machineList: [],
-    natureThingList: [],
+    fieldList: null,
+    machineList: null,
+    natureThingList: null,
     myShop: null,
     // map: [],
 
@@ -21,9 +20,10 @@ var Asset = cc.Class.extend({
         //
         this.foodStorage = foodStorage;
         this.warehouse = warehouse;
-        this.fieldList = (fieldList == null) ? [] : fieldList;
-        this.animalLodgeList = (animalLodgeList == null) ? [] : animalLodgeList;
-        this.machineList = (machineList == null) ? [] : machineList;
+        this.fieldList = fieldList || [];
+        cc.log("List", animalLodgeList);
+        // this.animalLodgeList = animalLodgeList || [];
+        this.machineList = machineList || [];
         this.natureThingList = natureThingList || [];
         this.myShop = myShop;
         // this.fieldList = [];

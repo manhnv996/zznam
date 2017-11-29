@@ -82,6 +82,8 @@
         "src/modules/configs/enum/FieldStatusTypes.js",
         "src/modules/configs/enum/StorageTypes.js",
         "src/modules/configs/enum/ProductResource.js",
+        "src/modules/configs/enum/AnimalType.js",
+        "src/modules/configs/enum/AnimalLodgeType.js",
         "src/modules/configs/config.js",
 
         "src/modules/controllers/PlantCtrl.js",
@@ -90,20 +92,17 @@
         "src/modules/controllers/StorageCtrl.js",
 
         "src/modules/models/CoordinatedObject.js",
+        "src/modules/models/ConstructedObject.js",
         "src/modules/models/Coordinate.js",
         "src/modules/models/Field.js",
         "src/modules/models/StorageItem.js",
         "src/modules/models/Storage.js",
         "src/modules/models/Asset.js",
         "src/modules/models/User.js",
+        "src/modules/models/Animal.js",
         "src/modules/models/NatureThing.js",
 
         "src/modules/models/AnimalLodge.js",
-        "src/modules/models/ChickenLodge.js",
-        "src/modules/models/CowLodge.js",
-        "src/modules/models/PigLodge.js",
-        "src/modules/models/SheepLodge.js",
-        "src/modules/models/GoatLodge.js",
 
         "src/modules/models/Machine.js",
         "src/modules/models/BakeryMachine.js",

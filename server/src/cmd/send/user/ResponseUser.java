@@ -4,6 +4,9 @@ import bitzero.server.extensions.data.BaseMsg;
 
 import cmd.CmdDefine;
 
+import config.enums.AnimalEnum;
+import config.enums.AnimalLodgeEnum;
+
 import config.utils.ConfigContainer;
 
 import java.nio.ByteBuffer;
@@ -12,8 +15,6 @@ import java.util.List;
 
 import model.Animal;
 import model.AnimalLodge;
-import model.ChickenLodge;
-import model.CowLodge;
 import model.Field;
 import model.NatureThing;
 import model.Storage;
@@ -156,6 +157,7 @@ public class ResponseUser extends BaseMsg {
         bf.putInt(item.getQuantity());
     }
     
+    // pack ALL animal lodges
     private void packAnimalLodges() {
         List<AnimalLodge> animalLodgeList = user.getAsset().getAnimalLodgeList();
         int size = animalLodgeList.size();
@@ -167,15 +169,16 @@ public class ResponseUser extends BaseMsg {
         }
     }
     
+    // Pack AN animal lodge
     private void packAnimalLodge(AnimalLodge lodge) {
-        String type = "";
-        if (lodge instanceof ChickenLodge) {
-            type = "CHICKEN_LODGE";
-        } else if (lodge instanceof CowLodge) {
-            type = "COW_LODGE";    
+        if (lodge.getType() == AnimalLodgeEnum.CHICKEN_LODGE) {
+            putStr(bf, "CHICKEN_LODGE");
+        } else if (lodge.getType() == AnimalLodgeEnum.COW_LODGE) {
+            putStr(bf, "COW_LODGE");    
+        } else {
+            putStr(bf, "UNDEFINED");    
         }
         // Pack Lodge type
-        putStr(bf, type);
         bf.putInt(lodge.getX());
         bf.putInt(lodge.getY());
         bf.putInt(lodge.getId());
@@ -191,6 +194,11 @@ public class ResponseUser extends BaseMsg {
     }
     
     private void packAnimal(Animal animal) {
+        if (animal.getType() == AnimalEnum.COW) {
+            putStr(bf, "COW");    
+        } else {
+            putStr(bf, "CHICKEN");    
+        }
         bf.putInt(animal.getId());
         bf.putInt(animal.isFeeded() ? 1 : 0);
         bf.putLong(animal.getFeededTime());
