@@ -535,6 +535,27 @@ var MapLayer = cc.Layer.extend({
 			}.bind(this)
 		});
 		cc.eventManager.addListener(mouseListener, this);
+
+        var multiTouchListener = cc.EventListener.create({
+        	event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+        	onTouchesBegan: function(touch, event) {
+        		cc.log("onTouchesBegan");
+        	},
+        	
+        	onTouchesCancelled: function(touch, event) {
+        		cc.log("onTouchesCancelled");
+        	},
+        	
+        	onTouchesEnded: function(touch, event) {
+        		cc.log("onTouchesEnded");
+        	},
+        	
+        	onTouchesMoved: function(touch, event) {
+        		cc.log("onTouchesMoved");
+        	}
+        });
+		cc.eventManager.addListener(multiTouchListener, this);
+		
 		this.centerPoint = cc.p(
 			this.getContentSize().width / 2,
 			this.getContentSize().height / 2

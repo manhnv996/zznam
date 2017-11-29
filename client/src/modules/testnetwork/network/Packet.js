@@ -520,11 +520,13 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
     },
 
     readData: function() {
+        // WARNING: DO NOT CHANGE THE ORDERS
         this.unpackBasicInfo();
         this.unpackMap();
         this.unpackFieldList();
         this.unpackNatureThingList();
         this.unpackStorages();
+        this.unpackAnimalLodges();
     },
 
     unpackBasicInfo: function() {
@@ -533,7 +535,7 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         this.user.level = this.getInt();
         this.user.gold = this.getInt();
         this.user.ruby = this.getInt();
-        this.user.exp = this.getLong(); // Warning, framework return string
+        this.user.exp = parseInt(this.getLong()); // Warning, framwork return string
     },
 
     unpackMap: function() {
@@ -561,7 +563,7 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         field.y = this.getInt();
         field.fieldId = this.getInt();
         field.plantType = this.getString();
-        field.plantedTime = this.getLong();
+        field.plantedTime = parseInt(this.getLong()); // Warning
         return field;
     },
 
@@ -608,5 +610,44 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         item.typeItem = this.getString();
         item.quantity = this.getInt();
         return item;
+    },
+
+    unpackAnimalLodges: function() {
+        var size = this.getInt();
+        this.user.asset.animalLodgeList = [];
+        for (var i = 0; i < size; i++) {
+            this.user.asset.animalLodgeList.push(this.unpackAnimalLodge());
+        }
+    },
+
+    unpackAnimalLodge: function() {
+        var lodge = {};
+
+        lodge.type = this.getString();
+        lodge.x = this.getInt();
+        lodge.y = this.getInt();
+        lodge.id = this.getInt();
+        lodge.startBuildTime = parseInt(this.getLong());
+        lodge.completed = this.getInt() ? true : false;
+
+        // Unpack animal list
+        lodge.animalList = [];
+        var size = this.getInt();
+        for (var i = 0; i < size; i++) {
+            lodge.animalList.push(this.unpackAnimal());
+        }
+
+        return lodge;
+    },
+
+    unpackAnimal: function() {
+        var animal = {};
+
+        animal.type = this.getString();
+        animal.id = this.getInt();
+        animal.feeded = this.getInt() ? true : false;
+        animal.feededTime = parseInt(this.getLong());
+
+        return animal;
     }
 });

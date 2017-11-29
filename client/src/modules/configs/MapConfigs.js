@@ -175,3 +175,17 @@ MapConfigs.SmallNatureThing = {
 		height: 1
 	}
 }
+
+MapConfigs.ChickenLodge = {
+	size: {
+		width: 3,
+		height: 3
+	}
+}
+
+MapConfigs.CowLodge = {
+	size: {
+		width: 4,
+		height: 4
+	}
+}

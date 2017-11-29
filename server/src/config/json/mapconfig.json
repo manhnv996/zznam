@@ -91,5 +91,17 @@
       "width": 1,
       "height": 1
     }
+  },
+  "ChickenLodge": {
+    "size": {
+       "width": 3,
+       "height": 3
+    }
+  },
+  "CowLodge": {
+    "size": {
+        "width": 4,
+        "height": 4
+    }
   }
 }
