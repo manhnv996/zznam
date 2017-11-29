@@ -245,7 +245,7 @@ var LodgeTable = cc.Layer.extend({
                     createP.y = Math.floor(createP.y);
                     switch (sender.parent.getChildByTag(0).getString()) {
                         case "field":
-                            this._sprite = new FieldSprite(user.getAsset().getFieldList().length, createP.x, createP.y);
+                            this._sprite = new FieldSprite(user.getAsset().getFieldList().length + 1, createP.x, createP.y);
                             this._sprite.setLocalZOrder(10000);
                             MapLayer.instance.addChild(this._sprite);
                             break;

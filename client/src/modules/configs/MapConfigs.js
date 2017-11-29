@@ -175,3 +175,48 @@ MapConfigs.SmallNatureThing = {
 		height: 1
 	}
 }
+
+MapConfigs.ChickenLodge = {
+	size: {
+		width: 3,
+		height: 3
+	}
+}
+
+MapConfigs.CowLodge = {
+	size: {
+		width: 4,
+		height: 4
+	}
+}
+
+MapConfigs.FoodGrinder = {
+	size: {
+		width: 4,
+		height: 4
+	}
+}
+MapConfigs.SugarMaker = {
+	size: {
+		width: 2,
+		height: 2
+	}
+}
+MapConfigs.Creamery = {
+	size: {
+		width: 4,
+		height: 4
+	}
+}
+MapConfigs.PopcornMaker = {
+	size: {
+		width: 2,
+		height: 2
+	}
+}
+MapConfigs.Bakery = {
+	size: {
+		width: 3,
+		height: 3
+	}
+}

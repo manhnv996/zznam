@@ -21,4 +21,5 @@ public class MapItemEnum {
     public static final int ROAD_SHOP = 16;
     
     public static final int NATURE_THING = 17;
+    public static final int LODGE = 18;
 }

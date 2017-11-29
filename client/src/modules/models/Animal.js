@@ -4,34 +4,33 @@
 
 var Animal = cc.Class.extend({
 
-    isFeeded: false,
+    feeded: false,
     feededTime: null,
+    id: 0,
+    type: '',
 
-    ctor: function (isFeeded, feefedTime) {
-        //
-        //this._super();
-
-    //     this.render(isFeeded, feefedTime);
-
-    // },
-    // render: function (isFeeded, feefedTime) {
-        //
-        this.isFeeded = isFeeded;
-        this.feededTime = feefedTime;
+    ctor: function (type, id, feeded, feefedTime) {
+        this.type = type;
+        this.id = id;
+        this.feeded = feeded || false;
+        this.feededTime = feefedTime || 0;
     },
+
     feed: function () {
         //boolean
     },
+    
     getProduct: function () {
         //productType
         return ProductTypes.GOOD_EGG;
     },
+    
     getFeedProduct: function () {
         return ProductTypes.FOOD_CHICKEN;
     },
+    
     getTimeFinish: function () {
         //date
 
     }
-
 });

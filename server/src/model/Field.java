@@ -21,6 +21,11 @@ public class Field extends CoordinateObject {
         this.init();
     }
     
+    public Field(int x, int y) {
+        super(x, y);
+        this.fieldId = 0;
+    }
+    
     public void init(){
         this.plantType = null;
         this.plantedTime = 0;

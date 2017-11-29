@@ -14,10 +14,14 @@ var FoodGringer = AnimationSprite.extend({
 
     onClick: function() {
         cc.log("food gringer is clicked");
+        CommonMachinePopup.instance = new CommonMachinePopup();
+        this.addChild(CommonMachinePopup.instance);
     },
 
     onBeginClick: function() {
         cc.log("food gringer on begin click");
+        this.setOpacity(180);
+
     },
 
     onEndClick: function() {

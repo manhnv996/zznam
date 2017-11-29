@@ -60,26 +60,38 @@ var CommonPopup = cc.Layer.extend({
     }
 });
 
+var CommonButton =  ccui.Scale9Sprite.extend({
+    title: null,
+    ctor: function (title) {
+        this._super(res.LAYER_24_PNG);
+        this.title = title;
+        this.init();
+    },
+    init: function(){
+        var height = this.getOriginalSize().height;
+        var width = this.getOriginalSize().width;
+        cc.log(height + "===========" + width);
+        var centerpos = cc.p(width / 2, height / 2);
 
-var CommonButton =  ccui.Scale9Sprite.extend(
-    {
-        title: null,
-        ctor: function (title) {
-            this._super(res.LAYER_24_PNG);
-            this.title = title;
-            this.init();
-        },
-        init: function(){
-            var height = this.getOriginalSize().height;
-            var width = this.getOriginalSize().width;
-            cc.log(height + "===========" + width);
-            var centerpos = cc.p(width / 2, height / 2);
-
-            var title = cc.LabelBMFont(this.title, res.FONT_OUTLINE_30);
-            title.setPosition(centerpos);
-            this.addChild(title);
-        }
-
+        var title = cc.LabelBMFont(this.title, res.FONT_OUTLINE_30);
+        title.setPosition(centerpos);
+        this.addChild(title);
     }
-)
 
+})
+
+var CommonMachinePopup = cc.Layer.extend({
+    popupBackground: null,
+    popupItemList: [],
+    slotList: [],
+    buySlot: null,
+    ctor: function () {
+        this._super();
+
+        this.popupBackground = new cc.Sprite(res.popup5);
+        this.popupBackground.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
+        this.addChild(this.popupBackground);
+
+
+    },
+})

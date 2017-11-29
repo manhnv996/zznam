@@ -5,7 +5,8 @@ var HavestResource = {
     ////////////////
 
     //
-    caroot: "res/Art/Crops/Field/caroot.png",
+    caroot
+        : "res/Art/Crops/Field/caroot.png",
     corn: "res/Art/Crops/Field/corn.png",
     crops: "res/Art/Crops/Field/crops.png",
     sausages: "res/Art/Crops/Field/dau.png",
