@@ -171,10 +171,10 @@ public class UserHandler extends BaseClientRequestHandler {
         asset.getFieldById(1).setPlantedTime(new Date().getTime());
         
         // Add some animal lodges  
-        AnimalLodge lodge = new AnimalLodge(AnimalLodgeEnum.COW_LODGE, 0L, true, 20, 20);
+        AnimalLodge lodge = new AnimalLodge(AnimalLodgeEnum.chicken_habitat, 0L, true, 20, 20);
         asset.addAnimalLodge(lodge);
         
-        Animal animal = new Animal(AnimalEnum.COW);
+        Animal animal = new Animal(AnimalEnum.chicken);
         lodge.addAnimal(animal);
         
         // Last

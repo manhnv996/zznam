@@ -19,5 +19,6 @@ var MapItemEnum = {
 	MAIL_BOX: 15,
 	ROAD_SHOP: 16,
 
-	NATURE_THING: 17
+	NATURE_THING: 17,
+	LODGE: 18
 };

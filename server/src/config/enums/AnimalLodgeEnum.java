@@ -1,6 +1,6 @@
 package config.enums;
 
 public enum AnimalLodgeEnum {
-    COW_LODGE,
-    CHICKEN_LODGE
+    cow_habitat,
+    chicken_habitat
 }
