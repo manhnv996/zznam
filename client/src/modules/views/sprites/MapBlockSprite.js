@@ -209,11 +209,12 @@ var MapBlockSprite = cc.Sprite.extend({
                     var velocity = InertiaEngine.instance.stopAndGetVelocity(touch.getLocation());
                     MapLayer.instance.inertia(velocity);
                 }
-
-                !this.touchListener.__isMoved && this.onClick();
+                if (!this.touchListener.__isMoved && !this.touchListener.__moveSprite) {
+                    this.onClick();
+                }
             }.bind(this)
         });
-        // cc.eventManager.addListener(this.touchListener, 
+        // cc.eventManager.addListener(this.touchListener,
         //         Math.max(this.lx + ListenerPriority.offsetEventPriority + this.blockSizeX,
         //                 this.ly + ListenerPriority.offsetEventPriority + this.blockSizeY));
         cc.eventManager.addListener(this.touchListener, this.getPriority());
@@ -235,9 +236,14 @@ var MapBlockSprite = cc.Sprite.extend({
     getPriority: function() {
         return parseInt(ListenerPriority.offsetEventPriority + (
             this.lx + this.blockSizeX > this.ly + this.blockSizeY
-            ? (this.lx + this.blockSizeX + (this.ly + this.blockSizeY) / 32) * 100
-            : (this.ly + this.blockSizeY + (this.lx + this.blockSizeX) / 32) * 100
+            ? (this.ly + this.blockSizeY + (this.lx + this.blockSizeX) / 32) * 10
+            : (this.lx + this.blockSizeX + (this.ly + this.blockSizeY) / 32) * 10
         ));
+        // return (this.lx + this.blockSizeX + (this.ly + this.blockSizeY) / 32) * 50
+        // + (this.ly + this.blockSizeY + (this.lx + this.blockSizeX) / 32) * 50;
+        // return (this.lx + this.blockSizeX + (this.ly + this.blockSizeY) / 32) * 100;
+        // return (this.lx + this.ly + this.blockSizeY + this.blockSizeX);
+        // return parseInt(Math.min(this.lx + this.blockSizeX, this.ly + this.blockSizeY));
     },
 
     // Called in setLogicPosition
@@ -331,8 +337,8 @@ var MapBlockSprite = cc.Sprite.extend({
             this.setLogicPosition(logic, true);
         }
         if (this.touchListener.autoMoveHor || this.touchListener.autoMoveVer) {
-            var dx = this.touchListener.autoMoveHor * dt * 150;
-            var dy = this.touchListener.autoMoveVer * dt * 150;
+            var dx = this.touchListener.autoMoveHor * dt * 250;
+            var dy = this.touchListener.autoMoveVer * dt * 250;
             MapLayer.instance.move(-dx, -dy);
         }
     }

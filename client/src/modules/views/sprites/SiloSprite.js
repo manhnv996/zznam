@@ -15,6 +15,7 @@ var SiloSprite = AnimationSprite.extend({
 
 	onClick: function() {
 		StorageLayer.instance.initStorage(user.getAsset().getFoodStorage());
+		// cc.log("Silo", this.getLocalZOrder(), this.lx, this.ly, this.blockSizeX, this.blockSizeY);
 	},
 
 	onFinishMove: function(lx, ly) {

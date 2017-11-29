@@ -33,6 +33,10 @@ var LodgeTable = cc.Layer.extend({
         //layoutColor.addChild(tableView);
         //this.addChild(layoutColor);
 
+        //
+        //layoutColor.addChild(tableView);
+        //this.addChild(layoutColor);
+
         return true;
     },
 
@@ -85,6 +89,7 @@ var LodgeTable = cc.Layer.extend({
 
             id = new cc.LabelTTF(res.infoCoopItem[idx].id);
             id.tag = 0;
+            id.setVisible(false);
             cell.addChild(id);
 
             image = new ccui.Button(res.infoCoopItem[idx].nameIconShop);
@@ -95,13 +100,13 @@ var LodgeTable = cc.Layer.extend({
             image.setScale(scaleImg);
             image.tag = 1;
 
-            title = new cc.LabelBMFont(res.infoCoopItem[idx].title, "fonts/outline/30.fnt");
+            title = new cc.LabelBMFont(fr.Localization.text(res.infoCoopItem[idx].name), "fonts/outline/30.fnt");
             title.x = box.width / 10 - 10;
             title.y = box.height - 10;
             title.setAnchorPoint(0, 1);
             title.tag = 2;
 
-            detail = new cc.LabelBMFont(res.infoCoopItem[idx].detail, "fonts/normal/30.fnt");
+            detail = new cc.LabelBMFont(fr.Localization.text(res.infoCoopItem[idx].detail), "fonts/normal/30.fnt");
             detail.x = box.width / 3;
             detail.y = box.height / 2;
             detail.color = cc.color(77, 41, 1);
@@ -110,9 +115,6 @@ var LodgeTable = cc.Layer.extend({
             //curslot = GameShopController.instance.getNumberLodge(res.infoCoopItem[idx].id);
             //maxslot = 0;
 
-            //cc.log("Block touch listener " + (level >= res.infoCoopItem[idx].level[0] && curslot < maxslot));
-            //bug k chặn đc sự kiện touch
-            //cc.log("If Level unlock " + res.infoCoopItem[idx].level[0]);
             if(res.infoCoopItem[idx].id == "field"){
                 curslot = user.getAsset().getFieldList().length;
                 maxslot = GameShopController.instance.getMaxField();
@@ -121,21 +123,33 @@ var LodgeTable = cc.Layer.extend({
                     image.addTouchEventListener(this.touchEvent, this);
                 }
             } else {
-                curslot = GameShopController.instance.getNumberLodge(res.infoCoopItem[idx].id);
-                var length = res.infoCoopItem[idx].level.length;
-                if(level >= res.infoCoopItem[idx].level[length - 1]) {
-                    maxslot = length;
+                if (level < res.infoCoopItem[idx].level[0]) {
+                    detail.setString(fr.Localization.text("text_unlock_detail") + res.infoCoopItem[idx].level[0]);
                 } else {
-                    for(var i = 0; i < length - 1; i++) {
-                        if (res.infoCoopItem[idx].level[i] <= level && level < res.infoCoopItem[idx].level[i + 1]) {
-                            maxslot = i + 1;
+                    curslot = GameShopController.instance.getNumberLodge(res.infoCoopItem[idx].id);
+                    var length = res.infoCoopItem[idx].level.length;
+                    if (level >= res.infoCoopItem[idx].level[length - 1]) {
+                        maxslot = length;
+                    } else {
+                        for (var i = 0; i < length - 1; i++) {
+                            if (res.infoCoopItem[idx].level[i] <= level && level < res.infoCoopItem[idx].level[i + 1]) {
+                                maxslot = i + 1;
+                            }
                         }
                     }
-                }
-                if (level >= res.infoCoopItem[idx].level[0] && curslot < maxslot) {
-                    image.addTouchEventListener(this.touchEvent, this);
+                    if (curslot < maxslot) {
+                        image.addTouchEventListener(this.touchEvent, this);
+                    }
                 }
             }
+        //text_unlock_detail
+            //if(level >= res.infoCoopItem[idx].level3) {
+            //    maxslot = 3;
+            //} else if (res.infoCoopItem[idx].level2 <= level && level < res.infoCoopItem[idx].level3) {
+            //    maxslot = 2;
+            //} else if (res.infoCoopItem[idx].level <= level && level < res.infoCoopItem[idx].level2) {
+            //    maxslot = 1;
+            //}
 
             slot = new cc.LabelBMFont(curslot + "/" + maxslot, "fonts/outline/30.fnt");
             slot.x = box.width / 3 * 2;

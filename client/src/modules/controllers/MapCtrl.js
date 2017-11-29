@@ -23,12 +23,12 @@ var MapCtrl = cc.Class.extend({
         cc.log("MapCtrl inited");
         this.map = user.map; // Pass to user map
 
-        var debugUser = {} // Not show map
-        for (var k in user) {
-            if (k !== 'map') {
-                debugUser[k] = user[k];
-            }
-        }
+        // var debugUser = {} // Not show map
+        // for (var k in user) {
+        //     if (k !== 'map') {
+        //         debugUser[k] = user[k];
+        //     }
+        // }
         // cc.log("User", debugUser);
         this.renderStorages();
         this.renderPlants();
@@ -39,6 +39,10 @@ var MapCtrl = cc.Class.extend({
         InertiaEngine.instance = new InertiaEngine();
         MainScene.instance.addChild(InertiaEngine.instance);
         this.renderUserInfo();
+        //
+        //var bakery = new BakerySprite(20, 20);
+        //MapLayer.instance.addChild(bakery);
+        //bakery.play("loop1");
     },
 
     renderStorages: function() {
@@ -113,7 +117,8 @@ var MapCtrl = cc.Class.extend({
                     field.getCoordinate().getCurrY());
             MapLayer.instance.addChild(fieldSprite);
             if (field.plantType) {
-                fieldSprite.plantAnimation(field.plantType);
+                fieldSprite.createAni(field.plantType);
+
             }
             MapLayer.instance.fieldList.push(fieldSprite);
             
@@ -226,10 +231,10 @@ var MapCtrl = cc.Class.extend({
     */
 
     renderNaturalThings: function() {
-        
         for (var i = 0; i < user.asset.natureThingList.length; i++) {
-            var x = user.asset.natureThingList[i].x;
-            var y = user.asset.natureThingList[i].y;
+
+            var x = user.asset.natureThingList[i].coordinate.x;
+            var y = user.asset.natureThingList[i].coordinate.y;
             var id = user.asset.natureThingList[i].id;
             var typeName = user.asset.natureThingList[i].type;
             if (typeName === 'forest_swamp') {

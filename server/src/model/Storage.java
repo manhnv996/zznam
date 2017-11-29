@@ -1,5 +1,7 @@
 package model;
 
+import bitzero.server.entities.User;
+
 import config.enums.StorageType;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +31,16 @@ public class Storage extends CoordinateObject {
         return level;
     }
     
-    public void upgradeLevel() {
-        level++;
+    public boolean upgradeLevel (ZPUserInfo userInfo, String product1, int number1, String product2, int number2, String product3, int number3) {
+        if (userInfo.getAsset().getWarehouse().takeItem(product1, number1) && 
+            userInfo.getAsset().getWarehouse().takeItem(product2, number2) &&
+            userInfo.getAsset().getWarehouse().takeItem(product3, number3)) {
+//            System.out.println("OKOKOKOK");
+            this.level++;
+            System.out.println("level " + level);
+            return true;
+        }
+        return false;
     }
 
     public List<StorageItem> getItemList() {
@@ -117,6 +127,22 @@ public class Storage extends CoordinateObject {
         NOT YET STARTED
         */
         return false;
+    }
+    
+    public void setCapacity (int capacity) {
+        this.capacity = capacity;
+    }
+    
+    public StorageType getStoragetype() {
+        return this.storageType;
+    }
+    
+    public String getStorageStringType() {
+        if (this.storageType == StorageType.FOOD_STORAGE) {
+            return "FOOD_STORAGE";    
+        } else {
+            return "WAREHOUSE";
+        }
     }
     
 }

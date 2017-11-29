@@ -6,9 +6,12 @@ var MainGuiLayer = cc.Layer.extend({
     labelRuby : null,
     labelExp : null,
     labelLevel : null,
-    level: 18,
-    exp: 3483,
-    max_exp: 4858,
+    level: null,
+    exp: null,
+    max_exp: 50,
+    loadingBar: null,
+    isShowPopup: false,
+
     ctor : function(){
         //1. call super class's ctor fuction
         this._super();
@@ -29,13 +32,6 @@ var MainGuiLayer = cc.Layer.extend({
         this.addChild(btnSettings);
         btnSettings.addClickEventListener(this.onSelectSettings.bind(this));
 
-        //// 4. create a shop button and set it's position at the bottom left of screensize
-        //var btnShop = new ccui.Button(res.BUTTON_SHOP_2_PNG);
-        //var btnShopSize = btnShop.getSize();
-        //cc.log("btnShop " + btnShopSize.width + "  " + btnShopSize.height);
-        //btnShop.setPosition(btnShopSize.width/2, btnShopSize.height/2);
-        //btnShop.addClickEventListener(this.onSelectShop.bind(this));
-        //this.addChild(btnShop);
 
         // 5. create a friends button and set it's position at the bottom right of screensize
         var btnFriends = new ccui.Button(res.BUTTON_FIEND_2_PNG);
@@ -102,12 +98,13 @@ var MainGuiLayer = cc.Layer.extend({
         imageExp_111.setPosition(center_top_pos);
         this.addChild(imageExp_111);
 
-        var imageExp_221 = new ccui.ImageView(res.EXP_221_PNG);
-        var imageExp_221Size = imageExp_221.getSize();
-        imageExp_221.setScale(.5*imageExp_111Size.width/imageExp_221Size.width, 1);
-        cc.log("imageExp_221 " + imageExp_221Size.width + "  " + imageExp_221Size.height);
-        imageExp_221.setPosition(center_top_pos.x -.5*imageExp_221Size.width/2, center_top_pos.y);
-        this.addChild(imageExp_221);
+        this.loadingBar = new ccui.LoadingBar();
+        this.loadingBar.setName("ExpBar");
+        this.loadingBar.loadTexture(res.EXP_221_PNG);
+        this.loadingBar.setPosition(center_top_pos.width, center_top_pos.height);
+        this.loadingBar.setPercent(Math.floor(user.exp * 100 / this.max_exp));
+        this.addChild( this.loadingBar);
+
 
         this.labelExp = new cc.LabelBMFont(user.getExp() + "/" + this.max_exp, res.FONT_OUTLINE_30);
         this.labelExp.setPosition(center_top_pos);
@@ -123,20 +120,6 @@ var MainGuiLayer = cc.Layer.extend({
         this.labelLevel.setPosition(center_top_pos.x - imageExp_111Size.width/2,center_top_pos.y);
         this.addChild(this.labelLevel);
 
-
-        // this.lblLog = gv.commonText(fr.Localization.text("..."), size.width*0.4, size.height*0.05);
-        // this.addChild(this.lblLog);
-
-
-        ////6. create a menu and assign onPlay event callback to it.
-        //var menuItemPlay =  new cc.MenuItemSprite(
-        //    new cc.Sprite(res.button_zingme_dangnhap_png), // normal state image
-        //    new cc.Sprite(res.button_zingme_png), //select state image
-        //    this.onPlay, this);
-        //var menu = new cc.Menu(menuItemPlay);
-        ////7. create the menu
-        //menu.setPosition(center_bottom_pos);
-        //this.addChild(menu);
     },
     onEnter:function(){
       this._super();
@@ -147,17 +130,37 @@ var MainGuiLayer = cc.Layer.extend({
     },
     onSelectSettings:function(sender)
     {
-        var settingsLayer = new SettingsLayer();
-        this.addChild(settingsLayer);
+       if (this.isShowPopup == false){
+           SettingsLayer.instance  = new SettingsLayer();
+           var action1 = new cc.ScaleTo(0.1, 1.35);
+           var action2 = new cc.ScaleTo(0.1, 1.15);
+           this.addChild(SettingsLayer.instance);
+           SettingsLayer.instance.runAction(cc.sequence(action1, cc.delayTime(0.01), action2));
+
+           this.isShowPopup = true;
+       }
+
     },
     onSelectBuyGold:function(sender){
         cc.log("==onSelectBuyGold clicked");
+        if (this.isShowPopup == false){
+            CommonPopup.instance  = new CommonPopup("Cấu Hình", res.BG_2_PNG, true);
+
+            this.addChild(CommonPopup.instance);
+
+
+            this.isShowPopup = true;
+        }
+
     },
     onSelectBuyRuby:function(sender){
         cc.log("==onSelectBuyRuby clicked");
     },
     onSelectFriends:function(sender){
         cc.log("==onSelectFriends clicked");
+    },
+    setIsShowPopup:function(bool){
+        this.isShowPopup = bool;
     }
 });
 

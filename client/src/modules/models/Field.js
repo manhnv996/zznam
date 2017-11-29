@@ -5,14 +5,14 @@ var Field = CoordinatedObject.extend({
     plantType: null,
     plantedTime: null,
 
-    ctor: function (coordinate, fieldId) {
+    ctor: function (coordinate, fieldId, plantType, plantedTime) {
     // ctor: function (x, y, fieldId) {
         //
         this._super(coordinate);
         // this._super(x, y);
         // CoordinatedObject.prototype.render(coordinate);
 
-        this.coordinate = coordinate;
+        // this.coordinate = coordinate;
 
         // this.render(fieldId);
 
@@ -23,9 +23,8 @@ var Field = CoordinatedObject.extend({
         //
         this.fieldId = fieldId;
 
-        // this.plantType = null;
-        // this.plantedTime = null;
-
+        this.plantType = plantType;
+        this.plantedTime = plantedTime;
 
         //this._super().changeCoordinate();
     },
@@ -102,14 +101,14 @@ var Field = CoordinatedObject.extend({
     },
     getCropTime: function () {
         //Date
-        if (this.plantType == null){
+        if (!this.plantType){
             return null;
         }
 
 
         var parseTime = this.plantedTime.getTime();
         var cropTime = new Date();
-          cropTime.setTime(parseTime + getProductObjByType(this.plantType).time * 1000);
+        cropTime.setTime(parseTime + getProductObjByType(this.plantType).time * 1000);
         //cropTime.setTime(parseTime + 6000);     //HERE IS TEST
 
         return cropTime;

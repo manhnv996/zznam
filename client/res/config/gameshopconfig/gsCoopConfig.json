@@ -7,8 +7,8 @@
     "height": 1,
     "level": 1,
     "nameIconShop": "Art/Shop/icon chuong/odat2.png",
-    "detail": "Để gieo trồng",
-    "title": "Ô Ruộng"
+    "detail": "empty_field_detail_tab",
+    "name": "NAME_TAB_CHICKEN_HABITAT"
   },
   {
     "id": "chicken_habitat",
@@ -18,8 +18,8 @@
     "height": 3,
     "level": [1, 12, 23],
     "nameIconShop": "Art/Shop/icon chuong/chuongGa.png",
-    "detail": "Chứa được 6 con",
-    "title": "Chuồng Gà"
+    "detail": "chicken_habitat_detail_tab",
+    "name": "NAME_TAB_CHICKEN_HABITAT"
   },
   {
     "id": "cow_habitat",
@@ -29,8 +29,8 @@
     "height": 4,
     "level": [6, 15, 27],
     "nameIconShop": "Art/Shop/icon chuong/chuongBo.png",
-    "detail": "Chứa được 5 con",
-    "title": "Chuồng Bò"
+    "detail": "cow_habitat_detail_tab",
+    "name": "NAME_TAB_COW_HABITAT"
   },
   {
     "id": "pig_habitat",
@@ -40,8 +40,8 @@
     "height": 4,
     "level": [10, 18, 32],
     "nameIconShop": "Art/Shop/icon chuong/chuongLon.png",
-    "detail": "Chứa được 5 con",
-    "title": "Chuồng Lợn"
+    "detail": "pig_habitat_detail_tab",
+    "name": "NAME_TAB_PIG_HABITAT"
   },
   {
     "id": "sheep_habitat",
@@ -51,8 +51,8 @@
     "height": 4,
     "level": [16, 26, 42],
     "nameIconShop": "Art/Shop/icon chuong/chuongCuu.png",
-    "detail": "Chứa được 5 con",
-    "title": "Chuồng Cừu"
+    "detail": "sheep_habitat_detail_tab",
+    "name": "NAME_TAB_SHEEP_HABITAT"
   },
   {
     "id": "goat_habitat",
@@ -62,7 +62,7 @@
     "height": 3,
     "level": [32, 37, 50],
     "nameIconShop": "Art/Shop/icon chuong/chuongDe.png",
-    "detail": "Mở tại cấp 32",
-    "title": "Chuồng Dê"
+    "detail": "goat_habitat_detail_tab",
+    "name": "NAME_TAB_GOAT_HABITAT"
   }
 ]

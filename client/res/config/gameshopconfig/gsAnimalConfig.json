@@ -4,6 +4,8 @@
     "width": 1,
     "height": 1,
     "price": [10, 140, 270],
+    "time": 1200,
+    "food": "food_chicken",
     "nameIconShop": "Art/Shop/icon vatnuoi/chicken.png",
     "detail": "Đẻ trứng",
     "slot": 6,

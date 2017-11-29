@@ -39,6 +39,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import service.DemoHandler;
+
 import service.GameShopBuyHandler;
 import service.MapHandler;
 import service.PlantHandler;
@@ -48,11 +49,11 @@ import service.UserHandler;
 import util.GuestLogin;
 
 import util.metric.LogObject;
+
 import util.metric.MetricLog;
 
 import util.server.ServerConstant;
 import util.server.ServerLoop;
-
 
 
 /*
@@ -131,7 +132,7 @@ public class FresherExtension extends BZExtension {
         
         addRequestHandler(GameShopBuyHandler.GAMESHOP_MULTI_IDS, GameShopBuyHandler.class);
         addRequestHandler(StorageHandler.STORAGE_MULTI_IDS, StorageHandler.class);
-		
+        
         trace(" Event Handler ");
         addEventHandler(BZEventType.USER_LOGIN, LoginSuccessHandler.class);
         addEventHandler(BZEventType.USER_LOGOUT, LogoutHandler.class);
@@ -144,8 +145,8 @@ public class FresherExtension extends BZExtension {
 	
 	
 	public static void setupUserInfo(){
-        Storage foodStorage = new Storage(StorageType.FOOD_STORAGE, 30, 10, 10);
-        Storage warehouse = new Storage(StorageType.WAREHOUSE, 30, 8, 8);
+        Storage foodStorage = new Storage(StorageType.FOOD_STORAGE, 50, 10, 10);
+        Storage warehouse = new Storage(StorageType.WAREHOUSE, 50, 8, 8);
         foodStorage.addItem(ProductType.CROP_CARROT, 5);
         foodStorage.addItem(ProductType.CROP_SOYBEAN, 10);
         

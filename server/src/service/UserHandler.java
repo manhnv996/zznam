@@ -12,9 +12,9 @@ import cmd.CmdDefine;
 import cmd.receive.user.RequestUserInfo;
 
 import cmd.send.demo.ResponseGameInfo;
-import cmd.send.demo.ResponseRequestUserInfo;
 
-import config.enums.ProductResource;
+import cmd.send.user.ResponseUser;
+
 import config.enums.ProductType;
 import config.enums.StorageType;
 
@@ -66,11 +66,15 @@ public class UserHandler extends BaseClientRequestHandler {
     public void handleClientRequest(User user, DataCmd dataCmd) {
         try {
             switch (dataCmd.getId()) {
-            case CmdDefine.GET_USER_INFO:
+            case CmdDefine.GET_USER_INFO: // Old. Do not use
                 RequestUserInfo reqInfo = new RequestUserInfo(dataCmd);                
                 getUserInfo(user);
                 break;
+            case CmdDefine.GET_USER: // New get user
+                returnUser(user);
+                break;
             }
+            
         } catch (Exception e) {
             logger.warn("USERHANDLER EXCEPTION " + e.getMessage());
             logger.warn(ExceptionUtils.getStackTrace(e));
@@ -98,6 +102,21 @@ public class UserHandler extends BaseClientRequestHandler {
         }
 
     }
+    
+    // Return all user information as Binary
+    private void returnUser(User user) {
+        ZPUserInfo userInfo = null;
+        try {
+            userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
+            if (userInfo == null) {
+                userInfo = createUser(user.getId());
+                userInfo.saveModel(user.getId());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        send(new ResponseUser(userInfo), user);
+    }
 
     private void userDisconnect(User user) {
         // log user disconnect
@@ -118,6 +137,15 @@ public class UserHandler extends BaseClientRequestHandler {
         foodStorage.addItem(ProductType.CROP_CARROT, 5);
         foodStorage.addItem(ProductType.CROP_SOYBEAN, 10);
         
+//        warehouse.addItem(ProductType.TOOL_NAIL, 5);
+        warehouse.addItem(ProductType.TOOL_SCREW, 3);
+        warehouse.addItem(ProductType.TOOL_WOODPANEL, 5);
+        
+//        warehouse.addItem(ProductType.TOOL_BOLT, 1);
+        warehouse.addItem(ProductType.TOOL_PLANK, 4);
+        warehouse.addItem(ProductType.TOOL_DUCTTAPE, 2);
+        
+        
         // Load natural thingList
         List<NatureThing> natureThingList = new ArrayList<>();
         for (int i = 0; i < ConfigContainer.defaultNatural.size(); i++) {
@@ -127,6 +155,7 @@ public class UserHandler extends BaseClientRequestHandler {
 //            System.out.println("id" + nObj.id + " type" + nObj.type);
         }
         Asset asset = new Asset(foodStorage, warehouse, null, natureThingList);
+        
         for (int i = 1; i < 5; i++){
             Field field = new Field(0, 18, 10 + i);
             asset.addField(field);

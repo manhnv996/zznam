@@ -1,0 +1,660 @@
+[
+  {
+    "level": 0,
+    "capacity": 50,
+    "tool_bolt": 0,
+    "tool_plank": 0,
+    "tool_ductTape": 0
+  },
+  {
+    "level": 1,
+    "capacity": 75,
+    "tool_bolt": 1,
+    "tool_plank": 1,
+    "tool_ductTape": 1
+  },
+  {
+    "level": 2,
+    "capacity": 100,
+    "tool_bolt": 2,
+    "tool_plank": 2,
+    "tool_ductTape": 2
+  },
+  {
+    "level": 3,
+    "capacity": 125,
+    "tool_bolt": 3,
+    "tool_plank": 3,
+    "tool_ductTape": 3
+  },
+  {
+    "level": 4,
+    "capacity": 150,
+    "tool_bolt": 4,
+    "tool_plank": 4,
+    "tool_ductTape": 4
+  },
+  {
+    "level": 5,
+    "capacity": 175,
+    "tool_bolt": 5,
+    "tool_plank": 5,
+    "tool_ductTape": 5
+  },
+  {
+    "level": 6,
+    "capacity": 200,
+    "tool_bolt": 6,
+    "tool_plank": 6,
+    "tool_ductTape": 6
+  },
+  {
+    "level": 7,
+    "capacity": 225,
+    "tool_bolt": 7,
+    "tool_plank": 7,
+    "tool_ductTape": 7
+  },
+  {
+    "level": 8,
+    "capacity": 250,
+    "tool_bolt": 8,
+    "tool_plank": 8,
+    "tool_ductTape": 8
+  },
+  {
+    "level": 9,
+    "capacity": 275,
+    "tool_bolt": 9,
+    "tool_plank": 9,
+    "tool_ductTape": 9
+  },
+  {
+    "level": 10,
+    "capacity": 300,
+    "tool_bolt": 10,
+    "tool_plank": 10,
+    "tool_ductTape": 10
+  },
+  {
+    "level": 11,
+    "capacity": 325,
+    "tool_bolt": 11,
+    "tool_plank": 11,
+    "tool_ductTape": 11
+  },
+  {
+    "level": 12,
+    "capacity": 350,
+    "tool_bolt": 12,
+    "tool_plank": 12,
+    "tool_ductTape": 12
+  },
+  {
+    "level": 13,
+    "capacity": 375,
+    "tool_bolt": 13,
+    "tool_plank": 13,
+    "tool_ductTape": 13
+  },
+  {
+    "level": 14,
+    "capacity": 400,
+    "tool_bolt": 14,
+    "tool_plank": 14,
+    "tool_ductTape": 14
+  },
+  {
+    "level": 15,
+    "capacity": 425,
+    "tool_bolt": 15,
+    "tool_plank": 15,
+    "tool_ductTape": 15
+  },
+  {
+    "level": 16,
+    "capacity": 450,
+    "tool_bolt": 16,
+    "tool_plank": 16,
+    "tool_ductTape": 16
+  },
+  {
+    "level": 17,
+    "capacity": 475,
+    "tool_bolt": 17,
+    "tool_plank": 17,
+    "tool_ductTape": 17
+  },
+  {
+    "level": 18,
+    "capacity": 500,
+    "tool_bolt": 18,
+    "tool_plank": 18,
+    "tool_ductTape": 18
+  },
+  {
+    "level": 19,
+    "capacity": 525,
+    "tool_bolt": 19,
+    "tool_plank": 19,
+    "tool_ductTape": 19
+  },
+  {
+    "level": 20,
+    "capacity": 550,
+    "tool_bolt": 20,
+    "tool_plank": 20,
+    "tool_ductTape": 20
+  },
+  {
+    "level": 21,
+    "capacity": 575,
+    "tool_bolt": 21,
+    "tool_plank": 21,
+    "tool_ductTape": 21
+  },
+  {
+    "level": 22,
+    "capacity": 600,
+    "tool_bolt": 22,
+    "tool_plank": 22,
+    "tool_ductTape": 22
+  },
+  {
+    "level": 23,
+    "capacity": 625,
+    "tool_bolt": 23,
+    "tool_plank": 23,
+    "tool_ductTape": 23
+  },
+  {
+    "level": 24,
+    "capacity": 650,
+    "tool_bolt": 24,
+    "tool_plank": 24,
+    "tool_ductTape": 24
+  },
+  {
+    "level": 25,
+    "capacity": 675,
+    "tool_bolt": 25,
+    "tool_plank": 25,
+    "tool_ductTape": 25
+  },
+  {
+    "level": 26,
+    "capacity": 700,
+    "tool_bolt": 26,
+    "tool_plank": 26,
+    "tool_ductTape": 26
+  },
+  {
+    "level": 27,
+    "capacity": 725,
+    "tool_bolt": 27,
+    "tool_plank": 27,
+    "tool_ductTape": 27
+  },
+  {
+    "level": 28,
+    "capacity": 750,
+    "tool_bolt": 28,
+    "tool_plank": 28,
+    "tool_ductTape": 28
+  },
+  {
+    "level": 29,
+    "capacity": 775,
+    "tool_bolt": 29,
+    "tool_plank": 29,
+    "tool_ductTape": 29
+  },
+  {
+    "level": 30,
+    "capacity": 800,
+    "tool_bolt": 30,
+    "tool_plank": 30,
+    "tool_ductTape": 30
+  },
+  {
+    "level": 31,
+    "capacity": 825,
+    "tool_bolt": 31,
+    "tool_plank": 31,
+    "tool_ductTape": 31
+  },
+  {
+    "level": 32,
+    "capacity": 850,
+    "tool_bolt": 32,
+    "tool_plank": 32,
+    "tool_ductTape": 32
+  },
+  {
+    "level": 33,
+    "capacity": 875,
+    "tool_bolt": 33,
+    "tool_plank": 33,
+    "tool_ductTape": 33
+  },
+  {
+    "level": 34,
+    "capacity": 900,
+    "tool_bolt": 34,
+    "tool_plank": 34,
+    "tool_ductTape": 34
+  },
+  {
+    "level": 35,
+    "capacity": 925,
+    "tool_bolt": 35,
+    "tool_plank": 35,
+    "tool_ductTape": 35
+  },
+  {
+    "level": 36,
+    "capacity": 950,
+    "tool_bolt": 36,
+    "tool_plank": 36,
+    "tool_ductTape": 36
+  },
+  {
+    "level": 37,
+    "capacity": 975,
+    "tool_bolt": 37,
+    "tool_plank": 37,
+    "tool_ductTape": 37
+  },
+  {
+    "level": 38,
+    "capacity": 1000,
+    "tool_bolt": 38,
+    "tool_plank": 38,
+    "tool_ductTape": 38
+  },
+  {
+    "level": 39,
+    "capacity": 1050,
+    "tool_bolt": 39,
+    "tool_plank": 39,
+    "tool_ductTape": 39
+  },
+  {
+    "level": 40,
+    "capacity": 1100,
+    "tool_bolt": 40,
+    "tool_plank": 40,
+    "tool_ductTape": 40
+  },
+  {
+    "level": 41,
+    "capacity": 1150,
+    "tool_bolt": 41,
+    "tool_plank": 41,
+    "tool_ductTape": 41
+  },
+  {
+    "level": 42,
+    "capacity": 1200,
+    "tool_bolt": 42,
+    "tool_plank": 42,
+    "tool_ductTape": 42
+  },
+  {
+    "level": 43,
+    "capacity": 1250,
+    "tool_bolt": 43,
+    "tool_plank": 43,
+    "tool_ductTape": 43
+  },
+  {
+    "level": 44,
+    "capacity": 1300,
+    "tool_bolt": 44,
+    "tool_plank": 44,
+    "tool_ductTape": 44
+  },
+  {
+    "level": 45,
+    "capacity": 1350,
+    "tool_bolt": 45,
+    "tool_plank": 45,
+    "tool_ductTape": 45
+  },
+  {
+    "level": 46,
+    "capacity": 1400,
+    "tool_bolt": 46,
+    "tool_plank": 46,
+    "tool_ductTape": 46
+  },
+  {
+    "level": 47,
+    "capacity": 1450,
+    "tool_bolt": 47,
+    "tool_plank": 47,
+    "tool_ductTape": 47
+  },
+  {
+    "level": 48,
+    "capacity": 1500,
+    "tool_bolt": 48,
+    "tool_plank": 48,
+    "tool_ductTape": 48
+  },
+  {
+    "level": 49,
+    "capacity": 1550,
+    "tool_bolt": 49,
+    "tool_plank": 49,
+    "tool_ductTape": 49
+  },
+  {
+    "level": 50,
+    "capacity": 1600,
+    "tool_bolt": 50,
+    "tool_plank": 50,
+    "tool_ductTape": 50
+  },
+  {
+    "level": 51,
+    "capacity": 1650,
+    "tool_bolt": 51,
+    "tool_plank": 51,
+    "tool_ductTape": 51
+  },
+  {
+    "level": 52,
+    "capacity": 1700,
+    "tool_bolt": 52,
+    "tool_plank": 52,
+    "tool_ductTape": 52
+  },
+  {
+    "level": 53,
+    "capacity": 1750,
+    "tool_bolt": 53,
+    "tool_plank": 53,
+    "tool_ductTape": 53
+  },
+  {
+    "level": 54,
+    "capacity": 1800,
+    "tool_bolt": 54,
+    "tool_plank": 54,
+    "tool_ductTape": 54
+  },
+  {
+    "level": 55,
+    "capacity": 1850,
+    "tool_bolt": 55,
+    "tool_plank": 55,
+    "tool_ductTape": 55
+  },
+  {
+    "level": 56,
+    "capacity": 1900,
+    "tool_bolt": 56,
+    "tool_plank": 56,
+    "tool_ductTape": 56
+  },
+  {
+    "level": 57,
+    "capacity": 1950,
+    "tool_bolt": 57,
+    "tool_plank": 57,
+    "tool_ductTape": 57
+  },
+  {
+    "level": 58,
+    "capacity": 2000,
+    "tool_bolt": 58,
+    "tool_plank": 58,
+    "tool_ductTape": 58
+  },
+  {
+    "level": 59,
+    "capacity": 2050,
+    "tool_bolt": 59,
+    "tool_plank": 59,
+    "tool_ductTape": 59
+  },
+  {
+    "level": 60,
+    "capacity": 2100,
+    "tool_bolt": 60,
+    "tool_plank": 60,
+    "tool_ductTape": 60
+  },
+  {
+    "level": 61,
+    "capacity": 2150,
+    "tool_bolt": 61,
+    "tool_plank": 61,
+    "tool_ductTape": 61
+  },
+  {
+    "level": 62,
+    "capacity": 2200,
+    "tool_bolt": 62,
+    "tool_plank": 62,
+    "tool_ductTape": 62
+  },
+  {
+    "level": 63,
+    "capacity": 2250,
+    "tool_bolt": 63,
+    "tool_plank": 63,
+    "tool_ductTape": 63
+  },
+  {
+    "level": 64,
+    "capacity": 2300,
+    "tool_bolt": 64,
+    "tool_plank": 64,
+    "tool_ductTape": 64
+  },
+  {
+    "level": 65,
+    "capacity": 2350,
+    "tool_bolt": 65,
+    "tool_plank": 65,
+    "tool_ductTape": 65
+  },
+  {
+    "level": 66,
+    "capacity": 2400,
+    "tool_bolt": 66,
+    "tool_plank": 66,
+    "tool_ductTape": 66
+  },
+  {
+    "level": 67,
+    "capacity": 2450,
+    "tool_bolt": 67,
+    "tool_plank": 67,
+    "tool_ductTape": 67
+  },
+  {
+    "level": 68,
+    "capacity": 2500,
+    "tool_bolt": 68,
+    "tool_plank": 68,
+    "tool_ductTape": 68
+  },
+  {
+    "level": 69,
+    "capacity": 2550,
+    "tool_bolt": 69,
+    "tool_plank": 69,
+    "tool_ductTape": 69
+  },
+  {
+    "level": 70,
+    "capacity": 2600,
+    "tool_bolt": 70,
+    "tool_plank": 70,
+    "tool_ductTape": 70
+  },
+  {
+    "level": 71,
+    "capacity": 2650,
+    "tool_bolt": 71,
+    "tool_plank": 71,
+    "tool_ductTape": 71
+  },
+  {
+    "level": 72,
+    "capacity": 2700,
+    "tool_bolt": 72,
+    "tool_plank": 72,
+    "tool_ductTape": 72
+  },
+  {
+    "level": 73,
+    "capacity": 2750,
+    "tool_bolt": 73,
+    "tool_plank": 73,
+    "tool_ductTape": 73
+  },
+  {
+    "level": 74,
+    "capacity": 2800,
+    "tool_bolt": 74,
+    "tool_plank": 74,
+    "tool_ductTape": 74
+  },
+  {
+    "level": 75,
+    "capacity": 2850,
+    "tool_bolt": 75,
+    "tool_plank": 75,
+    "tool_ductTape": 75
+  },
+  {
+    "level": 76,
+    "capacity": 2900,
+    "tool_bolt": 76,
+    "tool_plank": 76,
+    "tool_ductTape": 76
+  },
+  {
+    "level": 77,
+    "capacity": 2950,
+    "tool_bolt": 77,
+    "tool_plank": 77,
+    "tool_ductTape": 77
+  },
+  {
+    "level": 78,
+    "capacity": 3000,
+    "tool_bolt": 78,
+    "tool_plank": 78,
+    "tool_ductTape": 78
+  },
+  {
+    "level": 79,
+    "capacity": 3050,
+    "tool_bolt": 79,
+    "tool_plank": 79,
+    "tool_ductTape": 79
+  },
+  {
+    "level": 80,
+    "capacity": 3100,
+    "tool_bolt": 80,
+    "tool_plank": 80,
+    "tool_ductTape": 80
+  },
+  {
+    "level": 81,
+    "capacity": 3150,
+    "tool_bolt": 81,
+    "tool_plank": 81,
+    "tool_ductTape": 81
+  },
+  {
+    "level": 82,
+    "capacity": 3200,
+    "tool_bolt": 82,
+    "tool_plank": 82,
+    "tool_ductTape": 82
+  },
+  {
+    "level": 83,
+    "capacity": 3250,
+    "tool_bolt": 83,
+    "tool_plank": 83,
+    "tool_ductTape": 83
+  },
+  {
+    "level": 84,
+    "capacity": 3300,
+    "tool_bolt": 84,
+    "tool_plank": 84,
+    "tool_ductTape": 84
+  },
+  {
+    "level": 85,
+    "capacity": 3350,
+    "tool_bolt": 85,
+    "tool_plank": 85,
+    "tool_ductTape": 85
+  },
+  {
+    "level": 86,
+    "capacity": 3400,
+    "tool_bolt": 86,
+    "tool_plank": 86,
+    "tool_ductTape": 86
+  },
+  {
+    "level": 87,
+    "capacity": 3450,
+    "tool_bolt": 87,
+    "tool_plank": 87,
+    "tool_ductTape": 87
+  },
+  {
+    "level": 88,
+    "capacity": 3500,
+    "tool_bolt": 88,
+    "tool_plank": 88,
+    "tool_ductTape": 88
+  },
+  {
+    "level": 89,
+    "capacity": 3550,
+    "tool_bolt": 89,
+    "tool_plank": 89,
+    "tool_ductTape": 89
+  },
+  {
+    "level": 90,
+    "capacity": 3600,
+    "tool_bolt": 90,
+    "tool_plank": 90,
+    "tool_ductTape": 90
+  },
+  {
+    "level": 91,
+    "capacity": 3650,
+    "tool_bolt": 91,
+    "tool_plank": 91,
+    "tool_ductTape": 91
+  },
+  {
+    "level": 92,
+    "capacity": 3700,
+    "tool_bolt": 92,
+    "tool_plank": 92,
+    "tool_ductTape": 92
+  },
+  {
+    "level": 93,
+    "capacity": 3750,
+    "tool_bolt": 93,
+    "tool_plank": 93,
+    "tool_ductTape": 93
+  }
+]
