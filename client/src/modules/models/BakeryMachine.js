@@ -5,7 +5,7 @@
 var BakeryMachine = Machine.extend({
 
     ctor: function (id, completed, startBuildTime, coordinate) {
-        this._super(id, completed, startBuildTime, coordinate, "bakery_machine");
+        this._super(id, "bakery_machine", completed, startBuildTime, coordinate);
 
     }
 

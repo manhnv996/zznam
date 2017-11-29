@@ -1,17 +1,18 @@
 
 var Machine = ConstructedObject.extend({
 
-    slot: 1,
+    id: 0,
+    type: null,
+    slot: 0,
     startTime: null,
     productQueue: [],
-    type: null,
 
-    ctor: function (id, completed, startBuildTime, coordinate, type) {
+    ctor: function (id, type, completed, startBuildTime, coordinate) {
         //
-        this._super(id, completed, startBuildTime, coordinate);
+        this._super(completed, startBuildTime, coordinate);
 
+        this.id = id;
         this.type = type;
-
     },
     // render: function () {
     //     //

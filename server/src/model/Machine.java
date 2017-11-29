@@ -11,15 +11,28 @@ public class Machine extends ConstructedObject {
 
     private int id;
     private MachineTypeEnum type;
-    private List<String> listType;
+    private List<String> listProductType;
     private int slot;
     private long startBuildTime;
     
-    public Machine(int id, MachineTypeEnum type, long startBuildTime, boolean completed, int x, int y) {
+    public Machine(int id, MachineTypeEnum type, int slot, long startBuildTime, boolean completed, int x, int y) {
         super(startBuildTime, completed, x, y);
         
-        this.listType = new ArrayList<>();
+        this.listProductType = new ArrayList<>();
         this.id = id;
         this.type = type;
+        this.slot = slot;
+    }
+    
+    public List<String> getListProductType() {
+        return this.listProductType;
+    }
+    
+    public int getId () {
+        return this.id;
+    }
+    
+    public void setId (int id) {
+        this.id = id;
     }
 }

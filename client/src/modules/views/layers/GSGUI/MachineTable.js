@@ -104,6 +104,7 @@ var MachineTable = cc.Layer.extend({
 
             if (level < res.infoMachineItem[idx].level) {
                 detail.setString(fr.Localization.text("text_unlock_detail") + res.infoMachineItem[idx].level);
+                image.setTouchEnabled(false);
             } else {
                 curslot = GameShopController.instance.getNumberMachine(res.infoMachineItem[idx].id);
                 maxslot = res.infoMachineItem[idx].number;
@@ -233,7 +234,8 @@ var MachineTable = cc.Layer.extend({
                             var typeObject = sender.parent.getChildByTag(0).getString();
                             switch (typeObject) {
                                 case "bakery_machine":
-                                    var bakeryModel = new BakeryMachine(this._sprite._bakeryId, false, 0, new Coordinate(this._sprite.lx, this._sprite.ly));
+                                    var bakeryModel = new BakeryMachine(this._sprite._bakeryId,
+                                        false, 0, new Coordinate(this._sprite.lx, this._sprite.ly));
                                     user.getAsset().addMachine(bakeryModel);
 
                                     // Send server

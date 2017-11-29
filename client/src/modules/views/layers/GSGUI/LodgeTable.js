@@ -125,6 +125,7 @@ var LodgeTable = cc.Layer.extend({
             } else {
                 if (level < res.infoCoopItem[idx].level[0]) {
                     detail.setString(fr.Localization.text("text_unlock_detail") + res.infoCoopItem[idx].level[0]);
+                    image.setTouchEnabled(false);
                 } else {
                     curslot = GameShopController.instance.getNumberLodge(res.infoCoopItem[idx].id);
                     var length = res.infoCoopItem[idx].level.length;
