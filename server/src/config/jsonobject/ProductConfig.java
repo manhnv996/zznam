@@ -1,5 +1,7 @@
 package config.jsonobject;
 
+import java.util.List;
+
 public class ProductConfig {
     public String id;
     public String name;
@@ -12,8 +14,12 @@ public class ProductConfig {
     
     
     
-//    public boolean sortByLevel(){
-//        
-//        return true;
-//    }
+    public boolean containsId(List<ProductConfig> list) {
+        for (ProductConfig object : list) {
+            if (this.id.equals(object.id)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

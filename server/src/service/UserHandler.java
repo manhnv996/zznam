@@ -38,6 +38,7 @@ import model.Asset;
 import model.Field;
 import model.NatureThing;
 import model.Storage;
+import model.StorageItem;
 import model.ZPUserInfo;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
@@ -124,15 +125,21 @@ public class UserHandler extends BaseClientRequestHandler {
         
         
         
-                    
+        /*
+         * test
+         */
         List<ProductConfig> productList2 = ProductUtil.toProductConfigList();
         
         List<ProductConfig> productList = OrderUtil.randomTypeProduct(18);
-        for (int i = 0; i < productList.size(); i++){
-            System.out.println(productList.get(i).id);
-        }
         
+        List<StorageItem> itemList = OrderUtil.randomQuantityOfProductList(18, productList);
+        for (int i = 0; i < itemList.size(); i++){
+            System.out.println(itemList.get(i).getTypeItem() + ", " + itemList.get(i).getQuantity());
+        }
+        System.out.println(OrderUtil.getOrderPrice(18, itemList));
+        System.out.println(OrderUtil.getOrderExp(18, itemList));
         System.out.println("here is log");
+        //
         send(new ResponseUser(userInfo), user);
     }
 
