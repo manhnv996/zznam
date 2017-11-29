@@ -16,16 +16,16 @@ var ProductTypes = {
 
     TOOL_BOLT : "tool_bolt",
     TOOL_PLANK : "tool_plank",
-    TOOL_DUCTTAPE : "tool_ductTape"
-
+    TOOL_DUCTTAPE : "tool_ductTape",
+    FOOD_CHICKEN: "food_chicken",
+    FOOD_COW: "food_cow"
     //GOOD_EGG: 10,
     //GOOF_MILK: 11,
     //
     //PRODUCT_BREAD: 20,
     //PRODUCT_CORN_BREAD: 21,
     //PRODUCT_COOKIE: 22,
-    //FOOD_CHICKEN: 23,
-    //FOOD_COW: 24,
+
     //PRODUCT_CREAM: 25,
     //PRODUCT_BUTTER: 26,
     //PRODUCT_BROWN_SUGAR: 27,
