@@ -138,7 +138,7 @@ var LodgeTable = cc.Layer.extend({
                         }
                     }
                     if (curslot < maxslot) {
-                        image.addTouchEventListener(this.touchEvent, this);
+                        image.addTouchEventListener(this.touchBuyEvent, this);
                     }
                 }
             }
@@ -225,7 +225,7 @@ var LodgeTable = cc.Layer.extend({
         return res.infoCoopItem.length;
     },
 
-    touchEvent: function (sender, type) {
+    touchBuyEvent: function (sender, type) {
         //var sprite = null;
         var lstP = {x: 0, y : 0};
         switch (type) {

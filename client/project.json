@@ -91,6 +91,7 @@
 
         "src/modules/models/CoordinatedObject.js",
         "src/modules/models/Coordinate.js",
+        "src/modules/models/ConstructedObject.js",
         "src/modules/models/Field.js",
         "src/modules/models/StorageItem.js",
         "src/modules/models/Storage.js",

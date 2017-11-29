@@ -279,10 +279,10 @@ testnetwork.Connector = cc.Class.extend({
         this.gameClient.sendPacket(pk);
     },
 
-    sendUpgradeStorage: function (storageType, level) {
-        cc.log("Upgrade " + storageType + " to level " + level);
+    sendUpgradeStorage: function (storageType) {
+        cc.log("Upgrade " + storageType);
         var pk = this.gameClient.getOutPacket(CmdSendUpgradeStorageRequest);
-        pk.pack(storageType, level);
+        pk.pack(storageType);
         this.gameClient.sendPacket(pk);
     }
 });

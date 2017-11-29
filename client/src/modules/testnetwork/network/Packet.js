@@ -253,10 +253,10 @@ CmdSendUpgradeStorageRequest = fr.OutPacket.extend({
         this.initData(100);
         this.setCmdId(gv.CMD.UPGRADE_STORAGE_REQUEST);
     },
-    pack: function (storageType, level) {
+    pack: function (storageType) {
         this.packHeader();
         this.putString(storageType);
-        this.putInt(level);
+        //this.putInt(level);
         this.updateSize();
     }
 });

@@ -1,14 +1,16 @@
 
-var Machine = CoordinatedObject.extend({
+var Machine = ConstructedObject.extend({
 
     slot: 1,
     startTime: null,
-    productQueue: null,
+    productQueue: [],
+    type: null,
 
-    ctor: function (coordinate) {
+    ctor: function (id, completed, startBuildTime, coordinate, type) {
         //
-        this._super(coordinate);
+        this._super(id, completed, startBuildTime, coordinate);
 
+        this.type = type;
 
     },
     // render: function () {

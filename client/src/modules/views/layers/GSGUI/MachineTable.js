@@ -109,7 +109,7 @@ var MachineTable = cc.Layer.extend({
                 maxslot = res.infoMachineItem[idx].number;
 
                 if (curslot < maxslot) {
-                    image.addTouchEventListener(this.touchEvent, this);
+                    image.addTouchEventListener(this.touchBuyEvent, this);
                 }
             }
 
@@ -157,6 +157,125 @@ var MachineTable = cc.Layer.extend({
 
     numberOfCellsInTableView:function (table) {
         return res.infoMachineItem.length;
+    },
+
+    touchBuyEvent: function (sender, type) {
+        var lstP = {x: 0, y : 0};
+        switch (type) {
+            case ccui.Widget.TOUCH_BEGAN:
+                cc.log("Touch Began");
+                break;
+            case ccui.Widget.TOUCH_MOVED:
+                //cc.log(sender.getTouchBeganPosition());
+                var movedP = sender.getTouchMovePosition();
+                var p = MapValues.screenPositionToLogic(movedP.x, movedP.y);
+                p.x = Math.floor(p.x);
+                p.y = Math.floor(p.y);
+                // cc.log(p.x + " " + p.y);
+                if (!this._isHide) {
+                    GSLayer.instance.hide();
+                    this._isHide = true;
+                    var beganP = sender.getTouchBeganPosition();
+                    var createP = MapValues.screenPositionToLogic(beganP.x, beganP.y);
+                    createP.x = Math.floor(createP.x);
+                    createP.y = Math.floor(createP.y);
+                    switch (sender.parent.getChildByTag(0).getString()) {
+                        case "bakery_machine":
+                            this._sprite = new BakerySprite(user.getAsset().getMachineList().length, createP.x, createP.y);
+                            this._sprite.setLocalZOrder(10000);
+                            MapLayer.instance.addChild(this._sprite);
+                            break;
+                        //case "food_machine":
+                        //    break;
+                        //case "butter_machine":
+                        //    break;
+                        //case "sugar_machine":
+                        //    break;
+                        //case "popcorn_machine":
+                        //    break;
+                    }
+                }
+                //cc.log(this._sprite);
+                if (this._sprite) {
+                    if (p.x !== lstP.x || p.y !== lstP.y) {
+                        this._sprite.setLogicPosition(p.x, p.y, true);
+                        lstP = p;
+                        //cc.log(Math.floor(psl.x) + " : " + Math.floor(psl.y));
+                    }
+                }
+                // cc.log("Touch Moved");
+                break;
+            case ccui.Widget.TOUCH_ENDED:
+                // cc.log("Touch Ended");
+                break;
+            case ccui.Widget.TOUCH_CANCELED:
+                if (this._sprite) {
+                    var endP = sender.getTouchEndPosition();
+                    var endPl = MapValues.screenPositionToLogic(endP.x, endP.y);
+                    endPl.x = Math.floor(endPl.x);
+                    endPl.y = Math.floor(endPl.y);
+                    // cc.log(endPl.x + " " + endPl.y);
+                    this._check = MapCtrl.instance.checkValidBlockSprite(this._sprite);
+                    // cc.log("this._check " + this._check);
+                    if (!this._check) {
+                        MapLayer.instance.removeChild(this._sprite);
+                        NotifyLayer.instance.notifyCantPut(endP.x, endP.y);
+                    } else {
+                        var missGold = GameShopController.instance.checkGold(sender.parent.getChildByTag(5).getString());
+                        cc.log(missGold);
+                        if (missGold) {
+                            MapLayer.instance.removeChild(this._sprite);
+                            NotifyLayer.instance.notifyMissGold(missGold);
+                        } else {
+                            // Success
+                            MapCtrl.instance.addSpriteAlias(this._sprite);
+                            this._sprite.setLogicPosition(this._sprite.lx, this._sprite.ly);
+                            var typeObject = sender.parent.getChildByTag(0).getString();
+                            switch (typeObject) {
+                                case "bakery_machine":
+                                    var bakeryModel = new BakeryMachine(this._sprite._bakeryId, false, 0, new Coordinate(this._sprite.lx, this._sprite.ly));
+                                    user.getAsset().addMachine(bakeryModel);
+
+                                    // Send server
+                                    //testnetwork.connector.sendBuyMapObjectRequest(this._sprite._bakeryId, typeObject, this._sprite.lx, this._sprite.ly);
+
+
+
+                                    //var fieldModel = new Field(new Coordinate(this._sprite.lx, this._sprite.ly), this._sprite.fieldId);
+                                    //user.getAsset().addField(fieldModel);
+                                    //MapLayer.instance.fieldList.push(this._sprite);
+                                    //this._sprite.field = fieldModel;
+                                    //// Send server
+                                    //testnetwork.connector.sendBuyMapObjectRequest(this._sprite.fieldId,
+                                    //    sender.parent.getChildByTag(0).getString(),
+                                    //    this._sprite.lx, this._sprite.ly);
+                                    //cc.log("Send server buy field");
+                                    //...
+                                    break;
+                                //case "food_machine":
+                                //    break;
+                                //case "butter_machine":
+                                //    break;
+                                //case "sugar_machine":
+                                //    break;
+                                //case "popcorn_machine":
+                                //    break;
+
+                            }
+                            cc.log("Gold User" + user.getGold());
+                            user.reduceGold(sender.parent.getChildByTag(5).getString());
+                            //MainGuiLayer.instance.labelGold.setString(user.getGold());
+                            //Send Server
+                        }
+                    }
+                }
+                this._sprite = null;
+                GSLayer.instance.show();
+                this._tableView.reloadData();
+                this._isHide = false;
+                // cc.log("Touch Canceled");
+                break;
+        }
     }
 
 });

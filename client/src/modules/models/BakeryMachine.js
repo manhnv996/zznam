@@ -3,15 +3,10 @@
  */
 
 var BakeryMachine = Machine.extend({
-    type: null,
 
-    ctor: function (coordinate) {
-        this._super(coordinate);
+    ctor: function (id, completed, startBuildTime, coordinate) {
+        this._super(id, completed, startBuildTime, coordinate, "bakery_machine");
 
-        this.type = "bakery_machine";
-    },
-
-    getType: function () {
-        return this.type;
     }
+
 });

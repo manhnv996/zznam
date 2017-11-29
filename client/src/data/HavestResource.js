@@ -55,7 +55,7 @@ var HavestResource = {
     progress: "res/Art/Main Gui/exp-221.png",
 
     bgNotice: "res/Art/Storage/gui-thongbao.png",
-    msgFullFoodStorage: "res/Art/Storage/Kho lươngthuc.png",
+    msgFullFoodStorage: "res/Art/Storage/fullSilo.png",
     btTick:"res/Art/Storage/butoon-V.png",
     bgNotice2:"res/Art/Storage/BG2.png",
     btCancle:"res/Art/Storage/tuchoi.png",

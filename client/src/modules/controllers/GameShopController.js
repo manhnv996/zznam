@@ -28,11 +28,11 @@ var GameShopController = cc.Class.extend({
         return number;
     },
 
-    getNumberMachine: function (id) {
+    getNumberMachine: function (type) {
         var number = 0;
         var listMachine = user.getAsset().getMachineList();
         for(var i = 0; i < listMachine.length; i++){
-            if(listMachine[i].getType() == id) number++;
+            if(listMachine[i].type == type) number++;
         }
         return number;
     },

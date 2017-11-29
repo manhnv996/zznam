@@ -6,7 +6,7 @@ import bitzero.server.extensions.data.DataCmd;
 public class RequestUpgradeStorage extends BaseCmd{
     
     public String storageType;
-    public int level;
+//    public int level;
     
     public RequestUpgradeStorage(DataCmd dataCmd) {
         super(dataCmd);
