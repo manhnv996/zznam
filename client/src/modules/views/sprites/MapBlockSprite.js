@@ -261,7 +261,7 @@ var MapBlockSprite = cc.Sprite.extend({
         //     ? lp.y * 20 + lp.x * 2
         //     : lp.x * 20 + lp.y * 2
         // );
-        return lp.x + lp.y;
+        return ListenerPriority.offsetEventPriority + lp.x + lp.y;
         // return ListenerPriority.offsetEventPriority + Math.min(lp.x, lp.y);
     },
 
