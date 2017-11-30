@@ -42,9 +42,7 @@ var FieldSprite = MapBlockSprite.extend({
     // render: function (fieldId) {
         this.fieldId = fieldId;
         // Find field in asset
-        this.field = user.getAsset().getFieldList().find(function(f) {
-            return f.fieldId === fieldId;
-        });
+        this.field = user.asset.getFieldById(this.fieldId);
         // this.showDebugPriorityPoint();
     },
 
