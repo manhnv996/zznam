@@ -233,20 +233,22 @@ var NotifyLayer = cc.Layer.extend({
         switch (type) {
             case ccui.Widget.TOUCH_BEGAN:
                 MainGuiLayer.instance.unlockButton();
-                //cc.log("this._blockLayout._listener " + this._blockLayout._listener);
-                //if (!this._blockLayout._isShow) {
-                if (this._blockLayout._listener) {
-                    cc.log("remove listener");
-                    cc.eventManager.removeListener(this._blockLayout._listener);
-                }
+                this.removeBlockListener();
                 break;
             case ccui.Widget.TOUCH_ENDED:
             case ccui.Widget.TOUCH_CANCELED:
-                //if(sender.tag === 1) {
-                //this._layoutMissGold.removeFromParent(true);
-                //}
                 this.removeAllChildren();
                 break;
+        }
+    },
+
+    removeBlockListener: function () {
+        if (this._blockLayout._listenerBlockFull) {
+            //cc.log("remove listener");
+            cc.eventManager.removeListener(this._blockLayout._listenerBlockFull);
+        }
+        if (this._blockLayout._listenerBlockGUI) {
+            cc.eventManager.removeListener(this._blockLayout._listenerBlockGUI);
         }
     },
 
@@ -273,7 +275,7 @@ var NotifyLayer = cc.Layer.extend({
 
     blockLayout: function () {
         MainGuiLayer.instance.lockButton();
-        this._blockLayout = new BlockListenerLayer (this._layoutMissGold.getContentSize());
+        this._blockLayout = new BlockListenerLayer(this._layoutMissGold.getContentSize());
         //this._blockLayout._isShow = true;
         this.addChild(this._blockLayout);
         this.addChild(this._layoutMissGold);

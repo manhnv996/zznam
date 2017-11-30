@@ -2,9 +2,10 @@
  * Created by CPU60075_LOCAL on 20/11/2017.
  */
 
-var GSLayer = ccui.Layout.extend({
+var GameShopLayout = ccui.Layout.extend({
     _btnGameShop: null,
     _gameShop: null,
+    _isHide: true,
     //_listener: null,
     _layoutBlockListener: null,
     _debug: false,
@@ -44,6 +45,7 @@ var GSLayer = ccui.Layout.extend({
     },
 
     hide: function () {
+        this._isHide = true;
         MainGuiLayer.instance.btnSettings.setTouchEnabled(true);
         var moveActionBtn = cc.moveTo(0.05, cc.p(0, 0));
         this._btnGameShop.runAction(moveActionBtn);
@@ -58,6 +60,7 @@ var GSLayer = ccui.Layout.extend({
     },
 
     show: function () {
+        this._isHide = false;
         MainGuiLayer.instance.btnSettings.setTouchEnabled(false);
         var moveActionBtn = cc.moveTo(0.1, cc.p(cc.winSize.width / 3 - 10, 0));
         this._btnGameShop.runAction(moveActionBtn);
@@ -93,7 +96,7 @@ var GSLayer = ccui.Layout.extend({
             }.bind(this)
         });
         //cc.log("add listener");
-        cc.eventManager.addListener(this.listener, 1);
+        cc.eventManager.addListener(this.listener, 3);
         //cc.eventManager.setPriority(listener, 0);
 
         if (this._debug) {

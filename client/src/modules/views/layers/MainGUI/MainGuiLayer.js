@@ -121,12 +121,12 @@ var MainGuiLayer = cc.Layer.extend({
         this.labelLevel.setPosition(center_top_pos.x - imageExp_111Size.width/2,center_top_pos.y);
         this.addChild(this.labelLevel);
 
-        GSLayer.instance = new GSLayer();
-        this.addChild(GSLayer.instance);
+        GameShopLayout.instance = new GameShopLayout();
+        this.addChild(GameShopLayout.instance);
     },
 
     lockButton: function () {
-        GSLayer.instance._btnGameShop.btnGS.setTouchEnabled(false);
+        GameShopLayout.instance._btnGameShop.btnGS.setTouchEnabled(false);
         this.btnSettings.setTouchEnabled(false);
         this.btnFriends.setTouchEnabled(false);
         this.btnBuyGold.setTouchEnabled(false);
@@ -137,7 +137,7 @@ var MainGuiLayer = cc.Layer.extend({
     },
 
     unlockButton: function () {
-        GSLayer.instance._btnGameShop.btnGS.setTouchEnabled(true);
+        GameShopLayout.instance._btnGameShop.btnGS.setTouchEnabled(true);
         this.btnSettings.setTouchEnabled(true);
         this.btnFriends.setTouchEnabled(true);
         this.btnBuyGold.setTouchEnabled(true);
