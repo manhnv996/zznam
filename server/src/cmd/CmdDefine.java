@@ -36,6 +36,15 @@ public class CmdDefine {
     public static final short RESPONSE_SYNC_FOOD_STORAGE_ITEM = 5084;
     
     
+    //    
+    public static final short MAKE_ORDER = 10001;
+    public static final short CANCEL_ORDER = 10002;
+    
+    public static final short RESPONSE_SYNC_ORDER = 10081;
+    
+    
+    
+    
     public static final short MOVE_FIELD = 6001;
     public static final short MOVE_STORAGE = 6002;
     public static final short RESPONSE_MOVE = 6100;

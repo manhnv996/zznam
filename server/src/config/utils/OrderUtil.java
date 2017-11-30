@@ -23,7 +23,39 @@ import model.StorageItem;
  */
 public class OrderUtil {
     
+    public static int getRemainTime(int level){
+        if (level < 11){
+            return 3;
+        } else if (level < 16){
+            return 5;
+        } else if (level < 21){
+            return 10;
+        } else if (level < 27){
+            return 15;
+        } else {
+            return 30;
+        }
+    }
     
+    public static int getNumberOfOrderByLevel(int level){
+        if (level < 9){
+            return 3;
+        } else if (level < 12){
+            return 4;
+        } else if (level < 15){
+            return 5;
+        } else if (level < 17){
+            return 6;
+        } else if (level < 19){
+            return 7;
+        } else if (level < 22){
+            return 8;
+        } else {
+            return 9;
+        }
+
+    }
+
     public static int randomTypeNumber(int level){
         float random = (float) Math.random();
         if (level < 7){
@@ -201,6 +233,9 @@ public class OrderUtil {
         /*
          * INPROGRESS
          */
+        if (productList == null){
+            return itemList;    //empty
+        }
         
         int typeNumber = productList.size();
         for (int i = 0; i < typeNumber; i++){
@@ -309,6 +344,9 @@ public class OrderUtil {
     
     ////
     public static int getOrderPrice(int level, List<StorageItem> itemList){
+        if(itemList == null){
+            return 0;
+        }
         
         int sumPrice = 0;
         ProductConfig product = null;
@@ -344,6 +382,9 @@ public class OrderUtil {
     
     //
     public static int getOrderExp(int level, List<StorageItem> itemList){
+        if(itemList == null){
+            return 0;
+        }
         
         ProductConfig product = null;
         List<ProductConfig> list = new ArrayList<>();

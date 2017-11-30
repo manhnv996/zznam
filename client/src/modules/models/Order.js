@@ -6,16 +6,27 @@ var Order = cc.Class.extend({
 
     orderId: 0,
     itemList: [],
+    orderPrice: 0,
+    orderExp: 0,
+    waittingTime: null,
 
-    ctor: function (typeProduct, itemList) {
+    ctor: function (orderId, itemList, orderPrice, orderExp) {
         //
         //this._super();
 
-        this.typeItem = typeProduct;
-        this.itemList = itemList;
+        this.orderId = orderId;
+
+        this.createOrder(itemList, orderPrice, orderExp);
     },
 
 
+    createOrder: function (itemList, orderPrice, orderExp) {
+        this.itemList = itemList;
+        this.orderPrice = orderPrice;
+        this.orderExp = orderExp;
+
+        this.waittingTime = null;
+    },
 
     getOrderId: function () {
         return this.orderId;
@@ -24,24 +35,6 @@ var Order = cc.Class.extend({
         //StorageItem
         return this.itemList;
     },
-
-    getItem: function (productType) {
-        //return Item of productType in list
-        for (var i in this.getItemList()){
-            if (this.getItemList()[i].getTypeItem() == productType){
-                return this.getItemList()[i];
-            }
-
-        }
-        return null;
-    },
-
-    getOrderPrice: function (){
-
-    },
-    getOrderExp: function (){
-
-    }
 
 
 

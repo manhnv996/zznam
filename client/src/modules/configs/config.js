@@ -308,9 +308,22 @@ function onReceiveUser(userInfo) {
     var machineList = [];
     var myShop = null;
 
+    var orderList = [];
+    for (var i = 0; i < userInfo.asset.orderList.length; i++) {
+        var order = new Order(
+            userInfo.asset.orderList[i].orderId,
+            userInfo.asset.orderList[i].itemList,
+            userInfo.asset.orderList[i].orderPrice,
+            userInfo.asset.orderList[i].orderExp
+        );
+        order.waittingTime = new Date(parseInt(userInfo.asset.orderList[i].waittingTime));
+        orderList.push(order);
+    }
+
     var asset = new Asset(
         foodStorage, warehouse, fieldList, animalLodgeList,
-        machineList, natureThingList, myShop
+        machineList, natureThingList, myShop,
+        orderList
     );
 
     // cc.log("Asset", asset);
@@ -322,4 +335,18 @@ function onReceiveUser(userInfo) {
     user.ruby = userInfo.ruby;
     user.exp = userInfo.exp;
     MainScene.instance.onGettedData();
+
+//
+cc.log("orderlist");
+    var orderList = user.asset.getOrderList();
+    for (var i = 0; i < orderList.length; i++){
+        // cc.log(orderList.getItemList()[i].getTypeItem() + ", " + orderList.getItemList()[i].getQuantityItem());
+
+        cc.log(orderList[i].orderId);
+        cc.log(orderList[i].itemList);
+        cc.log(orderList[i].orderPrice);
+        cc.log(orderList[i].orderExp);
+        cc.log(orderList[i].waittingTime);
+    }
+
 }

@@ -43,8 +43,8 @@ var CommonPopup = cc.Layer.extend({
         }
 
         //set animation
-        var action1 = new cc.ScaleTo(0.1, 1.25);
-        var action2 = new cc.ScaleTo(0.1, 1.15);
+        var action1 = new cc.ScaleTo(0.13, 1.4);
+        var action2 = new cc.ScaleTo(0.1, 1.25);
         this.runAction(cc.sequence(action1, cc.delayTime(0.01), action2));
 
         //add test button
@@ -52,11 +52,22 @@ var CommonPopup = cc.Layer.extend({
         //commonButton.setPosition(centerpos);
         //this.addChild(commonButton);
 
+        // this.isShowBG = false;
     },
     onSelectClose:function(sender)
     {
-        this.removeFromParent(true);
-        MainGuiLayer.instance.isShowPopup =false;
+        // if (this.isShowBG){
+            this.removeFromParent(true);
+            MainGuiLayer.instance.isShowPopup = false;
+            // this.isShowBG = false;
+        // }
+
+    },
+    showBG: function () {
+        // this.onSelectClose();
+        // // this.init();
+        // // MainGuiLayer.instance.addChild(this);
+        // this.isShowBG = true;
     }
 });
 

@@ -37,6 +37,7 @@ import java.util.List;
 import model.Asset;
 import model.Field;
 import model.NatureThing;
+import model.Order;
 import model.Storage;
 import model.StorageItem;
 import model.ZPUserInfo;
@@ -128,16 +129,25 @@ public class UserHandler extends BaseClientRequestHandler {
         /*
          * test
          */
-        List<ProductConfig> productList2 = ProductUtil.toProductConfigList();
+//        List<ProductConfig> productList2 = ProductUtil.toProductConfigList();
+//        
+//        List<ProductConfig> productList = OrderUtil.randomTypeProduct(18);
+//        
+//        List<StorageItem> itemList = OrderUtil.randomQuantityOfProductList(18, null);
+//        for (int i = 0; i < itemList.size(); i++){
+//            System.out.println(itemList.get(i).getTypeItem() + ", " + itemList.get(i).getQuantity());
+//        }
+//        System.out.println(OrderUtil.getOrderPrice(18, null));
+//        System.out.println(OrderUtil.getOrderExp(18, null));
         
-        List<ProductConfig> productList = OrderUtil.randomTypeProduct(18);
         
-        List<StorageItem> itemList = OrderUtil.randomQuantityOfProductList(18, productList);
-        for (int i = 0; i < itemList.size(); i++){
-            System.out.println(itemList.get(i).getTypeItem() + ", " + itemList.get(i).getQuantity());
-        }
-        System.out.println(OrderUtil.getOrderPrice(18, itemList));
-        System.out.println(OrderUtil.getOrderExp(18, itemList));
+//        Order order = new Order(15);
+//        for (int i = 0; i < order.getItemList().size(); i++){
+//            System.out.println(order.getItemList().get(i).getTypeItem() + ", " + order.getItemList().get(i).getQuantity());
+//        }
+//        System.out.println(order.getOrderPrice());
+//        System.out.println(order.getOrderExp());
+        
         System.out.println("here is log");
         //
         send(new ResponseUser(userInfo), user);
@@ -194,6 +204,13 @@ public class UserHandler extends BaseClientRequestHandler {
         for (int i = 0; i < 3; i++){
             System.out.println("field" + asset.getFieldById(i).getFieldId() + ", " + asset.getFieldById(i).getPlantType() + ", " + asset.getFieldById(i).getPlantedTime());
         }
+        
+        
+        //
+        for (int i = 0; i < OrderUtil.getNumberOfOrderByLevel(userInfo.getLevel()); i++){
+            asset.addOrder(userInfo.getLevel(), new Order(userInfo.getLevel()));
+        }
+        
         
         return userInfo;
     }

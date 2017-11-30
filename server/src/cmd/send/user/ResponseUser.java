@@ -16,6 +16,7 @@ import model.ChickenLodge;
 import model.CowLodge;
 import model.Field;
 import model.NatureThing;
+import model.Order;
 import model.Storage;
 import model.StorageItem;
 import model.ZPUserInfo;
@@ -38,8 +39,11 @@ public class ResponseUser extends BaseMsg {
         this.packFieldList();
         this.packNatureThingList();
         this.packStorages();
-        this.packAnimalLodges();
         
+        this.packOrderList();
+        
+        this.packAnimalLodges();
+
         return packBuffer(this.bf);
     }
     
@@ -194,5 +198,40 @@ public class ResponseUser extends BaseMsg {
         bf.putInt(animal.getId());
         bf.putInt(animal.isFeeded() ? 1 : 0);
         bf.putLong(animal.getFeededTime());
+    }
+    
+    /**
+     * Put orderlist:
+     */
+    private void packOrderList() {
+        List<Order> orderList = user.getAsset().getOrderList();
+        // [IMPORTANT] Put length of order list first
+        bf.putInt(orderList.size());
+        // Put each order
+        for (int i = 0; i < orderList.size(); i++) {
+            this.packOrder(orderList.get(i));
+        }
+    }
+    
+    /**
+     * Put order
+     */
+    private void packOrder(Order order) {
+        bf.putInt(order.getOrderId()); // ID
+        
+        if (order.getItemList() == null){
+            bf.putInt(0);  //size
+        } else {
+            int typeNumber = order.getItemList().size();
+            bf.putInt(typeNumber);  //size
+            for (int j = 0; j < typeNumber; j++){
+                this.packStorageItem(order.getItemList().get(j));
+            }
+        }
+        
+        bf.putInt(order.getOrderPrice());
+        bf.putInt(order.getOrderExp());
+        bf.putLong(order.getWaittingTime());
+        
     }
 }

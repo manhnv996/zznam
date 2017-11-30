@@ -1,5 +1,7 @@
 package model;
 
+import config.utils.OrderUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +14,7 @@ public class Asset {
     private List<Field> fieldList;
     private List<NatureThing> natureThingList;
     private List<AnimalLodge> animalLodgeList;
+    private List<Order> orderList;
     
     public Asset(Storage foodStorage, Storage warehouse, 
                  List<Field> fieldList, List<NatureThing> natureThingList) {
@@ -30,6 +33,8 @@ public class Asset {
             this.natureThingList = natureThingList;
         }
         this.animalLodgeList = new ArrayList<>();
+        this.orderList = new ArrayList<>();
+        
     }
 
     
@@ -88,4 +93,37 @@ public class Asset {
     public List<AnimalLodge> getAnimalLodgeList() {
         return this.animalLodgeList;
     }
+
+
+    public List<Order> getOrderList() {
+        return orderList;
+    }
+    
+    public boolean addOrder(int level, Order order){
+        if (this.orderList == null){
+            return false;
+        }
+        if (this.orderList.size() < OrderUtil.getNumberOfOrderByLevel(level)){
+            this.orderList.add(order);
+            this.orderList.get(this.orderList.size() - 1).setOrderId(this.orderList.size() - 1);
+            
+            return true;
+        }
+        /*
+         * inprogress
+         */
+        return false;
+    }
+    
+    public Order getOrderdById(int orderId){
+        for (int i = 0; i < this.orderList.size(); i++){
+            if (this.orderList.get(i).getOrderId() == orderId){
+                return this.orderList.get(i);
+                
+            }
+        }
+        
+        return null;
+    }
+    
 }

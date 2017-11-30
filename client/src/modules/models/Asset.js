@@ -8,9 +8,10 @@ var Asset = cc.Class.extend({
     machineList: [],
     natureThingList: [],
     myShop: null,
+    orderList: [],
     // map: [],
 
-    ctor: function (foodStorage, warehouse, fieldList, animalLodgeList, machineList, natureThingList, myShop) {
+    ctor: function (foodStorage, warehouse, fieldList, animalLodgeList, machineList, natureThingList, myShop, orderList) {
         //
         //this._super();
 
@@ -26,6 +27,7 @@ var Asset = cc.Class.extend({
         this.machineList = (machineList == null) ? [] : machineList;
         this.natureThingList = natureThingList || [];
         this.myShop = myShop;
+        this.orderList = (orderList == null) ? [] : orderList;
         // this.fieldList = [];
     },
 
@@ -87,6 +89,25 @@ var Asset = cc.Class.extend({
 
     addMachine: function (machine) {
         this.machineList.push(machine);
+    },
+
+    //
+    getOrderList: function() {
+        return this.orderList;
+    },
+
+    addOrder: function(/*level, */order){
+
+        // if (this.orderList.size() < OrderUtil.getNumberOfOrderByLevel(level)){
+            this.orderList.add(order);
+            this.orderList.get(this.orderList.size() - 1).setOrderId(this.orderList.size() - 1);
+
+            return true;
+        // }
+        /*
+         * inprogress
+         */
+        // return false;
     }
 
 });

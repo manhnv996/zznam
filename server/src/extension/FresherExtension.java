@@ -45,6 +45,7 @@ import org.json.JSONObject;
 import service.DemoHandler;
 import service.GameShopBuyHandler;
 import service.MapHandler;
+import service.OrderHandler;
 import service.PlantHandler;
 import service.StorageHandler;
 import service.UserHandler;
@@ -131,6 +132,7 @@ public class FresherExtension extends BZExtension {
 		
         //  
         addRequestHandler(PlantHandler.PLANT_MULTI_IDS, PlantHandler.class);
+        addRequestHandler(OrderHandler.ORDER_MULTI_IDS, OrderHandler.class);
         //
         addRequestHandler(MapHandler.MAP_MULTI_IDS, MapHandler.class);
         

@@ -137,3 +137,8 @@ for (var k in SettingsResource) {
 for (var k in FontResource) {
     res[k] = FontResource[k];
 }
+
+//
+for (var k in OrderResource) {
+    res[k] = OrderResource[k];
+}

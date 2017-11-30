@@ -10,6 +10,11 @@ var TruckOrderSprite = MapBlockSprite.extend({
 
 	onClick: function() {
 		cc.log("TruckOrder clicked", this.getLocalZOrder(), this.lx, this.ly, this.blockSizeX, this.blockSizeY);
+
+		/*
+		show bg orderlist
+		 */
+		OrderCtrl.instance.onShowOrderBG();
 	},
 	
 	onBeginClick: function() {

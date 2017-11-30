@@ -525,6 +525,9 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         this.unpackFieldList();
         this.unpackNatureThingList();
         this.unpackStorages();
+
+        this.unpackOrderList();
+
     },
 
     unpackBasicInfo: function() {
@@ -608,5 +611,34 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         item.typeItem = this.getString();
         item.quantity = this.getInt();
         return item;
+    },
+
+    //
+    unpackOrderList: function() {
+        this.user.asset.orderList = [];
+        // Get orderList size
+        var size = this.getInt();
+        // Get each order
+        for (var i = 0; i < size; i++) {
+            this.user.asset.orderList.push(this.unpackOrder());
+        }
+    },
+    unpackOrder: function () {
+        var order = {};
+        order.orderId = this.getInt();
+
+        // Get each item
+        var itemListSize = this.getInt();
+        order.itemList = [];
+        for (var i = 0; i < itemListSize; i++) {
+            order.itemList.push(this.unpackStorageItem());
+        }
+
+        order.orderPrice = this.getInt();
+        order.orderExp = this.getInt();
+        order.waittingTime = this.getLong();
+
+        return order;
     }
+
 });

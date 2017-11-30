@@ -11,8 +11,11 @@ var MainScene = cc.Scene.extend({
 		MapLayer.instance = new MapLayer();
 		this.addChild(MapLayer.instance);
 
-		PopupLayer.instance = new PopupLayer();
-		this.addChild(PopupLayer.instance);
+        PopupLayer.instance = new PopupLayer();
+        this.addChild(PopupLayer.instance);
+
+        OrderBGLayer.instance = new OrderBGLayer();
+        // this.addChild(OrderBGLayer.instance);
 
 		//var mainGuiLayer = new MainGuiLayer();
 		//this.addChild(mainGuiLayer);
