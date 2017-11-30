@@ -234,16 +234,26 @@ var MapBlockSprite = cc.Sprite.extend({
     },
 
     getPriority: function() {
-        return parseInt(ListenerPriority.offsetEventPriority + (
-            this.lx + this.blockSizeX > this.ly + this.blockSizeY
-            ? (this.ly + this.blockSizeY / 2 - 1 + (this.lx + this.blockSizeX / 2 - 1) / 32) * 100
-            : (this.lx + this.blockSizeX / 2 - 1 + (this.ly + this.blockSizeY / 2 - 1) / 32) * 100
-        ));
+        // return parseInt(ListenerPriority.offsetEventPriority + (
+        //     this.lx + this.blockSizeX > this.ly + this.blockSizeY
+        //     ? (this.ly + this.blockSizeY + (this.lx + this.blockSizeX) / 32) * 10
+        //     : (this.lx + this.blockSizeX + (this.ly + this.blockSizeY) / 32) * 10
+        // ));
         // return (this.lx + this.blockSizeX + (this.ly + this.blockSizeY) / 32) * 50
         // + (this.ly + this.blockSizeY + (this.lx + this.blockSizeX) / 32) * 50;
         // return (this.lx + this.blockSizeX + (this.ly + this.blockSizeY) / 32) * 100;
         // return (this.lx + this.ly + this.blockSizeY + this.blockSizeX);
         // return parseInt(Math.min(this.lx + this.blockSizeX, this.ly + this.blockSizeY));
+        var lp = cc.p(
+            this.lx - this.blockSizeX / 2,
+            this.ly + this.blockSizeY / 2
+        );
+        return ListenerPriority.offsetEventPriority + (
+            lp.x > lp.y
+            ? lp.y * 20 + lp.x * 2
+            : lp.x * 20 + lp.y * 2
+        );
+        // return ListenerPriority.offsetEventPriority + Math.min(lp.x, lp.y);
     },
 
     // Called in setLogicPosition
@@ -341,77 +351,69 @@ var MapBlockSprite = cc.Sprite.extend({
             var dy = this.touchListener.autoMoveVer * dt * 250;
             MapLayer.instance.move(-dx, -dy);
         }
-    },
-
-    setLogicPosition: function(lx, ly, notUpdatePriority) {
-        lx = lx || 0;
-        ly = ly || 0;
-        if (typeof lx === 'object') {
-            notUpdatePriority = ly;
-            ly = lx.y;
-            lx = lx.x;
-        }
-        this.lx = lx;
-        this.ly = ly;
-        // Update event priority
-
-        if (this.boundingPoints) {
-            // Recaculate. if not exists boundingPoints, do not caculate
-            this.caculateBoundingPoints();
-        }
-        if (!notUpdatePriority) {
-            this.updateEventPriority();
-            this.updateZOrder();
-                // Math.max(this.lx + this.blockSizeX, this.ly + this.blockSizeY));
-            // this.setLocalZOrder(this.lx + this.blockSizeX +this.ly + this.blockSizeY);
-        }
-
-        if (this.__isAnimation) {
-            // Do not calculate with animations. Set dirrectly position
-            // if (this.__fixNaturePosition) {
-            //     // Add half of blocksize to position, for nature things.
-            //     this.setPosition(MapValues.logicToPosition(lx + this.blockSizeX / 2, ly + this.blockSizeY / 2));
-            // } else if (this.__fixVungNuoc) {
-            //     // Make offset of VungNuoc
-
-            // } else {
-            //     this.setPosition(MapValues.logicToPosition(lx, ly));
-            // }
-            var pOffset = this._offset();
-            var p = MapValues.logicToPosition(lx, ly);
-            p.x += pOffset.x;
-            p.y += pOffset.y;
-            // if (this.natureId === 1) {
-                // cc.log(pOffset);
-            // }
-            this.setPosition(p);
-            return;
-        }
-        // Recaculate with normal sprite
-        var contentSize = this.getContentSize();
-        var point2 = MapValues.logicToPosition(lx, ly);
-        var point1 = MapValues.logicToPosition(
-            lx - this.blockSizeX,
-            ly - this.blockSizeY
-        );
-
-        var dx = contentSize.width / 2 + 2 * point2.x - 
-                point1.x - this.blockSizeX * MapValues.iLength / 2;
-        var dy = contentSize.height / 2 + 2 * point2.y - point1.y;
-        
-        this.setPosition(cc.p(dx, dy));
-    },
-
-    getLogicPosition: function() {
-        return cc.p(this.lx, this.ly);
     }
 });
 
-// // Add logic position setting, getting
-// cc.Node.prototype.setLogicPosition = function(lx, ly, notUpdatePriority) {
-    
-// }
+// Add logic position setting, getting
+cc.Node.prototype.setLogicPosition = function(lx, ly, notUpdatePriority) {
+    lx = lx || 0;
+    ly = ly || 0;
+    if (typeof lx === 'object') {
+        notUpdatePriority = ly;
+        ly = lx.y;
+        lx = lx.x;
+    }
+    this.lx = lx;
+    this.ly = ly;
+    // Update event priority
 
-// cc.Node.prototype.getLogicPosition = function() {
+    if (this.boundingPoints) {
+        // Recaculate. if not exists boundingPoints, do not caculate
+        this.caculateBoundingPoints();
+    }
+    if (!notUpdatePriority) {
+        this.updateEventPriority();
+        this.updateZOrder();
+            // Math.max(this.lx + this.blockSizeX, this.ly + this.blockSizeY));
+        // this.setLocalZOrder(this.lx + this.blockSizeX +this.ly + this.blockSizeY);
+    }
+
+    if (this.__isAnimation) {
+        // Do not calculate with animations. Set dirrectly position
+        // if (this.__fixNaturePosition) {
+        //     // Add half of blocksize to position, for nature things.
+        //     this.setPosition(MapValues.logicToPosition(lx + this.blockSizeX / 2, ly + this.blockSizeY / 2));
+        // } else if (this.__fixVungNuoc) {
+        //     // Make offset of VungNuoc
+
+        // } else {
+        //     this.setPosition(MapValues.logicToPosition(lx, ly));
+        // }
+        var pOffset = this._offset();
+        var p = MapValues.logicToPosition(lx, ly);
+        p.x += pOffset.x;
+        p.y += pOffset.y;
+        // if (this.natureId === 1) {
+            // cc.log(pOffset);
+        // }
+        this.setPosition(p);
+        return;
+    }
+    // Recaculate with normal sprite
+    var contentSize = this.getContentSize();
+    var point2 = MapValues.logicToPosition(lx, ly);
+    var point1 = MapValues.logicToPosition(
+        lx - this.blockSizeX,
+        ly - this.blockSizeY
+    );
+
+    var dx = contentSize.width / 2 + 2 * point2.x - 
+            point1.x - this.blockSizeX * MapValues.iLength / 2;
+    var dy = contentSize.height / 2 + 2 * point2.y - point1.y;
     
-// }
+    this.setPosition(cc.p(dx, dy));
+}
+
+cc.Node.prototype.getLogicPosition = function() {
+    return cc.p(this.lx, this.ly);
+}
