@@ -1,7 +1,7 @@
 
 // var lstScale = 1.0;
 var SCALE_RATIO = 0.05;
-var __DEBUG = false;
+var __DEBUG = true;
 
 var MapLayer = cc.Layer.extend({
 	LEFT_LIMIT: null,
@@ -539,22 +539,22 @@ var MapLayer = cc.Layer.extend({
         var multiTouchListener = cc.EventListener.create({
         	event: cc.EventListener.TOUCH_ALL_AT_ONCE,
         	onTouchesBegan: function(touch, event) {
-        		cc.log("onTouchesBegan");
+        		cc.log("[T] onTouchesBegan");
         	},
         	
         	onTouchesCancelled: function(touch, event) {
-        		cc.log("onTouchesCancelled");
+        		cc.log("[T] onTouchesCancelled");
         	},
         	
         	onTouchesEnded: function(touch, event) {
-        		cc.log("onTouchesEnded");
+        		cc.log("[T] onTouchesEnded");
         	},
         	
         	onTouchesMoved: function(touch, event) {
-        		cc.log("onTouchesMoved");
+        		cc.log("[T] onTouchesMoved");
         	}
         });
-		cc.eventManager.addListener(multiTouchListener, this);
+		// cc.eventManager.addListener(multiTouchListener, this);
 		
 		this.centerPoint = cc.p(
 			this.getContentSize().width / 2,

@@ -25,6 +25,7 @@
         "src/data/ShopResource.js",
         "src/data/StorageResource.js",
         "src/data/HavestResource.js",
+        "src/data/AnimalLodgeResource.js",
         "src/data/Resource.js",
         "src/data/ResourceAnimation.js",
         "src/framework/AnimationMgr.js",
@@ -70,6 +71,9 @@
         "src/modules/views/sprites/VungnuocSprite.js",
         "src/modules/views/sprites/DatoSprite.js",
         "src/modules/views/sprites/DanhoSprite.js",
+        "src/modules/views/sprites/AnimalLodgeSprite.js",
+        "src/modules/views/sprites/ChickenLodgeSprite.js",
+        "src/modules/views/sprites/CowLodgeSprite.js",
 
         "src/modules/views/layers/PopupLayer.js",
 

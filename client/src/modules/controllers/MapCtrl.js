@@ -39,6 +39,18 @@ var MapCtrl = cc.Class.extend({
         InertiaEngine.instance = new InertiaEngine();
         MainScene.instance.addChild(InertiaEngine.instance);
         this.renderUserInfo();
+        // Add sample
+        var chickenLodge = new ChickenLodgeSprite(18, 19);
+        MapLayer.instance.addChild(chickenLodge);
+        var chickenLodge = new ChickenLodgeSprite(18, 22);
+        MapLayer.instance.addChild(chickenLodge);
+        var cowLodge = new CowLodgeSprite(18, 15);
+        MapLayer.instance.addChild(cowLodge);
+        var cowLodge = new CowLodgeSprite(22, 15);
+        MapLayer.instance.addChild(cowLodge);
+        // var cowLodge = new CowLodgeSprite(22, 19);
+        // MapLayer.instance.addChild(cowLodge);
+        MapLayer.instance.debugSprite = cowLodge;
     },
 
     renderStorages: function() {
