@@ -322,8 +322,6 @@ function onReceiveUser(userInfo) {
 
         var animalLodge = new AnimalLodge(
             new Coordinate(animalLodgeInfo.x, animalLodgeInfo.y),
-            animalLodgeInfo.startBuildTime,
-            animalLodgeInfo.completed,
             animalLodgeInfo.type,
             animalLodgeInfo.id,
             animalList

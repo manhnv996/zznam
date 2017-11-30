@@ -627,8 +627,6 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         lodge.x = this.getInt();
         lodge.y = this.getInt();
         lodge.id = this.getInt();
-        lodge.startBuildTime = parseInt(this.getLong());
-        lodge.completed = this.getInt() ? true : false;
 
         // Unpack animal list
         lodge.animalList = [];

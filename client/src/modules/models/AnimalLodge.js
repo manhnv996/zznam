@@ -1,12 +1,12 @@
 
-var AnimalLodge = ConstructedObject.extend({
+var AnimalLodge = CoordinatedObject.extend({
     animalList: null,
     id: 0,
     type: '',
 
-    ctor: function (coordinate, startBuildTime, completed, type, id, animalList) {
+    ctor: function (coordinate, type, id, animalList) {
         //
-        this._super(startBuildTime, completed, coordinate);
+        this._super(coordinate);
         this.type = type;
         this.id = id;
         this.animalList = animalList ? animalList : [];
