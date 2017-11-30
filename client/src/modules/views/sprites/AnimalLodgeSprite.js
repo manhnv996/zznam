@@ -1,4 +1,6 @@
 var AnimalLodgeSprite = MapBlockSprite.extend({
+	animalSpriteList: [],
+
 	ctor: function(resGround, resFence, 
 		offsetX, offsetY, fenceColumnWidth,
 		blockSizeX, blockSizeY, lx, ly, mapItemType) {
@@ -70,5 +72,44 @@ var AnimalLodgeSprite = MapBlockSprite.extend({
 			);
 			this.addChild(fenceSprite);
 		}
+	},
+
+	caculateBoundingPoints: function() {
+		this._super();
+		var topPoint = MapValues.logicToPosition(
+			this.lx,
+			this.ly
+		);
+		var leftPoint = MapValues.logicToPosition(
+            this.lx, 
+            this.ly + this.blockSizeY
+        );
+        var rightPoint = MapValues.logicToPosition(
+            this.lx + this.blockSizeX,
+            this.ly);
+        var bottomPoint = MapValues.logicToPosition(
+            this.lx + this.blockSizeX,
+            this.ly + this.blockSizeY
+        );
+        this.boundingPoints = [
+            bottomPoint, leftPoint, topPoint, rightPoint
+        ];
+	},
+
+	addAnimalSprite: function(animalSprite) {
+		this.addChild(animalSprite);
+		animalSprite
+		this.animalSpriteList.push(animalSprite);
+	},
+
+	recaculatePositionOfAnimalSprite: function(x, y) {
+		if (x.x) {
+			y = x.y;
+			x = x.x;
+		}
+		return cc.p(
+			x + this.getContentSize().width / 2,
+			y + this.getContentSize().height / 2
+		);
 	}
 });

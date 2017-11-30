@@ -45,6 +45,7 @@ var FieldSprite = MapBlockSprite.extend({
         this.field = user.getAsset().getFieldList().find(function(f) {
             return f.fieldId === fieldId;
         });
+        // this.showDebugPriorityPoint();
     },
 
 
@@ -100,6 +101,7 @@ var FieldSprite = MapBlockSprite.extend({
     // When click
     onClick: function() {
         PlantCtrl.instance.onFieldSelected(this.fieldId);
+        cc.log('Field clicked', this.getLocalZOrder(), this.lx, this.ly);
     },
 
     // When begin click

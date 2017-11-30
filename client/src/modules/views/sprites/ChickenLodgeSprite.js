@@ -5,6 +5,18 @@ var ChickenLodgeSprite = AnimalLodgeSprite.extend({
 			19, 9, 22,
 			3, 3, x, y, MapItemEnum.LODGE);
 		this.registerTouchEvents();
+		// this.showDebugPriorityPoint();
+		// this._showBoundingPoints();
+		var chicken = new AnimalSprite(resAniId.Chicken_Fix);
+		chicken.setPosition(cc.p(
+			this.getContentSize().width / 2,
+			this.getContentSize().height / 2
+		));
+		chicken.play('Chicken_Idle2');
+		chicken._sprite.setCompleteListener(function() {
+			cc.log("Completed");
+		})
+		this.addChild(chicken);
 	},
 
 	onClick: function() {
