@@ -32,7 +32,8 @@ var MapBlockSprite = cc.Sprite.extend({
                 var touchLocation = touch.getLocation();
                 var location = MapValues.screenPositionToMapPosition(touchLocation.x, touchLocation.y);
                 this.touchListener.__isMoved = false; // Disable, enable onClick event
-                this.touchListener.lstMouse = null;
+                this.touchListener.lstMouse = touchLocation;
+                this.totalMovedDistance = 0;
                 // this.touchListener.__moveSprite = false; // Enable moving sprite
                 this.touchListener.autoMoveVer = 0;
                 this.touchListener.autoMoveHor = 0;
@@ -133,14 +134,11 @@ var MapBlockSprite = cc.Sprite.extend({
                 InertiaEngine.instance.setPoint(location);
 
                 // Move map and disable onclick
-                if (!lstMouse) {
-                    this.totalMovedDistance = 0;
-                } else {
-                    if (!this.touchListener.__isMoved) {
-                        this.totalMovedDistance += caculateDistance(lstMouse, location);
-                        if (this.totalMovedDistance > 10) {
-                            this.touchListener.__isMoved = true;
-                        }
+                if (!this.touchListener.__isMoved) {
+                    this.totalMovedDistance += caculateDistance(lstMouse, location);
+                    // Check threshold
+                    if (this.totalMovedDistance > 10) {
+                        this.touchListener.__isMoved = true;
                     }
                 }
                 this.touchListener.lstMouse = location;
