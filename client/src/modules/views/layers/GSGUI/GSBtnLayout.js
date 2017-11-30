@@ -9,14 +9,14 @@ var GSBtnLayout = ccui.Layout.extend({
         this._super();
         var size = cc.director.getVisibleSize();
 
-        var btnGS = new ccui.Button(res.shop_icon_png);
-        btnGS.setPosition(cc.p(0, 0));
-        btnGS.setAnchorPoint(0, 0.1);
-        btnGS.setZoomScale(-0.1);
-        btnGS.setName("btnGameShop");
-        btnGS.addTouchEventListener(this.onclickBtnGS, this);
-        btnGS.setScale((size.height / 7) / btnGS.getContentSize().height);
-        this.addChild(btnGS);
+        this.btnGS = new ccui.Button(res.shop_icon_png);
+        this.btnGS.setPosition(cc.p(cc.winSize.width / 3 + cc.winSize.width / 7, 0));
+        this.btnGS.setAnchorPoint(0, 0.1);
+        this.btnGS.setZoomScale(-0.1);
+        this.btnGS.setName("btnGameShop");
+        this.btnGS.addTouchEventListener(this.onclickBtnGS, this);
+        this.btnGS.setScale((size.height / 7) / this.btnGS.getContentSize().height);
+        this.addChild(this.btnGS);
     },
 
     onclickBtnGS: function (sender, type) {
@@ -26,6 +26,7 @@ var GSBtnLayout = ccui.Layout.extend({
                 //sender.setScale((size.height / 7) / sender.getContentSize().height - 0.1);
                 break;
             case ccui.Widget.TOUCH_ENDED:
+            case ccui.Widget.TOUCH_CANCELED:
                 if (this._statusGS == 0) {
                     this.getParent().show();
                 } else {

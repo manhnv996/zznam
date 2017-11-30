@@ -120,7 +120,8 @@ var LodgeTable = cc.Layer.extend({
                 maxslot = GameShopController.instance.getMaxField();
                 //cc.log("Field slot " + curslot + " " + maxslot);
                 if (curslot < maxslot) {
-                    image.addTouchEventListener(this.touchEvent, this);
+                    //cc.log("Add Event Buy Field");
+                    image.addTouchEventListener(this.touchBuyEvent, this);
                 }
             } else {
                 if (level < res.infoCoopItem[idx].level[0]) {

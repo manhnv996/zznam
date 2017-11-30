@@ -33,8 +33,8 @@ var MainScene = cc.Scene.extend({
 		MainGuiLayer.instance = new MainGuiLayer();
 		this.addChild(MainGuiLayer.instance);
 
-		GSLayer.instance = new GSLayer();
-		this.addChild(GSLayer.instance);
+		//GSLayer.instance = new GSLayer();
+		//this.addChild(GSLayer.instance);
 
 		StorageLayer.instance = new StorageLayer();
 		this.addChild(StorageLayer.instance);
@@ -47,6 +47,9 @@ var MainScene = cc.Scene.extend({
 		MapCtrl.instance._showDebugMap();
 
 		//NotifyLayer.instance.notifyFullSilo();
+		//MainGuiLayer.instance.lockButton();
+		NotifyLayer.instance.notifyMissGold(50);
+		NotifyLayer.instance.blockLayout();
 	},
 
 	init: function() {

@@ -527,6 +527,7 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         this.unpackNatureThingList();
         this.unpackStorages();
         this.unpackAnimalLodges();
+        this.unpackMachines();
     },
 
     unpackBasicInfo: function() {
@@ -649,5 +650,32 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         animal.feededTime = parseInt(this.getLong());
 
         return animal;
+    },
+
+    unpackMachines: function () {
+        var size = this.getInt();
+        this.user.asset.machineList = [];
+        for (var i = 0; i < size; i++) {
+            this.user.asset.machineList.push(this.unpackMachine());
+        }
+    },
+
+    unpackMachine: function () {
+        var machine = {};
+
+        machine.id = this.getInt();
+        machine.type = this.getString();
+        machine.x = this.getInt();
+        machine.y = this.getInt();
+        machine.slot = this.getInt();
+        machine.startTime = parseInt(this.getLong());
+        machine.completed = this.getInt() ? true : false;
+        machine.startBuildTime = parseInt(this.getLong());
+
+        machine.productQueue = [];
+        var size = this.getInt();
+        for (var i = 0; i < size; i++) {
+            machine.productQueue.push(this.getString());
+        }
     }
 });

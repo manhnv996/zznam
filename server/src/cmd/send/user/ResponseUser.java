@@ -16,6 +16,7 @@ import java.util.List;
 import model.Animal;
 import model.AnimalLodge;
 import model.Field;
+import model.Machine;
 import model.NatureThing;
 import model.Storage;
 import model.StorageItem;
@@ -40,6 +41,7 @@ public class ResponseUser extends BaseMsg {
         this.packNatureThingList();
         this.packStorages();
         this.packAnimalLodges();
+        this.packMachines();
         
         return packBuffer(this.bf);
     }
@@ -191,5 +193,38 @@ public class ResponseUser extends BaseMsg {
         bf.putInt(animal.getId());
         bf.putInt(animal.isFeeded() ? 1 : 0);
         bf.putLong(animal.getFeededTime());
+    }
+    
+    /**
+     * Pack ALL machine
+     */
+    private void packMachines () {
+        List<Machine> machineList = user.getAsset().getMachineList();
+        int size = machineList.size();
+        // Pack size
+        bf.putInt(size);
+        //Pack each machine
+        for (int i = 0; i < size; i++) {
+            this.packMachine(machineList.get(i));
+        }
+    }
+    // Pack a machine
+    private void packMachine(Machine machine) {
+        bf.putInt(machine.getId());
+        putStr(bf, machine.getType().toString());
+        bf.putInt(machine.getX());
+        bf.putInt(machine.getY());
+        bf.putInt(machine.getSlot());
+        bf.putLong(machine.getStartTime());
+        bf.putInt(machine.isCompleted() ? 1 : 0);
+        bf.putLong(machine.getStartBuildTime());
+        List<String> productQueue = machine.getProductQueue();  
+        
+        int size = productQueue.size();
+        bf.putInt(size);
+        
+        for(int i = 0; i < size; i++) {
+            putStr(bf, productQueue.get(i));
+        }
     }
 }

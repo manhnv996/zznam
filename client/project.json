@@ -72,6 +72,7 @@
         "src/modules/views/sprites/DanhoSprite.js",
 
         "src/modules/views/layers/PopupLayer.js",
+        "src/modules/views/layers/popup/BlockListenerLayer.js",
 
         "src/modules/views/sprites/SeedSprite.js",
         "src/modules/views/sprites/CropToolSprite.js",

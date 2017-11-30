@@ -5,13 +5,17 @@ var BakerySprite = AnimationSprite.extend({
 
 	ctor: function(bakeryId, x, y) {
 		this._super(resAniId.bakery, 3, 3, x, y, MapItemEnum.BAKERY);
+		//this._super(resAniId.Nha_hoanthanh, 3, 3, x, y, MapItemEnum.BAKERY);
+
 		// this.content = fr.createAnimationById(resAniId.bakery, this);
 		// this.content.gotoAndPlay('loop', -1);
 		// this.addChild(this.content);
 
 		this._bakeryId = bakeryId;
 
+		//this.play("1");
 		this.play("idle");
+
 		this.registerTouchEvents();
 	},
 
@@ -21,7 +25,6 @@ var BakerySprite = AnimationSprite.extend({
 
 	onClick: function() {
 		cc.log("bakery is clicked");
-		//this.play("selected");
-	},
+	}
 
 });

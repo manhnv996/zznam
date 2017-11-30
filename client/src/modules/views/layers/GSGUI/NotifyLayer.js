@@ -6,6 +6,8 @@ var NotifyLayer = cc.Layer.extend({
     _layoutMissGold: null,
     _layoutFullSilo: null,
     _layoutFullWare: null,
+    _debug: false,
+    //_isShow: false,
 
     ctor: function () {
         this._super();
@@ -13,8 +15,10 @@ var NotifyLayer = cc.Layer.extend({
 
     notifyMissGold: function (gold) {
         this._layoutMissGold = new ccui.Layout();
-        //this._layoutMissGold.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
-        //this._layoutMissGold.setBackGroundColor(cc.color.RED);
+        if(this._debug) {
+            this._layoutMissGold.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
+            this._layoutMissGold.setBackGroundColor(cc.color.RED);
+        }
         this._layoutMissGold.x = cc.winSize.width / 2;
         this._layoutMissGold.y = cc.winSize.height / 2;
         this._layoutMissGold.setAnchorPoint(0.5, 0.5);
@@ -46,6 +50,8 @@ var NotifyLayer = cc.Layer.extend({
         var ruby = new ccui.Button(res.activity_notify_png);
         ruby.x = this._layoutMissGold.width / 2;
         ruby.y = this._layoutMissGold.height / 8;
+        //ruby.x = this._layoutMissGold.width / 2;
+        //ruby.y = this._layoutMissGold.height / 2;
         ruby.setZoomScale(-0.1);
         var activity = new cc.LabelBMFont("Để thực hiện hành động", res.FONT_OUTLINE_20);
         activity.x = ruby.width / 5 * 3;
@@ -75,7 +81,7 @@ var NotifyLayer = cc.Layer.extend({
         this._layoutMissGold.addChild(ruby);
         this._layoutMissGold.addChild(close);
 
-        this.addChild(this._layoutMissGold);
+        //this.addChild(this._layoutMissGold);
         //this.setScale((cc.winSize.height - 20) / this._layoutMissGold.height);
 
         var scale = (cc.winSize.height - 20) / this._layoutMissGold.height;
@@ -223,16 +229,23 @@ var NotifyLayer = cc.Layer.extend({
     },
 
     touchCloseButtonLayout: function (sender, type) {
+        //}
         switch (type) {
-            case ccui.Widget.TOUCH_ENDED:
-                if(sender.tag === 1) {
-                    this._layoutMissGold.removeFromParent(true);
+            case ccui.Widget.TOUCH_BEGAN:
+                MainGuiLayer.instance.unlockButton();
+                //cc.log("this._blockLayout._listener " + this._blockLayout._listener);
+                //if (!this._blockLayout._isShow) {
+                if (this._blockLayout._listener) {
+                    cc.log("remove listener");
+                    cc.eventManager.removeListener(this._blockLayout._listener);
                 }
                 break;
+            case ccui.Widget.TOUCH_ENDED:
             case ccui.Widget.TOUCH_CANCELED:
-                if(sender.tag === 1) {
-                    this._layoutMissGold.removeFromParent(true);
-                }
+                //if(sender.tag === 1) {
+                //this._layoutMissGold.removeFromParent(true);
+                //}
+                this.removeAllChildren();
                 break;
         }
     },
@@ -249,11 +262,39 @@ var NotifyLayer = cc.Layer.extend({
         var fadeIn = cc.fadeIn(0.2);
         var move = cc.moveTo(2, cc.p(x, y + 25));
         var fadeOut = cc.fadeOut(0.2);
-        label.runAction(cc.sequence(fadeIn, move, fadeOut));
-
-        setTimeout(function () {
+        label.runAction(cc.sequence(fadeIn, move, fadeOut, cc.callFunc(function() {
             label.removeFromParent(true);
-        }, 2400);
+        })));
 
+        // setTimeout(function () {
+        //     label.removeFromParent(true);
+        // }, 2400);
+    },
+
+    blockLayout: function () {
+        MainGuiLayer.instance.lockButton();
+        this._blockLayout = new BlockListenerLayer (this._layoutMissGold.getContentSize());
+        //this._blockLayout._isShow = true;
+        this.addChild(this._blockLayout);
+        this.addChild(this._layoutMissGold);
+        //cc.log("Lock main gui button" + GSLayer.instance._btnGameShop.isTouchEnabled());
+    }
+});
+
+var NotifyLayout = ccui.Layout.extend({
+    _hasCloseButton: null,
+
+    ctor: function () {
+        var bg = new cc.Sprite(res.bg_notify_png);
+        bg.x = 0;
+        bg.y = 0;
+        bg.setAnchorPoint(0, 0);
+
+        this.setContentSize(bg.getContentSize());
+
+        if(this._debug) {
+            this.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
+            this.setBackGroundColor(cc.color.RED);
+        }
     }
 });

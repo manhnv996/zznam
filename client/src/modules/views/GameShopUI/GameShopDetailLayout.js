@@ -51,6 +51,7 @@ var GameShopDetailLayout = ccui.Layout.extend({
     _isHide: false,
     _maxField: 0,
     _level: 1,
+    _bg: null,
 
     ctor: function (maxField) {
         this._super();
@@ -64,11 +65,11 @@ var GameShopDetailLayout = ccui.Layout.extend({
         var sizeWidthList = this._winSize.width / 3;
         this.setClippingEnabled(false);
         //background
-        var bg = new cc.Sprite(res.shop_bg_png);
-        this._bg_size = bg.getContentSize();
+        this._bg = new cc.Sprite(res.shop_bg_png);
+        this._bg_size = this._bg.getContentSize();
         var shop_size = cc.size(sizeWidthList, this._winSize.height);
-        bg.setScale(shop_size.width / this._bg_size.width, shop_size.height / this._bg_size.height);
-        bg.setAnchorPoint(0, 0);
+        this._bg.setScale(shop_size.width / this._bg_size.width, shop_size.height / this._bg_size.height);
+        this._bg.setAnchorPoint(0, 0);
 
         //menu button
         this._btnLodge = new ccui.Button(res.shop_btLodge_n_png);
@@ -113,7 +114,7 @@ var GameShopDetailLayout = ccui.Layout.extend({
         this.addChild(this._btnTree);
 
         //add background
-        this.addChild(bg);
+        this.addChild(this._bg);
 
         //list items
         this._listView = new ccui.ListView();

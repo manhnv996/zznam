@@ -15,8 +15,9 @@ var MainGuiLayer = cc.Layer.extend({
     ctor : function(){
         //1. call super class's ctor fuction
         this._super();
+
         var size = cc.director.getVisibleSize();
-        cc.log("visible size " + size.width+" "  + size.height);
+        cc.log("visible size " + size.width +" "  + size.height);
         //3. calculate the center point
         var centerpos = cc.p(size.width / 2, size.height / 2);
         var center_bottom_pos = cc.p(size.width / 2, 40);
@@ -25,37 +26,37 @@ var MainGuiLayer = cc.Layer.extend({
 
 
         // 3. create a settings button and set it's position at the top left of screensize
-        var btnSettings = new ccui.Button(res.BUTTON_SETTING_2_PNG);
-        var btnSettingsSize = btnSettings.getSize();
-        cc.log("btnSettings " + btnSettingsSize.width + "  " + btnSettingsSize.height);
-        btnSettings.setPosition(btnSettingsSize.width/2, size.height - btnSettingsSize.height/2);
-        this.addChild(btnSettings);
-        btnSettings.addClickEventListener(this.onSelectSettings.bind(this));
+        this.btnSettings = new ccui.Button(res.BUTTON_SETTING_2_PNG);
+        var btnSettingsSize = this.btnSettings.getSize();
+        //cc.log("btnSettings " + btnSettingsSize.width + "  " + btnSettingsSize.height);
+        this.btnSettings.setPosition(btnSettingsSize.width/2, size.height - btnSettingsSize.height/2);
+        this.addChild(this.btnSettings);
+        this.btnSettings.addClickEventListener(this.onSelectSettings.bind(this));
 
 
         // 5. create a friends button and set it's position at the bottom right of screensize
-        var btnFriends = new ccui.Button(res.BUTTON_FIEND_2_PNG);
-        var btnFriendsSize = btnFriends.getSize();
-        cc.log("btnFriends " + btnFriendsSize.width + "  " + btnFriendsSize.height);
-        btnFriends.setPosition(size.width - btnFriendsSize.width/2, btnFriendsSize.height/2);
-        btnFriends.addClickEventListener(this.onSelectFriends.bind(this));
+        this.btnFriends = new ccui.Button(res.BUTTON_FIEND_2_PNG);
+        var btnFriendsSize = this.btnFriends.getSize();
+        //cc.log("btnFriends " + btnFriendsSize.width + "  " + btnFriendsSize.height);
+        this.btnFriends.setPosition(size.width - btnFriendsSize.width/2, btnFriendsSize.height/2);
+        this.btnFriends.addClickEventListener(this.onSelectFriends.bind(this));
 
-        this.addChild(btnFriends);
+        this.addChild(this.btnFriends);
 
 
 
 
         // 6. create a BuyCoin button and set it's position at the top right of screensize
-        var btnBuyGold = new ccui.Button(res.BUTTON_CONG_2);
-        var btnBuyGoldSize = btnBuyGold.getSize();
-        cc.log("btnBuyGold " + btnBuyGoldSize.width + "  " + btnBuyGoldSize.height);
-        btnBuyGold.setPosition(size.width - btnBuyGoldSize.width/2, size.height - btnBuyGoldSize.height/2);
-        btnBuyGold.addClickEventListener(this.onSelectBuyGold.bind(this));
-        this.addChild(btnBuyGold);
+        this.btnBuyGold = new ccui.Button(res.BUTTON_CONG_2);
+        var btnBuyGoldSize = this.btnBuyGold.getSize();
+        //cc.log("btnBuyGold " + btnBuyGoldSize.width + "  " + btnBuyGoldSize.height);
+        this.btnBuyGold.setPosition(size.width - btnBuyGoldSize.width/2, size.height - btnBuyGoldSize.height/2);
+        this.btnBuyGold.addClickEventListener(this.onSelectBuyGold.bind(this));
+        this.addChild(this.btnBuyGold);
 
         var imageGold = new ccui.ImageView(res.gold);
         var imageGoldSize = imageGold.getSize();
-        cc.log("imageGold " + imageGoldSize.width + "  " + imageGoldSize.height);
+        //cc.log("imageGold " + imageGoldSize.width + "  " + imageGoldSize.height);
         imageGold.setPosition(size.width - (btnBuyGoldSize.width + imageGoldSize.width), size.height - btnBuyGoldSize.height/2);
         this.addChild(imageGold);
 
@@ -65,16 +66,16 @@ var MainGuiLayer = cc.Layer.extend({
 
 
         // 7. create a BuyCoin button and set it's position below btnBuyCoin
-        var btnBuyRuby = new ccui.Button(res.BUTTON_CONG_2);
-        var btnBuyRubySize = btnBuyRuby.getSize();
-        cc.log("btnBuyRuby " + btnBuyRubySize.width + "  " + btnBuyRubySize.height);
-        btnBuyRuby.setPosition(size.width - btnBuyRubySize.width/2, size.height - btnBuyGold.height - btnBuyRubySize.height/2);
-        btnBuyRuby.addClickEventListener(this.onSelectBuyRuby.bind(this));
-        this.addChild(btnBuyRuby);
+        this.btnBuyRuby = new ccui.Button(res.BUTTON_CONG_2);
+        var btnBuyRubySize = this.btnBuyRuby.getSize();
+        //cc.log("btnBuyRuby " + btnBuyRubySize.width + "  " + btnBuyRubySize.height);
+        this.btnBuyRuby.setPosition(size.width - btnBuyRubySize.width/2, size.height - this.btnBuyRuby.height - btnBuyRubySize.height/2);
+        this.btnBuyRuby.addClickEventListener(this.onSelectBuyRuby.bind(this));
+        this.addChild(this.btnBuyRuby);
 
         var imageRuby = new ccui.ImageView(res.rubi);
         var imageRubySize = imageRuby.getSize();
-        cc.log("imageRuby " + imageRubySize.width + "  " + imageRubySize.height);
+        //cc.log("imageRuby " + imageRubySize.width + "  " + imageRubySize.height);
         imageRuby.setPosition(size.width - (btnBuyRubySize.width + imageRubySize.width), size.height - btnBuyGoldSize.height - btnBuyRubySize.height/2);
         this.addChild(imageRuby);
 
@@ -85,16 +86,16 @@ var MainGuiLayer = cc.Layer.extend({
 
 
         // 8. create a search button and set it's position below btnBuyCoin
-        var btnSearch = new ccui.Button(res.STAR_1_PNG);
-        var btnSearchSize = btnSearch.getSize();
-        cc.log("btnSearch " + btnSearchSize.width + "  " + btnSearchSize.height);
-        btnSearch.setPosition(size.width - btnSearchSize.width/2, size.height - 5*btnBuyRubySize.height/2);
-        this.addChild(btnSearch);
+        this.btnSearch = new ccui.Button(res.STAR_1_PNG);
+        var btnSearchSize = this.btnSearch.getSize();
+        //cc.log("btnSearch " + btnSearchSize.width + "  " + btnSearchSize.height);
+        this.btnSearch.setPosition(size.width - btnSearchSize.width/2, size.height - 5*btnBuyRubySize.height/2);
+        this.addChild(this.btnSearch);
 
 
         var imageExp_111 = new ccui.ImageView(res.EXP_111_PNG);
         var imageExp_111Size = imageExp_111.getSize();
-        cc.log("imageExp_111 " + imageExp_111Size.width + "  " + imageExp_111Size.height);
+        //cc.log("imageExp_111 " + imageExp_111Size.width + "  " + imageExp_111Size.height);
         imageExp_111.setPosition(center_top_pos);
         this.addChild(imageExp_111);
 
@@ -112,7 +113,7 @@ var MainGuiLayer = cc.Layer.extend({
 
         var imageLevel = new ccui.ImageView(res.STAR_1_PNG);
         var imageLevelSize = imageLevel.getSize();
-        cc.log("imageLevelSize " + imageLevelSize.width + "  " + imageLevelSize.height);
+        //cc.log("imageLevelSize " + imageLevelSize.width + "  " + imageLevelSize.height);
         imageLevel.setPosition(center_top_pos.x-imageExp_111Size.width/2,center_top_pos.y);
         this.addChild(imageLevel);
 
@@ -120,12 +121,35 @@ var MainGuiLayer = cc.Layer.extend({
         this.labelLevel.setPosition(center_top_pos.x - imageExp_111Size.width/2,center_top_pos.y);
         this.addChild(this.labelLevel);
 
+        GSLayer.instance = new GSLayer();
+        this.addChild(GSLayer.instance);
     },
+
+    lockButton: function () {
+        GSLayer.instance._btnGameShop.btnGS.setTouchEnabled(false);
+        this.btnSettings.setTouchEnabled(false);
+        this.btnFriends.setTouchEnabled(false);
+        this.btnBuyGold.setTouchEnabled(false);
+        this.btnBuyRuby.setTouchEnabled(false);
+        this.btnSearch.setTouchEnabled(false);
+        //cc.log("Lock main gui button" + GSLayer.instance._btnGameShop.btnGS.isTouchEnabled());
+
+    },
+
+    unlockButton: function () {
+        GSLayer.instance._btnGameShop.btnGS.setTouchEnabled(true);
+        this.btnSettings.setTouchEnabled(true);
+        this.btnFriends.setTouchEnabled(true);
+        this.btnBuyGold.setTouchEnabled(true);
+        this.btnBuyRuby.setTouchEnabled(true);
+        this.btnSearch.setTouchEnabled(true);
+    },
+
     onEnter:function(){
       this._super();
     },
     onPlay : function(){
-        cc.log("==onplay clicked");
+        //cc.log("==onplay clicked");
         fr.view(ScreenNetwork);
     },
     onSelectSettings:function(sender)
@@ -142,7 +166,7 @@ var MainGuiLayer = cc.Layer.extend({
 
     },
     onSelectBuyGold:function(sender){
-        cc.log("==onSelectBuyGold clicked");
+        //cc.log("==onSelectBuyGold clicked");
         if (this.isShowPopup == false){
             CommonPopup.instance  = new CommonPopup("Cấu Hình", res.BG_2_PNG, true);
 
@@ -154,10 +178,10 @@ var MainGuiLayer = cc.Layer.extend({
 
     },
     onSelectBuyRuby:function(sender){
-        cc.log("==onSelectBuyRuby clicked");
+        //cc.log("==onSelectBuyRuby clicked");
     },
     onSelectFriends:function(sender){
-        cc.log("==onSelectFriends clicked");
+        //cc.log("==onSelectFriends clicked");
     },
     setIsShowPopup:function(bool){
         this.isShowPopup = bool;

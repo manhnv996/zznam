@@ -51,7 +51,11 @@ SugarCan: "SugarCan",
 SILO: "SILO",
 Thanhnien: "Thanhnien",
 Trungnien: "Trungnien",
-Vungnuoc1: "Vungnuoc1"
+Vungnuoc1: "Vungnuoc1",
+	Nhadangxay2x2: "Nhadangxay2x2",
+	Nhadangxay3x3: "Nhadangxay3x3",
+	Nha_hoanthanh: "Nha_hoanthanh",
+	Nhdangxay4x4: "Nhdangxay4x4"
 };
 
 //path
@@ -103,5 +107,9 @@ SugarCan: "game/animation/SugarCan",
 SILO: "game/animation/SILO",
 Thanhnien: "game/animation/Thanhnien",
 Trungnien: "game/animation/Trungnien",
-Vungnuoc1: "game/animation/Vungnuoc1"
+Vungnuoc1: "game/animation/Vungnuoc1",
+	Nhadangxay2x2: "game/animation/Nhadangxay2x2",
+	Nhadangxay3x3: "game/animation/Nhadangxay3x3",
+	Nha_hoanthanh: "game/animation/Nha_hoanthanh",
+	Nhdangxay4x4: "game/animation/Nhdangxay4x4"
 };

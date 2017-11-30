@@ -7,12 +7,14 @@ var Machine = ConstructedObject.extend({
     startTime: null,
     productQueue: [],
 
-    ctor: function (id, type, completed, startBuildTime, coordinate) {
+    ctor: function (id, type, startTime, productQueue, completed, startBuildTime, coordinate) {
         //
         this._super(completed, startBuildTime, coordinate);
 
         this.id = id;
         this.type = type;
+        this.startTime = startTime ? startTime : 0;
+        this.productQueue = productQueue ? productQueue : [];
     },
     // render: function () {
     //     //

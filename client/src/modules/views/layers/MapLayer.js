@@ -41,6 +41,9 @@ var MapLayer = cc.Layer.extend({
 		this.initEvent();
 
 		this.initFieldList();
+
+		var bakery = new BakerySprite(0, 20, 20);
+		this.addChild(bakery);
 	},
 
 	onEnter: function() {
@@ -554,7 +557,7 @@ var MapLayer = cc.Layer.extend({
         		cc.log("onTouchesMoved");
         	}
         });
-		cc.eventManager.addListener(multiTouchListener, this);
+		//cc.eventManager.addListener(multiTouchListener, this);
 		
 		this.centerPoint = cc.p(
 			this.getContentSize().width / 2,

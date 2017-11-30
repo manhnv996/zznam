@@ -45,6 +45,9 @@ public class Asset {
         return fieldList;
     }
     
+    public List<Machine> getMachineList ()  {
+        return this.machineList;
+    }
     
     
     

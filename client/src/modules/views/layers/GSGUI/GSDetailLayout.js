@@ -17,10 +17,10 @@ var GSDetailLayout = ccui.Layout.extend({
 
         var sizeWidthList = cc.winSize.width / 3;
 
-        var bg = new cc.Sprite(res.shop_bg_png);
-        this._bg_size = bg.getContentSize();
-        bg.setScale(sizeWidthList / this._bg_size.width, cc.winSize.height / this._bg_size.height);
-        bg.setAnchorPoint(0, 0);
+        this._bg = new cc.Sprite(res.shop_bg_png);
+        this._bg_size = this._bg.getContentSize();
+        this._bg.setScale(sizeWidthList / this._bg_size.width, cc.winSize.height / this._bg_size.height);
+        this._bg.setAnchorPoint(0, 0);
 
         //menu button
         this._btnLodge = new ccui.Button(res.shop_btLodge_n_png);
@@ -65,9 +65,9 @@ var GSDetailLayout = ccui.Layout.extend({
         this.addChild(this._btnTree);
 
         //add background
-        this.addChild(bg);
+        this.addChild(this._bg);
 
-        this.setPosition(cc.p(-(cc.winSize.width / 3 + cc.winSize.width / 7), 0));
+        this.setPosition(cc.p(0, 0));
         this.init();
         this._btnLodge.loadTextureNormal(res.shop_btLodge_s_png);
     },
@@ -96,6 +96,7 @@ var GSDetailLayout = ccui.Layout.extend({
                 sender.runAction(cc.scaleTo(0.1, this._scaleBtn - 0.1, this._scaleBtn - 0.1));
                 break;
             case ccui.Widget.TOUCH_ENDED:
+            case ccui.Widget.TOUCH_CANCELED:
                 this.setNormalButton();
                 switch (sender.name) {
                     case "Lodge":

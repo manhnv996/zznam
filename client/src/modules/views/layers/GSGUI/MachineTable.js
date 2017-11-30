@@ -182,7 +182,7 @@ var MachineTable = cc.Layer.extend({
                     createP.y = Math.floor(createP.y);
                     switch (sender.parent.getChildByTag(0).getString()) {
                         case "bakery_machine":
-                            this._sprite = new BakerySprite(user.getAsset().getMachineList().length, createP.x, createP.y);
+                            this._sprite = new BakerySprite(user.getAsset().getMachineList().length + 1, createP.x, createP.y);
                             this._sprite.setLocalZOrder(10000);
                             MapLayer.instance.addChild(this._sprite);
                             break;
@@ -232,12 +232,11 @@ var MachineTable = cc.Layer.extend({
                             MapCtrl.instance.addSpriteAlias(this._sprite);
                             this._sprite.setLogicPosition(this._sprite.lx, this._sprite.ly);
                             var typeObject = sender.parent.getChildByTag(0).getString();
+                            var machineModel;
                             switch (typeObject) {
                                 case "bakery_machine":
-                                    var bakeryModel = new BakeryMachine(this._sprite._bakeryId,
+                                    var machineModel = new BakeryMachine(this._sprite._bakeryId, 0, null,
                                         false, 0, new Coordinate(this._sprite.lx, this._sprite.ly));
-                                    user.getAsset().addMachine(bakeryModel);
-
                                     // Send server
                                     //testnetwork.connector.sendBuyMapObjectRequest(this._sprite._bakeryId, typeObject, this._sprite.lx, this._sprite.ly);
 
@@ -265,9 +264,11 @@ var MachineTable = cc.Layer.extend({
 
                             }
                             cc.log("Gold User" + user.getGold());
+                            user.getAsset().addMachine(machineModel);
                             user.reduceGold(sender.parent.getChildByTag(5).getString());
-                            //MainGuiLayer.instance.labelGold.setString(user.getGold());
                             //Send Server
+
+                            //testnetwork.connector.sendBuyMapObjectRequest(machineModel.id, typeObject, machineModel.x, machineModel.y);
                         }
                     }
                 }
