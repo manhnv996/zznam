@@ -32,6 +32,7 @@ var MapBlockSprite = cc.Sprite.extend({
                 var touchLocation = touch.getLocation();
                 var location = MapValues.screenPositionToMapPosition(touchLocation.x, touchLocation.y);
                 this.touchListener.__isMoved = false; // Disable, enable onClick event
+                this.touchListener.lstMouse = null;
                 // this.touchListener.__moveSprite = false; // Enable moving sprite
                 this.touchListener.autoMoveVer = 0;
                 this.touchListener.autoMoveHor = 0;
@@ -126,11 +127,24 @@ var MapBlockSprite = cc.Sprite.extend({
             }.bind(this),
 
             onTouchMoved: function(touch, event) {
+                var location = touch.getLocation();
+                var lstMouse = this.touchListener.lstMouse;
                 // Add new move position to InertialEngine
-                InertiaEngine.instance.setPoint(touch.getLocation());
+                InertiaEngine.instance.setPoint(location);
 
                 // Move map and disable onclick
-                this.touchListener.__isMoved = true;
+                if (!lstMouse) {
+                    this.totalMovedDistance = 0;
+                } else {
+                    if (!this.touchListener.__isMoved) {
+                        this.totalMovedDistance += caculateDistance(lstMouse, location);
+                        if (this.totalMovedDistance > 10) {
+                            this.touchListener.__isMoved = true;
+                        }
+                    }
+                }
+                this.touchListener.lstMouse = location;
+
                 // if (this.arrow) {
                 //     this.arrow.removeFromParent();
                 //     this.arrow = null;
@@ -146,8 +160,7 @@ var MapBlockSprite = cc.Sprite.extend({
 
                 if (this.touchListener.__moveSprite) {
                     // Move sprite
-                    var location = touch.getLocation();
-                    this.touchListener.lstMouse = location;
+                    // this.touchListener.lstMouse = location;
                     var winSize = cc.winSize;
                     var BORDER_AUTO_MOVE = 100;
 
