@@ -108,6 +108,22 @@ var Asset = cc.Class.extend({
          * inprogress
          */
         // return false;
+    },
+    getOrderById: function (orderId) {
+        for (var i = 0; i < this.orderList.length; i++){
+            if (this.orderList[i].getOrderId() == orderId){
+                return this.orderList[i];
+
+            }
+        }
+        return null;
+    },
+
+    getQuantityOfTwoStorageByProductId: function (productId) {
+        var qFoodStorage = this.getFoodStorage().getQuantity(productId);
+        var qWarehouse = this.getWarehouse().getQuantity(productId);
+
+        return (qFoodStorage > qWarehouse) ? qFoodStorage : qWarehouse;
     }
 
 });

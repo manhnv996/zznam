@@ -6,7 +6,7 @@ var ProductTypes = {
     CROP_SUGARCANE : "crop_sugarcane",
 
     CROP_INDIGO : "crop_indigo",
-    CROP_CHILI : "crop_chili_pepper",
+    //CROP_CHILI : "crop_chili_pepper",
     CROP_TOMATO : "crop_tomato",
     CROP_STRAWBERRY : "crop_strawberry",
 
@@ -16,21 +16,26 @@ var ProductTypes = {
 
     TOOL_BOLT : "tool_bolt",
     TOOL_PLANK : "tool_plank",
-    TOOL_DUCTTAPE : "tool_ductTape"
+    TOOL_DUCTTAPE : "tool_ductTape",
 
-    //GOOD_EGG: 10,
-    //GOOF_MILK: 11,
-    //
-    //PRODUCT_BREAD: 20,
-    //PRODUCT_CORN_BREAD: 21,
-    //PRODUCT_COOKIE: 22,
-    //FOOD_CHICKEN: 23,
-    //FOOD_COW: 24,
-    //PRODUCT_CREAM: 25,
-    //PRODUCT_BUTTER: 26,
-    //PRODUCT_BROWN_SUGAR: 27,
-    //PRODUCT_POPCORN: 28,
-    //PRODUCT_PANCAKE: 29,
+
+//////////////
+
+    GOOD_EGG: "good_egg",
+    GOOF_MILK: "good_milk",
+
+    PRODUCT_BREAD: "product_bread",
+    PRODUCT_CORN_BREAD: "product_corn_bread",
+    PRODUCT_COOKIE: "product_cookie",
+
+    FOOD_CHICKEN: "food_chicken",
+    FOOD_COW: "food_cow",
+
+    PRODUCT_CREAM: "product_cream",
+    PRODUCT_BUTTER: "product_butter",
+    PRODUCT_BROWN_SUGAR: "product_brown_sugar",
+    PRODUCT_POPCORN: "product_popcorn",
+    PRODUCT_PANCAKE: "product_pancake"
     //
     //CUT_AXE: 30,
     //CUT_SAW: 31,

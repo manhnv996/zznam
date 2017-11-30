@@ -207,7 +207,7 @@ testnetwork.Connector = cc.Class.extend({
                             //cc.log("HTTP Response : openId : " + openId);
                             //cc.log("HTTP Response : expired_time : " + expired_time);
                             var pk = this.gameClient.getOutPacket(CmdSendLogin);
-                            pk.pack(sessionKey2, userid);
+                            pk.pack(sessionKey2);
                             this.gameClient.sendPacket(pk);
                         }
                     }.bind(this, userid);

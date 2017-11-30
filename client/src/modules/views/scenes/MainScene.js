@@ -14,9 +14,6 @@ var MainScene = cc.Scene.extend({
         PopupLayer.instance = new PopupLayer();
         this.addChild(PopupLayer.instance);
 
-        OrderBGLayer.instance = new OrderBGLayer();
-        // this.addChild(OrderBGLayer.instance);
-
 		//var mainGuiLayer = new MainGuiLayer();
 		//this.addChild(mainGuiLayer);
 		//MainGuiLayer.instance = new MainGuiLayer();
@@ -50,6 +47,9 @@ var MainScene = cc.Scene.extend({
 		MapCtrl.instance._showDebugMap();
 
 		//NotifyLayer.instance.notifyFullSilo();
+
+		OrderBGLayer.instance = new OrderBGLayer();
+		// this.addChild(OrderBGLayer.instance);
 	},
 
 	init: function() {

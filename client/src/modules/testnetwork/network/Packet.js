@@ -86,6 +86,7 @@ CmdSendLogin = fr.OutPacket.extend(
             this.setCmdId(gv.CMD.USER_LOGIN);
         },
         pack:function(user){
+            // user = sessionley
             this.packHeader();
             this.putString(user);
             this.updateSize();

@@ -25,6 +25,7 @@
         "src/data/ShopResource.js",
         "src/data/StorageResource.js",
         "src/data/HavestResource.js",
+        "src/data/OrderResource.js",
         "src/data/Resource.js",
         "src/data/ResourceAnimation.js",
         "src/framework/AnimationMgr.js",
@@ -76,6 +77,8 @@
         "src/modules/views/sprites/SeedSprite.js",
         "src/modules/views/sprites/CropToolSprite.js",
         "src/modules/views/sprites/FieldSprite.js",
+        "src/modules/views/sprites/OrderSprite.js",
+        "src/modules/views/sprites/ProductSprite.js",
 
         "src/modules/configs/enum/ErrorLog.js",
         "src/modules/configs/enum/ProductTypes.js",
@@ -83,8 +86,10 @@
         "src/modules/configs/enum/StorageTypes.js",
         "src/modules/configs/enum/ProductResource.js",
         "src/modules/configs/config.js",
+        "src/modules/configs/ProductConfig.js",
 
         "src/modules/controllers/PlantCtrl.js",
+        "src/modules/controllers/OrderCtrl.js",
         "src/modules/controllers/MapCtrl.js",
         "src/modules/controllers/GameShopController.js",
         "src/modules/controllers/StorageCtrl.js",
@@ -92,6 +97,7 @@
         "src/modules/models/CoordinatedObject.js",
         "src/modules/models/Coordinate.js",
         "src/modules/models/Field.js",
+        "src/modules/models/Order.js",
         "src/modules/models/StorageItem.js",
         "src/modules/models/Storage.js",
         "src/modules/models/Asset.js",
@@ -138,6 +144,8 @@
         "src/modules/views/scenes/PreloaderScene.js",
         "src/modules/views/layers/MainGuiLayer.js",
         "src/modules/views/layers/popup/CommonPopup.js",
-        "src/modules/views/layers/SettingsLayer.js"
+        "src/modules/views/layers/SettingsLayer.js",
+        "src/modules/views/layers/OrderBGLayer.js"
+
     ]
 }
