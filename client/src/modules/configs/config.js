@@ -308,6 +308,7 @@ function onReceiveUser(userInfo) {
     var machineList = [];
     var myShop = null;
 
+    //Order List
     var orderList = [];
     for (var i = 0; i < userInfo.asset.orderList.length; i++) {
         var order = new Order(
@@ -336,8 +337,8 @@ function onReceiveUser(userInfo) {
     user.exp = userInfo.exp;
     MainScene.instance.onGettedData();
 
+
 //
-cc.log("orderlist");
     var orderList = user.asset.getOrderList();
     for (var i = 0; i < orderList.length; i++){
         // cc.log(orderList.getItemList()[i].getTypeItem() + ", " + orderList.getItemList()[i].getQuantityItem());

@@ -9,10 +9,15 @@ import config.enums.ProductCategory;
 
 import config.jsonobject.ProductConfig;
 
+import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import javax.sql.RowSet;
+import javax.sql.rowset.Predicate;
 
 import model.StorageItem;
 
@@ -197,6 +202,19 @@ public class OrderUtil {
     }
     
     
+    
+    public static List<ProductConfig> filterProductByLevel(int level, List<ProductConfig> productList){
+        
+        List<ProductConfig> list = new ArrayList<>();
+        for (int i = 0; i < productList.size(); i++){
+            if (level >= productList.get(i).levelUnlock){
+                list.add(productList.get(i));
+            }
+        }
+        return list;
+    }
+    
+    
     public static List<ProductConfig> randomTypeProduct(int level){
         
         List<ProductConfig> productList = new ArrayList<>();
@@ -207,19 +225,23 @@ public class OrderUtil {
             
             List<ProductConfig> productCategory = ProductUtil.getProductConfObjByCategory(category);
             productCategory = ProductUtil.sortProductListByRandomProduct(productCategory);
+            //
+            productCategory = filterProductByLevel(level, productCategory);
             
-            if (productList.size() == 0){
-                productList.add(productCategory.get(0));
-                continue;
-            }
-            
-            for (int j = 0; j < productCategory.size(); j++){
-                if (!productCategory.get(j).containsId(productList)){
-                    productList.add(productCategory.get(j));
-                    break;
+            if (!productCategory.isEmpty()){
+                if (productList.size() == 0){
+                    productList.add(productCategory.get(0));
+                    continue;
                 }
+                
+                for (int j = 0; j < productCategory.size(); j++){
+                    if (!productCategory.get(j).containsId(productList)){
+                        productList.add(productCategory.get(j));
+                        break;
+                    }
+                }
+                
             }
-            
             
         }
         return productList;

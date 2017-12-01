@@ -27,6 +27,13 @@ gv.CMD.RESPONSE_SYNC_FIELD_STATUS = 5082;
 gv.CMD.RESPONSE_SYNC_STORAGE = 5083;
 gv.CMD.RESPONSE_SYNC_FOOD_STORAGE_ITEM = 5084;
 
+//
+gv.CMD.MAKE_ORDER = 10001;
+gv.CMD.CANCEL_ORDER = 10002;
+
+gv.CMD.RESPONSE_SYNC_ORDER = 10081;
+
+
 // Map
 gv.CMD.MOVE_FIELD = 6001;
 gv.CMD.MOVE_STORAGE = 6002;
@@ -86,6 +93,7 @@ CmdSendLogin = fr.OutPacket.extend(
             this.setCmdId(gv.CMD.USER_LOGIN);
         },
         pack:function(user){
+            // user = sessionley
             this.packHeader();
             this.putString(user);
             this.updateSize();
@@ -185,6 +193,44 @@ CmdSendBuyItemByRubi = fr.OutPacket.extend(
         }
     }
 );
+
+//
+CmdSendMakeOrder = fr.OutPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+            this.initData(100);
+            this.setCmdId(gv.CMD.MAKE_ORDER);
+        },
+        pack:function(orderId){
+            this.packHeader();
+
+            this.putInt(orderId);
+
+            this.updateSize();
+        }
+    }
+);
+
+CmdSendCancelOrder = fr.OutPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+            this.initData(100);
+            this.setCmdId(gv.CMD.CANCEL_ORDER);
+        },
+        pack:function(orderId){
+            this.packHeader();
+
+            this.putInt(orderId);
+
+            this.updateSize();
+        }
+    }
+);
+//
 
 // Map
 CmdSendMoveStorage = fr.OutPacket.extend({
@@ -500,6 +546,51 @@ testnetwork.packetMap[gv.CMD.RESPONSE_SYNC_FOOD_STORAGE_ITEM] = fr.InPacket.exte
         }
     }
 );
+
+//
+testnetwork.packetMap[gv.CMD.RESPONSE_SYNC_ORDER] = fr.InPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+        },
+        readData:function(){
+
+            /*
+             DONE
+             */
+            this.order = this.unpackOrder();
+
+        },
+
+        unpackOrder: function () {
+            var order = {};
+            order.orderId = this.getInt();
+
+            // Get each item
+            var itemListSize = this.getInt();
+            order.itemList = [];
+            for (var i = 0; i < itemListSize; i++) {
+                order.itemList.push(this.unpackStorageItem());
+            }
+
+            order.orderPrice = this.getInt();
+            order.orderExp = this.getInt();
+            order.waittingTime = this.getLong();
+
+            return order;
+        },
+
+        unpackStorageItem: function() {
+            var item = {};
+            item.typeItem = this.getString();
+            item.quantity = this.getInt();
+            return item;
+        },
+
+    }
+);
+//
 
 
 // Map

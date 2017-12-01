@@ -20,26 +20,34 @@ var CommonPopup = cc.Layer.extend({
 
 
 
-       //set background
-        var spritebg = new cc.Sprite(this.background);
-        cc.log("spritebg " + spritebg.width + " " + spritebg.height);
-        //spritebg.setScale(fr.clientConfig.getResourceScale().)
-        spritebg.setPosition(this.centerpos);
-        this.addChild(spritebg);
+       ////set background
+       // var spritebg = new cc.Sprite(this.background);
+       // cc.log("spritebg " + spritebg.width + " " + spritebg.height);
+       // //spritebg.setScale(fr.clientConfig.getResourceScale().)
+       // spritebg.setPosition(this.centerpos);
+       // this.addChild(spritebg);
+
+        this.background.setPosition(this.centerpos);
+        this.addChild(this.background);
+
 
         //set title
-        var labelTitle = new cc.LabelBMFont(this.title, res.FONT_OUTLINE_50);
-        labelTitle.setPosition(size.width/2, size.height/2 + spritebg.height/2-50);
-        this.addChild(labelTitle);
+        var labelTitle = new cc.LabelBMFont(this.title, res.FONT_OUTLINE_30);
+        //labelTitle.setPosition(size.width/2, size.height/2 + spritebg.height/2-50);
+        //this.addChild(labelTitle);
+        labelTitle.setPosition(this.background.width / 2, this.background.height - labelTitle.height * 4 / 3);
+        this.background.addChild(labelTitle);
 
 
         if (this.hasCloseButton == true){
             var btnClose = new ccui.Button(res.TU_CHOI_PNG);
             var btnCloseSize = btnClose.getSize();
             cc.log("btnCloseSize " + btnCloseSize.width + "  " + btnCloseSize.height);
-            btnClose.setPosition(size.width/2 + spritebg.width/2 - btnCloseSize.width/2, size.height/2 + spritebg.height/2 - btnCloseSize.height/2);
+            //btnClose.setPosition(size.width/2 + spritebg.width/2 - btnCloseSize.width/2, size.height/2 + spritebg.height/2 - btnCloseSize.height/2);
+            btnClose.setPosition(this.background.width - btnCloseSize.width / 2, this.background.height - btnCloseSize.height / 2);
             btnClose.addClickEventListener(this.onSelectClose.bind(this));
-            this.addChild(btnClose);
+            //this.addChild(btnClose);
+            this.background.addChild(btnClose);
         }
 
         //set animation

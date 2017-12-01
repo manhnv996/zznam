@@ -139,6 +139,28 @@ testnetwork.Connector = cc.Class.extend({
                 Not yet started
                  */
                 break;
+
+            case gv.CMD.RESPONSE_SYNC_ORDER:
+                cc.log("RECEIVE RESPONSE_SYNC_ORDER: ", packet.order);
+                /*
+                Inprogress
+                 */
+                var orderSelected = user.getAsset().getOrderById(packet.order.orderId);
+
+                orderSelected.itemList = packet.order.itemList;
+                orderSelected.orderPrice = packet.order.orderPrice;
+                orderSelected.orderExp = packet.order.orderExp;
+                orderSelected.waittingTime = packet.order.waittingTime;
+
+                //
+                if (CommonPopup.instance){
+                    CommonPopup.instance.onSelectClose();
+                }
+                OrderCtrl.instance.onShowOrderBG();
+
+                break;
+            //
+
             case gv.CMD.RESPONSE_MOVE:
                 cc.log("RESPONSE_MOVE Error: ", packet.error);
                 if (packet.error !== 0) {
@@ -207,7 +229,7 @@ testnetwork.Connector = cc.Class.extend({
                             //cc.log("HTTP Response : openId : " + openId);
                             //cc.log("HTTP Response : expired_time : " + expired_time);
                             var pk = this.gameClient.getOutPacket(CmdSendLogin);
-                            pk.pack(sessionKey2, userid);
+                            pk.pack(sessionKey2);
                             this.gameClient.sendPacket(pk);
                         }
                     }.bind(this, userid);
@@ -247,6 +269,19 @@ testnetwork.Connector = cc.Class.extend({
         cc.log("sendBuyItemByRubi: " + productType);
         var pk = this.gameClient.getOutPacket(CmdSendBuyItemByRubi);
         pk.pack(productType);
+        this.gameClient.sendPacket(pk);
+    },
+    //
+    sendMakeOrder: function (orderId) {
+        cc.log("sendMakeOrder: " + orderId);
+        var pk = this.gameClient.getOutPacket(CmdSendMakeOrder);
+        pk.pack(orderId);
+        this.gameClient.sendPacket(pk);
+    },
+    sendCancelOrder: function (orderId) {
+        cc.log("sendCancelOrder: " + orderId);
+        var pk = this.gameClient.getOutPacket(CmdSendCancelOrder);
+        pk.pack(orderId);
         this.gameClient.sendPacket(pk);
     },
 

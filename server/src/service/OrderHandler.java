@@ -92,6 +92,9 @@ public class OrderHandler extends BaseClientRequestHandler {
                 send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
 
                 userInfo.saveModel(user.getId());
+                //
+                send(new ResponseSyncOrder(errorCode, userInfo.getAsset().getOrderdById(order.orderId)), user);
+                
             } else {
                 
                 send(new ResponseSyncOrder(errorCode, userInfo.getAsset().getOrderdById(order.orderId)), user);
@@ -128,7 +131,10 @@ public class OrderHandler extends BaseClientRequestHandler {
             if (errorCode == ErrorLog.SUCCESS.getValue()){
                 send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
 
-                userInfo.saveModel(user.getId());
+                userInfo.saveModel(user.getId());                
+                //
+                send(new ResponseSyncOrder(errorCode, userInfo.getAsset().getOrderdById(order.orderId)), user);
+                
             } else {
                 
                 send(new ResponseSyncOrder(errorCode, userInfo.getAsset().getOrderdById(order.orderId)), user);
