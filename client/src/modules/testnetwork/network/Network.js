@@ -308,7 +308,7 @@ testnetwork.Connector = cc.Class.extend({
     },
 
     sendBuyMapObjectRequest: function (id, type, x, y) {
-        cc.log("Send buy request");
+        cc.log("Send buy map object request");
         var pk = this.gameClient.getOutPacket(CmdSendBuyMapObjectRequest);
         pk.pack(id, type, x, y);
         this.gameClient.sendPacket(pk);
@@ -321,10 +321,10 @@ testnetwork.Connector = cc.Class.extend({
         this.gameClient.sendPacket(pk);
     },
 
-    sendUpgradeStorage: function (storageType, level) {
-        cc.log("Upgrade " + storageType + " to level " + level);
+    sendUpgradeStorage: function (storageType) {
+        cc.log("Upgrade " + storageType);
         var pk = this.gameClient.getOutPacket(CmdSendUpgradeStorageRequest);
-        pk.pack(storageType, level);
+        pk.pack(storageType);
         this.gameClient.sendPacket(pk);
     }
 });

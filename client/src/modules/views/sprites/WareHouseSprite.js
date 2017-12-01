@@ -15,7 +15,9 @@ var WareHouseSprite = AnimationSprite.extend({
 
 	onClick: function() {
 		// cc.log("Warehouse", this.getLocalZOrder(), this.lx, this.ly, this.blockSizeX, this.blockSizeY);
-		StorageLayer.instance.initStorage(user.getAsset().getWarehouse());
+		//StorageLayer.instance.initStorage(user.getAsset().getWarehouse());
+		cc.log("WareHouse");
+		BaseGUILayer.instance.showStorage(user.getAsset().getWarehouse());
 	},
 
 	onFinishMove: function(lx, ly) {

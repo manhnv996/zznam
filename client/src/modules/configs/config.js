@@ -299,12 +299,38 @@ function onReceiveUser(userInfo) {
                 userInfo.asset.fieldList[i].y),
             userInfo.asset.fieldList[i].fieldId,
             userInfo.asset.fieldList[i].plantType || null,
-            new Date(parseInt(userInfo.asset.fieldList[i].plantedTime))
+            new Date(userInfo.asset.fieldList[i].plantedTime)
         );
         fieldList.push(field);
     }
 
     var animalLodgeList = [];
+    for (var i = 0; i < userInfo.asset.animalLodgeList.length; i++) {
+        var animalLodgeInfo = userInfo.asset.animalLodgeList[i];
+        var animalList = [];
+        
+        for (var j = 0; j < animalLodgeInfo.animalList.length; j++) {
+            var animalInfo = animalLodgeInfo.animalList[j];
+            var animal = new Animal(
+                animalInfo.type,
+                animalInfo.id,
+                animalInfo.feeded,
+                animalInfo.feededTime
+            );
+            animalList.push(animal);
+        }
+
+        var animalLodge = new AnimalLodge(
+            new Coordinate(animalLodgeInfo.x, animalLodgeInfo.y),
+            animalLodgeInfo.startBuildTime,
+            animalLodgeInfo.completed,
+            animalLodgeInfo.type,
+            animalLodgeInfo.id,
+            animalList
+        );
+        animalLodgeList.push(animalLodge);
+    }
+
     var machineList = [];
     var myShop = null;
 
@@ -335,6 +361,8 @@ function onReceiveUser(userInfo) {
     user.gold = userInfo.gold;
     user.ruby = userInfo.ruby;
     user.exp = userInfo.exp;
+
+    cc.log("AnimalLodge", user.asset.animalLodgeList);
     MainScene.instance.onGettedData();
 
 

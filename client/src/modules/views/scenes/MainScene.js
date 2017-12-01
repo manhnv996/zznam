@@ -31,19 +31,13 @@ var MainScene = cc.Scene.extend({
 	},
 
 	onGettedData: function() {
+
 		MainGuiLayer.instance = new MainGuiLayer();
 		this.addChild(MainGuiLayer.instance);
 
-		GSLayer.instance = new GSLayer();
-		this.addChild(GSLayer.instance);
+		BaseGUILayer.instance = new BaseGUILayer();
+		this.addChild(BaseGUILayer.instance);
 
-		StorageLayer.instance = new StorageLayer();
-		this.addChild(StorageLayer.instance);
-		// StorageLayer.instance.initStorage(user.getAsset().getFoodStorage());
-		//StorageLayer.instance.getMultiLayer().switchTo(1);
-
-		NotifyLayer.instance = new NotifyLayer();
-		this.addChild(NotifyLayer.instance);
 		MapCtrl.instance.init();
 		MapCtrl.instance._showDebugMap();
 
@@ -56,7 +50,7 @@ var MainScene = cc.Scene.extend({
 	//
 	updateOrderWaittingTime: function () {
 		var list = user.getAsset().getWaittingOrderList();
-cc.log("updateOrderWaittingTime");
+		cc.log("updateOrderWaittingTime");
 		for (var i = 0; i < list.length; i++){
 
 			var parseCurrTime = new Date().getTime();
@@ -71,6 +65,8 @@ cc.log("updateOrderWaittingTime");
 			cc.log("update order " + i);
 		}
 
+		//BaseGUILayer.instance.notifyFullStorage(StorageTypes.FOOD_STORAGE);
+		//BaseGUILayer.instance.notifyMissGold(50);
 	},
 
 	init: function() {

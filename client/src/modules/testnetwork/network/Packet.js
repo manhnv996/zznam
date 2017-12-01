@@ -318,10 +318,10 @@ CmdSendUpgradeStorageRequest = fr.OutPacket.extend({
         this.initData(100);
         this.setCmdId(gv.CMD.UPGRADE_STORAGE_REQUEST);
     },
-    pack: function (storageType, level) {
+    pack: function (storageType) {
         this.packHeader();
         this.putString(storageType);
-        this.putInt(level);
+        //this.putInt(level);
         this.updateSize();
     }
 });
@@ -630,14 +630,15 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
     },
 
     readData: function() {
+        // WARNING: DO NOT CHANGE THE ORDERS
         this.unpackBasicInfo();
         this.unpackMap();
         this.unpackFieldList();
         this.unpackNatureThingList();
         this.unpackStorages();
-
         this.unpackOrderList();
-
+        this.unpackAnimalLodges();
+        this.unpackMachines();
     },
 
     unpackBasicInfo: function() {
@@ -646,7 +647,7 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         this.user.level = this.getInt();
         this.user.gold = this.getInt();
         this.user.ruby = this.getInt();
-        this.user.exp = this.getLong(); // Warning, framwork return string
+        this.user.exp = parseInt(this.getLong()); // Warning, framwork return string
     },
 
     unpackMap: function() {
@@ -674,7 +675,7 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         field.y = this.getInt();
         field.fieldId = this.getInt();
         field.plantType = this.getString();
-        field.plantedTime = this.getLong();
+        field.plantedTime = parseInt(this.getLong()); // Warning
         return field;
     },
 
@@ -749,6 +750,72 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         order.waittingTime = this.getLong();
 
         return order;
+    },
+
+    unpackAnimalLodges: function() {
+        var size = this.getInt();
+        this.user.asset.animalLodgeList = [];
+        for (var i = 0; i < size; i++) {
+            this.user.asset.animalLodgeList.push(this.unpackAnimalLodge());
+        }
+    },
+
+    unpackAnimalLodge: function() {
+        var lodge = {};
+
+        lodge.type = this.getString();
+        lodge.x = this.getInt();
+        lodge.y = this.getInt();
+        lodge.id = this.getInt();
+        lodge.startBuildTime = parseInt(this.getLong());
+        lodge.completed = this.getInt() ? true : false;
+
+        // Unpack animal list
+        lodge.animalList = [];
+        var size = this.getInt();
+        for (var i = 0; i < size; i++) {
+            lodge.animalList.push(this.unpackAnimal());
+        }
+
+        return lodge;
+    },
+
+    unpackAnimal: function() {
+        var animal = {};
+
+        animal.type = this.getString();
+        animal.id = this.getInt();
+        animal.feeded = this.getInt() ? true : false;
+        animal.feededTime = parseInt(this.getLong());
+
+        return animal;
+    },
+
+    unpackMachines: function () {
+        var size = this.getInt();
+        this.user.asset.machineList = [];
+        for (var i = 0; i < size; i++) {
+            this.user.asset.machineList.push(this.unpackMachine());
+        }
+    },
+
+    unpackMachine: function () {
+        var machine = {};
+
+        machine.id = this.getInt();
+        machine.type = this.getString();
+        machine.x = this.getInt();
+        machine.y = this.getInt();
+        machine.slot = this.getInt();
+        machine.startTime = parseInt(this.getLong());
+        machine.completed = this.getInt() ? true : false;
+        machine.startBuildTime = parseInt(this.getLong());
+
+        machine.productQueue = [];
+        var size = this.getInt();
+        for (var i = 0; i < size; i++) {
+            machine.productQueue.push(this.getString());
+        }
     }
 
 });

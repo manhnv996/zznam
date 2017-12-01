@@ -26,13 +26,26 @@ productIconMap[ProductTypes.PRODUCT_BROWN_SUGAR] = res.iconProductButter;
 productIconMap[ProductTypes.PRODUCT_POPCORN] = res.iconProductCream;
 productIconMap[ProductTypes.PRODUCT_PANCAKE] = res.iconProductPancake;
 
+/**
+ *
+ * @type {string}
+ */
+
+productIconMap[ProductTypes.TOOL_NAIL] = res.iconProductBread;
+productIconMap[ProductTypes.TOOL_SCREW] = res.iconProductCornBread;
+productIconMap[ProductTypes.TOOL_WOODPANEL] = res.iconProductCookie;
+
+productIconMap[ProductTypes.TOOL_BOLT] = res.iconProductBread;
+productIconMap[ProductTypes.TOOL_PLANK] = res.iconProductCornBread;
+productIconMap[ProductTypes.TOOL_DUCTTAPE] = res.iconProductCookie;
+
 function getProductIconById(productId){
     return productIconMap[productId];
 
 }
 
 
-function getProductObjByProductId(productId) {
+function removeBlockListener(productId) {
     var productTypeObj = null;
     cc.loader.loadJson(res.productconfig, function (error, data) {
         productTypeObj = data;

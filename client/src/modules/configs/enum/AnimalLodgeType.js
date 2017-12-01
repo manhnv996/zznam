@@ -1,0 +1,4 @@
+var AnimalLodgeType = {
+	CHICKEN_LODGE: 'CHICKEN_LODGE',
+	COW_LODGE: 'COW_LODGE'
+};

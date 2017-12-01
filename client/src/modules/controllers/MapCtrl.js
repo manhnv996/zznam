@@ -39,15 +39,19 @@ var MapCtrl = cc.Class.extend({
         InertiaEngine.instance = new InertiaEngine();
         MainScene.instance.addChild(InertiaEngine.instance);
         this.renderUserInfo();
+        //
+        //var bakery = new BakerySprite(20, 20);
+        //MapLayer.instance.addChild(bakery);
+        //bakery.play("loop1");
     },
 
     renderStorages: function() {
         var silo = user.asset.foodStorage;
         var warehouse = user.asset.warehouse;
-        var siloSprite = new SiloSprite(silo.coordinate.x, silo.coordinate.y);
-        var warehouseSprite = new WareHouseSprite(warehouse.coordinate.x, warehouse.coordinate.y);
-        MapLayer.instance.addChild(siloSprite);
-        MapLayer.instance.addChild(warehouseSprite);
+        SiloSprite.instance = new SiloSprite(silo.coordinate.x, silo.coordinate.y);
+        WareHouseSprite.instance = new WareHouseSprite(warehouse.coordinate.x, warehouse.coordinate.y);
+        MapLayer.instance.addChild(SiloSprite.instance);
+        MapLayer.instance.addChild(WareHouseSprite.instance);
 
         // Add from server
         // this.addSpriteAlias(siloSprite);
@@ -120,6 +124,32 @@ var MapCtrl = cc.Class.extend({
             
             // Add from server
             // this.addSpriteAlias(fieldSprite);
+        }
+    },
+
+    /**
+     *    Render Machines To Map
+     */
+    renderMachines: function () {
+        var machineList = user.asset.machineList;
+        for (var i = 0; i < machineList.length; i++) {
+            var machine = machineList[i];
+            var type = machine.mapAliasType;
+            var machineSprite;
+            switch (type) {
+                case MapItemEnum.BAKERY:
+                    machineSprite = new BakerySprite(machine.id, machine.x, machine.y);
+                    break;
+                //case MapItemEnum.FOOD_GRINDER:
+                //    break;
+                //case MapItemEnum.BUTTER:
+                //    break;
+                //case MapItemEnum.SUGAR_MAKER:
+                //    break;
+                //case MapItemEnum.POPCORN_MAKER:
+                //    break;
+            }
+            MapLayer.instance.addChild(machineSprite);
         }
     },
 

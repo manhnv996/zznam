@@ -3,12 +3,12 @@ var Asset = cc.Class.extend({
 
     foodStorage: Storages,
     warehouse: Storages,
-    fieldList: [],
-    animalLodgeList: [],
-    machineList: [],
-    natureThingList: [],
+    fieldList: null,
+    machineList: null,
+    natureThingList: null,
     myShop: null,
     orderList: [],
+    animalLodgeList: null,
     // map: [],
 
     ctor: function (foodStorage, warehouse, fieldList, animalLodgeList, machineList, natureThingList, myShop, orderList) {
@@ -22,9 +22,10 @@ var Asset = cc.Class.extend({
         //
         this.foodStorage = foodStorage;
         this.warehouse = warehouse;
-        this.fieldList = (fieldList == null) ? [] : fieldList;
-        this.animalLodgeList = (animalLodgeList == null) ? [] : animalLodgeList;
-        this.machineList = (machineList == null) ? [] : machineList;
+        this.fieldList = fieldList || [];
+        // cc.log("List", animalLodgeList);
+        this.animalLodgeList = animalLodgeList || [];
+        this.machineList = machineList || [];
         this.natureThingList = natureThingList || [];
         this.myShop = myShop;
         this.orderList = (orderList == null) ? [] : orderList;
@@ -65,8 +66,8 @@ var Asset = cc.Class.extend({
     addField: function (field) {
         //bug   // ? where??
         this.fieldList.push(field);
-
-        this.fieldList[this.fieldList.length - 1].setFieldId(this.fieldList.length - 1);    //autoincrement id
+        field.setFieldId(this.fieldList.length);
+        // this.fieldList[this.fieldList.length - 1].setFieldId(this.fieldList.length - 1);    //autoincrement id
 
     },
 
@@ -89,6 +90,9 @@ var Asset = cc.Class.extend({
 
     addMachine: function (machine) {
         this.machineList.push(machine);
+        if (machine.id == 0) {
+            machine.id = this.machineList.length;
+        }
     },
 
     //
@@ -135,6 +139,7 @@ var Asset = cc.Class.extend({
             }
         }
         return list;
+
     }
 
 });

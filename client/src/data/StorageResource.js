@@ -12,9 +12,10 @@ var _ = (function() {
         storage_V_png: r("butoon-V.png"),
         storage_back_png: r("button -back.png"),
         storage_upgrade_png: r("nangcap.png"),
+        storage_btn_png: r("Layer 24.png"),
         storage_arrow: r("muiten.png"),
-        warehouse_full: r("Kho chứa đồ đã đầy!.png"),
-        silo_full: r("Kho lươngthuc.png"),
+        warehouse_full: r("fullWare.png"),
+        silo_full: r("fullSilo.png"),
 
         upgrade_ware_bolt: "Art/Tool/dinh2.png",
         upgrade_ware_plank: "Art/Tool/go1.png",

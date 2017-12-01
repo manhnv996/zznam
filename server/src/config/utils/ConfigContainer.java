@@ -91,7 +91,7 @@ public class ConfigContainer {
         JsonObject obj = null;
         try {
             obj = parser.parse(new FileReader("src/config/json/mapInit.json")).getAsJsonObject();
-            System.out.println("Get " + obj.get("1").getAsJsonObject().get("id").getAsString());
+//            System.out.println("Get " + obj.get("1").getAsJsonObject().get("id").getAsString());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -120,7 +120,7 @@ public class ConfigContainer {
         }
         try {
             shopCoopConfig = gson.fromJson(new FileReader("src/config/json/shopCoopconfig.json"), ShopCoopConfig[].class);
-            System.out.println(shopCoopConfig[0].type);
+//            System.out.println(shopCoopConfig[0].type);
         } catch (FileNotFoundException e) {
             e.printStackTrace();    
         }

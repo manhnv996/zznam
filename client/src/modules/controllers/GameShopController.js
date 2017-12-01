@@ -20,19 +20,21 @@ var GameShopController = cc.Class.extend({
 
     getNumberAnimal: function (id) {
         var number = 0;
+        // Change to lodge id
+        var lodge = id + '_habitat';
         var listLodge = user.getAsset().getAnimalLodgeList();
         for(var i = 0; i < listLodge.length; i++){
-            if(listLodge[i].getType() == id)
+            if(listLodge[i].getType() == lodge)
                 number += listLodge[i].getCurrentSlot();
         }
         return number;
     },
 
-    getNumberMachine: function (id) {
+    getNumberMachine: function (type) {
         var number = 0;
         var listMachine = user.getAsset().getMachineList();
         for(var i = 0; i < listMachine.length; i++){
-            if(listMachine[i].getType() == id) number++;
+            if(listMachine[i].type == type) number++;
         }
         return number;
     },

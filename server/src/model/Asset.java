@@ -15,26 +15,26 @@ public class Asset {
     private List<NatureThing> natureThingList;
     private List<AnimalLodge> animalLodgeList;
     private List<Order> orderList;
+    private List<Machine> machineList;
     
-    public Asset(Storage foodStorage, Storage warehouse, 
-                 List<Field> fieldList, List<NatureThing> natureThingList) {
+    public Asset(Storage foodStorage,
+                 Storage warehouse, 
+                 List<Field> fieldList,
+                 List<NatureThing> natureThingList,
+                 List<AnimalLodge> animalLodgeList,
+                 List<Machine> machineList
+                 ) {
         super();
         
         this.foodStorage = foodStorage;
         this.warehouse = warehouse;
-//        this.fieldList = (fieldList == null) ? new ArrayList<>() : fieldList;
-        this.fieldList = new ArrayList<Field>();
-        if (fieldList != null){
-            this.fieldList = fieldList;
-        }
-        if (natureThingList == null) {
-            this.natureThingList = new ArrayList<>();
-        } else {
-            this.natureThingList = natureThingList;
-        }
-        this.animalLodgeList = new ArrayList<>();
         this.orderList = new ArrayList<>();
         
+        
+        this.fieldList = fieldList == null ? new ArrayList<Field>() : fieldList;
+        this.natureThingList = natureThingList == null ? new ArrayList<NatureThing>() : natureThingList;
+        this.animalLodgeList = animalLodgeList == null ? new ArrayList<AnimalLodge>() : animalLodgeList;
+        this.machineList = machineList == null ? new ArrayList<Machine>() : machineList;
     }
 
     
@@ -50,15 +50,18 @@ public class Asset {
         return fieldList;
     }
     
+    public List<Machine> getMachineList ()  {
+        return this.machineList;
+    }
     
     
     
     //
     public boolean addField(Field field){
-        
         this.fieldList.add(field);
-        this.fieldList.get(this.fieldList.size() - 1).setFieldId(this.fieldList.size() - 1);
-        
+        if (field.getFieldId() == 0) {
+            field.setFieldId(fieldList.size());
+        }
         return true;
     }
     
@@ -66,7 +69,6 @@ public class Asset {
         for (int i = 0; i < this.fieldList.size(); i++){
             if (this.fieldList.get(i).getFieldId() == fieldId){
                 return this.fieldList.get(i);
-                
             }
         }
         
@@ -126,4 +128,18 @@ public class Asset {
         return null;
     }
     
+    
+    public void addAnimalLodge(AnimalLodge lodge) {
+        this.animalLodgeList.add(lodge);
+        if (lodge.getId() == 0) {
+            lodge.setId(animalLodgeList.size());    
+        }
+    }
+    
+    public void addMachine (Machine machine) {
+        this.machineList.add(machine);
+        if (machine.getId() == 0) {
+            machine.setId(machineList.size());
+        }
+    }
 }

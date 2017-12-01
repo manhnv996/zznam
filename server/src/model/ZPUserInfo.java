@@ -40,8 +40,8 @@ public class ZPUserInfo extends DataModel {
         id = _id;
         
         this.level = 1;
-        this.gold = 100;
-        this.ruby = 100;
+        this.gold = 30;
+        this.ruby = 10;
         this.exp = 0L;
         this.name = "";
         
@@ -74,6 +74,13 @@ public class ZPUserInfo extends DataModel {
                     ConfigContainer.mapConfig.Field.size.width,
                     ConfigContainer.mapConfig.Field.size.height,
                     MapItemEnum.FIELD);
+        }
+        
+        // Add Lodge to map
+        List<AnimalLodge> lodgeList = this.asset.getAnimalLodgeList();
+        for (int i = 0; i < lodgeList.size(); i++) {
+            AnimalLodge lodge = lodgeList.get(i);
+            
         }
     }
     

@@ -15,6 +15,8 @@ import cmd.send.demo.ResponseGameInfo;
 
 import cmd.send.user.ResponseUser;
 
+import config.enums.AnimalEnum;
+import config.enums.AnimalLodgeEnum;
 import config.enums.ProductType;
 import config.enums.StorageType;
 
@@ -34,6 +36,8 @@ import java.util.Date;
 
 import java.util.List;
 
+import model.Animal;
+import model.AnimalLodge;
 import model.Asset;
 import model.Field;
 import model.NatureThing;
@@ -173,8 +177,8 @@ public class UserHandler extends BaseClientRequestHandler {
         foodStorage.addItem(ProductType.CROP_SOYBEAN, 10);
         foodStorage.addItem(ProductType.CROP_WHEAT, 10);
         
-        warehouse.addItem(ProductType.GOOD_EGG, 10);        
-        warehouse.addItem(ProductType.GOOF_MILK, 10);
+        foodStorage.addItem(ProductType.GOOD_EGG, 10);        
+        foodStorage.addItem(ProductType.GOOD_MILK, 10);
         //
         
 //        warehouse.addItem(ProductType.TOOL_NAIL, 5);
@@ -194,21 +198,31 @@ public class UserHandler extends BaseClientRequestHandler {
             natureThingList.add(nt);
 //            System.out.println("id" + nObj.id + " type" + nObj.type);
         }
-        Asset asset = new Asset(foodStorage, warehouse, null, natureThingList);
         
+        Asset asset = new Asset(foodStorage, warehouse, null, natureThingList, null, null);
+        
+        // Add some fields
         for (int i = 1; i < 5; i++){
-            Field field = new Field(0, 18, 10 + i);
+            Field field = new Field(18, 10 + i);
             asset.addField(field);
         }
-        System.out.println("Field number" + asset.getFieldList().size());
+//        System.out.println("Field number" + asset.getFieldList().size());
         asset.getFieldById(1).setPlantType(ProductType.CROP_CARROT);
         asset.getFieldById(1).setPlantedTime(new Date().getTime());
         
-        ZPUserInfo userInfo = new ZPUserInfo(userId, asset);
+        // Add some animal lodges  
+        AnimalLodge lodge = new AnimalLodge(AnimalLodgeEnum.chicken_habitat, 0L, true, 20, 20);
+        asset.addAnimalLodge(lodge);
         
-        for (int i = 0; i < 3; i++){
-            System.out.println("field" + asset.getFieldById(i).getFieldId() + ", " + asset.getFieldById(i).getPlantType() + ", " + asset.getFieldById(i).getPlantedTime());
-        }
+        Animal animal = new Animal(AnimalEnum.chicken);
+        lodge.addAnimal(animal);
+        
+        // Last
+        ZPUserInfo userInfo = new ZPUserInfo(userId, asset); // ...Update map alias
+        
+//        for (int i = 0; i < 3; i++){
+//            System.out.println("field" + asset.getFieldById(i).getFieldId() + ", " + asset.getFieldById(i).getPlantType() + ", " + asset.getFieldById(i).getPlantedTime());
+//        }
         
         
         //
