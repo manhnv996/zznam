@@ -55,6 +55,7 @@ var AnimalLodgeSprite = MapBlockSprite.extend({
 				bottomLeftStartPoint.x + i * (fenceSize.height - offsetX),
 				bottomLeftStartPoint.y - i * (fenceSize.width / 2 - offsetY)
 			);
+			fenceSprite.setLocalZOrder(600);
 			
 			this.addChild(fenceSprite);
 		}
@@ -70,6 +71,8 @@ var AnimalLodgeSprite = MapBlockSprite.extend({
 				bottomRightStartPoint.x - i * (fenceSize.height - offsetX),
 				bottomRightStartPoint.y - i * (fenceSize.width / 2 - offsetY)
 			);
+			fenceSprite.setLocalZOrder(600);
+
 			this.addChild(fenceSprite);
 		}
 	},

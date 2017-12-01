@@ -5,9 +5,11 @@ var CowLodgeSprite = AnimalLodgeSprite.extend({
 			22, 13, 26,
 			4, 4, x, y, MapItemEnum.LODGE);
 		this.registerTouchEvents();
-		var cow = new CowSprite();
-		// cow.setLogicPosition(0, 0);
-		this.addChild(cow);
+		for (var i = 0; i < 5; i++) {
+			var cow = new CowSprite();
+			cow.id = i;
+			this.addChild(cow);
+		}
 	},
 
 	onClick: function() {

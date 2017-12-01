@@ -30,6 +30,7 @@ var AnimalSprite = cc.Sprite.extend({
 			return;
 		}
 		var p = MapValues.logicToPosition(x, y);
+		this.setLocalZOrder(10 * (x + y));
 		this.setPosition(
 			p.x + this.getParent().getContentSize().width / 2,
 			p.y + this.getParent().getContentSize().height
