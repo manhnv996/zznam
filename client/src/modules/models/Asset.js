@@ -67,7 +67,7 @@ var Asset = cc.Class.extend({
         //bug   // ? where??
         this.fieldList.push(field);
         field.setFieldId(this.fieldList.length);
-        // this.fieldList[this.fieldList.length - 1].setFieldId(this.fieldList.length - 1);    //autoincrement id
+         //this.fieldList[this.fieldList.length - 1].setFieldId(this.fieldList.length - 1);    //autoincrement id
 
     },
 

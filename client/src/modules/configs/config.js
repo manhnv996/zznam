@@ -4,6 +4,22 @@ var ProductType = null;
 var GameInfo = null;
 
 
+function getProductObjByType(productId) {
+    var productTypeObj = null;
+    cc.loader.loadJson(res.cropconfig, function (error, data) {
+        productTypeObj = data;
+        //ProductType = data;
+    });
+
+    for (var i = 0; i < productTypeObj.length; i++) {
+        if (productTypeObj[i].id == productId) {
+            return productTypeObj[i];
+        }
+    }
+
+    return null;
+}
+
 function getSeedLevel(level) {
 
     var productTypeObj = null;
@@ -35,6 +51,7 @@ function getSeedShow(level) {
 
     var seedShow = [];
     for (var i = 0; i < seedLevel.length; i++){
+        //cc.log("abc " + getProductObjByType(seedLevel[i]));
         if (user.getAsset().getFoodStorage().getQuantity(seedLevel[i]) == 0){
             if (getProductObjByType(seedLevel[i]).level <= user.getLevel()){
                 seedShow.push(new StorageItem(seedLevel[i], 0));
@@ -48,6 +65,7 @@ function getSeedShow(level) {
     }
 
     seedShow.sort(function(a, b) {
+        cc.log("getProductObjByType" + getProductObjByType(a.getTypeItem()).id);
         if (getProductObjByType(a.getTypeItem()).level <= user.getLevel() || a.getQuantityItem() != null){
             return getProductObjByType(a.getTypeItem()).level - getProductObjByType(b.getTypeItem()).level;
         }
@@ -58,22 +76,6 @@ function getSeedShow(level) {
     return seedShow;
 }
 
-
-function getProductObjByType(productId) {
-    var productTypeObj = null;
-    cc.loader.loadJson(res.cropconfig, function (error, data) {
-        productTypeObj = data;
-        //ProductType = data;
-    });
-
-    for (var i = 0; i < productTypeObj.length; i++) {
-        if (productTypeObj[i].id == productId) {
-            return productTypeObj[i];
-        }
-    }
-
-    return null;
-}
 
 function getResAniIdBySeedType(seedType) {
     switch (seedType) {

@@ -8,7 +8,7 @@ public class ProductType {
     public static final String CROP_SUGARCANE = "crop_sugarcane";
     
     public static final String GOOD_EGG = "good_egg";
-    public static final String GOOF_MILK = "good_milk";
+    public static final String GOOD_MILK = "good_milk";
     
     public static final String PRODUCT_BREAD = "product_bread";
     public static final String PRODUCT_CORN_BREAD = "product_corn_bread";

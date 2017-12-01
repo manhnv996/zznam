@@ -45,6 +45,8 @@ var MainScene = cc.Scene.extend({
 
 		OrderBGLayer.instance = new OrderBGLayer();
 		// this.addChild(OrderBGLayer.instance);
+
+		//BaseGUILayer.instance.notifyMissGold(50);
 	},
 
 	//
@@ -66,7 +68,7 @@ var MainScene = cc.Scene.extend({
 		}
 
 		//BaseGUILayer.instance.notifyFullStorage(StorageTypes.FOOD_STORAGE);
-		//BaseGUILayer.instance.notifyMissGold(50);
+
 	},
 
 	init: function() {

@@ -5,7 +5,8 @@ var OrderCtrl = cc.Class.extend({
         // var orderList = user.getAsset().getOrderList();
 
         // MainGuiLayer.instance.addChild(OrderBGLayer.instance);
-        OrderBGLayer.instance.showBG();
+        //OrderBGLayer.instance.showBG();
+        BaseGUILayer.instance.showOrderLayer();
     },
 
     onMakeOrder: function (orderId) {

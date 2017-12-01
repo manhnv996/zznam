@@ -40,15 +40,16 @@ var BaseGUILayer = cc.Layer.extend({
         this.addChild(this._layout);
     },
 
-    //showOrder: function () {
-    //    this._layout = new OrderLayout();
-    //    if (this._layout._hasCloseButton) {
-    //        //cc.log("_btnClose");
-    //        this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);
-    //    }
-    //    this.blockLayout();
-    //    this.addChild(this._layout);
-    //},
+    showOrderLayer: function () {
+        this._layout = new OrderBGLayer();
+        //this._layout = OrderBGLayer.instance;
+        if (this._layout._hasCloseButton) {
+            //cc.log("_btnClose");
+            this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);
+        }
+        this.blockLayout();
+        this.addChild(this._layout);
+    },
     //
     ////BaseGUILayer.instance.removeBlockListener();
 
