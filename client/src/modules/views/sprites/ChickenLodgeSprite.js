@@ -7,15 +7,9 @@ var ChickenLodgeSprite = AnimalLodgeSprite.extend({
 		this.registerTouchEvents();
 		// this.showDebugPriorityPoint();
 		// this._showBoundingPoints();
-		var chicken = new AnimalSprite(resAniId.Chicken_Fix);
-		chicken.setPosition(cc.p(
-			this.getContentSize().width / 2,
-			this.getContentSize().height / 2
-		));
-		chicken.play('Chicken_Idle2');
-		chicken._sprite.setCompleteListener(function() {
-			cc.log("Completed");
-		})
+		var chicken = new ChickenSprite();
+		chicken.play(ChickenSprite.Harvest);
+		chicken.setPosition(1, 1);
 		this.addChild(chicken);
 	},
 
