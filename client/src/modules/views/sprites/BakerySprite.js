@@ -24,7 +24,7 @@ var BakerySprite = AnimationSprite.extend({
 	},
 
 	onClick: function() {
-		cc.log("bakery is clicked");
+		cc.log("bakery is clicked " + this._bakeryId);
 	}
 
 });

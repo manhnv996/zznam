@@ -7,6 +7,9 @@ var MachineTable = cc.Layer.extend({
     _sprite: null,
     _check: null,
     _tableView: null,
+    lstP : {x: 0, y : 0},
+    autoMoveHor: 0,
+    autoMoveVer: 0,
 
     ctor: function () {
         this._super();
@@ -161,19 +164,39 @@ var MachineTable = cc.Layer.extend({
     },
 
     touchBuyEvent: function (sender, type) {
-        var lstP = {x: 0, y : 0};
+        //var lstP = {x: 0, y : 0};
         switch (type) {
             case ccui.Widget.TOUCH_BEGAN:
-                cc.log("Touch Began");
+                this.lstLocation = sender.getTouchBeganPosition();
+                this.lstLocation = MapValues.screenPositionToLogic(this.lstLocation.x, this.lstLocation.y);
+                //cc.log("Touch Began");
                 break;
             case ccui.Widget.TOUCH_MOVED:
                 //cc.log(sender.getTouchBeganPosition());
-                var movedP = sender.getTouchMovePosition();
-                var p = MapValues.screenPositionToLogic(movedP.x, movedP.y);
-                p.x = Math.floor(p.x);
-                p.y = Math.floor(p.y);
-                // cc.log(p.x + " " + p.y);
+                this.movedP = sender.getTouchMovePosition();
+
+                var winSize = cc.winSize;
+                var BORDER_AUTO_MOVE = 100;
+
+                // Auto moving when mouse nears borders
+                if (this.movedP.x < BORDER_AUTO_MOVE) {
+                    this.autoMoveHor = -1;
+                } else if (winSize.width - this.movedP.x < BORDER_AUTO_MOVE) {
+                    this.autoMoveHor = 1;
+                } else {
+                    this.autoMoveHor = 0;
+                }
+
+                if (this.movedP.y < BORDER_AUTO_MOVE) {
+                    this.autoMoveVer = -1;
+                } else if (winSize.height - this.movedP.y < BORDER_AUTO_MOVE) {
+                    this.autoMoveVer = 1;
+                } else {
+                    this.autoMoveVer = 0;
+                }
+
                 if (!GameShopLayout.instance._isHide) {
+                    this.scheduleUpdate();
                     GameShopLayout.instance.hide();
                     //this._isHide = true;
                     var beganP = sender.getTouchBeganPosition();
@@ -197,19 +220,20 @@ var MachineTable = cc.Layer.extend({
                     }
                 }
                 //cc.log(this._sprite);
-                if (this._sprite) {
-                    if (p.x !== lstP.x || p.y !== lstP.y) {
-                        this._sprite.setLogicPosition(p.x, p.y, true);
-                        lstP = p;
-                        //cc.log(Math.floor(psl.x) + " : " + Math.floor(psl.y));
-                    }
-                }
+                //if (this._sprite) {
+                //    if (p.x !== lstP.x || p.y !== lstP.y) {
+                //        this._sprite.setLogicPosition(p.x, p.y, true);
+                //        lstP = p;
+                //        //cc.log(Math.floor(psl.x) + " : " + Math.floor(psl.y));
+                //    }
+                //}
                 // cc.log("Touch Moved");
                 break;
             case ccui.Widget.TOUCH_ENDED:
                 // cc.log("Touch Ended");
                 break;
             case ccui.Widget.TOUCH_CANCELED:
+                this.unscheduleUpdate();
                 if (this._sprite) {
                     var endP = sender.getTouchEndPosition();
                     var endPl = MapValues.screenPositionToLogic(endP.x, endP.y);
@@ -219,13 +243,13 @@ var MachineTable = cc.Layer.extend({
                     this._check = MapCtrl.instance.checkValidBlockSprite(this._sprite);
                     // cc.log("this._check " + this._check);
                     if (!this._check) {
-                        MapLayer.instance.removeChild(this._sprite);
+                        this._sprite.removeFromParent(true);
                         BaseGUILayer.instance.notifyCantPut(endP.x, endP.y);
                     } else {
                         var missGold = GameShopController.instance.checkGold(sender.parent.getChildByTag(5).getString());
                         cc.log(missGold);
                         if (missGold) {
-                            MapLayer.instance.removeChild(this._sprite);
+                            this._sprite.removeFromParent(true);
                             BaseGUILayer.instance.notifyMissGold(missGold);
                         } else {
                             // Success
@@ -237,21 +261,6 @@ var MachineTable = cc.Layer.extend({
                                 case "bakery_machine":
                                     machineModel = new BakeryMachine(this._sprite._bakeryId, 0, null,
                                         false, 0, new Coordinate(this._sprite.lx, this._sprite.ly));
-                                    // Send server
-                                    //testnetwork.connector.sendBuyMapObjectRequest(this._sprite._bakeryId, typeObject, this._sprite.lx, this._sprite.ly);
-
-
-
-                                    //var fieldModel = new Field(new Coordinate(this._sprite.lx, this._sprite.ly), this._sprite.fieldId);
-                                    //user.getAsset().addField(fieldModel);
-                                    //MapLayer.instance.fieldList.push(this._sprite);
-                                    //this._sprite.field = fieldModel;
-                                    //// Send server
-                                    //testnetwork.connector.sendBuyMapObjectRequest(this._sprite.fieldId,
-                                    //    sender.parent.getChildByTag(0).getString(),
-                                    //    this._sprite.lx, this._sprite.ly);
-                                    //cc.log("Send server buy field");
-                                    //...
                                     break;
                                 //case "food_machine":
                                 //    break;
@@ -263,7 +272,7 @@ var MachineTable = cc.Layer.extend({
                                 //    break;
 
                             }
-                            cc.log("Gold User" + user.getGold());
+                            //cc.log("Gold User" + user.getGold());
                             user.getAsset().addMachine(machineModel);
                             user.reduceGold(sender.parent.getChildByTag(5).getString());
                             //Send Server
@@ -279,6 +288,25 @@ var MachineTable = cc.Layer.extend({
                 //this._isHide = false;
                 // cc.log("Touch Canceled");
                 break;
+        }
+    },
+
+    update: function (dt) {
+        var location = this.movedP;
+        var logic = MapValues.screenPositionToLogic(location.x, location.y);
+        logic.x = Math.floor(logic.x);
+        logic.y = Math.floor(logic.y);
+        if (this.lstLocation.x !== logic.x ||
+            this.lstLocation.y !== logic.y) {
+            // cc.log("Map Alias", this.mapAliasType);
+            // cc.log("move to", logic, MapCtrl.instance.checkValidBlock(logic.x, logic.y, this.blockSizeX, this.blockSizeY, this.mapAliasType));
+            this.lstLocation = logic;
+            this._sprite.setLogicPosition(logic, true);
+        }
+        if (this.autoMoveHor || this.autoMoveVer) {
+            var dx = this.autoMoveHor * dt * 250;
+            var dy = this.autoMoveVer * dt * 250;
+            MapLayer.instance.move(-dx, -dy);
         }
     }
 

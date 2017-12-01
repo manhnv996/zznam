@@ -9,6 +9,7 @@ var GameShopLayout = ccui.Layout.extend({
     //_listener: null,
     _layoutBlockListener: null,
     _debug: false,
+    _isClose: true,
     //_debug: true,
 
     ctor: function () {
@@ -35,6 +36,8 @@ var GameShopLayout = ccui.Layout.extend({
             this.setBackGroundColor(cc.color.RED);
         }
         this.addComponent();
+
+        //this.scheduleUpdate();
     },
 
     addComponent: function () {
@@ -53,13 +56,15 @@ var GameShopLayout = ccui.Layout.extend({
         var moveAction = cc.moveTo(0.1, cc.p(0, 0));
         this._layoutBlockListener.runAction(moveAction);
         this._gameShop.runAction(moveAction.clone());
+        cc.log("this.listener" + this.listener);
         if (this.listener) {
-            //cc.log("remove listener");
             cc.eventManager.removeListener(this.listener);
+            //cc.log("remove listener");
         }
     },
 
     show: function () {
+        this.scheduleUpdate();
         this._isHide = false;
         MainGuiLayer.instance.btnSettings.setTouchEnabled(false);
         var moveActionBtn = cc.moveTo(0.1, cc.p(cc.winSize.width / 3 - 10, 0));
@@ -69,6 +74,7 @@ var GameShopLayout = ccui.Layout.extend({
         this._layoutBlockListener.runAction(moveAction);
         this._gameShop.runAction(moveAction.clone());
         this.blockListener();
+        cc.log("this.listener2" + this.listener);
     },
 
     blockListener: function () {
@@ -91,6 +97,10 @@ var GameShopLayout = ccui.Layout.extend({
                     return true;
                 }
                 //MainGuiLayer.instance.btnSettings.setTouchEnabled(true);
+                //if (!this._isHide) {
+                //    this.hide();
+                //}
+                this._isClose = false;
                 return false;
                 //return true;
             }.bind(this)
@@ -102,6 +112,14 @@ var GameShopLayout = ccui.Layout.extend({
         if (this._debug) {
             this._layoutBlockListener.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
             this._layoutBlockListener.setBackGroundColor(cc.color.YELLOW);
+        }
+    },
+
+    update: function (dt) {
+        if (!this._isClose) {
+            this.unscheduleUpdate();
+            this.hide();
+            this._isClose = true;
         }
     }
 });

@@ -10,7 +10,7 @@ var BaseLayout = ccui.Layout.extend({
     //_debug: true,
     _debug: false,
 
-    ctor: function (background, titleKey, hasCloseButton, hideShop) {
+    ctor: function (background, titleKey, hasTitle, hasCloseButton, hideShop) {
         //cc.log("Notify Miss Gold");
 
         this._super();
@@ -33,14 +33,17 @@ var BaseLayout = ccui.Layout.extend({
         this._bg.setAnchorPoint(0, 0);
         //Set size layout
         this.setContentSize(this._bg.getContentSize());
+        this.addChild(this._bg);
+
 
         //Set title
-        this._title = new cc.LabelBMFont(fr.Localization.text(titleKey), res.FONT_OUTLINE_50);
-        this._title.x = this.width / 2;
-        this._title.y = this.height / 8 * 7;
+        if (hasTitle) {
+            this._title = new cc.LabelBMFont(fr.Localization.text(titleKey), res.FONT_OUTLINE_50);
+            this._title.x = this.width / 2;
+            this._title.y = this.height / 8 * 7;
 
-        this.addChild(this._bg);
-        this.addChild(this._title);
+            this.addChild(this._title);
+        }
 
         //Set close GUI button
         if (this._hasCloseButton) {

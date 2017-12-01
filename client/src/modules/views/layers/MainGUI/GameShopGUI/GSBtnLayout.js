@@ -3,7 +3,7 @@
  */
 
 var GSBtnLayout = ccui.Layout.extend({
-    _statusGS: 0,
+    //_statusGS: 0,
 
     ctor: function () {
         this._super();
@@ -27,12 +27,12 @@ var GSBtnLayout = ccui.Layout.extend({
                 break;
             case ccui.Widget.TOUCH_ENDED:
             case ccui.Widget.TOUCH_CANCELED:
-                if (this._statusGS == 0) {
+                if (this.parent._isHide) {
                     this.getParent().show();
                 } else {
                     this.getParent().hide();
                 }
-                this._statusGS = (this._statusGS + 1) % 2;
+                //this._statusGS = (this._statusGS + 1) % 2;
                 //sender.setScale((size.height / 7) / sender.getContentSize().height);
                 break;
             default:

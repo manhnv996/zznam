@@ -115,7 +115,6 @@
 
         "src/modules/models/GameShop.js",
 
-        "src/modules/views/layers/MainGUI/NotifyLayer.js",
         "src/modules/views/layers/MainGUI/GameShopGUI/ItemShopTableView/LodgeTable.js",
         "src/modules/views/layers/MainGUI/GameShopGUI/ItemShopTableView/AnimalTable.js",
         "src/modules/views/layers/MainGUI/GameShopGUI/ItemShopTableView/MachineTable.js",
@@ -123,22 +122,21 @@
         "src/modules/views/layers/MainGUI/GameShopGUI/GSBtnLayout.js",
         "src/modules/views/layers/MainGUI/GameShopGUI/GSDetailLayout.js",
         "src/modules/views/layers/MainGUI/GameShopGUI/GameShopLayout.js",
+        "src/modules/views/layers/MainGUI/MainGuiLayer.js",
 
         "src/modules/views/layers/BaseGUI/BaseLayout.js",
+        "src/modules/views/layers/BaseGUI/StorageUI/StorageItemListLayer.js",
+        "src/modules/views/layers/BaseGUI/StorageUI/UpgradeSiloLayer.js",
+        "src/modules/views/layers/BaseGUI/StorageUI/UpgradeWareLayer.js",
+        "src/modules/views/layers/BaseGUI/StorageUI/StorageLayout.js",
         "src/modules/views/layers/BaseGUI/NotifyMissGold.js",
+        "src/modules/views/layers/BaseGUI/NotifyFullStorage.js",
         "src/modules/views/layers/BaseGUI/BaseGUILayer.js",
-        "src/modules/views/layers/BaseGUI/BaseLayout.js",
-
-        "src/modules/views/layers/StorageUI/StorageItemListLayer.js",
-        "src/modules/views/layers/StorageUI/UpgradeSiloLayer.js",
-        "src/modules/views/layers/StorageUI/UpgradeWareLayer.js",
-        "src/modules/views/layers/StorageUI/StorageLayer.js",
 
         "src/modules/views/layers/MapLayer.js",
         "src/modules/views/scenes/MainScene.js",
         "src/modules/views/scenes/LoginScene.js",
         "src/modules/views/scenes/PreloaderScene.js",
-        "src/modules/views/layers/MainGUI/MainGuiLayer.js",
         "src/modules/views/layers/popup/CommonPopup.js",
         "src/modules/views/layers/SettingsLayer.js"
     ]

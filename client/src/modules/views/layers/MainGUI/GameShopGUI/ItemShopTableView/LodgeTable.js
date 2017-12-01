@@ -237,7 +237,7 @@ var LodgeTable = cc.Layer.extend({
             case ccui.Widget.TOUCH_BEGAN:
                 this.lstLocation = sender.getTouchBeganPosition();
                 this.lstLocation = MapValues.screenPositionToLogic(this.lstLocation.x, this.lstLocation.y);
-                cc.log("Touch Began");
+                //cc.log("Touch Began");
                 break;
             case ccui.Widget.TOUCH_MOVED:
                 //cc.log(sender.getTouchBeganPosition());
@@ -319,14 +319,12 @@ var LodgeTable = cc.Layer.extend({
                     this._check = MapCtrl.instance.checkValidBlockSprite(this._sprite);
                     // cc.log("this._check " + this._check);
                     if (!this._check) {
-                        //MapLayer.instance.removeChild(this._sprite);
                         this._sprite.removeFromParent(true);
                         BaseGUILayer.instance.notifyCantPut(endP.x, endP.y);
                     } else {
                         var missGold = GameShopController.instance.checkGold(sender.parent.getChildByTag(5).getString());
                         cc.log(missGold);
                         if (missGold) {
-                            //MapLayer.instance.removeChild(this._sprite);
                             this._sprite.removeFromParent(true);
                             BaseGUILayer.instance.notifyMissGold(missGold);
                         } else {
@@ -359,17 +357,12 @@ var LodgeTable = cc.Layer.extend({
                             }
                             //cc.log("Gold User" + user.getGold());
                             user.reduceGold(sender.parent.getChildByTag(5).getString());
-                            //MainGuiLayer.instance.labelGold.setString(user.getGold());
-                            //Send Server
                         }
                     }
                 }
                 this._sprite = null;
                 GameShopLayout.instance.show();
-                //this._tableView.reloadData();
                 this._tableView.updateCellAtIndex(sender.parent.getIdx());
-                //this._isHide = false;
-                // cc.log("Touch Canceled");
                 break;
         }
     },

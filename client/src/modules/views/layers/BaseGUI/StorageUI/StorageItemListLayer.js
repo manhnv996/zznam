@@ -11,12 +11,18 @@ var StorageItemListLayer = cc.Layer.extend({
 
         this._listItems = listItems;
 
-        var upgradeBtn = new ccui.Button(res.storage_upgrade_png);
-        upgradeBtn.x = cc.winSize.width / 4;
-        upgradeBtn.y = cc.winSize.width / 10 - cc.winSize.width / 12;
-        upgradeBtn.addTouchEventListener(this.touchUpgrade, this);
-        this.addChild(upgradeBtn);
+        this.upgradeBtn = new ccui.Button(res.storage_btn_png);
+        this.upgradeBtn.x = cc.winSize.width / 4;
+        this.upgradeBtn.y = cc.winSize.width / 10 - cc.winSize.width / 12;
+        this.upgradeBtn.addTouchEventListener(this.touchUpgrade, this);
+        this.upgradeBtn.setZoomScale(0.0);
+        this.addChild(this.upgradeBtn);
 
+        var labelUpgrade = new cc.LabelBMFont(fr.Localization.text("text_btn_upgrade"), res.FONT_OUTLINE_50);
+        labelUpgrade.x = this.upgradeBtn.width / 2;
+        labelUpgrade.y = this.upgradeBtn.height / 2;
+        labelUpgrade.setScale(0.7);
+        this.upgradeBtn.addChild(labelUpgrade);
         //cc.log("wh" + this.width);
 
         var listItem = new cc.TableView(this, cc.size(cc.winSize.width / 2, cc.winSize.height / 5 * 2));
@@ -52,16 +58,13 @@ var StorageItemListLayer = cc.Layer.extend({
 
     tableCellSizeForIndex:function (table, idx) {
         //cc.log("cell width " + cc.winSize.width / 2);
-        return cc.size(cc.winSize.width / 2, (cc.winSize.height / 5 * 2) / 2);
+        return cc.size(cc.winSize.width / 2, cc.winSize.height / 5);
+        //return cc.size(cc.winSize.width / 2, (cc.winSize.height / 5 * 2) / 2);
     },
 
     tableCellAtIndex:function (table, idx) {
         var cell = table.dequeueCell();
         //var level = user.getLevel();
-        //var button = [];
-        //var label = [];
-        //var itemType = [];
-
         //cc.log("create cell" + idx);
         //if (!cell) {
             cell = new cc.TableViewCell();
@@ -133,19 +136,15 @@ var StorageItemListLayer = cc.Layer.extend({
 
     touchUpgrade: function (sender, type) {
         switch (type) {
+            //case ccui.Widget.TOUCH_BEGAN:
+            //    var scaleBy = cc.scaleTo(0.1, 0.9);
+            //    sender.runAction(scaleBy);
+            //    break;
             case ccui.Widget.TOUCH_ENDED:
-                //if (this._type == StorageTypes.FOOD_STORAGE) {
-                //    this.parent.switchTo(1);
-                //} else {
-                //    this.parent.switchTo(2);
-                //}
-                //break;
             case ccui.Widget.TOUCH_CANCELED:
-                //if (this._type == StorageTypes.FOOD_STORAGE) {
-                    this.parent.switchTo(1);
-                //} else {
-                //    this.parent.switchTo(2);
-                //}
+                //var scaleBy = cc.scaleTo(0.1, 1.1);
+                //sender.runAction(scaleBy);
+                this.parent.switchTo(1);
                 break;
         }
     }

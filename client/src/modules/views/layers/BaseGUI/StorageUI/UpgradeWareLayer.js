@@ -24,11 +24,18 @@ var UpgradeWareLayer = cc.Layer.extend({
         layoutT.y = cc.winSize.height / 10;
         this.addChild(layoutT);
 
-        var backBtn = new ccui.Button(res.storage_back_png);
+        var backBtn = new ccui.Button(res.storage_btn_png);
         backBtn.x = cc.winSize.width / 4;
         backBtn.y = cc.winSize.width / 10 - cc.winSize.width / 12;
         backBtn.addTouchEventListener(this.touchBackBtn, this);
+        backBtn.setZoomScale(0.0);
         this.addChild(backBtn);
+
+        var labelUpgrade = new cc.LabelBMFont(fr.Localization.text("text_btn_back"), res.FONT_OUTLINE_50);
+        labelUpgrade.x = backBtn.width / 2;
+        labelUpgrade.y = backBtn.height / 2;
+        labelUpgrade.setScale(0.7);
+        backBtn.addChild(labelUpgrade);
 
         //BOLT...........................................................
         var layout = new ccui.Layout();
@@ -330,7 +337,8 @@ var UpgradeWareLayer = cc.Layer.extend({
                         ProductTypes.TOOL_DUCTTAPE, res.upgradeWarehouse[this._level + 1].tool_ductTape,
                         ProductTypes.TOOL_PLANK, res.upgradeWarehouse[this._level + 1].tool_plank)) {
                     user.getAsset().getWarehouse().setCapacity(res.upgradeWarehouse[this._level + 1].capacity);
-                    StorageLayer.instance._layoutStorage.removeFromParent(true);
+                    //StorageLayer.instance._layoutStorage.removeFromParent(true);
+                    BaseGUILayer.instance.removeBlockListener();
 
                     //send server
                     testnetwork.connector.sendUpgradeStorage(StorageTypes.WAREHOUSE, (this._level + 1));
@@ -341,8 +349,14 @@ var UpgradeWareLayer = cc.Layer.extend({
 
     touchBackBtn: function (sender, type){
         switch (type) {
+            //case ccui.Widget.TOUCH_BEGAN:
+            //    var scaleBy = cc.scaleTo(0.1, 0.9, 0.9);
+            //    sender.runAction(scaleBy);
+            //    break;
             case ccui.Widget.TOUCH_ENDED:
             case ccui.Widget.TOUCH_CANCELED:
+                //var scaleBy = cc.scaleTo(0.1, 1.1, 1.1);
+                //sender.runAction(scaleBy);
                 this.parent.switchTo(0);
                 break;
         }

@@ -7,7 +7,7 @@ var NotifyMissGold = BaseLayout.extend({
    ctor: function (gold) {
        //cc.log("Notify Miss Gold");
 
-       this._super(res.bg_notify_png, "text_notice_title", true, false);
+       this._super(res.bg_notify_png, "text_notice_title", true, true, false);
 
        var detail = new cc.LabelBMFont(fr.Localization.text("TEXT_NOT_ENOUGH_RESOURCE"), res.FONT_OUTLINE_30);
        detail.x = this.width / 2;
@@ -51,12 +51,12 @@ var NotifyMissGold = BaseLayout.extend({
     touchBuyGold: function (sender, type) {
         switch (type) {
             case ccui.Widget.TOUCH_BEGAN:
-                var scaleBy = cc.scaleBy(0.2, 0.9);
+                var scaleBy = cc.scaleTo(0.1, 0.9, 0.9);
                 sender.runAction(scaleBy);
                 break;
             case ccui.Widget.TOUCH_ENDED:
             case ccui.Widget.TOUCH_CANCELED:
-                var scaleBy = cc.scaleBy(0.2, 1.1);
+                var scaleBy = cc.scaleTo(0.1, 1.1, 1.1);
                 sender.runAction(scaleBy);
                 break;
         }

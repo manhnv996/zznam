@@ -36,24 +36,12 @@ var MainScene = cc.Scene.extend({
 
 		BaseGUILayer.instance = new BaseGUILayer();
 		this.addChild(BaseGUILayer.instance);
-		//GSLayer.instance = new GSLayer();
-		//this.addChild(GSLayer.instance);
 
-		StorageLayer.instance = new StorageLayer();
-		this.addChild(StorageLayer.instance);
-		// StorageLayer.instance.initStorage(user.getAsset().getFoodStorage());
-		//StorageLayer.instance.getMultiLayer().switchTo(1);
-
-		NotifyLayer.instance = new NotifyLayer();
-		this.addChild(NotifyLayer.instance);
 		MapCtrl.instance.init();
 		MapCtrl.instance._showDebugMap();
 
-		//NotifyLayer.instance.notifyFullSilo();
-		//MainGuiLayer.instance.lockButton();
-		//NotifyLayer.instance.notifyMissGold(50);
-		//NotifyLayer.instance.blockLayout();
-		//BaseGUILayer.instance.notifyMissGold(50);
+		//BaseGUILayer.instance.notifyFullStorage(StorageTypes.FOOD_STORAGE);
+		BaseGUILayer.instance.notifyMissGold(50);
 	},
 
 	init: function() {

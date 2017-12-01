@@ -20,31 +20,50 @@ var BaseGUILayer = cc.Layer.extend({
         this.addChild(this._layout);
     },
 
+    notifyFullStorage: function (storageType) {
+        this._layout = new NotifyFullStorage(storageType);
+        if (this._layout._hasCloseButton) {
+            //cc.log("_btnClose");
+            this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);
+        }
+        this.blockLayout();
+        this.addChild(this._layout);
+    },
+
+    showStorage: function (storage) {
+        this._layout = new StorageLayout(storage);
+        if (this._layout._hasCloseButton) {
+            //cc.log("_btnClose");
+            this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);
+        }
+        this.blockLayout();
+        this.addChild(this._layout);
+    },
+
     blockLayout: function () {
         MainGuiLayer.instance.lockButton();
         this._blockLayout = new BlockListenerLayer(this._layout.getContentSize());
         this.addChild(this._blockLayout);
-        //this.addChild(this._layoutMissGold);
-        //cc.log("Lock main gui button" + GSLayer.instance._btnGameShop.isTouchEnabled());
     },
 
     touchCloseButton: function (sender, type) {
         switch (type) {
-            case ccui.Widget.TOUCH_BEGAN:
-                MainGuiLayer.instance.unlockButton();
-                this.removeBlockListener();
-                break;
+        //    case ccui.Widget.TOUCH_BEGAN:
+        //        this.removeBlockListener();
+        //        break;
             case ccui.Widget.TOUCH_ENDED:
             case ccui.Widget.TOUCH_CANCELED:
-                this.removeAllChildren();
+                this.removeBlockListener();
                 break;
         }
     },
 
     removeBlockListener: function () {
+        MainGuiLayer.instance.unlockButton();
         if (this._blockLayout._listenerBlockFull) {
             //cc.log("remove listener");
             cc.eventManager.removeListener(this._blockLayout._listenerBlockFull);
+            this.removeAllChildren();
         }
     },
 
@@ -63,9 +82,5 @@ var BaseGUILayer = cc.Layer.extend({
         label.runAction(cc.sequence(fadeIn, move, fadeOut, cc.callFunc(function() {
             label.removeFromParent(true);
         })));
-
-        // setTimeout(function () {
-        //     label.removeFromParent(true);
-        // }, 2400);
     }
 });
