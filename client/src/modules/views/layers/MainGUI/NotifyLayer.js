@@ -30,7 +30,9 @@ var NotifyLayer = cc.Layer.extend({
 
         this._layoutMissGold.setContentSize(bg.getContentSize());
 
-        var title = new cc.LabelBMFont("Thông Báo", res.FONT_OUTLINE_50);
+        var titleKey = "text_notice_title";
+
+        var title = new cc.LabelBMFont(fr.Localization.text(titleKey), res.FONT_OUTLINE_50);
         title.x = this._layoutMissGold.width / 2;
         title.y = this._layoutMissGold.height / 8 * 7;
 
@@ -50,9 +52,7 @@ var NotifyLayer = cc.Layer.extend({
         var ruby = new ccui.Button(res.activity_notify_png);
         ruby.x = this._layoutMissGold.width / 2;
         ruby.y = this._layoutMissGold.height / 8;
-        //ruby.x = this._layoutMissGold.width / 2;
-        //ruby.y = this._layoutMissGold.height / 2;
-        ruby.setZoomScale(-0.1);
+        ruby.setZoomScale(0);
         var activity = new cc.LabelBMFont("Để thực hiện hành động", res.FONT_OUTLINE_20);
         activity.x = ruby.width / 5 * 3;
         activity.y = ruby.height / 2;
@@ -66,8 +66,10 @@ var NotifyLayer = cc.Layer.extend({
         rubyNeeded.y = ruby.height / 2;
         ruby.addChild(rubyNeeded);
 
+        ruby.addTouchEventListener(this.touchBuyGold, this);
+
         var close = new ccui.Button(res.close_png);
-        close.tag = 1;
+        //close.tag = 1;
         close.setZoomScale(-0.1);
         close.addTouchEventListener(this.touchCloseButtonLayout, this);
         close.setScale(0.9);
@@ -83,15 +85,26 @@ var NotifyLayer = cc.Layer.extend({
 
         //this.addChild(this._layoutMissGold);
         //this.setScale((cc.winSize.height - 20) / this._layoutMissGold.height);
+        //this.setScale((cc.winSize.height - (cc.winSize.height * 3 / 80) / this._layoutMissGold.height);
 
         var scale = (cc.winSize.height - 20) / this._layoutMissGold.height;
         var scaleTo = cc.scaleTo(0.05, scale, scale);
         this._layoutMissGold.runAction(scaleTo);
     },
 
-    //closeNotifyMissGold: function () {
-    //    this._layoutMissGold.removeFromParent(true);
-    //},
+    touchBuyGold: function (sender, type) {
+        switch (type) {
+            case ccui.Widget.TOUCH_BEGAN:
+                var scaleBy = cc.scaleBy(0.2, 0.9);
+                sender.runAction(scaleBy);
+                break;
+            case ccui.Widget.TOUCH_ENDED:
+            case ccui.Widget.TOUCH_CANCELED:
+                var scaleBy = cc.scaleBy(0.2, 1.1);
+                sender.runAction(scaleBy);
+                break;
+        }
+    },
 
     notifyCantPut: function (x, y) {
         if (x.x) {
@@ -247,9 +260,9 @@ var NotifyLayer = cc.Layer.extend({
             //cc.log("remove listener");
             cc.eventManager.removeListener(this._blockLayout._listenerBlockFull);
         }
-        if (this._blockLayout._listenerBlockGUI) {
-            cc.eventManager.removeListener(this._blockLayout._listenerBlockGUI);
-        }
+        //if (this._blockLayout._listenerBlockGUI) {
+        //    cc.eventManager.removeListener(this._blockLayout._listenerBlockGUI);
+        //}
     },
 
     notifyCantPut: function (x, y) {

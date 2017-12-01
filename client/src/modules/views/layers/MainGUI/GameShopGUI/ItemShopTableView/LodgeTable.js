@@ -8,6 +8,9 @@ var LodgeTable = cc.Layer.extend({
     _sprite: null,
     _check: null,
     _tableView: null,
+    lstP : {x: 0, y : 0},
+    autoMoveHor: 0,
+    autoMoveVer: 0,
 
     ctor: function () {
         this._super();
@@ -229,19 +232,45 @@ var LodgeTable = cc.Layer.extend({
 
     touchBuyEvent: function (sender, type) {
         //var sprite = null;
-        var lstP = {x: 0, y : 0};
+        //this.lstP = {x: 0, y : 0};
         switch (type) {
             case ccui.Widget.TOUCH_BEGAN:
+                this.lstLocation = sender.getTouchBeganPosition();
+                this.lstLocation = MapValues.screenPositionToLogic(this.lstLocation.x, this.lstLocation.y);
                 cc.log("Touch Began");
                 break;
             case ccui.Widget.TOUCH_MOVED:
                 //cc.log(sender.getTouchBeganPosition());
-                var movedP = sender.getTouchMovePosition();
-                var p = MapValues.screenPositionToLogic(movedP.x, movedP.y);
-                p.x = Math.floor(p.x);
-                p.y = Math.floor(p.y);
+                //this.lastMouse = sender.getTouch()
+                this.movedP = sender.getTouchMovePosition();
+
+                var winSize = cc.winSize;
+                var BORDER_AUTO_MOVE = 100;
+
+                // Auto moving when mouse nears borders
+                if (this.movedP.x < BORDER_AUTO_MOVE) {
+                    this.autoMoveHor = -1;
+                } else if (winSize.width - this.movedP.x < BORDER_AUTO_MOVE) {
+                    this.autoMoveHor = 1;
+                } else {
+                    this.autoMoveHor = 0;
+                }
+
+                if (this.movedP.y < BORDER_AUTO_MOVE) {
+                    this.autoMoveVer = -1;
+                } else if (winSize.height - this.movedP.y < BORDER_AUTO_MOVE) {
+                    this.autoMoveVer = 1;
+                } else {
+                    this.autoMoveVer = 0;
+                }
+
+
+                //var p = MapValues.screenPositionToLogic(this.movedP.x, this.movedP.y);
+                //p.x = Math.floor(p.x);
+                //p.y = Math.floor(p.y);
                 // cc.log(p.x + " " + p.y);
                 if (!GameShopLayout.instance._isHide) {
+                    this.scheduleUpdate();
                     GameShopLayout.instance.hide();
                     //this._isHide = true;
                     var beganP = sender.getTouchBeganPosition();
@@ -267,19 +296,20 @@ var LodgeTable = cc.Layer.extend({
                     }
                 }
                 //cc.log(this._sprite);
-                if (this._sprite) {
-                    if (p.x !== lstP.x || p.y !== lstP.y) {
-                        this._sprite.setLogicPosition(p.x, p.y, true);
-                        lstP = p;
-                        //cc.log(Math.floor(psl.x) + " : " + Math.floor(psl.y));
-                    }
-                }
+                //if (this._sprite) {
+                //    if (p.x !== this.lstP.x || p.y !== this.lstP.y) {
+                //        this._sprite.setLogicPosition(p.x, p.y, true);
+                //        this.lstP = p;
+                //        //cc.log(Math.floor(psl.x) + " : " + Math.floor(psl.y));
+                //    }
+                //}
                 // cc.log("Touch Moved");
                 break;
             case ccui.Widget.TOUCH_ENDED:
                 // cc.log("Touch Ended");
                 break;
             case ccui.Widget.TOUCH_CANCELED:
+                this.unscheduleUpdate();
                 if (this._sprite) {
                     var endP = sender.getTouchEndPosition();
                     var endPl = MapValues.screenPositionToLogic(endP.x, endP.y);
@@ -289,14 +319,16 @@ var LodgeTable = cc.Layer.extend({
                     this._check = MapCtrl.instance.checkValidBlockSprite(this._sprite);
                     // cc.log("this._check " + this._check);
                     if (!this._check) {
-                        MapLayer.instance.removeChild(this._sprite);
-                        NotifyLayer.instance.notifyCantPut(endP.x, endP.y);
+                        //MapLayer.instance.removeChild(this._sprite);
+                        this._sprite.removeFromParent(true);
+                        BaseGUILayer.instance.notifyCantPut(endP.x, endP.y);
                     } else {
                         var missGold = GameShopController.instance.checkGold(sender.parent.getChildByTag(5).getString());
                         cc.log(missGold);
                         if (missGold) {
-                            MapLayer.instance.removeChild(this._sprite);
-                            NotifyLayer.instance.notifyMissGold(missGold);
+                            //MapLayer.instance.removeChild(this._sprite);
+                            this._sprite.removeFromParent(true);
+                            BaseGUILayer.instance.notifyMissGold(missGold);
                         } else {
                             // Success
                             MapCtrl.instance.addSpriteAlias(this._sprite);
@@ -325,7 +357,7 @@ var LodgeTable = cc.Layer.extend({
                                 //case "goat_habitat":
                                 //    break;
                             }
-                            cc.log("Gold User" + user.getGold());
+                            //cc.log("Gold User" + user.getGold());
                             user.reduceGold(sender.parent.getChildByTag(5).getString());
                             //MainGuiLayer.instance.labelGold.setString(user.getGold());
                             //Send Server
@@ -334,10 +366,30 @@ var LodgeTable = cc.Layer.extend({
                 }
                 this._sprite = null;
                 GameShopLayout.instance.show();
-                this._tableView.reloadData();
+                //this._tableView.reloadData();
+                this._tableView.updateCellAtIndex(sender.parent.getIdx());
                 //this._isHide = false;
                 // cc.log("Touch Canceled");
                 break;
+        }
+    },
+
+    update: function (dt) {
+        var location = this.movedP;
+        var logic = MapValues.screenPositionToLogic(location.x, location.y);
+        logic.x = Math.floor(logic.x);
+        logic.y = Math.floor(logic.y);
+        if (this.lstLocation.x !== logic.x ||
+            this.lstLocation.y !== logic.y) {
+            // cc.log("Map Alias", this.mapAliasType);
+            // cc.log("move to", logic, MapCtrl.instance.checkValidBlock(logic.x, logic.y, this.blockSizeX, this.blockSizeY, this.mapAliasType));
+            this.lstLocation = logic;
+            this._sprite.setLogicPosition(logic, true);
+        }
+        if (this.autoMoveHor || this.autoMoveVer) {
+            var dx = this.autoMoveHor * dt * 250;
+            var dy = this.autoMoveVer * dt * 250;
+            MapLayer.instance.move(-dx, -dy);
         }
     }
 

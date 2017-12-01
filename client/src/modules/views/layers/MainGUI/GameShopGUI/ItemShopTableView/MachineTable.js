@@ -220,13 +220,13 @@ var MachineTable = cc.Layer.extend({
                     // cc.log("this._check " + this._check);
                     if (!this._check) {
                         MapLayer.instance.removeChild(this._sprite);
-                        NotifyLayer.instance.notifyCantPut(endP.x, endP.y);
+                        BaseGUILayer.instance.notifyCantPut(endP.x, endP.y);
                     } else {
                         var missGold = GameShopController.instance.checkGold(sender.parent.getChildByTag(5).getString());
                         cc.log(missGold);
                         if (missGold) {
                             MapLayer.instance.removeChild(this._sprite);
-                            NotifyLayer.instance.notifyMissGold(missGold);
+                            BaseGUILayer.instance.notifyMissGold(missGold);
                         } else {
                             // Success
                             MapCtrl.instance.addSpriteAlias(this._sprite);
@@ -235,7 +235,7 @@ var MachineTable = cc.Layer.extend({
                             var machineModel;
                             switch (typeObject) {
                                 case "bakery_machine":
-                                    var machineModel = new BakeryMachine(this._sprite._bakeryId, 0, null,
+                                    machineModel = new BakeryMachine(this._sprite._bakeryId, 0, null,
                                         false, 0, new Coordinate(this._sprite.lx, this._sprite.ly));
                                     // Send server
                                     //testnetwork.connector.sendBuyMapObjectRequest(this._sprite._bakeryId, typeObject, this._sprite.lx, this._sprite.ly);
@@ -274,7 +274,8 @@ var MachineTable = cc.Layer.extend({
                 }
                 this._sprite = null;
                 GameShopLayout.instance.show();
-                this._tableView.reloadData();
+                //this._tableView.reloadData();
+                this._tableView.updateCellAtIndex(sender.parent.getIdx());
                 //this._isHide = false;
                 // cc.log("Touch Canceled");
                 break;

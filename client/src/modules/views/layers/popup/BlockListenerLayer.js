@@ -37,14 +37,14 @@ var BlockListenerLayer = cc.LayerColor.extend({
         this.runAction(action);
 
         this.blockFullListener();
-        this.blockGUIListener();
+        //this.blockGUIListener();
 
         this.scheduleUpdate();
 
-        //if (this._debug) {
-        //    this.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
-        //    this.setBackGroundColor(cc.color.GREEN);
-        //}
+        if (this._debug) {
+            this.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
+            this.setBackGroundColor(cc.color.GREEN);
+        }
     },
 
     blockFullListener: function () {
@@ -52,57 +52,61 @@ var BlockListenerLayer = cc.LayerColor.extend({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
             onTouchBegan: function (touch, event) {
-                var target = this._blockFull;
+                //var target = this._blockFull;
+                var target = this._blockGUI;
+
                 var locationInNode = target.convertToNodeSpace(touch.getLocation());
                 var s = target.getContentSize();
                 var rect = cc.rect(0, 0, s.width, s.height);
 
-                if (cc.rectContainsPoint(rect, locationInNode)) {
+                if (!cc.rectContainsPoint(rect, locationInNode)) {
                     cc.log("Touch Block Event ");
                     this._isClose = true;
-                    return true;
+                    //return true;
                 }
-                return false;
-                //return true;
+                //this._isClose = true;
+                //return false;
+                return true;
             }.bind(this)
         });
-        cc.eventManager.addListener(this._listenerBlockFull, 2);
+        cc.eventManager.addListener(this._listenerBlockFull, 1);
     },
-
-    blockGUIListener: function () {
-        //cc.log("Touch Block Event ");
-        this._listenerBlockGUI = cc.EventListener.create({
-            event: cc.EventListener.TOUCH_ONE_BY_ONE,
-            swallowTouches: true,
-            onTouchBegan: function (touch, event) {
-                var target = this._blockGUI;
-                var locationInNode = target.convertToNodeSpace(touch.getLocation());
-                var s = target.getContentSize();
-                var rect = cc.rect(0, 0, s.width, s.height);
-
-                if (cc.rectContainsPoint(rect, locationInNode)) {
-                    //cc.log("Touch Block Event ");
-                    return true;
-                }
-                return false;
-                //return true;
-            }.bind(this)
-        });
-        cc.eventManager.addListener(this._listenerBlockGUI, 1);
-
-        //NotifyLayer.instance.touchCloseButtonLayout();
-
-        if (this._debug) {
-            this._blockGUI.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
-            this._blockGUI.setBackGroundColor(cc.color.GREEN);
-        }
-    },
+    //
+    //blockGUIListener: function () {
+    //    //cc.log("Touch Block Event ");
+    //    this._listenerBlockGUI = cc.EventListener.create({
+    //        event: cc.EventListener.TOUCH_ONE_BY_ONE,
+    //        swallowTouches: true,
+    //        onTouchBegan: function (touch, event) {
+    //            var target = this._blockGUI;
+    //            var locationInNode = target.convertToNodeSpace(touch.getLocation());
+    //            var s = target.getContentSize();
+    //            var rect = cc.rect(0, 0, s.width, s.height);
+    //
+    //            if (cc.rectContainsPoint(rect, locationInNode)) {
+    //                //cc.log("Touch Block Event ");
+    //                return true;
+    //            }
+    //            return false;
+    //            //return true;
+    //        }.bind(this)
+    //    });
+    //    cc.eventManager.addListener(this._listenerBlockGUI, 1);
+    //
+    //    if (this._debug) {
+    //        this._blockGUI.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
+    //        this._blockGUI.setBackGroundColor(cc.color.BLACK);
+    //    }
+    //},
 
     update: function (dt) {
         if (this._isClose) {
-            NotifyLayer.instance.removeBlockListener();
-            NotifyLayer.instance.removeAllChildren();
+            this.unscheduleUpdate();
+            MainGuiLayer.instance.unlockButton();
+            BaseGUILayer.instance.removeBlockListener();
+            BaseGUILayer.instance.removeAllChildren();
             this._isClose = false;
+
         }
     }
 });

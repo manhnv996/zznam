@@ -124,6 +124,11 @@
         "src/modules/views/layers/MainGUI/GameShopGUI/GSDetailLayout.js",
         "src/modules/views/layers/MainGUI/GameShopGUI/GameShopLayout.js",
 
+        "src/modules/views/layers/BaseGUI/BaseLayout.js",
+        "src/modules/views/layers/BaseGUI/NotifyMissGold.js",
+        "src/modules/views/layers/BaseGUI/BaseGUILayer.js",
+        "src/modules/views/layers/BaseGUI/BaseLayout.js",
+
         "src/modules/views/layers/StorageUI/StorageItemListLayer.js",
         "src/modules/views/layers/StorageUI/UpgradeSiloLayer.js",
         "src/modules/views/layers/StorageUI/UpgradeWareLayer.js",

@@ -329,7 +329,7 @@ var MapBlockSprite = cc.Sprite.extend({
         var logic = MapValues.screenPositionToLogic(location.x, location.y);
         logic.x = Math.floor(logic.x);
         logic.y = Math.floor(logic.y);
-        if (this.touchListener.lstLocation.x !== logic.x || 
+        if (this.touchListener.lstLocation.x !== logic.x ||
                 this.touchListener.lstLocation.y !== logic.y) {
             // cc.log("Map Alias", this.mapAliasType);
             // cc.log("move to", logic, MapCtrl.instance.checkValidBlock(logic.x, logic.y, this.blockSizeX, this.blockSizeY, this.mapAliasType));
@@ -341,6 +341,12 @@ var MapBlockSprite = cc.Sprite.extend({
             var dy = this.touchListener.autoMoveVer * dt * 250;
             MapLayer.instance.move(-dx, -dy);
         }
+    },
+
+    removeFromParent: function(flag) {
+        this._super(flag);
+        cc.log("Remove", this.touchListener);
+        cc.eventManager.removeListener(this.touchListener);
     }
 });
 

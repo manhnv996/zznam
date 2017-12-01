@@ -30,9 +30,12 @@ var MainScene = cc.Scene.extend({
 	},
 
 	onGettedData: function() {
+
 		MainGuiLayer.instance = new MainGuiLayer();
 		this.addChild(MainGuiLayer.instance);
 
+		BaseGUILayer.instance = new BaseGUILayer();
+		this.addChild(BaseGUILayer.instance);
 		//GSLayer.instance = new GSLayer();
 		//this.addChild(GSLayer.instance);
 
@@ -48,8 +51,9 @@ var MainScene = cc.Scene.extend({
 
 		//NotifyLayer.instance.notifyFullSilo();
 		//MainGuiLayer.instance.lockButton();
-		NotifyLayer.instance.notifyMissGold(50);
-		NotifyLayer.instance.blockLayout();
+		//NotifyLayer.instance.notifyMissGold(50);
+		//NotifyLayer.instance.blockLayout();
+		//BaseGUILayer.instance.notifyMissGold(50);
 	},
 
 	init: function() {
