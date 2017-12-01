@@ -41,7 +41,8 @@ var MainScene = cc.Scene.extend({
 		MapCtrl.instance._showDebugMap();
 
 		//BaseGUILayer.instance.notifyFullStorage(StorageTypes.FOOD_STORAGE);
-		BaseGUILayer.instance.notifyMissGold(50);
+		//BaseGUILayer.instance.notifyMissGold(50);
+		//cc.log(res.infoCoopItem[0]["id"]);
 	},
 
 	init: function() {

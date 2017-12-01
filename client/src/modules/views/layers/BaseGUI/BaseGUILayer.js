@@ -31,7 +31,9 @@ var BaseGUILayer = cc.Layer.extend({
     },
 
     showStorage: function (storage) {
-        this._layout = new StorageLayout(storage);
+        //this._layout = new StorageLayout(storage);
+        StorageLayout.instance = new StorageLayout(storage);
+        this._layout = StorageLayout.instance;
         if (this._layout._hasCloseButton) {
             //cc.log("_btnClose");
             this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);

@@ -201,7 +201,7 @@ var MapBlockSprite = cc.Sprite.extend({
                             this.touchListener.lstLocation.y, this.blockSizeX, this.blockSizeY)) {
                         this.setLogicPosition(this.touchListener.originalPosition, true);
                         MapLayer.instance.moveToLogic(this.touchListener.originalPosition, 2);
-                        NotifyLayer.instance.notifyCantPut(touch.getLocation());
+                        BaseGUILayer.instance.notifyCantPut(touch.getLocation());
                     }
                     // cc.log('Unschedule update');
                     this.unscheduleUpdate();

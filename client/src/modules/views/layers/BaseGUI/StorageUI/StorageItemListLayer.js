@@ -125,10 +125,10 @@ var StorageItemListLayer = cc.Layer.extend({
         switch (type) {
             case ccui.Widget.TOUCH_BEGAN:
                 cc.log("Touch Button Product");
-
+                this._tooltip = new cc.Sprite(res.tooltip_png);
+                this._tooltip.setPosition(sender.getTouchBeganPosition());
                 break;
             case ccui.Widget.TOUCH_ENDED:
-                break;
             case ccui.Widget.TOUCH_CANCELED:
                 break;
         }
@@ -136,15 +136,16 @@ var StorageItemListLayer = cc.Layer.extend({
 
     touchUpgrade: function (sender, type) {
         switch (type) {
-            //case ccui.Widget.TOUCH_BEGAN:
-            //    var scaleBy = cc.scaleTo(0.1, 0.9);
-            //    sender.runAction(scaleBy);
-            //    break;
+            case ccui.Widget.TOUCH_BEGAN:
+                var scaleBy = cc.scaleTo(0.1, 0.9);
+                sender.runAction(scaleBy);
+                break;
             case ccui.Widget.TOUCH_ENDED:
             case ccui.Widget.TOUCH_CANCELED:
-                //var scaleBy = cc.scaleTo(0.1, 1.1);
-                //sender.runAction(scaleBy);
                 this.parent.switchTo(1);
+                var scaleBy = cc.scaleTo(0.1, 1.0);
+                //StorageLayout.instance.upgradeLayer.backBtn.setScale(0.9);
+                StorageLayout.instance.upgradeLayer.backBtn.runAction(scaleBy);
                 break;
         }
     }
