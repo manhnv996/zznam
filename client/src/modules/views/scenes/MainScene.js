@@ -22,6 +22,7 @@ var MainScene = cc.Scene.extend({
 		MapCtrl.instance = new MapCtrl();
 		
 		cc.log("Start Scene");
+		this.schedule(this.updateOrderWaittingTime, 1);
 	},
 
 	onEnter: function() {
@@ -50,6 +51,26 @@ var MainScene = cc.Scene.extend({
 
 		OrderBGLayer.instance = new OrderBGLayer();
 		// this.addChild(OrderBGLayer.instance);
+	},
+
+	//
+	updateOrderWaittingTime: function () {
+		var list = user.getAsset().getWaittingOrderList();
+cc.log("updateOrderWaittingTime");
+		for (var i = 0; i < list.length; i++){
+
+			var parseCurrTime = new Date().getTime();
+			var finishWaittingTime = list[i].getFinishWaittingTime();
+			if (finishWaittingTime != null){
+				if (parseCurrTime > finishWaittingTime.getTime()){
+
+					testnetwork.connector.sendCreateNewOrder(list[i].orderId);
+					cc.log("SUCCESSSSS")
+				}
+			}
+			cc.log("update order " + i);
+		}
+
 	},
 
 	init: function() {

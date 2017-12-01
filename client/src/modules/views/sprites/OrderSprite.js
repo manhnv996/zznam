@@ -21,15 +21,15 @@ var OrderSprite = cc.Sprite.extend({
     initOrderPrice: function() {
 
         if (this.order.checkStatus() == OrderStatusTypes.WAITTING){
-            // this.initWaittingTime();
-            this.setVisible(false);
+             this.initWaittingTime();
+            //this.setVisible(false);
             return;
         }
 
-        // //
-        // var slo = new cc.Sprite(res.sloPaper);
-        // slo.setPosition(this.width / 2, this.height * 3 / 5);
-        // this.addChild(slo);
+         //
+         var slo = new cc.Sprite(res.sloPaper);
+         slo.setPosition(this.width / 2, this.height * 3 / 5);
+         this.addChild(slo);
 
 
         var price = new cc.LabelBMFont(this.order.orderPrice, res.FONT_OUTLINE_20);
@@ -170,6 +170,13 @@ var OrderSprite = cc.Sprite.extend({
 
 
     showWaittingTimeInfo: function () {
+        this.showWaittingTimeRemain();
+        ////
+        //this.unschedule(this.updateWaittingTime);
+        //this.schedule(this.updateWaittingTime, 0.2);
+        ////
+
+
         var notice = new cc.LabelBMFont("Đợi hết thời gian chờ hoặc tăng tốc bằng ruby,\nĐơn hàng tiếp theo sẽ đến nha bạn", res.FONT_OUTLINE_20);
         notice.setPosition(OrderBGLayer.instance.orderInfo.width / 2, OrderBGLayer.instance.orderInfo.height * 0.75);
 
@@ -178,6 +185,64 @@ var OrderSprite = cc.Sprite.extend({
 
     disableInfo: function() {
         OrderBGLayer.instance.orderInfo.removeAllChildrenWithCleanup(true);
+
+        this.unschedule(this.updateWaittingTime);
     },
 
+
+
+///////
+    updateWaittingTime: function () {
+
+        if (this.order == null) {
+            this.unschedule(this.updateWaittingTime);
+            cc.log("order is null")
+            return;
+        }
+        if (this.order.itemList == []){
+            this.unschedule(this.updateWaittingTime);
+            cc.log("itemList is null")
+            return;
+        }
+
+        var parseWaittingTime = this.order.waittingTime.getTime();
+        var parseFinishTime = this.order.getFinishWaittingTime().getTime();
+        var currTime = new Date().getTime();
+
+        var duration = parseFinishTime - parseWaittingTime;
+        var curr = currTime - parseWaittingTime;
+
+        cc.log("dddddddd is null")
+        if (curr > duration){
+            /*
+
+             */
+            //this.isShowProgressBar = false;
+            //this.disableProgressBarInprogress();
+            this.unschedule(this.updateWaittingTime);
+            return false;
+        }
+
+        cc.log("cccccc is null")
+        //this.progress.setPercent(curr / duration * 100);
+        //
+        var remain = new Date();
+        remain.setTime(duration - curr);
+        var timeRemainShow = "";
+        if (duration - curr > 60 * 60 * 1000){
+            timeRemainShow = remain.getHours() + ": " + remain.getMinutes() + ": " + remain.getSeconds();
+        } else {
+            timeRemainShow = remain.getMinutes() + ": " + remain.getSeconds();
+        }
+        this.timeRemain.setString(timeRemainShow);
+    },
+
+    showWaittingTimeRemain: function () {
+        // crop name
+        this.timeRemain = new cc.LabelBMFont("", res.FONT_OUTLINE_30);
+        //this.timeRemain.setPosition(cc.p(this.progressBar.width / 2, this.progressBar.height));
+        this.timeRemain.setPosition(OrderBGLayer.instance.orderInfo.width / 2, OrderBGLayer.instance.orderInfo.height * 1.05);
+        OrderBGLayer.instance.orderInfo.addChild(this.timeRemain);
+
+    }
 });

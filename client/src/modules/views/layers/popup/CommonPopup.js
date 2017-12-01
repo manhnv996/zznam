@@ -79,7 +79,6 @@ var CommonPopup = cc.Layer.extend({
     }
 });
 
-
 var CommonButton =  ccui.Scale9Sprite.extend(
     {
         title: null,

@@ -124,6 +124,17 @@ var Asset = cc.Class.extend({
         var qWarehouse = this.getWarehouse().getQuantity(productId);
 
         return (qFoodStorage > qWarehouse) ? qFoodStorage : qWarehouse;
+    },
+
+    //
+    getWaittingOrderList: function () {
+        var list = [];
+        for (var i = 0; i < this.getOrderList().length; i++){
+            if (this.getOrderList()[i].checkStatus() == OrderStatusTypes.WAITTING){
+                list.push(this.getOrderList()[i]);
+            }
+        }
+        return list;
     }
 
 });

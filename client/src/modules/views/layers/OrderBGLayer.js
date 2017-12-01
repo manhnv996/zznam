@@ -47,10 +47,10 @@ var OrderBGLayer = cc.Layer.extend({
                 this.bgBackground.height - this.orderList[i].height * 1 / 3 - (Math.floor(i / 3) + 1) * this.orderList[i].height));
 
 
-//            ////
-            var slo = new cc.Sprite(res.sloPaper);
-            slo.setPosition(this.orderList[i].x, this.orderList[i].y * 1.04);
-            this.bgBackground.addChild(slo);
+////            ////
+//            var slo = new cc.Sprite(res.sloPaper);
+//            slo.setPosition(this.orderList[i].x, this.orderList[i].y * 1.04);
+//            this.bgBackground.addChild(slo);
 
         }
     },
@@ -90,5 +90,15 @@ var OrderBGLayer = cc.Layer.extend({
             OrderCtrl.instance.onMakeOrder(this.lastIndexItemClick);
 
         }
-    }
+    },
+
+
+    /////
+    //updateWaittingTimeOrderList: function () {
+    //    //
+    //    for (var i = 0; i < this.orderList.length; i++){
+    //        this.orderList[i].updateWaittingTime();
+    //    }
+    //}
+
 });

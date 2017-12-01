@@ -37,6 +37,22 @@ var Order = cc.Class.extend({
     },
 
     //
+    getFinishWaittingTime: function () {
+        if (this.itemList == []){
+            return null;
+        }
+        if (this.waittingTime == null){
+            return null;
+        }
+
+        var parseTime = this.waittingTime.getTime();
+        var finishTime = new Date();
+        finishTime.setTime(parseTime + this.getRemainTime(user.getLevel()) * 60 * 1000);
+        //finishTime.setTime(parseTime + 6000);     //HERE IS TEST
+
+        return finishTime;
+    },
+
     getRemainTime: function (level) {
         if (level < 11){
             return 3;

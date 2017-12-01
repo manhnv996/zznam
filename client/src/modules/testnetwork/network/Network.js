@@ -150,13 +150,14 @@ testnetwork.Connector = cc.Class.extend({
                 orderSelected.itemList = packet.order.itemList;
                 orderSelected.orderPrice = packet.order.orderPrice;
                 orderSelected.orderExp = packet.order.orderExp;
-                orderSelected.waittingTime = packet.order.waittingTime;
+                //orderSelected.waittingTime = packet.order.waittingTime;
+                orderSelected.waittingTime = new Date(parseInt(packet.order.waittingTime));
 
-                //
-                if (CommonPopup.instance){
-                    CommonPopup.instance.onSelectClose();
-                }
-                OrderCtrl.instance.onShowOrderBG();
+                ////
+                //if (CommonPopup.instance){
+                //    CommonPopup.instance.onSelectClose();
+                //}
+                //OrderCtrl.instance.onShowOrderBG();
 
                 break;
             //
@@ -229,7 +230,7 @@ testnetwork.Connector = cc.Class.extend({
                             //cc.log("HTTP Response : openId : " + openId);
                             //cc.log("HTTP Response : expired_time : " + expired_time);
                             var pk = this.gameClient.getOutPacket(CmdSendLogin);
-                            pk.pack(sessionKey2);
+                            pk.pack(sessionKey2, userid);
                             this.gameClient.sendPacket(pk);
                         }
                     }.bind(this, userid);
@@ -281,6 +282,12 @@ testnetwork.Connector = cc.Class.extend({
     sendCancelOrder: function (orderId) {
         cc.log("sendCancelOrder: " + orderId);
         var pk = this.gameClient.getOutPacket(CmdSendCancelOrder);
+        pk.pack(orderId);
+        this.gameClient.sendPacket(pk);
+    },
+    sendCreateNewOrder: function (orderId) {
+        cc.log("sendCreateNewOrder: " + orderId);
+        var pk = this.gameClient.getOutPacket(CmdSendCreateNewOrder);
         pk.pack(orderId);
         this.gameClient.sendPacket(pk);
     },

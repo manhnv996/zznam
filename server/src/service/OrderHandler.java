@@ -11,6 +11,7 @@ import cmd.CmdDefine;
 import cmd.receive.demo.RequestPlant;
 
 import cmd.receive.order.RequestCancelOrder;
+import cmd.receive.order.RequestCreateNewOrder;
 import cmd.receive.order.RequestMakeOrder;
 
 import cmd.send.demo.ResponseErrorCode;
@@ -62,7 +63,12 @@ public class OrderHandler extends BaseClientRequestHandler {
                     
                     processCancelOrder(user, cancelOrder);
                     break;
-            
+                case CmdDefine.CREATE_NEW_ORDER:
+                    RequestCreateNewOrder createNewOrder = new RequestCreateNewOrder(dataCmd);
+                    
+                    processCreateNewOrder(user, createNewOrder);
+                    break;
+                
             }
             
                 
@@ -113,7 +119,6 @@ public class OrderHandler extends BaseClientRequestHandler {
         }
     }
     
-    
     public void processCancelOrder(User user, RequestCancelOrder order){
         try {
             ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
@@ -144,6 +149,39 @@ public class OrderHandler extends BaseClientRequestHandler {
         } catch (Exception e) {
         }
     }
+    
+    
+    public void processCreateNewOrder(User user, RequestCreateNewOrder order){
+        try {
+            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
+            if (userInfo == null){
+                
+                return;
+            }
+            
+            /*
+             * DONE
+             */
+            short errorCode = userInfo.getAsset().getOrderdById(order.orderId).createOrder(userInfo.getLevel());
+            
+            //
+            if (errorCode == ErrorLog.SUCCESS.getValue()){
+                send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
+
+                userInfo.saveModel(user.getId());                
+                //
+                send(new ResponseSyncOrder(errorCode, userInfo.getAsset().getOrderdById(order.orderId)), user);
+                
+            } else {
+                
+                send(new ResponseSyncOrder(errorCode, userInfo.getAsset().getOrderdById(order.orderId)), user);
+            }
+            
+            
+        } catch (Exception e) {
+        }
+    }
+    
     
 //    /////////
     

@@ -30,6 +30,7 @@ gv.CMD.RESPONSE_SYNC_FOOD_STORAGE_ITEM = 5084;
 //
 gv.CMD.MAKE_ORDER = 10001;
 gv.CMD.CANCEL_ORDER = 10002;
+gv.CMD.CREATE_NEW_ORDER = 10003;
 
 gv.CMD.RESPONSE_SYNC_ORDER = 10081;
 
@@ -220,6 +221,24 @@ CmdSendCancelOrder = fr.OutPacket.extend(
             this._super();
             this.initData(100);
             this.setCmdId(gv.CMD.CANCEL_ORDER);
+        },
+        pack:function(orderId){
+            this.packHeader();
+
+            this.putInt(orderId);
+
+            this.updateSize();
+        }
+    }
+);
+
+CmdSendCreateNewOrder = fr.OutPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+            this.initData(100);
+            this.setCmdId(gv.CMD.CREATE_NEW_ORDER);
         },
         pack:function(orderId){
             this.packHeader();

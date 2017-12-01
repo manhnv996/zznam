@@ -366,7 +366,7 @@ public class OrderUtil {
     
     ////
     public static int getOrderPrice(int level, List<StorageItem> itemList){
-        if(itemList == null){
+        if(itemList.isEmpty()){
             return 0;
         }
         
@@ -404,7 +404,7 @@ public class OrderUtil {
     
     //
     public static int getOrderExp(int level, List<StorageItem> itemList){
-        if(itemList == null){
+        if(itemList.isEmpty()){
             return 0;
         }
         

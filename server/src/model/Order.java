@@ -33,17 +33,19 @@ public class Order extends DataModel{
 
 
 
-    public boolean createOrder(int level){
-        if ((this.waittingTime + OrderUtil.getRemainTime(level) * 60 * 1000) <= new Date().getTime()){
+    public short createOrder(int level){
+        if ((this.waittingTime + OrderUtil.getRemainTime(level) * 60 * 1000 - 2000) <= new Date().getTime()){
             this.setItemList(level);
             this.setOrderPrice(level);
             this.setOrderExp(level);
             
             this.waittingTime = 0;
             
-            return true;
+//            return true;
+            return ErrorLog.SUCCESS.getValue();
         }
-        return false;
+//        return false;
+        return ErrorLog.SUCCESS.getValue();
     }
     
 
