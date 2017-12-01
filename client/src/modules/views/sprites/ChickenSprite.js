@@ -20,9 +20,9 @@ var ChickenSprite = AnimalSprite.extend({
 		if (rand === 0) {
 			this.walk();
 		} else if (rand === 1) {
-			 this.play(ChickenSprite.Idle2);
+			Math.random() > 0.5 ? this.play(ChickenSprite.Idle2) : this.play(ChickenSprite.Idle3);
 		} else {
-			return this.play(ChickenSprite.Idle1);
+			Math.random() > 0.5 ? this.play(ChickenSprite.Idle1) : this.play(ChickenSprite.Idle4);
 		}
 		this.scheduleOnce(function() {
 			this.schedule(this.doAction, 4.0);
@@ -39,9 +39,9 @@ var ChickenSprite = AnimalSprite.extend({
 			case 0:
 				return this.walk();
 			case 1:
-				return this.play(ChickenSprite.Idle2);
+				return Math.random() > 0.5 ? this.play(ChickenSprite.Idle2) : this.play(ChickenSprite.Idle3);
 			case 2:
-				return this.play(ChickenSprite.Idle1);
+				return Math.random() > 0.5 ? this.play(ChickenSprite.Idle1) : this.play(ChickenSprite.Idle4);
 		}
 	},
 
