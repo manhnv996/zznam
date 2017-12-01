@@ -41,14 +41,12 @@ var PreloaderLayer = cc.Layer.extend({
     onEnter:function(){
         this._super();
     },
-    onPlay : function(){
-        cc.log("==onplay clicked");
-        cc.director.runScene(new LoginScene());
-    },
+
     update:function(dt){
         this.percent+=10;
         if (this.percent >=100){
-            cc.director.runScene(new LoginScene());
+            LoginScene.instance = new LoginScene();
+            cc.director.runScene(LoginScene.instance);
         }
         this.loadingBar.setPercent(this.percent);
     }

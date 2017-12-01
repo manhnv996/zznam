@@ -648,6 +648,9 @@ var MapLayer = cc.Layer.extend({
 
 		PopupLayer.instance.disablePopup();
 		PopupLayer.instance.disableProgressBarInprogress();
+
+		//
+		MachineLayer.instance.disablePopup();
 	},
 
 	handleKeyboard: function(keycode, event) {

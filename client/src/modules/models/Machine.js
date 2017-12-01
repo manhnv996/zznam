@@ -1,20 +1,20 @@
 
-var Machine = CoordinatedObject.extend({
-
-    slot: 1,
+var Machine = ConstructedObject.extend({
+    machineId: null,
+    machineType: null,
+    slot: 2,
     startTime: null,
     productQueue: null,
-
-    ctor: function (coordinate) {
+    ctor: function (coordinate, startBuildTime, completed, machineId, machineType, productQueue, startTime) {
         //
-        this._super(coordinate);
-
-
+        this._super(startBuildTime, completed, coordinate);
+        this.machineId = machineId;
+        this.machineType = machineType;
+        this.startTime = startTime;
+        this.productQueue = productQueue ? productQueue : [];
     },
-    // render: function () {
-    //     //
-
-    // },
+    calculateFinishTime:function(){
+    },
     createProduct: function () {
         //boolean
 

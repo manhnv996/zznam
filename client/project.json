@@ -18,6 +18,7 @@
         "src/**/*.js"
     ],
     "jsList": [
+        "src/data/MachineItemResource.js",
         "src/data/FontsResource.js",
         "src/data/SettingsResource.js",
         "src/data/MainGuiResource.js",
@@ -53,6 +54,9 @@
         "src/modules/utils/inertiaEngine.js",
         "src/modules/configs/MapItemEnum.js",
 
+        "src/modules/configs/MachineConfig.js",
+        "src/modules/configs/MachineProductConfig.js",
+
         "src/modules/configs/MapConfigs.js",
         "src/modules/configs/ListenerPriorityConfigs.js",
         "src/modules/configs/MapValues.js",
@@ -66,14 +70,14 @@
         "src/modules/views/sprites/SiloSprite.js",
         "src/modules/views/sprites/WareHouseSprite.js",
         "src/modules/views/sprites/BakerySprite.js",
-        "src/modules/views/sprites/FoodGringerSprite.js",
+        "src/modules/views/sprites/MachineSprite.js",
         "src/modules/views/sprites/CayRungSprite.js",
         "src/modules/views/sprites/VungnuocSprite.js",
         "src/modules/views/sprites/DatoSprite.js",
         "src/modules/views/sprites/DanhoSprite.js",
 
         "src/modules/views/layers/PopupLayer.js",
-
+        "src/modules/views/layers/MachineLayer.js",
         "src/modules/views/sprites/SeedSprite.js",
         "src/modules/views/sprites/CropToolSprite.js",
         "src/modules/views/sprites/FieldSprite.js",

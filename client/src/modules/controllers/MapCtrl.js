@@ -40,10 +40,7 @@ var MapCtrl = cc.Class.extend({
         MainScene.instance.addChild(InertiaEngine.instance);
         this.renderUserInfo();
 
-        var foodGringer = new FoodGringer(20, 20);
-        //this.foodGringer = foodGringer;
-        MapLayer.instance.addChild(foodGringer);
-        cc.log(foodGringer.getContentSize());
+        this.renderMachine();
 
     },
 
@@ -291,6 +288,37 @@ var MapCtrl = cc.Class.extend({
         //             return cc.log("Unhandled natural", item.id);
         //     }
         // }
+    },
+
+    renderMachine: function(){
+        //(coordinate, startBuildTime, completed, machineId, machineType, productQueue)
+        var coordinate = {x:24, y: 24};
+        var startBuildTime = "343434324";
+        var completed = true;
+        var machineId = "bakery_machine";
+        var machineType = "bakery_machine";
+        var startTime = "343434324";
+        var productQueue = ["product_bread", "product_corn_bread"];
+        user.asset.addMachine(new Machine(coordinate, startBuildTime, completed, machineId, machineType, productQueue,startTime));
+        user.asset.addMachine(new Machine({x:20, y: 20}, startBuildTime, completed, "food_machine", "food_machine", productQueue, startTime));
+
+        cc.log(user.asset.machineList[0].coordinate.x+ "===========" + "===========" +user.asset.machineList[0].coordinate.y );
+
+        var spriteBakery = new MachineSprite("bakery_machine", resAniId.bakery, MachineConfig.BakeryMachine.size.width, MachineConfig.BakeryMachine.size.height, 24, 24, MachineConfig.BakeryMachine.mapItemEnum);
+        MapLayer.instance.addChild(spriteBakery);
+
+        var spriteFoodMachine = new MachineSprite("food_machine", resAniId.feed_mill, MachineConfig.FoodMachine.size.width, MachineConfig.FoodMachine.size.height, 20, 20, MachineConfig.FoodMachine.mapItemEnum);
+        MapLayer.instance.addChild(spriteFoodMachine);
+
+        var spritePopcornMachine = new MachineSprite("popcorn_machine", resAniId.popcorn_pot, MachineConfig.PopcornMachine.size.width, MachineConfig.PopcornMachine.size.height, 18, 18, MachineConfig.PopcornMachine.mapItemEnum);
+        MapLayer.instance.addChild(spritePopcornMachine);
+
+        //var spriteSugarMachine = new MachineSprite("sugar_machine", resAniId.SugarCan, MachineConfig.SugarMachine.size.width, MachineConfig.SugarMachine.size.height, 18, 15, MachineConfig.SugarMachine.mapItemEnum);
+        //MapLayer.instance.addChild(spriteSugarMachine);
+
+
+
+
     }
 });
 

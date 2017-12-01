@@ -137,3 +137,9 @@ for (var k in SettingsResource) {
 for (var k in FontResource) {
     res[k] = FontResource[k];
 }
+
+
+//add resources in /fonts/
+for (var k in MachineItemResource) {
+    res[k] = MachineItemResource[k];
+}

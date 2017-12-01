@@ -34,9 +34,10 @@ var HavestResource = {
 
     popup1: "res/Art/Crops/Gui-act/1.png",
     popup2: "res/Art/Crops/Gui-act/2.png",
+    popup3: "res/Art/Crops/Gui-act/3.png",
     popup4: "res/Art/Crops/Gui-act/4.png",
     popup5: "res/Art/Crops/Gui-act/5.png",
-
+    button_congG_1: "res/Art/Crops/Gui-act/butoon-congG-1.png",
 
     slot: "res/Art/Crops/Gui-act/slot.png",
     tooltip: "res/Art/Crops/Gui-act/tooltip.png",
