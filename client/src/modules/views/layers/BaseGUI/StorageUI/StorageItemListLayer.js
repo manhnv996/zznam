@@ -5,8 +5,8 @@
 var StorageItemListLayer = cc.Layer.extend({
     _listItems: [],
     _tableItems: null,
-    //_debug: false,
-    _debug: true,
+    _debug: false,
+    //_debug: true,
 
     ctor: function (listItems) {
         this._super();
@@ -154,25 +154,34 @@ var StorageItemListLayer = cc.Layer.extend({
                 }
                 BaseGUILayer.instance.addChild(this._tooltip);
 
-                var type = sender.parent.getChildByTag(sender.tag + 20);
+                var type = sender.parent.getChildByTag(sender.tag + 20).getString();
 
-                var name = new cc.LabelBMFont(fr.Localization.text(res.storageItemResource[type].name));
+                var name = new cc.LabelBMFont(fr.Localization.text(res.storageItemResource[type].name), res.FONT_OUTLINE_30);
                 name.x = this._tooltip.width / 2;
                 name.y = this._tooltip.height;
+                name.setAnchorPoint(0.5, 1);
+                this._tooltip.addChild(name);
 
-                var description = new cc.LabelBMFont(fr.Localization.text(res.storageItemResource[type].description));
+                var description = new cc.LabelBMFont(fr.Localization.text(res.storageItemResource[type].description), res.FONT_NORMAL_30);
                 description.x = this._tooltip.width / 2;
                 description.y = this._tooltip.height / 2;
                 description.setContentSize(this._tooltip.width / 7 * 5, this._tooltip.height / 3);
                 description.setBoundingWidth(this._tooltip.width / 7 * 5);
                 description.setAlignment(cc.TEXT_ALIGNMENT_CENTER);
+                description.color = cc.color(77, 41, 1);
+                this._tooltip.addChild(description);
 
-                var time = new cc.LabelBMFont(fr.Localization.text(res.storageItemResource[type].time) + " " +
-                    fr.Localization.text(res.storageItemResource[type].typeTime));
-
+                if (res.storageItemResource[type].time != "") {
+                    var time = new cc.LabelBMFont(res.storageItemResource[type].time + " " +
+                        fr.Localization.text(res.storageItemResource[type].typeTime), res.FONT_OUTLINE_30);
+                    time.x = this._tooltip.width / 2;
+                    time.y = 0;
+                    time.setAnchorPoint(0.5, 0);
+                    this._tooltip.addChild(time);
+                }
                 this._tooltip.setScale(0.5);
-                var scaleUp = cc.scaleTo(0.2, 1.1);
-                var scaleDown = cc.scaleTo(0.15, 1.0);
+                var scaleUp = cc.scaleTo(0.2, 1.4);
+                var scaleDown = cc.scaleTo(0.15, 1.3);
                 this._tooltip.runAction(cc.sequence(scaleUp, scaleDown));
 
                 /**

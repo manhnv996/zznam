@@ -11,7 +11,7 @@ var BaseGUILayer = cc.Layer.extend({
 
     notifyShopNotEnoughGold: function (gold) {
         //cc.log("Notify Miss Gold");
-        this._layout = new NotifyShopNotEnoughGold(gold);
+        this._layout = new NotifyNotEnoughG(gold, true);
         if (this._layout._hasCloseButton) {
             //cc.log("_btnClose");
             this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);
@@ -21,6 +21,19 @@ var BaseGUILayer = cc.Layer.extend({
         //    //GameShopLayout.instance.setBounceable(false);
         //    //LodgeTable.instance = new
         //}
+        this.blockLayout();
+        this.addChild(this._layout);
+    },
+
+    notifyNotEnoughRuby: function (ruby) {
+        this._layout = new NotifyNotEnoughG(ruby, false);
+        cc.log("this._layout.gImg " + this._layout.gImg.getTexture());
+        this._layout.gImg.setTexture(res.ruby_small);
+        if (this._layout._hasCloseButton) {
+            //cc.log("_btnClose");
+            this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);
+        }
+        //this._layout.gImg.setTexture(res.ruby);
         this.blockLayout();
         this.addChild(this._layout);
     },

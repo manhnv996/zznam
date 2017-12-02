@@ -83,7 +83,7 @@
   "tool_screw" : {
     "name": "tool_screw_name",
     "description" : "tool_screw_description",
-    "time": 2,
+    "time": "",
     "typeTime": "Text_time_minute",
     "nameIcon" : "Art/Tool/dinh.png",
     "price": 10

@@ -129,7 +129,7 @@
         "src/modules/views/layers/BaseGUI/StorageUI/UpgradeSiloLayer.js",
         "src/modules/views/layers/BaseGUI/StorageUI/UpgradeWareLayer.js",
         "src/modules/views/layers/BaseGUI/StorageUI/StorageLayout.js",
-        "src/modules/views/layers/BaseGUI/NotifyShopNotEnoughGold.js",
+        "src/modules/views/layers/BaseGUI/NotifyNotEnoughG.js",
         "src/modules/views/layers/BaseGUI/NotifyFullStorage.js",
         "src/modules/views/layers/BaseGUI/BaseGUILayer.js",
 
