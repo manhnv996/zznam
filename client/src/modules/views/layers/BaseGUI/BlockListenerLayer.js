@@ -60,7 +60,7 @@ var BlockListenerLayer = cc.LayerColor.extend({
                 var rect = cc.rect(0, 0, s.width, s.height);
 
                 if (!cc.rectContainsPoint(rect, locationInNode)) {
-                    cc.log("Touch Block Event ");
+                    //cc.log("Touch Block Event ");
                     this._isClose = true;
                     //return true;
                 }

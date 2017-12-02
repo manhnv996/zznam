@@ -2,7 +2,7 @@
  * Created by CPU60075_LOCAL on 12/1/2017.
  */
 
-var NotifyMissGold = BaseLayout.extend({
+var NotifyShopNotEnoughGold = BaseLayout.extend({
 
    ctor: function (gold) {
        //cc.log("Notify Miss Gold");

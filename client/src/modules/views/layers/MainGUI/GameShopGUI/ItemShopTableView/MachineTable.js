@@ -234,6 +234,7 @@ var MachineTable = cc.Layer.extend({
                 break;
             case ccui.Widget.TOUCH_CANCELED:
                 this.unscheduleUpdate();
+                GameShopLayout.instance.show();
                 if (this._sprite) {
                     var endP = sender.getTouchEndPosition();
                     var endPl = MapValues.screenPositionToLogic(endP.x, endP.y);
@@ -250,7 +251,7 @@ var MachineTable = cc.Layer.extend({
                         cc.log(missGold);
                         if (missGold) {
                             this._sprite.removeFromParent(true);
-                            BaseGUILayer.instance.notifyMissGold(missGold);
+                            BaseGUILayer.instance.notifyShopNotEnoughGold(missGold);
                         } else {
                             // Success
                             MapCtrl.instance.addSpriteAlias(this._sprite);
@@ -282,7 +283,7 @@ var MachineTable = cc.Layer.extend({
                     }
                 }
                 this._sprite = null;
-                GameShopLayout.instance.show();
+                //GameShopLayout.instance.show();
                 //this._tableView.reloadData();
                 this._tableView.updateCellAtIndex(sender.parent.getIdx());
                 //this._isHide = false;
@@ -301,7 +302,9 @@ var MachineTable = cc.Layer.extend({
             // cc.log("Map Alias", this.mapAliasType);
             // cc.log("move to", logic, MapCtrl.instance.checkValidBlock(logic.x, logic.y, this.blockSizeX, this.blockSizeY, this.mapAliasType));
             this.lstLocation = logic;
-            this._sprite.setLogicPosition(logic, true);
+            if (this._sprite) {
+                this._sprite.setLogicPosition(logic, true);
+            }
         }
         if (this.autoMoveHor || this.autoMoveVer) {
             var dx = this.autoMoveHor * dt * 250;

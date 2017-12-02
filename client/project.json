@@ -72,7 +72,6 @@
         "src/modules/views/sprites/DanhoSprite.js",
 
         "src/modules/views/layers/PopupLayer.js",
-        "src/modules/views/layers/popup/BlockListenerLayer.js",
 
         "src/modules/views/sprites/SeedSprite.js",
         "src/modules/views/sprites/CropToolSprite.js",
@@ -124,12 +123,13 @@
         "src/modules/views/layers/MainGUI/GameShopGUI/GameShopLayout.js",
         "src/modules/views/layers/MainGUI/MainGuiLayer.js",
 
+        "src/modules/views/layers/BaseGUI/BlockListenerLayer.js",
         "src/modules/views/layers/BaseGUI/BaseLayout.js",
         "src/modules/views/layers/BaseGUI/StorageUI/StorageItemListLayer.js",
         "src/modules/views/layers/BaseGUI/StorageUI/UpgradeSiloLayer.js",
         "src/modules/views/layers/BaseGUI/StorageUI/UpgradeWareLayer.js",
         "src/modules/views/layers/BaseGUI/StorageUI/StorageLayout.js",
-        "src/modules/views/layers/BaseGUI/NotifyMissGold.js",
+        "src/modules/views/layers/BaseGUI/NotifyShopNotEnoughGold.js",
         "src/modules/views/layers/BaseGUI/NotifyFullStorage.js",
         "src/modules/views/layers/BaseGUI/BaseGUILayer.js",
 

@@ -14,17 +14,25 @@ var BaseLayout = ccui.Layout.extend({
         //cc.log("Notify Miss Gold");
 
         this._super();
+        this._hasCloseButton = hasCloseButton;
+        this._hideShop = hideShop;
 
-        if (hideShop) {
+        if (this._hideShop) {
             if (!GameShopLayout.instance._isHide) {
                 GameShopLayout.instance.hide();
+            }
+        } else {
+            cc.log("Lock Shop" + GameShopLayout.instance._isHide);
+            if (!GameShopLayout.instance._isHide) {
+                //GameShopLayout.instance.hide();
+                //cc.log("Lock Shop");
+                GameShopLayout.instance._gameShop.lockGameShop();
             }
         }
 
         this.x = cc.winSize.width / 2;
         this.y = cc.winSize.height / 2;
         this.setAnchorPoint(cc.p(0.5, 0.5));
-        this._hasCloseButton = hasCloseButton;
 
         //Set background
         this._bg = new cc.Sprite(background);
@@ -72,8 +80,9 @@ var BaseLayout = ccui.Layout.extend({
 
     actionShow: function () {
         var scale = (cc.winSize.height - cc.winSize.height / 80 * 3) / this.height;
-        var scaleUp = cc.scaleTo(0.2, scale + 0.15, scale + 0.15);
-        var scaleDown = cc.scaleTo(0.15, scale, scale);
+        //cc.log("scale " + scale);
+        var scaleUp = cc.scaleTo(0.2, scale + 0.15);
+        var scaleDown = cc.scaleTo(0.15, scale);
         this.runAction(cc.sequence(scaleUp, scaleDown));
     }
 

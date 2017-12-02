@@ -9,13 +9,18 @@ var BaseGUILayer = cc.Layer.extend({
         this._super();
     },
 
-    notifyMissGold: function (gold) {
+    notifyShopNotEnoughGold: function (gold) {
         //cc.log("Notify Miss Gold");
-        this._layout = new NotifyMissGold(gold);
+        this._layout = new NotifyShopNotEnoughGold(gold);
         if (this._layout._hasCloseButton) {
             //cc.log("_btnClose");
             this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);
         }
+        //if (!this._layout._hideShop) {
+        //    cc.log("setBounceable");
+        //    //GameShopLayout.instance.setBounceable(false);
+        //    //LodgeTable.instance = new
+        //}
         this.blockLayout();
         this.addChild(this._layout);
     },
@@ -62,6 +67,9 @@ var BaseGUILayer = cc.Layer.extend({
 
     removeBlockListener: function () {
         MainGuiLayer.instance.unlockButton();
+        if (!this._layout._hideShop) {
+            GameShopLayout.instance._gameShop.unlockGameShop();
+        }
         if (this._blockLayout._listenerBlockFull) {
             //cc.log("remove listener");
             cc.eventManager.removeListener(this._blockLayout._listenerBlockFull);
