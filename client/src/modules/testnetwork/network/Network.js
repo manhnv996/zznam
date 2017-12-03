@@ -266,9 +266,16 @@ testnetwork.Connector = cc.Class.extend({
     },
 
     sendBuyMapObjectRequest: function (id, type, x, y) {
-        cc.log("Send buy map object request");
+        cc.log("Send buy map object request " + x + " " + y);
         var pk = this.gameClient.getOutPacket(CmdSendBuyMapObjectRequest);
         pk.pack(id, type, x, y);
+        this.gameClient.sendPacket(pk);
+    },
+
+    sendBuyMapObjectByRuby: function (id, type, x, y, ruby) {
+        cc.log("Send buy map object by ruby");
+        var pk = this.gameClient.getOutPacket(CmdSendBuyMapObjectByRuby);
+        pk.pack(id, type, x, y, ruby);
         this.gameClient.sendPacket(pk);
     },
 

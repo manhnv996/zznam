@@ -1,8 +1,10 @@
 var ConstructedObject = CoordinatedObject.extend({
 	completed: false,
-	startBuildTime: null,
+	startBuildTime: 0,
 
-	ctor: function() {
-		
+	ctor: function(startBuildTime, completed, coordinate) {
+		this._super(coordinate);
+		this.startBuildTime = startBuildTime;
+		this.completed = completed;
 	}
 });

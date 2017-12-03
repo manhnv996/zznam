@@ -205,7 +205,8 @@ var MachineTable = cc.Layer.extend({
                     createP.y = Math.floor(createP.y);
                     switch (sender.parent.getChildByTag(0).getString()) {
                         case "bakery_machine":
-                            this._sprite = new BakerySprite(user.getAsset().getMachineList().length + 1, createP.x, createP.y);
+                            this._sprite = new BakerySprite(user.getAsset().getMachineList().length + 1,
+                                createP.x, createP.y);
                             this._sprite.setLocalZOrder(10000);
                             MapLayer.instance.addChild(this._sprite);
                             break;
@@ -241,6 +242,7 @@ var MachineTable = cc.Layer.extend({
                     endPl.x = Math.floor(endPl.x);
                     endPl.y = Math.floor(endPl.y);
                     // cc.log(endPl.x + " " + endPl.y);
+                    var typeObject = sender.parent.getChildByTag(0).getString();
                     this._check = MapCtrl.instance.checkValidBlockSprite(this._sprite);
                     // cc.log("this._check " + this._check);
                     if (!this._check) {
@@ -251,16 +253,16 @@ var MachineTable = cc.Layer.extend({
                         cc.log(missGold);
                         if (missGold) {
                             this._sprite.removeFromParent(true);
-                            BaseGUILayer.instance.notifyShopNotEnoughGold(missGold);
+                            BaseGUILayer.instance.notifyShopNotEnoughGold(missGold, this._sprite._Id, typeObject,
+                                this._sprite.lx, this._sprite.ly);
                         } else {
                             // Success
                             MapCtrl.instance.addSpriteAlias(this._sprite);
-                            this._sprite.setLogicPosition(this._sprite.lx, this._sprite.ly);
-                            var typeObject = sender.parent.getChildByTag(0).getString();
+                            this._sprite.setLogicPosition(this._sprite.lx, this._sprite.ly, false);
                             var machineModel;
                             switch (typeObject) {
                                 case "bakery_machine":
-                                    machineModel = new BakeryMachine(this._sprite._bakeryId, 0, null,
+                                    machineModel = new Machine(this._sprite._Id, typeObject, 0, 0, null,
                                         false, 0, new Coordinate(this._sprite.lx, this._sprite.ly));
                                     break;
                                 //case "food_machine":
@@ -277,8 +279,8 @@ var MachineTable = cc.Layer.extend({
                             user.getAsset().addMachine(machineModel);
                             user.reduceGold(sender.parent.getChildByTag(5).getString());
                             //Send Server
-
-                            //testnetwork.connector.sendBuyMapObjectRequest(machineModel.id, typeObject, machineModel.x, machineModel.y);
+                            testnetwork.connector.sendBuyMapObjectRequest(this._sprite._bakeryId,
+                                typeObject, this._sprite.lx, this._sprite.ly);
                         }
                     }
                 }

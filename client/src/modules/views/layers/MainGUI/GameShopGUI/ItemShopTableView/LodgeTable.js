@@ -319,6 +319,7 @@ var LodgeTable = cc.Layer.extend({
                     // cc.log(endPl.x + " " + endPl.y);
                     this._check = MapCtrl.instance.checkValidBlockSprite(this._sprite);
                     // cc.log("this._check " + this._check);
+                    var typeObject = sender.parent.getChildByTag(0).getString();
                     if (!this._check) {
                         this._sprite.removeFromParent(true);
                         BaseGUILayer.instance.notifyCantPut(endP.x, endP.y);
@@ -327,12 +328,13 @@ var LodgeTable = cc.Layer.extend({
                         cc.log(missGold);
                         if (missGold) {
                             this._sprite.removeFromParent(true);
-                            BaseGUILayer.instance.notifyShopNotEnoughGold(missGold);
+                            BaseGUILayer.instance.notifyShopNotEnoughGold(missGold, this._sprite.fieldId, typeObject,
+                                this._sprite.lx, this._sprite.ly);
                         } else {
                             // Success
                             MapCtrl.instance.addSpriteAlias(this._sprite);
-                            this._sprite.setLogicPosition(this._sprite.lx, this._sprite.ly);
-                            switch (sender.parent.getChildByTag(0).getString()) {
+                            this._sprite.setLogicPosition(this._sprite.lx, this._sprite.ly, false);
+                            switch (typeObject) {
                                 case "field":
                                     var fieldModel = new Field(new Coordinate(this._sprite.lx, this._sprite.ly), this._sprite.fieldId);
                                     user.getAsset().addField(fieldModel);

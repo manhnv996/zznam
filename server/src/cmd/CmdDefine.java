@@ -42,6 +42,7 @@ public class CmdDefine {
     
     
     public static final short BUY_MAP_OBJECT_REQUEST = 7001;
+    public static final short BUY_MAP_OBJECT_BY_RUBY = 7002;
     
     public static final short BUY_TOOL_REQUEST = 8001;
     public static final short UPGRADE_STORAGE_REQUEST = 8002;

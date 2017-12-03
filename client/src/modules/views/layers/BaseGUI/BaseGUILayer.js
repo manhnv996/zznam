@@ -11,12 +11,14 @@ var BaseGUILayer = cc.Layer.extend({
 
     notifyShopNotEnoughGold: function (gold, id, typeShopObject, lx, ly) {
         //cc.log("Notify Miss Gold");
+
+        this._layout = new NotifyNotEnoughG(gold);
+
         this._layout.id = id;
         this._layout.typeShopObject = typeShopObject;
         this._layout.lx = lx;
         this._layout.ly = ly;
 
-        this._layout = new NotifyNotEnoughG(gold);
         if (this._layout._hasCloseButton) {
             //cc.log("_btnClose");
             this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);
@@ -60,14 +62,14 @@ var BaseGUILayer = cc.Layer.extend({
             case ccui.Widget.TOUCH_CANCELED:
                 var scaleBy = cc.scaleTo(0.1, 1.0);
                 sender.runAction(scaleBy);
+                BaseGUILayer.instance.removeBlockListener();
                 //var ruby = user.ruby;
                 //if (ruby < this._layout.rubyNumber) {
                 //    BaseGUILayer.instance.notifyNotEnoughRuby(this._layout.rubyNumber - ruby);
                 //} else {
-                GameShopController.instance.buyMapOjectByRuby(this._layout.id, this._layout.typeShopObject,
+                GameShopController.instance.buyMapObjectByRuby(this._layout.id, this._layout.typeShopObject,
                     this._layout.lx, this._layout.ly, this._layout.rubyNumber);
                 //}
-                BaseGUILayer.instance.removeBlockListener();
                 break;
         }
     },

@@ -78,12 +78,12 @@ var GSDetailLayout = ccui.Layout.extend({
         this._layout.setContentSize(cc.size(this._bg_size.width, cc.winSize.height / 9 * 8));
         this.addChild(this._layout);
 
-        this.lodgeTable = new LodgeTable();
-        this.animalTable = new AnimalTable();
-        this.machineTable = new MachineTable();
-        this.treeTable = new TreeTable();
+        this._lodgeTable = new LodgeTable();
+        this._animalTable = new AnimalTable();
+        this._machineTable = new MachineTable();
+        this._treeTable = new TreeTable();
 
-        this._multiLayer = new cc.LayerMultiplex(this.lodgeTable, this.animalTable, this.machineTable, this.treeTable);
+        this._multiLayer = new cc.LayerMultiplex(this._lodgeTable, this._animalTable, this._machineTable, this._treeTable);
         this._multiLayer.switchTo(0);
 
         this._layout.addChild(this._multiLayer);

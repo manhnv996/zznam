@@ -70,6 +70,7 @@
         "src/modules/views/sprites/VungnuocSprite.js",
         "src/modules/views/sprites/DatoSprite.js",
         "src/modules/views/sprites/DanhoSprite.js",
+        "src/modules/views/sprites/ConstructedSprite.js",
 
         "src/modules/views/layers/PopupLayer.js",
 

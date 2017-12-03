@@ -33,6 +33,7 @@ var MapCtrl = cc.Class.extend({
         this.renderStorages();
         this.renderPlants();
         this.renderNaturalThings();
+        this.renderMachines();
         // cc.log("Silo", user.asset.foodStorage);
         // MapLayer.instance.addChild(new SiloSprite(20, 20));
         // MapLayer.instance.addChild(new WareHouseSprite(18, 24));
@@ -131,14 +132,15 @@ var MapCtrl = cc.Class.extend({
      *    Render Machines To Map
      */
     renderMachines: function () {
+        //cc.log("Render machine to Map");
         var machineList = user.asset.machineList;
         for (var i = 0; i < machineList.length; i++) {
             var machine = machineList[i];
-            var type = machine.mapAliasType;
+            var type = machine.type;
             var machineSprite;
             switch (type) {
-                case MapItemEnum.BAKERY:
-                    machineSprite = new BakerySprite(machine.id, machine.x, machine.y);
+                case "bakery_machine":
+                    machineSprite = new BakerySprite(machine.id, machine.coordinate.x, machine.coordinate.y);
                     break;
                 //case MapItemEnum.FOOD_GRINDER:
                 //    break;
