@@ -59,6 +59,19 @@ var GameShopController = cc.Class.extend({
         if(gold % 15) ruby++;
         ruby = Math.floor(ruby);
         return ruby;
+    },
+
+    buyMapOjectByRuby: function (id, typeObject, lx, ly, ruby) {
+        var userRuby = user.ruby;
+        if (userRuby < ruby) {
+            BaseGUILayer.instance.notifyNotEnoughRuby(this._layout.rubyNumber - ruby);
+        } else {
+            //Tao Sprite --> Model --> send server
+            switch (typeObject) {
+                case "field":
+                    break;
+            }
+        }
     }
 });
 
