@@ -6,6 +6,9 @@ public enum ProductCategory {
     MACHINE_PRODUCT,
     LIVESTOCK_PRODUCT,
     FRUIT_TREE_PRODUCT,
-    METAL_PRODUCT;
+    METAL_PRODUCT,
+    
+    //
+    TOOL_PRODUCT;
     
 }

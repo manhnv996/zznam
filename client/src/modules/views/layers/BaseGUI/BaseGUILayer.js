@@ -42,7 +42,26 @@ var BaseGUILayer = cc.Layer.extend({
 
     showOrderLayer: function () {
         this._layout = new OrderBGLayer();
-        //this._layout = OrderBGLayer.instance;
+        // this._layout = OrderBGLayer.instance;
+        if (this._layout._hasCloseButton) {
+            //cc.log("_btnClose");
+            this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);
+        }
+        this.blockLayout();
+        this.addChild(this._layout);
+    },
+
+    showSuggestBuyMissionItem: function (storageMissingItem) {
+        this._layout = new NoticeMissingItem(storageMissingItem);
+        if (this._layout._hasCloseButton) {
+            //cc.log("_btnClose");
+            this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);
+        }
+        this.blockLayout();
+        this.addChild(this._layout);
+    },
+    showNoticeSureCancelOrder: function (orderId) {
+        this._layout = new NoticeCancelOrder(orderId);
         if (this._layout._hasCloseButton) {
             //cc.log("_btnClose");
             this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);
@@ -77,6 +96,7 @@ var BaseGUILayer = cc.Layer.extend({
             //cc.log("remove listener");
             cc.eventManager.removeListener(this._blockLayout._listenerBlockFull);
             this.removeAllChildren();
+            this._layout = null;
         }
     },
 

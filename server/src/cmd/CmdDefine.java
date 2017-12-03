@@ -40,6 +40,7 @@ public class CmdDefine {
     public static final short MAKE_ORDER = 10001;
     public static final short CANCEL_ORDER = 10002;
     public static final short CREATE_NEW_ORDER = 10003;
+    public static final short BOOST_WAIT_ORDER = 10004;
     
     public static final short RESPONSE_SYNC_ORDER = 10081;
     

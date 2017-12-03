@@ -22,6 +22,12 @@ public class Order extends DataModel{
     
     private long waittingTime;
     
+    
+    public Order(){
+        super();
+        
+    }
+    
     public Order(int level) {
         super();
         
@@ -30,11 +36,11 @@ public class Order extends DataModel{
         this.waittingTime = 0;
         this.createOrder(level);
     }
-
+    
 
 
     public short createOrder(int level){
-        if ((this.waittingTime + OrderUtil.getRemainTime(level) * 60 * 1000 - 2000) <= new Date().getTime()){
+        if ((this.waittingTime + OrderUtil.getRemainTime(level) * 60 * 1000 - 5000) <= new Date().getTime()){
             this.setItemList(level);
             this.setOrderPrice(level);
             this.setOrderExp(level);
@@ -130,6 +136,19 @@ public class Order extends DataModel{
         this.waittingTime = new Date().getTime();
         
         return ErrorLog.SUCCESS.getValue();
+    }
+    
+    public short boostWait(ZPUserInfo user){
+        
+        if (user.reduceRuby(3)){
+            //        
+            this.waittingTime = 0;
+            this.createOrder(user.getLevel());
+            
+            return ErrorLog.SUCCESS.getValue();
+        }
+        
+        return ErrorLog.ERROR_RUBY_NOT_REDUCE.getValue();
     }
 
 }

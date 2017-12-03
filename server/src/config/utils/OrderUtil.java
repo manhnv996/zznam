@@ -223,8 +223,9 @@ public class OrderUtil {
         for (int i = 0; i < typeNumber; i++){
             ProductCategory category = randomCategory(level);
             
-            List<ProductConfig> productCategory = ProductUtil.getProductConfObjByCategory(category);
-            productCategory = ProductUtil.sortProductListByRandomProduct(productCategory);
+//            List<ProductConfig> productCategory = ProductUtil.getProductConfObjByCategory(category);
+//            productCategory = ProductUtil.sortProductListByRandomProduct(productCategory);
+            List<ProductConfig> productCategory = ProductUtil.randomSortProductConfByCategory(category);
             //
             productCategory = filterProductByLevel(level, productCategory);
             
@@ -253,7 +254,7 @@ public class OrderUtil {
         List<StorageItem> itemList = new ArrayList<>();
         
         /*
-         * INPROGRESS
+         * Done
          */
         if (productList == null){
             return itemList;    //empty
@@ -514,10 +515,10 @@ public class OrderUtil {
     
     
     
-    public static ProductCategory getCategoryByProductType(String productType){
-        
-        
-        
-        return ProductCategory.CROP_PRODUCT;
-    }
+//    public static ProductCategory getCategoryByProductType(String productType){
+//        
+//        
+//        
+//        return ProductCategory.CROP_PRODUCT;
+//    }
 }

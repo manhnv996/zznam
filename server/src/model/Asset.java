@@ -101,6 +101,26 @@ public class Asset {
         return orderList;
     }
     
+    
+    //
+    public List<StorageItem> getAllProductInStock(){
+        List<StorageItem> productList = new ArrayList<>();
+        
+        productList.addAll(this.getFoodStorage().getItemList());        
+        productList.addAll(this.getWarehouse().getItemList());
+        
+        return productList;
+    }
+    
+    public boolean addItemToStorageById(String productId, int quantity){
+        if (productId.contains("crop_")) {
+            return this.getFoodStorage().addItem(productId, quantity);
+        } else {
+            return this.getWarehouse().addItem(productId, quantity);
+        }
+    }
+    
+    
     public boolean addOrder(int level, Order order){
         if (this.orderList == null){
             return false;
@@ -127,7 +147,7 @@ public class Asset {
         
         return null;
     }
-    
+    //
     
     public void addAnimalLodge(AnimalLodge lodge) {
         this.animalLodgeList.add(lodge);

@@ -130,6 +130,14 @@ var Asset = cc.Class.extend({
         return (qFoodStorage > qWarehouse) ? qFoodStorage : qWarehouse;
     },
 
+    addItemToStorageById: function (productId, quantity) {
+        if (productId.indexOf("crop_") >= 0){
+            return this.getFoodStorage().addItem(productId, quantity);
+        } else {
+            return this.getWarehouse().addItem(productId, quantity);
+        }
+    },
+
     //
     getWaittingOrderList: function () {
         var list = [];

@@ -16,6 +16,9 @@ var OrderResource = {
     btCancelOrder: "res/Art/Truck Order/Gui-oders/rac.png",
     btMakeOrder: "res/Art/Truck Order/Gui-oders/button-xetai.png",
 
+    stickIcon: "res/Art/Truck Order/stick.png",
+    checkIcon: "res/Art/Truck Order/check.png",
+
 
 
     //for product icon
@@ -40,6 +43,18 @@ var OrderResource = {
     iconProductButter: "res/Art/Machine/items/Dairy/butter.png",
     iconProductCream: "res/Art/Machine/items/Dairy/cream.png",
     iconProductPancake: "res/Art/Machine/items/BBQ Grill/pancake.png",
+
+    //
+    iconCropIndigo: "res/Art/Crops/Field/indigo.png",
+    iconCropChili: "res/Art/Crops/Field/vhili pepper.png",
+    iconCropTomato: "res/Art/Crops/Field/tomato.png",
+    iconCropStrawberry: "res/Art/Crops/Field/strawberry.png",
+
+
+
+    /*
+    for tool
+     */
 
 
 };

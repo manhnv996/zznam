@@ -54,6 +54,7 @@
         "src/modules/utils/rayCasting.js",
         "src/modules/utils/inertiaEngine.js",
         "src/modules/configs/MapItemEnum.js",
+        "src/modules/utils/LastPageUtil.js",
 
         "src/modules/configs/MapConfigs.js",
         "src/modules/configs/ListenerPriorityConfigs.js",
@@ -73,6 +74,9 @@
         "src/modules/views/sprites/DatoSprite.js",
         "src/modules/views/sprites/DanhoSprite.js",
 
+
+        "src/modules/views/layers/popup/TablePopup.js",
+        "src/modules/views/layers/popup/SeedTablePopup.js",
         "src/modules/views/layers/PopupLayer.js",
         "src/modules/views/layers/popup/BlockListenerLayer.js",
 
@@ -81,6 +85,7 @@
         "src/modules/views/sprites/FieldSprite.js",
         "src/modules/views/sprites/OrderSprite.js",
         "src/modules/views/sprites/ProductSprite.js",
+        "src/modules/views/sprites/CarSprite.js",
 
         "src/modules/configs/enum/ErrorLog.js",
         "src/modules/configs/enum/ProductTypes.js",
@@ -149,7 +154,9 @@
         "src/modules/views/scenes/PreloaderScene.js",
         "src/modules/views/layers/popup/CommonPopup.js",
         "src/modules/views/layers/SettingsLayer.js",
-        "src/modules/views/layers/OrderBGLayer.js"
-		
+        "src/modules/views/layers/OrderBGLayer.js",
+        "src/modules/views/layers/popup/NoticeCancelOrder.js",
+        "src/modules/views/layers/popup/NoticeMissingItem.js"
+
     ]
 }

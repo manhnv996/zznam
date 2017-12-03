@@ -130,7 +130,7 @@ public class Field extends CoordinateObject {
 
         if (this.plantType != null){
             long currentTime = new Date().getTime();
-System.out.println(new Date());
+            
 //            if (currentTime.after(this.getCropTime())){
             if (currentTime >= getCropTime()){
                 return FieldStatusType.DONE;

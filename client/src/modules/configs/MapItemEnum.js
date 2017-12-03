@@ -20,5 +20,6 @@ var MapItemEnum = {
 	ROAD_SHOP: 16,
 
 	NATURE_THING: 17,
-	LODGE: 18
+	LODGE: 18,
+	CAR: 19
 };

@@ -31,7 +31,7 @@
   },
   {
     "id": "crop_soybean",
-    "name": "ƒê·∫≠u n√†nh",
+    "name": "ƒ?·∫≠u n√†nh",
     "speedUp": 1,
     "rubiMuaNgay": 2,
     "timeMin": 20,
@@ -141,7 +141,7 @@
   },
   {
     "id": "product_brown_sugar",
-    "name": "ƒê∆∞·ªùnng v√†ng",
+    "name": "ƒ?∆∞·ª?nng v√†ng",
     "speedUp": 1,
     "rubiMuaNgay": 5,
     "timeMin": 20,
@@ -168,5 +168,55 @@
     "exp": 13,
     "maxPrice": 100,
     "levelUnlock": 9
+  },
+  
+  
+  
+  
+
+
+  {
+    "id": "crop_indigo",
+    "name": "Hoa o?i h??ng",
+    "speedUp": 1,
+    "rubiMuaNgay": 5,
+    "timeMin": 120,
+    "exp": 5,
+    "maxPrice": 25,
+    "levelUnlock": 13
+
+  },
+  {
+    "id": "crop_chili_pepper",
+    "name": "?t",
+    "speedUp": 1,
+    "rubiMuaNgay": 7,
+    "timeMin": 240,
+    "exp": 7,
+    "maxPrice": 36,
+    "levelUnlock": 25
+
+  },
+  {
+    "id": "crop_tomato",
+    "name": "C‡ chua",
+    "speedUp": 1,
+    "rubiMuaNgay": 8,
+    "timeMin": 360,
+    "exp": 8,
+    "maxPrice": 43,
+    "levelUnlock": 30
+
+  },
+  {
+    "id": "crop_strawberry",
+    "name": "D‚u t‚y",
+    "speedUp": 1,
+    "rubiMuaNgay": 10,
+    "timeMin": 48,
+    "exp": 10,
+    "maxPrice": 50,
+    "levelUnlock": 34
+
   }
 ]

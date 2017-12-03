@@ -168,5 +168,54 @@
     "exp": 13,
     "maxPrice": 100,
     "levelUnlock": 9
+  },
+
+
+
+
+
+  {
+    "id": "crop_indigo",
+    "name": "Hoa oải hương",
+    "speedUp": 1,
+    "rubiMuaNgay": 5,
+    "timeMin": 120,
+    "exp": 5,
+    "maxPrice": 25,
+    "levelUnlock": 13
+
+  },
+  {
+    "id": "crop_chili_pepper",
+    "name": "Ớt",
+    "speedUp": 1,
+    "rubiMuaNgay": 7,
+    "timeMin": 240,
+    "exp": 7,
+    "maxPrice": 36,
+    "levelUnlock": 25
+
+  },
+  {
+    "id": "crop_tomato",
+    "name": "Cà chua",
+    "speedUp": 1,
+    "rubiMuaNgay": 8,
+    "timeMin": 360,
+    "exp": 8,
+    "maxPrice": 43,
+    "levelUnlock": 30
+
+  },
+  {
+    "id": "crop_strawberry",
+    "name": "Dâu tây",
+    "speedUp": 1,
+    "rubiMuaNgay": 10,
+    "timeMin": 48,
+    "exp": 10,
+    "maxPrice": 50,
+    "levelUnlock": 34
+
   }
 ]

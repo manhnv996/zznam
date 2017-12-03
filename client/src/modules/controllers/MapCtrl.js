@@ -43,6 +43,8 @@ var MapCtrl = cc.Class.extend({
         //var bakery = new BakerySprite(20, 20);
         //MapLayer.instance.addChild(bakery);
         //bakery.play("loop1");
+        //
+        TruckOrderSprite.instance.initTruckOrder();
     },
 
     renderStorages: function() {
@@ -87,8 +89,10 @@ var MapCtrl = cc.Class.extend({
         // this.addMapAlias(TruckOrderConfigs.position.x, TruckOrderConfigs.position.y,
         //         TruckOrderConfigs.blockSizeX, TruckOrderConfigs.blockSizeY,
         //         MapItemEnum.TRUCK_ORDER);
-        var truckOrder = new TruckOrderSprite(TruckOrderConfigs.position);
-        MapLayer.instance.addChild(truckOrder);
+        // var truckOrder = new TruckOrderSprite(TruckOrderConfigs.position);
+        // MapLayer.instance.addChild(truckOrder);
+        TruckOrderSprite.instance = new TruckOrderSprite(TruckOrderConfigs.position);
+        MapLayer.instance.addChild(TruckOrderSprite.instance);
 
         // Mailbox
         var MailBoxConfigs = MapConfigs.MailBox;

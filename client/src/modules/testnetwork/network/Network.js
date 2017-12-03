@@ -131,19 +131,51 @@ testnetwork.Connector = cc.Class.extend({
                 user.ruby = packet.ruby;
                 user.exp = packet.exp;
 
+                //
+                MainGuiLayer.instance.labelGold.setString(user.gold);
+                MainGuiLayer.instance.labelRuby.setString(user.ruby);
+                MainGuiLayer.instance.labelExp.setString(user.exp);
+
                 break;
 
             case gv.CMD.RESPONSE_SYNC_STORAGE:
-                cc.log("RECEIVE RESPONSE_SYNC_STORAGE: ", packet.storageJsonString);
+                // cc.log("RECEIVE RESPONSE_SYNC_STORAGE: ", packet.storageJsonString);
+                cc.log("RECEIVE RESPONSE_SYNC_STORAGE: ", packet.storage);
                 /*
-                Not yet started
+                Inprogress
                  */
+
+                // Update Storage
+                var storageUpdate = new Storages(
+                    new Coordinate(packet.storage.x,
+                        packet.storage.y),
+                    packet.storage.storageType,
+                    packet.storage.capacity,
+                    packet.storage.level
+                );
+                // Add Storage itemlist
+                for (var i = 0; i < packet.storage.itemList.length; i++){
+                    storageUpdate.addItem(
+                        packet.storage.itemList[i].typeItem,
+                        packet.storage.itemList[i].quantity
+                    );
+                }
+
+                //
+                if (packet.storage.storageType == StorageTypes.FOOD_STORAGE){
+                    user.asset.foodStorage = null;
+                    user.asset.foodStorage = storageUpdate;
+                } else {
+                    user.asset.warehouse = null;
+                    user.asset.warehouse = storageUpdate;
+                }
+
                 break;
 
             case gv.CMD.RESPONSE_SYNC_ORDER:
                 cc.log("RECEIVE RESPONSE_SYNC_ORDER: ", packet.order);
                 /*
-                Inprogress
+                Done
                  */
                 var orderSelected = user.getAsset().getOrderById(packet.order.orderId);
 
@@ -153,11 +185,13 @@ testnetwork.Connector = cc.Class.extend({
                 //orderSelected.waittingTime = packet.order.waittingTime;
                 orderSelected.waittingTime = new Date(parseInt(packet.order.waittingTime));
 
+
                 ////
-                //if (CommonPopup.instance){
-                //    CommonPopup.instance.onSelectClose();
-                //}
-                //OrderCtrl.instance.onShowOrderBG();
+                TruckOrderSprite.instance.initTruckOrder();
+                // OrderCtrl.instance.onShowOrderBG();
+                if (BaseGUILayer.instance._layout != null){
+                    BaseGUILayer.instance._layout.initInfo();
+                }
 
                 break;
             //
@@ -266,10 +300,10 @@ testnetwork.Connector = cc.Class.extend({
         pk.pack(fieldId);
         this.gameClient.sendPacket(pk);
     },
-    sendBuyItemByRubi: function (productType) {
+    sendBuyItemByRubi: function (productType, quantity) {
         cc.log("sendBuyItemByRubi: " + productType);
         var pk = this.gameClient.getOutPacket(CmdSendBuyItemByRubi);
-        pk.pack(productType);
+        pk.pack(productType, quantity);
         this.gameClient.sendPacket(pk);
     },
     //
@@ -288,6 +322,12 @@ testnetwork.Connector = cc.Class.extend({
     sendCreateNewOrder: function (orderId) {
         cc.log("sendCreateNewOrder: " + orderId);
         var pk = this.gameClient.getOutPacket(CmdSendCreateNewOrder);
+        pk.pack(orderId);
+        this.gameClient.sendPacket(pk);
+    },
+    sendBoostWaitOrder: function (orderId) {
+        cc.log("sendBoostWaitOrder: " + orderId);
+        var pk = this.gameClient.getOutPacket(CmdSendBoostWaitOrder);
         pk.pack(orderId);
         this.gameClient.sendPacket(pk);
     },

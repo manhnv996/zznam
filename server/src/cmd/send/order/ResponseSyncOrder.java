@@ -26,28 +26,28 @@ public class ResponseSyncOrder extends BaseMsg {
         
         this.packOrder(this.order);
 		
-        return packBuffer(bf);
+        return packBuffer(this.bf);
     }
     
     /**
      * Put order
      */
     private void packOrder(Order order) {
-        bf.putInt(order.getOrderId()); // ID
+        this.bf.putInt(order.getOrderId()); // ID
         
         if (order.getItemList() == null){
-            bf.putInt(0);  //size
+            this.bf.putInt(0);  //size
         } else {
             int typeNumber = order.getItemList().size();
-            bf.putInt(typeNumber);  //size
+            this.bf.putInt(typeNumber);  //size
             for (int j = 0; j < typeNumber; j++){
                 this.packStorageItem(order.getItemList().get(j));
             }
         }
         
-        bf.putInt(order.getOrderPrice());
-        bf.putInt(order.getOrderExp());
-        bf.putLong(order.getWaittingTime());
+        this.bf.putInt(order.getOrderPrice());
+        this.bf.putInt(order.getOrderExp());
+        this.bf.putLong(order.getWaittingTime());
         
     }
     
@@ -55,7 +55,7 @@ public class ResponseSyncOrder extends BaseMsg {
      * Put storage item
      */
     private void packStorageItem(StorageItem item) {
-        putStr(bf, item.getTypeItem());
-        bf.putInt(item.getQuantity());
+        putStr(this.bf, item.getTypeItem());
+        this.bf.putInt(item.getQuantity());
     }
 }

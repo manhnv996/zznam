@@ -8,8 +8,10 @@ import bitzero.util.socialcontroller.bean.UserInfo;
 
 import cmd.CmdDefine;
 
+import cmd.receive.demo.RequestBuyItemByRubi;
 import cmd.receive.demo.RequestPlant;
 
+import cmd.receive.order.RequestBoostWaitOrder;
 import cmd.receive.order.RequestCancelOrder;
 import cmd.receive.order.RequestCreateNewOrder;
 import cmd.receive.order.RequestMakeOrder;
@@ -68,6 +70,11 @@ public class OrderHandler extends BaseClientRequestHandler {
                     
                     processCreateNewOrder(user, createNewOrder);
                     break;
+                case CmdDefine.BOOST_WAIT_ORDER:
+                    RequestBoostWaitOrder boostWaitOrder = new RequestBoostWaitOrder(dataCmd);
+                    
+                    processBoostWaitOrder(user, boostWaitOrder);
+                    break;
                 
             }
             
@@ -102,8 +109,7 @@ public class OrderHandler extends BaseClientRequestHandler {
                 send(new ResponseSyncOrder(errorCode, userInfo.getAsset().getOrderdById(order.orderId)), user);
                 
             } else {
-                
-                send(new ResponseSyncOrder(errorCode, userInfo.getAsset().getOrderdById(order.orderId)), user);
+//                userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
                 
                 if (errorCode == ErrorLog.ERROR_STORAGE_NOT_REDUCE.getValue()){
                     Storage foodStorage = userInfo.getAsset().getFoodStorage();
@@ -111,7 +117,14 @@ public class OrderHandler extends BaseClientRequestHandler {
                     
                     send(new ResponseSyncStorage(errorCode, foodStorage), user);
                     send(new ResponseSyncStorage(errorCode, warehouse), user);
+                    
+                    //
+                    send(new ResponseSyncUserInfo(errorCode, userInfo), user);
                 }
+                
+                //
+                send(new ResponseSyncOrder(errorCode, userInfo.getAsset().getOrderdById(order.orderId)), user);
+                
             }
             
             
@@ -179,6 +192,40 @@ public class OrderHandler extends BaseClientRequestHandler {
             
             
         } catch (Exception e) {
+        }
+    }
+    
+    
+    public void processBoostWaitOrder(User user, RequestBoostWaitOrder order){
+        try {
+            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
+            if (userInfo == null){
+                
+                return;
+            }
+            
+            /*
+             * DONE
+             */
+            short errorCode = userInfo.getAsset().getOrderdById(order.orderId).boostWait(userInfo);
+            
+            //
+            if (errorCode == ErrorLog.SUCCESS.getValue()){
+                send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
+
+                userInfo.saveModel(user.getId());                
+                //
+                send(new ResponseSyncOrder(errorCode, userInfo.getAsset().getOrderdById(order.orderId)), user);
+                
+            } else {
+                
+                send(new ResponseSyncOrder(errorCode, userInfo.getAsset().getOrderdById(order.orderId)), user);
+                send(new ResponseSyncUserInfo(ErrorLog.ERROR_RUBY_NOT_REDUCE.getValue(), userInfo), user);
+            }
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
     

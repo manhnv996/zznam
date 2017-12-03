@@ -31,6 +31,7 @@ gv.CMD.RESPONSE_SYNC_FOOD_STORAGE_ITEM = 5084;
 gv.CMD.MAKE_ORDER = 10001;
 gv.CMD.CANCEL_ORDER = 10002;
 gv.CMD.CREATE_NEW_ORDER = 10003;
+gv.CMD.BOOST_WAIT_ORDER = 10004;
 
 gv.CMD.RESPONSE_SYNC_ORDER = 10081;
 
@@ -185,10 +186,11 @@ CmdSendBuyItemByRubi = fr.OutPacket.extend(
             this.initData(100);
             this.setCmdId(gv.CMD.BUY_ITEM_BY_RUBI);
         },
-        pack:function(productType){
+        pack:function(productType, quantity){
             this.packHeader();
 
             this.putString(productType);
+            this.putInt(quantity);
 
             this.updateSize();
         }
@@ -239,6 +241,24 @@ CmdSendCreateNewOrder = fr.OutPacket.extend(
             this._super();
             this.initData(100);
             this.setCmdId(gv.CMD.CREATE_NEW_ORDER);
+        },
+        pack:function(orderId){
+            this.packHeader();
+
+            this.putInt(orderId);
+
+            this.updateSize();
+        }
+    }
+);
+
+CmdSendBoostWaitOrder = fr.OutPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+            this.initData(100);
+            this.setCmdId(gv.CMD.BOOST_WAIT_ORDER);
         },
         pack:function(orderId){
             this.packHeader();
@@ -542,9 +562,33 @@ testnetwork.packetMap[gv.CMD.RESPONSE_SYNC_STORAGE] = fr.InPacket.extend(
             /*
              DONE
              */
-            this.storageJsonString = this.getString();
+            // this.storageJsonString = this.getString();
 
-        }
+            this.storage = this.unpackStorage();
+        },
+
+        unpackStorage: function() {
+            var storage = {};
+            storage.x = this.getInt();
+            storage.y = this.getInt();
+            storage.storageType = this.getString();
+            storage.capacity = this.getInt();
+            storage.level = this.getInt();
+            // Unpack storage item list
+            storage.itemList = [];
+            var size = this.getInt();
+            for (var i = 0; i < size; i++) {
+                storage.itemList.push(this.unpackStorageItem());
+            }
+            return storage;
+        },
+        unpackStorageItem: function() {
+            var item = {};
+            item.typeItem = this.getString();
+            item.quantity = this.getInt();
+            return item;
+        },
+
     }
 );
 

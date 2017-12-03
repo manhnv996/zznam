@@ -20,7 +20,7 @@ var MainScene = cc.Scene.extend({
 		//this.addChild(MainGuiLayer.instance);
 
 		MapCtrl.instance = new MapCtrl();
-		
+
 		cc.log("Start Scene");
 		this.schedule(this.updateOrderWaittingTime, 1);
 	},
@@ -46,13 +46,16 @@ var MainScene = cc.Scene.extend({
 		OrderBGLayer.instance = new OrderBGLayer();
 		// this.addChild(OrderBGLayer.instance);
 
+        //BaseGUILayer.instance.notifyFullStorage(StorageTypes.FOOD_STORAGE);
 		//BaseGUILayer.instance.notifyMissGold(50);
+
+        CarSprite.instance = new CarSprite(16, 22);
+        MapLayer.instance.addChild(CarSprite.instance);
 	},
 
 	//
 	updateOrderWaittingTime: function () {
 		var list = user.getAsset().getWaittingOrderList();
-		cc.log("updateOrderWaittingTime");
 		for (var i = 0; i < list.length; i++){
 
 			var parseCurrTime = new Date().getTime();
@@ -61,13 +64,9 @@ var MainScene = cc.Scene.extend({
 				if (parseCurrTime > finishWaittingTime.getTime()){
 
 					testnetwork.connector.sendCreateNewOrder(list[i].orderId);
-					cc.log("SUCCESSSSS")
 				}
 			}
-			cc.log("update order " + i);
 		}
-
-		//BaseGUILayer.instance.notifyFullStorage(StorageTypes.FOOD_STORAGE);
 
 	},
 

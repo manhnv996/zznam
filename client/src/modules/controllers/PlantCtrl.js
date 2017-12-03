@@ -19,6 +19,9 @@ var PlantCtrl = cc.Class.extend({
                 var seedShow = getSeedShow(user.getLevel());
 
                 PopupLayer.instance.showSeedPopup(fieldId, seedShow);
+                // var popup = new SeedTablePopup(fieldId, seedShow);
+                // BaseGUILayer.instance.addChild(popup);
+
                 //
                 this.firstDragEmptyField = true;
                 this.firstDragField = true;
@@ -200,7 +203,7 @@ var PlantCtrl = cc.Class.extend({
         if (user.reduceRuby(rubiBuy)){
             if (user.getAsset().getFoodStorage().addItem(seedType, 1)){
 
-                testnetwork.connector.sendBuyItemByRubi(seedType);
+                testnetwork.connector.sendBuyItemByRubi(seedType, 1);
                 return true;
             } else {
                 return false;

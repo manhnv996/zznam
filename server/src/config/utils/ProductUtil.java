@@ -144,6 +144,18 @@ public class ProductUtil {
                     }
                 }
                 break;
+        
+        
+            //
+            case TOOL_PRODUCT:
+                for (int i = 0; i < products.length; i++) {
+                    if (products[i].id.contains("tool_")) {
+                        list.add(products[i]);
+                    }
+                }
+                break;
+            
+            
             default:
                 
         }
@@ -159,15 +171,20 @@ public class ProductUtil {
         float random = (float) Math.random();
         if (random > 0.3){
             //random all product
+            productCategory = ProductUtil.sortProductListByRandomProduct(productCategory);
             
         } else if (random > 0.15){
             //orderby level
+            productCategory = ProductUtil.sortProductListByLevelUnlock(productCategory);
             
         } else {
             //orderby itemStorage (quantity)
+            productCategory = ProductUtil.sortProductListByRandomProduct(productCategory);
+            /*
+             * not yet started
+             */
             
         }
-        
         
         return productCategory;
     }
@@ -210,7 +227,7 @@ public class ProductUtil {
                 return b.levelUnlock > a.levelUnlock ? -1 : (b.levelUnlock < a.levelUnlock) ? 1 : 0;    //level inc
                 
                 /*
-                 * INPROGRESS
+                 * NOT YET STARTED
                  */
                 
             }

@@ -77,6 +77,10 @@ var Order = cc.Class.extend({
 
     //
     checkCondition: function () {
+        if (this.checkStatus() == OrderStatusTypes.WAITTING){
+            return false;
+        }
+
         var missingItem = [];
         for (var i = 0; i < this.itemList.length; i++){
             if (this.itemList[i].quantity > user.getAsset().getQuantityOfTwoStorageByProductId(this.itemList[i].typeItem)){
@@ -95,17 +99,36 @@ var Order = cc.Class.extend({
                 user.getAsset().getFoodStorage().takeItem(this.itemList[i].typeItem, this.itemList[i].quantity);
                 user.getAsset().getWarehouse().takeItem(this.itemList[i].typeItem, this.itemList[i].quantity);
             }
+
+            user.addGold(this.orderPrice);
+            user.addExp(this.orderExp);
+
+            return true;
         }
+        return false;
     },
 
     cancelOrder: function () {
         //
-        this.itemList = [];
-        this.orderPrice = 0;
-        this.orderExp = 0;
+        if (this.checkStatus() == OrderStatusTypes.REALIZABLE){
+            this.itemList = [];
+            this.orderPrice = 0;
+            this.orderExp = 0;
 
-        this.waittingTime = new Date();
+            this.waittingTime = new Date();
+
+            //
+            return true;
+        }
+        return false;
     },
+
+    boostWait: function () {
+        if (user.reduceRuby(3)){
+            return true;
+        }
+        return false;
+    }
 
 
 });

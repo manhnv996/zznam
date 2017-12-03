@@ -1,5 +1,5 @@
 <dragonBones name="Oto_2016" frameRate="24" version="2.3">
- <armature name="Xetai_2016">
+ <armature name="Oto_2016">
   <bone name="Layer 82">
    <transform x="-9" y="12" skX="0" skY="0" scX="1" scY="1"/>
   </bone>

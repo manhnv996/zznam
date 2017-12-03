@@ -1,14 +1,4 @@
 
-//var OrderBGLayer = cc.Layer.extend({
-//
-//    orderList: [],
-//
-//    lastIndexItemClick: null,   //not yet started
-//
-//    ctor:function(){
-//        this._super();
-//
-//    },
 var OrderBGLayer = BaseLayout.extend({
 
     orderList: [],
@@ -23,35 +13,17 @@ var OrderBGLayer = BaseLayout.extend({
         //this._title.x = this.width / 2;
         //this._title.y = this.height / 8 * 7;
 
+        this.lastIndexItemClick = LastPageUtil.instance.lastIndexOfOrderClick;
+
 //
 //        this.bgBackground = new cc.Sprite(res.bgTruckOrder);
-        this.initOrderList();
-        this.setupOrderPaperPosition();
-        this.initOrderInfo();
+        this.initInfo();
 
-        this.showButton();
     },
 
-    showBG: function () {
-        if (MainGuiLayer.instance.isShowPopup == false){
-            //
-            //
-            this.bgBackground = new cc.Sprite(res.bgTruckOrder);
-            this.initOrderList();
-            this.setupOrderPaperPosition();
-            this.initOrderInfo();
+    initInfo: function() {
+        this.refresh();
 
-            this.showButton();
-            //
-            //
-            CommonPopup.instance  = new CommonPopup("BẢNG ĐƠN HÀNG", this.bgBackground, true);
-            MainGuiLayer.instance.addChild(CommonPopup.instance);
-            //MainGuiLayer.instance.addChild(new OrderBGLayer("BẢNG ĐƠN HÀNG", this.bgBackground, true));
-            MainGuiLayer.instance.isShowPopup = true;
-        }
-    },
-
-    initOrderList: function() {
         this.orderList = [];
         var orderListModel = user.getAsset().getOrderList();
         for (var i = 0; i < orderListModel.length; i++){
@@ -60,10 +32,19 @@ var OrderBGLayer = BaseLayout.extend({
 
             this.orderList.push(orderSprite);
             //this.bgBackground.addChild(orderSprite);
-            this.addChild(orderSprite);
+            // this.addChild(orderSprite);
+            this._bg.addChild(orderSprite);
             orderSprite.initOrderPrice(orderListModel[i]);
         }
 
+
+        //
+        this.setupOrderPaperPosition();
+        this.initInfoDetail();
+        //
+        this.showButton();
+
+        this.showOrderDetail();
     },
     setupOrderPaperPosition: function() {
         for (var i = 0; i < this.orderList.length; i++){
@@ -80,56 +61,95 @@ var OrderBGLayer = BaseLayout.extend({
         }
     },
 
-    initOrderInfo: function(){
+    initInfoDetail: function(){
         this.orderInfo = new cc.Sprite(res.slot2);
         //this.orderInfo.setPosition(cc.p(this.bgBackground.width * 3 / 4, this.bgBackground.height * 3 / 7));
         this.orderInfo.setPosition(cc.p(this.width * 3 / 4, this.height * 3 / 7));
 
         //this.bgBackground.addChild(this.orderInfo);
-        this.addChild(this.orderInfo);
+        // this.addChild(this.orderInfo);
+        this._bg.addChild(this.orderInfo);
+    },
+
+    showOrderDetail: function () {
+        if (this.lastIndexItemClick != null){
+            this.orderList[this.lastIndexItemClick].showOrderInfo(this);
+        }
     },
 
 
     //
     showButton: function() {
-        var btCancelOrder = new ccui.Button(res.btCancelOrder);
+        this.btCancelOrder = new ccui.Button(res.btCancelOrder);
+        this.btCancelOrder.setZoomScale(-0.2);
         //btCancelOrder.setPosition(this.bgBackground.width * 3 / 5, this.bgBackground.height / 8);
-        btCancelOrder.setPosition(this.width * 3 / 5, this.height / 8);
+        this.btCancelOrder.setPosition(this.width * 3 / 5, this.height / 8);
         //this.bgBackground.addChild(btCancelOrder);
-        this.addChild(btCancelOrder);
-        btCancelOrder.addClickEventListener(this.cancelOrderEvent.bind(this));
+        // this.addChild(btCancelOrder);
+        this._bg.addChild(this.btCancelOrder);
+        this.btCancelOrder.addClickEventListener(this.cancelOrderEvent.bind(this));
 
         //
-        var btMakeOrder = new ccui.Button(res.btMakeOrder);
+        this.btMakeOrder = new ccui.Button(res.btMakeOrder);
+        this.btMakeOrder.setZoomScale(-0.2);
         //btMakeOrder.setPosition(this.bgBackground.width * 9 / 10, this.bgBackground.height / 8);
-        btMakeOrder.setPosition(this.width * 9 / 10, this.height / 8);
+        this.btMakeOrder.setPosition(this.width * 9 / 10, this.height / 8);
         //this.bgBackground.addChild(btMakeOrder);
-        this.addChild(btMakeOrder);
-        btMakeOrder.addClickEventListener(this.makeOrderEvent.bind(this));
+        // this.addChild(btMakeOrder);
+        this._bg.addChild(this.btMakeOrder);
+        this.btMakeOrder.addClickEventListener(this.makeOrderEvent.bind(this));
+
     },
 
     cancelOrderEvent: function () {
         //
         if (this.lastIndexItemClick != null){
-            OrderCtrl.instance.onCancelOrder(this.lastIndexItemClick);
+            this.stopAllRepeatAction();
 
+            // OrderCtrl.instance.onCancelOrder(this.lastIndexItemClick);
+
+            BaseGUILayer.instance.removeBlockListener();
+            BaseGUILayer.instance.showNoticeSureCancelOrder(this.lastIndexItemClick);
         }
     },
     makeOrderEvent: function () {
         //
         if (this.lastIndexItemClick != null){
-            OrderCtrl.instance.onMakeOrder(this.lastIndexItemClick);
+            this.stopAllRepeatAction();
 
+            OrderCtrl.instance.onMakeOrder(this.lastIndexItemClick);
         }
     },
 
 
-    /////
-    //updateWaittingTimeOrderList: function () {
-    //    //
-    //    for (var i = 0; i < this.orderList.length; i++){
-    //        this.orderList[i].updateWaittingTime();
-    //    }
-    //}
+    refresh: function () {
+        this._bg.removeAllChildren();
+    },
+
+    repeatSuggestMakeOrder: function () {
+        ///
+        var move = new cc.ScaleTo(0.75, 1.2);
+        var move_back = new cc.ScaleTo(0.5, 1);
+        var move_seq = cc.sequence(move, move_back);
+        this.btMakeOrder.runAction(move_seq.repeatForever());
+    },
+
+    stopAllRepeatAction: function () {
+        this.btMakeOrder.stopAllActions();
+        this.btMakeOrder.setScale(1);
+    },
+
+    setTouchEnabledButton: function (isEnable) {
+        this.btMakeOrder.setTouchEnabled(isEnable);
+        this.btCancelOrder.setTouchEnabled(isEnable);
+        if (!isEnable){
+            this.btMakeOrder.setColor(cc.color(128, 128, 128));
+            this.btCancelOrder.setColor(cc.color(128, 128, 128));
+        } else {
+            this.btMakeOrder.setColor(cc.color(255, 255, 255));
+            this.btCancelOrder.setColor(cc.color(255, 255, 255));
+        }
+    },
+
 
 });
