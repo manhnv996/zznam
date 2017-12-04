@@ -2,8 +2,6 @@
   {
     "id": "bakery_machine",
     "level": 1,
-    "width": 4,
-    "height": 4,
     "price": 20,
     "time": 10,
     "buildExp": 10,
@@ -19,8 +17,6 @@
   {
     "id": "food_machine",
     "level": 1,
-    "width": 4,
-    "height": 4,
     "price": 3795,
     "time": 40,
     "buildExp": 4,
@@ -36,8 +32,6 @@
   {
     "id": "butter_machine",
     "level": 6,
-    "width": 4,
-    "height": 4,
     "price": 50,
     "time": 7200,
     "buildExp": 20,
@@ -53,8 +47,6 @@
   {
     "id": "sugar_machine",
     "level": 7,
-    "width": 4,
-    "height": 4,
     "price": 350,
     "time": 21600,
     "buildExp": 34,
@@ -70,8 +62,6 @@
   {
     "id": "popcorn_machine",
     "level": 8,
-    "width": 4,
-    "height": 4,
     "price": 1180,
     "time": 28800,
     "buildExp": 39,

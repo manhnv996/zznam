@@ -58,6 +58,13 @@ function getSeedShow(level) {
     return seedShow;
 }
 
+function getMachineConfigById (type) {
+    for(var i = 0; i < res.infoMachineItem.length; i++) {
+        if (res.infoMachineItem[i].id === type) {
+            return res.infoMachineItem[i];
+        }
+    }
+}
 
 function getProductObjByType(productId) {
     var productTypeObj = null;

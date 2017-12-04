@@ -63,6 +63,9 @@
   <bone name="Layer 8_0">
    <transform x="736.15" y="796.1" skX="-52.98" skY="-52.93" scX="1" scY="1"/>
   </bone>
+  <bone name="Layer 33">
+   <transform x="609.05" y="876.2" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
   <bone name="Layer 9">
    <transform x="284" y="832.5" skX="0" skY="0" scX="1" scY="1"/>
   </bone>
@@ -93,171 +96,171 @@
   <bone name="Layer 217 copy 2">
    <transform x="319.5" y="604.5" skX="0" skY="0" scX="1" scY="1"/>
   </bone>
-  <bone name="Layer 33">
-   <transform x="609.05" y="876.2" skX="0" skY="0" scX="1" scY="1"/>
-  </bone>
   <skin name="default">
    <slot name="Layer 1" parent="Layer 1" z="0">
-    <display name="trang thai hoan thanh.psd Assets/Layer 1" type="image">
+    <display name="11/Layer 1" type="image">
      <transform x="-517" y="-266.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 2" parent="Layer 2" z="1">
-    <display name="trang thai hoan thanh.psd Assets/Layer 2" type="image">
+    <display name="11/Layer 2" type="image">
      <transform x="-27.5" y="-19" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 3" parent="Layer 3" z="2">
-    <display name="trang thai hoan thanh.psd Assets/Layer 3" type="image">
+    <display name="11/Layer 3" type="image">
      <transform x="-456" y="-150" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 211 copy" parent="Layer 211 copy" z="3">
-    <display name="trang thai hoan thanh.psd Assets/Layer 211 copy" type="image">
+    <display name="11/Layer 211 copy" type="image">
      <transform x="-27.5" y="-19" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 211 copy 2" parent="Layer 211 copy 2" z="4">
-    <display name="trang thai hoan thanh.psd Assets/Layer 211 copy 2" type="image">
+    <display name="11/Layer 211 copy 2" type="image">
      <transform x="-27.5" y="-19.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 211 copy 3" parent="Layer 211 copy 3" z="5">
-    <display name="trang thai hoan thanh.psd Assets/Layer 211 copy 3" type="image">
+    <display name="11/Layer 211 copy 3" type="image">
      <transform x="-28" y="-19.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 211 copy 4" parent="Layer 211 copy 4" z="6">
-    <display name="trang thai hoan thanh.psd Assets/Layer 211 copy 4" type="image">
+    <display name="11/Layer 211 copy 4" type="image">
      <transform x="-27.5" y="-19.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 4" parent="Layer 4" z="7">
-    <display name="trang thai hoan thanh.psd Assets/Layer 4" type="image">
+    <display name="11/Layer 4" type="image">
      <transform x="-13" y="-52.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 204 copy 4" parent="Layer 204 copy 4" z="8">
-    <display name="trang thai hoan thanh.psd Assets/Layer 204 copy 4" type="image">
+    <display name="11/Layer 204 copy 4" type="image">
      <transform x="-229" y="-127.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 204 copy 5" parent="Layer 204 copy 5" z="9">
-    <display name="trang thai hoan thanh.psd Assets/Layer 204 copy 5" type="image">
+    <display name="11/Layer 204 copy 5" type="image">
      <transform x="-229.5" y="-127.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 5" parent="Layer 5" z="10">
-    <display name="trang thai hoan thanh.psd Assets/Layer 5" type="image">
+    <display name="11/Layer 5" type="image">
      <transform x="-409.5" y="-15.45" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Shape 2 copy 9" parent="Shape 2 copy 9" z="11">
-    <display name="trang thai hoan thanh.psd Assets/Shape 2 copy 9" type="image">
+    <display name="11/Shape 2 copy 9" type="image">
      <transform x="-379" y="-192" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 6" parent="Layer 6" z="12">
-    <display name="trang thai hoan thanh.psd Assets/Layer 6" type="image">
+    <display name="11/Layer 6" type="image">
      <transform x="-367" y="-242" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Shape 2 copy" parent="Shape 2 copy" z="13">
-    <display name="trang thai hoan thanh.psd Assets/Assets/Shape 2 copy" type="image">
+    <display name="11/Assets/Shape 2 copy" type="image">
      <transform x="-11" y="-6" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Shape 1" parent="Shape 1" z="14">
-    <display name="trang thai hoan thanh.psd Assets/Shape 1" type="image">
+    <display name="11/Shape 1" type="image">
      <transform x="-13.5" y="-13" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Shape 1 copy 3" parent="Shape 1 copy 3" z="15">
-    <display name="trang thai hoan thanh.psd Assets/Shape 1 copy 3" type="image">
+    <display name="11/Shape 1 copy 3" type="image">
      <transform x="-13" y="-62.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 7" parent="Layer 7" z="16">
-    <display name="trang thai hoan thanh.psd Assets/Layer 7" type="image">
+    <display name="11/Layer 7" type="image">
      <transform x="-283.5" y="-18" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Shape 2" parent="Shape 2" z="17">
-    <display name="trang thai hoan thanh.psd Assets/Assets/Shape 2" type="image">
+    <display name="11/Assets/Shape 2" type="image">
      <transform x="-38.5" y="-29.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 8" parent="Layer 8" z="18">
-    <display name="trang thai hoan thanh.psd Assets/Layer 8" type="image">
+    <display name="11/Layer 8" type="image">
      <transform x="-225.5" y="-111" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 204 copy 3" parent="Layer 204 copy 3" z="19">
-    <display name="trang thai hoan thanh.psd Assets/Layer 204 copy 3" type="image">
+    <display name="11/Layer 204 copy 3" type="image">
      <transform x="-229.5" y="-127.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 8_0" parent="Layer 8_0" z="20">
-    <display name="trang thai hoan thanh.psd Assets/Layer 8" type="image">
+    <display name="11/Layer 8" type="image">
      <transform x="-225.5" y="-111.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
-   <slot name="Layer 9" parent="Layer 9" z="22">
-    <display name="trang thai hoan thanh.psd Assets/Layer 9" type="image">
-     <transform x="-13" y="-62.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
-    </display>
-   </slot>
-   <slot name="Layer 11" parent="Layer 11" z="23">
-    <display name="trang thai hoan thanh.psd Assets/Layer 11" type="image">
-     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
-    </display>
-   </slot>
-   <slot name="Layer 12" parent="Layer 12" z="24">
-    <display name="trang thai hoan thanh.psd Assets/Layer 12" type="image">
-     <transform x="-25" y="-20.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
-    </display>
-   </slot>
-   <slot name="Layer 220 copy" parent="Layer 220 copy" z="25">
-    <display name="trang thai hoan thanh.psd Assets/Layer 220 copy" type="image">
-     <transform x="-25.5" y="-21" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
-    </display>
-   </slot>
-   <slot name="Layer 220 copy 2" parent="Layer 220 copy 2" z="26">
-    <display name="trang thai hoan thanh.psd Assets/Layer 220 copy 2" type="image">
-     <transform x="-25.5" y="-20" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
-    </display>
-   </slot>
-   <slot name="Layer 13" parent="Layer 13" z="27">
-    <display name="trang thai hoan thanh.psd Assets/Layer 13" type="image">
-     <transform x="-173.5" y="-314.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
-    </display>
-   </slot>
-   <slot name="Layer 14" parent="Layer 14" z="28">
-    <display name="trang thai hoan thanh.psd Assets/Layer 14" type="image">
-     <transform x="-25.5" y="-29.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
-    </display>
-   </slot>
-   <slot name="Layer 219 copy" parent="Layer 219 copy" z="29">
-    <display name="trang thai hoan thanh.psd Assets/Layer 219 copy" type="image">
-     <transform x="-61.5" y="-43.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
-    </display>
-   </slot>
-   <slot name="Layer 15" parent="Layer 15" z="30">
-    <display name="trang thai hoan thanh.psd Assets/Layer 15" type="image">
-     <transform x="-76.5" y="-85.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
-    </display>
-   </slot>
-   <slot name="Layer 217 copy 2" parent="Layer 217 copy 2" z="31">
-    <display name="trang thai hoan thanh.psd Assets/Layer 217 copy 2" type="image">
-     <transform x="-76.5" y="-85.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
-    </display>
-   </slot>
    <slot name="Layer 33" parent="Layer 33" z="21">
+    <display name="__dbTextures/trang thai hoan thanh/Layer 33_0" type="image">
+     <transform x="-88.55" y="-31.35" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
     <display name="__dbTextures/trang thai hoan thanh/Layer 33_50" type="image">
      <transform x="-88.55" y="-31.35" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
     <display name="__dbTextures/trang thai hoan thanh/Layer 33_62" type="image">
      <transform x="-88.55" y="-31.35" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Layer 9" parent="Layer 9" z="22">
+    <display name="11/Layer 9" type="image">
+     <transform x="-13" y="-62.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Layer 11" parent="Layer 11" z="23">
+    <display name="11/Layer 11" type="image">
+     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Layer 12" parent="Layer 12" z="24">
+    <display name="11/Layer 12" type="image">
+     <transform x="-25" y="-20.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Layer 220 copy" parent="Layer 220 copy" z="25">
+    <display name="11/Layer 220 copy" type="image">
+     <transform x="-25.5" y="-21" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Layer 220 copy 2" parent="Layer 220 copy 2" z="26">
+    <display name="11/Layer 220 copy 2" type="image">
+     <transform x="-25.5" y="-20" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Layer 13" parent="Layer 13" z="27">
+    <display name="11/Layer 13" type="image">
+     <transform x="-173.5" y="-314.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Layer 14" parent="Layer 14" z="28">
+    <display name="11/Layer 14" type="image">
+     <transform x="-25.5" y="-29.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Layer 219 copy" parent="Layer 219 copy" z="29">
+    <display name="11/Layer 219 copy" type="image">
+     <transform x="-61.5" y="-43.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Layer 15" parent="Layer 15" z="30">
+    <display name="11/Layer 15" type="image">
+     <transform x="-76.5" y="-85.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Layer 217 copy 2" parent="Layer 217 copy 2" z="31">
+    <display name="11/Layer 217 copy 2" type="image">
+     <transform x="-76.5" y="-85.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
   </skin>
@@ -398,6 +401,11 @@
     </frame>
     <frame z="20" tweenEasing="0" duration="1">
      <transform x="736.15" y="796.1" skX="-52.98" skY="-52.93" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 33" scale="1" offset="0">
+    <frame z="21" tweenEasing="NaN" duration="50">
+     <transform x="609.05" y="876.2" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="Layer 9" scale="1" offset="0">
@@ -762,10 +770,10 @@
     </frame>
    </timeline>
    <timeline name="Layer 33" scale="1" offset="0">
-    <frame z="21" tweenEasing="NaN" duration="12">
+    <frame z="21" displayIndex="1" tweenEasing="NaN" duration="12">
      <transform x="609.05" y="876.2" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
-    <frame z="21" displayIndex="1" tweenEasing="NaN" duration="12">
+    <frame z="21" displayIndex="2" tweenEasing="NaN" duration="12">
      <transform x="609.05" y="876.2" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
     <frame duration="1" displayIndex="-1"/>

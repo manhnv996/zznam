@@ -91,6 +91,12 @@ var Asset = cc.Class.extend({
         if (machine.id == 0) {
             machine.id = this.machineList.length;
         }
+    },
+
+    getMachineById: function (id) {
+        var machine = this.machineList.find(function (f) {
+            return f.id = id;
+        });
     }
 
 });

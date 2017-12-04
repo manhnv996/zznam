@@ -6,6 +6,7 @@ var MainScene = cc.Scene.extend({
 		PlantCtrl.instance = new PlantCtrl();
 		GameShopController.instance = new GameShopController();
 		StorageCtrl.instance = new StorageCtrl();
+		ConstructedCtrl.instance = new ConstructedCtrl();
 
 		// Init layers
 		MapLayer.instance = new MapLayer();
@@ -43,6 +44,8 @@ var MainScene = cc.Scene.extend({
 		//BaseGUILayer.instance.notifyFullStorage(StorageTypes.FOOD_STORAGE);
 		//BaseGUILayer.instance.notifyMissGold(50);
 		//cc.log(res.infoCoopItem[0]["id"]);
+
+		BaseGUILayer.instance.loadingBar();
 	},
 
 	init: function() {

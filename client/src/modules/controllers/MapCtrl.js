@@ -138,6 +138,13 @@ var MapCtrl = cc.Class.extend({
             var machine = machineList[i];
             var type = machine.type;
             var machineSprite;
+            //Check time build machine  --> render constructed sprite
+            // not full time --> Nha dangxay
+            // full time + completed false --> Nha hoanthanh
+            // full time + completed true --> machine sprite
+            // check inside switch
+            var timeBuild = getMachineConfigById(type).time * 1000;
+            //if ()
             switch (type) {
                 case "bakery_machine":
                     machineSprite = new BakerySprite(machine.id, machine.coordinate.x, machine.coordinate.y);

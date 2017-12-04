@@ -1,7 +1,7 @@
 
 // var lstScale = 1.0;
 var SCALE_RATIO = 0.05;
-var __DEBUG = false;
+var __DEBUG = true;
 
 var MapLayer = cc.Layer.extend({
 	LEFT_LIMIT: null,
@@ -42,8 +42,8 @@ var MapLayer = cc.Layer.extend({
 
 		this.initFieldList();
 
-		//var bakery = new BakerySprite(0, 20, 20);
-		//this.addChild(bakery);
+		var bakery = new BakerySprite(0, 20, 20);
+		this.addChild(bakery);
 	},
 
 	onEnter: function() {

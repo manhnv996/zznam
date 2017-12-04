@@ -189,3 +189,38 @@ MapConfigs.CowLodge = {
 		height: 4
 	}
 }
+
+MapConfigs.BakeryMachine = {
+	size: {
+		width: 3,
+		height: 3
+	}
+}
+
+MapConfigs.FoodMachine = {
+	size: {
+		width: 3,
+		height: 3
+	}
+}
+
+MapConfigs.ButterMachine = {
+	size: {
+		width: 4,
+		height: 4
+	}
+}
+
+MapConfigs.SugarMachine = {
+	size: {
+		width: 2,
+		height: 2
+	}
+}
+
+MapConfigs.PopcornMachine = {
+	size: {
+		width: 2,
+		height: 2
+	}
+}

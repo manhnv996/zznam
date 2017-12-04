@@ -91,6 +91,7 @@
         "src/modules/controllers/MapCtrl.js",
         "src/modules/controllers/GameShopController.js",
         "src/modules/controllers/StorageCtrl.js",
+        "src/modules/controllers/ConstructedCtrl.js",
 
         "src/modules/models/CoordinatedObject.js",
         "src/modules/models/ConstructedObject.js",
@@ -124,6 +125,7 @@
         "src/modules/views/layers/MainGUI/GameShopGUI/GameShopLayout.js",
         "src/modules/views/layers/MainGUI/MainGuiLayer.js",
 
+        "src/modules/views/layers/BaseGUI/LoadingBarLayout.js",
         "src/modules/views/layers/BaseGUI/BlockListenerLayer.js",
         "src/modules/views/layers/BaseGUI/BaseLayout.js",
         "src/modules/views/layers/BaseGUI/StorageUI/StorageItemListLayer.js",

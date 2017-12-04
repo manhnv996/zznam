@@ -15,12 +15,12 @@ var BakerySprite = AnimationSprite.extend({
 
 		//this.play("1");
 		this.play("idle");
-
+        //
 		this.registerTouchEvents();
 	},
 
 	onBeginClick: function() {
-		this.play("selected");
+		//this.play("selected");
 	},
 
 	onClick: function() {

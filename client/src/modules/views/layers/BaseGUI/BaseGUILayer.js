@@ -161,5 +161,14 @@ var BaseGUILayer = cc.Layer.extend({
         label.runAction(cc.sequence(fadeIn, move, fadeOut, cc.callFunc(function() {
             label.removeFromParent(true);
         })));
+    },
+
+    /**
+     * Popup loanding bar
+     */
+
+    loadingBar: function () {
+        var loadingBar = new LoadingBarLayout();
+        this.addChild(loadingBar);
     }
 });
