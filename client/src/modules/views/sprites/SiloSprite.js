@@ -19,6 +19,8 @@ var SiloSprite = AnimationSprite.extend({
 	},
 
 	onFinishMove: function(lx, ly) {
-		testnetwork.connector.sendMoveStorage(MapItemEnum.SILO, lx, ly);
+		user.asset.foodStorage.coordinate.x = lx;
+		user.asset.foodStorage.coordinate.y = ly;
+		testnetwork.connector.sendMoveMapBlock(MapItemEnum.SILO, 0, lx, ly);
 	}
 });

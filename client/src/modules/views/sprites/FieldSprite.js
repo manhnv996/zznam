@@ -285,7 +285,7 @@ var FieldSprite = MapBlockSprite.extend({
         this.field.coordinate.x = lx;
         this.field.coordinate.y = ly;
         // Send to server
-        testnetwork.connector.sendMoveField(this.fieldId, lx, ly);
+        testnetwork.connector.sendMoveMapBlock(MapItemEnum.FIELD, this.fieldId, lx, ly);
         ///
     }
 });
