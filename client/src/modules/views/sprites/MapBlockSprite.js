@@ -63,6 +63,7 @@ var MapBlockSprite = cc.Sprite.extend({
                             this.touchListener.scheduling = false;
                             // disable onClick event after long click
                             this.touchListener.__isMoved = true;
+                            this.touchListener.__showArrow = true;
                             PopupLayer.instance.showArrow(touchLocation.x, touchLocation.y, function() {
                                 // Activate move sprite mode
                                 // Stop InertialEngine recording
@@ -91,6 +92,7 @@ var MapBlockSprite = cc.Sprite.extend({
                         // cc.log("Start schedule outOfHoldTimeCallback");
                         this.scheduleOnce(this.touchListener.outOfHoldTimeCallback, 0.5);
                         this.touchListener.scheduling = true;
+                        this.touchListener.__showArrow = false;
                     }
                     return true;
                 } else {
@@ -139,6 +141,20 @@ var MapBlockSprite = cc.Sprite.extend({
                     // Check threshold
                     if (this.totalMovedDistance > 10) {
                         this.touchListener.__isMoved = true;
+                        if (this.touchListener.scheduling) {
+                            // When callback didnot be excuted and move
+                            this.touchListener.scheduling = false;
+                            // cc.log("Canceled schedule outOfHoldTimeCallback");
+                            this.unschedule(this.touchListener.outOfHoldTimeCallback);
+                        }
+                    }
+                }
+
+                if (this.touchListener.__showArrow) {
+                    this.totalMovedDistance += caculateDistance(lstMouse, location);
+                    if (this.totalMovedDistance > 10) {
+                        this.touchListener.__showArrow = false;
+                        PopupLayer.instance.removeArrow();
                     }
                 }
                 this.touchListener.lstMouse = location;
@@ -147,14 +163,14 @@ var MapBlockSprite = cc.Sprite.extend({
                 //     this.arrow.removeFromParent();
                 //     this.arrow = null;
                 // }
-                PopupLayer.instance.removeArrow();
+                // PopupLayer.instance.removeArrow();
 
-                if (this.touchListener.scheduling) {
-                    // When callback didnot be excuted and move
-                    this.touchListener.scheduling = false;
-                    // cc.log("Canceled schedule outOfHoldTimeCallback");
-                    this.unschedule(this.touchListener.outOfHoldTimeCallback);
-                }
+                // if (this.touchListener.scheduling) {
+                //     // When callback didnot be excuted and move
+                //     this.touchListener.scheduling = false;
+                //     // cc.log("Canceled schedule outOfHoldTimeCallback");
+                //     this.unschedule(this.touchListener.outOfHoldTimeCallback);
+                // }
 
                 if (this.touchListener.__moveSprite) {
                     // Move sprite
