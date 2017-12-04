@@ -12,5 +12,9 @@ var ConstructedCtrl = cc.Class.extend({
 
                 break;
         }
+    },
+
+    completedBuild: function () {
+        cc.log("Completed Build");
     }
 });

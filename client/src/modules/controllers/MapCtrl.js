@@ -142,11 +142,15 @@ var MapCtrl = cc.Class.extend({
             // not full time --> Nha dangxay
             // full time + completed false --> Nha hoanthanh
             // full time + completed true --> machine sprite
-            // check inside switch
+            // check inside switch or check outside switch
             var timeBuild = getMachineConfigById(type).time * 1000;
             //if ()
+            var curTime = new Date().getTime();
             switch (type) {
                 case "bakery_machine":
+                    if ((curTime - machine.startBuildTime) < timeBuild ) {
+                        //machineSprite =
+                    }
                     machineSprite = new BakerySprite(machine.id, machine.coordinate.x, machine.coordinate.y);
                     break;
                 //case MapItemEnum.FOOD_GRINDER:
