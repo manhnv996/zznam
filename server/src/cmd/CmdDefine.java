@@ -38,6 +38,7 @@ public class CmdDefine {
     
     public static final short MOVE_FIELD = 6001;
     public static final short MOVE_STORAGE = 6002;
+    public static final short MOVE_MAP_BLOCK = 6003;
     public static final short RESPONSE_MOVE = 6100;
     
     

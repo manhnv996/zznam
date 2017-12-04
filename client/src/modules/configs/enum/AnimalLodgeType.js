@@ -1,4 +1,4 @@
 var AnimalLodgeType = {
-	CHICKEN_LODGE: 'CHICKEN_LODGE',
-	COW_LODGE: 'COW_LODGE'
+	chicken_habitat: 'chicken_habitat',
+	cow_habitat: 'cow_habitat'
 };

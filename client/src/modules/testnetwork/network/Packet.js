@@ -30,6 +30,7 @@ gv.CMD.RESPONSE_SYNC_FOOD_STORAGE_ITEM = 5084;
 // Map
 gv.CMD.MOVE_FIELD = 6001;
 gv.CMD.MOVE_STORAGE = 6002;
+gv.CMD.MOVE_MAP_BLOCK = 6003;
 gv.CMD.RESPONSE_MOVE = 6100;
 
 //Shop
@@ -210,6 +211,22 @@ CmdSendMoveField = fr.OutPacket.extend({
     },
     pack: function(id, x, y) {
         this.packHeader();
+        this.putInt(id);
+        this.putInt(x);
+        this.putInt(y);
+        this.updateSize();
+    }
+});
+
+CmdSendMoveMapBlock = fr.OutPacket.extend({
+    ctor: function() {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.MOVE_MAP_BLOCK);
+    },
+    pack: function(type, id, x, y) {
+        this.packHeader();
+        this.putInt(type);
         this.putInt(id);
         this.putInt(x);
         this.putInt(y);

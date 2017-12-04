@@ -91,4 +91,14 @@ public class Asset {
             lodge.setId(animalLodgeList.size());    
         }
     }
+    
+    public AnimalLodge getAnimalLodgeById(int id) {
+        for (int i = 0; i < this.animalLodgeList.size(); i++) {
+            AnimalLodge lodge = this.animalLodgeList.get(i);
+            if (lodge.getId() == id) {
+                return lodge;
+            }
+        }
+        return null;
+    }
 }

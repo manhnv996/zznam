@@ -91,6 +91,12 @@ var Asset = cc.Class.extend({
 
     addMachine: function (machine) {
         this.machineList.push(machine);
+    },
+
+    getLodgeById: function(id) {
+        return this.animalLodgeList.find(function(lodge) {
+            return lodge.id === id;
+        });
     }
 
 });

@@ -1,11 +1,13 @@
 var AnimalLodgeSprite = MapBlockSprite.extend({
 	animalSpriteList: [],
+	id: null,
 
 	ctor: function(resGround, resFence, 
 		offsetX, offsetY, fenceColumnWidth,
 		blockSizeX, blockSizeY, lx, ly, mapItemType) {
 		this._super(resGround, blockSizeX, blockSizeY, lx, ly, mapItemType);
 		this.renderFence(resFence, offsetX, offsetY, fenceColumnWidth);
+		this.registerTouchEvents();
 	},
 
 	renderFence: function(resFence, offsetX, offsetY, fenceColumnWidth) {
@@ -114,5 +116,38 @@ var AnimalLodgeSprite = MapBlockSprite.extend({
 			x + this.getContentSize().width / 2,
 			y + this.getContentSize().height / 2
 		);
-	}
+	},
+
+	setId: function(id) {
+		this.id = id;
+		// Cached lodge
+		this.lodge = user.asset.getLodgeById(this.id);
+	},
+
+	onClick: function() {
+		if (this.lodge.getAnimalCount() > 0) {
+			var remain = this.lodge.getMaxRemainTime();
+			if (remain > 0) {
+				// Show remain dialog
+				cc.log("Remain", this.lodge.getMaxRemainTime());
+
+			} else {
+				// Show Harvest tool
+				cc.log("Harvest");
+
+			}
+		} else {
+			// Open store to buy animal
+			cc.log("Open store to buy animal");
+		}
+	},
+
+	onFinishMove: function(lx, ly) {
+        cc.log("lodge moved to", lx, ly);
+        
+        this.lodge.coordinate.x = lx;
+        this.lodge.coordinate.y = ly;
+        // Send to server
+        testnetwork.connector.sendMoveMapBlock(MapItemEnum.LODGE, this.id, lx, ly);
+    }
 });

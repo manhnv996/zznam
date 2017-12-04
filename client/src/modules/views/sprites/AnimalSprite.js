@@ -1,6 +1,7 @@
 var AnimalSprite = cc.Sprite.extend({
 	lx: 0,
 	ly: 0,
+	id: null,
 
 	ctor: function(resAniId) {
 		this._super();
@@ -35,5 +36,9 @@ var AnimalSprite = cc.Sprite.extend({
 			p.x + this.getParent().getContentSize().width / 2,
 			p.y + this.getParent().getContentSize().height
 		);
+	},
+
+	setId: function(id) {
+		this.id = id;
 	}
 });

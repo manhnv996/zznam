@@ -25,6 +25,23 @@ var AnimalLodge = CoordinatedObject.extend({
     },
     getType: function() {
         return this.type;
-    }
+    },
 
+    getMaxRemainTime: function() {
+        var max = 0;
+        var animalType = this.type.split('_')[0];
+        var timeToHarvest = AnimalConfig[animalType].time * 1000;
+        var currentTime = new Date().getTime();
+        this.animalList.forEach(function(animal) {
+            var remainTime = timeToHarvest - (currentTime - animal.feededTime);
+            if (remainTime > max) {
+                max = remainTime;
+            }
+        });
+        return max;
+    },
+
+    getAnimalCount: function() {
+        return this.animalList.length;
+    }
 });

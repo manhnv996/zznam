@@ -346,6 +346,6 @@ function onReceiveUser(userInfo) {
     user.ruby = userInfo.ruby;
     user.exp = userInfo.exp;
 
-    cc.log("AnimalLodge", user.asset.animalLodgeList);
+    // cc.log("AnimalLodge", user.asset.animalLodgeList);
     MainScene.instance.onGettedData();
 }

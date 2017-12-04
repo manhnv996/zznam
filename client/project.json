@@ -54,6 +54,7 @@
         "src/modules/utils/inertiaEngine.js",
         "src/modules/utils/caculateDistance.js",
         "src/modules/configs/MapItemEnum.js",
+        "src/modules/configs/AnimalConfig.js",
 
         "src/modules/configs/MapConfigs.js",
         "src/modules/configs/ListenerPriorityConfigs.js",
