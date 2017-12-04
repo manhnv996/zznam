@@ -1,7 +1,7 @@
 
 // var lstScale = 1.0;
 var SCALE_RATIO = 0.05;
-var __DEBUG = false;
+var __DEBUG = true;
 
 var MapLayer = cc.Layer.extend({
 	LEFT_LIMIT: null,
@@ -736,8 +736,10 @@ var MapLayer = cc.Layer.extend({
 	update: function(dt) {
 		var dx = this.velocity.x * dt;
 		var dy = this.velocity.y * dt;
-		this.velocity.x *= 0.9;
-		this.velocity.y *= 0.9;
+		var reduce = Math.pow(0.9, dt * 60);
+		// cc.log("Reduce", reduce);
+		this.velocity.x *= reduce;
+		this.velocity.y *= reduce;
 		if (dx * dx + dy * dy < 0.5) {
 			return this.uninertia();
 		}
