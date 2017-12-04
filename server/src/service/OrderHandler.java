@@ -13,8 +13,12 @@ import cmd.receive.demo.RequestPlant;
 
 import cmd.receive.order.RequestBoostWaitOrder;
 import cmd.receive.order.RequestCancelOrder;
+import cmd.receive.order.RequestCancelOrderNPC;
 import cmd.receive.order.RequestCreateNewOrder;
+import cmd.receive.order.RequestCreateNewOrderNPC;
 import cmd.receive.order.RequestMakeOrder;
+
+import cmd.receive.order.RequestMakeOrderNPC;
 
 import cmd.send.demo.ResponseErrorCode;
 
@@ -74,6 +78,23 @@ public class OrderHandler extends BaseClientRequestHandler {
                     RequestBoostWaitOrder boostWaitOrder = new RequestBoostWaitOrder(dataCmd);
                     
                     processBoostWaitOrder(user, boostWaitOrder);
+                    break;
+            
+                //
+                case CmdDefine.MAKE_ORDER_NPC:
+                    RequestMakeOrderNPC makeOrderNPC = new RequestMakeOrderNPC(dataCmd);
+                    
+                    processMakeOrderNPC(user, makeOrderNPC);
+                    break;
+                case CmdDefine.CANCEL_ORDER_NPC:
+                    RequestCancelOrderNPC cancelOrderNPC = new RequestCancelOrderNPC(dataCmd);
+                    
+                    processCancelOrderNPC(user, cancelOrderNPC);
+                    break;
+                case CmdDefine.CREATE_NEW_ORDER_NPC:
+                    RequestCreateNewOrderNPC createNewOrderNPC = new RequestCreateNewOrderNPC(dataCmd);
+                    
+                    processCreateNewOrderNPC(user, createNewOrderNPC);
                     break;
                 
             }
@@ -228,7 +249,115 @@ public class OrderHandler extends BaseClientRequestHandler {
             e.printStackTrace();
         }
     }
+    ////////
+    //
+    public void processMakeOrderNPC(User user, RequestMakeOrderNPC order){
+        try {
+            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
+            if (userInfo == null){
+                
+                return;
+            }
+            
+            /*
+             * DONE
+             */
+            short errorCode = userInfo.getAsset().getOrderdById(order.orderId).makeOrder(userInfo);
+            
+            //
+            if (errorCode == ErrorLog.SUCCESS.getValue()){
+                send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
+
+                userInfo.saveModel(user.getId());
+                //
+                send(new ResponseSyncOrder(errorCode, userInfo.getAsset().getOrderdById(order.orderId)), user);
+                
+            } else {
+//                userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
+                
+                if (errorCode == ErrorLog.ERROR_STORAGE_NOT_REDUCE.getValue()){
+                    Storage foodStorage = userInfo.getAsset().getFoodStorage();
+                    Storage warehouse = userInfo.getAsset().getWarehouse();
+                    
+                    send(new ResponseSyncStorage(errorCode, foodStorage), user);
+                    send(new ResponseSyncStorage(errorCode, warehouse), user);
+                    
+                    //
+                    send(new ResponseSyncUserInfo(errorCode, userInfo), user);
+                }
+                
+                //
+                send(new ResponseSyncOrder(errorCode, userInfo.getAsset().getOrderdById(order.orderId)), user);
+                
+            }
+            
+            
+        } catch (Exception e) {
+        }
+    }
     
+    public void processCancelOrderNPC(User user, RequestCancelOrderNPC order){
+        try {
+            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
+            if (userInfo == null){
+                
+                return;
+            }
+            
+            /*
+             * DONE
+             */
+            short errorCode = userInfo.getAsset().getOrderdById(order.orderId).cancelOrder();
+            
+            //
+            if (errorCode == ErrorLog.SUCCESS.getValue()){
+                send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
+
+                userInfo.saveModel(user.getId());                
+                //
+                send(new ResponseSyncOrder(errorCode, userInfo.getAsset().getOrderdById(order.orderId)), user);
+                
+            } else {
+                
+                send(new ResponseSyncOrder(errorCode, userInfo.getAsset().getOrderdById(order.orderId)), user);
+            }
+            
+            
+        } catch (Exception e) {
+        }
+    }
+    
+    
+    public void processCreateNewOrderNPC(User user, RequestCreateNewOrderNPC order){
+        try {
+            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
+            if (userInfo == null){
+                
+                return;
+            }
+            
+            /*
+             * DONE
+             */
+            short errorCode = userInfo.getAsset().getOrderdById(order.orderId).createOrder(userInfo.getLevel());
+            
+            //
+            if (errorCode == ErrorLog.SUCCESS.getValue()){
+                send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
+
+                userInfo.saveModel(user.getId());                
+                //
+                send(new ResponseSyncOrder(errorCode, userInfo.getAsset().getOrderdById(order.orderId)), user);
+                
+            } else {
+                
+                send(new ResponseSyncOrder(errorCode, userInfo.getAsset().getOrderdById(order.orderId)), user);
+            }
+            
+            
+        } catch (Exception e) {
+        }
+    }
     
 //    /////////
     

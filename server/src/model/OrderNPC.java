@@ -18,11 +18,12 @@ public class OrderNPC extends Order {
     private StorageItem orderItem;
     
     public OrderNPC(ZPUserInfo user) {
-//        super();
+        super();
         
-//        this.setOrderItem(user);
-        this.orderItem = null;
-        super.setWaittingTime(new Date().getTime());
+//        this.orderItem = null;
+//        super.setWaittingTime(new Date().getTime());        
+        this.setWaittingTime(0);
+        this.createOrder(user);
     }
 
 
@@ -44,7 +45,7 @@ public class OrderNPC extends Order {
          */
         if (this.orderItem != null){
             ProductConfig product = ProductUtil.getProductConfObjByType(this.orderItem.getTypeItem());
-            return this.orderItem.getQuantity() * product.maxPrice / 2;
+            return (int) this.orderItem.getQuantity() * product.maxPrice / 2;
         }
         return 0;
     }
@@ -65,9 +66,14 @@ public class OrderNPC extends Order {
 
     //    @Override
     public short createOrder(ZPUserInfo user) {
-        
-        this.setOrderItem(user);
-        super.setWaittingTime(0);
+        if ((super.getWaittingTime() + OrderNPCUtil.getNPCRemainTime(user.getLevel()) * 60 * 1000 - 5000) <= new Date().getTime()){
+            
+            this.setOrderItem(user);
+            super.setWaittingTime(0);
+            
+//            return true;
+            return ErrorLog.SUCCESS.getValue();
+        }
         
         return ErrorLog.SUCCESS.getValue();
     }

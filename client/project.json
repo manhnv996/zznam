@@ -76,7 +76,9 @@
 
 
         "src/modules/views/layers/popup/TablePopup.js",
+        "src/modules/views/layers/popup/TablePopupLayer.js",
         "src/modules/views/layers/popup/SeedTablePopup.js",
+        "src/modules/views/layers/popup/CropToolPopup.js",
         "src/modules/views/layers/PopupLayer.js",
         "src/modules/views/layers/popup/BlockListenerLayer.js",
 
@@ -118,6 +120,7 @@
         "src/modules/models/Animal.js",
         "src/modules/models/NatureThing.js",
         "src/modules/models/Order.js",
+        "src/modules/models/OrderNPC.js",
 
         "src/modules/models/AnimalLodge.js",
 

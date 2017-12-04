@@ -3,6 +3,8 @@ var TablePopup = ccui.Layout.extend({
 
     _bg: null,
     _isClose: false,
+    _isVisible: true,
+    _isMoved: false,
 
     ctor: function (background, xlogic, ylogic, spriteCalled) {
         this._super();
@@ -30,6 +32,23 @@ var TablePopup = ccui.Layout.extend({
             swallowTouches: true,
             onTouchBegan: function (touch, event) {
 
+                return true;
+            }.bind(this),
+
+            onTouchMoved: function (touch, event) {
+
+                this._isMoved = true;
+
+                var delta = touch.getDelta();
+                MapLayer.instance.move(delta.x, delta.y);
+                /*
+                 DONE
+                 */
+
+            }.bind(this),
+
+            onTouchEnded: function (touch, event) {
+                //
                 var target = this._bg;
 
                 var locationInNode = target.convertToNodeSpace(touch.getLocation());
@@ -41,13 +60,19 @@ var TablePopup = ccui.Layout.extend({
                     this._isClose = true;
                 }
 
-                return true;
             }.bind(this)
         });
-        cc.eventManager.addListener(this.disableListener, 1);
+        cc.eventManager.addListener(this.disableListener, this);
     },
 
     update: function (dt) {
+
+        this._bg.setVisible(this._isVisible);
+
+        if (this._isMoved){
+            this.setVisible(false);
+        }
+
         if (this._isClose) {
             this.unscheduleUpdate();
 

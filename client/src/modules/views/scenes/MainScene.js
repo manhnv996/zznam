@@ -14,6 +14,9 @@ var MainScene = cc.Scene.extend({
         PopupLayer.instance = new PopupLayer();
         this.addChild(PopupLayer.instance);
 
+		TablePopupLayer.instance = new TablePopupLayer();
+		this.addChild(TablePopupLayer.instance);
+
 		//var mainGuiLayer = new MainGuiLayer();
 		//this.addChild(mainGuiLayer);
 		//MainGuiLayer.instance = new MainGuiLayer();

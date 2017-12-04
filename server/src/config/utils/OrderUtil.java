@@ -35,7 +35,7 @@ public class OrderUtil {
             return 5;
         } else if (level < 21){
             return 10;
-        } else if (level < 27){
+        } else if (level < 26){
             return 15;
         } else {
             return 30;

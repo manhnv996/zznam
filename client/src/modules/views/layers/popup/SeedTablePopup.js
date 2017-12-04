@@ -14,105 +14,12 @@ var SeedTablePopup = TablePopup.extend({
             MapLayer.instance.fieldList[index]);
 
         //
-        this.pageCurr = 0;
+        //this.pageCurr = 0;
+        this.pageCurr = LastPageUtil.instance.lastIndexOfPageSeedTableClick;
         //
         this.showSeedPopup(fieldId, seedList);
     },
 
-
-
-    disableItemOfPopupByListIndex: function (pageIndex, seedShowNumber) {
-        for (var i = 0; i < this.popupItemList.length; i++){
-            if (i >= (5 * pageIndex) && i < (5 * pageIndex + seedShowNumber)) {
-                this.popupItemList[i].setVisible(true);
-                this.popupItemList[i].resume();
-
-            } else {
-                this.popupItemList[i].setVisible(false);
-                this.popupItemList[i].pause();
-            }
-
-        }
-    },
-
-    setSeedListPosition: function (pageIndex, seedList) {
-        var pageNumber = Math.ceil(this.popupItemList.length / 5);
-        var seedShowNumber = 5;
-        if (pageNumber > 1) {
-            if (pageIndex < pageNumber - 1){
-                seedShowNumber = 5;
-            } else {
-                seedShowNumber = seedList.length - (pageNumber - 1) * 5;
-            }
-        } else {
-            seedShowNumber = seedList.length;
-        }
-
-        this.disableItemOfPopupByListIndex(pageIndex, seedShowNumber);
-
-        //setPosition
-        switch (seedShowNumber % 5){
-            case 1:
-                this.popupItemList[5 * pageIndex + 0].setPosition(cc.p(this._bg.x, this._bg.y));
-                //
-                break;
-            case 2:
-                this.popupItemList[5 * pageIndex + 1].setPosition(cc.p(this._bg.x, this._bg.y));
-                this.popupItemList[5 * pageIndex + 0].setPosition(cc.p(this._bg.x, this._bg.y));
-                //
-                this.popupItemList[5 * pageIndex + 1].runAction(new cc.moveBy(0.1, - (this.popupItemList[0].width / 2), - (this.popupItemList[5 * pageIndex + 1].height / 4)));
-                this.popupItemList[5 * pageIndex + 0].runAction(new cc.moveBy(0.1, (this.popupItemList[1].height / 2), (this.popupItemList[5 * pageIndex + 0].height / 4)));
-                break;
-            case 3:
-                this.popupItemList[5 * pageIndex + 2].setPosition(cc.p(this._bg.x, this._bg.y));
-                this.popupItemList[5 * pageIndex + 1].setPosition(cc.p(this._bg.x, this._bg.y));
-                this.popupItemList[5 * pageIndex + 0].setPosition(cc.p(this._bg.x, this._bg.y));
-                //
-                this.popupItemList[5 * pageIndex + 2].runAction(new cc.moveBy(0.1, - (this.popupItemList[5 * pageIndex + 2].width), - (this.popupItemList[5 * pageIndex + 2].height / 4)));
-                // this.popupItemList[5 * pageIndex + 1].runAction(new cc.moveBy(0.1, 0, 0));
-                this.popupItemList[5 * pageIndex + 0].runAction(new cc.moveBy(0.1, (this.popupItemList[5 * pageIndex + 0].width), (this.popupItemList[5 * pageIndex + 2].height / 4)));
-
-                break;
-            case 4:
-                this.popupItemList[5 * pageIndex + 3].setPosition(cc.p(this._bg.x, this._bg.y));
-                this.popupItemList[5 * pageIndex + 2].setPosition(cc.p(this._bg.x, this._bg.y));
-                this.popupItemList[5 * pageIndex + 1].setPosition(cc.p(this._bg.x, this._bg.y));
-                this.popupItemList[5 * pageIndex + 0].setPosition(cc.p(this._bg.x, this._bg.y));
-                //
-                this.popupItemList[5 * pageIndex + 3].runAction(new cc.moveBy(0.1, - (this.popupItemList[5 * pageIndex + 3].width), 0));
-                this.popupItemList[5 * pageIndex + 2].runAction(new cc.moveBy(0.1, 0, (this.popupItemList[5 * pageIndex + 2].height / 4)));
-                this.popupItemList[5 * pageIndex + 1].runAction(new cc.moveBy(0.1, (this.popupItemList[5 * pageIndex + 1].width), (this.popupItemList[5 * pageIndex + 1].height / 2)));
-
-                this.popupItemList[5 * pageIndex + 0].runAction(new cc.moveBy(0.1, (this.popupItemList[5 * pageIndex + 0].width * 2 / 4), - (this.popupItemList[5 * pageIndex + 0].height / 2)));
-
-                break;
-            case 0:
-                this.popupItemList[5 * pageIndex + 4].setPosition(cc.p(this._bg.x, this._bg.y));
-                this.popupItemList[5 * pageIndex + 3].setPosition(cc.p(this._bg.x, this._bg.y));
-                this.popupItemList[5 * pageIndex + 2].setPosition(cc.p(this._bg.x, this._bg.y));
-                this.popupItemList[5 * pageIndex + 1].setPosition(cc.p(this._bg.x, this._bg.y));
-                this.popupItemList[5 * pageIndex + 0].setPosition(cc.p(this._bg.x, this._bg.y));
-                //
-                this.popupItemList[5 * pageIndex + 4].runAction(new cc.moveBy(0.1, - (this.popupItemList[5 * pageIndex + 4].width * 5 / 4), (this.popupItemList[5 * pageIndex + 4].width / 4)));
-                this.popupItemList[5 * pageIndex + 3].runAction(new cc.moveBy(0.1, - (this.popupItemList[5 * pageIndex + 3].width / 4), (this.popupItemList[5 * pageIndex + 3].height / 2)));
-                this.popupItemList[5 * pageIndex + 2].runAction(new cc.moveBy(0.1, (this.popupItemList[5 * pageIndex + 2].width * 3 / 4), (this.popupItemList[5 * pageIndex + 2].height * 3 / 4)));
-
-                this.popupItemList[5 * pageIndex + 1].runAction(new cc.moveBy(0.1, - (this.popupItemList[5 * pageIndex + 1].width / 4), - (this.popupItemList[5 * pageIndex + 1].height / 2)));
-                this.popupItemList[5 * pageIndex + 0].runAction(new cc.moveBy(0.1, (this.popupItemList[5 * pageIndex + 0].width * 3 / 4), - (this.popupItemList[5 * pageIndex + 0].height / 4)));
-
-                break;
-
-        }
-    },
-
-    turnPageEvent: function () {
-        this.pageListNumber[this.pageCurr].setTexture(res.page);
-
-        this.pageCurr = (this.pageCurr + 1) % (Math.ceil(this.popupItemList.length / 5));
-        this.setSeedListPosition(this.pageCurr, this.popupItemList);
-
-        this.pageListNumber[this.pageCurr].setTexture(res.pageSelected);
-    },
 
     ///////////////////////
     showSeedPopup: function(fieldId, seedList){
@@ -229,6 +136,101 @@ var SeedTablePopup = TablePopup.extend({
 
     },
 
+    //
+    disableItemOfPopupByListIndex: function (pageIndex, seedShowNumber) {
+        for (var i = 0; i < this.popupItemList.length; i++){
+            if (i >= (5 * pageIndex) && i < (5 * pageIndex + seedShowNumber)) {
+                this.popupItemList[i].setVisible(true);
+                this.popupItemList[i].resume();
+
+            } else {
+                this.popupItemList[i].setVisible(false);
+                this.popupItemList[i].pause();
+            }
+
+        }
+    },
+
+    setSeedListPosition: function (pageIndex, seedList) {
+        var pageNumber = Math.ceil(this.popupItemList.length / 5);
+        var seedShowNumber = 5;
+        if (pageNumber > 1) {
+            if (pageIndex < pageNumber - 1){
+                seedShowNumber = 5;
+            } else {
+                seedShowNumber = seedList.length - (pageNumber - 1) * 5;
+            }
+        } else {
+            seedShowNumber = seedList.length;
+        }
+
+        this.disableItemOfPopupByListIndex(pageIndex, seedShowNumber);
+
+        //setPosition
+        switch (seedShowNumber % 5){
+            case 1:
+                this.popupItemList[5 * pageIndex + 0].setPosition(cc.p(this._bg.x, this._bg.y));
+                //
+                break;
+            case 2:
+                this.popupItemList[5 * pageIndex + 1].setPosition(cc.p(this._bg.x, this._bg.y));
+                this.popupItemList[5 * pageIndex + 0].setPosition(cc.p(this._bg.x, this._bg.y));
+                //
+                this.popupItemList[5 * pageIndex + 1].runAction(new cc.moveBy(0.1, - (this.popupItemList[0].width / 2), - (this.popupItemList[5 * pageIndex + 1].height / 4)));
+                this.popupItemList[5 * pageIndex + 0].runAction(new cc.moveBy(0.1, (this.popupItemList[1].height / 2), (this.popupItemList[5 * pageIndex + 0].height / 4)));
+                break;
+            case 3:
+                this.popupItemList[5 * pageIndex + 2].setPosition(cc.p(this._bg.x, this._bg.y));
+                this.popupItemList[5 * pageIndex + 1].setPosition(cc.p(this._bg.x, this._bg.y));
+                this.popupItemList[5 * pageIndex + 0].setPosition(cc.p(this._bg.x, this._bg.y));
+                //
+                this.popupItemList[5 * pageIndex + 2].runAction(new cc.moveBy(0.1, - (this.popupItemList[5 * pageIndex + 2].width), - (this.popupItemList[5 * pageIndex + 2].height / 4)));
+                // this.popupItemList[5 * pageIndex + 1].runAction(new cc.moveBy(0.1, 0, 0));
+                this.popupItemList[5 * pageIndex + 0].runAction(new cc.moveBy(0.1, (this.popupItemList[5 * pageIndex + 0].width), (this.popupItemList[5 * pageIndex + 2].height / 4)));
+
+                break;
+            case 4:
+                this.popupItemList[5 * pageIndex + 3].setPosition(cc.p(this._bg.x, this._bg.y));
+                this.popupItemList[5 * pageIndex + 2].setPosition(cc.p(this._bg.x, this._bg.y));
+                this.popupItemList[5 * pageIndex + 1].setPosition(cc.p(this._bg.x, this._bg.y));
+                this.popupItemList[5 * pageIndex + 0].setPosition(cc.p(this._bg.x, this._bg.y));
+                //
+                this.popupItemList[5 * pageIndex + 3].runAction(new cc.moveBy(0.1, - (this.popupItemList[5 * pageIndex + 3].width), 0));
+                this.popupItemList[5 * pageIndex + 2].runAction(new cc.moveBy(0.1, 0, (this.popupItemList[5 * pageIndex + 2].height / 4)));
+                this.popupItemList[5 * pageIndex + 1].runAction(new cc.moveBy(0.1, (this.popupItemList[5 * pageIndex + 1].width), (this.popupItemList[5 * pageIndex + 1].height / 2)));
+
+                this.popupItemList[5 * pageIndex + 0].runAction(new cc.moveBy(0.1, (this.popupItemList[5 * pageIndex + 0].width * 2 / 4), - (this.popupItemList[5 * pageIndex + 0].height / 2)));
+
+                break;
+            case 0:
+                this.popupItemList[5 * pageIndex + 4].setPosition(cc.p(this._bg.x, this._bg.y));
+                this.popupItemList[5 * pageIndex + 3].setPosition(cc.p(this._bg.x, this._bg.y));
+                this.popupItemList[5 * pageIndex + 2].setPosition(cc.p(this._bg.x, this._bg.y));
+                this.popupItemList[5 * pageIndex + 1].setPosition(cc.p(this._bg.x, this._bg.y));
+                this.popupItemList[5 * pageIndex + 0].setPosition(cc.p(this._bg.x, this._bg.y));
+                //
+                this.popupItemList[5 * pageIndex + 4].runAction(new cc.moveBy(0.1, - (this.popupItemList[5 * pageIndex + 4].width * 5 / 4), (this.popupItemList[5 * pageIndex + 4].width / 4)));
+                this.popupItemList[5 * pageIndex + 3].runAction(new cc.moveBy(0.1, - (this.popupItemList[5 * pageIndex + 3].width / 4), (this.popupItemList[5 * pageIndex + 3].height / 2)));
+                this.popupItemList[5 * pageIndex + 2].runAction(new cc.moveBy(0.1, (this.popupItemList[5 * pageIndex + 2].width * 3 / 4), (this.popupItemList[5 * pageIndex + 2].height * 3 / 4)));
+
+                this.popupItemList[5 * pageIndex + 1].runAction(new cc.moveBy(0.1, - (this.popupItemList[5 * pageIndex + 1].width / 4), - (this.popupItemList[5 * pageIndex + 1].height / 2)));
+                this.popupItemList[5 * pageIndex + 0].runAction(new cc.moveBy(0.1, (this.popupItemList[5 * pageIndex + 0].width * 3 / 4), - (this.popupItemList[5 * pageIndex + 0].height / 4)));
+
+                break;
+
+        }
+    },
+
+    turnPageEvent: function () {
+        this.pageListNumber[this.pageCurr].setTexture(res.page);
+
+        this.pageCurr = (this.pageCurr + 1) % (Math.ceil(this.popupItemList.length / 5));
+        LastPageUtil.instance.lastIndexOfPageSeedTableClick = this.pageCurr;
+        this.setSeedListPosition(this.pageCurr, this.popupItemList);
+
+        this.pageListNumber[this.pageCurr].setTexture(res.pageSelected);
+    },
+
     disablePopup: function(seedId){
         //cc.log("disvisible");
         this.disablePopupBackground();
@@ -242,9 +244,9 @@ var SeedTablePopup = TablePopup.extend({
         if (this._bg != null) {
 
             this._bg.setVisible(false);
-            this._bg.removeFromParent(true);
+            //this._bg.removeFromParent(true);
 
-            this._bg = null;
+            //this._bg = null;
         }
         if (this.btTurnPage != null){
             this.btTurnPage.setVisible(false);

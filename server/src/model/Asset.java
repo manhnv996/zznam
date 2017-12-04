@@ -15,6 +15,7 @@ public class Asset {
     private List<NatureThing> natureThingList;
     private List<AnimalLodge> animalLodgeList;
     private List<Order> orderList;
+    private List<OrderNPC> orderNPCList;
     private List<Machine> machineList;
     
     public Asset(Storage foodStorage,
@@ -28,8 +29,9 @@ public class Asset {
         
         this.foodStorage = foodStorage;
         this.warehouse = warehouse;
-        this.orderList = new ArrayList<>();
         
+        this.orderList = new ArrayList<>();
+        this.orderNPCList = new ArrayList<>();
         
         this.fieldList = fieldList == null ? new ArrayList<Field>() : fieldList;
         this.natureThingList = natureThingList == null ? new ArrayList<NatureThing>() : natureThingList;
@@ -100,8 +102,11 @@ public class Asset {
     public List<Order> getOrderList() {
         return orderList;
     }
-    
-    
+
+    public List<OrderNPC> getOrderNPCList() {
+        return orderNPCList;
+    }
+
     //
     public List<StorageItem> getAllProductInStock(){
         List<StorageItem> productList = new ArrayList<>();
@@ -137,8 +142,35 @@ public class Asset {
         return false;
     }
     
-    public Order getOrderdById(int orderId){
-        for (int i = 0; i < this.orderList.size(); i++){
+    public OrderNPC getOrderdById(int orderId){
+        for (int i = 0; i < this.orderNPCList.size(); i++){
+            if (this.orderNPCList.get(i).getOrderId() == orderId){
+                return this.orderNPCList.get(i);
+                
+            }
+        }
+        
+        return null;
+    }
+    
+    public boolean addOrderNPC(OrderNPC order){
+        if (this.orderNPCList == null){
+            return false;
+        }
+        if (this.orderNPCList.size() < 2){
+            this.orderNPCList.add(order);
+            this.orderNPCList.get(this.orderNPCList.size() - 1).setOrderId(this.orderNPCList.size() - 1);
+            
+            return true;
+        }
+        /*
+         * inprogress
+         */
+        return false;
+    }
+    
+    public Order getOrderdNPCById(int orderId){
+        for (int i = 0; i < this.orderNPCList.size(); i++){
             if (this.orderList.get(i).getOrderId() == orderId){
                 return this.orderList.get(i);
                 
@@ -147,7 +179,7 @@ public class Asset {
         
         return null;
     }
-    //
+    ////
     
     public void addAnimalLodge(AnimalLodge lodge) {
         this.animalLodgeList.add(lodge);

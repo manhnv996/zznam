@@ -25,6 +25,7 @@ import config.jsonobject.map.NaturalObject;
 
 import config.utils.ConfigContainer;
 
+import config.utils.OrderNPCUtil;
 import config.utils.OrderUtil;
 
 import config.utils.ProductUtil;
@@ -42,6 +43,7 @@ import model.Asset;
 import model.Field;
 import model.NatureThing;
 import model.Order;
+import model.OrderNPC;
 import model.Storage;
 import model.StorageItem;
 import model.ZPUserInfo;
@@ -152,6 +154,7 @@ public class UserHandler extends BaseClientRequestHandler {
 //        System.out.println(order.getOrderPrice());
 //        System.out.println(order.getOrderExp());
         
+        
         System.out.println("here is log");
         //
         send(new ResponseUser(userInfo), user);
@@ -225,9 +228,22 @@ public class UserHandler extends BaseClientRequestHandler {
 //        }
         
         
+        
         //
         for (int i = 0; i < OrderUtil.getNumberOfOrderByLevel(userInfo.getLevel()); i++){
             asset.addOrder(userInfo.getLevel(), new Order(userInfo.getLevel()));
+        }
+        
+        //
+        for (int i = 0; i < 2; i++){
+            asset.addOrderNPC(new OrderNPC(userInfo));
+        }
+        
+        for (int i = 0; i < asset.getOrderNPCList().size(); i++){
+            System.out.println(asset.getOrderNPCList().get(i).getOrderItem().getTypeItem() + ", " + 
+                               asset.getOrderNPCList().get(i).getOrderItem().getQuantity() + ", " + 
+                               asset.getOrderNPCList().get(i).getOrderPrice() + ", " + 
+                               asset.getOrderNPCList().get(i).getOrderExp());
         }
         
         

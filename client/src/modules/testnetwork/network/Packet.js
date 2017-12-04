@@ -33,7 +33,12 @@ gv.CMD.CANCEL_ORDER = 10002;
 gv.CMD.CREATE_NEW_ORDER = 10003;
 gv.CMD.BOOST_WAIT_ORDER = 10004;
 
+gv.CMD.MAKE_ORDER_NPC = 10011;
+gv.CMD.CANCEL_ORDER_NPC = 10012;
+gv.CMD.CREATE_NEW_ORDER_NPC = 10013;
+
 gv.CMD.RESPONSE_SYNC_ORDER = 10081;
+gv.CMD.RESPONSE_SYNC_ORDER_NPC = 10091;
 
 
 // Map
@@ -197,7 +202,7 @@ CmdSendBuyItemByRubi = fr.OutPacket.extend(
     }
 );
 
-//
+////
 CmdSendMakeOrder = fr.OutPacket.extend(
     {
         ctor:function()
@@ -269,7 +274,62 @@ CmdSendBoostWaitOrder = fr.OutPacket.extend(
         }
     }
 );
+
 //
+CmdSendMakeOrderNpc = fr.OutPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+            this.initData(100);
+            this.setCmdId(gv.CMD.MAKE_ORDER_NPC);
+        },
+        pack:function(orderId){
+            this.packHeader();
+
+            this.putInt(orderId);
+
+            this.updateSize();
+        }
+    }
+);
+
+CmdSendCancelOrderNpc = fr.OutPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+            this.initData(100);
+            this.setCmdId(gv.CMD.CANCEL_ORDER_NPC);
+        },
+        pack:function(orderId){
+            this.packHeader();
+
+            this.putInt(orderId);
+
+            this.updateSize();
+        }
+    }
+);
+
+CmdSendCreateNewOrderNpc = fr.OutPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+            this.initData(100);
+            this.setCmdId(gv.CMD.CREATE_NEW_ORDER_NPC);
+        },
+        pack:function(orderId){
+            this.packHeader();
+
+            this.putInt(orderId);
+
+            this.updateSize();
+        }
+    }
+);
+////
 
 // Map
 CmdSendMoveStorage = fr.OutPacket.extend({
@@ -610,7 +670,7 @@ testnetwork.packetMap[gv.CMD.RESPONSE_SYNC_FOOD_STORAGE_ITEM] = fr.InPacket.exte
     }
 );
 
-//
+////
 testnetwork.packetMap[gv.CMD.RESPONSE_SYNC_ORDER] = fr.InPacket.extend(
     {
         ctor:function()
@@ -653,7 +713,50 @@ testnetwork.packetMap[gv.CMD.RESPONSE_SYNC_ORDER] = fr.InPacket.extend(
 
     }
 );
-//
+
+testnetwork.packetMap[gv.CMD.RESPONSE_SYNC_ORDER_NPC] = fr.InPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+        },
+        readData:function(){
+
+            /*
+             NOT YET STARTED
+             */
+            this.order = this.unpackOrder();
+
+        },
+
+        unpackOrder: function () {
+            var order = {};
+            order.orderId = this.getInt();
+
+            // Get each item
+            var itemListSize = this.getInt();
+            order.itemList = [];
+            for (var i = 0; i < itemListSize; i++) {
+                order.itemList.push(this.unpackStorageItem());
+            }
+
+            order.orderPrice = this.getInt();
+            order.orderExp = this.getInt();
+            order.waittingTime = this.getLong();
+
+            return order;
+        },
+
+        unpackStorageItem: function() {
+            var item = {};
+            item.typeItem = this.getString();
+            item.quantity = this.getInt();
+            return item;
+        },
+
+    }
+);
+////
 
 
 // Map

@@ -142,7 +142,7 @@ testnetwork.Connector = cc.Class.extend({
                 // cc.log("RECEIVE RESPONSE_SYNC_STORAGE: ", packet.storageJsonString);
                 cc.log("RECEIVE RESPONSE_SYNC_STORAGE: ", packet.storage);
                 /*
-                Inprogress
+                 Done
                  */
 
                 // Update Storage
@@ -175,7 +175,7 @@ testnetwork.Connector = cc.Class.extend({
             case gv.CMD.RESPONSE_SYNC_ORDER:
                 cc.log("RECEIVE RESPONSE_SYNC_ORDER: ", packet.order);
                 /*
-                Done
+                 Done
                  */
                 var orderSelected = user.getAsset().getOrderById(packet.order.orderId);
 
@@ -194,7 +194,30 @@ testnetwork.Connector = cc.Class.extend({
                 }
 
                 break;
-            //
+
+            case gv.CMD.RESPONSE_SYNC_ORDER_NPC:
+                cc.log("RECEIVE RESPONSE_SYNC_ORDER_NPC: ", packet.order);
+                /*
+                 NOT YET STARTED
+                 */
+                //var orderSelected = user.getAsset().getOrderById(packet.order.orderId);
+                //
+                //orderSelected.itemList = packet.order.itemList;
+                //orderSelected.orderPrice = packet.order.orderPrice;
+                //orderSelected.orderExp = packet.order.orderExp;
+                ////orderSelected.waittingTime = packet.order.waittingTime;
+                //orderSelected.waittingTime = new Date(parseInt(packet.order.waittingTime));
+                //
+                //
+                //////
+                //TruckOrderSprite.instance.initTruckOrder();
+                //// OrderCtrl.instance.onShowOrderBG();
+                //if (BaseGUILayer.instance._layout != null){
+                //    BaseGUILayer.instance._layout.initInfo();
+                //}
+
+                break;
+            ////
 
             case gv.CMD.RESPONSE_MOVE:
                 cc.log("RESPONSE_MOVE Error: ", packet.error);
@@ -306,7 +329,7 @@ testnetwork.Connector = cc.Class.extend({
         pk.pack(productType, quantity);
         this.gameClient.sendPacket(pk);
     },
-    //
+    ///
     sendMakeOrder: function (orderId) {
         cc.log("sendMakeOrder: " + orderId);
         var pk = this.gameClient.getOutPacket(CmdSendMakeOrder);
@@ -331,6 +354,26 @@ testnetwork.Connector = cc.Class.extend({
         pk.pack(orderId);
         this.gameClient.sendPacket(pk);
     },
+    //
+    sendMakeOrderNpc: function (orderId) {
+        cc.log("sendMakeOrderNpc: " + orderId);
+        var pk = this.gameClient.getOutPacket(CmdSendMakeOrderNpc);
+        pk.pack(orderId);
+        this.gameClient.sendPacket(pk);
+    },
+    sendCancelOrderNpc: function (orderId) {
+        cc.log("sendCancelOrderNpc: " + orderId);
+        var pk = this.gameClient.getOutPacket(CmdSendCancelOrderNpc);
+        pk.pack(orderId);
+        this.gameClient.sendPacket(pk);
+    },
+    sendCreateNewOrderNpc: function (orderId) {
+        cc.log("sendCreateNewOrderNpc: " + orderId);
+        var pk = this.gameClient.getOutPacket(CmdSendCreateNewOrderNpc);
+        pk.pack(orderId);
+        this.gameClient.sendPacket(pk);
+    },
+    ///
 
     // Map
     sendMoveStorage: function(type, x, y) {

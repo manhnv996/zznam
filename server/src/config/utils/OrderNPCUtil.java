@@ -18,17 +18,27 @@ public class OrderNPCUtil {
     
     public static int getNPCRemainTime(int level){
         if (level < 11){
-            return 3;
+            return 2;
         } else if (level < 16){
-            return 5;
+            return 4;
         } else if (level < 21){
-            return 10;
-        } else if (level < 27){
-            return 15;
+            return 4;
+        } else if (level < 26){
+            return 4;
+        } else if (level < 31){
+            return 6;
+        } else if (level < 36){
+            return 6;
+        } else if (level < 41){
+            return 6;
         } else {
-            return 30;
+            return 8;
         }
+        /*
+         * INPROGRESS
+         */
     }
+    
     
     
     public static ProductCategory randomCategoryNPC(){
