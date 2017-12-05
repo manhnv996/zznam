@@ -5,14 +5,14 @@
 var LoadingBarLayout = ccui.Layout.extend({
     totalTime : 0,
     startTime: 0,
-    _isClose: null,
+    _isClose: false,
 
    ctor: function (totalTime, startTime, name, ruby) {
        this._super();
 
        this.totalTime = totalTime * 1000;
        this.startTime = startTime;
-       this._isClose = false;
+       //this._isClose = false;
 
        //this.totalTime = 9000 * 1000;
        //this.startTime = new Date().getTime() - 5000 * 1000;
@@ -78,7 +78,6 @@ var LoadingBarLayout = ccui.Layout.extend({
        this.actionShow();
        this.disableLoadingBar();
        this.scheduleUpdate();
-        cc.log("scheduleUpdate");
    },
 
     actionShow: function () {
@@ -90,8 +89,9 @@ var LoadingBarLayout = ccui.Layout.extend({
     disableLoadingBar: function () {
         this.listener = cc.EventListener.create({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
-            swallowTouches: true,
+            swallowTouches: false,
             onTouchBegan: function (touch, event) {
+                //var target = event.getCurrentTarget();
                 var target = this;
 
                 var locationInNode = target.convertToNodeSpace(touch.getLocation());
@@ -162,6 +162,7 @@ var LoadingBarLayout = ccui.Layout.extend({
 
         if(this._isClose) {
             this.closeLoadingBar();
+            //this.unscheduleUpdate();
         }
 
         if (hour === 0 && min === 0 && sec === 0) {
@@ -172,13 +173,9 @@ var LoadingBarLayout = ccui.Layout.extend({
     },
 
     closeLoadingBar: function () {
-        cc.log("unscheduleUpdate");
         this.unscheduleUpdate();
         this.removeFromParent(true);
         this._isClose = false;
-        ConstructedCtrl.instance._isHasLoadingBar = false;
-        //cc.log("loading bar unscheduleUpdate " + this);
         cc.eventManager.removeListener(this.listener);
-        //this = null;
     }
 });

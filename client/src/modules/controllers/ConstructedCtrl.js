@@ -3,7 +3,6 @@
  */
 
 var ConstructedCtrl = cc.Class.extend({
-    _isHasLoadingBar: false,
 
     checkBuildTime: function (id, typeBuilding) {
         switch (typeBuilding) {
@@ -65,16 +64,6 @@ var ConstructedCtrl = cc.Class.extend({
     },
 
     selectConstructedObject: function (id, typeBuilding) {
-        //cc.log("this.loadingBar " + this.loadingBar );
-        //if(this.loadingBar) {
-        //    cc.log(" isClose " + this.loadingBar._isClose);
-        //    if (!this.loadingBar._isClose) {
-        //        this.loadingBar.closeLoadingBar();
-        //    }
-        //}
-        if (this._isHasLoadingBar) {
-            this.loadingBar.closeLoadingBar();
-        }
         switch (typeBuilding) {
             case MapItemEnum.MACHINE:
                 //cc.log("Machine constructed");
