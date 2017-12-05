@@ -60,7 +60,8 @@ var LoginLayer = cc.Layer.extend({
 
     },
     onClickLogin: function(){
-        if (this.flag == 0) {
+        //if (this.flag == 0) { todo
+        if (true) {
             this.flag = 1;
             cc.log("==onplay clicked");
             var username = this.userNameBox.getString();

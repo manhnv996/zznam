@@ -8,34 +8,62 @@
 var MachineSprite = AnimationSprite.extend({
 
     machineId: null,
-    machine:null,
-    aniState: "idle",
-    ctor: function(machineId, aniId, blockSizeX, blockSizeY, x, y, mapAliasType) {
+    curAniState: "idle",
+    machine: null,
+    ctor: function (machineId) {
         this.machineId = machineId;
         //this._super(aniId, blockSizeX, blockSizeY, lx, ly, mapAliasType)
-        this._super(aniId, MapConfigs.Bakery.size.width, MapConfigs.Bakery.size.width, x, y, MapItemEnum.FOOD_GRINDER);
-        this.play(this.aniState);
-        this.machine = user.getAsset().getMachineList().find(function(f){
+        this.machine = user.getAsset().getMachineList().find(function (f) {
             return f.machineId === machineId;
         })
 
+
+        cc.log(MA_LOG_TAG + this.machine.machineType + " ===== " );
+        if (this.machine != null) {
+            var i = this.machine.getIndexMachineByType(this.machine.machineType);
+            if (i != -1){
+                this._super(MACHINE_LIST[i].aniId, MACHINE_LIST[i].size.width, MACHINE_LIST[i].size.width, this.machine.coordinate.x, this.machine.coordinate.y, MACHINE_LIST[i].mapItemEnum);
+                this.play(this.curAniState);
+
+            } else {
+                cc.log(MA_LOG_TAG + "getIndexMachineByType" );
+            }
+        } else {
+            this._super(resAniId.bakery, MapConfigs.Bakery.size.width, MapConfigs.Bakery.size.width, 30, 30, MapConfigs.DuongRay);
+            this.play(this.curAniState);
+        }
+
         this.registerTouchEvents();
+
+        //todo
+        //this.schedule(this.updateMachineState, 0.5);
     },
 
-    onClick: function() {
+    onClick: function () {
         cc.log(this.machineId + " on click");
-        MachineLayer.instance.showPopup(this.machineId, this.lx, this.ly);
+        MachineController.instance.onMachineSelected(this.machineId);
 
     },
 
-    onBeginClick: function() {
+    onBeginClick: function () {
         cc.log(this.machineId + " on begin click");
         this.play("selected");
 
     },
 
-    onEndClick: function() {
+    onEndClick: function () {
         cc.log(this.machineId + " on end click");
+        this.play(this.curAniState);
+    },
+    playAnimation:function (aniState) {
+        this.curAniState = aniState;
+        this.play(aniState);
+    },
+    updateMachineState:function(){
+        //todo  if productQueue = null  unschedule,
+        // update state of machine per 0.5s by checking it's running or not
+
     }
+
 });
 

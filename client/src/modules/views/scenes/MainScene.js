@@ -6,13 +6,17 @@ var MainScene = cc.Scene.extend({
 		PlantCtrl.instance = new PlantCtrl();
 		GameShopController.instance = new GameShopController();
 		StorageCtrl.instance = new StorageCtrl();
-
+		MachineController.instance = new MachineController();
 		// Init layers
 		MapLayer.instance = new MapLayer();
 		this.addChild(MapLayer.instance);
 
+		//
 		PopupLayer.instance = new PopupLayer();
 		this.addChild(PopupLayer.instance);
+
+		TablePopupLayer.instance = new TablePopupLayer();
+		this.addChild(TablePopupLayer.instance);
 
 		MachineLayer.instance = new MachineLayer();
 		this.addChild(MachineLayer.instance);

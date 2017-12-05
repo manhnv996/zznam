@@ -18,7 +18,8 @@ var PlantCtrl = cc.Class.extend({
 
                 var seedShow = getSeedShow(user.getLevel());
 
-                PopupLayer.instance.showSeedPopup(fieldId, seedShow);
+                //PopupLayer.instance.showSeedPopup(fieldId, seedShow);
+                TablePopupLayer.instance.showSeedTablePopup(fieldId, seedShow);
                 //
                 this.firstDragEmptyField = true;
                 this.firstDragField = true;
@@ -30,7 +31,8 @@ var PlantCtrl = cc.Class.extend({
                 /*
                 Show croptool
                  */
-                PopupLayer.instance.showToolPopup(fieldId);
+                //PopupLayer.instance.showToolPopup(fieldId);
+                TablePopupLayer.instance.showCropToolPopup(fieldId);
 
                 this.firstShowNotice = false;
 

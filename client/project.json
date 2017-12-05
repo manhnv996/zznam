@@ -52,10 +52,10 @@
 
         "src/modules/utils/rayCasting.js",
         "src/modules/utils/inertiaEngine.js",
+        "src/modules/utils/LastPageUtil.js",
         "src/modules/configs/MapItemEnum.js",
 
         "src/modules/configs/MachineConfig.js",
-        "src/modules/configs/MachineProductConfig.js",
 
         "src/modules/configs/MapConfigs.js",
         "src/modules/configs/ListenerPriorityConfigs.js",
@@ -76,6 +76,13 @@
         "src/modules/views/sprites/DatoSprite.js",
         "src/modules/views/sprites/DanhoSprite.js",
 
+
+        "src/modules/views/layers/popup/MachineTablePopup.js",
+        "src/modules/views/layers/popup/TablePopup.js",
+        "src/modules/views/layers/popup/SeedTablePopup.js",
+        "src/modules/views/layers/popup/CropToolPopup.js",
+        "src/modules/views/layers/popup/TablePopupLayer.js",
+
         "src/modules/views/layers/PopupLayer.js",
         "src/modules/views/layers/MachineLayer.js",
         "src/modules/views/sprites/SeedSprite.js",
@@ -95,6 +102,7 @@
         "src/modules/controllers/MapCtrl.js",
         "src/modules/controllers/GameShopController.js",
         "src/modules/controllers/StorageCtrl.js",
+        "src/modules/controllers/MachineController.js",
 
         "src/modules/models/CoordinatedObject.js",
         "src/modules/models/ConstructedObject.js",
