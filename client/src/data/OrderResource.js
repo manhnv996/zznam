@@ -20,6 +20,20 @@ var OrderResource = {
     checkIcon: "res/Art/Truck Order/check.png",
 
 
+    //npc
+    npcGirl: "res/Art/Visitors/npc/girl1.png",
+    npcOldWoman: "res/Art/Visitors/npc/character1-2.png",
+    npcOldMan: "res/Art/Visitors/npc/character1.png",
+    npcYouth: "res/Art/Visitors/npc/tn.png",
+    npcMiddleAge: "res/Art/Visitors/npc/girl2.png",
+
+
+    slotNpc: "res/Art/Visitors/slot.png",
+    quoteNpc: "res/Art/Visitors/quote.png",
+    muitenNpc: "res/Art/Visitors/muiten.png",
+    answerNpc: "res/Art/Visitors/button.png",
+
+
 
     //for product icon
     iconCropWheat: "res/Art/Crops/Field/crops.png",

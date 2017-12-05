@@ -50,7 +50,7 @@ var OrderBGLayer = BaseLayout.extend({
         for (var i = 0; i < this.orderList.length; i++){
             this.orderList[i].setPosition(cc.p(this.orderList[i].width  * 3 / 4 + Math.abs(i % 3) * this.orderList[i].width,
                 this.height - this.orderList[i].height * 1 / 3 - (Math.floor(i / 3) + 1) * this.orderList[i].height));
-                //this.bgBackground.height - this.orderList[i].height * 1 / 3 - (Math.floor(i / 3) + 1) * this.orderList[i].height));
+            //this.bgBackground.height - this.orderList[i].height * 1 / 3 - (Math.floor(i / 3) + 1) * this.orderList[i].height));
 
 
 ////            ////

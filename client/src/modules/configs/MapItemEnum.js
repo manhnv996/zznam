@@ -21,5 +21,6 @@ var MapItemEnum = {
 
 	NATURE_THING: 17,
 	LODGE: 18,
-	CAR: 19
+	CAR: 19,
+	NPC: 20
 };

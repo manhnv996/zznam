@@ -1,5 +1,5 @@
 <dragonBones name="Onggia1" frameRate="24" version="2.3">
- <armature name="Walk">
+ <armature name="Onggia1">
   <bone name="Cánh tay phải">
    <transform x="-74.55" y="-116.35" skX="-140.44" skY="-140.44" scX="1" scY="1"/>
   </bone>

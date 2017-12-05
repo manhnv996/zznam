@@ -154,6 +154,7 @@ public class UserHandler extends BaseClientRequestHandler {
 //        System.out.println(order.getOrderPrice());
 //        System.out.println(order.getOrderExp());
         
+//        this.orderItem = OrderNPCUtil.randomProductConfByCategory(user, OrderNPCUtil.randomCategoryNPC());
         
         System.out.println("here is log");
         //
@@ -239,11 +240,13 @@ public class UserHandler extends BaseClientRequestHandler {
             asset.addOrderNPC(new OrderNPC(userInfo));
         }
         
+        System.out.println("here is log2222");
         for (int i = 0; i < asset.getOrderNPCList().size(); i++){
             System.out.println(asset.getOrderNPCList().get(i).getOrderItem().getTypeItem() + ", " + 
                                asset.getOrderNPCList().get(i).getOrderItem().getQuantity() + ", " + 
                                asset.getOrderNPCList().get(i).getOrderPrice() + ", " + 
-                               asset.getOrderNPCList().get(i).getOrderExp());
+                               asset.getOrderNPCList().get(i).getOrderExp() + ", " + 
+                               asset.getOrderNPCList().get(i).getNpcResAni());
         }
         
         

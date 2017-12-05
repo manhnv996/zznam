@@ -44,6 +44,7 @@ var MapCtrl = cc.Class.extend({
         //MapLayer.instance.addChild(bakery);
         //bakery.play("loop1");
         //
+        this.renderNPC();
         TruckOrderSprite.instance.initTruckOrder();
     },
 
@@ -128,6 +129,21 @@ var MapCtrl = cc.Class.extend({
             
             // Add from server
             // this.addSpriteAlias(fieldSprite);
+        }
+    },
+
+    renderNPC: function () {
+
+        CarSprite.instance = new CarSprite(16, 22);
+        MapLayer.instance.addChild(CarSprite.instance);
+
+        var orderNPCList = user.asset.orderNPCList;
+        for (var i = 0; i < orderNPCList.length; i++){
+            var npcSprite = new NPCSprite(16 + i, 20 - i, orderNPCList[i]);
+            MapLayer.instance.addChild(npcSprite);
+
+            // //
+            // MapLayer.instance.orderNPCList.push(npcSprite);
         }
     },
 

@@ -180,6 +180,7 @@ function getSeedImgBySeedTypeAndQuantity(seedType, quantity) {
 }
 
 
+
 function updateGameInfo(gameInfoJson){
     var gameInfo = null;
     /*
@@ -349,10 +350,24 @@ function onReceiveUser(userInfo) {
         orderList.push(order);
     }
 
+    //Order NPC List
+    var orderNPCList = [];
+    for (var i = 0; i < userInfo.asset.orderNPCList.length; i++) {
+        var orderNPC = new OrderNPC(
+            userInfo.asset.orderNPCList[i].orderId,
+            userInfo.asset.orderNPCList[i].orderItem,
+            userInfo.asset.orderNPCList[i].orderPrice,
+            userInfo.asset.orderNPCList[i].orderExp,
+            userInfo.asset.orderNPCList[i].npc_res
+        );
+        order.waittingTime = new Date(parseInt(userInfo.asset.orderNPCList[i].waittingTime));
+        orderNPCList.push(orderNPC);
+    }
+
     var asset = new Asset(
         foodStorage, warehouse, fieldList, animalLodgeList,
         machineList, natureThingList, myShop,
-        orderList
+        orderList, orderNPCList
     );
 
     // cc.log("Asset", asset);
@@ -369,15 +384,16 @@ function onReceiveUser(userInfo) {
 
 
 //
-    var orderList = user.asset.getOrderList();
-    for (var i = 0; i < orderList.length; i++){
+    var orderNPCList = user.asset.getOrderNPCList();
+    for (var i = 0; i < orderNPCList.length; i++){
         // cc.log(orderList.getItemList()[i].getTypeItem() + ", " + orderList.getItemList()[i].getQuantityItem());
 
-        cc.log(orderList[i].orderId);
-        cc.log(orderList[i].itemList);
-        cc.log(orderList[i].orderPrice);
-        cc.log(orderList[i].orderExp);
-        cc.log(orderList[i].waittingTime);
+        cc.log(orderNPCList[i].orderId);
+        cc.log(orderNPCList[i].orderItem);
+        cc.log(orderNPCList[i].orderPrice);
+        cc.log(orderNPCList[i].orderExp);
+        cc.log(orderNPCList[i].waittingTime);
+        cc.log(orderNPCList[i].npc_res);
     }
 
 }

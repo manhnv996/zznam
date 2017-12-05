@@ -784,6 +784,7 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         this.unpackNatureThingList();
         this.unpackStorages();
         this.unpackOrderList();
+        this.unpackOrderNPCList();
         this.unpackAnimalLodges();
         this.unpackMachines();
     },
@@ -898,6 +899,31 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
 
         return order;
     },
+    //
+    unpackOrderNPCList: function() {
+        this.user.asset.orderNPCList = [];
+        // Get orderList size
+        var size = this.getInt();
+        // Get each order
+        for (var i = 0; i < size; i++) {
+            this.user.asset.orderNPCList.push(this.unpackOrderNPC());
+        }
+    },
+    unpackOrderNPC: function () {
+        var order = {};
+        order.orderId = this.getInt();
+
+        order.orderItem = this.unpackStorageItem();
+
+        order.orderPrice = this.getInt();
+        order.orderExp = this.getInt();
+        order.waittingTime = this.getLong();
+
+        order.npc_res = this.getString();
+
+        return order;
+    },
+    //
 
     unpackAnimalLodges: function() {
         var size = this.getInt();

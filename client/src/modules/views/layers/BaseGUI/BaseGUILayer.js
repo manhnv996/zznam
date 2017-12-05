@@ -70,6 +70,15 @@ var BaseGUILayer = cc.Layer.extend({
         this.addChild(this._layout);
     },
     //
+    showOrderNPCLayer: function (orderNPC) {
+        this._layout = new OrderNPCLayer(orderNPC);
+        if (this._layout._hasCloseButton) {
+            //cc.log("_btnClose");
+            this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);
+        }
+        this.blockLayout();
+        this.addChild(this._layout);
+    },
     ////BaseGUILayer.instance.removeBlockListener();
 
     blockLayout: function () {

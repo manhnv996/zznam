@@ -8,10 +8,11 @@ var Asset = cc.Class.extend({
     natureThingList: null,
     myShop: null,
     orderList: [],
+    orderNPCList: [],
     animalLodgeList: null,
     // map: [],
 
-    ctor: function (foodStorage, warehouse, fieldList, animalLodgeList, machineList, natureThingList, myShop, orderList) {
+    ctor: function (foodStorage, warehouse, fieldList, animalLodgeList, machineList, natureThingList, myShop, orderList, orderNPCList) {
         //
         //this._super();
 
@@ -29,6 +30,7 @@ var Asset = cc.Class.extend({
         this.natureThingList = natureThingList || [];
         this.myShop = myShop;
         this.orderList = (orderList == null) ? [] : orderList;
+        this.orderNPCList = (orderNPCList == null) ? [] : orderNPCList;
         // this.fieldList = [];
     },
 
@@ -95,9 +97,13 @@ var Asset = cc.Class.extend({
         }
     },
 
-    //
+//    //
     getOrderList: function() {
         return this.orderList;
+    },
+    //
+    getOrderNPCList: function() {
+        return this.orderNPCList;
     },
 
     addOrder: function(/*level, */order){
@@ -117,6 +123,16 @@ var Asset = cc.Class.extend({
         for (var i = 0; i < this.orderList.length; i++){
             if (this.orderList[i].getOrderId() == orderId){
                 return this.orderList[i];
+
+            }
+        }
+        return null;
+    },
+
+    getOrderNPCById: function (orderId) {
+        for (var i = 0; i < this.orderNPCList.length; i++){
+            if (this.orderNPCList[i].getOrderId() == orderId){
+                return this.orderNPCList[i];
 
             }
         }

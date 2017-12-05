@@ -142,10 +142,10 @@ public class Asset {
         return false;
     }
     
-    public OrderNPC getOrderdById(int orderId){
-        for (int i = 0; i < this.orderNPCList.size(); i++){
-            if (this.orderNPCList.get(i).getOrderId() == orderId){
-                return this.orderNPCList.get(i);
+    public Order getOrderdById(int orderId){
+        for (int i = 0; i < this.orderList.size(); i++){
+            if (this.orderList.get(i).getOrderId() == orderId){
+                return this.orderList.get(i);
                 
             }
         }
@@ -169,10 +169,10 @@ public class Asset {
         return false;
     }
     
-    public Order getOrderdNPCById(int orderId){
+    public OrderNPC getOrderdNPCById(int orderId){
         for (int i = 0; i < this.orderNPCList.size(); i++){
-            if (this.orderList.get(i).getOrderId() == orderId){
-                return this.orderList.get(i);
+            if (this.orderNPCList.get(i).getOrderId() == orderId){
+                return this.orderNPCList.get(i);
                 
             }
         }

@@ -1,5 +1,4 @@
 
-
 var CarSprite = AnimationSprite.extend({
 
     orderId: 0,
@@ -8,7 +7,7 @@ var CarSprite = AnimationSprite.extend({
     ctor: function (x, y) {
         // this._super(res.orderPaper);
         this._super(resAniId.Oto_2016,
-            2,
+            1,
             1,
             x, y,
             MapItemEnum.CAR
@@ -16,8 +15,27 @@ var CarSprite = AnimationSprite.extend({
 
         this.play("1");
 
-
+        // this.addEventListener();
+        // this.registerTouchEvents();
     },
+
+
+
+    onClick: function() {
+        cc.log("Car clicked", this.getLocalZOrder(), this.lx, this.ly, this.blockSizeX, this.blockSizeY);
+        /*
+        not yet started
+         */
+    },
+    onBeginClick: function() {
+        this.setColor(cc.color(200, 200, 200));
+    },
+
+    onEndClick: function() {
+        this.setColor(cc.color(255, 255, 255));
+    },
+
+
 
 
     testSequenceEvent: function () {

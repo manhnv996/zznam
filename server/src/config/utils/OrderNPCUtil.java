@@ -71,18 +71,22 @@ public class OrderNPCUtil {
         if (randomProductExistsInStock()){
             // 0.2 - 0.9 quantity of product in stock
             List<StorageItem> list = getItemListInStockByCategory(user, category);
-            StorageItem item = list.get((int) Math.floor(Math.random() * 0.99 * list.size()));
+            if (!list.isEmpty()){
+                StorageItem item = list.get((int) Math.floor(Math.random() * 0.99 * list.size()));
+                //
+//                return new StorageItem(item.getTypeItem(), (int) (item.getQuantity() * (Math.random() * 0.7 + 0.2)) );
+                return new StorageItem(item.getTypeItem(), (int) Math.ceil(item.getQuantity() * (Math.random() * 0.7 + 0.2)) );
+                
+            }
             
-            //
-            return new StorageItem(item.getTypeItem(), (int) (item.getQuantity() * (Math.random() * 0.7 + 0.2)) );
-            
-        } else {
+        } 
+//        else {
             // 1 - 5 product
             List<ProductConfig> list = ProductUtil.getProductConfObjByCategory(category);
             ProductConfig item = list.get((int) Math.floor(Math.random() * 0.99 * list.size()));
             
             return new StorageItem(item.id, (int) (Math.random() * 0.99 * 5) + 1);
-        }
+//        }
         
     }
     

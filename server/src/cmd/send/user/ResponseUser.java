@@ -19,6 +19,7 @@ import model.Field;
 import model.Machine;
 import model.NatureThing;
 import model.Order;
+import model.OrderNPC;
 import model.Storage;
 import model.StorageItem;
 import model.ZPUserInfo;
@@ -42,6 +43,8 @@ public class ResponseUser extends BaseMsg {
         this.packNatureThingList();
         this.packStorages();
         this.packOrderList();
+        this.packOrderNPCList();
+        
         this.packAnimalLodges();
         this.packMachines();
 
@@ -230,6 +233,35 @@ public class ResponseUser extends BaseMsg {
         bf.putInt(order.getOrderExp());
         bf.putLong(order.getWaittingTime());
     }
+    
+    /**
+     * Put orderNPClist:
+     */
+    private void packOrderNPCList() {
+        List<OrderNPC> orderNPCList = user.getAsset().getOrderNPCList();
+        // [IMPORTANT] Put length of order list first
+        bf.putInt(orderNPCList.size());
+        // Put each order
+        for (int i = 0; i < orderNPCList.size(); i++) {
+            this.packOrderNPC(orderNPCList.get(i));
+        }
+    }
+    
+    /**
+     * Put orderNPC
+     */
+    private void packOrderNPC(OrderNPC order) {
+        bf.putInt(order.getOrderId()); // ID
+        
+        this.packStorageItem(order.getOrderItem());
+        
+        bf.putInt(order.getOrderPrice());
+        bf.putInt(order.getOrderExp());
+        bf.putLong(order.getWaittingTime());
+        putStr(bf, order.getNpcResAni());
+    }
+    
+    
     /**        
      * Pack ALL machine
      */

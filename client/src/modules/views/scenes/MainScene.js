@@ -52,8 +52,6 @@ var MainScene = cc.Scene.extend({
         //BaseGUILayer.instance.notifyFullStorage(StorageTypes.FOOD_STORAGE);
 		//BaseGUILayer.instance.notifyMissGold(50);
 
-        CarSprite.instance = new CarSprite(16, 22);
-        MapLayer.instance.addChild(CarSprite.instance);
 	},
 
 	//

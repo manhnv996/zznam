@@ -4,22 +4,35 @@
 
 var OrderNPC = Order.extend({
 
-    orderId: 0,
+    // orderId: 0,
     orderItem: null,    //storage item
 
-    orderPrice: 0,
-    orderExp: 0,
-    waittingTime: null,
+    // orderPrice: 0,
+    // orderExp: 0,
+    // waittingTime: null,
 
     npc_res: null,  // NOT YET STARTED
 
-    ctor: function (orderId, orderPrice, orderExp) {
+    ctor: function (orderId, orderItem, orderPrice, orderExp, npc_res) {
         //
         this._super(orderId, [], orderPrice, orderExp);
 
         //
-        this.orderItem = null;
-        this.waittingTime = new Date();
+        // this.orderItem = null;
+        // this.waittingTime = new Date();
+        this.createOrder(orderItem, orderPrice, orderExp, npc_res)
+    },
+
+
+    //
+    createOrder: function (orderItem, orderPrice, orderExp, npc_res) {
+        this.orderItem = orderItem;
+        this.orderPrice = orderPrice;
+        this.orderExp = orderExp;
+
+        this.npc_res = npc_res;
+
+        this.waittingTime = null;
     },
 
 
@@ -32,13 +45,9 @@ var OrderNPC = Order.extend({
         return this.orderItem;
     },
 
-    //
-    createOrder: function (orderItem, orderPrice, orderExp) {
-        this.orderItem = orderItem;
-        this.orderPrice = orderPrice;
-        this.orderExp = orderExp;
 
-        this.waittingTime = null;
+    setNpcRes: function () {
+
     },
 
 

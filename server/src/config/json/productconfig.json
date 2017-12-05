@@ -172,9 +172,6 @@
   
   
   
-  
-
-
   {
     "id": "crop_indigo",
     "name": "Hoa o?i h??ng",
@@ -218,5 +215,84 @@
     "maxPrice": 50,
     "levelUnlock": 34
 
+  },
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  {
+    "id": "tool_nail",
+    "name": "Tool nail",
+    "speedUp": 1,
+    "rubiMuaNgay": 1,
+    "timeMin": 1,
+    "exp": 1,
+    "maxPrice": 5,
+    "levelUnlock": 5
+
+  },
+  {
+    "id": "tool_screw",
+    "name": "Tool screw",
+    "speedUp": 1,
+    "rubiMuaNgay": 1,
+    "timeMin": 1,
+    "exp": 1,
+    "maxPrice": 10,
+    "levelUnlock": 10
+
+  },
+  {
+    "id": "tool_woodPanel",
+    "name": "Tool woodpanel",
+    "speedUp": 1,
+    "rubiMuaNgay": 1,
+    "timeMin": 1,
+    "exp": 1,
+    "maxPrice": 15,
+    "levelUnlock": 15
+
+  },
+  {
+    "id": "tool_bolt",
+    "name": "Tool bolt",
+    "speedUp": 1,
+    "rubiMuaNgay": 1,
+    "timeMin": 1,
+    "exp": 1,
+    "maxPrice": 7,
+    "levelUnlock": 7
+
+  },
+  {
+    "id": "tool_plank",
+    "name": "Tool plank",
+    "speedUp": 1,
+    "rubiMuaNgay": 1,
+    "timeMin": 1,
+    "exp": 1,
+    "maxPrice": 9,
+    "levelUnlock": 9
+
+  },
+  {
+    "id": "tool_ductTape",
+    "name": "Tool ducttape",
+    "speedUp": 1,
+    "rubiMuaNgay": 1,
+    "timeMin": 1,
+    "exp": 1,
+    "maxPrice": 11,
+    "levelUnlock": 11
+
   }
+  
+  
 ]
