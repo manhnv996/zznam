@@ -3,16 +3,24 @@
  */
 
 var ConstructedCompletedSprite = AnimationSprite.extend({
-     ctor: function (id, x, y, type) {
+     ctor: function (id, x, y, typeBuilding) {
          this._super(resAniId.Nha_hoanthanh, 4, 4, x, y,
              MapItemEnum.CONSTRUCTED_COMPLETED);
 
          this.id = id;
-         this.type = type;
+         this.typeBuilding = typeBuilding;
          this.play("1");
+
+         this.registerTouchEvents();
      },
 
     onClick: function () {
-        ConstructedCtrl.instance.completedBuild(this.id, this.type);
+        ConstructedCtrl.instance.completedBuild(this.id, this.typeBuilding);
+        this.removeFromParent(true);
+    },
+
+    _offset: function () {
+        var p = MapValues.logicToPosition(- 6, - 2);
+        return p;
     }
 });

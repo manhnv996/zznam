@@ -35,9 +35,14 @@ gv.CMD.RESPONSE_MOVE = 6100;
 //Shop
 gv.CMD.BUY_MAP_OBJECT_REQUEST = 7001;
 gv.CMD.BUY_MAP_OBJECT_BY_RUBY = 7002;
+
 //Storage
 gv.CMD.BUY_TOOL_REQUEST = 8001;
 gv.CMD.UPGRADE_STORAGE_REQUEST = 8002;
+
+//Constructed
+gv.CMD.BUID_COMPLETED = 9001;
+
 
 testnetwork = testnetwork||{};
 testnetwork.packetMap = {};
@@ -286,6 +291,20 @@ CmdSendGetUser = fr.OutPacket.extend({
     },
     pack: function() {
         this.packHeader();
+        this.updateSize();
+    }
+});
+
+CmdSendBuildCompleted = fr.OutPacket.extend({
+    ctor: function () {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.BUID_COMPLETED);
+    },
+    pack: function (id, typeBuilding) {
+        this.packHeader();
+        this.putInt(id);
+        this.putInt(typeBuilding);
         this.updateSize();
     }
 });

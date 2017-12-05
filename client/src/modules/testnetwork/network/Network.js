@@ -291,5 +291,12 @@ testnetwork.Connector = cc.Class.extend({
         var pk = this.gameClient.getOutPacket(CmdSendUpgradeStorageRequest);
         pk.pack(storageType);
         this.gameClient.sendPacket(pk);
+    },
+
+    sendBuildCompleted: function (id, typeBuilding) {
+        cc.log("Send Completed Building");
+        var pk = this.gameClient.getOutPacket(CmdSendBuildCompleted);
+        pk.pack(id, typeBuilding);
+        this.gameClient.sendPacket(pk);
     }
 });

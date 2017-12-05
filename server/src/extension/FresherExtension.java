@@ -38,9 +38,10 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import service.ConstructedHandler;
 import service.DemoHandler;
 
-import service.GameShopBuyHandler;
+import service.GameShopHandler;
 import service.MapHandler;
 import service.PlantHandler;
 import service.StorageHandler;
@@ -130,8 +131,9 @@ public class FresherExtension extends BZExtension {
         //
         addRequestHandler(MapHandler.MAP_MULTI_IDS, MapHandler.class);
         
-        addRequestHandler(GameShopBuyHandler.GAMESHOP_MULTI_IDS, GameShopBuyHandler.class);
+        addRequestHandler(GameShopHandler.GAMESHOP_MULTI_IDS, GameShopHandler.class);
         addRequestHandler(StorageHandler.STORAGE_MULTI_IDS, StorageHandler.class);
+        addRequestHandler(ConstructedHandler.CONSTRUCTED_MULTI_IDS, ConstructedHandler.class);
         
         trace(" Event Handler ");
         addEventHandler(BZEventType.USER_LOGIN, LoginSuccessHandler.class);

@@ -149,6 +149,7 @@ var PopupLayer = cc.Layer.extend({
         this.unschedule(this.updateProgressBarInprogress);
         this.schedule(this.updateProgressBarInprogress, 0.2);
     },
+
     disableProgressBarInprogress: function () {
 
         this.isShowProgressBar = false;

@@ -25,6 +25,8 @@ import config.jsonobject.ShopCoopConfig;
 
 import config.utils.ConfigContainer;
 
+import java.util.Date;
+
 import model.Field;
 import model.Machine;
 import model.ZPUserInfo;
@@ -34,12 +36,12 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class GameShopBuyHandler extends BaseClientRequestHandler{
+public class GameShopHandler extends BaseClientRequestHandler{
     
     public static short GAMESHOP_MULTI_IDS = 7000;
     private final Logger logger = LoggerFactory.getLogger("GameShopBuyHandler");
     
-    public GameShopBuyHandler() {
+    public GameShopHandler() {
         super();
     }
     
@@ -117,12 +119,13 @@ public class GameShopBuyHandler extends BaseClientRequestHandler{
                         }
                         break;
                     case MapItemEnum.BAKERY:
-                        Machine machineModel = new Machine(req.id, MachineTypeEnum.bakery_machine, 3, 
-                                                           0, false, req.x, req.y);
+                        Machine machineModel = new Machine(req.id, MachineTypeEnum.bakery_machine, 
+                                                           ConfigContainer.getMachineSlot("bakery_machine"), 
+                                                           new Date().getTime(), false, req.x, req.y);
                         System.out.println("position " + machineModel.getX() + " " + machineModel.getY());
                         userInfo.getAsset().addMachine(machineModel);
                         if (userInfo.reduceGold(price)) {
-                            System.out.println("OK Buy BAKERY");
+                            System.out.println("OK Buy BAKERY " + machineModel.getStartBuildTime());
                             send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
                         } else {
                             send(new ResponseErrorCode(ErrorLog.ERROR_BUY_GOLD_NOT_REDUCE.getValue()), user);
@@ -196,8 +199,9 @@ public class GameShopBuyHandler extends BaseClientRequestHandler{
                         }
                         break;
                     case MapItemEnum.BAKERY:
-                        Machine machineModel = new Machine(reqRuby.id, MachineTypeEnum.bakery_machine, 3, 
-                                                           0, false, reqRuby.x, reqRuby.y);
+                        Machine machineModel = new Machine(reqRuby.id, MachineTypeEnum.bakery_machine, 
+                                                           ConfigContainer.getMachineSlot("bakery_machine"), 
+                                                           new Date().getTime(), false, reqRuby.x, reqRuby.y);
                         userInfo.getAsset().addMachine(machineModel);
                         if (userInfo.reduceRuby(reqRuby.ruby)) {
                             System.out.println("OK Buy BAKERY");

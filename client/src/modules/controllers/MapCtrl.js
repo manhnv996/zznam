@@ -143,15 +143,25 @@ var MapCtrl = cc.Class.extend({
             // full time + completed false --> Nha hoanthanh
             // full time + completed true --> machine sprite
             // check inside switch or check outside switch
-            var timeBuild = getMachineConfigById(type).time * 1000;
+            var timeBuild = getMachineConfigByType(type).time * 1000;
             //if ()
             var curTime = new Date().getTime();
             switch (type) {
                 case "bakery_machine":
+                    //cc.log("machine.startBuildTime " + machine.completed);
+                    //cc.log("timeBuild " + timeBuild);
                     if ((curTime - machine.startBuildTime) < timeBuild ) {
-                        //machineSprite =
+                        machineSprite = new ConstructedSprite(machine.id,
+                        MapConfigs.BakeryMachine.size.width, MapConfigs.BakeryMachine.size.height,
+                        machine.coordinate.x, machine.coordinate.y, MapItemEnum.MACHINE);
+                    } else {
+                        if (!machine.completed) {
+                            machineSprite = new ConstructedCompletedSprite(machine.id,
+                                machine.coordinate.x, machine.coordinate.y, MapItemEnum.MACHINE);
+                        } else {
+                            machineSprite = new BakerySprite(machine.id, machine.coordinate.x, machine.coordinate.y);
+                        }
                     }
-                    machineSprite = new BakerySprite(machine.id, machine.coordinate.x, machine.coordinate.y);
                     break;
                 //case MapItemEnum.FOOD_GRINDER:
                 //    break;
@@ -163,6 +173,7 @@ var MapCtrl = cc.Class.extend({
                 //    break;
             }
             MapLayer.instance.addChild(machineSprite);
+            machineSprite.setLogicPosition(machine.coordinate.x, machine.coordinate.y, false);
         }
     },
 

@@ -203,7 +203,8 @@ var MachineTable = cc.Layer.extend({
                     var createP = MapValues.screenPositionToLogic(beganP.x, beganP.y);
                     createP.x = Math.floor(createP.x);
                     createP.y = Math.floor(createP.y);
-                    switch (sender.parent.getChildByTag(0).getString()) {
+                    this.typeObject = sender.parent.getChildByTag(0).getString();
+                    switch (this.typeObject) {
                         case "bakery_machine":
                             this._sprite = new BakerySprite(user.getAsset().getMachineList().length + 1,
                                 createP.x, createP.y);
@@ -242,7 +243,7 @@ var MachineTable = cc.Layer.extend({
                     endPl.x = Math.floor(endPl.x);
                     endPl.y = Math.floor(endPl.y);
                     // cc.log(endPl.x + " " + endPl.y);
-                    var typeObject = sender.parent.getChildByTag(0).getString();
+                    //var typeObject = sender.parent.getChildByTag(0).getString();
                     this._check = MapCtrl.instance.checkValidBlockSprite(this._sprite);
                     // cc.log("this._check " + this._check);
                     this._sprite.removeFromParent(true);
@@ -254,14 +255,14 @@ var MachineTable = cc.Layer.extend({
                         cc.log(missGold);
                         if (missGold) {
                             //this._sprite.removeFromParent(true);
-                            BaseGUILayer.instance.notifyShopNotEnoughGold(missGold, this._sprite._Id, typeObject,
+                            BaseGUILayer.instance.notifyShopNotEnoughGold(missGold, this._sprite._Id, this.typeObject,
                                 this._sprite.lx, this._sprite.ly);
                         } else {
                             // Success
                             //MapCtrl.instance.addSpriteAlias(this._sprite);
                             //this._sprite.setLogicPosition(this._sprite.lx, this._sprite.ly, false);
                             var machineModel;
-                            switch (typeObject) {
+                            switch (this.typeObject) {
                                 case "bakery_machine":
                                     //Constructed Sprite
                                     this._sprite = new ConstructedSprite(user.getAsset().getMachineList().length + 1,
@@ -283,9 +284,9 @@ var MachineTable = cc.Layer.extend({
 
                             }
                             //Create Model
-                            machineModel = new Machine(this._sprite.id, typeObject, 0, 0, null,
-                                false, 0, new Coordinate(this._sprite.lx, this._sprite.ly));
-
+                            var machineConfig = getMachineConfigByType(this.typeObject);
+                            machineModel = new Machine(this._sprite.id, this.typeObject, machineConfig.slot, 0, null,
+                                false, new Date().getTime(), new Coordinate(this._sprite.lx, this._sprite.ly));
 
                             MapLayer.instance.addChild(this._sprite);
                             MapCtrl.instance.addSpriteAlias(this._sprite);
@@ -295,7 +296,7 @@ var MachineTable = cc.Layer.extend({
                             user.reduceGold(sender.parent.getChildByTag(5).getString());
                             //Send Server
                             testnetwork.connector.sendBuyMapObjectRequest(this._sprite.id,
-                                typeObject, this._sprite.lx, this._sprite.ly);
+                                this.typeObject, this._sprite.lx, this._sprite.ly);
                         }
                     }
                 }

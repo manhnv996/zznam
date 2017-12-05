@@ -104,4 +104,13 @@ public class Asset {
             machine.setId(machineList.size());
         }
     }
+    
+    public Machine getMachineById (int id) {
+        for (int i = 0; i < this.machineList.size(); i++) {
+            if(machineList.get(i).getId() == id) {
+                return machineList.get(i);
+            }
+        }
+        return null;
+    }
 }

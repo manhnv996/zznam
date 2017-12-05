@@ -33,7 +33,9 @@ public enum ErrorLog {
     ERROR_BUY_TOOL_RUBY_NOT_REDUCE((short) 81),
     ERROR_CANT_ADD_TOOL((short) 82),
     
-    ERROR_UPGRADE_FAIL((short)  83);
+    ERROR_UPGRADE_FAIL((short)  83),
+    
+    ERROR_COMPLETED_BUIDING_FAIL((short) 91);
                                     
 
 

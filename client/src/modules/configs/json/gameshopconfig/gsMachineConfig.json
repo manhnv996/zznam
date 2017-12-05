@@ -3,7 +3,7 @@
     "id": "bakery_machine",
     "level": 1,
     "price": 20,
-    "time": 10,
+    "time": 1000,
     "buildExp": 10,
     "buildExpress": 1,
     "speedUp": 1,

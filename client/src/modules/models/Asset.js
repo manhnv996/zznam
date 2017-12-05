@@ -97,6 +97,7 @@ var Asset = cc.Class.extend({
         var machine = this.machineList.find(function (f) {
             return f.id = id;
         });
+        return machine;
     }
 
 });

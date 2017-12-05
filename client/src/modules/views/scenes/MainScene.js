@@ -45,7 +45,7 @@ var MainScene = cc.Scene.extend({
 		//BaseGUILayer.instance.notifyMissGold(50);
 		//cc.log(res.infoCoopItem[0]["id"]);
 
-		BaseGUILayer.instance.loadingBar();
+		//BaseGUILayer.instance.loadingBar();
 	},
 
 	init: function() {

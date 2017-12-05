@@ -58,7 +58,7 @@ function getSeedShow(level) {
     return seedShow;
 }
 
-function getMachineConfigById (type) {
+function getMachineConfigByType (type) {
     for(var i = 0; i < res.infoMachineItem.length; i++) {
         if (res.infoMachineItem[i].id === type) {
             return res.infoMachineItem[i];

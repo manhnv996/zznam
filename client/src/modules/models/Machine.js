@@ -9,7 +9,7 @@ var Machine = ConstructedObject.extend({
 
     ctor: function (id, type, slot, startTime, productQueue, completed, startBuildTime, coordinate) {
         //
-        this._super(completed, startBuildTime, coordinate);
+        this._super(startBuildTime, completed, coordinate);
 
         this.id = id;
         this.type = type;

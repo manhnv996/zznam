@@ -20,7 +20,7 @@ var BakerySprite = AnimationSprite.extend({
 	},
 
 	onBeginClick: function() {
-		//this.play("selected");
+		this.play("selected");
 	},
 
 	onClick: function() {

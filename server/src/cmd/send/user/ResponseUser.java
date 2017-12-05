@@ -218,6 +218,7 @@ public class ResponseUser extends BaseMsg {
         bf.putLong(machine.getStartTime());
         bf.putInt(machine.isCompleted() ? 1 : 0);
         bf.putLong(machine.getStartBuildTime());
+        
         List<String> productQueue = machine.getProductQueue();  
         
         int size = productQueue.size();
