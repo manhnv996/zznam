@@ -105,6 +105,34 @@ public class Order extends DataModel{
     
     
     //
+    public List<StorageItem> checkMissingItem(ZPUserInfo user){
+        
+        List<StorageItem> missingItemList = new ArrayList<>();
+        for (int i = 0; i < this.itemList.size(); i++){
+            if (this.itemList.get(i).getQuantity() > user.getAsset().getQuantityOfTwoStorageByProductId(this.itemList.get(i).getTypeItem())){
+                missingItemList.add(new StorageItem(this.itemList.get(i).getTypeItem(),
+                    this.itemList.get(i).getQuantity() - user.getAsset().getQuantityOfTwoStorageByProductId(this.itemList.get(i).getTypeItem())));
+            }
+        }
+        return missingItemList;
+    }
+    
+    public List<StorageItem> checkRemainItem(ZPUserInfo user){
+        
+        List<StorageItem> remainItemList = new ArrayList<>();
+        for (int i = 0; i < this.itemList.size(); i++){
+            if (this.itemList.get(i).getQuantity() <= user.getAsset().getQuantityOfTwoStorageByProductId(this.itemList.get(i).getTypeItem())){
+                remainItemList.add(new StorageItem(this.itemList.get(i).getTypeItem(), this.itemList.get(i).getQuantity()));
+            } else if (user.getAsset().getQuantityOfTwoStorageByProductId(this.itemList.get(i).getTypeItem()) > 0){
+                remainItemList.add(new StorageItem(this.itemList.get(i).getTypeItem(), user.getAsset().getQuantityOfTwoStorageByProductId(this.itemList.get(i).getTypeItem())));
+            }
+        }
+        return remainItemList;
+    }
+    
+    
+    
+    //
     public short makeOrder(ZPUserInfo user){
         
         for (int i = 0; i < this.itemList.size(); i++){
@@ -126,6 +154,31 @@ public class Order extends DataModel{
         
         return ErrorLog.SUCCESS.getValue();
     }
+    
+    
+    public short makeOrderByRuby(ZPUserInfo user){
+        List<StorageItem> remainItemList = this.checkRemainItem(user);
+        for (int i = 0; i < remainItemList.size(); i++){
+            if (user.getAsset().getFoodStorage().takeItem(remainItemList.get(i).getTypeItem(), remainItemList.get(i).getQuantity())){
+                continue;
+            } else if (user.getAsset().getWarehouse().takeItem(remainItemList.get(i).getTypeItem(), remainItemList.get(i).getQuantity())){
+                continue;
+            } else {
+                
+                return ErrorLog.ERROR_STORAGE_NOT_REDUCE.getValue();
+            }
+        }
+        
+        user.addGold(this.getOrderPrice());
+        user.addExp(this.getOrderExp());
+        //        
+        this.waittingTime = 0;
+        this.createOrder(user.getLevel());
+        
+        return ErrorLog.SUCCESS.getValue();
+    }
+    
+    
     
     public short cancelOrder(){
 //        this.itemList = null;

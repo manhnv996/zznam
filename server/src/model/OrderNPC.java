@@ -59,6 +59,8 @@ public class OrderNPC {
     public void setOrderPrice() {
         if (this.orderItem == null){
             this.orderPrice = 0;
+            
+            return;
         }
         
         ProductConfig product = ProductUtil.getProductConfObjByType(this.orderItem.getTypeItem());
@@ -66,7 +68,16 @@ public class OrderNPC {
     }
 
     public int getOrderPrice() {
-        return orderPrice;
+        if (this.orderItem == null){
+            this.orderPrice = 0;
+            
+            return 0;
+        }
+        
+        ProductConfig product = ProductUtil.getProductConfObjByType(this.orderItem.getTypeItem());
+        this.orderPrice = (int) this.orderItem.getQuantity() * product.maxPrice / 2;
+        
+        return this.orderPrice;
     }
 
     public int getOrderExp() {
@@ -152,8 +163,45 @@ public class OrderNPC {
         return ErrorLog.SUCCESS.getValue();
     }
     
+    
+    
+    public short makeOrderByRuby(ZPUserInfo user) {
+            if (this.orderItem == null){
+                /*
+                 * done
+                 * RETURN FALSE;
+                 */
+                return ErrorLog.ERROR_ORDER_NOT_COMPLETE.getValue();
+            }
+            
+            StorageItem missingItem = new StorageItem(this.orderItem.getTypeItem(), user.getAsset().getQuantityOfTwoStorageByProductId(this.orderItem.getTypeItem()));
+            
+        
+            if (this.orderItem.getTypeItem().contains("crop_")){
+                if (!user.getAsset().getFoodStorage().takeItem(missingItem.getTypeItem(), missingItem.getQuantity())){
+                    return ErrorLog.ERROR_STORAGE_NOT_REDUCE.getValue();
+                }
+            } else {
+                if (!user.getAsset().getWarehouse().takeItem(missingItem.getTypeItem(), missingItem.getQuantity())){
+                    return ErrorLog.ERROR_STORAGE_NOT_REDUCE.getValue();
+                }
+            }
+            
+            
+            user.addGold(this.getOrderPrice());
+            user.addExp(this.getOrderExp());
+            //        
+            this.setWaittingTime(new Date().getTime());
+            this.orderItem = null;
+            
+            return ErrorLog.SUCCESS.getValue();
+    }
+    
+    
+    
+    
 //    @Override
-    public short cancelOrder(ZPUserInfo user){
+    public short cancelOrder(){
         //        
         this.setWaittingTime(new Date().getTime());
         this.orderItem = null;

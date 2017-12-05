@@ -211,10 +211,11 @@ CmdSendMakeOrder = fr.OutPacket.extend(
             this.initData(100);
             this.setCmdId(gv.CMD.MAKE_ORDER);
         },
-        pack:function(orderId){
+        pack:function(orderId, rubyBuy){
             this.packHeader();
 
             this.putInt(orderId);
+            this.putInt(rubyBuy);
 
             this.updateSize();
         }
@@ -284,10 +285,11 @@ CmdSendMakeOrderNpc = fr.OutPacket.extend(
             this.initData(100);
             this.setCmdId(gv.CMD.MAKE_ORDER_NPC);
         },
-        pack:function(orderId){
+        pack:function(orderId, rubyBuy){
             this.packHeader();
 
             this.putInt(orderId);
+            this.putInt(rubyBuy);
 
             this.updateSize();
         }
@@ -725,24 +727,26 @@ testnetwork.packetMap[gv.CMD.RESPONSE_SYNC_ORDER_NPC] = fr.InPacket.extend(
             /*
              NOT YET STARTED
              */
-            this.order = this.unpackOrder();
+            this.orderNPC = this.unpackOrderNPC();
 
         },
 
-        unpackOrder: function () {
+        unpackOrderNPC: function () {
             var order = {};
             order.orderId = this.getInt();
 
-            // Get each item
-            var itemListSize = this.getInt();
-            order.itemList = [];
-            for (var i = 0; i < itemListSize; i++) {
-                order.itemList.push(this.unpackStorageItem());
+            var itemIsNull = this.getInt();
+            if (itemIsNull == 0){
+                order.orderItem = null;
+            } else {
+                order.orderItem = this.unpackStorageItem();
             }
 
             order.orderPrice = this.getInt();
             order.orderExp = this.getInt();
             order.waittingTime = this.getLong();
+
+            order.npc_res = this.getString();
 
             return order;
         },
@@ -913,7 +917,12 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         var order = {};
         order.orderId = this.getInt();
 
-        order.orderItem = this.unpackStorageItem();
+        var itemIsNull = this.getInt();
+        if (itemIsNull == 0){
+            order.orderItem = null;
+        } else {
+            order.orderItem = this.unpackStorageItem();
+        }
 
         order.orderPrice = this.getInt();
         order.orderExp = this.getInt();

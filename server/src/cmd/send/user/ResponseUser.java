@@ -253,7 +253,12 @@ public class ResponseUser extends BaseMsg {
     private void packOrderNPC(OrderNPC order) {
         bf.putInt(order.getOrderId()); // ID
         
-        this.packStorageItem(order.getOrderItem());
+        if (order.getOrderItem() == null){
+            bf.putInt(0);
+        } else {
+            bf.putInt(1);
+            this.packStorageItem(order.getOrderItem());
+        }
         
         bf.putInt(order.getOrderPrice());
         bf.putInt(order.getOrderExp());

@@ -134,7 +134,7 @@ var MapCtrl = cc.Class.extend({
 
     renderNPC: function () {
 
-        CarSprite.instance = new CarSprite(16, 22);
+        CarSprite.instance = new CarSprite(16, 23);
         MapLayer.instance.addChild(CarSprite.instance);
 
         var orderNPCList = user.asset.orderNPCList;

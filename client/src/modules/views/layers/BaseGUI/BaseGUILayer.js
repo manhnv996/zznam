@@ -51,8 +51,8 @@ var BaseGUILayer = cc.Layer.extend({
         this.addChild(this._layout);
     },
 
-    showSuggestBuyMissionItem: function (storageMissingItem) {
-        this._layout = new NoticeMissingItem(storageMissingItem);
+    showSuggestBuyMissionItem: function (storageMissingItemList, targetType, orderId) {
+        this._layout = new NoticeMissingItem(storageMissingItemList, targetType, orderId);
         if (this._layout._hasCloseButton) {
             //cc.log("_btnClose");
             this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);

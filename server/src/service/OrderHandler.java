@@ -31,6 +31,8 @@ import cmd.send.demo.ResponseSyncUserInfo;
 
 import cmd.send.order.ResponseSyncOrder;
 
+import cmd.send.order.ResponseSyncOrderNPC;
+
 import config.enums.ErrorLog;
 import config.utils.ProductUtil;
 
@@ -119,7 +121,27 @@ public class OrderHandler extends BaseClientRequestHandler {
             /*
              * DONE
              */
-            short errorCode = userInfo.getAsset().getOrderdById(order.orderId).makeOrder(userInfo);
+            
+            short errorCode = 0;
+            if (order.rubyBuy > 0 ){
+                if (!userInfo.reduceRuby(order.rubyBuy)){
+                    
+                    errorCode = ErrorLog.ERROR_RUBY_NOT_REDUCE.getValue();
+                } else {
+                    //
+                    errorCode = userInfo.getAsset().getOrderdById(order.orderId).makeOrderByRuby(userInfo);
+                    
+                }
+                
+            } else {
+                errorCode = userInfo.getAsset().getOrderdById(order.orderId).makeOrder(userInfo);
+                
+            }
+            
+            
+            
+//            //
+//            short errorCode = userInfo.getAsset().getOrderdById(order.orderId).makeOrder(userInfo);
             
             //
             if (errorCode == ErrorLog.SUCCESS.getValue()){
@@ -262,18 +284,33 @@ public class OrderHandler extends BaseClientRequestHandler {
             /*
              * DONE
              */
-            short errorCode = userInfo.getAsset().getOrderdById(order.orderId).makeOrder(userInfo);
+            short errorCode = 0;
+            if (order.rubyBuy > 0 ){
+                if (!userInfo.reduceRuby(order.rubyBuy)){
+                    
+                    errorCode = ErrorLog.ERROR_RUBY_NOT_REDUCE.getValue();
+                } else {
+                    //
+                    errorCode = userInfo.getAsset().getOrderdNPCById(order.orderId).makeOrderByRuby(userInfo);
+                    
+                }
+                
+            } else {
+                errorCode = userInfo.getAsset().getOrderdNPCById(order.orderId).makeOrder(userInfo);
+                
+            }
             
-            //
+            
+            /////
             if (errorCode == ErrorLog.SUCCESS.getValue()){
                 send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
 
                 userInfo.saveModel(user.getId());
                 //
-                send(new ResponseSyncOrder(errorCode, userInfo.getAsset().getOrderdById(order.orderId)), user);
+                send(new ResponseSyncOrderNPC(errorCode, userInfo.getAsset().getOrderdNPCById(order.orderId)), user);
                 
             } else {
-//                userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
+            //                userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
                 
                 if (errorCode == ErrorLog.ERROR_STORAGE_NOT_REDUCE.getValue()){
                     Storage foodStorage = userInfo.getAsset().getFoodStorage();
@@ -287,7 +324,7 @@ public class OrderHandler extends BaseClientRequestHandler {
                 }
                 
                 //
-                send(new ResponseSyncOrder(errorCode, userInfo.getAsset().getOrderdById(order.orderId)), user);
+                send(new ResponseSyncOrderNPC(errorCode, userInfo.getAsset().getOrderdNPCById(order.orderId)), user);
                 
             }
             
@@ -307,7 +344,7 @@ public class OrderHandler extends BaseClientRequestHandler {
             /*
              * DONE
              */
-            short errorCode = userInfo.getAsset().getOrderdById(order.orderId).cancelOrder();
+            short errorCode = userInfo.getAsset().getOrderdNPCById(order.orderId).cancelOrder();
             
             //
             if (errorCode == ErrorLog.SUCCESS.getValue()){
@@ -315,11 +352,11 @@ public class OrderHandler extends BaseClientRequestHandler {
 
                 userInfo.saveModel(user.getId());                
                 //
-                send(new ResponseSyncOrder(errorCode, userInfo.getAsset().getOrderdById(order.orderId)), user);
+                send(new ResponseSyncOrderNPC(errorCode, userInfo.getAsset().getOrderdNPCById(order.orderId)), user);
                 
             } else {
                 
-                send(new ResponseSyncOrder(errorCode, userInfo.getAsset().getOrderdById(order.orderId)), user);
+                send(new ResponseSyncOrderNPC(errorCode, userInfo.getAsset().getOrderdNPCById(order.orderId)), user);
             }
             
             
@@ -339,7 +376,7 @@ public class OrderHandler extends BaseClientRequestHandler {
             /*
              * DONE
              */
-            short errorCode = userInfo.getAsset().getOrderdById(order.orderId).createOrder(userInfo.getLevel());
+            short errorCode = userInfo.getAsset().getOrderdNPCById(order.orderId).createOrder(userInfo);
             
             //
             if (errorCode == ErrorLog.SUCCESS.getValue()){
@@ -347,11 +384,11 @@ public class OrderHandler extends BaseClientRequestHandler {
 
                 userInfo.saveModel(user.getId());                
                 //
-                send(new ResponseSyncOrder(errorCode, userInfo.getAsset().getOrderdById(order.orderId)), user);
+                send(new ResponseSyncOrderNPC(errorCode, userInfo.getAsset().getOrderdNPCById(order.orderId)), user);
                 
             } else {
                 
-                send(new ResponseSyncOrder(errorCode, userInfo.getAsset().getOrderdById(order.orderId)), user);
+                send(new ResponseSyncOrderNPC(errorCode, userInfo.getAsset().getOrderdNPCById(order.orderId)), user);
             }
             
             

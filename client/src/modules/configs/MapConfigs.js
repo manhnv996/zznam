@@ -21,7 +21,7 @@ MapConfigs.NhaChinh = {
 };
 
 MapConfigs.TruckOrder = {
-	position: { x: 14, y: 19 },
+	position: { x: 14, y: 20 },
 	size: {
 		width: 1,
 		height: 2

@@ -360,7 +360,7 @@ function onReceiveUser(userInfo) {
             userInfo.asset.orderNPCList[i].orderExp,
             userInfo.asset.orderNPCList[i].npc_res
         );
-        order.waittingTime = new Date(parseInt(userInfo.asset.orderNPCList[i].waittingTime));
+        orderNPCList.waittingTime = new Date(parseInt(userInfo.asset.orderNPCList[i].waittingTime));
         orderNPCList.push(orderNPC);
     }
 

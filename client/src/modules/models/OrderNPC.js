@@ -108,8 +108,13 @@ var OrderNPC = Order.extend({
             return false;
         }
 
+        var missingItem = [];
         if (this.orderItem.quantity > user.getAsset().getQuantityOfTwoStorageByProductId(this.orderItem.typeItem)){
-            return false;
+
+            //return false;
+            missingItem.push(new StorageItem(this.orderItem.typeItem,
+                this.orderItem.quantity - user.getAsset().getQuantityOfTwoStorageByProductId(this.orderItem.typeItem)));
+            return missingItem;
         }
 
         return true;
@@ -118,8 +123,8 @@ var OrderNPC = Order.extend({
 
     makeOrder: function () {
         if (this.checkCondition() == true){
-            user.getAsset().getFoodStorage().takeItem(this.itemList[i].typeItem, this.itemList[i].quantity);
-            user.getAsset().getWarehouse().takeItem(this.itemList[i].typeItem, this.itemList[i].quantity);
+            user.getAsset().getFoodStorage().takeItem(this.orderItem.typeItem, this.orderItem.quantity);
+            user.getAsset().getWarehouse().takeItem(this.orderItem.typeItem, this.orderItem.quantity);
 
             user.addGold(this.orderPrice);
             user.addExp(this.orderExp);
@@ -128,6 +133,33 @@ var OrderNPC = Order.extend({
         }
         return false;
     },
+
+
+    makeOrderByRuby: function (rubyBuy) {
+        if (this.checkStatus() == OrderStatusTypes.WAITTING){
+            return false;
+        }
+
+        if (this.checkCondition() == true){
+            return this.makeOrder();
+
+        } else {
+            if (!user.reduceRuby(rubyBuy)){
+                return false;
+            }
+
+            user.getAsset().getFoodStorage().takeItem(this.orderItem.typeItem, user.getAsset().getQuantityOfTwoStorageByProductId(this.orderItem.typeItem));
+            user.getAsset().getWarehouse().takeItem(this.orderItem.typeItem, user.getAsset().getQuantityOfTwoStorageByProductId(this.orderItem.typeItem));
+
+
+            user.addGold(this.orderPrice);
+            user.addExp(this.orderExp);
+
+            return true;
+        }
+
+    },
+
 
     cancelOrder: function () {
         //

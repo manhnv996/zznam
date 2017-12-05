@@ -93,6 +93,20 @@ var Order = cc.Class.extend({
         return (missingItem.length == 0) ? true : missingItem;
     },
 
+    checkRemainItem: function () {
+        var remainItem = [];
+        for (var i = 0; i < this.itemList.length; i++){
+            if (this.itemList[i].quantity <= user.getAsset().getQuantityOfTwoStorageByProductId(this.itemList[i].typeItem)){
+                remainItem.push(new StorageItem(this.itemList[i].typeItem, this.itemList[i].quantity));
+            } else if (user.getAsset().getQuantityOfTwoStorageByProductId(this.itemList[i].typeItem) > 0){
+                remainItem.push(new StorageItem(this.itemList[i].typeItem, user.getAsset().getQuantityOfTwoStorageByProductId(this.itemList[i].typeItem)));
+            }
+        }
+
+        return remainItem;
+    },
+
+//
     makeOrder: function () {
         if (this.checkCondition() == true){
             for (var i = 0; i < this.itemList.length; i++){
@@ -107,6 +121,26 @@ var Order = cc.Class.extend({
         }
         return false;
     },
+
+    makeOrderByRuby: function (rubyBuy) {
+
+        if (!user.reduceRuby(rubyBuy)){
+            return false;
+        }
+
+        var remainItem = this.checkRemainItem();
+        for (var i = 0; i < remainItem.length; i++){
+            user.getAsset().getFoodStorage().takeItem(remainItem[i].typeItem, remainItem[i].quantity);
+            user.getAsset().getWarehouse().takeItem(remainItem[i].typeItem, remainItem[i].quantity);
+        }
+
+        user.addGold(this.orderPrice);
+        user.addExp(this.orderExp);
+
+        return true;
+
+    },
+
 
     cancelOrder: function () {
         //

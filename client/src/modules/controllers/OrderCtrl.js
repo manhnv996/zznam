@@ -9,18 +9,19 @@ var OrderCtrl = cc.Class.extend({
         // if (BaseGUILayer.instance._blockLayout != null){
         //     BaseGUILayer.instance.removeBlockListener();
         // }
-        BaseGUILayer.instance.removeAllChildren();
+        if (BaseGUILayer.instance._layout != null){
+            BaseGUILayer.instance.removeBlockListener();
+        }
         BaseGUILayer.instance.showOrderLayer();
     },
 
     onMakeOrder: function (orderId) {
-
         var orderSelected = user.getAsset().getOrderById(orderId);
 
         if (orderSelected != null){
             if (orderSelected.makeOrder() == true){
 
-                testnetwork.connector.sendMakeOrder(orderId);
+                testnetwork.connector.sendMakeOrder(orderId, 0);
 
             } else {
                 var missionItem = orderSelected.checkCondition();
@@ -28,16 +29,36 @@ var OrderCtrl = cc.Class.extend({
                 INPROGRESS
                  */
 
-                // BaseGUILayer.instance.removeAllChildren();
                 BaseGUILayer.instance.removeBlockListener();
-                BaseGUILayer.instance.showSuggestBuyMissionItem(missionItem[0]);
+                BaseGUILayer.instance.showSuggestBuyMissionItem(missionItem, BuyItemTargetType.MAKE_ORDER, orderId);
 
-                // for (var i = 0; i < missionItem.length; i++){
-                //     cc.log(missionItem[i].typeItem + ", " + missionItem[i].quantity);
-                // }
             }
         }
     },
+
+    onMakeOrderByRuby: function (storageMissingItemList, orderId) {
+        var rubiBuy = 0;
+        for (var i = 0; i < storageMissingItemList.length; i++){
+            rubiBuy += getProductObjById(storageMissingItemList[i].typeItem).rubiMuaNgay * storageMissingItemList[i].quantity;
+        }
+
+        var orderSelected = user.getAsset().getOrderById(orderId);
+        if (orderSelected != null){
+            if (orderSelected.makeOrderByRuby(rubiBuy) == true){
+
+                testnetwork.connector.sendMakeOrder(orderId, rubiBuy);
+
+            } else {
+                //
+
+            }
+        }
+
+        //
+        OrderCtrl.instance.onShowOrderBG();
+
+    },
+
 
     onCancelOrder: function (orderId) {
         //
@@ -76,6 +97,75 @@ var OrderCtrl = cc.Class.extend({
             }
         }
         return false;
+    },
+
+
+    /*
+    for order npc
+     */
+    onMakeOrderNPC: function (orderId) {
+        var orderNPCSelected = user.getAsset().getOrderNPCById(orderId);
+        if (orderNPCSelected != null){
+            if (orderNPCSelected.makeOrder() == true){
+
+                testnetwork.connector.sendMakeOrderNpc(orderId, 0);
+                /*
+                 Inprogress
+                 Run animation
+                 */
+                BaseGUILayer.instance.removeBlockListener();
+            } else {
+                var missionItem = orderNPCSelected.checkCondition();
+                /*
+                 INPROGRESS
+                 */
+                BaseGUILayer.instance.removeBlockListener();
+                BaseGUILayer.instance.showSuggestBuyMissionItem(missionItem, BuyItemTargetType.MAKE_ORDER_NPC, orderId);
+
+            }
+        }
+    },
+
+    onMakeOrderNPCByRuby: function (storageMissingItemList, orderId) {
+        var rubiBuy = 0;
+        for (var i = 0; i < storageMissingItemList.length; i++){
+            rubiBuy += getProductObjById(storageMissingItemList[i].typeItem).rubiMuaNgay * storageMissingItemList[i].quantity;
+        }
+
+        var orderNPCSelected = user.getAsset().getOrderNPCById(orderId);
+        if (orderNPCSelected != null){
+            if (orderNPCSelected.makeOrderByRuby(rubiBuy) == true){
+
+                testnetwork.connector.sendMakeOrderNpc(orderId, rubiBuy);
+                /*
+                INPROGRESS
+                 */
+            } else {
+                //
+
+            }
+        }
+
+        //
+        OrderCtrl.instance.onShowOrderBG();
+
+    },
+
+
+    onCancelOrderNPC: function (orderId) {
+        //
+        cc.log("orderititit " + orderId)
+        var orderNPCSelected = user.getAsset().getOrderNPCById(orderId);
+        if (orderNPCSelected != null){
+            if (orderNPCSelected.cancelOrder() == true){
+
+                testnetwork.connector.sendCancelOrderNpc(orderId);
+            }
+        }
+        /*
+        Inprogress
+        Run animation
+         */
     }
 
 

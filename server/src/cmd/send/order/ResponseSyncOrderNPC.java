@@ -7,14 +7,15 @@ import cmd.CmdDefine;
 import java.nio.ByteBuffer;
 
 import model.Order;
+import model.OrderNPC;
 import model.StorageItem;
 
 public class ResponseSyncOrderNPC extends BaseMsg {
 	
-    private Order order;
+    private OrderNPC order;
     private ByteBuffer bf; // Buffer to send
 	
-    public ResponseSyncOrderNPC(short error, Order order) {
+    public ResponseSyncOrderNPC(short error, OrderNPC order) {
         super(CmdDefine.RESPONSE_SYNC_ORDER_NPC, error);
         
         this.order = order;
@@ -24,32 +25,30 @@ public class ResponseSyncOrderNPC extends BaseMsg {
     public byte[] createData() {
         this.bf = this.makeBuffer();
         
-        this.packOrder(this.order);
+        this.packOrderNPC(this.order);
 		
         return packBuffer(this.bf);
     }
     
-    /**
-     * Put order
-     */
-    private void packOrder(Order order) {
-        this.bf.putInt(order.getOrderId()); // ID
-        
-        if (order.getItemList() == null){
-            this.bf.putInt(0);  //size
-        } else {
-            int typeNumber = order.getItemList().size();
-            this.bf.putInt(typeNumber);  //size
-            for (int j = 0; j < typeNumber; j++){
-                this.packStorageItem(order.getItemList().get(j));
-            }
-        }
-        
-        this.bf.putInt(order.getOrderPrice());
-        this.bf.putInt(order.getOrderExp());
-        this.bf.putLong(order.getWaittingTime());
-        
-    }
+     /**
+      * Put orderNPC
+      */
+     private void packOrderNPC(OrderNPC order) {
+         bf.putInt(order.getOrderId()); // ID
+         
+         if (order.getOrderItem() == null){
+             bf.putInt(0);
+         } else {
+             bf.putInt(1);
+             this.packStorageItem(order.getOrderItem());
+         }
+         
+         bf.putInt(order.getOrderPrice());
+         bf.putInt(order.getOrderExp());
+         bf.putLong(order.getWaittingTime());
+         putStr(bf, order.getNpcResAni());
+     }
+     
     
     /**
      * Put storage item

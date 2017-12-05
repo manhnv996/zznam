@@ -153,6 +153,15 @@ public class Asset {
         return null;
     }
     
+    
+    public int getQuantityOfTwoStorageByProductId(String productId){
+        int qFoodStorage = this.getFoodStorage().getItemQuantity(productId);
+        int qWarehouse = this.getWarehouse().getItemQuantity(productId);
+
+        return (qFoodStorage > qWarehouse) ? qFoodStorage : qWarehouse;
+    }
+    
+    
     public boolean addOrderNPC(OrderNPC order){
         if (this.orderNPCList == null){
             return false;

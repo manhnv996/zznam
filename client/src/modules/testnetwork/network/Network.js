@@ -196,19 +196,23 @@ testnetwork.Connector = cc.Class.extend({
                 break;
 
             case gv.CMD.RESPONSE_SYNC_ORDER_NPC:
-                cc.log("RECEIVE RESPONSE_SYNC_ORDER_NPC: ", packet.order);
+                cc.log("RECEIVE RESPONSE_SYNC_ORDER_NPC: ", packet.orderNPC);
                 /*
                  NOT YET STARTED
                  */
-                //var orderSelected = user.getAsset().getOrderById(packet.order.orderId);
-                //
-                //orderSelected.itemList = packet.order.itemList;
-                //orderSelected.orderPrice = packet.order.orderPrice;
-                //orderSelected.orderExp = packet.order.orderExp;
-                ////orderSelected.waittingTime = packet.order.waittingTime;
-                //orderSelected.waittingTime = new Date(parseInt(packet.order.waittingTime));
-                //
-                //
+
+                //Order NPC List
+                var orderNPCSelected = user.getAsset().getOrderNPCById(packet.orderNPC.orderId);
+
+                orderNPCSelected.orderItem = packet.orderNPC.orderItem;
+                orderNPCSelected.orderPrice = packet.orderNPC.orderPrice;
+                orderNPCSelected.orderExp = packet.orderNPC.orderExp;
+
+                orderNPCSelected.waittingTime = new Date(parseInt(packet.orderNPC.waittingTime));
+
+                orderNPCSelected.npc_res = packet.orderNPC.npc_res;
+
+
                 //////
                 //TruckOrderSprite.instance.initTruckOrder();
                 //// OrderCtrl.instance.onShowOrderBG();
@@ -330,10 +334,10 @@ testnetwork.Connector = cc.Class.extend({
         this.gameClient.sendPacket(pk);
     },
     ///
-    sendMakeOrder: function (orderId) {
+    sendMakeOrder: function (orderId, rubyBuy) {
         cc.log("sendMakeOrder: " + orderId);
         var pk = this.gameClient.getOutPacket(CmdSendMakeOrder);
-        pk.pack(orderId);
+        pk.pack(orderId, rubyBuy);
         this.gameClient.sendPacket(pk);
     },
     sendCancelOrder: function (orderId) {
@@ -355,10 +359,10 @@ testnetwork.Connector = cc.Class.extend({
         this.gameClient.sendPacket(pk);
     },
     //
-    sendMakeOrderNpc: function (orderId) {
+    sendMakeOrderNpc: function (orderId, rubyBuy) {
         cc.log("sendMakeOrderNpc: " + orderId);
         var pk = this.gameClient.getOutPacket(CmdSendMakeOrderNpc);
-        pk.pack(orderId);
+        pk.pack(orderId, rubyBuy);
         this.gameClient.sendPacket(pk);
     },
     sendCancelOrderNpc: function (orderId) {

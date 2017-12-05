@@ -6,6 +6,7 @@ var OrderNPCLayer = BaseLayout.extend({
     ctor:function(orderNPC){
 
         this.orderNPC = orderNPC;
+        this.orderId = orderNPC.getOrderId();
 
         //this._super();
         this._super(res.bgTruckOrder, "", false, false, false);
@@ -73,8 +74,12 @@ var OrderNPCLayer = BaseLayout.extend({
         msgCurr.setColor(cc.color(139,69,19));
         this.slotNpc.addChild(msgCurr);
 
-        var quantityCurr = this.initText(msgCurr.width * 1.25, msgCurr.height / 2,
-            user.getAsset().getQuantityOfTwoStorageByProductId(orderNPC.orderItem.typeItem), res.FONT_OUTLINE_20);
+        //
+        var getQuantityCurr = function () {
+            var q = user.getAsset().getQuantityOfTwoStorageByProductId(orderNPC.orderItem.typeItem);
+            return (q > 0) ? q : "0";
+        };
+        var quantityCurr = this.initText(msgCurr.width * 1.25, msgCurr.height / 2, getQuantityCurr(), res.FONT_OUTLINE_20);
         msgCurr.addChild(quantityCurr);
 
         //
@@ -88,17 +93,17 @@ var OrderNPCLayer = BaseLayout.extend({
 
         this.btSell = this.initButton(this.slotNpc.x + this.slotNpc.width * 0.1, cc.winSize.height * 0.35, "text_btn_deleiver_npc", 0);
         this.addChild(this.btSell);
-        // this.btSell.addClickEventListener(this.cancelOrderEvent.bind(this));
+        this.btSell.addClickEventListener(this.sellEvent.bind(this));
 
         //
-        this.btWait = this.initButton(this.slotNpc.x + this.slotNpc.width * 0.1, cc.winSize.height * 0.35, "text_btn_later_npc", 1);
-        this.addChild(this.btWait);
-        // this.btWait.addClickEventListener(this.cancelOrderEvent.bind(this));
-
-        //
-        this.btCancle = this.initButton(this.slotNpc.x + this.slotNpc.width * 0.1, cc.winSize.height * 0.35, "text_btn_delete_npc", 2);
+        this.btCancle = this.initButton(this.slotNpc.x + this.slotNpc.width * 0.1, cc.winSize.height * 0.35, "text_btn_delete_npc", 1);
         this.addChild(this.btCancle);
-        // this.btCancle.addClickEventListener(this.cancelOrderEvent.bind(this));
+        this.btCancle.addClickEventListener(this.cancelEvent.bind(this));
+
+        //
+        this.btWait = this.initButton(this.slotNpc.x + this.slotNpc.width * 0.1, cc.winSize.height * 0.35, "text_btn_later_npc", 2);
+        this.addChild(this.btWait);
+        this.btWait.addClickEventListener(this.waitEvent.bind(this));
 
     },
 
@@ -109,7 +114,7 @@ var OrderNPCLayer = BaseLayout.extend({
 
         // var msg = new cc.LabelBMFont(fr.Localization.text(text), res.FONT_OUTLINE_30);
         // msg.setPosition(cc.p(button.width / 2, button.height / 2));
-        var msg = this.initText(button.width / 2, button.height / 2, text, res.FONT_OUTLINE_30);
+        var msg = this.initText(button.width / 2, button.height / 2, text, res.FONT_OUTLINE_20);
         button.addChild(msg);
 
         return button;
@@ -120,6 +125,23 @@ var OrderNPCLayer = BaseLayout.extend({
         msg.setPosition(cc.p(x, y));
 
         return msg;
+    },
+
+
+    //
+    sellEvent: function () {
+        //
+        OrderCtrl.instance.onMakeOrderNPC(this.orderId);
+
+        //BaseGUILayer.instance.removeBlockListener();
+    },
+    waitEvent: function () {
+        BaseGUILayer.instance.removeBlockListener();
+    },
+    cancelEvent: function () {
+        OrderCtrl.instance.onCancelOrderNPC(this.orderId);
+
+        BaseGUILayer.instance.removeBlockListener();
     }
 
 
