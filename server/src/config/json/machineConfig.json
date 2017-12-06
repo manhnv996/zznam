@@ -1,0 +1,47 @@
+[
+  {
+    "id": "bakery_machine",
+    "time": 10,
+    "buildExp": 10,
+    "buildExpress": 1,
+    "speedUp": 1,
+    "reduceRubyTime": 10,
+    "slot": 2
+  },
+  {
+    "id": "food_machine",
+    "time": 40,
+    "buildExp": 4,
+    "buildExpress": 1,
+    "speedUp": 1,
+    "reduceRubyTime": 40,
+    "slot": 3
+  },
+  {
+    "id": "butter_machine",
+    "time": 7200,
+    "buildExp": 20,
+    "buildExpress": 11,
+    "speedUp": 1,
+    "reduceRubyTime": 40,
+    "slot": 2
+  },
+  {
+    "id": "sugar_machine",
+    "time": 21600,
+    "buildExp": 34,
+    "buildExpress": 18,
+    "speedUp": 1,
+    "reduceRubyTime": 1200,
+    "slot": 2
+  },
+  {
+    "id": "popcorn_machine",
+    "time": 28800,
+    "buildExp": 39,
+    "buildExpress": 21,
+    "speedUp": 1,
+    "reduceRubyTime": 1371,
+    "slot": 2
+  }
+]

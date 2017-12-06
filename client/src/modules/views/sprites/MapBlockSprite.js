@@ -175,6 +175,7 @@ var MapBlockSprite = cc.Sprite.extend({
                 if (this.touchListener.__moveSprite) {
                     // Move sprite
                     // this.touchListener.lstMouse = location;
+                    cc.log("lx", this.lx, "ly", this.ly);
                     var winSize = cc.winSize;
                     var BORDER_AUTO_MOVE = 100;
 
@@ -228,7 +229,7 @@ var MapBlockSprite = cc.Sprite.extend({
                             this.touchListener.lstLocation.y, this.blockSizeX, this.blockSizeY)) {
                         this.setLogicPosition(this.touchListener.originalPosition, true);
                         MapLayer.instance.moveToLogic(this.touchListener.originalPosition, 2);
-                        NotifyLayer.instance.notifyCantPut(touch.getLocation());
+                        BaseGUILayer.instance.notifyCantPut(touch.getLocation());
                     }
                     // cc.log('Unschedule update');
                     this.unscheduleUpdate();
@@ -366,7 +367,7 @@ var MapBlockSprite = cc.Sprite.extend({
         var logic = MapValues.screenPositionToLogic(location.x, location.y);
         logic.x = Math.floor(logic.x);
         logic.y = Math.floor(logic.y);
-        if (this.touchListener.lstLocation.x !== logic.x || 
+        if (this.touchListener.lstLocation.x !== logic.x ||
                 this.touchListener.lstLocation.y !== logic.y) {
             // cc.log("Map Alias", this.mapAliasType);
             // cc.log("move to", logic, MapCtrl.instance.checkValidBlock(logic.x, logic.y, this.blockSizeX, this.blockSizeY, this.mapAliasType));
@@ -378,6 +379,12 @@ var MapBlockSprite = cc.Sprite.extend({
             var dy = this.touchListener.autoMoveVer * dt * 250;
             MapLayer.instance.move(-dx, -dy);
         }
+    },
+
+    removeFromParent: function(flag) {
+        this._super(flag);
+        cc.log("Remove", this.touchListener);
+        cc.eventManager.removeListener(this.touchListener);
     },
 
     setLogicPosition: function(lx, ly, notUpdatePriority) {

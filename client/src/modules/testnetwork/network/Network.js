@@ -273,9 +273,16 @@ testnetwork.Connector = cc.Class.extend({
     },
 
     sendBuyMapObjectRequest: function (id, type, x, y) {
-        cc.log("Send buy request");
+        cc.log("Send buy map object request " + x + " " + y);
         var pk = this.gameClient.getOutPacket(CmdSendBuyMapObjectRequest);
         pk.pack(id, type, x, y);
+        this.gameClient.sendPacket(pk);
+    },
+
+    sendBuyMapObjectByRuby: function (id, type, x, y, ruby) {
+        cc.log("Send buy map object by ruby");
+        var pk = this.gameClient.getOutPacket(CmdSendBuyMapObjectByRuby);
+        pk.pack(id, type, x, y, ruby);
         this.gameClient.sendPacket(pk);
     },
 
@@ -286,10 +293,17 @@ testnetwork.Connector = cc.Class.extend({
         this.gameClient.sendPacket(pk);
     },
 
-    sendUpgradeStorage: function (storageType, level) {
-        cc.log("Upgrade " + storageType + " to level " + level);
+    sendUpgradeStorage: function (storageType) {
+        cc.log("Upgrade " + storageType);
         var pk = this.gameClient.getOutPacket(CmdSendUpgradeStorageRequest);
-        pk.pack(storageType, level);
+        pk.pack(storageType);
+        this.gameClient.sendPacket(pk);
+    },
+
+    sendBuildCompleted: function (id, typeBuilding) {
+        cc.log("Send Completed Building");
+        var pk = this.gameClient.getOutPacket(CmdSendBuildCompleted);
+        pk.pack(id, typeBuilding);
         this.gameClient.sendPacket(pk);
     }
 });

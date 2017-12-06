@@ -159,7 +159,7 @@ public class UserHandler extends BaseClientRequestHandler {
 //            System.out.println("id" + nObj.id + " type" + nObj.type);
         }
         
-        Asset asset = new Asset(foodStorage, warehouse, null, natureThingList, null);
+        Asset asset = new Asset(foodStorage, warehouse, null, natureThingList, null, null);
         
         // Add some fields
         for (int i = 1; i < 5; i++){

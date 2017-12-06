@@ -26,8 +26,8 @@ public class ZPUserInfo extends DataModel {
     public String name;
     
     private int level = 1;
-    private int gold = 10;
-    private int ruby = 10;
+    private int gold = 0;
+    private int ruby = 0;
     private long exp = 0L;
     
     private Asset asset;
@@ -41,7 +41,7 @@ public class ZPUserInfo extends DataModel {
         id = _id;
         
         this.level = 1;
-        this.gold = 10;
+        this.gold = 100;
         this.ruby = 10;
         this.exp = 0L;
         this.name = "";

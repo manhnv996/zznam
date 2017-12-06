@@ -37,10 +37,10 @@ var _ = (function() {
         //shop_animal_cuu_png: r("icon vatnuoi/sheep.png"),
         //shop_animal_de_png: r("icon vatnuoi/goat.png"),
 
-        infoCoopItem: JSON.parse(jsb.fileUtils.getStringFromFile("res/config/gameshopconfig/gsCoopConfig.json")),
-        infoAnimalItem: JSON.parse(jsb.fileUtils.getStringFromFile("res/config/gameshopconfig/gsAnimalConfig.json")),
-        infoMachineItem: JSON.parse(jsb.fileUtils.getStringFromFile("res/config/gameshopconfig/gsMachineConfig.json")),
-        infoTreeItem: JSON.parse(jsb.fileUtils.getStringFromFile("res/config/gameshopconfig/gsTreeConfig.json"))
+        infoCoopItem: JSON.parse(jsb.fileUtils.getStringFromFile("src/modules/configs/json/gameshopconfig/gsCoopConfig.json")),
+        infoAnimalItem: JSON.parse(jsb.fileUtils.getStringFromFile("src/modules/configs/json/gameshopconfig/gsAnimalConfig.json")),
+        infoMachineItem: JSON.parse(jsb.fileUtils.getStringFromFile("src/modules/configs/json/gameshopconfig/gsMachineConfig.json")),
+        infoTreeItem: JSON.parse(jsb.fileUtils.getStringFromFile("src/modules/configs/json/gameshopconfig/gsTreeConfig.json"))
         //infoShopItem: JSON.parse(jsb.fileUtils.getStringFromFile("res/config/gameshopconfig/shopConfigs.json"))
     };
 

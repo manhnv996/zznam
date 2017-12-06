@@ -20,6 +20,11 @@ var AnimationSprite = MapBlockSprite.extend({
 		this.content.gotoAndPlay(aniName, -1);
 	},
 
+	//Finish animation
+	//finish: function(aniName) {
+	//	this.content.gotoAndPlay(aniName, 0);
+	//},
+
 	// Override
 	runAction: function(action) {
 		this.content.runAction(action);
