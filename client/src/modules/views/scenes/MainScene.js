@@ -6,6 +6,7 @@ var MainScene = cc.Scene.extend({
 		PlantCtrl.instance = new PlantCtrl();
 		GameShopController.instance = new GameShopController();
 		StorageCtrl.instance = new StorageCtrl();
+		ConstructedCtrl.instance = new ConstructedCtrl();
 
 		// Init layers
 		MapLayer.instance = new MapLayer();
@@ -30,23 +31,21 @@ var MainScene = cc.Scene.extend({
 	},
 
 	onGettedData: function() {
+
 		MainGuiLayer.instance = new MainGuiLayer();
 		this.addChild(MainGuiLayer.instance);
 
-		GSLayer.instance = new GSLayer();
-		this.addChild(GSLayer.instance);
+		BaseGUILayer.instance = new BaseGUILayer();
+		this.addChild(BaseGUILayer.instance);
 
-		StorageLayer.instance = new StorageLayer();
-		this.addChild(StorageLayer.instance);
-		// StorageLayer.instance.initStorage(user.getAsset().getFoodStorage());
-		//StorageLayer.instance.getMultiLayer().switchTo(1);
-
-		NotifyLayer.instance = new NotifyLayer();
-		this.addChild(NotifyLayer.instance);
 		MapCtrl.instance.init();
 		MapCtrl.instance._showDebugMap();
 
-		//NotifyLayer.instance.notifyFullSilo();
+		//BaseGUILayer.instance.notifyFullStorage(StorageTypes.FOOD_STORAGE);
+		//BaseGUILayer.instance.notifyMissGold(50);
+		//cc.log(res.infoCoopItem[0]["id"]);
+
+		//BaseGUILayer.instance.loadingBar();
 	},
 
 	init: function() {

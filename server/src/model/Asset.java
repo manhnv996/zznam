@@ -12,12 +12,14 @@ public class Asset {
     private List<Field> fieldList;
     private List<NatureThing> natureThingList;
     private List<AnimalLodge> animalLodgeList;
+    private List<Machine> machineList;
     
     public Asset(Storage foodStorage,
                  Storage warehouse, 
                  List<Field> fieldList,
                  List<NatureThing> natureThingList,
-                 List<AnimalLodge> animalLodgeList
+                 List<AnimalLodge> animalLodgeList,
+                 List<Machine> machineList
                  ) {
         super();
         
@@ -27,6 +29,7 @@ public class Asset {
         this.fieldList = fieldList == null ? new ArrayList<Field>() : fieldList;
         this.natureThingList = natureThingList == null ? new ArrayList<NatureThing>() : natureThingList;
         this.animalLodgeList = animalLodgeList == null ? new ArrayList<AnimalLodge>() : animalLodgeList;
+        this.machineList = machineList == null ? new ArrayList<Machine>() : machineList;
     }
 
     
@@ -42,6 +45,9 @@ public class Asset {
         return fieldList;
     }
     
+    public List<Machine> getMachineList ()  {
+        return this.machineList;
+    }
     
     
     
@@ -97,6 +103,22 @@ public class Asset {
             AnimalLodge lodge = this.animalLodgeList.get(i);
             if (lodge.getId() == id) {
                 return lodge;
+            }
+        }
+        return null;
+    }
+    
+    public void addMachine (Machine machine) {
+        this.machineList.add(machine);
+        if (machine.getId() == 0) {
+            machine.setId(machineList.size());
+        }
+    }
+    
+    public Machine getMachineById (int id) {
+        for (int i = 0; i < this.machineList.size(); i++) {
+            if(machineList.get(i).getId() == id) {
+                return machineList.get(i);
             }
         }
         return null;

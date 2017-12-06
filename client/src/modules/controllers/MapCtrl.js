@@ -34,6 +34,7 @@ var MapCtrl = cc.Class.extend({
         this.renderPlants();
         this.renderNaturalThings();
         this.renderAnimalLodges();
+        this.renderMachines();
         // cc.log("Silo", user.asset.foodStorage);
         // MapLayer.instance.addChild(new SiloSprite(20, 20));
         // MapLayer.instance.addChild(new WareHouseSprite(18, 24));
@@ -47,15 +48,19 @@ var MapCtrl = cc.Class.extend({
         // MapLayer.instance.addChild(cowLodge);
         // var cowLodge = new CowLodgeSprite(22, 19);
         // MapLayer.instance.addChild(cowLodge);
+        //
+        //var bakery = new BakerySprite(20, 20);
+        //MapLayer.instance.addChild(bakery);
+        //bakery.play("loop1");
     },
 
     renderStorages: function() {
         var silo = user.asset.foodStorage;
         var warehouse = user.asset.warehouse;
-        var siloSprite = new SiloSprite(silo.coordinate.x, silo.coordinate.y);
-        var warehouseSprite = new WareHouseSprite(warehouse.coordinate.x, warehouse.coordinate.y);
-        MapLayer.instance.addChild(siloSprite);
-        MapLayer.instance.addChild(warehouseSprite);
+        SiloSprite.instance = new SiloSprite(silo.coordinate.x, silo.coordinate.y);
+        WareHouseSprite.instance = new WareHouseSprite(warehouse.coordinate.x, warehouse.coordinate.y);
+        MapLayer.instance.addChild(SiloSprite.instance);
+        MapLayer.instance.addChild(WareHouseSprite.instance);
 
         // Add from server
         // this.addSpriteAlias(siloSprite);
@@ -156,6 +161,54 @@ var MapCtrl = cc.Class.extend({
             }
             lodgeSprite.setId(lodge.id);
             MapLayer.instance.addChild(lodgeSprite);
+        }
+    },
+    /**
+     *    Render Machines To Map
+     */
+    renderMachines: function () {
+        //cc.log("Render machine to Map");
+        var machineList = user.asset.machineList;
+        for (var i = 0; i < machineList.length; i++) {
+            var machine = machineList[i];
+            var type = machine.type;
+            var machineSprite;
+            //Check time build machine  --> render constructed sprite
+            // not full time --> Nha dangxay
+            // full time + completed false --> Nha hoanthanh
+            // full time + completed true --> machine sprite
+            // check inside switch or check outside switch
+            var timeBuild = getMachineConfigByType(type).time * 1000;
+            //if ()
+            var curTime = new Date().getTime();
+            switch (type) {
+                case "bakery_machine":
+                    //cc.log("machine.startBuildTime " + machine.completed);
+                    //cc.log("timeBuild " + timeBuild);
+                    if ((curTime - machine.startBuildTime) < timeBuild ) {
+                        machineSprite = new ConstructedSprite(machine.id,
+                        MapConfigs.BakeryMachine.size.width, MapConfigs.BakeryMachine.size.height,
+                        machine.coordinate.x, machine.coordinate.y, MapItemEnum.MACHINE);
+                    } else {
+                        if (!machine.completed) {
+                            machineSprite = new ConstructedCompletedSprite(machine.id,
+                                machine.coordinate.x, machine.coordinate.y, MapItemEnum.MACHINE);
+                        } else {
+                            machineSprite = new BakerySprite(machine.id, machine.coordinate.x, machine.coordinate.y);
+                        }
+                    }
+                    break;
+                //case MapItemEnum.FOOD_GRINDER:
+                //    break;
+                //case MapItemEnum.BUTTER:
+                //    break;
+                //case MapItemEnum.SUGAR_MAKER:
+                //    break;
+                //case MapItemEnum.POPCORN_MAKER:
+                //    break;
+            }
+            MapLayer.instance.addChild(machineSprite);
+            machineSprite.setLogicPosition(machine.coordinate.x, machine.coordinate.y, false);
         }
     },
 

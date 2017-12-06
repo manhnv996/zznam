@@ -70,7 +70,7 @@ var MapBlockSprite = cc.Sprite.extend({
             if (this.moveSpriteMode === true) {
                 // When sprite is in moving mode
                 // cc.log("Continue schedule update");
-                this.scheduleUpdate();
+                this.schedule(this.movingUpdate);
                 // Do not capture velocity in here
                 return true;
             }
@@ -199,7 +199,7 @@ var MapBlockSprite = cc.Sprite.extend({
                 NotifyLayer.instance.notifyCantPut(touch.getLocation());
             }
             // cc.log('Unschedule update');
-            this.unscheduleUpdate();
+            this.unschedule(this.movingUpdate);
         } else {
             // Push last location and get velocity
             var velocity = InertiaEngine.instance.stopAndGetVelocity(touch.getLocation());
@@ -243,7 +243,7 @@ var MapBlockSprite = cc.Sprite.extend({
         // cc.log("Move sprite mode activated");
         // ScheduleUpdate automove
         // cc.log('Start schedule update');
-        this.scheduleUpdate();
+        this.schedule(this.movingUpdate);
     },
 
     // Update eventPriority when change location, called in setLogicPosition
@@ -360,7 +360,7 @@ var MapBlockSprite = cc.Sprite.extend({
         MapLayer.instance.addChild(dot6);
     },
 
-    update: function(dt) {
+    movingUpdate: function(dt) {
         var location = this.lstMouse;
         var logic = MapValues.screenPositionToLogic(location.x, location.y);
         logic.x = Math.floor(logic.x);
@@ -377,6 +377,12 @@ var MapBlockSprite = cc.Sprite.extend({
             var dy = this.autoMoveVer * dt * 250;
             MapLayer.instance.move(-dx, -dy);
         }
+    },
+
+    removeFromParent: function(flag) {
+        this._super(flag);
+        cc.log("Remove", this.touchListener);
+        cc.eventManager.removeListener(this.touchListener);
     },
 
     setLogicPosition: function(lx, ly, notUpdatePriority) {

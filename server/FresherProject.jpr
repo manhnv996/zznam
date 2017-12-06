@@ -23,6 +23,7 @@
    <hash n="oracle.ide.model.ResourcePaths">
       <hash n="resourcesContentSet">
          <list n="pattern-filters">
+            <string v="+src/config/json/machineConfig.json"/>
             <string v="+src/config/json/upgradeWareConfigs.json"/>
             <string v="+src/config/json/upgradeSiloConfigs.json"/>
             <string v="+src/config/json/tool.json"/>

@@ -58,6 +58,13 @@ function getSeedShow(level) {
     return seedShow;
 }
 
+function getMachineConfigByType (type) {
+    for(var i = 0; i < res.infoMachineItem.length; i++) {
+        if (res.infoMachineItem[i].id === type) {
+            return res.infoMachineItem[i];
+        }
+    }
+}
 
 function getProductObjByType(productId) {
     var productTypeObj = null;
@@ -330,6 +337,23 @@ function onReceiveUser(userInfo) {
     }
 
     var machineList = [];
+    for (var i = 0; i < userInfo.asset.machineList.length; i++) {
+        cc.log("userInfo.asset.machineList[i] " + userInfo.asset.machineList.length);
+        var machineInfo = userInfo.asset.machineList[i];
+
+        var machine = new Machine(
+            machineInfo.id,
+            machineInfo.type,
+            machineInfo.slot,
+            machineInfo.startTime,
+            machineInfo.productQueue,
+            machineInfo.completed,
+            machineInfo.startBuildTime,
+            new Coordinate(machineInfo.x, machineInfo.y)
+        );
+        machineList.push(machine);
+    }
+
     var myShop = null;
 
     var asset = new Asset(

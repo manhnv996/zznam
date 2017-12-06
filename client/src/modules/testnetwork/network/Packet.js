@@ -35,10 +35,15 @@ gv.CMD.RESPONSE_MOVE = 6100;
 
 //Shop
 gv.CMD.BUY_MAP_OBJECT_REQUEST = 7001;
+gv.CMD.BUY_MAP_OBJECT_BY_RUBY = 7002;
 
 //Storage
 gv.CMD.BUY_TOOL_REQUEST = 8001;
 gv.CMD.UPGRADE_STORAGE_REQUEST = 8002;
+
+//Constructed
+gv.CMD.BUID_COMPLETED = 9001;
+
 
 testnetwork = testnetwork||{};
 testnetwork.packetMap = {};
@@ -250,6 +255,23 @@ CmdSendBuyMapObjectRequest = fr.OutPacket.extend({
     }
 });
 
+CmdSendBuyMapObjectByRuby = fr.OutPacket.extend({
+    ctor: function () {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.BUY_MAP_OBJECT_BY_RUBY);
+    },
+    pack: function (id, type, x, y, ruby) {
+        this.packHeader();
+        this.putInt(id);
+        this.putString(type);
+        this.putInt(x);
+        this.putInt(y);
+        this.putInt(ruby);
+        this.updateSize();
+    }
+});
+
 CmdSendBuyToolRequest = fr.OutPacket.extend({
     ctor: function () {
         this._super();
@@ -270,10 +292,10 @@ CmdSendUpgradeStorageRequest = fr.OutPacket.extend({
         this.initData(100);
         this.setCmdId(gv.CMD.UPGRADE_STORAGE_REQUEST);
     },
-    pack: function (storageType, level) {
+    pack: function (storageType) {
         this.packHeader();
         this.putString(storageType);
-        this.putInt(level);
+        //this.putInt(level);
         this.updateSize();
     }
 });
@@ -286,6 +308,20 @@ CmdSendGetUser = fr.OutPacket.extend({
     },
     pack: function() {
         this.packHeader();
+        this.updateSize();
+    }
+});
+
+CmdSendBuildCompleted = fr.OutPacket.extend({
+    ctor: function () {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.BUID_COMPLETED);
+    },
+    pack: function (id, typeBuilding) {
+        this.packHeader();
+        this.putInt(id);
+        this.putInt(typeBuilding);
         this.updateSize();
     }
 });
@@ -544,6 +580,7 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         this.unpackNatureThingList();
         this.unpackStorages();
         this.unpackAnimalLodges();
+        this.unpackMachines();
     },
 
     unpackBasicInfo: function() {
@@ -664,5 +701,34 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         animal.feededTime = parseInt(this.getLong());
 
         return animal;
+    },
+
+    unpackMachines: function () {
+        var size = this.getInt();
+        this.user.asset.machineList = [];
+        for (var i = 0; i < size; i++) {
+            this.user.asset.machineList.push(this.unpackMachine());
+        }
+    },
+
+    unpackMachine: function () {
+        var machine = {};
+
+        machine.id = this.getInt();
+        machine.type = this.getString();
+        machine.x = this.getInt();
+        machine.y = this.getInt();
+        machine.slot = this.getInt();
+        machine.startTime = parseInt(this.getLong());
+        machine.completed = this.getInt() ? true : false;
+        machine.startBuildTime = parseInt(this.getLong());
+
+        machine.productQueue = [];
+        var size = this.getInt();
+        for (var i = 0; i < size; i++) {
+            machine.productQueue.push(this.getString());
+        }
+
+        return machine;
     }
 });

@@ -13,6 +13,7 @@ import config.jsonobject.map.SmallNatureThingObject;
 import config.jsonobject.map.BigNatureThingObject;
 import config.jsonobject.map.ChickenLodgeObject;
 import config.jsonobject.map.CowLodgeObject;
+import config.jsonobject.map.MachineObject;
 
 
 public class MapConfig {
@@ -30,4 +31,5 @@ public class MapConfig {
     public SmallNatureThingObject SmallNatureThing;
     public ChickenLodgeObject ChickenLodge;
     public CowLodgeObject CowLodge;
+    public MachineObject Machine;
 }

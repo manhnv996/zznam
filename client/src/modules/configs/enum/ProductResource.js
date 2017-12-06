@@ -9,7 +9,7 @@ var ProductResource = {
     CROP_SOYBEAN: ["crop_soybean_name", "crop_soybean_description", "20", "Text_time_minute", "Art/Crops/Field/dau.png"],
     CROP_SUGARCANE: ["crop_sugarcane_name", "crop_sugarcane_description", "30", "Text_time_minute", "Art/Crops/Field/mia.png"],
 
-    CROP_CHILI: ["crop_chili_name", "Thu hoạch sau", "50", "Text_time_minute", "Art/Crops/Field/vhili pepper.png"],
+    CROP_CHILI: ["crop_chili_pepper_name", "crop_chili_pepper_description", "50", "Text_time_minute", "Art/Crops/Field/vhili pepper.png"],
     CROP_INDIGO: ["crop_indigo_name", "crop_indigo_description", "2", "Text_time_hour", "Art/Crops/Field/indigo.png"],
     CROP_TOMATO: ["crop_tomato_name", "crop_tomato_description", "10", "Text_time_hour", "Art/Crops/Field/tomato.png"],
     CROP_STRAWBERRY: ["crop_strawberry_name", "crop_strawberry_description", "18", "Text_time_hour", "Art/Crops/Field/strawberry.png"],
