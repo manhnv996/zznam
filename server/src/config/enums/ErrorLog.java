@@ -22,6 +22,9 @@ public enum ErrorLog {
 
     ERROR_RUBY_NOT_REDUCE((short) 30),
     
+    ERROR_ORDER_NOT_COMPLETE((short) 40),
+    
+    
     ERROR_BUY_MAP_OBJECT_COLLISION((short) 70),
     ERROR_BUY_GOLD_NOT_ENOUGH((short) 71),
     ERROR_BUY_CANT_ADD_FIELD((short) 72),

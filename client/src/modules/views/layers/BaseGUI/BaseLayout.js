@@ -84,6 +84,9 @@ var BaseLayout = ccui.Layout.extend({
         var scaleUp = cc.scaleTo(0.2, scale + 0.15);
         var scaleDown = cc.scaleTo(0.15, scale);
         this.runAction(cc.sequence(scaleUp, scaleDown));
-    }
+    },
+
+    initInfo: function () {},
+
 
 });

@@ -43,6 +43,7 @@ public class ZPUserInfo extends DataModel {
         this.level = 1;
         this.gold = 0;
         this.ruby = 10;
+
         this.exp = 0L;
         this.name = "";
         
@@ -139,6 +140,9 @@ public class ZPUserInfo extends DataModel {
     
     public void addExp(int value) {
         this.exp += value;
+        /*
+         * not yet started
+         */
     }
     
     public void addRuby(int value) {

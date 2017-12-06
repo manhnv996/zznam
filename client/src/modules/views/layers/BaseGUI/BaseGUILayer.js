@@ -109,6 +109,50 @@ var BaseGUILayer = cc.Layer.extend({
         this.addChild(this._layout);
     },
 
+    showOrderLayer: function () {
+        this._layout = new OrderBGLayer();
+        // this._layout = OrderBGLayer.instance;
+        if (this._layout._hasCloseButton) {
+            //cc.log("_btnClose");
+            this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);
+        }
+        this.blockLayout();
+        this.addChild(this._layout);
+    },
+
+    showSuggestBuyMissionItem: function (storageMissingItemList, targetType, orderId) {
+        this._layout = new NoticeMissingItem(storageMissingItemList, targetType, orderId);
+        if (this._layout._hasCloseButton) {
+            //cc.log("_btnClose");
+            this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);
+        }
+        this.blockLayout();
+        this.addChild(this._layout);
+    },
+    showNoticeSureCancelOrder: function (orderId) {
+        this._layout = new NoticeCancelOrder(orderId);
+        if (this._layout._hasCloseButton) {
+            //cc.log("_btnClose");
+            this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);
+        }
+        this.blockLayout();
+        this.addChild(this._layout);
+    },
+    //
+    showOrderNPCLayer: function (orderNPC) {
+        if (orderNPC.orderItem == null) {
+            return;
+        }
+        this._layout = new OrderNPCLayer(orderNPC);
+        if (this._layout._hasCloseButton) {
+            //cc.log("_btnClose");
+            this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);
+        }
+        this.blockLayout();
+        this.addChild(this._layout);
+    },
+    ////BaseGUILayer.instance.removeBlockListener();
+
 
     /**
      * Close GUI
@@ -140,6 +184,7 @@ var BaseGUILayer = cc.Layer.extend({
             //cc.log("remove listener");
             cc.eventManager.removeListener(this._blockLayout._listenerBlockFull);
             this.removeAllChildren();
+            this._layout = null;
         }
     },
 

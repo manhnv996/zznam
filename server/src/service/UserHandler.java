@@ -20,9 +20,15 @@ import config.enums.AnimalLodgeEnum;
 import config.enums.ProductType;
 import config.enums.StorageType;
 
+import config.jsonobject.ProductConfig;
 import config.jsonobject.map.NaturalObject;
 
 import config.utils.ConfigContainer;
+
+import config.utils.OrderNPCUtil;
+import config.utils.OrderUtil;
+
+import config.utils.ProductUtil;
 
 import extension.FresherExtension;
 
@@ -36,7 +42,10 @@ import model.AnimalLodge;
 import model.Asset;
 import model.Field;
 import model.NatureThing;
+import model.Order;
+import model.OrderNPC;
 import model.Storage;
+import model.StorageItem;
 import model.ZPUserInfo;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
@@ -99,6 +108,7 @@ public class UserHandler extends BaseClientRequestHandler {
 //                userInfo.saveModel(1);
             }
             
+            
             send(new ResponseGameInfo(userInfo), user);
             
         } catch (Exception e) {
@@ -119,6 +129,35 @@ public class UserHandler extends BaseClientRequestHandler {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
+        
+        
+        /*
+         * test
+         */
+//        List<ProductConfig> productList2 = ProductUtil.toProductConfigList();
+//        
+//        List<ProductConfig> productList = OrderUtil.randomTypeProduct(18);
+//        
+//        List<StorageItem> itemList = OrderUtil.randomQuantityOfProductList(18, null);
+//        for (int i = 0; i < itemList.size(); i++){
+//            System.out.println(itemList.get(i).getTypeItem() + ", " + itemList.get(i).getQuantity());
+//        }
+//        System.out.println(OrderUtil.getOrderPrice(18, null));
+//        System.out.println(OrderUtil.getOrderExp(18, null));
+        
+        
+//        Order order = new Order(15);
+//        for (int i = 0; i < order.getItemList().size(); i++){
+//            System.out.println(order.getItemList().get(i).getTypeItem() + ", " + order.getItemList().get(i).getQuantity());
+//        }
+//        System.out.println(order.getOrderPrice());
+//        System.out.println(order.getOrderExp());
+        
+//        this.orderItem = OrderNPCUtil.randomProductConfByCategory(user, OrderNPCUtil.randomCategoryNPC());
+        
+        System.out.println("here is log");
+        //
         send(new ResponseUser(userInfo), user);
     }
 
@@ -138,8 +177,13 @@ public class UserHandler extends BaseClientRequestHandler {
                 ConfigContainer.mapConfig.Warehouse.position.x,
                 ConfigContainer.mapConfig.Warehouse.position.y);
 
-        foodStorage.addItem(ProductType.CROP_CARROT, 5);
-        foodStorage.addItem(ProductType.CROP_SOYBEAN, 10);
+        foodStorage.addItem(ProductType.CROP_SOYBEAN, 5);
+        foodStorage.addItem(ProductType.CROP_CORN, 10);
+        foodStorage.addItem(ProductType.CROP_WHEAT, 10);
+        
+        warehouse.addItem(ProductType.GOOD_EGG, 10);        
+        warehouse.addItem(ProductType.GOOD_MILK, 10);
+        //
         
 //        warehouse.addItem(ProductType.TOOL_NAIL, 5);
         warehouse.addItem(ProductType.TOOL_SCREW, 3);
@@ -185,6 +229,28 @@ public class UserHandler extends BaseClientRequestHandler {
 //        for (int i = 0; i < 3; i++){
 //            System.out.println("field" + asset.getFieldById(i).getFieldId() + ", " + asset.getFieldById(i).getPlantType() + ", " + asset.getFieldById(i).getPlantedTime());
 //        }
+        
+        
+        
+        //
+        for (int i = 0; i < OrderUtil.getNumberOfOrderByLevel(userInfo.getLevel()); i++){
+            asset.addOrder(userInfo.getLevel(), new Order(userInfo.getLevel()));
+        }
+        
+        //
+        for (int i = 0; i < 2; i++){
+            asset.addOrderNPC(new OrderNPC(userInfo));
+        }
+        
+        System.out.println("here is log2222");
+        for (int i = 0; i < asset.getOrderNPCList().size(); i++){
+            System.out.println(asset.getOrderNPCList().get(i).getOrderItem().getTypeItem() + ", " + 
+                               asset.getOrderNPCList().get(i).getOrderItem().getQuantity() + ", " + 
+                               asset.getOrderNPCList().get(i).getOrderPrice() + ", " + 
+                               asset.getOrderNPCList().get(i).getOrderExp() + ", " + 
+                               asset.getOrderNPCList().get(i).getNpcResAni());
+        }
+        
         
         return userInfo;
     }

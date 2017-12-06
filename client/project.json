@@ -19,12 +19,14 @@
     ],
     "jsList": [
         "src/data/FontsResource.js",
+        "src/data/OrderResource.js",
         "src/data/SettingsResource.js",
         "src/data/MainGuiResource.js",
         "src/data/MapResource.js",
         "src/data/ShopResource.js",
         "src/data/StorageResource.js",
         "src/data/HavestResource.js",
+        "src/data/OrderResource.js",
         "src/data/AnimalLodgeResource.js",
         "src/data/Resource.js",
         "src/data/ResourceAnimation.js",
@@ -54,6 +56,7 @@
         "src/modules/utils/inertiaEngine.js",
         "src/modules/utils/caculateDistance.js",
         "src/modules/configs/MapItemEnum.js",
+        "src/modules/utils/LastPageUtil.js",
         "src/modules/configs/AnimalConfig.js",
 
         "src/modules/configs/MapConfigs.js",
@@ -82,25 +85,40 @@
         "src/modules/views/sprites/ConstructedSprite.js",
         "src/modules/views/sprites/ConstructedCompletedSprite.js",
 
+
+        "src/modules/views/layers/popup/TablePopup.js",
+        "src/modules/views/layers/popup/TablePopupLayer.js",
+        "src/modules/views/layers/popup/SeedTablePopup.js",
+        "src/modules/views/layers/popup/CropToolPopup.js",
         "src/modules/views/layers/PopupLayer.js",
 
         "src/modules/views/sprites/SeedSprite.js",
         "src/modules/views/sprites/CropToolSprite.js",
         "src/modules/views/sprites/FieldSprite.js",
+        "src/modules/views/sprites/OrderSprite.js",
+        "src/modules/views/sprites/ProductSprite.js",
+        "src/modules/views/sprites/CarSprite.js",
+        "src/modules/views/sprites/NPCSprite.js",
 
         "src/modules/configs/enum/ErrorLog.js",
         "src/modules/configs/enum/ProductTypes.js",
         "src/modules/configs/enum/FieldStatusTypes.js",
+        "src/modules/configs/enum/OrderStatusTypes.js",
         "src/modules/configs/enum/StorageTypes.js",
         "src/modules/configs/enum/ProductResource.js",
+        "src/modules/configs/enum/NPCresAni.js",
+        "src/modules/configs/enum/BuyItemTargetType.js",
         "src/modules/configs/enum/AnimalType.js",
         "src/modules/configs/enum/AnimalLodgeType.js",
         "src/modules/configs/config.js",
+        "src/modules/configs/ProductConfig.js",
 
         "src/modules/controllers/PlantCtrl.js",
+        "src/modules/controllers/OrderCtrl.js",
         "src/modules/controllers/MapCtrl.js",
         "src/modules/controllers/GameShopController.js",
         "src/modules/controllers/StorageCtrl.js",
+        "src/modules/controllers/OrderCtrl.js",
         "src/modules/controllers/ConstructedCtrl.js",
 
         "src/modules/models/CoordinatedObject.js",
@@ -108,12 +126,15 @@
         "src/modules/models/Coordinate.js",
         "src/modules/models/ConstructedObject.js",
         "src/modules/models/Field.js",
+        "src/modules/models/Order.js",
         "src/modules/models/StorageItem.js",
         "src/modules/models/Storage.js",
         "src/modules/models/Asset.js",
         "src/modules/models/User.js",
         "src/modules/models/Animal.js",
         "src/modules/models/NatureThing.js",
+        "src/modules/models/Order.js",
+        "src/modules/models/OrderNPC.js",
 
         "src/modules/models/AnimalLodge.js",
 
@@ -151,6 +172,11 @@
         "src/modules/views/scenes/LoginScene.js",
         "src/modules/views/scenes/PreloaderScene.js",
         "src/modules/views/layers/popup/CommonPopup.js",
-        "src/modules/views/layers/SettingsLayer.js"
+        "src/modules/views/layers/SettingsLayer.js",
+        "src/modules/views/layers/OrderBGLayer.js",
+        "src/modules/views/layers/OrderNPCLayer.js",
+        "src/modules/views/layers/popup/NoticeCancelOrder.js",
+        "src/modules/views/layers/popup/NoticeMissingItem.js"
+
     ]
 }

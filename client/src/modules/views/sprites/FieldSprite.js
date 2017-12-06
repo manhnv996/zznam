@@ -131,6 +131,7 @@ var FieldSprite = MapBlockSprite.extend({
 
         this.isPlant = false;
         this.unschedule(this.updateFieldStatus);
+        this.schedule(this.updateFieldStatus);
         this.schedule(this.updateFieldStatus, 0.5);
     },
 
@@ -154,8 +155,9 @@ var FieldSprite = MapBlockSprite.extend({
 
             this.isPlant = true;
 
-            this.unschedule(this.updateFieldStatus);
-            this.schedule(this.updateFieldStatus, 0.5);
+            //this.unschedule(this.updateFieldStatus);
+            //this.schedule(this.updateFieldStatus);
+            //this.schedule(this.updateFieldStatus, 0.5);
         }
     },
     cropAnimation: function (seedType) {

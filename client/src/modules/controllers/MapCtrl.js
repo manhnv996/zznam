@@ -52,6 +52,9 @@ var MapCtrl = cc.Class.extend({
         //var bakery = new BakerySprite(20, 20);
         //MapLayer.instance.addChild(bakery);
         //bakery.play("loop1");
+        //
+        this.renderNPC();
+        TruckOrderSprite.instance.initTruckOrder();
     },
 
     renderStorages: function() {
@@ -96,8 +99,10 @@ var MapCtrl = cc.Class.extend({
         // this.addMapAlias(TruckOrderConfigs.position.x, TruckOrderConfigs.position.y,
         //         TruckOrderConfigs.blockSizeX, TruckOrderConfigs.blockSizeY,
         //         MapItemEnum.TRUCK_ORDER);
-        var truckOrder = new TruckOrderSprite(TruckOrderConfigs.position);
-        MapLayer.instance.addChild(truckOrder);
+        // var truckOrder = new TruckOrderSprite(TruckOrderConfigs.position);
+        // MapLayer.instance.addChild(truckOrder);
+        TruckOrderSprite.instance = new TruckOrderSprite(TruckOrderConfigs.position);
+        MapLayer.instance.addChild(TruckOrderSprite.instance);
 
         // Mailbox
         var MailBoxConfigs = MapConfigs.MailBox;
@@ -134,6 +139,29 @@ var MapCtrl = cc.Class.extend({
             // Add from server
             // this.addSpriteAlias(fieldSprite);
         }
+    },
+
+    renderNPC: function () {
+
+        CarSprite.instance = new CarSprite(16, 23);
+        MapLayer.instance.addChild(CarSprite.instance);
+
+        MapLayer.instance.npcList = [];
+        var orderNPCList = user.asset.orderNPCList;
+        for (var i = 0; i < orderNPCList.length; i++){
+            var npcSprite = new NPCSprite(16 + i, 20 - i, orderNPCList[i]);
+            MapLayer.instance.addChild(npcSprite);
+
+            // //
+            MapLayer.instance.npcList.push(npcSprite);
+
+            if (orderNPCList[i].checkStatus() == OrderStatusTypes.WAITTING){
+                //
+                MapLayer.instance.getNPCByOrderNPCId(orderNPCList[i].orderId).setPause();
+                //
+            }
+        }
+
     },
 
     renderAnimalLodges: function() {

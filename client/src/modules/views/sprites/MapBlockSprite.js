@@ -196,7 +196,7 @@ var MapBlockSprite = cc.Sprite.extend({
                 // Restore to original position
                 MapLayer.instance.moveToLogic(this.originalPosition, 2);
                 // Show notification
-                NotifyLayer.instance.notifyCantPut(touch.getLocation());
+                BaseGUILayer.instance.notifyCantPut(touch.getLocation());
             }
             // cc.log('Unschedule update');
             this.unschedule(this.movingUpdate);
@@ -234,7 +234,6 @@ var MapBlockSprite = cc.Sprite.extend({
                 new cc.TintBy(0.8, -100, -100, -100),
                 new cc.TintBy(0.8, 100, 100, 100)]);
         this.runAction(new cc.RepeatForever(action));
-
         // Save original position
         this.originalPosition = this.getLogicPosition();
         this.lstLocation = this.originalPosition;
