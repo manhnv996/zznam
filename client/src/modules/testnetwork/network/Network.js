@@ -167,10 +167,9 @@ testnetwork.Connector = cc.Class.extend({
         cc.log("sendingLoginRequest with: " + username + "===" + password);
         //this.getSessionKeyAndUserId();
         var xhr = cc.loader.getXMLHttpRequest();
-        var url = "http://myplay.apps.zing.vn/sso3/login.php?username=" + username + "&password=" + password;
+        var url = "https://myplay.apps.zing.vn/sso3/login.php?username=" + username + "&password=" + password;
         xhr.open("GET", url);
         xhr.setRequestHeader("Content-Type", "text/plain");
-        xhr.send();
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && ( xhr.status >= 200 && xhr.status <= 207 )) {
                 var httpStatus = xhr.statusText;
@@ -181,19 +180,19 @@ testnetwork.Connector = cc.Class.extend({
                 var userid = jsonData["userid"];
 
                 if (error == "0") {
-                    var url2 = "http://zplogin.g6.zing.vn/?service_name=getSessionKey&gameId=100&distribution=&clientInfo=&social=zingme&accessToken=";
+                    var url2 = "https://zplogin.g6.zing.vn/?service_name=getSessionKey&gameId=100&distribution=&clientInfo=&social=zingme&accessToken=";
                     cc.log("HTTP Response : error : " + error);
-                    xhr.open("GET", url2 + accessToken);
-                    xhr.setRequestHeader("Content-Type", "text/plain");
-                    xhr.send();
-                    xhr.onreadystatechange = function () {
+                    var xhr2 = cc.loader.getXMLHttpRequest();
+                    xhr2.open("GET", url2 + accessToken);
+                    xhr2.setRequestHeader("Content-Type", "text/plain");
+                    xhr2.onreadystatechange = function () {
                         cc.log("Networking away");
 
-                        if (xhr.readyState == 4 && ( xhr.status >= 200 && xhr.status <= 207 )) {
-                            var httpStatus = xhr.statusText;
+                        if (xhr2.readyState == 4 && ( xhr2.status >= 200 && xhr2.status <= 207 )) {
+                            var httpStatus = xhr2.statusText;
                             cc.log(httpStatus);
 
-                            var response = xhr.responseText;
+                            var response = xhr2.responseText;
                             //cc.log(response);
 
                             //parse to json object;
@@ -211,10 +210,13 @@ testnetwork.Connector = cc.Class.extend({
                             this.gameClient.sendPacket(pk);
                         }
                     }.bind(this, userid);
+                    xhr2.send();
                 }
             }
         }.bind(this);
+        xhr.send();
     },
+    
     sendMove:function(direction){
         cc.log("SendMove:" + direction);
         var pk = this.gameClient.getOutPacket(CmdSendMove);
