@@ -146,8 +146,11 @@ public class Order extends DataModel{
             }
         }
         
-        user.addGold(this.getOrderPrice());
-        user.addExp(this.getOrderExp());
+        //
+        user.getAsset().getCar().updateDelivery(this.getOrderPrice(), this.getOrderExp());
+//        //
+//        user.addGold(this.getOrderPrice());
+//        user.addExp(this.getOrderExp());
         //        
         this.waittingTime = 0;
         this.createOrder(user.getLevel());
@@ -169,8 +172,11 @@ public class Order extends DataModel{
             }
         }
         
-        user.addGold(this.getOrderPrice());
-        user.addExp(this.getOrderExp());
+        //
+        user.getAsset().getCar().updateDelivery(this.getOrderPrice(), this.getOrderExp());
+//        //
+//        user.addGold(this.getOrderPrice());
+//        user.addExp(this.getOrderExp());
         //        
         this.waittingTime = 0;
         this.createOrder(user.getLevel());

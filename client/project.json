@@ -107,6 +107,7 @@
         "src/modules/configs/enum/StorageTypes.js",
         "src/modules/configs/enum/ProductResource.js",
         "src/modules/configs/enum/NPCresAni.js",
+        "src/modules/configs/enum/DeliveryStatus.js",
         "src/modules/configs/enum/BuyItemTargetType.js",
         "src/modules/configs/enum/AnimalType.js",
         "src/modules/configs/enum/AnimalLodgeType.js",
@@ -135,6 +136,7 @@
         "src/modules/models/NatureThing.js",
         "src/modules/models/Order.js",
         "src/modules/models/OrderNPC.js",
+        "src/modules/models/Car.js",
 
         "src/modules/models/AnimalLodge.js",
 

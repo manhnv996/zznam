@@ -123,12 +123,12 @@ public class OrderNPC {
     public void setNpcResAni(ZPUserInfo user) {
         this.npcResAni = NPCresAni.getListNPCresAni()[(int) Math.floor(Math.random() * NPCresAni.getListNPCresAni().length * 0.99)];
         
-//        for (int i = 0; i < user.getAsset().getOrderNPCList().size(); i++){
-//            if (user.getAsset().getOrderNPCList().get(i).getNpcResAni().equals(this.npcResAni)){  
-//                this.setNpcResAni(user);
-//            }
-//            return;
-//        }
+        for (int i = 0; i < user.getAsset().getOrderNPCList().size(); i++){
+            if (user.getAsset().getOrderNPCList().get(i).getNpcResAni().equals(this.npcResAni)){  
+                this.setNpcResAni(user);
+            }
+            return;
+        }
     }
 
     public String getNpcResAni() {

@@ -15,6 +15,7 @@ import java.util.List;
 
 import model.Animal;
 import model.AnimalLodge;
+import model.Car;
 import model.Field;
 import model.Machine;
 import model.NatureThing;
@@ -44,6 +45,7 @@ public class ResponseUser extends BaseMsg {
         this.packStorages();
         this.packOrderList();
         this.packOrderNPCList();
+        this.packCar();
         
         this.packAnimalLodges();
         this.packMachines();
@@ -262,6 +264,14 @@ public class ResponseUser extends BaseMsg {
         bf.putInt(order.getOrderExp());
         bf.putLong(order.getWaittingTime());
         putStr(bf, order.getNpcResAni());
+    }
+    
+    /**
+     * Car
+     */
+    private void packCar(){
+        bf.putInt(user.getAsset().getCar().getDeliveryPrice());
+        bf.putInt(user.getAsset().getCar().getDeliveryExp());
     }
     
     

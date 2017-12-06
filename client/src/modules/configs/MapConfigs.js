@@ -224,3 +224,11 @@ MapConfigs.PopcornMachine = {
 		height: 2
 	}
 }
+
+MapConfigs.Car = {
+	position: { x: 16, y: 23 },
+	size: {
+		width: 2,
+		height: 1
+	}
+}

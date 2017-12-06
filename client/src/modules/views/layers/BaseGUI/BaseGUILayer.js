@@ -110,6 +110,11 @@ var BaseGUILayer = cc.Layer.extend({
     },
 
     showOrderLayer: function () {
+        if (CarSprite.instance.isStatus == DeliveryStatus.RECEIVABLE){
+            CarSprite.instance.onClick();
+            return;
+        }
+
         this._layout = new OrderBGLayer();
         // this._layout = OrderBGLayer.instance;
         if (this._layout._hasCloseButton) {

@@ -6,6 +6,7 @@ var OrderBGLayer = BaseLayout.extend({
     lastIndexItemClick: null,   //not yet started
 
     ctor:function(){
+
         //this._super();
         this._super(res.bgTruckOrder, "text_title_order_neighbor", true, true, false);
 
@@ -98,6 +99,7 @@ var OrderBGLayer = BaseLayout.extend({
         // this.addChild(btMakeOrder);
         this._bg.addChild(this.btMakeOrder);
         this.btMakeOrder.addClickEventListener(this.makeOrderEvent.bind(this));
+
 
     },
 

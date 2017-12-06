@@ -158,6 +158,13 @@ var OrderSprite = cc.Sprite.extend({
             parent.repeatSuggestMakeOrder();    //scale button makeOrder
         }
 
+
+//        //
+        if (CarSprite.instance.isStatus != DeliveryStatus.EMPTY) {
+            parent.btMakeOrder.setTouchEnabled(false);
+            parent.btMakeOrder.setColor(cc.color(128, 128, 128));
+        }
+
     },
     setupItemListPosition: function(parent) {
         var icon = new cc.Sprite(res.iconGoodMilk); //template

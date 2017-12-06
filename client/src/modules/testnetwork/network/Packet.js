@@ -32,12 +32,14 @@ gv.CMD.MAKE_ORDER = 10001;
 gv.CMD.CANCEL_ORDER = 10002;
 gv.CMD.CREATE_NEW_ORDER = 10003;
 gv.CMD.BOOST_WAIT_ORDER = 10004;
+gv.CMD.RECEIVE_DELIVERY_CAR = 10009;
 
 gv.CMD.MAKE_ORDER_NPC = 10011;
 gv.CMD.CANCEL_ORDER_NPC = 10012;
 gv.CMD.CREATE_NEW_ORDER_NPC = 10013;
 
 gv.CMD.RESPONSE_SYNC_ORDER = 10081;
+gv.CMD.RESPONSE_SYNC_CAR = 10089;
 gv.CMD.RESPONSE_SYNC_ORDER_NPC = 10091;
 
 
@@ -276,6 +278,25 @@ CmdSendBoostWaitOrder = fr.OutPacket.extend(
             this.packHeader();
 
             this.putInt(orderId);
+
+            this.updateSize();
+        }
+    }
+);
+
+CmdSendReceiceDeliveryCar = fr.OutPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+            this.initData(100);
+            this.setCmdId(gv.CMD.RECEIVE_DELIVERY_CAR);
+        },
+        pack:function(price, exp){
+            this.packHeader();
+
+            this.putInt(price);
+            this.putInt(exp);
 
             this.updateSize();
         }
@@ -769,6 +790,25 @@ testnetwork.packetMap[gv.CMD.RESPONSE_SYNC_ORDER] = fr.InPacket.extend(
     }
 );
 
+testnetwork.packetMap[gv.CMD.RESPONSE_SYNC_CAR] = fr.InPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+        },
+        readData:function(){
+
+            /*
+             INPROGRESS
+             */
+            this.deliveryPrice = this.getInt();
+            this.deliveryExp = this.getInt();
+
+        }
+
+    }
+);
+
 testnetwork.packetMap[gv.CMD.RESPONSE_SYNC_ORDER_NPC] = fr.InPacket.extend(
     {
         ctor:function()
@@ -842,6 +882,7 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         this.unpackStorages();
         this.unpackOrderList();
         this.unpackOrderNPCList();
+        this.unpackCar();
         this.unpackAnimalLodges();
         this.unpackMachines();
     },
@@ -955,6 +996,11 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         order.waittingTime = this.getLong();
 
         return order;
+    },
+    unpackCar: function () {
+        this.user.asset.car = {};
+        this.user.asset.car.deliveryPrice = this.getInt();
+        this.user.asset.car.deliveryExp = this.getInt();
     },
     //
     unpackOrderNPCList: function() {

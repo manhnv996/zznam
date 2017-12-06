@@ -6,6 +6,11 @@ var NPCSprite = AnimationSprite.extend({
 
     ctor: function (x, y, orderNPC) {
         // this._super(res.orderPaper);
+        /*
+        x: 15 - 16,
+        y: 18 - 20
+        out: x = 17
+         */
 
         this.orderNPC = orderNPC;
         this.orderId = orderNPC.orderId;

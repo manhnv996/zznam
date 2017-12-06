@@ -195,6 +195,20 @@ testnetwork.Connector = cc.Class.extend({
 
                 break;
 
+            case gv.CMD.RESPONSE_SYNC_CAR:
+                cc.log("RECEIVE RESPONSE_SYNC_CAR: ");
+                /*
+                 Inprogress
+                 */
+
+                var car = user.getAsset().getCar();
+                car.updateDelivery(packet.deliveryPrice, packet.deliveryExp);
+
+                cc.log(user.asset.car.deliveryPrice + "   dddd");
+                CarSprite.instance.updateCarStatus(car);
+
+                break;
+
             case gv.CMD.RESPONSE_SYNC_ORDER_NPC:
                 cc.log("RECEIVE RESPONSE_SYNC_ORDER_NPC: ", packet.orderNPC);
                 /*
@@ -368,6 +382,12 @@ testnetwork.Connector = cc.Class.extend({
         cc.log("sendBoostWaitOrder: " + orderId);
         var pk = this.gameClient.getOutPacket(CmdSendBoostWaitOrder);
         pk.pack(orderId);
+        this.gameClient.sendPacket(pk);
+    },
+    sendReceiceDeliveryCar: function (price, exp) {
+        cc.log("sendReceiceDeliveryCar: ");
+        var pk = this.gameClient.getOutPacket(CmdSendReceiceDeliveryCar);
+        pk.pack(price, exp);
         this.gameClient.sendPacket(pk);
     },
     //

@@ -114,8 +114,9 @@ var Order = cc.Class.extend({
                 user.getAsset().getWarehouse().takeItem(this.itemList[i].typeItem, this.itemList[i].quantity);
             }
 
-            user.addGold(this.orderPrice);
-            user.addExp(this.orderExp);
+            //user.addGold(this.orderPrice);
+            //user.addExp(this.orderExp);
+            user.getAsset().getCar().updateDelivery(this.orderPrice, this.orderExp);
 
             return true;
         }
@@ -134,8 +135,9 @@ var Order = cc.Class.extend({
             user.getAsset().getWarehouse().takeItem(remainItem[i].typeItem, remainItem[i].quantity);
         }
 
-        user.addGold(this.orderPrice);
-        user.addExp(this.orderExp);
+        //user.addGold(this.orderPrice);
+        //user.addExp(this.orderExp);
+        user.getAsset().getCar().updateDelivery(this.orderPrice, this.orderExp);
 
         return true;
 

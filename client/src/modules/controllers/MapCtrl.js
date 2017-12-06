@@ -143,13 +143,13 @@ var MapCtrl = cc.Class.extend({
 
     renderNPC: function () {
 
-        CarSprite.instance = new CarSprite(16, 23);
+        CarSprite.instance = new CarSprite(MapConfigs.Car.position.x, MapConfigs.Car.position.y, user.getAsset().getCar());
         MapLayer.instance.addChild(CarSprite.instance);
 
         MapLayer.instance.npcList = [];
         var orderNPCList = user.asset.orderNPCList;
         for (var i = 0; i < orderNPCList.length; i++){
-            var npcSprite = new NPCSprite(16 + i, 20 - i, orderNPCList[i]);
+            var npcSprite = new NPCSprite(15 + i, 20 - i, orderNPCList[i]);
             MapLayer.instance.addChild(npcSprite);
 
             // //
