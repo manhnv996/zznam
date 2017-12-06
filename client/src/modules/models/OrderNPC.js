@@ -53,9 +53,9 @@ var OrderNPC = Order.extend({
 
     //
     getFinishWaittingTime: function () {
-        if (this.orderItem == null){
-            return null;
-        }
+        // if (this.orderItem == null){
+        //     return null;
+        // }
         if (this.waittingTime == null){
             return null;
         }

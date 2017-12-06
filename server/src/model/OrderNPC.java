@@ -12,6 +12,7 @@ import config.utils.OrderUtil;
 import config.utils.ProductUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -97,14 +98,37 @@ public class OrderNPC {
     }
 
 
+//    public List<String> getNpcResAniRemain(ZPUserInfo user) {
+//        List<String> resRemain = new ArrayList<>();
+//        for (int i = 0; i < NPCresAni.getListNPCresAni().length; i++){
+//            resRemain.add(NPCresAni.getListNPCresAni()[i]);
+//        }
+//        Collections.sort(resRemain);
+//        for (int j = 0; j < resRemain.size(); j++){
+//            
+//        }
+//        List<String> resCurr = new ArrayList<>();
+//        for (int i = 0; i < user.getAsset().getOrderNPCList().size(); i++){
+//            resCurr.add(user.getAsset().getOrderNPCList().get(i).getNpcResAni());
+//        }
+//        Collections.sort(resRemain);
+//        
+//        for (int i = 0; i < resRemain.size(); i++){
+//            for (int j = 0; j < resCurr.size(); j++){
+//                if (resRemain.get(i).co)
+//            }
+//        }
+//    }
+
     public void setNpcResAni(ZPUserInfo user) {
         this.npcResAni = NPCresAni.getListNPCresAni()[(int) Math.floor(Math.random() * NPCresAni.getListNPCresAni().length * 0.99)];
         
-        for (int i = 0; i < user.getAsset().getOrderNPCList().size(); i++){
-            if (user.getAsset().getOrderNPCList().get(i).getNpcResAni().equals(this.npcResAni)){  
-                this.setNpcResAni(user);
-            }
-        }
+//        for (int i = 0; i < user.getAsset().getOrderNPCList().size(); i++){
+//            if (user.getAsset().getOrderNPCList().get(i).getNpcResAni().equals(this.npcResAni)){  
+//                this.setNpcResAni(user);
+//            }
+//            return;
+//        }
     }
 
     public String getNpcResAni() {
@@ -166,17 +190,18 @@ public class OrderNPC {
     
     
     public short makeOrderByRuby(ZPUserInfo user) {
-            if (this.orderItem == null){
-                /*
-                 * done
-                 * RETURN FALSE;
-                 */
-                return ErrorLog.ERROR_ORDER_NOT_COMPLETE.getValue();
-            }
-            
-            StorageItem missingItem = new StorageItem(this.orderItem.getTypeItem(), user.getAsset().getQuantityOfTwoStorageByProductId(this.orderItem.getTypeItem()));
-            
+        if (this.orderItem == null){
+            /*
+             * done
+             * RETURN FALSE;
+             */
+            return ErrorLog.ERROR_ORDER_NOT_COMPLETE.getValue();
+        }
         
+        StorageItem missingItem = new StorageItem(this.orderItem.getTypeItem(), user.getAsset().getQuantityOfTwoStorageByProductId(this.orderItem.getTypeItem()));
+        
+    
+        if (missingItem.getQuantity() > 0){
             if (this.orderItem.getTypeItem().contains("crop_")){
                 if (!user.getAsset().getFoodStorage().takeItem(missingItem.getTypeItem(), missingItem.getQuantity())){
                     return ErrorLog.ERROR_STORAGE_NOT_REDUCE.getValue();
@@ -186,15 +211,15 @@ public class OrderNPC {
                     return ErrorLog.ERROR_STORAGE_NOT_REDUCE.getValue();
                 }
             }
-            
-            
-            user.addGold(this.getOrderPrice());
-            user.addExp(this.getOrderExp());
-            //        
-            this.setWaittingTime(new Date().getTime());
-            this.orderItem = null;
-            
-            return ErrorLog.SUCCESS.getValue();
+        }
+        
+        user.addGold(this.getOrderPrice());
+        user.addExp(this.getOrderExp());
+        //        
+        this.setWaittingTime(new Date().getTime());
+        this.orderItem = null;
+        
+        return ErrorLog.SUCCESS.getValue();
     }
     
     

@@ -71,6 +71,9 @@ var BaseGUILayer = cc.Layer.extend({
     },
     //
     showOrderNPCLayer: function (orderNPC) {
+        if (orderNPC.orderItem == null) {
+            return;
+        }
         this._layout = new OrderNPCLayer(orderNPC);
         if (this._layout._hasCloseButton) {
             //cc.log("_btnClose");

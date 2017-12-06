@@ -164,6 +164,17 @@ var Asset = cc.Class.extend({
         }
         return list;
 
+    },
+//
+    getWaittingOrderNPCList: function () {
+        var list = [];
+        for (var i = 0; i < this.getOrderNPCList().length; i++){
+            if (this.getOrderNPCList()[i].checkStatus() == OrderStatusTypes.WAITTING){
+                list.push(this.getOrderNPCList()[i]);
+            }
+        }
+        return list;
+
     }
 
 });

@@ -114,6 +114,10 @@ var OrderCtrl = cc.Class.extend({
                  Run animation
                  */
                 BaseGUILayer.instance.removeBlockListener();
+
+                // //
+                // MapLayer.instance.getNPCByOrderNPCId(orderId).setPause();
+                // //
             } else {
                 var missionItem = orderNPCSelected.checkCondition();
                 /*
@@ -140,34 +144,36 @@ var OrderCtrl = cc.Class.extend({
                 /*
                 INPROGRESS
                  */
+                // //
+                // MapLayer.instance.getNPCByOrderNPCId(orderId).setPause();
+                // //
             } else {
                 //
 
             }
         }
-
-        //
-        OrderCtrl.instance.onShowOrderBG();
-
     },
 
 
     onCancelOrderNPC: function (orderId) {
         //
-        cc.log("orderititit " + orderId)
         var orderNPCSelected = user.getAsset().getOrderNPCById(orderId);
         if (orderNPCSelected != null){
             if (orderNPCSelected.cancelOrder() == true){
 
                 testnetwork.connector.sendCancelOrderNpc(orderId);
+
+                // //
+                // MapLayer.instance.getNPCByOrderNPCId(orderId).setPause();
+                // //
             }
         }
         /*
         Inprogress
         Run animation
          */
-    }
+    },
 
 
 });
-OrderCtrl.instance = new OrderCtrl();
+// OrderCtrl.instance = new OrderCtrl();

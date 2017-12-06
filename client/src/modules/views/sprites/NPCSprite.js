@@ -17,7 +17,7 @@ var NPCSprite = AnimationSprite.extend({
             MapItemEnum.NPC
         );
 
-        // this.play("1");
+        this.play("2");
 
         // this.addEventListener();
         // this.registerTouchEvents();
@@ -41,6 +41,14 @@ var NPCSprite = AnimationSprite.extend({
     },
 
 
+    //
+    setPause: function () {
+        this.pause();
+    },
+
+    setResume: function () {
+        this.resume();
+    }
 
     // addEventListener: function () {
     //     //

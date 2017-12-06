@@ -15,6 +15,7 @@ var OrderNPCLayer = BaseLayout.extend({
 
         // this._bg.runAction(cc.MoveBy(0.1, cc.p(- cc.winSize.width / 3.5, - cc.winSize.height / 8)));
 
+        //
         this.initOrderNPC(orderNPC);
     },
 

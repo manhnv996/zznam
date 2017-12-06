@@ -220,6 +220,16 @@ testnetwork.Connector = cc.Class.extend({
                 //    BaseGUILayer.instance._layout.initInfo();
                 //}
 
+                if (orderNPCSelected.checkStatus() == OrderStatusTypes.REALIZABLE){
+                    //
+                    MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).setResume();
+                    //
+                } else {
+                    //
+                    MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).setPause();
+                    //
+                }
+
                 break;
             ////
 

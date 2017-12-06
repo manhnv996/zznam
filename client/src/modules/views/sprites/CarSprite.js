@@ -1,8 +1,10 @@
 
 var CarSprite = AnimationSprite.extend({
 
-    orderId: 0,
-    order: null,
+    // orderId: 0,
+    // order: null,
+
+    isReceivable: false,
 
     ctor: function (x, y) {
         // this._super(res.orderPaper);
@@ -26,6 +28,7 @@ var CarSprite = AnimationSprite.extend({
         /*
         not yet started
          */
+        // this.testSequenceEvent();
     },
     onBeginClick: function() {
         this.setColor(cc.color(200, 200, 200));
@@ -37,6 +40,15 @@ var CarSprite = AnimationSprite.extend({
 
 
 
+
+    /////
+    actionDelivery: function () {
+
+    },
+
+    actionReceive: function () {
+        this.play("8");
+    },
 
     testSequenceEvent: function () {
 
@@ -87,10 +99,11 @@ var CarSprite = AnimationSprite.extend({
 
 
 
+        // MapValues.logicToScreenPosition(20, 25);
         var action11 = cc.sequence(
-            cc.moveBy(1, cc.p(50, 0)),
+            cc.moveTo(2, MapValues.logicToScreenPosition(15, 15)),
             cc.callFunc(function (nodeExecutingAction, value) {
-                this.runAction(new cc.moveBy(1, cc.p(0, 50)));
+                this.runAction(new cc.moveTo(2, MapValues.logicToScreenPosition(32, 32)));
                 this.control1 = "Value is: " + value;
                 cc.log("Object:" + nodeExecutingAction + ". " + this.control1);
             }.bind(this, "Hello world"))

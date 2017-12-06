@@ -24,8 +24,13 @@ var MainScene = cc.Scene.extend({
 
 		MapCtrl.instance = new MapCtrl();
 
+        OrderCtrl.instance = new OrderCtrl();
+
 		cc.log("Start Scene");
-		this.schedule(this.updateOrderWaittingTime, 1);
+
+		////
+        this.schedule(this.updateOrderWaittingTime, 1);
+        this.schedule(this.updateOrderNPCWaittingTime, 1);
 	},
 
 	onEnter: function() {
@@ -54,24 +59,42 @@ var MainScene = cc.Scene.extend({
 
 	},
 
-	//
-	updateOrderWaittingTime: function () {
-		var list = user.getAsset().getWaittingOrderList();
-		for (var i = 0; i < list.length; i++){
+    //
+    updateOrderWaittingTime: function () {
+        var list = user.getAsset().getWaittingOrderList();
+        for (var i = 0; i < list.length; i++){
 
-			var parseCurrTime = new Date().getTime();
-			var finishWaittingTime = list[i].getFinishWaittingTime();
-			if (finishWaittingTime != null){
-				if (parseCurrTime > finishWaittingTime.getTime()){
+            var parseCurrTime = new Date().getTime();
+            var finishWaittingTime = list[i].getFinishWaittingTime();
+            if (finishWaittingTime != null){
+                if (parseCurrTime > finishWaittingTime.getTime()){
 
-					testnetwork.connector.sendCreateNewOrder(list[i].orderId);
-				}
-			}
-		}
+                    testnetwork.connector.sendCreateNewOrder(list[i].orderId);
+                }
+            }
+        }
 
-	},
+    },
+//
+    updateOrderNPCWaittingTime: function () {
+        var list = user.getAsset().getWaittingOrderNPCList();
+        for (var i = 0; i < list.length; i++){
+cc.log("vaof vaof vaof")
+            var parseCurrTime = new Date().getTime();
+            var finishWaittingTime = list[i].getFinishWaittingTime();
+            if (finishWaittingTime != null){
+cc.log("not null not null")
+                if (parseCurrTime > finishWaittingTime.getTime()){
+cc.log("send send send")
+                    testnetwork.connector.sendCreateNewOrderNpc(list[i].orderId);
+                }
+            }
+        }
 
-	init: function() {
+    },
+
+
+    init: function() {
 
 		//gv.gameClient.connect();
 		//testnetwork.connector.sendLoginRequest();

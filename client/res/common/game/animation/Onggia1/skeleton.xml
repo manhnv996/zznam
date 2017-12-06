@@ -210,7 +210,7 @@
     </display>
    </slot>
   </skin>
-  <animation name="Walk" fadeInTime="0" duration="16" scale="1" loop="0" autoTween="1" tweenEasing="NaN">
+  <animation name="1" fadeInTime="0" duration="16" scale="1" loop="0" autoTween="1" tweenEasing="NaN">
    <timeline name="Cánh tay phải" scale="1" offset="0">
     <frame z="0" tweenEasing="0" duration="3">
      <transform x="-74.55" y="-116.35" skX="-140.44" skY="-140.44" scX="1" scY="1" pX="0" pY="0"/>
@@ -602,7 +602,7 @@
     <frame duration="8" displayIndex="-1"/>
    </timeline>
   </animation>
-  <animation name="Idle" fadeInTime="0" duration="32" scale="1" loop="0" autoTween="1" tweenEasing="NaN">
+  <animation name="2" fadeInTime="0" duration="32" scale="1" loop="0" autoTween="1" tweenEasing="NaN">
    <timeline name="Cánh tay phải" scale="1" offset="0">
     <frame z="0" tweenEasing="0" duration="7">
      <transform x="-81" y="-120.4" skX="-136.45" skY="-136.45" scX="1" scY="1" pX="0" pY="-0.05"/>
@@ -955,7 +955,7 @@
     <frame duration="1" displayIndex="-1"/>
    </timeline>
   </animation>
-  <animation name="Idle2" fadeInTime="0" duration="32" scale="1.16" loop="0" autoTween="1" tweenEasing="NaN">
+  <animation name="3" fadeInTime="0" duration="32" scale="1.16" loop="0" autoTween="1" tweenEasing="NaN">
    <timeline name="Cánh tay phải" scale="1" offset="0">
     <frame z="0" tweenEasing="0" duration="5">
      <transform x="-81" y="-120.4" skX="-136.45" skY="-136.45" scX="1" scY="1" pX="0" pY="-0.05"/>
@@ -1565,7 +1565,7 @@
     </frame>
    </timeline>
   </animation>
-  <animation name="Idle3" fadeInTime="0" duration="38" scale="0.89" loop="0" autoTween="1" tweenEasing="NaN">
+  <animation name="4" fadeInTime="0" duration="38" scale="0.89" loop="0" autoTween="1" tweenEasing="NaN">
    <timeline name="Cánh tay phải" scale="1" offset="0">
     <frame z="0" duration="1">
      <transform x="-81" y="-120.4" skX="-136.45" skY="-136.45" scX="1" scY="1" pX="0" pY="-0.05"/>
@@ -1854,7 +1854,7 @@
     <frame duration="3" displayIndex="-1"/>
    </timeline>
   </animation>
-  <animation name="Idle4" fadeInTime="0" duration="59" scale="1.07" loop="0" autoTween="1" tweenEasing="NaN">
+  <animation name="5" fadeInTime="0" duration="59" scale="1.07" loop="0" autoTween="1" tweenEasing="NaN">
    <timeline name="Cánh tay phải" scale="1" offset="0">
     <frame z="0" duration="15">
      <transform x="-81" y="-120.4" skX="-136.45" skY="-136.45" scX="1" scY="1" pX="0" pY="-0.05"/>
@@ -2179,7 +2179,7 @@
     </frame>
    </timeline>
   </animation>
-  <animation name="Idle5" fadeInTime="0" duration="24" scale="1" loop="0" autoTween="1" tweenEasing="NaN">
+  <animation name="6" fadeInTime="0" duration="24" scale="1" loop="0" autoTween="1" tweenEasing="NaN">
    <timeline name="Cánh tay phải" scale="1" offset="0">
     <frame z="0" tweenEasing="0" duration="4">
      <transform x="-95.3" y="-134.3" skX="-124.95" skY="-124.95" scX="1" scY="1" pX="0.05" pY="-0.1"/>
@@ -2564,7 +2564,7 @@
     </frame>
    </timeline>
   </animation>
-  <animation name="Happy" fadeInTime="0" duration="55" scale="1" loop="0" autoTween="1" tweenEasing="NaN">
+  <animation name="7" fadeInTime="0" duration="55" scale="1" loop="0" autoTween="1" tweenEasing="NaN">
    <timeline name="Cánh tay phải" scale="1" offset="0">
     <frame z="0" tweenEasing="0" duration="3">
      <transform x="-78.95" y="-120.5" skX="-136.45" skY="-136.45" scX="1" scY="1" pX="0" pY="-0.1"/>
@@ -3687,7 +3687,7 @@
     </frame>
    </timeline>
   </animation>
-  <animation name="Idle6" fadeInTime="0" duration="48" scale="1" loop="0" autoTween="1" tweenEasing="NaN">
+  <animation name="8" fadeInTime="0" duration="48" scale="1" loop="0" autoTween="1" tweenEasing="NaN">
    <timeline name="Cánh tay phải" scale="1" offset="0">
     <frame z="0" tweenEasing="0" duration="5">
      <transform x="-78.95" y="-120.5" skX="-136.45" skY="-136.45" scX="1" scY="1" pX="0" pY="-0.1"/>
