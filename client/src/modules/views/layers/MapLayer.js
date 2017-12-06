@@ -557,7 +557,7 @@ var MapLayer = cc.Layer.extend({
         		cc.log("[T] onTouchesMoved");
         	}
         });
-		// cc.eventManager.addListener(multiTouchListener, this);
+		// cc.eventManager.addListener(multiTouchListener, 1);
 		
 		this.centerPoint = cc.p(
 			this.getContentSize().width / 2,
