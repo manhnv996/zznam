@@ -49,7 +49,7 @@ var BaseGUILayer = cc.Layer.extend({
         //}
 
         this.blockLayout();
-        this.addChild(this._layout);
+        //this.addChild(this._layout);
     },
 
     touchBuyObjectByRuy: function (sender, type) {
@@ -84,7 +84,7 @@ var BaseGUILayer = cc.Layer.extend({
         }
         //this._layout.gImg.setTexture(res.ruby);
         this.blockLayout();
-        this.addChild(this._layout);
+        //this.addChild(this._layout);
     },
 
     notifyFullStorage: function (storageType) {
@@ -94,7 +94,7 @@ var BaseGUILayer = cc.Layer.extend({
             this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);
         }
         this.blockLayout();
-        this.addChild(this._layout);
+        //this.addChild(this._layout);
     },
 
     showStorage: function (storage) {
@@ -106,7 +106,6 @@ var BaseGUILayer = cc.Layer.extend({
             this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);
         }
         this.blockLayout();
-        this.addChild(this._layout);
     },
 
     showOrderLayer: function () {
@@ -117,7 +116,7 @@ var BaseGUILayer = cc.Layer.extend({
             this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);
         }
         this.blockLayout();
-        this.addChild(this._layout);
+        //this.addChild(this._layout);
     },
 
     showSuggestBuyMissionItem: function (storageMissingItemList, targetType, orderId) {
@@ -127,7 +126,7 @@ var BaseGUILayer = cc.Layer.extend({
             this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);
         }
         this.blockLayout();
-        this.addChild(this._layout);
+        //this.addChild(this._layout);
     },
     showNoticeSureCancelOrder: function (orderId) {
         this._layout = new NoticeCancelOrder(orderId);
@@ -136,7 +135,7 @@ var BaseGUILayer = cc.Layer.extend({
             this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);
         }
         this.blockLayout();
-        this.addChild(this._layout);
+        //this.addChild(this._layout);
     },
     //
     showOrderNPCLayer: function (orderNPC) {
@@ -149,7 +148,7 @@ var BaseGUILayer = cc.Layer.extend({
             this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);
         }
         this.blockLayout();
-        this.addChild(this._layout);
+        //this.addChild(this._layout);
     },
     ////BaseGUILayer.instance.removeBlockListener();
 
@@ -161,6 +160,7 @@ var BaseGUILayer = cc.Layer.extend({
         MainGuiLayer.instance.lockButton();
         this._blockLayout = new BlockListenerLayer(this._layout.getContentSize());
         this.addChild(this._blockLayout);
+        this.addChild(this._layout);
     },
 
     touchCloseButton: function (sender, type) {
@@ -211,9 +211,9 @@ var BaseGUILayer = cc.Layer.extend({
     /**
      * Popup loanding bar
      */
-
-    loadingBar: function () {
-        var loadingBar = new LoadingBarLayout();
-        this.addChild(loadingBar);
-    }
+    //
+    //loadingBar: function () {
+    //    var loadingBar = new LoadingBarLayout();
+    //    this.addChild(loadingBar);
+    //}
 });

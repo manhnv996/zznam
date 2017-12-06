@@ -4,8 +4,8 @@
 
 var BlockListenerLayer = cc.LayerColor.extend({
     _isClose: false,
-    _debug: false,
-    //_debug: true,
+    //_debug: false,
+    _debug: true,
 
     ctor: function (sizeBlock) {
         this._super(cc.Color.BLACK, cc.winSize.width, cc.winSize.height);
@@ -17,10 +17,10 @@ var BlockListenerLayer = cc.LayerColor.extend({
         this._blockFull.setContentSize(cc.winSize.width, cc.winSize.height);
         this._blockFull.setPosition(cc.p(0,0));
 
-        if (this._debug) {
-            this._blockFull.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
-            this._blockFull.setBackGroundColor(cc.color.WHITE);
-        }
+        //if (this._debug) {
+        //    this._blockFull.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
+        //    this._blockFull.setBackGroundColor(cc.color.WHITE);
+        //}
 
         this.addChild(this._blockFull);
 
@@ -42,8 +42,8 @@ var BlockListenerLayer = cc.LayerColor.extend({
         this.scheduleUpdate();
 
         if (this._debug) {
-            this.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
-            this.setBackGroundColor(cc.color.GREEN);
+            this._blockGUI.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
+            this._blockGUI.setBackGroundColor(cc.color.GREEN);
         }
     },
 
@@ -60,7 +60,7 @@ var BlockListenerLayer = cc.LayerColor.extend({
                 var rect = cc.rect(0, 0, s.width, s.height);
 
                 if (!cc.rectContainsPoint(rect, locationInNode)) {
-                    //cc.log("Touch Block Event ");
+                    cc.log("Touch Block Event ");
                     this._isClose = true;
                     //return true;
                 }

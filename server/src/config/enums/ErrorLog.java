@@ -38,7 +38,7 @@ public enum ErrorLog {
     
     ERROR_UPGRADE_FAIL((short)  83),
     
-    ERROR_COMPLETED_BUIDING_FAIL((short) 91);
+    ERROR_COMPLETED_BUIDING_FAIL((short) 90);
                                     
 
 

@@ -466,6 +466,7 @@ CmdSendBuildCompleted = fr.OutPacket.extend({
         this.setCmdId(gv.CMD.BUID_COMPLETED);
     },
     pack: function (id, typeBuilding) {
+        cc.log("gv.CMD.BUID_COMPLETED " + gv.CMD.BUID_COMPLETED);
         this.packHeader();
         this.putInt(id);
         this.putInt(typeBuilding);

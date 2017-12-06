@@ -4,7 +4,7 @@ var Asset = cc.Class.extend({
     foodStorage: Storages,
     warehouse: Storages,
     fieldList: null,
-    machineList: null,
+    machineList: [],
     natureThingList: null,
     myShop: null,
     orderList: [],
@@ -187,7 +187,7 @@ var Asset = cc.Class.extend({
 
     getMachineById: function (id) {
         var machine = this.machineList.find(function (f) {
-            return f.id = id;
+            return f.id === id;
         });
         return machine;
     }

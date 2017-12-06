@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
 public class ConstructedHandler extends BaseClientRequestHandler{
     
     public static short CONSTRUCTED_MULTI_IDS = 9000;
-    private final Logger logger = LoggerFactory.getLogger("GameShopBuyHandler");
+    private final Logger logger = LoggerFactory.getLogger("ConstructedHandler");
     
     public ConstructedHandler() {
         super();
@@ -72,7 +72,8 @@ public class ConstructedHandler extends BaseClientRequestHandler{
         /**
          *  Process in here
          */
-        
+        System.out.println("Build Completed");
+
         switch (req.typeBuilding) {
             case MapItemEnum.MACHINE:
                 Machine machineModel = userInfo.getAsset().getMachineById(req.id);
@@ -83,6 +84,7 @@ public class ConstructedHandler extends BaseClientRequestHandler{
                 
                 if ((curTime - startBuildTime) >= totalTime) {
                     machineModel.setCompleted();
+//                    System.out.println("Build Completed");
                     send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
                 } else {
                     send(new ResponseErrorCode(ErrorLog.ERROR_COMPLETED_BUIDING_FAIL.getValue()), user);
