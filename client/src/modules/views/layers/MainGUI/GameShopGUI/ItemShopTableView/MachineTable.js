@@ -255,13 +255,13 @@ var MachineTable = cc.Layer.extend({
                         cc.log(missGold);
                         if (missGold) {
                             //this._sprite.removeFromParent(true);
-                            BaseGUILayer.instance.notifyShopNotEnoughGold(missGold, this._sprite._Id, this.typeObject,
+                            BaseGUILayer.instance.notifyShopNotEnoughGold(missGold, this.typeObject,
                                 this._sprite.lx, this._sprite.ly);
                         } else {
                             // Success
                             //MapCtrl.instance.addSpriteAlias(this._sprite);
                             //this._sprite.setLogicPosition(this._sprite.lx, this._sprite.ly, false);
-                            var machineModel;
+                            //var machineModel;
                             switch (this.typeObject) {
                                 case "bakery_machine":
                                     //Constructed Sprite
@@ -285,7 +285,7 @@ var MachineTable = cc.Layer.extend({
                             }
                             //Create Model
                             var machineConfig = getMachineConfigByType(this.typeObject);
-                            machineModel = new Machine(this._sprite.id, this.typeObject, machineConfig.slot, 0, null,
+                            var machineModel = new Machine(this._sprite.id, this.typeObject, machineConfig.slot, 0, null,
                                 false, new Date().getTime(), new Coordinate(this._sprite.lx, this._sprite.ly));
 
                             MapLayer.instance.addChild(this._sprite);

@@ -9,12 +9,12 @@ var BaseGUILayer = cc.Layer.extend({
         this._super();
     },
 
-    notifyShopNotEnoughGold: function (gold, id, typeShopObject, lx, ly) {
+    notifyShopNotEnoughGold: function (gold, typeShopObject, lx, ly) {
         //cc.log("Notify Miss Gold");
 
         this._layout = new NotifyNotEnoughG(gold);
 
-        this._layout.id = id;
+        //this._layout.id = id;
         this._layout.typeShopObject = typeShopObject;
         this._layout.lx = lx;
         this._layout.ly = ly;
@@ -67,7 +67,7 @@ var BaseGUILayer = cc.Layer.extend({
                 //if (ruby < this._layout.rubyNumber) {
                 //    BaseGUILayer.instance.notifyNotEnoughRuby(this._layout.rubyNumber - ruby);
                 //} else {
-                GameShopController.instance.buyMapObjectByRuby(this._layout.id, this._layout.typeShopObject,
+                GameShopController.instance.buyMapObjectByRuby(this._layout.typeShopObject,
                     this._layout.lx, this._layout.ly, this._layout.rubyNumber);
                 //}
                 break;
