@@ -22,18 +22,12 @@ var _ = (function() {
 	    NHOM_CAY_2: 	r("nhom-cay2 x 2.png"),
 	    HOA_1: 			r("hoa1.png"),
 	    HOA_2: 			r("hoa2.png"),
-	    STONE_13: 		r("stone13.png"),
-	    STONE_12: 		r("stone12.png"),
 	    GRASS_TREE_1: 	r("grass-tre.png"),
 	    GRASS_TREE_2: 	r("grass-tree.png"),
-	    CAY_02_OUT: 	r("cay02.png"),
-	    CAY_01_OUT: 	r("forest_small_tree_2.png"),
 	    HABOR: 			r("habor.png"),
 	    ROADSIDE_SHOP: 	r("roadside-shop.png"),
 	    MAIL_BOX: 		r("mail-box.png"),
-	    O_DAT: 			r("Odat.png"),
-	    SILO: 			"Art/Storage/silo/silo.png",
-	    WAREHOUSE: 		"Art/Storage/wareHouse/warehouse.png"
+	    O_DAT: 			r("Odat.png")
 	};
 
 	var g_MapResource = [];

@@ -17,4 +17,8 @@ public class ConstructedObject extends CoordinateObject {
     public long getStartBuildTime() {
         return this.startBuildTime;    
     }
+    
+    public void setCompleted() {
+        this.completed = true;
+    }
 }

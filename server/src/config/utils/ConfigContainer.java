@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import config.enums.MapItemEnum;
 
+import config.jsonobject.MachineConfig;
 import config.jsonobject.ShopCoopConfig;
 import config.jsonobject.map.NaturalObject;
 
@@ -28,6 +29,7 @@ public class ConfigContainer {
     public static List<NaturalObject> defaultNatural;
     
     public static ShopCoopConfig[] shopCoopConfig;
+    public static MachineConfig[] machineConfig;
     
     
     public static void init() {
@@ -120,6 +122,7 @@ public class ConfigContainer {
         }
         try {
             shopCoopConfig = gson.fromJson(new FileReader("src/config/json/shopCoopconfig.json"), ShopCoopConfig[].class);
+            machineConfig =  gson.fromJson(new FileReader("src/config/json/machineConfig.json"), MachineConfig[].class);
 //            System.out.println(shopCoopConfig[0].type);
         } catch (FileNotFoundException e) {
             e.printStackTrace();    
@@ -133,6 +136,24 @@ public class ConfigContainer {
             }
         }
         return 0;
+    }
+    
+    public static int getMachineSlot (String type) {
+        for (int i = 0; i< machineConfig.length; i++) {
+            if (machineConfig[i].id.equals(type)) {
+                return machineConfig[i].slot;
+            }
+        }
+        return 0;
+    }
+    
+    public static MachineConfig getMachineConfigByType (String type) {
+        for (int i = 0; i< machineConfig.length; i++) {
+            if (machineConfig[i].id.equals(type)) {
+                return machineConfig[i];
+            }
+        }
+        return null;
     }
     
     public static String toJSON(Object obj) {

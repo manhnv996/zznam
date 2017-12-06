@@ -182,8 +182,6 @@ public class ResponseUser extends BaseMsg {
         bf.putInt(lodge.getX());
         bf.putInt(lodge.getY());
         bf.putInt(lodge.getId());
-        bf.putLong(lodge.getStartBuildTime());
-        bf.putInt(lodge.isCompleted() ? 1 : 0);
         // Pack animal list
         List<Animal> animalList = lodge.getAnimalList();
         int size = animalList.size();
@@ -290,6 +288,7 @@ public class ResponseUser extends BaseMsg {
         bf.putLong(machine.getStartTime());
         bf.putInt(machine.isCompleted() ? 1 : 0);
         bf.putLong(machine.getStartBuildTime());
+        
         List<String> productQueue = machine.getProductQueue();  
         
         int size = productQueue.size();

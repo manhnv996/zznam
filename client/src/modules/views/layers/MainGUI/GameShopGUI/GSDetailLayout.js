@@ -78,12 +78,12 @@ var GSDetailLayout = ccui.Layout.extend({
         this._layout.setContentSize(cc.size(this._bg_size.width, cc.winSize.height / 9 * 8));
         this.addChild(this._layout);
 
-        var lodgeTable = new LodgeTable();
-        var animalTable = new AnimalTable();
-        var machineTable = new MachineTable();
-        var treeTable = new TreeTable();
+        this._lodgeTable = new LodgeTable();
+        this._animalTable = new AnimalTable();
+        this._machineTable = new MachineTable();
+        this._treeTable = new TreeTable();
 
-        this._multiLayer = new cc.LayerMultiplex(lodgeTable, animalTable, machineTable, treeTable);
+        this._multiLayer = new cc.LayerMultiplex(this._lodgeTable, this._animalTable, this._machineTable, this._treeTable);
         this._multiLayer.switchTo(0);
 
         this._layout.addChild(this._multiLayer);
@@ -132,5 +132,27 @@ var GSDetailLayout = ccui.Layout.extend({
         this._btnAnimal.loadTextureNormal(res.shop_btAnimal_n_png);
         this._btnMachine.loadTextureNormal(res.shop_btMachine_n_png);
         this._btnTree.loadTextureNormal(res.shop_btTree_n_png);
+    },
+
+    lockGameShop: function () {
+        this._btnAnimal.setTouchEnabled(false);
+        this._btnLodge.setTouchEnabled(false);
+        this._btnMachine.setTouchEnabled(false);
+        this._btnTree.setTouchEnabled(false);
+        //this.lodgeTable.setTouchEnabled(false);
+        //this.animalTable.setInertiaScrollEnabled(false);
+        //this.machineTable.setTouchEnabled(false);
+        //this.treeTable.setInertiaScrollEnabled(false);
+    },
+
+    unlockGameShop: function () {
+        this._btnAnimal.setTouchEnabled(true);
+        this._btnLodge.setTouchEnabled(true);
+        this._btnMachine.setTouchEnabled(true);
+        this._btnTree.setTouchEnabled(true);
+        //this.lodgeTable.setTouchEnabled(false);
+        //this.animalTable.setInertiaScrollEnabled(false);
+        //this.machineTable.setTouchEnabled(false);
+        //this.treeTable.setInertiaScrollEnabled(false);
     }
 });

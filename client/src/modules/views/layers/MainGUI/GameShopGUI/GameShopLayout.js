@@ -56,7 +56,7 @@ var GameShopLayout = ccui.Layout.extend({
         var moveAction = cc.moveTo(0.1, cc.p(0, 0));
         this._layoutBlockListener.runAction(moveAction);
         this._gameShop.runAction(moveAction.clone());
-        cc.log("this.listener" + this.listener);
+        //cc.log("this.listener" + this.listener);
         if (this.listener) {
             cc.eventManager.removeListener(this.listener);
             //cc.log("remove listener");
@@ -64,7 +64,7 @@ var GameShopLayout = ccui.Layout.extend({
     },
 
     show: function () {
-        this.scheduleUpdate();
+        //this.scheduleUpdate();
         this._isHide = false;
         MainGuiLayer.instance.btnSettings.setTouchEnabled(false);
         var moveActionBtn = cc.moveTo(0.1, cc.p(cc.winSize.width / 3 - 10, 0));
@@ -74,7 +74,9 @@ var GameShopLayout = ccui.Layout.extend({
         this._layoutBlockListener.runAction(moveAction);
         this._gameShop.runAction(moveAction.clone());
         this.blockListener();
-        cc.log("this.listener2" + this.listener);
+        //cc.log("this.listener2" + this.listener);
+
+        //cc.log("this._isHide " + this._isHide);
     },
 
     blockListener: function () {
@@ -88,7 +90,7 @@ var GameShopLayout = ccui.Layout.extend({
                 var locationInNode = target.convertToNodeSpace(touch.getLocation());
                 var s = target.getContentSize();
                 var rect = cc.rect(0, 0, s.width, s.height);
-
+                //cc.log("Block began");
                 if (cc.rectContainsPoint(rect, locationInNode)) {
                     //cc.log("Touch Block Event Shop");
                     //cc.log("sprite began... x = " + locationInNode.x + ", y = " + locationInNode.y);
@@ -100,9 +102,22 @@ var GameShopLayout = ccui.Layout.extend({
                 //if (!this._isHide) {
                 //    this.hide();
                 //}
-                this._isClose = false;
+                //this._isClose = true;
+                this.hide();
                 return false;
                 //return true;
+            }.bind(this),
+
+            onTouchMoved: function(touch) {
+                this._isClose = false;
+                var delta = touch.getDelta();
+                //MapLayer.instance.move(delta.x, delta.y);
+            }.bind(this),
+
+            onTouchEnded: function() {
+                if (this._isClose) {
+                    this.hide();
+                }
             }.bind(this)
         });
         //cc.log("add listener");
@@ -115,11 +130,11 @@ var GameShopLayout = ccui.Layout.extend({
         }
     },
 
-    update: function (dt) {
-        if (!this._isClose) {
-            this.unscheduleUpdate();
-            this.hide();
-            this._isClose = true;
-        }
-    }
+    //update: function (dt) {
+    //    if (!this._isClose) {
+    //        this.unscheduleUpdate();
+    //        this.hide();
+    //        this._isClose = true;
+    //    }
+    //}
 });

@@ -32,52 +32,52 @@
   </bone>
   <skin name="default">
    <slot name="Layer 273" parent="Layer 273" z="0">
-    <display name="trang thai xay dung4x4.psd Assets/Layer 273" type="image">
+    <display name="112/Layer 273" type="image">
      <transform x="-517" y="-266.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 274" parent="Layer 274" z="1">
-    <display name="trang thai xay dung4x4.psd Assets/Layer 274" type="image">
+    <display name="112/Layer 274" type="image">
      <transform x="-419.5" y="-251.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 275 copy 4" parent="Layer 275 copy 4" z="2">
-    <display name="trang thai xay dung4x4.psd Assets/Layer 275 copy 4" type="image">
+    <display name="112/Layer 275 copy 4" type="image">
      <transform x="-56.5" y="-34.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 275 copy 5" parent="Layer 275 copy 5" z="3">
-    <display name="trang thai xay dung4x4.psd Assets/Layer 275 copy 5" type="image">
+    <display name="112/Layer 275 copy 5" type="image">
      <transform x="-56.5" y="-54.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Group 74" parent="Group 74" z="4">
-    <display name="trang thai xay dung4x4.psd Assets/Group 74" type="image">
+    <display name="112/Group 74" type="image">
      <transform x="-369.5" y="-352" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 3" parent="Layer 3" z="5">
-    <display name="trang thai xay dung4x4.psd Assets/bongden" type="image">
+    <display name="112/bongden" type="image">
      <transform x="-94.45" y="-89.45" skX="0" skY="0" scX="1" scY="1" pX="-57" pY="-52"/>
     </display>
    </slot>
    <slot name="Layer 275" parent="Layer 275" z="6">
-    <display name="trang thai xay dung4x4.psd Assets/Layer 275" type="image">
+    <display name="112/Layer 275" type="image">
      <transform x="-56.5" y="-34.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 275 copy" parent="Layer 275 copy" z="7">
-    <display name="trang thai xay dung4x4.psd Assets/Layer 275 copy" type="image">
+    <display name="112/Layer 275 copy" type="image">
      <transform x="-56.5" y="-34.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 275 copy 2" parent="Layer 275 copy 2" z="8">
-    <display name="trang thai xay dung4x4.psd Assets/Layer 275 copy 2" type="image">
+    <display name="112/Layer 275 copy 2" type="image">
      <transform x="-61.5" y="-54.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 275 copy 3" parent="Layer 275 copy 3" z="9">
-    <display name="trang thai xay dung4x4.psd Assets/Layer 275 copy 3" type="image">
+    <display name="112/Layer 275 copy 3" type="image">
      <transform x="-56.5" y="-34.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>

@@ -32,5 +32,10 @@ var Animal = cc.Class.extend({
     getTimeFinish: function () {
         //date
 
+    },
+
+    // return in milisecond
+    getRemainTime: function() {
+        cc.log(this.type);
     }
 });

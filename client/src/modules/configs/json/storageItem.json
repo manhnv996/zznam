@@ -1,0 +1,128 @@
+{
+  "crop_wheat" : {
+    "name": "crop_wheat_name",
+    "description" : "crop_wheat_description",
+    "time": 2,
+    "typeTime": "Text_time_minute",
+    "nameIcon" : "Art/Crops/Field/crops.png"
+  },
+
+  "crop_corn" : {
+    "name": "crop_corn_name",
+    "description" : "crop_corn_description",
+    "time": 5,
+    "typeTime": "Text_time_minute",
+    "nameIcon" : "Art/Crops/Field/corn.png"
+  },
+
+  "crop_carrot" : {
+    "name": "crop_carrot_name",
+    "description" : "crop_carrot_description",
+    "time": 10,
+    "typeTime": "Text_time_minute",
+    "nameIcon" : "Art/Crops/Field/caroot.png"
+  },
+
+  "crop_soybean" : {
+    "name": "crop_soybean_name",
+    "description" : "crop_soybean_description",
+    "time": 20,
+    "typeTime": "Text_time_minute",
+    "nameIcon" : "Art/Crops/Field/dau.png"
+  },
+
+  "crop_sugarcane" : {
+    "name": "crop_sugarcane_name",
+    "description" : "crop_sugarcane_description",
+    "time": 30,
+    "typeTime": "Text_time_minute",
+    "nameIcon" : "Art/Crops/Field/mia.png"
+  },
+
+  "crop_chili_pepper" : {
+    "name": "crop_chili_pepper_name",
+    "description" : "crop_chili_pepper_description",
+    "time": 2,
+    "typeTime": "Text_time_minute",
+    "nameIcon" : "Art/Crops/Field/vhili pepper.png"
+  },
+
+  "crop_indigo" : {
+    "name": "crop_indigo_name",
+    "description" : "crop_indigo_description",
+    "time": 2,
+    "typeTime": "Text_time_hour",
+    "nameIcon" : "Art/Crops/Field/indigo.png"
+  },
+
+  "crop_tomato" : {
+    "name": "crop_tomato_name",
+    "description" : "crop_tomato_description",
+    "time": 10,
+    "typeTime": "Text_time_hour",
+    "nameIcon" : "Art/Crops/Field/tomato.png"
+  },
+
+  "crop_strawberry" : {
+    "name": "crop_strawberry_name",
+    "description" : "crop_strawberry_description",
+    "time": 18,
+    "typeTime": "Text_time_hour",
+    "nameIcon" : "Art/Crops/Field/strawberry.png"
+  },
+
+  "tool_nail" : {
+    "name": "tool_nail_name",
+    "description" : "tool_nail_description",
+    "time": "",
+    "typeTime": "",
+    "nameIcon" : "Art/Tool/dinh3.png",
+    "price": 5
+  },
+
+  "tool_screw" : {
+    "name": "tool_screw_name",
+    "description" : "tool_screw_description",
+    "time": "",
+    "typeTime": "Text_time_minute",
+    "nameIcon" : "Art/Tool/dinh.png",
+    "price": 10
+  },
+
+  "tool_woodPanel" : {
+    "name": "tool_woodPanel_name",
+    "description" : "tool_woodPanel_description",
+    "time": "",
+    "typeTime": "",
+    "nameIcon" : "Art/Tool/go2.png",
+    "price": 15
+  },
+
+  "tool_bolt" : {
+    "name": "tool_bolt_name",
+    "description" : "tool_bolt_description",
+    "time": "",
+    "typeTime": "",
+    "nameIcon" : "Art/Tool/dinh2.png",
+    "price": 7
+  },
+
+  "tool_plank" : {
+    "name": "tool_plank_name",
+    "description" : "tool_plank_description",
+    "time": "",
+    "typeTime": "",
+    "nameIcon" : "Art/Tool/go1.png",
+    "price": 9
+  },
+
+  "tool_ductTape" : {
+    "name": "tool_ductTape_name",
+    "description" : "tool_ductTape_description",
+    "time": "",
+    "typeTime": "",
+    "nameIcon" : "Art/Tool/bangdinh.png",
+    "price": 11
+  }
+
+}

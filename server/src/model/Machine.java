@@ -22,6 +22,7 @@ public class Machine extends ConstructedObject {
         this.id = id;
         this.type = type;
         this.slot = slot;
+        this.startTime = 0;
     }
     
     public List<String> getProductQueue() {

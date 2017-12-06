@@ -44,14 +44,20 @@ gv.CMD.RESPONSE_SYNC_ORDER_NPC = 10091;
 // Map
 gv.CMD.MOVE_FIELD = 6001;
 gv.CMD.MOVE_STORAGE = 6002;
+gv.CMD.MOVE_MAP_BLOCK = 6003;
 gv.CMD.RESPONSE_MOVE = 6100;
 
 //Shop
 gv.CMD.BUY_MAP_OBJECT_REQUEST = 7001;
+gv.CMD.BUY_MAP_OBJECT_BY_RUBY = 7002;
 
 //Storage
 gv.CMD.BUY_TOOL_REQUEST = 8001;
 gv.CMD.UPGRADE_STORAGE_REQUEST = 8002;
+
+//Constructed
+gv.CMD.BUID_COMPLETED = 9001;
+
 
 testnetwork = testnetwork||{};
 testnetwork.packetMap = {};
@@ -364,6 +370,22 @@ CmdSendMoveField = fr.OutPacket.extend({
     }
 });
 
+CmdSendMoveMapBlock = fr.OutPacket.extend({
+    ctor: function() {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.MOVE_MAP_BLOCK);
+    },
+    pack: function(type, id, x, y) {
+        this.packHeader();
+        this.putInt(type);
+        this.putInt(id);
+        this.putInt(x);
+        this.putInt(y);
+        this.updateSize();
+    }
+});
+
 CmdSendBuyMapObjectRequest = fr.OutPacket.extend({
     ctor: function () {
         this._super();
@@ -376,6 +398,23 @@ CmdSendBuyMapObjectRequest = fr.OutPacket.extend({
         this.putString(type);
         this.putInt(x);
         this.putInt(y);
+        this.updateSize();
+    }
+});
+
+CmdSendBuyMapObjectByRuby = fr.OutPacket.extend({
+    ctor: function () {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.BUY_MAP_OBJECT_BY_RUBY);
+    },
+    pack: function (id, type, x, y, ruby) {
+        this.packHeader();
+        this.putInt(id);
+        this.putString(type);
+        this.putInt(x);
+        this.putInt(y);
+        this.putInt(ruby);
         this.updateSize();
     }
 });
@@ -416,6 +455,20 @@ CmdSendGetUser = fr.OutPacket.extend({
     },
     pack: function() {
         this.packHeader();
+        this.updateSize();
+    }
+});
+
+CmdSendBuildCompleted = fr.OutPacket.extend({
+    ctor: function () {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.BUID_COMPLETED);
+    },
+    pack: function (id, typeBuilding) {
+        this.packHeader();
+        this.putInt(id);
+        this.putInt(typeBuilding);
         this.updateSize();
     }
 });
@@ -949,8 +1002,6 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         lodge.x = this.getInt();
         lodge.y = this.getInt();
         lodge.id = this.getInt();
-        lodge.startBuildTime = parseInt(this.getLong());
-        lodge.completed = this.getInt() ? true : false;
 
         // Unpack animal list
         lodge.animalList = [];
@@ -998,6 +1049,8 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         for (var i = 0; i < size; i++) {
             machine.productQueue.push(this.getString());
         }
+
+        return machine;
     }
 
 });

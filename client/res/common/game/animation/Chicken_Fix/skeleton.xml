@@ -1,5 +1,5 @@
 <dragonBones name="Chicken_Fix" frameRate="24" version="2.3">
- <armature name="Ga">
+ <armature name="Chicken_Fix">
   <bone name="chantrong_walk">
    <transform x="6.15" y="-11.85" skX="14.73" skY="14.73" scX="-1" scY="1"/>
   </bone>

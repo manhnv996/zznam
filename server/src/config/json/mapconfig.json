@@ -103,5 +103,39 @@
         "width": 4,
         "height": 4
     }
+  },
+  
+  
+  "Machine": {
+      "Bakery_Machine": {
+          "size": {
+              "width": 3,
+              "height": 3
+          }
+      },
+      "Food_Machine": {
+          "size": {
+              "width": 2,
+              "height": 2
+          }
+      },
+      "Butter_Machine": {
+          "size": {
+              "width": 4,
+              "height": 4
+          }
+      },
+      "Sugar_Machine": {
+          "size": {
+              "width": 3,
+              "height": 3
+          }
+      },
+      "Popcorn_Machine": {
+          "size": {
+              "width": 2,
+              "height": 2
+          }
+      }
   }
 }

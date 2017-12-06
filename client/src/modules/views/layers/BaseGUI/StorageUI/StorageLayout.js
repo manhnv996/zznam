@@ -9,7 +9,7 @@ var StorageLayout = BaseLayout.extend({
     ctor: function (storage) {
         this._super(res.storage_bg_png, "", false, true, true);
 
-        var upgradeLayer;
+        //var upgradeLayer;
         var type = storage.getStorageType();
         var total = storage.getCurrentQuantity();
         var capacity = storage.getCapacity();
@@ -20,12 +20,11 @@ var StorageLayout = BaseLayout.extend({
         //Set name storage
         if (type == StorageTypes.FOOD_STORAGE) {
             name.setString(fr.Localization.text("NAME_SILO") + total + "/" + capacity);
-            upgradeLayer = new UpgradeSiloLayer(storage.level);
+            this.upgradeLayer = new UpgradeSiloLayer(storage.level);
             //cc.log("UpgradeSiloLayer " + storage.level);
         } else {
             name.setString(fr.Localization.text("NAME_WARE_HOUSE") + total + "/" + capacity);
-            upgradeLayer = new UpgradeWareLayer(storage.level);
-            cc.log("UpgradeWareLayer");
+            this.upgradeLayer = new UpgradeWareLayer(storage.level);
         }
         this.addChild(name);
 
@@ -49,8 +48,8 @@ var StorageLayout = BaseLayout.extend({
         this._layoutContent.setContentSize(cc.winSize.width / 2, cc.winSize.height / 2);
         this.addChild(this._layoutContent);
 
-        var itemListLayer = new StorageItemListLayer(storage.getItemList());
-        this._multiLayer = new cc.LayerMultiplex(itemListLayer, upgradeLayer);
+        this.itemListLayer = new StorageItemListLayer(storage.getItemList());
+        this._multiLayer = new cc.LayerMultiplex(this.itemListLayer, this.upgradeLayer);
         this._multiLayer.switchTo(0);
 
         this._layoutContent.addChild(this._multiLayer);

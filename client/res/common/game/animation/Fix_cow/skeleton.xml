@@ -1,5 +1,5 @@
 <dragonBones name="Fix_cow" frameRate="24" version="2.3">
- <armature name="Cow">
+ <armature name="Fix_cow">
   <bone name="Duoi">
    <transform x="-39" y="-68.5" skX="0" skY="0" scX="1" scY="1"/>
   </bone>

@@ -139,8 +139,10 @@ var PopupLayer = cc.Layer.extend({
 
 
         //
-        if (user.getAsset().getFieldList()[fieldId].getPlantedTime() == null){
-
+        var field = user.asset.fieldList.find(function(f) {
+            return f.fieldId === fieldId;
+        })
+        if (!field || field.getPlantedTime() == null){
             return false;
         }
         this.isShowProgressBar = true;
@@ -150,6 +152,7 @@ var PopupLayer = cc.Layer.extend({
         this.updateProgressBarInprogress();
         this.schedule(this.updateProgressBarInprogress, 0.2);
     },
+
     disableProgressBarInprogress: function () {
 
         this.isShowProgressBar = false;

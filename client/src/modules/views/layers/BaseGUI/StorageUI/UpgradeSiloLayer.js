@@ -24,18 +24,18 @@ var UpgradeSiloLayer = cc.Layer.extend({
         layoutT.y = cc.winSize.height / 10;
         this.addChild(layoutT);
 
-        var backBtn = new ccui.Button(res.storage_btn_png);
-        backBtn.x = cc.winSize.width / 4;
-        backBtn.y = cc.winSize.width / 10 - cc.winSize.width / 12;
-        backBtn.addTouchEventListener(this.touchBackBtn, this);
-        backBtn.setZoomScale(0.0);
-        this.addChild(backBtn);
+        this.backBtn = new ccui.Button(res.storage_btn_png);
+        this.backBtn.x = cc.winSize.width / 4;
+        this.backBtn.y = cc.winSize.width / 10 - cc.winSize.width / 12;
+        this.backBtn.addTouchEventListener(this.touchBackBtn, this);
+        this.backBtn.setZoomScale(0.0);
+        this.addChild(this.backBtn);
 
         var labelUpgrade = new cc.LabelBMFont(fr.Localization.text("text_btn_back"), res.FONT_OUTLINE_50);
-        labelUpgrade.x = backBtn.width / 2;
-        labelUpgrade.y = backBtn.height / 2;
+        labelUpgrade.x = this.backBtn.width / 2;
+        labelUpgrade.y = this.backBtn.height / 2;
         labelUpgrade.setScale(0.7);
-        backBtn.addChild(labelUpgrade);
+        this.backBtn.addChild(labelUpgrade);
 
         //NAIL...........................................................
         var layout = new ccui.Layout();
@@ -352,15 +352,16 @@ var UpgradeSiloLayer = cc.Layer.extend({
 
     touchBackBtn: function (sender, type){
         switch (type) {
-            //case ccui.Widget.TOUCH_BEGAN:
-            //    this.scaleByBtn = cc.scaleBy(0.1, 0.9);
-            //    sender.runAction(this.scaleByBtn);
-            //    break;
+            case ccui.Widget.TOUCH_BEGAN:
+                var scaleByBtn = cc.scaleTo(0.1, 0.9);
+                sender.runAction(scaleByBtn);
+                break;
             case ccui.Widget.TOUCH_ENDED:
             case ccui.Widget.TOUCH_CANCELED:
                 //cc.log("this.parent.switchTo(0) " + this.parent.switchTo(0));
-
                 this.parent.switchTo(0);
+                var scaleByBtn = cc.scaleTo(0.1, 1.0);
+                StorageLayout.instance.itemListLayer.upgradeBtn.runAction(scaleByBtn);
                 break;
         }
     }

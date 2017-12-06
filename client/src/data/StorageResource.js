@@ -35,8 +35,11 @@ var _ = (function() {
         storage_buy_tool: "Art/Crops/Gui-act/butoon-congG-1.png",
         ruby_small: "Art/Crops/Gui-act/hethat/ngoc-nho.png",
 
-        tooltip_png: "Art/Crops/Gui-act",
+        tooltip_png: "Art/Crops/Gui-act/tooltip.png",
 
+        debug_png: "Art/red.png",
+
+        storageItemResource: JSON.parse(jsb.fileUtils.getStringFromFile("src/modules/configs/json/storageItem.json")),
         upgradeSilo: JSON.parse(jsb.fileUtils.getStringFromFile("res/config/upgradeSiloConfig.json")),
         upgradeWarehouse: JSON.parse(jsb.fileUtils.getStringFromFile("res/config/upgradeWareConfig.json"))
     };
@@ -64,6 +67,10 @@ var _ = (function() {
     g_StorageResource.push("Art/Tool/dinh3.png");
     g_StorageResource.push("Art/Tool/dinh.png");
     g_StorageResource.push("Art/Tool/go2.png");
+    //
+    //StorageResource.storageItemResource.forEach(function(content) {
+    //    g_StorageResource.push(content.nameIcon);
+    //});
 
     for (var k in StorageResource) {
         g_StorageResource.push(StorageResource[k]);

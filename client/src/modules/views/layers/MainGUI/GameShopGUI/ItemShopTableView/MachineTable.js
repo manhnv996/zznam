@@ -203,11 +203,12 @@ var MachineTable = cc.Layer.extend({
                     var createP = MapValues.screenPositionToLogic(beganP.x, beganP.y);
                     createP.x = Math.floor(createP.x);
                     createP.y = Math.floor(createP.y);
-                    switch (sender.parent.getChildByTag(0).getString()) {
+                    this.typeObject = sender.parent.getChildByTag(0).getString();
+                    switch (this.typeObject) {
                         case "bakery_machine":
-                            this._sprite = new BakerySprite(user.getAsset().getMachineList().length + 1, createP.x, createP.y);
+                            this._sprite = new BakerySprite(user.getAsset().getMachineList().length + 1,
+                                createP.x, createP.y);
                             this._sprite.setLocalZOrder(10000);
-                            MapLayer.instance.addChild(this._sprite);
                             break;
                         //case "food_machine":
                         //    break;
@@ -218,6 +219,7 @@ var MachineTable = cc.Layer.extend({
                         //case "popcorn_machine":
                         //    break;
                     }
+                    MapLayer.instance.addChild(this._sprite);
                 }
                 //cc.log(this._sprite);
                 //if (this._sprite) {
@@ -234,34 +236,43 @@ var MachineTable = cc.Layer.extend({
                 break;
             case ccui.Widget.TOUCH_CANCELED:
                 this.unscheduleUpdate();
+                GameShopLayout.instance.show();
                 if (this._sprite) {
                     var endP = sender.getTouchEndPosition();
                     var endPl = MapValues.screenPositionToLogic(endP.x, endP.y);
                     endPl.x = Math.floor(endPl.x);
                     endPl.y = Math.floor(endPl.y);
                     // cc.log(endPl.x + " " + endPl.y);
+                    //var typeObject = sender.parent.getChildByTag(0).getString();
                     this._check = MapCtrl.instance.checkValidBlockSprite(this._sprite);
                     // cc.log("this._check " + this._check);
+                    this._sprite.removeFromParent(true);
                     if (!this._check) {
-                        this._sprite.removeFromParent(true);
+                        //this._sprite.removeFromParent(true);
                         BaseGUILayer.instance.notifyCantPut(endP.x, endP.y);
                     } else {
                         var missGold = GameShopController.instance.checkGold(sender.parent.getChildByTag(5).getString());
                         cc.log(missGold);
                         if (missGold) {
-                            this._sprite.removeFromParent(true);
-                            BaseGUILayer.instance.notifyMissGold(missGold);
+                            //this._sprite.removeFromParent(true);
+                            BaseGUILayer.instance.notifyShopNotEnoughGold(missGold, this.typeObject,
+                                this._sprite.lx, this._sprite.ly);
                         } else {
                             // Success
-                            MapCtrl.instance.addSpriteAlias(this._sprite);
-                            this._sprite.setLogicPosition(this._sprite.lx, this._sprite.ly);
-                            var typeObject = sender.parent.getChildByTag(0).getString();
-                            var machineModel;
-                            switch (typeObject) {
+                            //MapCtrl.instance.addSpriteAlias(this._sprite);
+                            //this._sprite.setLogicPosition(this._sprite.lx, this._sprite.ly, false);
+                            //var machineModel;
+                            switch (this.typeObject) {
                                 case "bakery_machine":
-                                    machineModel = new BakeryMachine(this._sprite._bakeryId, 0, null,
-                                        false, 0, new Coordinate(this._sprite.lx, this._sprite.ly));
-                                    break;
+                                    //Constructed Sprite
+                                    this._sprite = new ConstructedSprite(user.getAsset().getMachineList().length + 1,
+                                        MapConfigs.BakeryMachine.size.width, MapConfigs.BakeryMachine.size.height,
+                                        endPl.x, endPl.y, MapItemEnum.MACHINE);
+
+                                    //Create Model
+                                    //machineModel = new Machine(this._sprite.id, typeObject, 0, 0, null,
+                                    //    false, 0, new Coordinate(this._sprite.lx, this._sprite.ly));
+                                    //break;
                                 //case "food_machine":
                                 //    break;
                                 //case "butter_machine":
@@ -272,17 +283,25 @@ var MachineTable = cc.Layer.extend({
                                 //    break;
 
                             }
+                            //Create Model
+                            var machineConfig = getMachineConfigByType(this.typeObject);
+                            var machineModel = new Machine(this._sprite.id, this.typeObject, machineConfig.slot, 0, null,
+                                false, new Date().getTime(), new Coordinate(this._sprite.lx, this._sprite.ly));
+
+                            MapLayer.instance.addChild(this._sprite);
+                            MapCtrl.instance.addSpriteAlias(this._sprite);
+                            this._sprite.setLogicPosition(this._sprite.lx, this._sprite.ly, false);
                             //cc.log("Gold User" + user.getGold());
                             user.getAsset().addMachine(machineModel);
                             user.reduceGold(sender.parent.getChildByTag(5).getString());
                             //Send Server
-
-                            //testnetwork.connector.sendBuyMapObjectRequest(machineModel.id, typeObject, machineModel.x, machineModel.y);
+                            testnetwork.connector.sendBuyMapObjectRequest(this._sprite.id,
+                                this.typeObject, this._sprite.lx, this._sprite.ly);
                         }
                     }
                 }
                 this._sprite = null;
-                GameShopLayout.instance.show();
+                //GameShopLayout.instance.show();
                 //this._tableView.reloadData();
                 this._tableView.updateCellAtIndex(sender.parent.getIdx());
                 //this._isHide = false;
@@ -301,7 +320,9 @@ var MachineTable = cc.Layer.extend({
             // cc.log("Map Alias", this.mapAliasType);
             // cc.log("move to", logic, MapCtrl.instance.checkValidBlock(logic.x, logic.y, this.blockSizeX, this.blockSizeY, this.mapAliasType));
             this.lstLocation = logic;
-            this._sprite.setLogicPosition(logic, true);
+            if (this._sprite) {
+                this._sprite.setLogicPosition(logic, true);
+            }
         }
         if (this.autoMoveHor || this.autoMoveVer) {
             var dx = this.autoMoveHor * dt * 250;

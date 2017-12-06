@@ -57,13 +57,16 @@ var Asset = cc.Class.extend({
     },
 
     getFieldById: function(fieldId) {
-        for (var i = 0; i < this.fieldList.length; i++){
-            if (this.fieldList[i].getFieldId() == fieldId){
+        // for (var i = 0; i < this.fieldList.length; i++){
+        //     if (this.fieldList[i].getFieldId() == fieldId){
 
-                return this.fieldList[i];
-            }
-        }
-        return null;
+        //         return this.fieldList[i];
+        //     }
+        // }
+        // return null;
+        return this.getFieldList().find(function(f) {
+            return f.fieldId === fieldId;
+        });
     },
     addField: function (field) {
         //bug   // ? where??
@@ -92,6 +95,12 @@ var Asset = cc.Class.extend({
 
     addMachine: function (machine) {
         this.machineList.push(machine);
+    },
+
+    getLodgeById: function(id) {
+        return this.animalLodgeList.find(function(lodge) {
+            return lodge.id === id;
+        });
         if (machine.id == 0) {
             machine.id = this.machineList.length;
         }
@@ -168,13 +177,19 @@ var Asset = cc.Class.extend({
 //
     getWaittingOrderNPCList: function () {
         var list = [];
-        for (var i = 0; i < this.getOrderNPCList().length; i++){
-            if (this.getOrderNPCList()[i].checkStatus() == OrderStatusTypes.WAITTING){
+        for (var i = 0; i < this.getOrderNPCList().length; i++) {
+            if (this.getOrderNPCList()[i].checkStatus() == OrderStatusTypes.WAITTING) {
                 list.push(this.getOrderNPCList()[i]);
             }
         }
         return list;
+    },
 
+    getMachineById: function (id) {
+        var machine = this.machineList.find(function (f) {
+            return f.id = id;
+        });
+        return machine;
     }
 
 });

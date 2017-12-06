@@ -54,13 +54,17 @@ public class CmdDefine {
     
     public static final short MOVE_FIELD = 6001;
     public static final short MOVE_STORAGE = 6002;
+    public static final short MOVE_MAP_BLOCK = 6003;
     public static final short RESPONSE_MOVE = 6100;
     
     
     public static final short BUY_MAP_OBJECT_REQUEST = 7001;
+    public static final short BUY_MAP_OBJECT_BY_RUBY = 7002;
     
     public static final short BUY_TOOL_REQUEST = 8001;
     public static final short UPGRADE_STORAGE_REQUEST = 8002;
+    
+    public static final short BUILD_COMPLETED_REQUEST = 9001;
     
     public static final short GET_FRIENDS = 3001;
     public static final short FRIEND_SEND_MESSAGE = 3002;
