@@ -61,7 +61,7 @@ var ConstructedCtrl = cc.Class.extend({
         MapLayer.instance.addChild(machineSprite);
         MapCtrl.instance.addSpriteAlias(machineSprite);
 
-        machineSprite.setLogicPosition(machineModel.coordinate.x, machineModel.coordinate.y, false);
+        machineSprite.setLogicPosition(machineModel.coordinate.x, machineModel.coordinate.y, true);
 
         //send server
         testnetwork.connector.sendBuildCompleted(id, typeBuilding);
@@ -73,18 +73,6 @@ var ConstructedCtrl = cc.Class.extend({
                 //cc.log("Machine constructed");
                 var machineModel = user.asset.getMachineById(id);
                 this.machineConfig = getMachineConfigByType(machineModel.type);
-                //this.buildTime = this.machineConfig.time;
-                //this.buildExpress = this.machineConfig.buildExpress;
-                //this.loadingBar = new LoadingBarLayout(this.machineConfig.time, machineModel.startBuildTime,
-                //    fr.Localization.text(this.machineConfig.name), buildExpress);
-                //var py = machineModel.coordinate.y;
-                //var px = machineModel.coordinate.x;
-                //var p = MapValues.logicToScreenPosition(px, py);
-                //this.loadingBar.setPosition(p.x, p.y);
-                ////cc.log("LoadingBar position " + machineModel.coordinate.x + " " + machineModel.coordinate.y);
-                //BaseGUILayer.instance.addChild(this.loadingBar);
-
-
                 _loadingBarConstructed = new LoadingBarLayout(this.machineConfig.time, machineModel.startBuildTime,
                     fr.Localization.text(this.machineConfig.name), buildExpress);
                 var py = machineModel.coordinate.y;
@@ -93,24 +81,8 @@ var ConstructedCtrl = cc.Class.extend({
                 _loadingBarConstructed.setPosition(p.x, p.y);
                 //cc.log("LoadingBar position " + machineModel.coordinate.x + " " + machineModel.coordinate.y);
                 BaseGUILayer.instance.addChild(_loadingBarConstructed);
-                //this.schedule(this.reduceBoostRuby(), this.machineConfig.reduceRubyTime,
-                //    CC_REPEAT_FOREVER, this.machineConfig.reduceRubyTime);
                 break;
         }
     }
-
-    //reduceBoostRuby: function () {
-    //    //if (this.buildTime === 0) {
-    //    //    this.unschedule(this.reduceBoostRuby());
-    //    //}
-    //    if (this.buildExpress > 0) {
-    //        this.buildExpress--;
-    //    }
-    //    //this.buildTime -= this.machineConfig.reduceRubyTime;
-    //    //if (this.loadingBar) {
-    //    //    cc.log("this.loadingBar " + this.loadingBar);
-    //        this.loadingBar.rubyNumber.setString(this.buildExpress);
-    //    //}
-    //}
 
 });

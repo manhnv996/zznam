@@ -62,13 +62,13 @@ var BaseGUILayer = cc.Layer.extend({
             case ccui.Widget.TOUCH_CANCELED:
                 var scaleBy = cc.scaleTo(0.1, 1.0);
                 sender.runAction(scaleBy);
-                BaseGUILayer.instance.removeBlockListener();
                 //var ruby = user.ruby;
                 //if (ruby < this._layout.rubyNumber) {
                 //    BaseGUILayer.instance.notifyNotEnoughRuby(this._layout.rubyNumber - ruby);
                 //} else {
                 GameShopController.instance.buyMapObjectByRuby(this._layout.typeShopObject,
                     this._layout.lx, this._layout.ly, this._layout.rubyNumber);
+                BaseGUILayer.instance.removeBlockListener();
                 //}
                 break;
         }
