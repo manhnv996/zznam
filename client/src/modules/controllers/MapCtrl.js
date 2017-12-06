@@ -138,7 +138,7 @@ var MapCtrl = cc.Class.extend({
 
     renderAnimalLodges: function() {
         var animalLodgeList = user.asset.animalLodgeList;
-        cc.log("Render", animalLodgeList);
+        // cc.log("Render", animalLodgeList);
         for (var i = 0; i < animalLodgeList.length; i++) {
             var lodge = animalLodgeList[i];
             var lodgeSprite = null;
@@ -146,14 +146,16 @@ var MapCtrl = cc.Class.extend({
                 lodgeSprite = new CowLodgeSprite(lodge.coordinate.x, lodge.coordinate.y);
                 for (var j = 0; j < lodge.animalList.length; j++) {
                     var cowSprite = new CowSprite();
-                    cowSprite.setId(lodge.animalList[i].id);
+                    cowSprite.setId(lodge.animalList[j].id);
+                    // cowSprite.setOnHarvestTime(lodge.animalList[j].feededTime);
                     lodgeSprite.addCowSprite(cowSprite);
                 }
             } else if (lodge.type === AnimalLodgeType.chicken_habitat) {
                 lodgeSprite = new ChickenLodgeSprite(lodge.coordinate.x, lodge.coordinate.y);
                 for (var j = 0; j < lodge.animalList.length; j++) {
                     var chickenSprite = new ChickenSprite();
-                    chickenSprite.setId(lodge.animalList[i].id);
+                    chickenSprite.setId(lodge.animalList[j].id);
+                    chickenSprite.setOnHarvestTime(lodge.animalList[j].feededTime);
                     lodgeSprite.addChickenSprite(chickenSprite);
                 }
             } else {

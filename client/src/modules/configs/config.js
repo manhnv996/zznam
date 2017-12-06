@@ -371,5 +371,7 @@ function onReceiveUser(userInfo) {
     user.exp = userInfo.exp;
 
     // cc.log("AnimalLodge", user.asset.animalLodgeList);
+    MainScene.instance = new MainScene();
+    cc.director.runScene(MainScene.instance);
     MainScene.instance.onGettedData();
 }

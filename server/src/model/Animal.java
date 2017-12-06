@@ -30,6 +30,10 @@ public class Animal {
         return this.feededTime;
     }
     
+    public void setFeededTime(long time) {
+        this.feededTime = time;    
+    }
+    
     public int getId() {
         return this.id;
     }

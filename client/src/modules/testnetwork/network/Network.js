@@ -28,8 +28,8 @@ testnetwork.Connector = cc.Class.extend({
                 // this.sendGetUserInfo(); // Old. Do not use
                 this.sendGetUser();
 
-                MainScene.instance = new MainScene();
-                cc.director.runScene(MainScene.instance);
+                // MainScene.instance = new MainScene();
+                // cc.director.runScene(MainScene.instance);
 
                 break;
             case gv.CMD.USER_INFO:

@@ -126,16 +126,33 @@ var AnimalLodgeSprite = MapBlockSprite.extend({
 
 	onClick: function() {
 		if (this.lodge.getAnimalCount() > 0) {
-			var remain = this.lodge.getMaxRemainTime();
+			var startTime = this.lodge.getLastFeededTime();
+			var remain = AnimalConfig.chicken.time * 1000 - (new Date().getTime() - startTime);
 			if (remain > 0) {
-				// Show remain dialog
-				cc.log("Remain", this.lodge.getMaxRemainTime());
-
-			} else {
-				// Show Harvest tool
-				cc.log("Harvest");
-
+				// Animal feeded
+				this.loadingBar = new LoadingBarLayout(
+					AnimalConfig.chicken.time, startTime,
+					// fr.Localization.text("Ga"), 1);
+					"Ga", 1);
+				var p = MapValues.logicToScreenPosition(this.lx, this.ly);
+				this.loadingBar.setPosition(p.x, p.y + 100);
+				BaseGUILayer.instance.addChild(this.loadingBar);
 			}
+
+			cc.log("HarvestableCount", this.lodge.harvestableCount());
+
+			// if (remain > 0) {
+				// Show remain dialog
+				// this.loadingBar = new LoadingBarLayout(
+				// 	machineConfig.time, machineModel.startBuildTime,
+    //             	fr.Localization.text(machineConfig.name),
+				// 	1);
+
+			// } else {
+				// Show Harvest tool
+				// cc.log("Harvest");
+
+			// }
 		} else {
 			// Open store to buy animal
 			cc.log("Open store to buy animal");

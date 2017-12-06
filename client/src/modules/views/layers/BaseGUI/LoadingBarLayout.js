@@ -72,8 +72,8 @@ var LoadingBarLayout = ccui.Layout.extend({
 
        //cc.log("total time", this.totalTime);
        //cc.log("start time", this.startTime);
-       this.remainTime = this.totalTime - (new Date().getTime() - this.startTime);
-       //cc.log("Remain time", this.remainTime);
+       this.remainTime = this.totalTime - (new Date().getTime() - this.startTime) + 1000;
+       // cc.log("Remain time", this.remainTime);
 
        this.actionShow();
        this.disableLoadingBar();

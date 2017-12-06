@@ -16,18 +16,23 @@ var ChickenSprite = AnimalSprite.extend({
 		var ly = (Math.round(Math.random() * 100) % ((this.maxY - 1) * 10)) / 10 + 0.5;
 		this.setLogicPosition(lx, ly);
 
-		var rand = Math.round(Math.random() * 10) % 3;
-		if (rand === 0) {
-			this.walk();
-		} else if (rand === 1) {
-			Math.random() > 0.5 ? this.play(ChickenSprite.Idle2) : this.play(ChickenSprite.Idle3);
+		if (this.remainTime > 0) {
+			// cc.log("Set scheduleOnce after", this.remainTime / 1000);
+			this.scheduleOnce(this.harvest, this.remainTime / 1000);
+			var rand = Math.round(Math.random() * 10) % 3;
+			if (rand === 0) {
+				this.walk();
+			} else if (rand === 1) {
+				Math.random() > 0.5 ? this.play(ChickenSprite.Idle2) : this.play(ChickenSprite.Idle3);
+			} else {
+				Math.random() > 0.5 ? this.play(ChickenSprite.Idle1) : this.play(ChickenSprite.Idle4);
+			}
+			this.scheduleOnce(function() {
+				this.schedule(this.doAction, 4.0);
+			}.bind(this), Math.round(Math.random() * 100) % 50 / 10);
 		} else {
-			Math.random() > 0.5 ? this.play(ChickenSprite.Idle1) : this.play(ChickenSprite.Idle4);
+			this.harvest();
 		}
-		this.scheduleOnce(function() {
-			this.schedule(this.doAction, 4.0);
-		}.bind(this), Math.round(Math.random() * 100) % 50 / 10);
-		// this.walk();
 	},
 
 	doAction: function() {
@@ -78,6 +83,7 @@ var ChickenSprite = AnimalSprite.extend({
 
 	harvest: function() {
 		this.unscheduleUpdate();
+		this.unschedule(this.doAction);
 		this.play(ChickenSprite.Harvest);
 	},
 
@@ -98,6 +104,13 @@ var ChickenSprite = AnimalSprite.extend({
 			return;
 		}
 		this.setLogicPosition(newX, newY);
+	},
+
+	setOnHarvestTime: function(time) {
+		cc.log("Set On harvest time", time);
+		var current = new Date().getTime();
+		var deltaTime = current - time;
+		this.remainTime = AnimalConfig.chicken.time * 1000 - deltaTime;
 	}
 });
 

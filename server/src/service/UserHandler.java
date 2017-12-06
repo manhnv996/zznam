@@ -177,7 +177,12 @@ public class UserHandler extends BaseClientRequestHandler {
         asset.addAnimalLodge(cowLodge);
         
         Animal animal = new Animal(AnimalEnum.chicken);
+        animal.setFeededTime(animal.getFeededTime() - 1000 * 60 * 19 - 1000 * 40);
         chickenLodge.addAnimal(animal);
+        
+        Animal animal2 = new Animal(AnimalEnum.chicken);
+        animal2.setFeededTime(animal2.getFeededTime() - 1000 * 60 * 19 - 1000 * 50);
+        chickenLodge.addAnimal(animal2);
         
         // Last
         ZPUserInfo userInfo = new ZPUserInfo(userId, asset); // ...Update map alias

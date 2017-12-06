@@ -43,5 +43,33 @@ var AnimalLodge = CoordinatedObject.extend({
 
     getAnimalCount: function() {
         return this.animalList.length;
+    },
+
+    getLastFeededTime: function() {
+        var time = 0;
+        var currentTime = new Date().getTime();
+        this.animalList.forEach(function(animal) {
+            if (animal.feeded) {
+                if (animal.feededTime > time) {
+                    time = animal.feededTime;
+                }
+            }
+        });
+        return time;
+    },
+
+    harvestableCount: function() {
+        var count = 0;
+        var currentTime = new Date().getTime();
+        var totalTime = AnimalConfig[this.type.split('_')[0]].time * 1000;
+        this.animalList.forEach(function(animal) {
+            if (animal.feeded) {
+                var remain = totalTime - (currentTime - animal.feededTime);
+                if (remain <= 0) {
+                    count++;
+                }
+            }
+        });
+        return count;
     }
 });
