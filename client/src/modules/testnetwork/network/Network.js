@@ -167,7 +167,7 @@ testnetwork.Connector = cc.Class.extend({
         cc.log("sendingLoginRequest with: " + username + "===" + password);
         //this.getSessionKeyAndUserId();
         var xhr = cc.loader.getXMLHttpRequest();
-        var url = "http://myplay.apps.zing.vn/sso3/login.php?username=" + username + "&password=" + password;
+        var url = "https://myplay.apps.zing.vn/sso3/login.php?username=" + username + "&password=" + password;
         xhr.open("GET", url);
         xhr.setRequestHeader("Content-Type", "text/plain");
         xhr.send();
@@ -181,7 +181,7 @@ testnetwork.Connector = cc.Class.extend({
                 var userid = jsonData["userid"];
 
                 if (error == "0") {
-                    var url2 = "http://zplogin.g6.zing.vn/?service_name=getSessionKey&gameId=100&distribution=&clientInfo=&social=zingme&accessToken=";
+                    var url2 = "https://zplogin.g6.zing.vn/?service_name=getSessionKey&gameId=100&distribution=&clientInfo=&social=zingme&accessToken=";
                     cc.log("HTTP Response : error : " + error);
                     xhr.open("GET", url2 + accessToken);
                     xhr.setRequestHeader("Content-Type", "text/plain");
