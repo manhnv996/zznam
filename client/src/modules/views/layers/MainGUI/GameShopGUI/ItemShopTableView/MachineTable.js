@@ -290,7 +290,7 @@ var MachineTable = cc.Layer.extend({
 
                             MapLayer.instance.addChild(this._sprite);
                             MapCtrl.instance.addSpriteAlias(this._sprite);
-                            this._sprite.setLogicPosition(this._sprite.lx, this._sprite.ly, false);
+                            this._sprite.setLogicPosition(this._sprite.lx, this._sprite.ly, true);
                             //cc.log("Gold User" + user.getGold());
                             user.getAsset().addMachine(machineModel);
                             user.reduceGold(sender.parent.getChildByTag(5).getString());

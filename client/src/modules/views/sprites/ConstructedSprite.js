@@ -28,6 +28,7 @@ var ConstructedSprite = AnimationSprite.extend({
 
         this.registerTouchEvents();
         //MapLayer.instance.debugSprite = this;
+        cc.log("registerTouchEvents");
 
         this.scheduleUpdate();
     },
@@ -52,6 +53,6 @@ var ConstructedSprite = AnimationSprite.extend({
     update: function (dt) {
         if (ConstructedCtrl.instance.checkBuildTime(this.id, this.typeBuilding)) {
             this.removeFromParent(true);
-        };
+        }
     }
 });
