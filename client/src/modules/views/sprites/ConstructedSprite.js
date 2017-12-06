@@ -5,8 +5,9 @@
 var ConstructedSprite = AnimationSprite.extend({
     typeBuilding: null,
     id: null,
+    buildTime: 0,
 
-    ctor: function (id, w, h, x, y, typeBuilding) {
+    ctor: function (id, w, h, x, y, typeBuilding, typeMapObject) {
         var aniId;
         var nameAni;
         if (w === 2 && h === 2){
@@ -19,23 +20,42 @@ var ConstructedSprite = AnimationSprite.extend({
             aniId = resAniId.Nhdangxay4x4;
             nameAni = "4";
         }
-        this._super(aniId, w, h, x, y , MapItemEnum.CONSTRUCTED);
+        this._super(aniId, w, h, x, y ,typeMapObject);
 
         this.id = id;
         this.typeBuilding = typeBuilding;
+        this.typeMapObject = typeMapObject;
+
+        this.machineModel = user.asset.getMachineById(id);
+
+        var machineConfig = getMachineConfigByType(this.machineModel.type);
+
+        var startTime = this.machineModel.startBuildTime;
+        var curTime = new Date().getTime();
+        this.totalTime = machineConfig.time * 1000;
+        this.buildTime = curTime - startTime;
+
+        cc.log("startTime " + startTime);
+        cc.log("curTime " + curTime);
+        cc.log("buildTime " + this.buildTime);
+
+        this.reduceRubyTime = machineConfig.reduceRubyTime;
+        this.reduceRuby = Math.floor(this.buildTime / 1000 / this.reduceRubyTime);
+        this.buildExpress = machineConfig.buildExpress - this.reduceRuby;
+        cc.log("Math.floor(this.buildTime / this.reduceRubyTime) " + this.reduceRuby);
 
         this.play(nameAni);
 
         this.registerTouchEvents();
         //MapLayer.instance.debugSprite = this;
-        cc.log("registerTouchEvents");
+        //cc.log("registerTouchEvents");
 
-        this.scheduleUpdate();
+        this.schedule(this.updateTime, 1);
     },
 
     onClick: function () {
         //cc.log("Click nha dang xay");
-        ConstructedCtrl.instance.selectConstructedObject(this.id, this.typeBuilding);
+        ConstructedCtrl.instance.selectConstructedObject(this.id, this.typeBuilding, this.buildExpress);
     },
 
     _offset: function() {
@@ -50,8 +70,10 @@ var ConstructedSprite = AnimationSprite.extend({
         return p;
     },
 
-    update: function (dt) {
-        if (ConstructedCtrl.instance.checkBuildTime(this.id, this.typeBuilding)) {
+    updateTime: function (dt) {
+        //cc.log("dt " + dt);
+        //if (ConstructedCtrl.instance.checkBuildTime(this.id, this.typeBuilding, this.typeObject, dt)) {
+        if (ConstructedCtrl.instance.checkBuildTime(this, dt)) {
             this.removeFromParent(true);
         }
     }

@@ -11,6 +11,8 @@ var CayRungSprite = AnimationSprite.extend({
 		this.natureId = id;
 		this.play(2 * this.treeType - 1);
 		this.registerTouchEvents({ lockMove: true });
+		// this.showDebugPriorityPoint();
+		
 	},
 
 	onClick: function() {

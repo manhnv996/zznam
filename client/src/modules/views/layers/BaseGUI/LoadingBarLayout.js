@@ -2,6 +2,7 @@
  * Created by CPU60075_LOCAL on 12/4/2017.
  */
 
+
 var LoadingBarLayout = ccui.Layout.extend({
     totalTime : 0,
     startTime: 0,
@@ -162,7 +163,6 @@ var LoadingBarLayout = ccui.Layout.extend({
 
         if(this._isClose) {
             this.closeLoadingBar();
-            //this.unscheduleUpdate();
         }
 
         if (hour === 0 && min === 0 && sec === 0) {
@@ -176,6 +176,7 @@ var LoadingBarLayout = ccui.Layout.extend({
         this.unscheduleUpdate();
         this.removeFromParent(true);
         this._isClose = false;
+        _loadingBarConstructed = null;
         cc.eventManager.removeListener(this.listener);
     }
 });

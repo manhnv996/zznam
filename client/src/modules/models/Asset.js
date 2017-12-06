@@ -53,13 +53,16 @@ var Asset = cc.Class.extend({
     },
 
     getFieldById: function(fieldId) {
-        for (var i = 0; i < this.fieldList.length; i++){
-            if (this.fieldList[i].getFieldId() == fieldId){
+        // for (var i = 0; i < this.fieldList.length; i++){
+        //     if (this.fieldList[i].getFieldId() == fieldId){
 
-                return this.fieldList[i];
-            }
-        }
-        return null;
+        //         return this.fieldList[i];
+        //     }
+        // }
+        // return null;
+        return this.getFieldList().find(function(f) {
+            return f.fieldId === fieldId;
+        });
     },
     addField: function (field) {
         //bug   // ? where??
@@ -91,6 +94,12 @@ var Asset = cc.Class.extend({
         if (machine.id == 0) {
             machine.id = this.machineList.length;
         }
+    },
+
+    getLodgeById: function(id) {
+        return this.animalLodgeList.find(function(lodge) {
+            return lodge.id === id;
+        });
     },
 
     getMachineById: function (id) {

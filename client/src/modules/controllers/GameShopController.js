@@ -112,12 +112,14 @@ var GameShopController = cc.Class.extend({
             user.reduceRuby(ruby);
 
             MapLayer.instance.addChild(this._sprite);
+            MapCtrl.instance.addSpriteAlias(this._sprite);
             this._sprite.setLogicPosition(this._sprite.lx, this._sprite.ly, false);
         }
     },
 
     buyField: function (typeObject, lx, ly, ruby) {
         //Sprite
+        //this._sprite = null;
         this._sprite = new FieldSprite(user.getAsset().getFieldList().length + 1, lx, ly);
 
         //Model
@@ -133,15 +135,24 @@ var GameShopController = cc.Class.extend({
     },
 
     buyMachine: function (typeObject, lx, ly, ruby) {
+        //Model
+        var machineConfig = getMachineConfigByType(typeObject);
+        var machineModel = new Machine(0, typeObject, machineConfig.slot, 0, null,
+            false, new Date().getTime(), new Coordinate(lx, ly));
+        //var machineModel = new Machine(id, typeObject, 0, 0, null, false,
+        //    0, new Coordinate(lx, ly));
+        user.asset.addMachine(machineModel);
+
         //Sprite
+        //this._sprite = null;
         switch (typeObject) {
             case "bakery_machine":
 
                 //this._sprite = new BakerySprite(id, lx, ly);
-                this._sprite = new ConstructedSprite(user.getAsset().getMachineList().length + 1,
+                this._sprite = new ConstructedSprite(machineModel.id,
                     MapConfigs.BakeryMachine.size.width, MapConfigs.BakeryMachine.size.height,
                     lx, ly, MapItemEnum.MACHINE);
-                cc.log("user.asset.addMachine " + user.asset.getMachineById(this._sprite.id));
+                //cc.log("user.asset.addMachine " + getMachineConfigByType(typeObject));
 
                 break;
             case "food_machine":
@@ -153,17 +164,11 @@ var GameShopController = cc.Class.extend({
             case "popcorn_machine":
                 break;
         }
-        MapLayer.instance.addChild(this._sprite);
-        MapCtrl.instance.addSpriteAlias(this._sprite);
-        this._sprite.setLogicPosition(this._sprite.lx, this._sprite.ly, false);
+        //MapLayer.instance.addChild(this._sprite);
+        //MapCtrl.instance.addSpriteAlias(this._sprite);
+        //this._sprite.setLogicPosition(this._sprite.lx, this._sprite.ly, false);
 
-        //Model
-        var machineConfig = getMachineConfigByType(this.typeObject);
-        var machineModel = new Machine(this._sprite.id, this.typeObject, machineConfig.slot, 0, null,
-            false, new Date().getTime(), new Coordinate(this._sprite.lx, this._sprite.ly));
-        //var machineModel = new Machine(id, typeObject, 0, 0, null, false,
-        //    0, new Coordinate(lx, ly));
-        user.asset.addMachine(machineModel);
+
 
 
         GameShopLayout.instance._gameShop._machineTable._tableView.reloadData();

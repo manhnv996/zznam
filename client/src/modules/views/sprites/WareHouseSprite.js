@@ -20,6 +20,9 @@ var WareHouseSprite = AnimationSprite.extend({
 	},
 
 	onFinishMove: function(lx, ly) {
-		testnetwork.connector.sendMoveStorage(MapItemEnum.WAREHOUSE, lx, ly);
+		user.asset.warehouse.coordinate.x = lx;
+		user.asset.warehouse.coordinate.y = ly;
+		cc.log(user.asset.warehouse);
+		testnetwork.connector.sendMoveMapBlock(MapItemEnum.WAREHOUSE, 0, lx, ly);
 	}
 });

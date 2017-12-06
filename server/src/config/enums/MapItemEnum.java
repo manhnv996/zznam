@@ -11,8 +11,8 @@ public class MapItemEnum {
     public static final int FOOD_GRINDER = 7;
     public static final int POPCORN_MAKER = 8;
     
-    public static final int COW_LODGE = 10;
-    public static final int CHICKEN_LODGE = 11;
+    public static final int COW_LODGE = 10; // Unused
+    public static final int CHICKEN_LODGE = 11; // Unused
 
     public static final int ROAD = 12;
     public static final int NHA_CHINH = 13;

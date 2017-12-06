@@ -98,6 +98,16 @@ public class Asset {
         }
     }
     
+    public AnimalLodge getAnimalLodgeById(int id) {
+        for (int i = 0; i < this.animalLodgeList.size(); i++) {
+            AnimalLodge lodge = this.animalLodgeList.get(i);
+            if (lodge.getId() == id) {
+                return lodge;
+            }
+        }
+        return null;
+    }
+    
     public void addMachine (Machine machine) {
         this.machineList.add(machine);
         if (machine.getId() == 0) {

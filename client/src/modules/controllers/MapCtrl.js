@@ -33,6 +33,7 @@ var MapCtrl = cc.Class.extend({
         this.renderStorages();
         this.renderPlants();
         this.renderNaturalThings();
+        this.renderAnimalLodges();
         this.renderMachines();
         // cc.log("Silo", user.asset.foodStorage);
         // MapLayer.instance.addChild(new SiloSprite(20, 20));
@@ -40,6 +41,13 @@ var MapCtrl = cc.Class.extend({
         InertiaEngine.instance = new InertiaEngine();
         MainScene.instance.addChild(InertiaEngine.instance);
         this.renderUserInfo();
+        // Add sample
+        // var chickenLodge = new ChickenLodgeSprite(18, 19);
+        // MapLayer.instance.addChild(chickenLodge);
+        // var cowLodge = new CowLodgeSprite(19, 11);
+        // MapLayer.instance.addChild(cowLodge);
+        // var cowLodge = new CowLodgeSprite(22, 19);
+        // MapLayer.instance.addChild(cowLodge);
         //
         //var bakery = new BakerySprite(20, 20);
         //MapLayer.instance.addChild(bakery);
@@ -128,6 +136,33 @@ var MapCtrl = cc.Class.extend({
         }
     },
 
+    renderAnimalLodges: function() {
+        var animalLodgeList = user.asset.animalLodgeList;
+        cc.log("Render", animalLodgeList);
+        for (var i = 0; i < animalLodgeList.length; i++) {
+            var lodge = animalLodgeList[i];
+            var lodgeSprite = null;
+            if (lodge.type === AnimalLodgeType.cow_habitat) {
+                lodgeSprite = new CowLodgeSprite(lodge.coordinate.x, lodge.coordinate.y);
+                for (var j = 0; j < lodge.animalList.length; j++) {
+                    var cowSprite = new CowSprite();
+                    cowSprite.setId(lodge.animalList[i].id);
+                    lodgeSprite.addCowSprite(cowSprite);
+                }
+            } else if (lodge.type === AnimalLodgeType.chicken_habitat) {
+                lodgeSprite = new ChickenLodgeSprite(lodge.coordinate.x, lodge.coordinate.y);
+                for (var j = 0; j < lodge.animalList.length; j++) {
+                    var chickenSprite = new ChickenSprite();
+                    chickenSprite.setId(lodge.animalList[i].id);
+                    lodgeSprite.addChickenSprite(chickenSprite);
+                }
+            } else {
+                cc.log("[E] Unhandled Animal lodge type", lodge.type);
+            }
+            lodgeSprite.setId(lodge.id);
+            MapLayer.instance.addChild(lodgeSprite);
+        }
+    },
     /**
      *    Render Machines To Map
      */

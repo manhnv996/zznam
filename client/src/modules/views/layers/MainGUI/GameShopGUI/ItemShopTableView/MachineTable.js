@@ -262,16 +262,19 @@ var MachineTable = cc.Layer.extend({
                             //MapCtrl.instance.addSpriteAlias(this._sprite);
                             //this._sprite.setLogicPosition(this._sprite.lx, this._sprite.ly, false);
                             //var machineModel;
+                            //Create Model
+                            var machineConfig = getMachineConfigByType(this.typeObject);
+                            var machineModel = new Machine(this._sprite.id, this.typeObject, machineConfig.slot, 0, null,
+                                false, new Date().getTime(), new Coordinate(this._sprite.lx, this._sprite.ly));
+                            user.getAsset().addMachine(machineModel);
+
+                            //Sprite
                             switch (this.typeObject) {
                                 case "bakery_machine":
                                     //Constructed Sprite
                                     this._sprite = new ConstructedSprite(user.getAsset().getMachineList().length + 1,
                                         MapConfigs.BakeryMachine.size.width, MapConfigs.BakeryMachine.size.height,
-                                        endPl.x, endPl.y, MapItemEnum.MACHINE);
-
-                                    //Create Model
-                                    //machineModel = new Machine(this._sprite.id, typeObject, 0, 0, null,
-                                    //    false, 0, new Coordinate(this._sprite.lx, this._sprite.ly));
+                                        endPl.x, endPl.y, MapItemEnum.MACHINE, MapItemEnum.BAKERY);
                                     //break;
                                 //case "food_machine":
                                 //    break;
@@ -283,16 +286,11 @@ var MachineTable = cc.Layer.extend({
                                 //    break;
 
                             }
-                            //Create Model
-                            var machineConfig = getMachineConfigByType(this.typeObject);
-                            var machineModel = new Machine(this._sprite.id, this.typeObject, machineConfig.slot, 0, null,
-                                false, new Date().getTime(), new Coordinate(this._sprite.lx, this._sprite.ly));
 
                             MapLayer.instance.addChild(this._sprite);
                             MapCtrl.instance.addSpriteAlias(this._sprite);
                             this._sprite.setLogicPosition(this._sprite.lx, this._sprite.ly, true);
                             //cc.log("Gold User" + user.getGold());
-                            user.getAsset().addMachine(machineModel);
                             user.reduceGold(sender.parent.getChildByTag(5).getString());
                             //Send Server
                             testnetwork.connector.sendBuyMapObjectRequest(this._sprite.id,

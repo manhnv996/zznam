@@ -1,25 +1,29 @@
 /**
  * Created by CPU60075_LOCAL on 12/4/2017.
  */
+var _loadingBarConstructed = null;
 
 var ConstructedCtrl = cc.Class.extend({
 
-    checkBuildTime: function (id, typeBuilding) {
-        switch (typeBuilding) {
+    checkBuildTime: function (sprite, dt) {
+        switch (sprite.typeBuilding) {
             case MapItemEnum.MACHINE:
-                var machineModel = user.asset.getMachineById(id);
-                var machineConfig = getMachineConfigByType(machineModel.type);
+                if (!(sprite.buildTime % sprite.reduceRubyTime)) {
+                    if (sprite.buildExpress > 0) {
+                        sprite.buildExpress--;
+                    }
+                    if (_loadingBarConstructed) {
+                        _loadingBarConstructed.rubyNumber.setString(sprite.buildExpress);
+                    }
+                }
+                sprite.buildTime += dt;
 
-                var startTime = machineModel.startBuildTime;
-                var totalTime = machineConfig.time * 1000;
-                var curTime = new Date().getTime();
-
-                if ((curTime - startTime) >= totalTime) {
-                    var completedSprite = new ConstructedCompletedSprite(id, machineModel.coordinate.x,
-                                                            machineModel.coordinate.y, typeBuilding);
+                if (sprite.buildTime >= sprite.totalTime) {
+                    var completedSprite = new ConstructedCompletedSprite(id, sprite.machineModel.coordinate.x,
+                        sprite.machineModel.coordinate.y, sprite.typeBuilding, sprite.typeMapObject);
                     MapLayer.instance.addChild(completedSprite);
                     MapCtrl.instance.addSpriteAlias(completedSprite);
-                    completedSprite.setLogicPosition(machineModel.coordinate.x, machineModel.coordinate.y, false);
+                    completedSprite.setLogicPosition(sprite.machineModel.coordinate.x, sprite.machineModel.coordinate.y, false);
                     return true;
                 } else {
                     return false;
@@ -63,23 +67,50 @@ var ConstructedCtrl = cc.Class.extend({
         testnetwork.connector.sendBuildCompleted(id, typeBuilding);
     },
 
-    selectConstructedObject: function (id, typeBuilding) {
+    selectConstructedObject: function (id, typeBuilding, buildExpress) {
         switch (typeBuilding) {
             case MapItemEnum.MACHINE:
                 //cc.log("Machine constructed");
                 var machineModel = user.asset.getMachineById(id);
-                var machineConfig = getMachineConfigByType(machineModel.type);
-                this.loadingBar = new LoadingBarLayout(machineConfig.time, machineModel.startBuildTime,
-                    fr.Localization.text(machineConfig.name), machineConfig.buildExpress);
+                this.machineConfig = getMachineConfigByType(machineModel.type);
+                //this.buildTime = this.machineConfig.time;
+                //this.buildExpress = this.machineConfig.buildExpress;
+                //this.loadingBar = new LoadingBarLayout(this.machineConfig.time, machineModel.startBuildTime,
+                //    fr.Localization.text(this.machineConfig.name), buildExpress);
+                //var py = machineModel.coordinate.y;
+                //var px = machineModel.coordinate.x;
+                //var p = MapValues.logicToScreenPosition(px, py);
+                //this.loadingBar.setPosition(p.x, p.y);
+                ////cc.log("LoadingBar position " + machineModel.coordinate.x + " " + machineModel.coordinate.y);
+                //BaseGUILayer.instance.addChild(this.loadingBar);
+
+
+                _loadingBarConstructed = new LoadingBarLayout(this.machineConfig.time, machineModel.startBuildTime,
+                    fr.Localization.text(this.machineConfig.name), buildExpress);
                 var py = machineModel.coordinate.y;
                 var px = machineModel.coordinate.x;
                 var p = MapValues.logicToScreenPosition(px, py);
-                this.loadingBar.setPosition(p.x, p.y);
+                _loadingBarConstructed.setPosition(p.x, p.y);
                 //cc.log("LoadingBar position " + machineModel.coordinate.x + " " + machineModel.coordinate.y);
-                BaseGUILayer.instance.addChild(this.loadingBar);
-                this._isHasLoadingBar = true;
+                BaseGUILayer.instance.addChild(_loadingBarConstructed);
+                //this.schedule(this.reduceBoostRuby(), this.machineConfig.reduceRubyTime,
+                //    CC_REPEAT_FOREVER, this.machineConfig.reduceRubyTime);
                 break;
         }
     }
+
+    //reduceBoostRuby: function () {
+    //    //if (this.buildTime === 0) {
+    //    //    this.unschedule(this.reduceBoostRuby());
+    //    //}
+    //    if (this.buildExpress > 0) {
+    //        this.buildExpress--;
+    //    }
+    //    //this.buildTime -= this.machineConfig.reduceRubyTime;
+    //    //if (this.loadingBar) {
+    //    //    cc.log("this.loadingBar " + this.loadingBar);
+    //        this.loadingBar.rubyNumber.setString(this.buildExpress);
+    //    //}
+    //}
 
 });

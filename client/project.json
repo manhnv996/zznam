@@ -25,6 +25,7 @@
         "src/data/ShopResource.js",
         "src/data/StorageResource.js",
         "src/data/HavestResource.js",
+        "src/data/AnimalLodgeResource.js",
         "src/data/Resource.js",
         "src/data/ResourceAnimation.js",
         "src/framework/AnimationMgr.js",
@@ -51,7 +52,9 @@
 
         "src/modules/utils/rayCasting.js",
         "src/modules/utils/inertiaEngine.js",
+        "src/modules/utils/caculateDistance.js",
         "src/modules/configs/MapItemEnum.js",
+        "src/modules/configs/AnimalConfig.js",
 
         "src/modules/configs/MapConfigs.js",
         "src/modules/configs/ListenerPriorityConfigs.js",
@@ -70,6 +73,12 @@
         "src/modules/views/sprites/VungnuocSprite.js",
         "src/modules/views/sprites/DatoSprite.js",
         "src/modules/views/sprites/DanhoSprite.js",
+        "src/modules/views/sprites/AnimalSprite.js",
+        "src/modules/views/sprites/CowSprite.js",
+        "src/modules/views/sprites/ChickenSprite.js",
+        "src/modules/views/sprites/AnimalLodgeSprite.js",
+        "src/modules/views/sprites/ChickenLodgeSprite.js",
+        "src/modules/views/sprites/CowLodgeSprite.js",
         "src/modules/views/sprites/ConstructedSprite.js",
         "src/modules/views/sprites/ConstructedCompletedSprite.js",
 

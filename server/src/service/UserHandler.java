@@ -171,11 +171,13 @@ public class UserHandler extends BaseClientRequestHandler {
         asset.getFieldById(1).setPlantedTime(new Date().getTime());
         
         // Add some animal lodges  
-        AnimalLodge lodge = new AnimalLodge(AnimalLodgeEnum.chicken_habitat, 0L, true, 20, 20);
-        asset.addAnimalLodge(lodge);
+        AnimalLodge chickenLodge = new AnimalLodge(AnimalLodgeEnum.chicken_habitat, 20, 20);
+        asset.addAnimalLodge(chickenLodge);
+        AnimalLodge cowLodge = new AnimalLodge(AnimalLodgeEnum.cow_habitat, 20, 16);
+        asset.addAnimalLodge(cowLodge);
         
         Animal animal = new Animal(AnimalEnum.chicken);
-        lodge.addAnimal(animal);
+        chickenLodge.addAnimal(animal);
         
         // Last
         ZPUserInfo userInfo = new ZPUserInfo(userId, asset); // ...Update map alias

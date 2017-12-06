@@ -265,6 +265,13 @@ testnetwork.Connector = cc.Class.extend({
         this.gameClient.sendPacket(pk);
     },
 
+    sendMoveMapBlock: function(type, id, x, y) {
+        cc.log("Send move map block", type, id, x, y);
+        var pk = this.gameClient.getOutPacket(CmdSendMoveMapBlock);
+        pk.pack(type, id, x, y);
+        this.gameClient.sendPacket(pk);
+    },
+
     sendBuyMapObjectRequest: function (id, type, x, y) {
         cc.log("Send buy map object request " + x + " " + y);
         var pk = this.gameClient.getOutPacket(CmdSendBuyMapObjectRequest);

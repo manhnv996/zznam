@@ -42,9 +42,8 @@ var FieldSprite = MapBlockSprite.extend({
     // render: function (fieldId) {
         this.fieldId = fieldId;
         // Find field in asset
-        this.field = user.getAsset().getFieldList().find(function(f) {
-            return f.fieldId === fieldId;
-        });
+        this.field = user.asset.getFieldById(this.fieldId);
+        // this.showDebugPriorityPoint();
     },
 
 
@@ -100,6 +99,7 @@ var FieldSprite = MapBlockSprite.extend({
     // When click
     onClick: function() {
         PlantCtrl.instance.onFieldSelected(this.fieldId);
+        cc.log('Field clicked', this.getLocalZOrder(), this.lx, this.ly);
     },
 
     // When begin click
@@ -285,7 +285,7 @@ var FieldSprite = MapBlockSprite.extend({
         this.field.coordinate.x = lx;
         this.field.coordinate.y = ly;
         // Send to server
-        testnetwork.connector.sendMoveField(this.fieldId, lx, ly);
+        testnetwork.connector.sendMoveMapBlock(MapItemEnum.FIELD, this.fieldId, lx, ly);
         ///
     }
 });

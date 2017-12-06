@@ -3,9 +3,9 @@
  */
 
 var ConstructedCompletedSprite = AnimationSprite.extend({
-     ctor: function (id, x, y, typeBuilding) {
+     ctor: function (id, x, y, typeBuilding, typeObject) {
          this._super(resAniId.Nha_hoanthanh, 4, 4, x, y,
-             MapItemEnum.CONSTRUCTED_COMPLETED);
+             typeObject);
 
          this.id = id;
          this.typeBuilding = typeBuilding;
