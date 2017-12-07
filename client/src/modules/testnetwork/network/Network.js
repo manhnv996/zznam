@@ -420,10 +420,10 @@ testnetwork.Connector = cc.Class.extend({
         this.gameClient.sendPacket(pk);
     },
 
-    sendBuyMapObjectByRuby: function (id, type, x, y, ruby) {
+    sendBuyMapObjectByRuby: function (id, type, x, y) {
         cc.log("Send buy map object by ruby");
         var pk = this.gameClient.getOutPacket(CmdSendBuyMapObjectByRuby);
-        pk.pack(id, type, x, y, ruby);
+        pk.pack(id, type, x, y);
         this.gameClient.sendPacket(pk);
     },
 

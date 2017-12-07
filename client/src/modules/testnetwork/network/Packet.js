@@ -408,13 +408,12 @@ CmdSendBuyMapObjectByRuby = fr.OutPacket.extend({
         this.initData(100);
         this.setCmdId(gv.CMD.BUY_MAP_OBJECT_BY_RUBY);
     },
-    pack: function (id, type, x, y, ruby) {
+    pack: function (id, type, x, y) {
         this.packHeader();
         this.putInt(id);
         this.putString(type);
         this.putInt(x);
         this.putInt(y);
-        this.putInt(ruby);
         this.updateSize();
     }
 });

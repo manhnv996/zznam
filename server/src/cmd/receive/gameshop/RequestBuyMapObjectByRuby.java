@@ -9,7 +9,7 @@ public class RequestBuyMapObjectByRuby extends BaseCmd{
     public String type;
     public int x;
     public int y;
-    public int ruby;
+//    public int ruby;
     
     public RequestBuyMapObjectByRuby(DataCmd dataCmd) {
         super(dataCmd);

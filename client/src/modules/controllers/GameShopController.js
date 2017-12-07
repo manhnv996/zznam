@@ -63,6 +63,7 @@ var GameShopController = cc.Class.extend({
 
     buyMapObjectByRuby: function (typeObject, lx, ly, ruby) {
         var userRuby = user.ruby;
+
         if (userRuby < ruby) {
             BaseGUILayer.instance.notifyNotEnoughRuby(ruby - userRuby);
         } else {
@@ -175,7 +176,7 @@ var GameShopController = cc.Class.extend({
 
         //Send server
         testnetwork.connector.sendBuyMapObjectByRuby(this._sprite.id, typeObject,
-            lx, ly, ruby);
+            lx, ly);
     }
 });
 
