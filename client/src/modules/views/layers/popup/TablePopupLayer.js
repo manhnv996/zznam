@@ -23,6 +23,12 @@ var TablePopupLayer = cc.Layer.extend({
         this.addChild(this._layout);
     },
 
+    showMachineTablePopup: function (machineId) {
+        cc.log(MA_LOG_TAG + "showMachineTablePopup");
+        this._layout = new MachineTablePopup(machineId);
+        this.addChild(this._layout);
+    },
+
 
     ////TablePopupLayer.instance.removeUpdateDisableListener();
 

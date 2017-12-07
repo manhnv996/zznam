@@ -11,6 +11,7 @@ var _ = (function() {
         COOKIE_PNG: 	r("bakery/cookie.png"),
         FOOD_CHICKEN_PNG: 	r("feed mill/Feed-chicken.png"),
         FOOD_COW_PNG: 	r("feed mill/Feed-cow.png"),
+        FOOD_PIG_PNG: 	r("feed mill/Feed-pig.png"),
         PAN_CAKE_PNG: 	r("BBQ Grill/pancake.png"),
         BUTTER_PNG: 	r("Dairy/butter.png"),
         BUTTER_MINI_PNG: 	r("Dairy/butter_mini.png"),

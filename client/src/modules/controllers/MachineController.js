@@ -4,29 +4,41 @@
 
 var MachineController = cc.Class.extend({
     onMachineSelected:function(machineId){
-
+        TablePopupLayer.instance.showMachineTablePopup(machineId);
     },
-    initMachineList: function () {
-        MapLayer.instance.machineList = [];
+    initMachineSpriteList: function () {
+        MapLayer.instance.machineSpriteList = [];
 
 
     },
     // lấy ra chỉ số của máy trong mảng các máy có trên bản đồ theo machineId
-    getIndexOfMachineList: function (machineId) {
+    getIndexInMachineSpriteList: function (machineId) {
         if (machineId == null){
             return null;
         }
-        for (var i = 0; i < MapLayer.instance.machineList.length; i++){
-            if (MapLayer.instance.machineList[i].machineId == machineId){
+        for (var i = 0; i < MapLayer.instance.machineSpriteList.length; i++){
+            if (MapLayer.instance.machineSpriteList[i].machineId == machineId){
                 return i;
             }
         }
         return null;
     },
     getMachineById: function (machineId){
-        var field = MapLayer.instance.machineList.find(function(f) {
+        var machine = MapLayer.instance.machineList.find(function(f) {
             return f.machineId === machineId;
         })
+        return null;
+    },
+    getMachineConfigByType: function(machineType){
+        //var machineConfig = MACHINE_LIST.find(function(f) {
+        //    return f.machineType === machineType;
+        //})
+
+        for (var i = 0; i < MACHINE_LIST.length; i++){
+            if (MACHINE_LIST[i].machineType === machineType){
+                return MACHINE_LIST[i];
+            }
+        }
         return null;
     }
 

@@ -51,7 +51,15 @@ var Asset = cc.Class.extend({
     getMyShop: function () {
         return this.myShop;
     },
+    getMachineById: function (machineId) {
+        for (var i = 0; i < this.machineList.length; i++){
+            if (this.machineList[i].machineId == machineId){
 
+                return this.machineList[i];
+            }
+        }
+        return null;
+    },
     getFieldById: function(fieldId) {
         for (var i = 0; i < this.fieldList.length; i++){
             if (this.fieldList[i].getFieldId() == fieldId){

@@ -294,7 +294,7 @@ var MapCtrl = cc.Class.extend({
     renderMachine: function(){
         //(coordinate, startBuildTime, completed, machineId, machineType, productQueue)
 
-        MapLayer.instance.machineList = [];
+        MapLayer.instance.machineSpriteList = [];
 
         var coordinate = {x:24, y: 24};
         var startBuildTime = "343434324";
@@ -325,17 +325,18 @@ var MapCtrl = cc.Class.extend({
 
         var spriteBakery = new MachineSprite("bakery_machine");
         MapLayer.instance.addChild(spriteBakery);
-        MapLayer.instance.machineList.push(spriteBakery);
+        MapLayer.instance.machineSpriteList.push(spriteBakery);
         var spriteFoodMachine = new MachineSprite("food_machine" );
         MapLayer.instance.addChild(spriteFoodMachine);
-        MapLayer.instance.machineList.push(spriteFoodMachine);
+        MapLayer.instance.machineSpriteList.push(spriteFoodMachine);
         var spritePopcornMachine = new MachineSprite("popcorn_machine");
         MapLayer.instance.addChild(spritePopcornMachine);
-        MapLayer.instance.machineList.push(spritePopcornMachine);
+        MapLayer.instance.machineSpriteList.push(spritePopcornMachine);
 
 
-        // var spriteSugarMachine = new MachineSprite("sugar_machine");
-        // MapLayer.instance.addChild(spriteSugarMachine);
+
+         //var spriteSugarMachine = new MachineSprite("sugar_machine");
+         //MapLayer.instance.addChild(spriteSugarMachine);
 
 
     }

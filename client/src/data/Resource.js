@@ -139,7 +139,7 @@ for (var k in FontResource) {
 }
 
 
-//add resources in /fonts/
+//add resources in /machines/item
 for (var k in MachineItemResource) {
     res[k] = MachineItemResource[k];
 }

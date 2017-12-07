@@ -38,6 +38,11 @@ var HavestResource = {
     popup4: "res/Art/Crops/Gui-act/4.png",
     popup5: "res/Art/Crops/Gui-act/5.png",
     button_congG_1: "res/Art/Crops/Gui-act/butoon-congG-1.png",
+    button_energy_2: "res/Art/Crops/Gui-act/button-energy2.png",
+    o_trong_1_1: "res/Art/Crops/Gui-act/otrong1-1.png",
+    o_trong_1_1: "res/Art/Crops/Gui-act/otrong1-1.png",
+    o_trong_2: "res/Art/Crops/Gui-act/otrong2.png",
+    o_trong_1: "res/Art/Crops/Gui-act/otrong1.png ",
 
     slot: "res/Art/Crops/Gui-act/slot.png",
     tooltip: "res/Art/Crops/Gui-act/tooltip.png",

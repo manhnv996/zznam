@@ -75,10 +75,11 @@
         "src/modules/views/sprites/VungnuocSprite.js",
         "src/modules/views/sprites/DatoSprite.js",
         "src/modules/views/sprites/DanhoSprite.js",
+        "src/modules/views/sprites/ProductSprite.js",
 
 
-        "src/modules/views/layers/popup/MachineTablePopup.js",
         "src/modules/views/layers/popup/TablePopup.js",
+        "src/modules/views/layers/popup/MachineTablePopup.js",
         "src/modules/views/layers/popup/SeedTablePopup.js",
         "src/modules/views/layers/popup/CropToolPopup.js",
         "src/modules/views/layers/popup/TablePopupLayer.js",
