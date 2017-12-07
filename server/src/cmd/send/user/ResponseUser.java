@@ -11,6 +11,7 @@ import config.utils.ConfigContainer;
 
 import java.nio.ByteBuffer;
 
+import java.util.Date;
 import java.util.List;
 
 import model.Animal;
@@ -280,6 +281,7 @@ public class ResponseUser extends BaseMsg {
     }
     // Pack a machine
     private void packMachine(Machine machine) {
+        long retainTime = new Date().getTime() - machine.getStartTime();
         bf.putInt(machine.getId());
         putStr(bf, machine.getType().toString());
         bf.putInt(machine.getX());
@@ -288,6 +290,7 @@ public class ResponseUser extends BaseMsg {
         bf.putLong(machine.getStartTime());
         bf.putInt(machine.isCompleted() ? 1 : 0);
         bf.putLong(machine.getStartBuildTime());
+        bf.putLong(retainTime);
         
         List<String> productQueue = machine.getProductQueue();  
         

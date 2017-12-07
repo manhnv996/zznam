@@ -15,7 +15,7 @@ var AnimationSprite = MapBlockSprite.extend({
 		// }
 
 		//
-		this.addEventListener();
+		//this.addEventListener();
 	},
 
 

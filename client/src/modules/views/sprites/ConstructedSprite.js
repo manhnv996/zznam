@@ -26,36 +26,12 @@ var ConstructedSprite = AnimationSprite.extend({
         this.typeBuilding = typeBuilding;
         this.typeMapObject = typeMapObject;
 
-        //this.machineModel = user.asset.getMachineById(id);
-        //
-        //var machineConfig = getMachineConfigByType(this.machineModel.type);
-        //
-        //var startTime = this.machineModel.startBuildTime;
-        //var curTime = new Date().getTime();
-        //this.totalTime = machineConfig.time * 1000;
-        this.buildTime = ConstructedCtrl.instance.getBuildTime(id);
-        this.buildExpress = ConstructedCtrl.instance.getBuildExpress(id, this.buildTime);
-
-        //cc.log("startTime " + startTime);
-        //cc.log("curTime " + curTime);
-        //cc.log("buildTime " + this.buildTime);
-        //
-        //this.reduceRubyTime = machineConfig.reduceRubyTime;
-        //this.reduceRuby = Math.floor(this.buildTime / 1000 / this.reduceRubyTime);
-        //this.buildExpress = machineConfig.buildExpress - this.reduceRuby;
-        ////cc.log("buildExpress " + (this.buildExpress < 0));
-        //if (this.buildExpress < 0) {
-        //    this.buildExpress = 0;
-        //}
-
-        //cc.log("buildExpress " + this.buildExpress);
-        //cc.log("Math.floor(this.buildTime / this.reduceRubyTime) " + this.reduceRuby);
+        //this.buildTime = ConstructedCtrl.instance.getBuildTime(id);
+        this.buildExpress = ConstructedCtrl.instance.getBuildExpress(id);
 
         this.play(nameAni);
 
         this.registerTouchEvents();
-        //MapLayer.instance.debugSprite = this;
-        //cc.log("registerTouchEvents");
 
         this.schedule(this.updateTime, 1);
     },
@@ -68,11 +44,12 @@ var ConstructedSprite = AnimationSprite.extend({
                 _loadingBarConstructed.removeFromParent();
             }
             _loadingBarConstructed = null;
-        }},
+        }
+    },
 
     onClick: function () {
         cc.log("Click nha dang xay " + this.id);
-        ConstructedCtrl.instance.selectConstructedObject(this.id, this.typeBuilding, this.buildExpress);
+        ConstructedCtrl.instance.selectConstructedObject(this);
     },
 
     _offset: function() {

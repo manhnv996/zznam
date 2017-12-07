@@ -67,9 +67,9 @@ var LoadingBarLayout = ccui.Layout.extend({
        this.addChild(this.boostBtn);
 
        this.setScale(0.4);
-
-       this.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
-       this.setBackGroundColor(cc.color.BLACK);
+       //
+       //this.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
+       //this.setBackGroundColor(cc.color.BLACK);
 
        //cc.log("total time", this.totalTime);
        //cc.log("start time", this.startTime);
@@ -168,7 +168,7 @@ var LoadingBarLayout = ccui.Layout.extend({
 
         if (hour === 0 && min === 0 && sec === 0) {
             //cc.log("remainTime " + this.remainTime);
-            this.progress.setPercent(100);
+            //this.progress.setPercent(100);
             this.closeLoadingBar();
         }
     },

@@ -21,7 +21,8 @@ public enum ErrorLog {
     ERROR_STORAGE_NOT_ADD((short) 21),
 
     ERROR_RUBY_NOT_REDUCE((short) 30),
-    
+    ERROR_RUBY_NOT_ENOUGH((short) 31),
+
     ERROR_ORDER_NOT_COMPLETE((short) 40),
     
     
@@ -32,8 +33,8 @@ public enum ErrorLog {
     ERROR_BUY_RUBY_NOT_REDUCE((short) 74),
     ERROR_BUY_RUBY_NOT_ENOUGH((short) 75),
     
-    ERROR_BUY_TOOL_RUBY_NOT_ENOUGH((short) 80),
-    ERROR_BUY_TOOL_RUBY_NOT_REDUCE((short) 81),
+//    ERROR_RUBY_NOT_ENOUGH((short) 80),
+//    ERROR_RUBY_NOT_REDUCE((short) 81),
     ERROR_CANT_ADD_TOOL((short) 82),
     
     ERROR_UPGRADE_FAIL((short)  83),

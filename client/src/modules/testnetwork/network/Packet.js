@@ -57,6 +57,7 @@ gv.CMD.UPGRADE_STORAGE_REQUEST = 8002;
 
 //Constructed
 gv.CMD.BUID_COMPLETED = 9001;
+gv.CMD.BOOST_BUILD = 9002;
 
 
 testnetwork = testnetwork||{};
@@ -465,7 +466,20 @@ CmdSendBuildCompleted = fr.OutPacket.extend({
         this.setCmdId(gv.CMD.BUID_COMPLETED);
     },
     pack: function (id, typeBuilding) {
-        cc.log("gv.CMD.BUID_COMPLETED " + gv.CMD.BUID_COMPLETED);
+        this.packHeader();
+        this.putInt(id);
+        this.putInt(typeBuilding);
+        this.updateSize();
+    }
+});
+
+CmdSendBoostBuild = fr.OutPacket.extend({
+    ctor: function () {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.BOOST_BUILD);
+    },
+    pack: function (id, typeBuilding) {
         this.packHeader();
         this.putInt(id);
         this.putInt(typeBuilding);
@@ -1043,6 +1057,7 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         machine.startTime = parseInt(this.getLong());
         machine.completed = this.getInt() ? true : false;
         machine.startBuildTime = parseInt(this.getLong());
+        machine.retainBuildTime = parseInt(this.getLong());
 
         machine.productQueue = [];
         var size = this.getInt();

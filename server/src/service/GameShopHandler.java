@@ -183,13 +183,13 @@ public class GameShopHandler extends BaseClientRequestHandler{
         //Check ruby
         int ruby = fromGoldToRuby(price);
         if (!(ruby <= userInfo.getRuby())) {
-            send(new ResponseErrorCode(ErrorLog.ERROR_BUY_RUBY_NOT_ENOUGH.getValue()), user);
+            send(new ResponseErrorCode(ErrorLog.ERROR_RUBY_NOT_ENOUGH.getValue()), user);
             return;
         }
 
         //Reduce ruby
         if (!userInfo.reduceRuby(ruby)) {
-            send(new ResponseErrorCode(ErrorLog.ERROR_BUY_RUBY_NOT_REDUCE.getValue()), user);
+            send(new ResponseErrorCode(ErrorLog.ERROR_RUBY_NOT_REDUCE.getValue()), user);
             return;
         }
 

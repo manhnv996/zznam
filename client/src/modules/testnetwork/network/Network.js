@@ -446,5 +446,12 @@ testnetwork.Connector = cc.Class.extend({
         var pk = this.gameClient.getOutPacket(CmdSendBuildCompleted);
         pk.pack(id, typeBuilding);
         this.gameClient.sendPacket(pk);
+    },
+
+    sendBoostBuild: function (id, typeBuilding) {
+        cc.log("Send Boost Build");
+        var pk = this.gameClient.getOutPacket(CmdSendBoostBuild);
+        pk.pack(id, typeBuilding);
+        this.gameClient.sendPacket(pk);
     }
 });

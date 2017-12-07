@@ -361,6 +361,7 @@ function onReceiveUser(userInfo) {
             machineInfo.productQueue,
             machineInfo.completed,
             machineInfo.startBuildTime,
+            machineInfo.retainBuildTime,
             new Coordinate(machineInfo.x, machineInfo.y)
         );
         machineList.push(machine);

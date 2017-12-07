@@ -118,7 +118,7 @@ var GameShopController = cc.Class.extend({
         }
     },
 
-    buyField: function (typeObject, lx, ly, ruby) {
+    buyField: function (typeObject, lx, ly) {
         //Sprite
         //this._sprite = null;
         this._sprite = new FieldSprite(user.getAsset().getFieldList().length + 1, lx, ly);
@@ -132,14 +132,14 @@ var GameShopController = cc.Class.extend({
 
         // Send server
         testnetwork.connector.sendBuyMapObjectByRuby(this._sprite.fieldId, typeObject,
-            lx, ly, ruby);
+            lx, ly);
     },
 
-    buyMachine: function (typeObject, lx, ly, ruby) {
+    buyMachine: function (typeObject, lx, ly) {
         //Model
         var machineConfig = getMachineConfigByType(typeObject);
         var machineModel = new Machine(0, typeObject, machineConfig.slot, 0, null,
-            false, new Date().getTime(), new Coordinate(lx, ly));
+            false, new Date().getTime(), machineConfig.time, new Coordinate(lx, ly));
         //var machineModel = new Machine(id, typeObject, 0, 0, null, false,
         //    0, new Coordinate(lx, ly));
         user.asset.addMachine(machineModel);

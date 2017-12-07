@@ -65,6 +65,7 @@ public class CmdDefine {
     public static final short UPGRADE_STORAGE_REQUEST = 8002;
     
     public static final short BUILD_COMPLETED_REQUEST = 9001;
+    public static final short BOOST_BUILD_REQUEST = 9002;
     
     public static final short GET_FRIENDS = 3001;
     public static final short FRIEND_SEND_MESSAGE = 3002;

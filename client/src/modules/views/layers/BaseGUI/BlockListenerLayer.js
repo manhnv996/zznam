@@ -4,8 +4,8 @@
 
 var BlockListenerLayer = cc.LayerColor.extend({
     _isClose: false,
-    //_debug: false,
-    _debug: true,
+    _debug: false,
+    //_debug: true,
 
     ctor: function (sizeBlock) {
         this._super(cc.Color.BLACK, cc.winSize.width, cc.winSize.height);
