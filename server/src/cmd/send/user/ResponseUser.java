@@ -11,6 +11,7 @@ import config.utils.ConfigContainer;
 
 import java.nio.ByteBuffer;
 
+import java.util.Date;
 import java.util.List;
 
 import model.Animal;
@@ -18,6 +19,8 @@ import model.AnimalLodge;
 import model.Field;
 import model.Machine;
 import model.NatureThing;
+import model.Order;
+import model.OrderNPC;
 import model.Storage;
 import model.StorageItem;
 import model.ZPUserInfo;
@@ -40,9 +43,12 @@ public class ResponseUser extends BaseMsg {
         this.packFieldList();
         this.packNatureThingList();
         this.packStorages();
+        this.packOrderList();
+        this.packOrderNPCList();
+        
         this.packAnimalLodges();
         this.packMachines();
-        
+
         return packBuffer(this.bf);
     }
     
@@ -177,8 +183,6 @@ public class ResponseUser extends BaseMsg {
         bf.putInt(lodge.getX());
         bf.putInt(lodge.getY());
         bf.putInt(lodge.getId());
-        bf.putLong(lodge.getStartBuildTime());
-        bf.putInt(lodge.isCompleted() ? 1 : 0);
         // Pack animal list
         List<Animal> animalList = lodge.getAnimalList();
         int size = animalList.size();
@@ -196,6 +200,73 @@ public class ResponseUser extends BaseMsg {
     }
     
     /**
+     * Put orderlist:
+     */
+    private void packOrderList() {
+        List<Order> orderList = user.getAsset().getOrderList();
+        // [IMPORTANT] Put length of order list first
+        bf.putInt(orderList.size());
+        // Put each order
+        for (int i = 0; i < orderList.size(); i++) {
+            this.packOrder(orderList.get(i));
+        }
+    }
+    
+    /**
+     * Put order
+     */
+    private void packOrder(Order order) {
+        bf.putInt(order.getOrderId()); // ID
+        
+        if (order.getItemList() == null){
+            bf.putInt(0);  //size
+        } else {
+            int typeNumber = order.getItemList().size();
+            bf.putInt(typeNumber);  //size
+            for (int j = 0; j < typeNumber; j++){
+                this.packStorageItem(order.getItemList().get(j));
+            }
+        }
+        
+        bf.putInt(order.getOrderPrice());
+        bf.putInt(order.getOrderExp());
+        bf.putLong(order.getWaittingTime());
+    }
+    
+    /**
+     * Put orderNPClist:
+     */
+    private void packOrderNPCList() {
+        List<OrderNPC> orderNPCList = user.getAsset().getOrderNPCList();
+        // [IMPORTANT] Put length of order list first
+        bf.putInt(orderNPCList.size());
+        // Put each order
+        for (int i = 0; i < orderNPCList.size(); i++) {
+            this.packOrderNPC(orderNPCList.get(i));
+        }
+    }
+    
+    /**
+     * Put orderNPC
+     */
+    private void packOrderNPC(OrderNPC order) {
+        bf.putInt(order.getOrderId()); // ID
+        
+        if (order.getOrderItem() == null){
+            bf.putInt(0);
+        } else {
+            bf.putInt(1);
+            this.packStorageItem(order.getOrderItem());
+        }
+        
+        bf.putInt(order.getOrderPrice());
+        bf.putInt(order.getOrderExp());
+        bf.putLong(order.getWaittingTime());
+        putStr(bf, order.getNpcResAni());
+    }
+    
+    
+    /**        
      * Pack ALL machine
      */
     private void packMachines () {
@@ -210,6 +281,7 @@ public class ResponseUser extends BaseMsg {
     }
     // Pack a machine
     private void packMachine(Machine machine) {
+        long retainTime = new Date().getTime() - machine.getStartTime();
         bf.putInt(machine.getId());
         putStr(bf, machine.getType().toString());
         bf.putInt(machine.getX());
@@ -218,6 +290,7 @@ public class ResponseUser extends BaseMsg {
         bf.putLong(machine.getStartTime());
         bf.putInt(machine.isCompleted() ? 1 : 0);
         bf.putLong(machine.getStartBuildTime());
+        bf.putLong(retainTime);
         
         List<String> productQueue = machine.getProductQueue();  
         

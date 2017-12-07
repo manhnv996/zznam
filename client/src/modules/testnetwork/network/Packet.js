@@ -27,9 +27,24 @@ gv.CMD.RESPONSE_SYNC_FIELD_STATUS = 5082;
 gv.CMD.RESPONSE_SYNC_STORAGE = 5083;
 gv.CMD.RESPONSE_SYNC_FOOD_STORAGE_ITEM = 5084;
 
+//
+gv.CMD.MAKE_ORDER = 10001;
+gv.CMD.CANCEL_ORDER = 10002;
+gv.CMD.CREATE_NEW_ORDER = 10003;
+gv.CMD.BOOST_WAIT_ORDER = 10004;
+
+gv.CMD.MAKE_ORDER_NPC = 10011;
+gv.CMD.CANCEL_ORDER_NPC = 10012;
+gv.CMD.CREATE_NEW_ORDER_NPC = 10013;
+
+gv.CMD.RESPONSE_SYNC_ORDER = 10081;
+gv.CMD.RESPONSE_SYNC_ORDER_NPC = 10091;
+
+
 // Map
 gv.CMD.MOVE_FIELD = 6001;
 gv.CMD.MOVE_STORAGE = 6002;
+gv.CMD.MOVE_MAP_BLOCK = 6003;
 gv.CMD.RESPONSE_MOVE = 6100;
 
 //Shop
@@ -42,6 +57,7 @@ gv.CMD.UPGRADE_STORAGE_REQUEST = 8002;
 
 //Constructed
 gv.CMD.BUID_COMPLETED = 9001;
+gv.CMD.BOOST_BUILD = 9002;
 
 
 testnetwork = testnetwork||{};
@@ -91,6 +107,7 @@ CmdSendLogin = fr.OutPacket.extend(
             this.setCmdId(gv.CMD.USER_LOGIN);
         },
         pack:function(user){
+            // user = sessionley
             this.packHeader();
             this.putString(user);
             this.updateSize();
@@ -181,15 +198,147 @@ CmdSendBuyItemByRubi = fr.OutPacket.extend(
             this.initData(100);
             this.setCmdId(gv.CMD.BUY_ITEM_BY_RUBI);
         },
-        pack:function(productType){
+        pack:function(productType, quantity){
             this.packHeader();
 
             this.putString(productType);
+            this.putInt(quantity);
 
             this.updateSize();
         }
     }
 );
+
+////
+CmdSendMakeOrder = fr.OutPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+            this.initData(100);
+            this.setCmdId(gv.CMD.MAKE_ORDER);
+        },
+        pack:function(orderId, rubyBuy){
+            this.packHeader();
+
+            this.putInt(orderId);
+            this.putInt(rubyBuy);
+
+            this.updateSize();
+        }
+    }
+);
+
+CmdSendCancelOrder = fr.OutPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+            this.initData(100);
+            this.setCmdId(gv.CMD.CANCEL_ORDER);
+        },
+        pack:function(orderId){
+            this.packHeader();
+
+            this.putInt(orderId);
+
+            this.updateSize();
+        }
+    }
+);
+
+CmdSendCreateNewOrder = fr.OutPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+            this.initData(100);
+            this.setCmdId(gv.CMD.CREATE_NEW_ORDER);
+        },
+        pack:function(orderId){
+            this.packHeader();
+
+            this.putInt(orderId);
+
+            this.updateSize();
+        }
+    }
+);
+
+CmdSendBoostWaitOrder = fr.OutPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+            this.initData(100);
+            this.setCmdId(gv.CMD.BOOST_WAIT_ORDER);
+        },
+        pack:function(orderId){
+            this.packHeader();
+
+            this.putInt(orderId);
+
+            this.updateSize();
+        }
+    }
+);
+
+//
+CmdSendMakeOrderNpc = fr.OutPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+            this.initData(100);
+            this.setCmdId(gv.CMD.MAKE_ORDER_NPC);
+        },
+        pack:function(orderId, rubyBuy){
+            this.packHeader();
+
+            this.putInt(orderId);
+            this.putInt(rubyBuy);
+
+            this.updateSize();
+        }
+    }
+);
+
+CmdSendCancelOrderNpc = fr.OutPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+            this.initData(100);
+            this.setCmdId(gv.CMD.CANCEL_ORDER_NPC);
+        },
+        pack:function(orderId){
+            this.packHeader();
+
+            this.putInt(orderId);
+
+            this.updateSize();
+        }
+    }
+);
+
+CmdSendCreateNewOrderNpc = fr.OutPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+            this.initData(100);
+            this.setCmdId(gv.CMD.CREATE_NEW_ORDER_NPC);
+        },
+        pack:function(orderId){
+            this.packHeader();
+
+            this.putInt(orderId);
+
+            this.updateSize();
+        }
+    }
+);
+////
 
 // Map
 CmdSendMoveStorage = fr.OutPacket.extend({
@@ -222,6 +371,22 @@ CmdSendMoveField = fr.OutPacket.extend({
     }
 });
 
+CmdSendMoveMapBlock = fr.OutPacket.extend({
+    ctor: function() {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.MOVE_MAP_BLOCK);
+    },
+    pack: function(type, id, x, y) {
+        this.packHeader();
+        this.putInt(type);
+        this.putInt(id);
+        this.putInt(x);
+        this.putInt(y);
+        this.updateSize();
+    }
+});
+
 CmdSendBuyMapObjectRequest = fr.OutPacket.extend({
     ctor: function () {
         this._super();
@@ -244,13 +409,12 @@ CmdSendBuyMapObjectByRuby = fr.OutPacket.extend({
         this.initData(100);
         this.setCmdId(gv.CMD.BUY_MAP_OBJECT_BY_RUBY);
     },
-    pack: function (id, type, x, y, ruby) {
+    pack: function (id, type, x, y) {
         this.packHeader();
         this.putInt(id);
         this.putString(type);
         this.putInt(x);
         this.putInt(y);
-        this.putInt(ruby);
         this.updateSize();
     }
 });
@@ -300,6 +464,20 @@ CmdSendBuildCompleted = fr.OutPacket.extend({
         this._super();
         this.initData(100);
         this.setCmdId(gv.CMD.BUID_COMPLETED);
+    },
+    pack: function (id, typeBuilding) {
+        this.packHeader();
+        this.putInt(id);
+        this.putInt(typeBuilding);
+        this.updateSize();
+    }
+});
+
+CmdSendBoostBuild = fr.OutPacket.extend({
+    ctor: function () {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.BOOST_BUILD);
     },
     pack: function (id, typeBuilding) {
         this.packHeader();
@@ -513,9 +691,33 @@ testnetwork.packetMap[gv.CMD.RESPONSE_SYNC_STORAGE] = fr.InPacket.extend(
             /*
              DONE
              */
-            this.storageJsonString = this.getString();
+            // this.storageJsonString = this.getString();
 
-        }
+            this.storage = this.unpackStorage();
+        },
+
+        unpackStorage: function() {
+            var storage = {};
+            storage.x = this.getInt();
+            storage.y = this.getInt();
+            storage.storageType = this.getString();
+            storage.capacity = this.getInt();
+            storage.level = this.getInt();
+            // Unpack storage item list
+            storage.itemList = [];
+            var size = this.getInt();
+            for (var i = 0; i < size; i++) {
+                storage.itemList.push(this.unpackStorageItem());
+            }
+            return storage;
+        },
+        unpackStorageItem: function() {
+            var item = {};
+            item.typeItem = this.getString();
+            item.quantity = this.getInt();
+            return item;
+        },
+
     }
 );
 
@@ -536,6 +738,96 @@ testnetwork.packetMap[gv.CMD.RESPONSE_SYNC_FOOD_STORAGE_ITEM] = fr.InPacket.exte
         }
     }
 );
+
+////
+testnetwork.packetMap[gv.CMD.RESPONSE_SYNC_ORDER] = fr.InPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+        },
+        readData:function(){
+
+            /*
+             DONE
+             */
+            this.order = this.unpackOrder();
+
+        },
+
+        unpackOrder: function () {
+            var order = {};
+            order.orderId = this.getInt();
+
+            // Get each item
+            var itemListSize = this.getInt();
+            order.itemList = [];
+            for (var i = 0; i < itemListSize; i++) {
+                order.itemList.push(this.unpackStorageItem());
+            }
+
+            order.orderPrice = this.getInt();
+            order.orderExp = this.getInt();
+            order.waittingTime = this.getLong();
+
+            return order;
+        },
+
+        unpackStorageItem: function() {
+            var item = {};
+            item.typeItem = this.getString();
+            item.quantity = this.getInt();
+            return item;
+        },
+
+    }
+);
+
+testnetwork.packetMap[gv.CMD.RESPONSE_SYNC_ORDER_NPC] = fr.InPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+        },
+        readData:function(){
+
+            /*
+             NOT YET STARTED
+             */
+            this.orderNPC = this.unpackOrderNPC();
+
+        },
+
+        unpackOrderNPC: function () {
+            var order = {};
+            order.orderId = this.getInt();
+
+            var itemIsNull = this.getInt();
+            if (itemIsNull == 0){
+                order.orderItem = null;
+            } else {
+                order.orderItem = this.unpackStorageItem();
+            }
+
+            order.orderPrice = this.getInt();
+            order.orderExp = this.getInt();
+            order.waittingTime = this.getLong();
+
+            order.npc_res = this.getString();
+
+            return order;
+        },
+
+        unpackStorageItem: function() {
+            var item = {};
+            item.typeItem = this.getString();
+            item.quantity = this.getInt();
+            return item;
+        },
+
+    }
+);
+////
 
 
 // Map
@@ -562,6 +854,8 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         this.unpackFieldList();
         this.unpackNatureThingList();
         this.unpackStorages();
+        this.unpackOrderList();
+        this.unpackOrderNPCList();
         this.unpackAnimalLodges();
         this.unpackMachines();
     },
@@ -649,6 +943,64 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         return item;
     },
 
+    //
+    unpackOrderList: function() {
+        this.user.asset.orderList = [];
+        // Get orderList size
+        var size = this.getInt();
+        // Get each order
+        for (var i = 0; i < size; i++) {
+            this.user.asset.orderList.push(this.unpackOrder());
+        }
+    },
+    unpackOrder: function () {
+        var order = {};
+        order.orderId = this.getInt();
+
+        // Get each item
+        var itemListSize = this.getInt();
+        order.itemList = [];
+        for (var i = 0; i < itemListSize; i++) {
+            order.itemList.push(this.unpackStorageItem());
+        }
+
+        order.orderPrice = this.getInt();
+        order.orderExp = this.getInt();
+        order.waittingTime = this.getLong();
+
+        return order;
+    },
+    //
+    unpackOrderNPCList: function() {
+        this.user.asset.orderNPCList = [];
+        // Get orderList size
+        var size = this.getInt();
+        // Get each order
+        for (var i = 0; i < size; i++) {
+            this.user.asset.orderNPCList.push(this.unpackOrderNPC());
+        }
+    },
+    unpackOrderNPC: function () {
+        var order = {};
+        order.orderId = this.getInt();
+
+        var itemIsNull = this.getInt();
+        if (itemIsNull == 0){
+            order.orderItem = null;
+        } else {
+            order.orderItem = this.unpackStorageItem();
+        }
+
+        order.orderPrice = this.getInt();
+        order.orderExp = this.getInt();
+        order.waittingTime = this.getLong();
+
+        order.npc_res = this.getString();
+
+        return order;
+    },
+    //
+
     unpackAnimalLodges: function() {
         var size = this.getInt();
         this.user.asset.animalLodgeList = [];
@@ -664,8 +1016,6 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         lodge.x = this.getInt();
         lodge.y = this.getInt();
         lodge.id = this.getInt();
-        lodge.startBuildTime = parseInt(this.getLong());
-        lodge.completed = this.getInt() ? true : false;
 
         // Unpack animal list
         lodge.animalList = [];
@@ -707,6 +1057,7 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         machine.startTime = parseInt(this.getLong());
         machine.completed = this.getInt() ? true : false;
         machine.startBuildTime = parseInt(this.getLong());
+        machine.retainBuildTime = parseInt(this.getLong());
 
         machine.productQueue = [];
         var size = this.getInt();
@@ -716,4 +1067,5 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
 
         return machine;
     }
+
 });

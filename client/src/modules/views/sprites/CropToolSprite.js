@@ -7,8 +7,8 @@ var CropToolSprite = cc.Sprite.extend({
     ctor: function(parent, tool_img) {
         this._super(tool_img);
 
-        //
-        this.render();
+        // //
+        // this.render();
 
         this.dragListener = cc.EventListener.create({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -42,6 +42,10 @@ var CropToolSprite = cc.Sprite.extend({
                 parent.popupItemList.shift();
                 parent.disablePopup(null);
 
+
+                //
+                TablePopupLayer.instance._layout._isVisible = false;
+
                 // cc.log("onTouchMoved: " + delta.x + ", " + delta.y);
 
                 var mouse = touch.getLocation();
@@ -67,6 +71,10 @@ var CropToolSprite = cc.Sprite.extend({
                 // parent.disablePopup(0);
                 target.removeFromParent(true);
                 //cc.eventManager.removeListener(this.dragListener);
+
+                //
+                TablePopupLayer.instance._layout._isClose = true;
+
             }.bind(this)
         });
         cc.eventManager.addListener(this.dragListener, this);

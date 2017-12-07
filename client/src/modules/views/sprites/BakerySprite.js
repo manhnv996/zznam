@@ -1,7 +1,7 @@
 
 var BakerySprite = AnimationSprite.extend({
 
-	_Id: null,
+	id: null,
 
 	ctor: function(bakeryId, x, y) {
 		this._super(resAniId.bakery, 3, 3, x, y, MapItemEnum.BAKERY);
@@ -11,7 +11,7 @@ var BakerySprite = AnimationSprite.extend({
 		// this.content.gotoAndPlay('loop', -1);
 		// this.addChild(this.content);
 
-		this._Id = bakeryId;
+		this.id = bakeryId;
 
 		//this.play("1");
 		this.play("idle");
@@ -24,7 +24,7 @@ var BakerySprite = AnimationSprite.extend({
 	},
 
 	onClick: function() {
-		cc.log("bakery is clicked " + this._Id);
+		cc.log("bakery is clicked " + this.id);
 	}
 
 });

@@ -82,6 +82,9 @@ var SeedSprite = cc.Sprite.extend({
                     //
                     this.dragListener._isFirstMove = true;
                     target.removeAllChildrenWithCleanup(true);  //remove all child
+
+                    //
+                    TablePopupLayer.instance._layout._isVisible = false;
                 }
 
 
@@ -115,6 +118,9 @@ var SeedSprite = cc.Sprite.extend({
                     parent.disablePopup(seedType);
                     target.removeFromParent(true);
                     //cc.eventManager.removeListener(this.dragListener);
+
+                    //
+                    TablePopupLayer.instance._layout._isClose = true;
                 }
 
             }.bind(this)

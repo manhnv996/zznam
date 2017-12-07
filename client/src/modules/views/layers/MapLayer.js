@@ -41,9 +41,8 @@ var MapLayer = cc.Layer.extend({
 		this.initEvent();
 
 		this.initFieldList();
+        //
 
-		//var bakery = new BakerySprite(0, 20, 20);
-		//this.addChild(bakery);
 	},
 
 	onEnter: function() {
@@ -542,22 +541,22 @@ var MapLayer = cc.Layer.extend({
         var multiTouchListener = cc.EventListener.create({
         	event: cc.EventListener.TOUCH_ALL_AT_ONCE,
         	onTouchesBegan: function(touch, event) {
-        		cc.log("onTouchesBegan");
+        		cc.log("[T] onTouchesBegan");
         	},
         	
         	onTouchesCancelled: function(touch, event) {
-        		cc.log("onTouchesCancelled");
+        		cc.log("[T] onTouchesCancelled");
         	},
         	
         	onTouchesEnded: function(touch, event) {
-        		cc.log("onTouchesEnded");
+        		cc.log("[T] onTouchesEnded");
         	},
         	
         	onTouchesMoved: function(touch, event) {
-        		cc.log("onTouchesMoved");
+        		cc.log("[T] onTouchesMoved");
         	}
         });
-		//cc.eventManager.addListener(multiTouchListener, this);
+		// cc.eventManager.addListener(multiTouchListener, 1);
 		
 		this.centerPoint = cc.p(
 			this.getContentSize().width / 2,
@@ -720,6 +719,22 @@ var MapLayer = cc.Layer.extend({
 		}
 	},
 
+
+	// //
+	getNPCByOrderNPCId: function (orderNPCId) {
+        if (orderNPCId == null){
+            return null;
+        }
+        for (var i = 0; i < this.npcList.length; i++){
+            if (this.npcList[i].orderId == orderNPCId){
+                return this.npcList[i];
+            }
+        }
+        return null;
+    },
+
+
+
 	inertia: function(velocity) {
 		if (!this.scheduling) {
 			this.scheduling = true;
@@ -739,8 +754,10 @@ var MapLayer = cc.Layer.extend({
 	update: function(dt) {
 		var dx = this.velocity.x * dt;
 		var dy = this.velocity.y * dt;
-		this.velocity.x *= 0.9;
-		this.velocity.y *= 0.9;
+		var reduce = Math.pow(0.9, dt * 60);
+		// cc.log("Reduce", reduce);
+		this.velocity.x *= reduce;
+		this.velocity.y *= reduce;
 		if (dx * dx + dy * dy < 0.5) {
 			return this.uninertia();
 		}

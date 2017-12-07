@@ -22,6 +22,7 @@ import cmd.send.demo.ResponseMove;
 
 import cmd.send.demo.ResponseSyncFoodStorageItem;
 
+import cmd.send.demo.ResponseSyncStorage;
 import cmd.send.demo.ResponseSyncUserInfo;
 
 import config.enums.ErrorLog;
@@ -31,6 +32,7 @@ import extension.FresherExtension;
 
 import java.awt.Point;
 
+import model.Storage;
 import model.StorageItem;
 import model.ZPUserInfo;
 
@@ -68,8 +70,6 @@ public class PlantHandler extends BaseClientRequestHandler {
                     RequestPlantBoost boost = new RequestPlantBoost(dataCmd);
                 
                     processPlantBoost(user, boost);
-                            
-                System.out.println("boost");
                     break;
                 case CmdDefine.BUY_ITEM_BY_RUBI:
                     RequestBuyItemByRubi buyItem = new RequestBuyItemByRubi(dataCmd);
@@ -199,9 +199,13 @@ public class PlantHandler extends BaseClientRequestHandler {
                 return;
             }
             
-            int rubi = ProductUtil.getProductObjByType(buyItem.productType).rPrice;
+            
+//            int rubi = ProductUtil.getProductObjByType(buyItem.productType).rPrice;
+            int rubi = ProductUtil.getProductConfObjByType(buyItem.productType).rubiMuaNgay * buyItem.quantity;
+            
             if (userInfo.reduceRuby(rubi)){
-                if (userInfo.getAsset().getFoodStorage().addItem(buyItem.productType, 1)){
+//                if (userInfo.getAsset().getFoodStorage().addItem(buyItem.productType, buyItem.quantity)){
+                if (userInfo.getAsset().addItemToStorageById(buyItem.productType, buyItem.quantity)){                
 
                     userInfo.saveModel(user.getId());
 //                    userInfo.saveModel(1);
@@ -224,8 +228,20 @@ public class PlantHandler extends BaseClientRequestHandler {
                 System.out.println("before send");
                 send(new ResponseSyncUserInfo(ErrorLog.ERROR_RUBY_NOT_REDUCE.getValue(), userInfo), user);
                 System.out.println("after send");
-//                StorageItem storageItem = userInfo.getAsset().getFoodStorage().getItemList().get(userInfo.getAsset().getFoodStorage().getStorageItem(buyItem.productType));
-                send(new ResponseSyncFoodStorageItem(ErrorLog.ERROR_STORAGE_NOT_ADD.getValue(), new StorageItem(buyItem.productType, -1)), user);
+////                StorageItem storageItem = userInfo.getAsset().getFoodStorage().getItemList().get(userInfo.getAsset().getFoodStorage().getStorageItem(buyItem.productType));
+////                send(new ResponseSyncFoodStorageItem(ErrorLog.ERROR_STORAGE_NOT_ADD.getValue(), new StorageItem(buyItem.productType, -1)), user);
+//                send(new ResponseSyncFoodStorageItem(ErrorLog.ERROR_STORAGE_NOT_ADD.getValue(), new StorageItem(buyItem.productType, - buyItem.quantity)), user);
+            
+            
+                if (buyItem.productType.contains("crop_")){
+                    Storage foodStorage = userInfo.getAsset().getFoodStorage();
+                    send(new ResponseSyncStorage(ErrorLog.ERROR_STORAGE_NOT_ADD.getValue(), foodStorage), user);
+                } else {
+                    
+                    Storage warehouse = userInfo.getAsset().getWarehouse();
+                    send(new ResponseSyncStorage(ErrorLog.ERROR_STORAGE_NOT_ADD.getValue(), warehouse), user);
+                }
+            
 //            }
             
         } catch (Exception e) {

@@ -236,7 +236,9 @@ var MachineTable = cc.Layer.extend({
                 break;
             case ccui.Widget.TOUCH_CANCELED:
                 this.unscheduleUpdate();
-                GameShopLayout.instance.show();
+                //if (GameShopLayout.instance._isHide) {
+                //    GameShopLayout.instance.show();
+                //}
                 if (this._sprite) {
                     var endP = sender.getTouchEndPosition();
                     var endPl = MapValues.screenPositionToLogic(endP.x, endP.y);
@@ -250,28 +252,36 @@ var MachineTable = cc.Layer.extend({
                     if (!this._check) {
                         //this._sprite.removeFromParent(true);
                         BaseGUILayer.instance.notifyCantPut(endP.x, endP.y);
+                        if (GameShopLayout.instance._isHide) {
+                            //cc.log("GameShopLayout.instance._isHide " + GameShopLayout.instance._isHide);
+                            GameShopLayout.instance.show();
+                        }
                     } else {
                         var missGold = GameShopController.instance.checkGold(sender.parent.getChildByTag(5).getString());
                         cc.log(missGold);
                         if (missGold) {
                             //this._sprite.removeFromParent(true);
-                            BaseGUILayer.instance.notifyShopNotEnoughGold(missGold, this._sprite._Id, this.typeObject,
+                            BaseGUILayer.instance.notifyShopNotEnoughGold(missGold, this.typeObject,
                                 this._sprite.lx, this._sprite.ly);
                         } else {
                             // Success
                             //MapCtrl.instance.addSpriteAlias(this._sprite);
                             //this._sprite.setLogicPosition(this._sprite.lx, this._sprite.ly, false);
-                            var machineModel;
+                            //var machineModel;
+                            //Create Model
+                            var machineConfig = getMachineConfigByType(this.typeObject);
+                            var machineModel = new Machine(0, this.typeObject, machineConfig.slot, 0, null,
+                                false, new Date().getTime(), machineConfig.time, new Coordinate(endPl.x, endPl.y));
+                            user.getAsset().addMachine(machineModel);
+
+                            //Sprite
                             switch (this.typeObject) {
                                 case "bakery_machine":
                                     //Constructed Sprite
-                                    this._sprite = new ConstructedSprite(user.getAsset().getMachineList().length + 1,
+                                    this._sprite = new ConstructedSprite(machineModel.id,
                                         MapConfigs.BakeryMachine.size.width, MapConfigs.BakeryMachine.size.height,
-                                        endPl.x, endPl.y, MapItemEnum.MACHINE);
-
-                                    //Create Model
-                                    //machineModel = new Machine(this._sprite.id, typeObject, 0, 0, null,
-                                    //    false, 0, new Coordinate(this._sprite.lx, this._sprite.ly));
+                                        machineModel.coordinate.x, machineModel.coordinate.y,
+                                        MapItemEnum.MACHINE, MapItemEnum.BAKERY);
                                     //break;
                                 //case "food_machine":
                                 //    break;
@@ -283,20 +293,18 @@ var MachineTable = cc.Layer.extend({
                                 //    break;
 
                             }
-                            //Create Model
-                            var machineConfig = getMachineConfigByType(this.typeObject);
-                            machineModel = new Machine(this._sprite.id, this.typeObject, machineConfig.slot, 0, null,
-                                false, new Date().getTime(), new Coordinate(this._sprite.lx, this._sprite.ly));
 
                             MapLayer.instance.addChild(this._sprite);
                             MapCtrl.instance.addSpriteAlias(this._sprite);
-                            this._sprite.setLogicPosition(this._sprite.lx, this._sprite.ly, false);
+                            this._sprite.setLogicPosition(this._sprite.lx, this._sprite.ly, true);
                             //cc.log("Gold User" + user.getGold());
-                            user.getAsset().addMachine(machineModel);
                             user.reduceGold(sender.parent.getChildByTag(5).getString());
                             //Send Server
                             testnetwork.connector.sendBuyMapObjectRequest(this._sprite.id,
                                 this.typeObject, this._sprite.lx, this._sprite.ly);
+
+
+                            GameShopLayout.instance.show();
                         }
                     }
                 }

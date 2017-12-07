@@ -2,6 +2,7 @@
  * Created by CPU60075_LOCAL on 12/4/2017.
  */
 
+
 var LoadingBarLayout = ccui.Layout.extend({
     totalTime : 0,
     startTime: 0,
@@ -66,18 +67,18 @@ var LoadingBarLayout = ccui.Layout.extend({
        this.addChild(this.boostBtn);
 
        this.setScale(0.4);
-
+       //
        //this.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
        //this.setBackGroundColor(cc.color.BLACK);
 
        //cc.log("total time", this.totalTime);
        //cc.log("start time", this.startTime);
-       this.remainTime = this.totalTime - (new Date().getTime() - this.startTime);
+       this.remainTime = this.totalTime - (new Date().getTime() - this.startTime) + 1000;
        //cc.log("Remain time", this.remainTime);
 
        this.actionShow();
-       this.disableLoadingBar();
        this.scheduleUpdate();
+       this.disableLoadingBar();
    },
 
     actionShow: function () {
@@ -91,17 +92,18 @@ var LoadingBarLayout = ccui.Layout.extend({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: false,
             onTouchBegan: function (touch, event) {
+                //this.closeLoadingBar();
                 //var target = event.getCurrentTarget();
-                var target = this;
+                //var target = this;
 
-                var locationInNode = target.convertToNodeSpace(touch.getLocation());
-                var s = target.getContentSize();
-                var rect = cc.rect(0, 0, s.width, s.height);
+                //var locationInNode = target.convertToNodeSpace(touch.getLocation());
+                //var s = target.getContentSize();
+                //var rect = cc.rect(0, 0, s.width, s.height);
 
-                if (!cc.rectContainsPoint(rect, locationInNode)) {
+                //if (!cc.rectContainsPoint(rect, locationInNode)) {
                     this._isClose = true;
                     //return true;
-                }
+                //}
                 //cc.log("Touch Close Loading Bar ");
 
                 return true;
@@ -159,23 +161,27 @@ var LoadingBarLayout = ccui.Layout.extend({
         } else {
             this.timeRemain.setString(sec + fr.Localization.text("Text_time_second"));
         }
-
+        //
         if(this._isClose) {
             this.closeLoadingBar();
-            //this.unscheduleUpdate();
         }
 
         if (hour === 0 && min === 0 && sec === 0) {
             //cc.log("remainTime " + this.remainTime);
-            this.progress.setPercent(100);
+            //this.progress.setPercent(100);
             this.closeLoadingBar();
         }
     },
 
     closeLoadingBar: function () {
         this.unscheduleUpdate();
-        this.removeFromParent(true);
+        if (this.parent) {
+            this.removeFromParent(true);
+            cc.log("removeFromParent");
+        }
         this._isClose = false;
+        //_loadingBarConstructed.removeFromParent(true);
+        _loadingBarConstructed = null;
         cc.eventManager.removeListener(this.listener);
     }
 });

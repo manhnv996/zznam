@@ -4,6 +4,22 @@ var ProductType = null;
 var GameInfo = null;
 
 
+function getProductObjByType(productId) {
+    var productTypeObj = null;
+    cc.loader.loadJson(res.cropconfig, function (error, data) {
+        productTypeObj = data;
+        //ProductType = data;
+    });
+
+    for (var i = 0; i < productTypeObj.length; i++) {
+        if (productTypeObj[i].id == productId) {
+            return productTypeObj[i];
+        }
+    }
+
+    return null;
+}
+
 function getSeedLevel(level) {
 
     var productTypeObj = null;
@@ -35,6 +51,7 @@ function getSeedShow(level) {
 
     var seedShow = [];
     for (var i = 0; i < seedLevel.length; i++){
+        //cc.log("abc " + getProductObjByType(seedLevel[i]));
         if (user.getAsset().getFoodStorage().getQuantity(seedLevel[i]) == 0){
             if (getProductObjByType(seedLevel[i]).level <= user.getLevel()){
                 seedShow.push(new StorageItem(seedLevel[i], 0));
@@ -48,6 +65,7 @@ function getSeedShow(level) {
     }
 
     seedShow.sort(function(a, b) {
+        cc.log("getProductObjByType" + getProductObjByType(a.getTypeItem()).id);
         if (getProductObjByType(a.getTypeItem()).level <= user.getLevel() || a.getQuantityItem() != null){
             return getProductObjByType(a.getTypeItem()).level - getProductObjByType(b.getTypeItem()).level;
         }
@@ -66,19 +84,12 @@ function getMachineConfigByType (type) {
     }
 }
 
-function getProductObjByType(productId) {
-    var productTypeObj = null;
-    cc.loader.loadJson(res.cropconfig, function (error, data) {
-        productTypeObj = data;
-        //ProductType = data;
-    });
-
-    for (var i = 0; i < productTypeObj.length; i++) {
-        if (productTypeObj[i].id == productId) {
-            return productTypeObj[i];
+function getProductConfigById (id) {
+    for (var i = 0; res.storageItemResource.length; i++) {
+        if (res.storageItemResource[i].id === id) {
+            return res.storageItemResource[i];
         }
     }
-
     return null;
 }
 
@@ -183,6 +194,7 @@ function getSeedImgBySeedTypeAndQuantity(seedType, quantity) {
     }
 
 }
+
 
 
 function updateGameInfo(gameInfoJson){
@@ -329,8 +341,6 @@ function onReceiveUser(userInfo) {
 
         var animalLodge = new AnimalLodge(
             new Coordinate(animalLodgeInfo.x, animalLodgeInfo.y),
-            animalLodgeInfo.startBuildTime,
-            animalLodgeInfo.completed,
             animalLodgeInfo.type,
             animalLodgeInfo.id,
             animalList
@@ -351,6 +361,7 @@ function onReceiveUser(userInfo) {
             machineInfo.productQueue,
             machineInfo.completed,
             machineInfo.startBuildTime,
+            machineInfo.retainBuildTime,
             new Coordinate(machineInfo.x, machineInfo.y)
         );
         machineList.push(machine);
@@ -358,9 +369,37 @@ function onReceiveUser(userInfo) {
 
     var myShop = null;
 
+    //Order List
+    var orderList = [];
+    for (var i = 0; i < userInfo.asset.orderList.length; i++) {
+        var order = new Order(
+            userInfo.asset.orderList[i].orderId,
+            userInfo.asset.orderList[i].itemList,
+            userInfo.asset.orderList[i].orderPrice,
+            userInfo.asset.orderList[i].orderExp
+        );
+        order.waittingTime = new Date(parseInt(userInfo.asset.orderList[i].waittingTime));
+        orderList.push(order);
+    }
+
+    //Order NPC List
+    var orderNPCList = [];
+    for (var i = 0; i < userInfo.asset.orderNPCList.length; i++) {
+        var orderNPC = new OrderNPC(
+            userInfo.asset.orderNPCList[i].orderId,
+            userInfo.asset.orderNPCList[i].orderItem,
+            userInfo.asset.orderNPCList[i].orderPrice,
+            userInfo.asset.orderNPCList[i].orderExp,
+            userInfo.asset.orderNPCList[i].npc_res
+        );
+        orderNPCList.waittingTime = new Date(parseInt(userInfo.asset.orderNPCList[i].waittingTime));
+        orderNPCList.push(orderNPC);
+    }
+
     var asset = new Asset(
         foodStorage, warehouse, fieldList, animalLodgeList,
-        machineList, natureThingList, myShop
+        machineList, natureThingList, myShop,
+        orderList, orderNPCList
     );
 
     // cc.log("Asset", asset);
@@ -372,6 +411,21 @@ function onReceiveUser(userInfo) {
     user.ruby = userInfo.ruby;
     user.exp = userInfo.exp;
 
-    cc.log("AnimalLodge", user.asset.animalLodgeList);
+    // cc.log("AnimalLodge", user.asset.animalLodgeList);
     MainScene.instance.onGettedData();
+
+
+//
+    var orderNPCList = user.asset.getOrderNPCList();
+    for (var i = 0; i < orderNPCList.length; i++){
+        // cc.log(orderList.getItemList()[i].getTypeItem() + ", " + orderList.getItemList()[i].getQuantityItem());
+
+        cc.log(orderNPCList[i].orderId);
+        cc.log(orderNPCList[i].orderItem);
+        cc.log(orderNPCList[i].orderPrice);
+        cc.log(orderNPCList[i].orderExp);
+        cc.log(orderNPCList[i].waittingTime);
+        cc.log(orderNPCList[i].npc_res);
+    }
+
 }

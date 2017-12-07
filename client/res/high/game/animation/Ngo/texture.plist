@@ -4,7 +4,7 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>Ngo/Layer 107 copy 9.png</key>
+            <key>Ngo.psd Assets/Layer 107 copy 9.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{245,496},{44,38}}</string>
@@ -17,7 +17,7 @@
                 <key>sourceSize</key>
                 <string>{44,38}</string>
             </dict>
-            <key>Ngo/Layer 11 copy 2.png</key>
+            <key>Ngo.psd Assets/Layer 11 copy 2.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{203,360},{33,56}}</string>
@@ -30,7 +30,7 @@
                 <key>sourceSize</key>
                 <string>{33,56}</string>
             </dict>
-            <key>Ngo/Layer 11 copy 3.png</key>
+            <key>Ngo.psd Assets/Layer 11 copy 3.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{203,394},{31,56}}</string>
@@ -43,7 +43,7 @@
                 <key>sourceSize</key>
                 <string>{31,56}</string>
             </dict>
-            <key>Ngo/Layer 11 copy 4.png</key>
+            <key>Ngo.psd Assets/Layer 11 copy 4.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{186,463},{33,58}}</string>
@@ -56,7 +56,7 @@
                 <key>sourceSize</key>
                 <string>{33,58}</string>
             </dict>
-            <key>Ngo/Layer 11 copy.png</key>
+            <key>Ngo.psd Assets/Layer 11 copy.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{454,468},{33,50}}</string>
@@ -69,7 +69,7 @@
                 <key>sourceSize</key>
                 <string>{33,50}</string>
             </dict>
-            <key>Ngo/Layer 11.png</key>
+            <key>Ngo.psd Assets/Layer 11.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{203,426},{36,53}}</string>
@@ -82,7 +82,7 @@
                 <key>sourceSize</key>
                 <string>{36,53}</string>
             </dict>
-            <key>Ngo/Layer 2 copy 2.png</key>
+            <key>Ngo.psd Assets/Layer 2 copy 2.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{454,420},{47,52}}</string>
@@ -95,7 +95,7 @@
                 <key>sourceSize</key>
                 <string>{47,52}</string>
             </dict>
-            <key>Ngo/Odat.png</key>
+            <key>Ngo.psd Assets/Odat.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{1,230},{258,129}}</string>
@@ -108,7 +108,7 @@
                 <key>sourceSize</key>
                 <string>{258,129}</string>
             </dict>
-            <key>Ngo/bapngo.png</key>
+            <key>Ngo.psd Assets/bapngo.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{261,1},{248,248}}</string>
@@ -121,7 +121,7 @@
                 <key>sourceSize</key>
                 <string>{248,248}</string>
             </dict>
-            <key>Ngo/gocngo.png</key>
+            <key>Ngo.psd Assets/gocngo.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{1,360},{201,69}}</string>
@@ -134,7 +134,7 @@
                 <key>sourceSize</key>
                 <string>{201,69}</string>
             </dict>
-            <key>Ngo/gocngo2.png</key>
+            <key>Ngo.psd Assets/gocngo2.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{260,420},{193,75}}</string>
@@ -147,7 +147,7 @@
                 <key>sourceSize</key>
                 <string>{193,75}</string>
             </dict>
-            <key>Ngo/hatgiong.png</key>
+            <key>Ngo.psd Assets/hatgiong.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{1,430},{184,101}}</string>
@@ -160,7 +160,7 @@
                 <key>sourceSize</key>
                 <string>{184,101}</string>
             </dict>
-            <key>Ngo/hoango.png</key>
+            <key>Ngo.psd Assets/hoango.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{1,1},{259,228}}</string>
@@ -173,7 +173,7 @@
                 <key>sourceSize</key>
                 <string>{259,228}</string>
             </dict>
-            <key>Ngo/thanngo.png</key>
+            <key>Ngo.psd Assets/thanngo.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{260,250},{233,169}}</string>

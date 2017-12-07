@@ -12,8 +12,11 @@ var MainScene = cc.Scene.extend({
 		MapLayer.instance = new MapLayer();
 		this.addChild(MapLayer.instance);
 
-		PopupLayer.instance = new PopupLayer();
-		this.addChild(PopupLayer.instance);
+        PopupLayer.instance = new PopupLayer();
+        this.addChild(PopupLayer.instance);
+
+		TablePopupLayer.instance = new TablePopupLayer();
+		this.addChild(TablePopupLayer.instance);
 
 		//var mainGuiLayer = new MainGuiLayer();
 		//this.addChild(mainGuiLayer);
@@ -21,8 +24,14 @@ var MainScene = cc.Scene.extend({
 		//this.addChild(MainGuiLayer.instance);
 
 		MapCtrl.instance = new MapCtrl();
-		
+
+        OrderCtrl.instance = new OrderCtrl();
+
 		cc.log("Start Scene");
+
+		////
+        this.schedule(this.updateOrderWaittingTime, 1);
+        this.schedule(this.updateOrderNPCWaittingTime, 1);
 	},
 
 	onEnter: function() {
@@ -41,14 +50,65 @@ var MainScene = cc.Scene.extend({
 		MapCtrl.instance.init();
 		MapCtrl.instance._showDebugMap();
 
+		//NotifyLayer.instance.notifyFullSilo();
+
+		OrderBGLayer.instance = new OrderBGLayer();
+		// this.addChild(OrderBGLayer.instance);
+
+        //BaseGUILayer.instance.notifyFullStorage(StorageTypes.FOOD_STORAGE);
+		//BaseGUILayer.instance.notifyMissGold(50);
+
 		//BaseGUILayer.instance.notifyFullStorage(StorageTypes.FOOD_STORAGE);
 		//BaseGUILayer.instance.notifyMissGold(50);
 		//cc.log(res.infoCoopItem[0]["id"]);
 
 		//BaseGUILayer.instance.loadingBar();
+
+        //var model = new Machine(0, "bakery_machine", 3, 0, null, false, new Date().getTime(), new Coordinate(20, 20));
+        //user.asset.addMachine(model);
+        ////cc.log("model " + model.coordinate.x + " " + model.coordinate.y + " id " + model.id + " slot " + model.slot);
+        ////var machine = user.asset.getMachineById(model.id);
+        ////cc.log("machine " + machine.coordinate.x + " " + machine.coordinate.y + " id " + machine.id + " slot " + machine.slot);
+        //var bakery = new ConstructedSprite(model.id, 3, 3, 20, 20, MapItemEnum.MACHINE, MapItemEnum.BAKERY);
+        //MapLayer.instance.addChild(bakery);
 	},
 
-	init: function() {
+    //
+    updateOrderWaittingTime: function () {
+        var list = user.getAsset().getWaittingOrderList();
+        for (var i = 0; i < list.length; i++){
+
+            var parseCurrTime = new Date().getTime();
+            var finishWaittingTime = list[i].getFinishWaittingTime();
+            if (finishWaittingTime != null){
+                if (parseCurrTime > finishWaittingTime.getTime()){
+
+                    testnetwork.connector.sendCreateNewOrder(list[i].orderId);
+                }
+            }
+        }
+
+    },
+//
+    updateOrderNPCWaittingTime: function () {
+        var list = user.getAsset().getWaittingOrderNPCList();
+        for (var i = 0; i < list.length; i++){
+cc.log("vaof vaof vaof")
+            var parseCurrTime = new Date().getTime();
+            var finishWaittingTime = list[i].getFinishWaittingTime();
+            if (finishWaittingTime != null){
+cc.log("not null not null")
+                if (parseCurrTime > finishWaittingTime.getTime()){
+cc.log("send send send")
+                    testnetwork.connector.sendCreateNewOrderNpc(list[i].orderId);
+                }
+            }
+        }
+
+    },
+
+
+    init: function() {
 
 		//gv.gameClient.connect();
 		//testnetwork.connector.sendLoginRequest();

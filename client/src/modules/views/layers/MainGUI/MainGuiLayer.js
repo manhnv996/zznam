@@ -107,7 +107,8 @@ var MainGuiLayer = cc.Layer.extend({
         this.addChild( this.loadingBar);
 
 
-        this.labelExp = new cc.LabelBMFont(user.getExp() + "/" + this.max_exp, res.FONT_OUTLINE_30);
+        // this.labelExp = new cc.LabelBMFont(user.getExp() + "/" + this.max_exp, res.FONT_OUTLINE_30);
+        this.labelExp = new cc.LabelBMFont(user.getExp(), res.FONT_OUTLINE_30);
         this.labelExp.setPosition(center_top_pos);
         this.addChild(this.labelExp);
 

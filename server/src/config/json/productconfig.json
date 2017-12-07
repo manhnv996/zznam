@@ -1,7 +1,7 @@
 [
   {
     "id": "crop_wheat",
-    "name": "L?ºa",
+    "name": "LÃºa",
     "speedUp": 1,
     "rubiMuaNgay": 1,
     "timeMin": 2,
@@ -21,7 +21,7 @@
   },
   {
     "id": "crop_carrot",
-    "name": "C?  rá»‘t",
+    "name": "CÃ  rá»‘t",
     "speedUp": 1,
     "rubiMuaNgay": 2,
     "timeMin": 10,
@@ -31,7 +31,7 @@
   },
   {
     "id": "crop_soybean",
-    "name": "Ä?áº­u n? nh",
+    "name": "Ä?áº­u nÃ nh",
     "speedUp": 1,
     "rubiMuaNgay": 2,
     "timeMin": 20,
@@ -41,7 +41,7 @@
   },
   {
     "id": "crop_sugarcane",
-    "name": "M?­a",
+    "name": "MÃ­a",
     "speedUp": 1,
     "rubiMuaNgay": 3,
     "timeMin": 30,
@@ -51,7 +51,7 @@
   },
   {
     "id": "good_egg",
-    "name": "Trá»©ng g? ",
+    "name": "Trá»©ng gÃ ",
     "speedUp": 1,
     "rubiMuaNgay": 4,
     "timeMin": 20,
@@ -61,7 +61,7 @@
   },
   {
     "id": "good_milk",
-    "name": "Sá»¯a b?²",
+    "name": "Sá»¯a bÃ²",
     "speedUp": 1,
     "rubiMuaNgay": 6,
     "timeMin": 60,
@@ -71,7 +71,7 @@
   },
   {
     "id": "product_bread",
-    "name": "B?¡nh m?¬",
+    "name": "BÃ¡nh mÃ¬",
     "speedUp": 1,
     "rubiMuaNgay": 4,
     "timeMin": 5,
@@ -81,7 +81,7 @@
   },
   {
     "id": "product_corn_bread",
-    "name": "b?¡nh báº¯p",
+    "name": "bÃ¡nh báº¯p",
     "speedUp": 1,
     "rubiMuaNgay": 13,
     "timeMin": 30,
@@ -91,7 +91,7 @@
   },
   {
     "id": "product_cookie",
-    "name": "B?¡nh quy",
+    "name": "BÃ¡nh quy",
     "speedUp": 1,
     "rubiMuaNgay": 19,
     "timeMin": 60,
@@ -101,7 +101,7 @@
   },
   {
     "id": "food_chicken",
-    "name": "Thá»©c Äƒn G? ",
+    "name": "Thá»©c Äƒn GÃ ",
     "speedUp": 1,
     "rubiMuaNgay": 2,
     "timeMin": 5,
@@ -111,7 +111,7 @@
   },
   {
     "id": "food_cow",
-    "name": "Thá»©c Äƒn B?²",
+    "name": "Thá»©c Äƒn BÃ²",
     "speedUp": 1,
     "rubiMuaNgay": 3,
     "timeMin": 10,
@@ -141,7 +141,7 @@
   },
   {
     "id": "product_brown_sugar",
-    "name": "Ä?Æ°á»?nng v? ng",
+    "name": "Ä?Æ°á»?nng vÃ ng",
     "speedUp": 1,
     "rubiMuaNgay": 5,
     "timeMin": 20,
@@ -161,7 +161,7 @@
   },
   {
     "id": "product_pancake",
-    "name": "B?¡nh bá»™t m?¬",
+    "name": "BÃ¡nh bá»™t mÃ¬",
     "speedUp": 1,
     "rubiMuaNgay": 22,
     "timeMin": 30,

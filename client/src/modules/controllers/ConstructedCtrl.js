@@ -1,30 +1,80 @@
 /**
  * Created by CPU60075_LOCAL on 12/4/2017.
  */
+var _loadingBarConstructed = null;
 
 var ConstructedCtrl = cc.Class.extend({
 
-    checkBuildTime: function (id, typeBuilding) {
-        switch (typeBuilding) {
+    //getBuildTime: function (id) {
+    //    var machineModel = user.asset.getMachineById(id);
+    //    var machineConfig = getMachineConfigByType(machineModel.type);
+    //    //var startTime = machineModel.startBuildTime;
+    //    //var curTime = new Date().getTime();
+    //    var buildTime = machineConfig.time - machineModel.retainBuildTime;
+    //    return buildTime;
+    //},
+
+    getBuildExpress: function (id) {
+        var machineModel = user.asset.getMachineById(id);
+        var machineConfig = getMachineConfigByType(machineModel.type);
+
+        var buildTime = machineConfig.time - machineModel.retainBuildTime;
+
+        var reduceRuby = Math.floor(buildTime / 1000 / machineConfig.reduceRubyTime);
+        var buildExpress = machineConfig.buildExpress - reduceRuby;
+        //cc.log("buildExpress " + (this.buildExpress < 0));
+        if (buildExpress < 0) {
+            buildExpress = 0;
+        }
+
+        return buildExpress;
+    },
+
+    //getMachineConfigById: function (id) {
+    //
+    //},
+
+    checkBuildTime: function (sprite, dt) {
+        //cc.log("buildExpress " + sprite.buildExpress);
+        switch (sprite.typeBuilding) {
             case MapItemEnum.MACHINE:
-                var machineModel = user.asset.getMachineById(id);
+                var machineModel = user.asset.getMachineById(sprite.id);
                 var machineConfig = getMachineConfigByType(machineModel.type);
+                //this.totalTime = machineConfig.time * 1000;
 
-                var startTime = machineModel.startBuildTime;
-                var totalTime = machineConfig.time * 1000;
-                var curTime = new Date().getTime();
+                var buildTime = machineConfig.time - machineModel.retainBuildTime;
 
-                if ((curTime - startTime) >= totalTime) {
-                    var completedSprite = new ConstructedCompletedSprite(id, machineModel.coordinate.x,
-                                                            machineModel.coordinate.y, typeBuilding);
-                    MapLayer.instance.addChild(completedSprite);
-                    MapCtrl.instance.addSpriteAlias(completedSprite);
-                    completedSprite.setLogicPosition(machineModel.coordinate.x, machineModel.coordinate.y, false);
+
+                if (!(buildTime % machineConfig.reduceRubyTime)) {
+                    if (sprite.buildExpress > 0) {
+                        sprite.buildExpress--;
+                    }
+                    if (_loadingBarConstructed) {
+                        _loadingBarConstructed.rubyNumber.setString(sprite.buildExpress.toString());
+                    }
+                }
+                machineModel.reduceRetainBuildTime(dt);
+
+                if (machineModel.retainBuildTime === 0) {
+                    //var completedSprite = new ConstructedCompletedSprite(id, machineModel.coordinate.x,
+                    //    machineModel.coordinate.y, sprite.typeBuilding, sprite.typeMapObject);
+                    //MapLayer.instance.addChild(completedSprite);
+                    //MapCtrl.instance.addSpriteAlias(completedSprite);
+                    //completedSprite.setLogicPosition(machineModel.coordinate.x, machineModel.coordinate.y, true);
+                    this.addCompletedBuidSprite(machineModel, sprite.typeBuilding, sprite.typeMapObject);
                     return true;
                 } else {
                     return false;
                 }
         }
+    },
+
+    addCompletedBuidSprite: function (model, typeBuilding, typeMapObject) {
+        var completedSprite = new ConstructedCompletedSprite(model.id, model.coordinate.x,
+            model.coordinate.y, typeBuilding, typeMapObject);
+        MapLayer.instance.addChild(completedSprite);
+        MapCtrl.instance.addSpriteAlias(completedSprite);
+        completedSprite.setLogicPosition(model.coordinate.x, model.coordinate.y, true);
     },
 
     completedBuild: function (id, typeBuilding) {
@@ -39,7 +89,6 @@ var ConstructedCtrl = cc.Class.extend({
                     case "bakery_machine":
                         machineSprite = new BakerySprite(id, machineModel.coordinate.x,
                             machineModel.coordinate.y);
-                        //cc.log("machineSprite " + machineSprite);
                         break;
                     //case "food_machine":
                     //    break;
@@ -53,31 +102,81 @@ var ConstructedCtrl = cc.Class.extend({
                 break;
         }
         machineModel.completed = true;
-        //cc.log("machineSprite " + machineSprite);
         MapLayer.instance.addChild(machineSprite);
         MapCtrl.instance.addSpriteAlias(machineSprite);
 
-        machineSprite.setLogicPosition(machineModel.coordinate.x, machineModel.coordinate.y, false);
+        machineSprite.setLogicPosition(machineModel.coordinate.x, machineModel.coordinate.y, true);
 
         //send server
+
         testnetwork.connector.sendBuildCompleted(id, typeBuilding);
     },
 
-    selectConstructedObject: function (id, typeBuilding) {
-        switch (typeBuilding) {
+    selectConstructedObject: function (sprite) {
+        switch (sprite.typeBuilding) {
             case MapItemEnum.MACHINE:
                 //cc.log("Machine constructed");
-                var machineModel = user.asset.getMachineById(id);
+                var machineModel = user.asset.getMachineById(sprite.id);
+
+                //cc.log("machineModel " + id);
                 var machineConfig = getMachineConfigByType(machineModel.type);
-                this.loadingBar = new LoadingBarLayout(machineConfig.time, machineModel.startBuildTime,
-                    fr.Localization.text(machineConfig.name), machineConfig.buildExpress);
+                _loadingBarConstructed = new LoadingBarLayout(machineConfig.time,
+                                                            machineModel.startBuildTime,
+                                                            fr.Localization.text(machineConfig.name),
+                                                            sprite.buildExpress.toString());
                 var py = machineModel.coordinate.y;
                 var px = machineModel.coordinate.x;
                 var p = MapValues.logicToScreenPosition(px, py);
-                this.loadingBar.setPosition(p.x, p.y);
+                _loadingBarConstructed.setPosition(p.x, p.y);
                 //cc.log("LoadingBar position " + machineModel.coordinate.x + " " + machineModel.coordinate.y);
-                BaseGUILayer.instance.addChild(this.loadingBar);
-                this._isHasLoadingBar = true;
+                BaseGUILayer.instance.addChild(_loadingBarConstructed);
+
+                _loadingBarConstructed.sprite = sprite;
+                _loadingBarConstructed.boostBtn.addTouchEventListener(this.boostBuild, this);
+
+                break;
+        }
+    },
+
+    boostBuild: function (sender, type) {
+        switch (type) {
+            case ccui.Widget.TOUCH_BEGAN:
+                var scaleDown = cc.scaleTo(0.1, 0.9);
+                sender.runAction(scaleDown);
+                break;
+            case ccui.Widget.TOUCH_ENDED:
+            case ccui.Widget.TOUCH_CANCELED:
+                var scaleUp = cc.scaleTo(0.1, 1.0);
+                sender.runAction(scaleUp);
+                //var curPercent = _loadingBarConstructed.progress.getPercent();
+                //
+                //for (var i = curPercent; i <= 100; i++) {
+                //    _loadingBarConstructed.progress.setPercent(i);
+                //    cc.log("i " + i);
+                //}
+                //Check ruby ---> send server --> set completed build
+                var ruby = parseInt(_loadingBarConstructed.rubyNumber.getString());
+                if (ruby > user.ruby) {
+                    BaseGUILayer.instance.notifyNotEnoughRuby(user.ruby - ruby);
+                } else {
+                    user.reduceRuby(ruby);
+                    testnetwork.connector.sendBoostBuild(_loadingBarConstructed.sprite.id,
+                                                        _loadingBarConstructed.sprite.typeBuilding);
+
+
+                    var machineModel = user.asset.getMachineById(_loadingBarConstructed.sprite.id);
+                    this.addCompletedBuidSprite(machineModel, _loadingBarConstructed.sprite.typeBuilding,
+                        _loadingBarConstructed.sprite.typeMapObject);
+
+                    _loadingBarConstructed.sprite.removeFromParent(true);
+                    //this.completedBuild(_loadingBarConstructed.id,
+                    //    _loadingBarConstructed.typeBuilding);
+                }
+
+                _loadingBarConstructed.closeLoadingBar();
+
+                //cc.log("id " +  _loadingBarConstructed.id);
+
                 break;
         }
     }

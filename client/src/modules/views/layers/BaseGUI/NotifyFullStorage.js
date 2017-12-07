@@ -36,11 +36,11 @@ var NotifyFullStorage = BaseLayout.extend({
             case ccui.Widget.TOUCH_CANCELED:
                 this.removeFromParent(true);
                 if (this._storageType === StorageTypes.FOOD_STORAGE) {
-                    StorageLayer.instance.initStorage(user.getAsset().getFoodStorage());
+                    BaseGUILayer.instance.showStorage(user.getAsset().getFoodStorage());
                 } else {
-                    StorageLayer.instance.initStorage(user.getAsset().getWarehouse());
+                    BaseGUILayer.instance.showStorage(user.getAsset().getWarehouse());
                 }
-                StorageLayer.instance._multiLayer.switchTo(1);
+                StorageLayout.instance._multiLayer.switchTo(1);
                 break;
         }
     }

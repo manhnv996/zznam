@@ -107,8 +107,9 @@ var StorageItemListLayer = cc.Layer.extend({
                     //var key = getKeyByValue(this._listItems[idx * 3 + i].getTypeItem());
                     keyItem.setString(typeItem);
                     keyItem.setVisible(false);
+                    var productConfig = getProductConfigById(typeItem);
                     //cc.log("itemResource " + keyItem.getString());
-                    button.loadTextureNormal(res.storageItemResource[typeItem].nameIcon);
+                    button.loadTextureNormal(productConfig.nameIcon);
                     button.addTouchEventListener(this.touchItem, this);
                     label.setString(this._listItems[idx * 3 + i].getQuantityItem());
                 } else {
@@ -155,14 +156,15 @@ var StorageItemListLayer = cc.Layer.extend({
                 BaseGUILayer.instance.addChild(this._tooltip);
 
                 var type = sender.parent.getChildByTag(sender.tag + 20).getString();
+                var productConfig = getProductConfigById(type);
 
-                var name = new cc.LabelBMFont(fr.Localization.text(res.storageItemResource[type].name), res.FONT_OUTLINE_30);
+                var name = new cc.LabelBMFont(fr.Localization.text(productConfig.name), res.FONT_OUTLINE_30);
                 name.x = this._tooltip.width / 2;
                 name.y = this._tooltip.height;
                 name.setAnchorPoint(0.5, 1);
                 this._tooltip.addChild(name);
 
-                var description = new cc.LabelBMFont(fr.Localization.text(res.storageItemResource[type].description), res.FONT_NORMAL_30);
+                var description = new cc.LabelBMFont(fr.Localization.text(productConfig.description), res.FONT_NORMAL_30);
                 description.x = this._tooltip.width / 2;
                 description.y = this._tooltip.height / 2;
                 description.setContentSize(this._tooltip.width / 7 * 5, this._tooltip.height / 3);
@@ -171,9 +173,22 @@ var StorageItemListLayer = cc.Layer.extend({
                 description.color = cc.color(77, 41, 1);
                 this._tooltip.addChild(description);
 
-                if (res.storageItemResource[type].time != "") {
-                    var time = new cc.LabelBMFont(res.storageItemResource[type].time + " " +
-                        fr.Localization.text(res.storageItemResource[type].typeTime), res.FONT_OUTLINE_30);
+                if (productConfig.timeMin != "") {
+                    var hour = Math.floor(productConfig.timeMin / 60);
+                    var min = productConfig.timeMin - hour * 60;
+                    var time;
+                    cc.log("hour" + hour);
+                    if(hour) {
+                        if (min) {
+                            time = new cc.LabelBMFont(hour + fr.Localization.text("Text_time_hour") +
+                                min + fr.Localization.text("Text_time_minute"), res.FONT_OUTLINE_30);
+                        } else {
+                            time = new cc.LabelBMFont(hour + fr.Localization.text("Text_time_hour"), res.FONT_OUTLINE_30);
+                        }
+                    } else {
+                        time = new cc.LabelBMFont(min + fr.Localization.text("Text_time_minute"), res.FONT_OUTLINE_30);
+                    }
+
                     time.x = this._tooltip.width / 2;
                     time.y = 0;
                     time.setAnchorPoint(0.5, 0);

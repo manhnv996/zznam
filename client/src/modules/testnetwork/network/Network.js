@@ -131,14 +131,108 @@ testnetwork.Connector = cc.Class.extend({
                 user.ruby = packet.ruby;
                 user.exp = packet.exp;
 
+                //
+                MainGuiLayer.instance.labelGold.setString(user.gold);
+                MainGuiLayer.instance.labelRuby.setString(user.ruby);
+                MainGuiLayer.instance.labelExp.setString(user.exp);
+
                 break;
 
             case gv.CMD.RESPONSE_SYNC_STORAGE:
-                cc.log("RECEIVE RESPONSE_SYNC_STORAGE: ", packet.storageJsonString);
+                // cc.log("RECEIVE RESPONSE_SYNC_STORAGE: ", packet.storageJsonString);
+                cc.log("RECEIVE RESPONSE_SYNC_STORAGE: ", packet.storage);
                 /*
-                Not yet started
+                 Done
                  */
+
+                // Update Storage
+                var storageUpdate = new Storages(
+                    new Coordinate(packet.storage.x,
+                        packet.storage.y),
+                    packet.storage.storageType,
+                    packet.storage.capacity,
+                    packet.storage.level
+                );
+                // Add Storage itemlist
+                for (var i = 0; i < packet.storage.itemList.length; i++){
+                    storageUpdate.addItem(
+                        packet.storage.itemList[i].typeItem,
+                        packet.storage.itemList[i].quantity
+                    );
+                }
+
+                //
+                if (packet.storage.storageType == StorageTypes.FOOD_STORAGE){
+                    user.asset.foodStorage = null;
+                    user.asset.foodStorage = storageUpdate;
+                } else {
+                    user.asset.warehouse = null;
+                    user.asset.warehouse = storageUpdate;
+                }
+
                 break;
+
+            case gv.CMD.RESPONSE_SYNC_ORDER:
+                cc.log("RECEIVE RESPONSE_SYNC_ORDER: ", packet.order);
+                /*
+                 Done
+                 */
+                var orderSelected = user.getAsset().getOrderById(packet.order.orderId);
+
+                orderSelected.itemList = packet.order.itemList;
+                orderSelected.orderPrice = packet.order.orderPrice;
+                orderSelected.orderExp = packet.order.orderExp;
+                //orderSelected.waittingTime = packet.order.waittingTime;
+                orderSelected.waittingTime = new Date(parseInt(packet.order.waittingTime));
+
+
+                ////
+                TruckOrderSprite.instance.initTruckOrder();
+                // OrderCtrl.instance.onShowOrderBG();
+                if (BaseGUILayer.instance._layout != null){
+                    BaseGUILayer.instance._layout.initInfo();
+                }
+
+                break;
+
+            case gv.CMD.RESPONSE_SYNC_ORDER_NPC:
+                cc.log("RECEIVE RESPONSE_SYNC_ORDER_NPC: ", packet.orderNPC);
+                /*
+                 NOT YET STARTED
+                 */
+
+                //Order NPC List
+                var orderNPCSelected = user.getAsset().getOrderNPCById(packet.orderNPC.orderId);
+
+                orderNPCSelected.orderItem = packet.orderNPC.orderItem;
+                orderNPCSelected.orderPrice = packet.orderNPC.orderPrice;
+                orderNPCSelected.orderExp = packet.orderNPC.orderExp;
+
+                orderNPCSelected.waittingTime = new Date(parseInt(packet.orderNPC.waittingTime));
+
+                orderNPCSelected.npc_res = packet.orderNPC.npc_res;
+
+
+                //////
+                //TruckOrderSprite.instance.initTruckOrder();
+                //// OrderCtrl.instance.onShowOrderBG();
+                //if (BaseGUILayer.instance._layout != null){
+                //    BaseGUILayer.instance._layout.initInfo();
+                //}
+
+                if (orderNPCSelected.checkStatus() == OrderStatusTypes.REALIZABLE){
+                    //
+                    MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).setResume();
+                    //
+                } else {
+                    //
+                    MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).setPause();
+                    //
+                }
+
+                break;
+            ////
+
             case gv.CMD.RESPONSE_MOVE:
                 cc.log("RESPONSE_MOVE Error: ", packet.error);
                 if (packet.error !== 0) {
@@ -167,10 +261,9 @@ testnetwork.Connector = cc.Class.extend({
         cc.log("sendingLoginRequest with: " + username + "===" + password);
         //this.getSessionKeyAndUserId();
         var xhr = cc.loader.getXMLHttpRequest();
-        var url = "http://myplay.apps.zing.vn/sso3/login.php?username=" + username + "&password=" + password;
+        var url = "https://myplay.apps.zing.vn/sso3/login.php?username=" + username + "&password=" + password;
         xhr.open("GET", url);
         xhr.setRequestHeader("Content-Type", "text/plain");
-        xhr.send();
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && ( xhr.status >= 200 && xhr.status <= 207 )) {
                 var httpStatus = xhr.statusText;
@@ -181,19 +274,19 @@ testnetwork.Connector = cc.Class.extend({
                 var userid = jsonData["userid"];
 
                 if (error == "0") {
-                    var url2 = "http://zplogin.g6.zing.vn/?service_name=getSessionKey&gameId=100&distribution=&clientInfo=&social=zingme&accessToken=";
+                    var url2 = "https://zplogin.g6.zing.vn/?service_name=getSessionKey&gameId=100&distribution=&clientInfo=&social=zingme&accessToken=";
                     cc.log("HTTP Response : error : " + error);
-                    xhr.open("GET", url2 + accessToken);
-                    xhr.setRequestHeader("Content-Type", "text/plain");
-                    xhr.send();
-                    xhr.onreadystatechange = function () {
+                    var xhr2 = cc.loader.getXMLHttpRequest();
+                    xhr2.open("GET", url2 + accessToken);
+                    xhr2.setRequestHeader("Content-Type", "text/plain");
+                    xhr2.onreadystatechange = function () {
                         cc.log("Networking away");
 
-                        if (xhr.readyState == 4 && ( xhr.status >= 200 && xhr.status <= 207 )) {
-                            var httpStatus = xhr.statusText;
+                        if (xhr2.readyState == 4 && ( xhr2.status >= 200 && xhr2.status <= 207 )) {
+                            var httpStatus = xhr2.statusText;
                             cc.log(httpStatus);
 
-                            var response = xhr.responseText;
+                            var response = xhr2.responseText;
                             //cc.log(response);
 
                             //parse to json object;
@@ -211,10 +304,13 @@ testnetwork.Connector = cc.Class.extend({
                             this.gameClient.sendPacket(pk);
                         }
                     }.bind(this, userid);
+                    xhr2.send();
                 }
             }
         }.bind(this);
+        xhr.send();
     },
+    
     sendMove:function(direction){
         cc.log("SendMove:" + direction);
         var pk = this.gameClient.getOutPacket(CmdSendMove);
@@ -243,12 +339,57 @@ testnetwork.Connector = cc.Class.extend({
         pk.pack(fieldId);
         this.gameClient.sendPacket(pk);
     },
-    sendBuyItemByRubi: function (productType) {
+    sendBuyItemByRubi: function (productType, quantity) {
         cc.log("sendBuyItemByRubi: " + productType);
         var pk = this.gameClient.getOutPacket(CmdSendBuyItemByRubi);
-        pk.pack(productType);
+        pk.pack(productType, quantity);
         this.gameClient.sendPacket(pk);
     },
+    ///
+    sendMakeOrder: function (orderId, rubyBuy) {
+        cc.log("sendMakeOrder: " + orderId);
+        var pk = this.gameClient.getOutPacket(CmdSendMakeOrder);
+        pk.pack(orderId, rubyBuy);
+        this.gameClient.sendPacket(pk);
+    },
+    sendCancelOrder: function (orderId) {
+        cc.log("sendCancelOrder: " + orderId);
+        var pk = this.gameClient.getOutPacket(CmdSendCancelOrder);
+        pk.pack(orderId);
+        this.gameClient.sendPacket(pk);
+    },
+    sendCreateNewOrder: function (orderId) {
+        cc.log("sendCreateNewOrder: " + orderId);
+        var pk = this.gameClient.getOutPacket(CmdSendCreateNewOrder);
+        pk.pack(orderId);
+        this.gameClient.sendPacket(pk);
+    },
+    sendBoostWaitOrder: function (orderId) {
+        cc.log("sendBoostWaitOrder: " + orderId);
+        var pk = this.gameClient.getOutPacket(CmdSendBoostWaitOrder);
+        pk.pack(orderId);
+        this.gameClient.sendPacket(pk);
+    },
+    //
+    sendMakeOrderNpc: function (orderId, rubyBuy) {
+        cc.log("sendMakeOrderNpc: " + orderId);
+        var pk = this.gameClient.getOutPacket(CmdSendMakeOrderNpc);
+        pk.pack(orderId, rubyBuy);
+        this.gameClient.sendPacket(pk);
+    },
+    sendCancelOrderNpc: function (orderId) {
+        cc.log("sendCancelOrderNpc: " + orderId);
+        var pk = this.gameClient.getOutPacket(CmdSendCancelOrderNpc);
+        pk.pack(orderId);
+        this.gameClient.sendPacket(pk);
+    },
+    sendCreateNewOrderNpc: function (orderId) {
+        cc.log("sendCreateNewOrderNpc: " + orderId);
+        var pk = this.gameClient.getOutPacket(CmdSendCreateNewOrderNpc);
+        pk.pack(orderId);
+        this.gameClient.sendPacket(pk);
+    },
+    ///
 
     // Map
     sendMoveStorage: function(type, x, y) {
@@ -265,6 +406,13 @@ testnetwork.Connector = cc.Class.extend({
         this.gameClient.sendPacket(pk);
     },
 
+    sendMoveMapBlock: function(type, id, x, y) {
+        cc.log("Send move map block", type, id, x, y);
+        var pk = this.gameClient.getOutPacket(CmdSendMoveMapBlock);
+        pk.pack(type, id, x, y);
+        this.gameClient.sendPacket(pk);
+    },
+
     sendBuyMapObjectRequest: function (id, type, x, y) {
         cc.log("Send buy map object request " + x + " " + y);
         var pk = this.gameClient.getOutPacket(CmdSendBuyMapObjectRequest);
@@ -272,10 +420,10 @@ testnetwork.Connector = cc.Class.extend({
         this.gameClient.sendPacket(pk);
     },
 
-    sendBuyMapObjectByRuby: function (id, type, x, y, ruby) {
+    sendBuyMapObjectByRuby: function (id, type, x, y) {
         cc.log("Send buy map object by ruby");
         var pk = this.gameClient.getOutPacket(CmdSendBuyMapObjectByRuby);
-        pk.pack(id, type, x, y, ruby);
+        pk.pack(id, type, x, y);
         this.gameClient.sendPacket(pk);
     },
 
@@ -296,6 +444,13 @@ testnetwork.Connector = cc.Class.extend({
     sendBuildCompleted: function (id, typeBuilding) {
         cc.log("Send Completed Building");
         var pk = this.gameClient.getOutPacket(CmdSendBuildCompleted);
+        pk.pack(id, typeBuilding);
+        this.gameClient.sendPacket(pk);
+    },
+
+    sendBoostBuild: function (id, typeBuilding) {
+        cc.log("Send Boost Build");
+        var pk = this.gameClient.getOutPacket(CmdSendBoostBuild);
         pk.pack(id, typeBuilding);
         this.gameClient.sendPacket(pk);
     }

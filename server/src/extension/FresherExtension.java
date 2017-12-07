@@ -22,20 +22,19 @@ import cmd.receive.authen.RequestLogin;
 import config.enums.ProductType;
 import config.enums.StorageType;
 
+import config.jsonobject.ProductConfig;
+
 import config.utils.ConfigContainer;
+
+import config.utils.OrderUtil;
 
 import eventhandler.LoginSuccessHandler;
 import eventhandler.LogoutHandler;
 
 import java.util.List;
 
-import model.Asset;
-import model.Field;
-import model.Storage;
-
 import org.apache.commons.lang.exception.ExceptionUtils;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import service.ConstructedHandler;
@@ -43,6 +42,7 @@ import service.DemoHandler;
 
 import service.GameShopHandler;
 import service.MapHandler;
+import service.OrderHandler;
 import service.PlantHandler;
 import service.StorageHandler;
 import service.UserHandler;
@@ -50,11 +50,11 @@ import service.UserHandler;
 import util.GuestLogin;
 
 import util.metric.LogObject;
-
 import util.metric.MetricLog;
 
 import util.server.ServerConstant;
 import util.server.ServerLoop;
+
 
 
 /*
@@ -118,6 +118,7 @@ public class FresherExtension extends BZExtension {
 		
 		//
 //        setupUserInfo();
+        
     }
 
     public void init() {
@@ -128,6 +129,7 @@ public class FresherExtension extends BZExtension {
 		
         //  
         addRequestHandler(PlantHandler.PLANT_MULTI_IDS, PlantHandler.class);
+        addRequestHandler(OrderHandler.ORDER_MULTI_IDS, OrderHandler.class);
         //
         addRequestHandler(MapHandler.MAP_MULTI_IDS, MapHandler.class);
         
@@ -145,6 +147,23 @@ public class FresherExtension extends BZExtension {
     }
 	
 	
+	
+//    public static void setupUserInfo(){
+//        Storage foodStorage = new Storage(StorageType.FOOD_STORAGE, 50, 10, 10);
+//        Storage warehouse = new Storage(StorageType.WAREHOUSE, 50, 8, 8);
+//        foodStorage.addItem(ProductType.CROP_CARROT, 5);
+//        foodStorage.addItem(ProductType.CROP_SOYBEAN, 10);
+//        
+//        Asset asset = new Asset(foodStorage, warehouse, null, null);        
+//        for (int i = 0; i < 6; i++){
+//            Field field = new Field(0, 18, 10 + i);
+//            asset.addField(field);
+//        }
+//        asset.getFieldById(1).setPlantType("crop_corn");
+//
+////        user = new ZPUserInfo(asset);
+//        System.out.println("Setup!!!!!!!!!");
+//    }
 //	
 //	public static void setupUserInfo(){
 //        Storage foodStorage = new Storage(StorageType.FOOD_STORAGE, 50, 10, 10);

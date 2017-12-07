@@ -114,7 +114,7 @@ for (var i in res) {
     g_resources.push(res[i]);
 }
 
-//g_resources = g_resources.concat(g_MapResource, g_ShopResource);
+g_resources = g_resources.concat(g_MapResource, g_ShopResource, g_AnimalLodgeResource);
 
 
 for (var k in HavestResource) {
@@ -136,4 +136,13 @@ for (var k in SettingsResource) {
 //add resources in /fonts/
 for (var k in FontResource) {
     res[k] = FontResource[k];
+}
+
+//
+for (var k in OrderResource) {
+    res[k] = OrderResource[k];
+}
+// Add animal lodge resource
+for (var k in AnimalLodgeResource) {
+    res[k] = AnimalLodgeResource[k];
 }

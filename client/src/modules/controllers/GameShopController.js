@@ -61,8 +61,9 @@ var GameShopController = cc.Class.extend({
         return ruby;
     },
 
-    buyMapObjectByRuby: function (id, typeObject, lx, ly, ruby) {
+    buyMapObjectByRuby: function (typeObject, lx, ly, ruby) {
         var userRuby = user.ruby;
+
         if (userRuby < ruby) {
             BaseGUILayer.instance.notifyNotEnoughRuby(ruby - userRuby);
         } else {
@@ -97,8 +98,7 @@ var GameShopController = cc.Class.extend({
                     //// Send server
                     //testnetwork.connector.sendBuyMapObjectRequest(this._sprite.fieldId,
                     //    typeObject, this._sprite.lx, this._sprite.ly);
-                this.buyField(id, typeObject, lx, ly, ruby);
-                GameShopLayout.instance._gameShop._lodgeTable._tableView.reloadData();
+                this.buyField(typeObject, lx, ly, ruby);
             } else if (typeObject == "chicken_habitat") {
 
             } else if (typeObject == "cow_habitat") {
@@ -108,37 +108,53 @@ var GameShopController = cc.Class.extend({
             } else if (typeObject == "cow") {
 
             } else {
-                this.buyMachine(id, typeObject, lx, ly, ruby);
-                GameShopLayout.instance._gameShop._machineTable._tableView.reloadData();
+                this.buyMachine(typeObject, lx, ly, ruby);
             }
             user.reduceRuby(ruby);
 
             MapLayer.instance.addChild(this._sprite);
+            MapCtrl.instance.addSpriteAlias(this._sprite);
             this._sprite.setLogicPosition(this._sprite.lx, this._sprite.ly, false);
         }
     },
 
-    buyField: function (id, typeObject, lx, ly, ruby) {
+    buyField: function (typeObject, lx, ly) {
         //Sprite
+        //this._sprite = null;
         this._sprite = new FieldSprite(user.getAsset().getFieldList().length + 1, lx, ly);
-        //this._sprite.setLocalZOrder(10000);
 
         //Model
         var fieldModel = new Field(new Coordinate(lx, ly), this._sprite.fieldId);
         user.getAsset().addField(fieldModel);
         MapLayer.instance.fieldList.push(this._sprite);
         this._sprite.field = fieldModel;
+        GameShopLayout.instance._gameShop._lodgeTable._tableView.reloadData();
 
         // Send server
-        testnetwork.connector.sendBuyMapObjectByRuby(id, typeObject,
-            lx, ly, ruby);
+        testnetwork.connector.sendBuyMapObjectByRuby(this._sprite.fieldId, typeObject,
+            lx, ly);
     },
 
-    buyMachine: function (id, typeObject, lx, ly, ruby) {
+    buyMachine: function (typeObject, lx, ly) {
+        //Model
+        var machineConfig = getMachineConfigByType(typeObject);
+        var machineModel = new Machine(0, typeObject, machineConfig.slot, 0, null,
+            false, new Date().getTime(), machineConfig.time, new Coordinate(lx, ly));
+        //var machineModel = new Machine(id, typeObject, 0, 0, null, false,
+        //    0, new Coordinate(lx, ly));
+        user.asset.addMachine(machineModel);
+
         //Sprite
+        //this._sprite = null;
         switch (typeObject) {
             case "bakery_machine":
-                this._sprite = new BakerySprite(id, lx, ly);
+
+                //this._sprite = new BakerySprite(id, lx, ly);
+                this._sprite = new ConstructedSprite(machineModel.id,
+                    MapConfigs.BakeryMachine.size.width, MapConfigs.BakeryMachine.size.height,
+                    lx, ly, MapItemEnum.MACHINE);
+                //cc.log("user.asset.addMachine " + getMachineConfigByType(typeObject));
+
                 break;
             case "food_machine":
                 break;
@@ -149,15 +165,18 @@ var GameShopController = cc.Class.extend({
             case "popcorn_machine":
                 break;
         }
+        //MapLayer.instance.addChild(this._sprite);
+        //MapCtrl.instance.addSpriteAlias(this._sprite);
+        //this._sprite.setLogicPosition(this._sprite.lx, this._sprite.ly, false);
 
-        //Model
-        var machineModel = new Machine(id, typeObject, 0, 0, null, false,
-            0, new Coordinate(lx, ly));
-        user.asset.addMachine(machineModel);
+
+
+
+        GameShopLayout.instance._gameShop._machineTable._tableView.reloadData();
 
         //Send server
-        testnetwork.connector.sendBuyMapObjectByRuby(id, typeObject,
-            lx, ly, ruby);
+        testnetwork.connector.sendBuyMapObjectByRuby(this._sprite.id, typeObject,
+            lx, ly);
     }
 });
 

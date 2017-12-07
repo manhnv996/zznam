@@ -7,9 +7,9 @@ var Machine = ConstructedObject.extend({
     startTime: null,
     productQueue: [],
 
-    ctor: function (id, type, slot, startTime, productQueue, completed, startBuildTime, coordinate) {
+    ctor: function (id, type, slot, startTime, productQueue, completed, startBuildTime, retainBuildTime, coordinate) {
         //
-        this._super(startBuildTime, completed, coordinate);
+        this._super(startBuildTime, retainBuildTime, completed, coordinate);
 
         this.id = id;
         this.type = type;
