@@ -1,0 +1,298 @@
+[
+  {
+    "id": "crop_wheat",
+    "name": "L?ºa",
+    "speedUp": 1,
+    "rubiMuaNgay": 1,
+    "timeMin": 2,
+    "exp": 1,
+    "maxPrice": 3,
+    "levelUnlock": 1
+  },
+  {
+    "id": "crop_corn",
+    "name": "báº¯p",
+    "speedUp": 1,
+    "rubiMuaNgay": 1,
+    "timeMin": 5,
+    "exp": 1,
+    "maxPrice": 7,
+    "levelUnlock": 3
+  },
+  {
+    "id": "crop_carrot",
+    "name": "C?  rá»‘t",
+    "speedUp": 1,
+    "rubiMuaNgay": 2,
+    "timeMin": 10,
+    "exp": 2,
+    "maxPrice": 7,
+    "levelUnlock": 9
+  },
+  {
+    "id": "crop_soybean",
+    "name": "Ä?áº­u n? nh",
+    "speedUp": 1,
+    "rubiMuaNgay": 2,
+    "timeMin": 20,
+    "exp": 2,
+    "maxPrice": 10,
+    "levelUnlock": 5
+  },
+  {
+    "id": "crop_sugarcane",
+    "name": "M?­a",
+    "speedUp": 1,
+    "rubiMuaNgay": 3,
+    "timeMin": 30,
+    "exp": 3,
+    "maxPrice": 14,
+    "levelUnlock": 7
+  },
+  {
+    "id": "good_egg",
+    "name": "Trá»©ng g? ",
+    "speedUp": 1,
+    "rubiMuaNgay": 4,
+    "timeMin": 20,
+    "exp": 2,
+    "maxPrice": 18,
+    "levelUnlock": 1
+  },
+  {
+    "id": "good_milk",
+    "name": "Sá»¯a b?²",
+    "speedUp": 1,
+    "rubiMuaNgay": 6,
+    "timeMin": 60,
+    "exp": 3,
+    "maxPrice": 32,
+    "levelUnlock": 6
+  },
+  {
+    "id": "product_bread",
+    "name": "B?¡nh m?¬",
+    "speedUp": 1,
+    "rubiMuaNgay": 4,
+    "timeMin": 5,
+    "exp": 3,
+    "maxPrice": 21,
+    "levelUnlock": 2
+  },
+  {
+    "id": "product_corn_bread",
+    "name": "b?¡nh báº¯p",
+    "speedUp": 1,
+    "rubiMuaNgay": 13,
+    "timeMin": 30,
+    "exp": 8,
+    "maxPrice": 60,
+    "levelUnlock": 7
+  },
+  {
+    "id": "product_cookie",
+    "name": "B?¡nh quy",
+    "speedUp": 1,
+    "rubiMuaNgay": 19,
+    "timeMin": 60,
+    "exp": 13,
+    "maxPrice": 87,
+    "levelUnlock": 9
+  },
+  {
+    "id": "food_chicken",
+    "name": "Thá»©c Äƒn G? ",
+    "speedUp": 1,
+    "rubiMuaNgay": 2,
+    "timeMin": 5,
+    "exp": 1,
+    "maxPrice": 7,
+    "levelUnlock": 2
+  },
+  {
+    "id": "food_cow",
+    "name": "Thá»©c Äƒn B?²",
+    "speedUp": 1,
+    "rubiMuaNgay": 3,
+    "timeMin": 10,
+    "exp": 2,
+    "maxPrice": 14,
+    "levelUnlock": 6
+  },
+  {
+    "id": "product_cream",
+    "name": "Kem tÆ°Æ¡i",
+    "speedUp": 1,
+    "rubiMuaNgay": 8,
+    "timeMin": 20,
+    "exp": 6,
+    "maxPrice": 50,
+    "levelUnlock": 6
+  },
+  {
+    "id": "product_butter",
+    "name": "BÆ¡",
+    "speedUp": 1,
+    "rubiMuaNgay": 15,
+    "timeMin": 30,
+    "exp": 10,
+    "maxPrice": 82,
+    "levelUnlock": 9
+  },
+  {
+    "id": "product_brown_sugar",
+    "name": "Ä?Æ°á»?nng v? ng",
+    "speedUp": 1,
+    "rubiMuaNgay": 5,
+    "timeMin": 20,
+    "exp": 4,
+    "maxPrice": 32,
+    "levelUnlock": 7
+  },
+  {
+    "id": "product_popcorn",
+    "name": "Báº¯p rang",
+    "speedUp": 1,
+    "rubiMuaNgay": 5,
+    "timeMin": 30,
+    "exp": 4,
+    "maxPrice": 32,
+    "levelUnlock": 8
+  },
+  {
+    "id": "product_pancake",
+    "name": "B?¡nh bá»™t m?¬",
+    "speedUp": 1,
+    "rubiMuaNgay": 22,
+    "timeMin": 30,
+    "exp": 13,
+    "maxPrice": 100,
+    "levelUnlock": 9
+  },
+  
+  
+  
+  {
+    "id": "crop_indigo",
+    "name": "Hoa o?i h??ng",
+    "speedUp": 1,
+    "rubiMuaNgay": 5,
+    "timeMin": 120,
+    "exp": 5,
+    "maxPrice": 25,
+    "levelUnlock": 13
+
+  },
+  {
+    "id": "crop_chili_pepper",
+    "name": "?t",
+    "speedUp": 1,
+    "rubiMuaNgay": 7,
+    "timeMin": 240,
+    "exp": 7,
+    "maxPrice": 36,
+    "levelUnlock": 25
+
+  },
+  {
+    "id": "crop_tomato",
+    "name": "Cà chua",
+    "speedUp": 1,
+    "rubiMuaNgay": 8,
+    "timeMin": 360,
+    "exp": 8,
+    "maxPrice": 43,
+    "levelUnlock": 30
+
+  },
+  {
+    "id": "crop_strawberry",
+    "name": "Dâu tây",
+    "speedUp": 1,
+    "rubiMuaNgay": 10,
+    "timeMin": 48,
+    "exp": 10,
+    "maxPrice": 50,
+    "levelUnlock": 34
+
+  },
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  {
+    "id": "tool_nail",
+    "name": "Tool nail",
+    "speedUp": 1,
+    "rubiMuaNgay": 1,
+    "timeMin": 1,
+    "exp": 1,
+    "maxPrice": 5,
+    "levelUnlock": 5
+
+  },
+  {
+    "id": "tool_screw",
+    "name": "Tool screw",
+    "speedUp": 1,
+    "rubiMuaNgay": 1,
+    "timeMin": 1,
+    "exp": 1,
+    "maxPrice": 10,
+    "levelUnlock": 10
+
+  },
+  {
+    "id": "tool_woodPanel",
+    "name": "Tool woodpanel",
+    "speedUp": 1,
+    "rubiMuaNgay": 1,
+    "timeMin": 1,
+    "exp": 1,
+    "maxPrice": 15,
+    "levelUnlock": 15
+
+  },
+  {
+    "id": "tool_bolt",
+    "name": "Tool bolt",
+    "speedUp": 1,
+    "rubiMuaNgay": 1,
+    "timeMin": 1,
+    "exp": 1,
+    "maxPrice": 7,
+    "levelUnlock": 7
+
+  },
+  {
+    "id": "tool_plank",
+    "name": "Tool plank",
+    "speedUp": 1,
+    "rubiMuaNgay": 1,
+    "timeMin": 1,
+    "exp": 1,
+    "maxPrice": 9,
+    "levelUnlock": 9
+
+  },
+  {
+    "id": "tool_ductTape",
+    "name": "Tool ducttape",
+    "speedUp": 1,
+    "rubiMuaNgay": 1,
+    "timeMin": 1,
+    "exp": 1,
+    "maxPrice": 11,
+    "levelUnlock": 11
+
+  }
+  
+  
+]
