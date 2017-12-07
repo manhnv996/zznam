@@ -5,6 +5,7 @@ var InertiaEngine = cc.Node.extend({
 	time: 0,
 	count: 0,
 	currentPoint: null,
+	recording: false,
 
 	ctor: function() {
 		this._super();
@@ -21,6 +22,7 @@ var InertiaEngine = cc.Node.extend({
 		// cc.log("Start recording");
 		this.time = 0;
 		this.count = 0;
+		this.recording = true;
 		this.currentPoint = startPoint;
 		this.addPoint(startPoint);
 		this.scheduleUpdate();
@@ -32,6 +34,7 @@ var InertiaEngine = cc.Node.extend({
 
 	stopAndGetVelocity: function(endPoint) {
 		// cc.log("Stop recording");
+		this.recording = false;
 		if (!endPoint) {
 			endPoint = cc.p(0, 0);
 		}
@@ -45,6 +48,15 @@ var InertiaEngine = cc.Node.extend({
 		// cc.log("Average", velocity);
 		// cc.log("Count", this.count);
 		return velocity;
+	},
+
+	stop: function() {
+		this.recording = false;
+		this.unscheduleUpdate();
+	},
+
+	isRecording: function() {
+		return this.recording;
 	},
 
 	update: function(dt) {

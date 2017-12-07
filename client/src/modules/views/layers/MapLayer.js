@@ -8,6 +8,7 @@ var MapLayer = cc.Layer.extend({
 	RIGHT_LIMIT: null,
 	TOP_LIMIT: null,
 	BOTTOM_LIMIT: null,
+	touchCount: 0,
 
 
 //		  flow plant and crop
@@ -491,73 +492,101 @@ var MapLayer = cc.Layer.extend({
 		// Lamb.setLocalZOrder(1);
 	},
 
+	touchesMap: {
+		length: 0
+	},
+	lstDistance: 0,
+
 	initEvent: function() {
 		this.touchListener = cc.EventListener.create({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
-            swallowTouches: true,
+            swallowTouches: false,
             onTouchBegan: function (touch, event) {
-				var mousePos = touch.getLocation();
-				var position = MapValues.screenPositionToLogic(mousePos.x, mousePos.y);
-				position.x = Math.floor(position.x);
-				position.y = Math.floor(position.y);
-				if (__DEBUG) {
-					cc.log('Map Clicked', position);
-				}
-            	
-            	// Stop inertia and capture velocity
-            	this.uninertia();
-				InertiaEngine.instance.init(mousePos);
+            	if (!this.lock) {
+            		if (this.touchesMap.length < 2) {
+		            	// cc.log("Began", touch.getID());
+		            	this.touchesMap[touch.getID()] = touch.getLocation();
+						this.touchesMap.length++;
+						//cc.log(this.touchesMap);
+	            	}
+	            	if (this.touchesMap.length === 1) {
+	            		InertiaEngine.instance.init(touch.getLocation());
+						PopupLayer.instance.disableAllPopup();
+	            		this.uninertia();
+	            	} else { // === 2
+	            		InertiaEngine.instance.stop();
+	            		var p1 = touch.getLocation();
 
-				// Disable planting popup
-				PopupLayer.instance.disableAllPopup();
+	            		var p2 = null;
+	            		for (var k in this.touchesMap) {
+	            			if (k != touch.getID() && !isNaN(k)) {
+	            				p2 = this.touchesMap[k];
+	            				break;
+	            			}
+	            		}
+	            		this.lstDistance = caculateDistance(p1, p2);
+	            	}
+            	}
 				return true;
             }.bind(this),
             onTouchMoved: function(touch, event) {
+            	// cc.log("Update");
+            	if (!this.lock) {
+            		// Not lock moving
+            		this.touchesMap[touch.getID()] = touch.getLocation();
+	            	if (this.touchesMap.length === 1) {
+						InertiaEngine.instance.setPoint(touch.getLocation());
+	            		var delta = touch.getDelta();
+	       				this.move(delta.x, delta.y);
+	            	} else { // this.touchMap.lenght === 2
+	            		// Zoom
+	            		// caculate distance
+	            		var p1 = touch.getLocation();
+	            		var p2 = null;
+	            		for (var k in this.touchesMap) {
+	            			if (k != touch.getID() && !isNaN(k)) {
+	            				p2 = this.touchesMap[k];
+	            				break;
+	            			}
+	            		}
+	            		var distance = caculateDistance(p1, p2);
+	            		var deltaDistance = distance - this.lstDistance;
+	            		this.lstDistance = distance;
+	            		// cc.log(deltaDistance);
+	            		this.zoomBy(deltaDistance / 40, cc.p((p1.x + p2.x) / 2, (p1.y + p2.y) / 2));
+	            	}
+            	}
             	// Add new move position to InertialEngine
-				InertiaEngine.instance.setPoint(touch.getLocation());
-            	var delta = touch.getDelta();
-       			this.move(delta.x, delta.y);
-
+    			// var t = this.touchesList.find(function(_) { return _.getID() === touch.getID()});
+    			// cc.log("Ref", t.getLocation());
+    			// cc.log("Ori", touch.getLocation());
             }.bind(this),
             onTouchEnded: function (touch, event) {
-            	// Caculate velocity and add ineria
-				var velocity = InertiaEngine.instance.stopAndGetVelocity(touch.getLocation());
-				// cc.log("v =", this.velocity);
-				this.inertia(velocity);
-				// PopupLayer.instance.disablePopup();
-				// PopupLayer.instance.disableProgressBarInprogress();
+            	if (!this.lock) {
+            		if (this.touchesMap[touch.getID()]) {
+	            		delete this.touchesMap[touch.getID()];
+		            	this.touchesMap.length--;
+		            	// cc.log(this.touchesMap);
+		            	
+	            	}
+	            	if (InertiaEngine.instance.isRecording()) {
+						var velocity = InertiaEngine.instance.stopAndGetVelocity(touch.getLocation());
+						this.inertia(velocity);
+	            	}
+            	}
 			}.bind(this)
         });
-        cc.eventManager.addListener(this.touchListener, 100 * Math.max(MapConfigs.Init.width + 5, MapConfigs.Init.height + 5));
+        // cc.eventManager.addListener(this.touchListener, 10 * Math.max(MapConfigs.Init.width + 5, MapConfigs.Init.height + 5));
+        cc.eventManager.addListener(this.touchListener, 100);
         
-        cc.log("Register map touch event with priority", MapConfigs.Init.width + MapConfigs.Init.height);
+        cc.log("Register map touch event with priority", 100);
         var mouseListener = cc.EventListener.create({
 			event: cc.EventListener.MOUSE,
 			onMouseScroll: function(e) {
-				this.zoom(-e.getScrollY(), e.getLocation());
+				this.zoomBy(-e.getScrollY(), e.getLocation());
 			}.bind(this)
 		});
 		cc.eventManager.addListener(mouseListener, this);
-
-        var multiTouchListener = cc.EventListener.create({
-        	event: cc.EventListener.TOUCH_ALL_AT_ONCE,
-        	onTouchesBegan: function(touch, event) {
-        		cc.log("[T] onTouchesBegan");
-        	},
-        	
-        	onTouchesCancelled: function(touch, event) {
-        		cc.log("[T] onTouchesCancelled");
-        	},
-        	
-        	onTouchesEnded: function(touch, event) {
-        		cc.log("[T] onTouchesEnded");
-        	},
-        	
-        	onTouchesMoved: function(touch, event) {
-        		cc.log("[T] onTouchesMoved");
-        	}
-        });
-		// cc.eventManager.addListener(multiTouchListener, 1);
 		
 		this.centerPoint = cc.p(
 			this.getContentSize().width / 2,
@@ -571,6 +600,11 @@ var MapLayer = cc.Layer.extend({
 		cc.eventManager.addListener(keyboardListener, this);
 		this.__dX = 0;
 		this.__dY = 0;
+	},
+
+	lock: false,
+	lockMap: function(lock) {
+		this.lock = lock;
 	},
 
 	move: function(dx, dy) {
@@ -617,7 +651,8 @@ var MapLayer = cc.Layer.extend({
 		}
 	},
 
-	zoom: function(sign, cursor) {
+	zoomBy: function(sign, cursor) {
+		var standartSign = sign * this.scale;
 		var deltaScale = Math.round(SCALE_RATIO * sign * 1000) / 1000;
 		var currentScale = Math.round(this.scale * 1000) / 1000;
 		var newScale = Math.round((currentScale + deltaScale) * 1000) / 1000;
