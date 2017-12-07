@@ -77,7 +77,6 @@ public class ConstructedHandler extends BaseClientRequestHandler{
         /**
          *  Process in here
          */
-        System.out.println("Build Completed");
 
         switch (req.typeBuilding) {
             case MapItemEnum.MACHINE:
@@ -86,10 +85,11 @@ public class ConstructedHandler extends BaseClientRequestHandler{
                 int totalTime = machineConfig.time * 1000;
                 long startBuildTime = machineModel.getStartBuildTime();
                 long curTime = new Date().getTime();
+                System.out.println("((curTime - startBuildTime) >= totalTime || machineModel.isBoostBuild()) " + ((curTime - startBuildTime) >= totalTime || machineModel.isBoostBuild()));
                 
-                if ((curTime - startBuildTime) >= totalTime) {
+                if ((curTime - startBuildTime) >= totalTime || machineModel.isBoostBuild()) {
                     machineModel.setCompleted();
-//                    System.out.println("Build Completed");
+                    System.out.println("Build Completed");
                     send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
                 } else {
                     send(new ResponseErrorCode(ErrorLog.ERROR_COMPLETED_BUIDING_FAIL.getValue()), user);
@@ -130,8 +130,8 @@ public class ConstructedHandler extends BaseClientRequestHandler{
                 
                 int rubyReduce = (int) Math.floor((curTime - startTime) / (machineConfig.reduceRubyTime * 1000));
                 int ruby = machineConfig.buildExpress - rubyReduce;
-            System.out.println("(machineConfig.reduceRubyTime * 1000) " + (machineConfig.reduceRubyTime * 1000));
-            System.out.println("(curTime - startTime) " + (curTime - startTime));
+                System.out.println("(machineConfig.reduceRubyTime * 1000) " + (machineConfig.reduceRubyTime * 1000));
+                System.out.println("(curTime - startTime) " + (curTime - startTime));
 
                 System.out.println("machineConfig.reduceRubyTime " + ruby);
                 System.out.println("user Ruby  " + userInfo.getRuby());
@@ -146,6 +146,7 @@ public class ConstructedHandler extends BaseClientRequestHandler{
                     return;
                 }
                 System.out.println("user Ruby after  " + userInfo.getRuby());
+                machineModel.setBoostBuild();
                 send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
             break;
         }

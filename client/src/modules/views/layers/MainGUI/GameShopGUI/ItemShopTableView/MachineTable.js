@@ -270,7 +270,7 @@ var MachineTable = cc.Layer.extend({
                             //var machineModel;
                             //Create Model
                             var machineConfig = getMachineConfigByType(this.typeObject);
-                            var machineModel = new Machine(0, this.typeObject, machineConfig.slot, 0, null,
+                            var machineModel = new Machine(0, this.typeObject, machineConfig.slot, 0, null, false,
                                 false, new Date().getTime(), machineConfig.time, new Coordinate(endPl.x, endPl.y));
                             user.getAsset().addMachine(machineModel);
 

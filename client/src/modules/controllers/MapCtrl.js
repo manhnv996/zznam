@@ -206,35 +206,66 @@ var MapCtrl = cc.Class.extend({
             // full time + completed false --> Nha hoanthanh
             // full time + completed true --> machine sprite
             // check inside switch or check outside switch
-            var timeBuild = getMachineConfigByType(type).time * 1000;
+            //var timeBuild = getMachineConfigByType(type).time * 1000;
             //if ()
-            var curTime = new Date().getTime();
+            //var curTime = new Date().getTime();
+            //var width;
+            //var height;
             switch (type) {
                 case "bakery_machine":
-                    //cc.log("machine.startBuildTime " + machine.completed);
-                    //cc.log("timeBuild " + timeBuild);
-                    if ((curTime - machine.startBuildTime) < timeBuild ) {
-                        machineSprite = new ConstructedSprite(machine.id,
-                        MapConfigs.BakeryMachine.size.width, MapConfigs.BakeryMachine.size.height,
-                        machine.coordinate.x, machine.coordinate.y, MapItemEnum.MACHINE);
+                    if (machine.completed) {
+                        machineSprite = new BakerySprite(machine.id, machine.coordinate.x, machine.coordinate.y);
                     } else {
-                        if (!machine.completed) {
-                            machineSprite = new ConstructedCompletedSprite(machine.id,
-                                machine.coordinate.x, machine.coordinate.y, MapItemEnum.MACHINE);
+                        if (machine.boostBuild || !machine.retainBuildTime) {
+                            machineSprite = new ConstructedCompletedSprite(machine.id, machine.coordinate.x,
+                                                            machine.coordinate.y, MapItemEnum.MACHINE);
                         } else {
-                            machineSprite = new BakerySprite(machine.id, machine.coordinate.x, machine.coordinate.y);
+                            machineSprite = new ConstructedSprite(machine.id,
+                                MapConfigs.BakeryMachine.size.width, MapConfigs.BakeryMachine.size.height,
+                                machine.coordinate.x, machine.coordinate.y, MapItemEnum.MACHINE);
                         }
                     }
                     break;
-                //case MapItemEnum.FOOD_GRINDER:
+                //case "food_machine":
                 //    break;
-                //case MapItemEnum.BUTTER:
+                //case "butter_machine":
                 //    break;
-                //case MapItemEnum.SUGAR_MAKER:
+                //case "sugar_machine":
                 //    break;
-                //case MapItemEnum.POPCORN_MAKER:
+                //case "popcorn_machine":
                 //    break;
             }
+            //if (machine.retainBuildTime > 0) {
+            //    machineSprite = new BakerySprite(machine.id, machine.coordinate.x, machine.coordinate.y);
+            //} else {
+            //
+            //}
+            //switch (type) {
+            //    case "bakery_machine":
+            //        //cc.log("machine.startBuildTime " + machine.completed);
+            //        //cc.log("timeBuild " + timeBuild);
+            //        if ((curTime - machine.startBuildTime) < timeBuild ) {
+            //            machineSprite = new ConstructedSprite(machine.id,
+            //            MapConfigs.BakeryMachine.size.width, MapConfigs.BakeryMachine.size.height,
+            //            machine.coordinate.x, machine.coordinate.y, MapItemEnum.MACHINE);
+            //        } else {
+            //            if (!machine.completed) {
+            //                machineSprite = new ConstructedCompletedSprite(machine.id,
+            //                    machine.coordinate.x, machine.coordinate.y, MapItemEnum.MACHINE);
+            //            } else {
+            //                machineSprite = new BakerySprite(machine.id, machine.coordinate.x, machine.coordinate.y);
+            //            }
+            //        }
+            //        break;
+            //    //case MapItemEnum.FOOD_GRINDER:
+            //    //    break;
+            //    //case MapItemEnum.BUTTER:
+            //    //    break;
+            //    //case MapItemEnum.SUGAR_MAKER:
+            //    //    break;
+            //    //case MapItemEnum.POPCORN_MAKER:
+            //    //    break;
+            //}
             MapLayer.instance.addChild(machineSprite);
             machineSprite.setLogicPosition(machine.coordinate.x, machine.coordinate.y, false);
         }

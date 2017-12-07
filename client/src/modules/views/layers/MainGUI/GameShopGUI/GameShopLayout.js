@@ -61,7 +61,7 @@ var GameShopLayout = ccui.Layout.extend({
             cc.eventManager.removeListener(this.listener);
             //cc.log("remove listener");
         }
-        cc.log("this._isHide hide " + this._isHide);
+        //cc.log("this._isHide hide " + this._isHide);
     },
 
     show: function () {
@@ -77,7 +77,7 @@ var GameShopLayout = ccui.Layout.extend({
         this.blockListener();
         //cc.log("this.listener2" + this.listener);
 
-        cc.log("this._isHide show " + this._isHide);
+        //cc.log("this._isHide show " + this._isHide);
     },
 
     blockListener: function () {

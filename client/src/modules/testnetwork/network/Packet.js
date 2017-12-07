@@ -1055,9 +1055,10 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         machine.y = this.getInt();
         machine.slot = this.getInt();
         machine.startTime = parseInt(this.getLong());
+        machine.boostBuild = this.getInt() ? true : false;
         machine.completed = this.getInt() ? true : false;
         machine.startBuildTime = parseInt(this.getLong());
-        machine.retainBuildTime = parseInt(this.getLong());
+        machine.retainBuildTime = this.getInt();
 
         machine.productQueue = [];
         var size = this.getInt();

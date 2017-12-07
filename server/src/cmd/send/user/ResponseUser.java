@@ -281,16 +281,22 @@ public class ResponseUser extends BaseMsg {
     }
     // Pack a machine
     private void packMachine(Machine machine) {
-        long retainTime = new Date().getTime() - machine.getStartTime();
+//        long curTime = new Date().getTime();
+//        int retainTime = (int) Math.floor((curTime - machine.getStartBuildTime()) / 1000);
+        System.out.println("retainTime " + machine.getRetainTime());
+//        System.out.println("curTime " + curTime);
+//        System.out.println("startTime " + machine.getStartTime());
+
         bf.putInt(machine.getId());
         putStr(bf, machine.getType().toString());
         bf.putInt(machine.getX());
         bf.putInt(machine.getY());
         bf.putInt(machine.getSlot());
         bf.putLong(machine.getStartTime());
+        bf.putInt(machine.isBoostBuild() ? 1 : 0);
         bf.putInt(machine.isCompleted() ? 1 : 0);
         bf.putLong(machine.getStartBuildTime());
-        bf.putLong(retainTime);
+        bf.putInt(machine.getRetainTime());
         
         List<String> productQueue = machine.getProductQueue();  
         

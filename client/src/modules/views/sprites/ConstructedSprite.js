@@ -28,7 +28,7 @@ var ConstructedSprite = AnimationSprite.extend({
 
         //this.buildTime = ConstructedCtrl.instance.getBuildTime(id);
         this.buildExpress = ConstructedCtrl.instance.getBuildExpress(id);
-
+        cc.log("this.buildExpress", this.buildExpress);
         this.play(nameAni);
 
         this.registerTouchEvents();

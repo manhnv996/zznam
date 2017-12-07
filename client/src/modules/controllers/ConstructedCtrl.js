@@ -20,7 +20,7 @@ var ConstructedCtrl = cc.Class.extend({
 
         var buildTime = machineConfig.time - machineModel.retainBuildTime;
 
-        var reduceRuby = Math.floor(buildTime / 1000 / machineConfig.reduceRubyTime);
+        var reduceRuby = Math.floor(buildTime / machineConfig.reduceRubyTime);
         var buildExpress = machineConfig.buildExpress - reduceRuby;
         //cc.log("buildExpress " + (this.buildExpress < 0));
         if (buildExpress < 0) {
@@ -41,9 +41,9 @@ var ConstructedCtrl = cc.Class.extend({
                 var machineModel = user.asset.getMachineById(sprite.id);
                 var machineConfig = getMachineConfigByType(machineModel.type);
                 //this.totalTime = machineConfig.time * 1000;
+                machineModel.reduceRetainBuildTime(dt);
 
                 var buildTime = machineConfig.time - machineModel.retainBuildTime;
-
 
                 if (!(buildTime % machineConfig.reduceRubyTime)) {
                     if (sprite.buildExpress > 0) {
@@ -53,7 +53,6 @@ var ConstructedCtrl = cc.Class.extend({
                         _loadingBarConstructed.rubyNumber.setString(sprite.buildExpress.toString());
                     }
                 }
-                machineModel.reduceRetainBuildTime(dt);
 
                 if (machineModel.retainBuildTime === 0) {
                     //var completedSprite = new ConstructedCompletedSprite(id, machineModel.coordinate.x,
@@ -61,7 +60,7 @@ var ConstructedCtrl = cc.Class.extend({
                     //MapLayer.instance.addChild(completedSprite);
                     //MapCtrl.instance.addSpriteAlias(completedSprite);
                     //completedSprite.setLogicPosition(machineModel.coordinate.x, machineModel.coordinate.y, true);
-                    this.addCompletedBuidSprite(machineModel, sprite.typeBuilding, sprite.typeMapObject);
+                    this.addCompletedBuildSprite(machineModel, sprite.typeBuilding, sprite.typeMapObject);
                     return true;
                 } else {
                     return false;
@@ -69,7 +68,7 @@ var ConstructedCtrl = cc.Class.extend({
         }
     },
 
-    addCompletedBuidSprite: function (model, typeBuilding, typeMapObject) {
+    addCompletedBuildSprite: function (model, typeBuilding, typeMapObject) {
         var completedSprite = new ConstructedCompletedSprite(model.id, model.coordinate.x,
             model.coordinate.y, typeBuilding, typeMapObject);
         MapLayer.instance.addChild(completedSprite);
@@ -165,7 +164,8 @@ var ConstructedCtrl = cc.Class.extend({
 
 
                     var machineModel = user.asset.getMachineById(_loadingBarConstructed.sprite.id);
-                    this.addCompletedBuidSprite(machineModel, _loadingBarConstructed.sprite.typeBuilding,
+                    machineModel.setBoostBuild();
+                    this.addCompletedBuildSprite(machineModel, _loadingBarConstructed.sprite.typeBuilding,
                         _loadingBarConstructed.sprite.typeMapObject);
 
                     _loadingBarConstructed.sprite.removeFromParent(true);

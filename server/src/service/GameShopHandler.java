@@ -235,7 +235,7 @@ public class GameShopHandler extends BaseClientRequestHandler{
         case MapItemEnum.BAKERY:
             Machine machineModel =
                 new Machine(id, MachineTypeEnum.bakery_machine, ConfigContainer.getMachineSlot("bakery_machine"),
-                            new Date().getTime(), false, x, y);
+                            new Date().getTime(), false, false, x, y);
             userInfo.getAsset().addMachine(machineModel);
             break;
         }

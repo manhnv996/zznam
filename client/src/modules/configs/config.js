@@ -359,6 +359,7 @@ function onReceiveUser(userInfo) {
             machineInfo.slot,
             machineInfo.startTime,
             machineInfo.productQueue,
+            machineInfo.boostBuild,
             machineInfo.completed,
             machineInfo.startBuildTime,
             machineInfo.retainBuildTime,

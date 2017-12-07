@@ -138,7 +138,7 @@ var GameShopController = cc.Class.extend({
     buyMachine: function (typeObject, lx, ly) {
         //Model
         var machineConfig = getMachineConfigByType(typeObject);
-        var machineModel = new Machine(0, typeObject, machineConfig.slot, 0, null,
+        var machineModel = new Machine(0, typeObject, machineConfig.slot, 0, null, false,
             false, new Date().getTime(), machineConfig.time, new Coordinate(lx, ly));
         //var machineModel = new Machine(id, typeObject, 0, 0, null, false,
         //    0, new Coordinate(lx, ly));
