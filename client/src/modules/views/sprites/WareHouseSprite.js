@@ -15,10 +15,15 @@ var WareHouseSprite = AnimationSprite.extend({
 
 	onClick: function() {
 		// cc.log("Warehouse", this.getLocalZOrder(), this.lx, this.ly, this.blockSizeX, this.blockSizeY);
-		StorageLayer.instance.initStorage(user.getAsset().getWarehouse());
+		//StorageLayer.instance.initStorage(user.getAsset().getWarehouse());
+		cc.log("WareHouse");
+		BaseGUILayer.instance.showStorage(user.getAsset().getWarehouse());
 	},
 
 	onFinishMove: function(lx, ly) {
-		testnetwork.connector.sendMoveStorage(MapItemEnum.WAREHOUSE, lx, ly);
+		user.asset.warehouse.coordinate.x = lx;
+		user.asset.warehouse.coordinate.y = ly;
+		cc.log(user.asset.warehouse);
+		testnetwork.connector.sendMoveMapBlock(MapItemEnum.WAREHOUSE, 0, lx, ly);
 	}
 });

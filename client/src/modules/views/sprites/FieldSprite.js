@@ -42,64 +42,64 @@ var FieldSprite = MapBlockSprite.extend({
     // render: function (fieldId) {
         this.fieldId = fieldId;
         // Find field in asset
-        this.field = user.getAsset().getFieldList().find(function(f) {
-            return f.fieldId === fieldId;
-        });
+        this.field = user.asset.getFieldById(this.fieldId);
+        // this.showDebugPriorityPoint();
     },
 
 
     // Not use
-    addTouchEventListener: function (parent, fieldId) {
-
-        var touchListener = cc.EventListener.create({
-            event: cc.EventListener.TOUCH_ONE_BY_ONE,
-            swallowTouches: true,
-            onTouchBegan: function (touch, event) {
-                // var target = event.getCurrentTarget();
-                var target = this;
-
-                var locationInNode = target.convertToNodeSpace(touch.getLocation());
-                var s = target.getContentSize();
-                var rect = cc.rect(0, 0, s.width, s.height);
-
-                if (cc.rectContainsPoint(rect, locationInNode)) {
-                    //cc.log("sprite began... x = " + locationInNode.x + ", y = " + locationInNode.y);
-
-                    target.opacity = 180;
-                    touchListener._lock = true;
-                    return true;
-                }
-
-
-
-                return false;
-            }.bind(this),
-            onTouchMoved: function (touch, event) {
-                touchListener._lock = false;
-                var delta = touch.getDelta();
-                MapLayer.instance.move(delta.x, delta.y);
-
-            }.bind(this),
-
-            onTouchEnded: function (touch, event) {
-                // cc.log("sprite onTouchesEnded.. ");
-                // var target = event.getCurrentTarget();
-                var target = this;
-                target.opacity = 255;
-                //
-                if (touchListener._lock) {
-                    PlantCtrl.instance.onFieldSelected(fieldId);
-                }
-
-            }.bind(this)
-        });
-        cc.eventManager.addListener(touchListener, this.lx + this.ly);
-        //cc.eventManager.addListener(touchListener, this);
-    },
+    //addTouchEventListener: function (parent, fieldId) {
+    //
+    //    var touchListener = cc.EventListener.create({
+    //        event: cc.EventListener.TOUCH_ONE_BY_ONE,
+    //        swallowTouches: true,
+    //        onTouchBegan: function (touch, event) {
+    //            // var target = event.getCurrentTarget();
+    //            var target = this;
+    //
+    //            var locationInNode = target.convertToNodeSpace(touch.getLocation());
+    //            var s = target.getContentSize();
+    //            var rect = cc.rect(0, 0, s.width, s.height);
+    //
+    //            if (cc.rectContainsPoint(rect, locationInNode)) {
+    //                //cc.log("sprite began... x = " + locationInNode.x + ", y = " + locationInNode.y);
+    //
+    //                target.opacity = 180;
+    //                touchListener._lock = true;
+    //                return true;
+    //            }
+    //
+    //
+    //
+    //            return false;
+    //        }.bind(this),
+    //        onTouchMoved: function (touch, event) {
+    //            touchListener._lock = false;
+    //            var delta = touch.getDelta();
+    //            MapLayer.instance.move(delta.x, delta.y);
+    //
+    //        }.bind(this),
+    //
+    //        onTouchEnded: function (touch, event) {
+    //            // cc.log("sprite onTouchesEnded.. ");
+    //            // var target = event.getCurrentTarget();
+    //            var target = this;
+    //            target.opacity = 255;
+    //            //
+    //            if (touchListener._lock) {
+    //                PlantCtrl.instance.onFieldSelected(fieldId);
+    //            }
+    //
+    //        }.bind(this)
+    //    });
+    //    cc.eventManager.addListener(touchListener, this.lx + this.ly);
+    //    //cc.eventManager.addListener(touchListener, this);
+    //},
 
     // When click
     onClick: function() {
         PlantCtrl.instance.onFieldSelected(this.fieldId);
+        cc.log('Field clicked', this.getLocalZOrder(), this.lx, this.ly);
     },
 
     // When begin click
@@ -131,6 +131,7 @@ var FieldSprite = MapBlockSprite.extend({
 
         this.isPlant = false;
         this.unschedule(this.updateFieldStatus);
+        this.schedule(this.updateFieldStatus);
         this.schedule(this.updateFieldStatus, 0.5);
     },
 
@@ -154,8 +155,9 @@ var FieldSprite = MapBlockSprite.extend({
 
             this.isPlant = true;
 
-            this.unschedule(this.updateFieldStatus);
-            this.schedule(this.updateFieldStatus, 0.5);
+            //this.unschedule(this.updateFieldStatus);
+            //this.schedule(this.updateFieldStatus);
+            //this.schedule(this.updateFieldStatus, 0.5);
         }
     },
     cropAnimation: function (seedType) {
@@ -285,7 +287,7 @@ var FieldSprite = MapBlockSprite.extend({
         this.field.coordinate.x = lx;
         this.field.coordinate.y = ly;
         // Send to server
-        testnetwork.connector.sendMoveField(this.fieldId, lx, ly);
+        testnetwork.connector.sendMoveMapBlock(MapItemEnum.FIELD, this.fieldId, lx, ly);
         ///
     }
 });

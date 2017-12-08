@@ -3,6 +3,7 @@ var LastPageUtil = cc.Class.extend({
 
     lastIndexOfOrderClick: 0,   //
     lastIndexOfPageSeedTableClick: 0,   //not yet started
+
     lastPageMachine: [
         {machineType: "food_machine", lastPageOpened: 0 },
         {machineType: "bakery_machine", lastPageOpened: 0 },
@@ -27,5 +28,6 @@ var LastPageUtil = cc.Class.extend({
         }
         return false;
     }
+
 });
 LastPageUtil.instance = new LastPageUtil();

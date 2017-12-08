@@ -1,5 +1,6 @@
 package model;
 
+import config.enums.AnimalLodgeEnum;
 import config.enums.MapItemEnum;
 import config.enums.ProductType;
 import config.enums.StorageType;
@@ -25,8 +26,8 @@ public class ZPUserInfo extends DataModel {
     public String name;
     
     private int level = 1;
-    private int gold = 10;
-    private int ruby = 10;
+    private int gold = 0;
+    private int ruby = 0;
     private long exp = 0L;
     
     private Asset asset;
@@ -39,9 +40,10 @@ public class ZPUserInfo extends DataModel {
         
         id = _id;
         
-        this.level = 1;
-        this.gold = 10;
+        this.level = 10;
+        this.gold = 200;
         this.ruby = 10;
+
         this.exp = 0L;
         this.name = "";
         
@@ -80,7 +82,19 @@ public class ZPUserInfo extends DataModel {
         List<AnimalLodge> lodgeList = this.asset.getAnimalLodgeList();
         for (int i = 0; i < lodgeList.size(); i++) {
             AnimalLodge lodge = lodgeList.get(i);
-            
+            if (lodge.getType() == AnimalLodgeEnum.chicken_habitat) {
+                this.map.addMapAlias(lodge.getX(), lodge.getY(), 
+                    ConfigContainer.mapConfig.ChickenLodge.size.width,
+                    ConfigContainer.mapConfig.ChickenLodge.size.height,
+                    MapItemEnum.LODGE);
+            } else if (lodge.getType() == AnimalLodgeEnum.cow_habitat) {
+                this.map.addMapAlias(lodge.getX(), lodge.getY(), 
+                    ConfigContainer.mapConfig.CowLodge.size.width,
+                    ConfigContainer.mapConfig.CowLodge.size.height,
+                    MapItemEnum.LODGE);
+            } else {
+                System.out.println("[E] Unhandled animal lodge type " + lodge.getType().toString());    
+            }
         }
     }
     
@@ -126,6 +140,9 @@ public class ZPUserInfo extends DataModel {
     
     public void addExp(int value) {
         this.exp += value;
+        /*
+         * not yet started
+         */
     }
     
     public void addRuby(int value) {

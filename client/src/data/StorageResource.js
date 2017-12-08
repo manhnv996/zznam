@@ -12,9 +12,10 @@ var _ = (function() {
         storage_V_png: r("butoon-V.png"),
         storage_back_png: r("button -back.png"),
         storage_upgrade_png: r("nangcap.png"),
+        storage_btn_png: r("Layer 24.png"),
         storage_arrow: r("muiten.png"),
-        warehouse_full: r("Kho chứa đồ đã đầy!.png"),
-        silo_full: r("Kho lươngthuc.png"),
+        warehouse_full: r("fullWare.png"),
+        silo_full: r("fullSilo.png"),
 
         upgrade_ware_bolt: "Art/Tool/dinh2.png",
         upgrade_ware_plank: "Art/Tool/go1.png",
@@ -34,35 +35,42 @@ var _ = (function() {
         storage_buy_tool: "Art/Crops/Gui-act/butoon-congG-1.png",
         ruby_small: "Art/Crops/Gui-act/hethat/ngoc-nho.png",
 
-        tooltip_png: "Art/Crops/Gui-act",
+        tooltip_png: "Art/Crops/Gui-act/tooltip.png",
 
+        debug_png: "Art/red.png",
+
+        storageItemResource: JSON.parse(jsb.fileUtils.getStringFromFile("src/modules/configs/json/productconfig.json")),
         upgradeSilo: JSON.parse(jsb.fileUtils.getStringFromFile("res/config/upgradeSiloConfig.json")),
         upgradeWarehouse: JSON.parse(jsb.fileUtils.getStringFromFile("res/config/upgradeWareConfig.json"))
     };
 
     var g_StorageResource = [];
-    g_StorageResource.push("Art/Crops/Field/apple.png");
-    g_StorageResource.push("Art/Crops/Field/caroot.png");
-    g_StorageResource.push("Art/Crops/Field/crops.png");
-    g_StorageResource.push("Art/Crops/Field/vhili pepper.png");
-    g_StorageResource.push("Art/Crops/Field/indigo.png");
-    g_StorageResource.push("Art/Crops/Field/tomato.png");
-    g_StorageResource.push("Art/Crops/Field/strawberry.png");
-    g_StorageResource.push("Art/Tool/dinh2.png");
-    g_StorageResource.push("Art/Tool/go1.png");
-    g_StorageResource.push("Art/Tool/bangdinh.png");
-    g_StorageResource.push("Art/Tool/dinh3.png");
-    g_StorageResource.push("Art/Tool/dinh.png");
-    g_StorageResource.push("Art/Tool/go2.png");
-    g_StorageResource.push("Art/Crops/Field/corn.png");
-    g_StorageResource.push("Art/Crops/Field/dau.png");
-    g_StorageResource.push("Art/Crops/Field/mia.png");
-    g_StorageResource.push("Art/Tool/dinh2.png");
-    g_StorageResource.push("Art/Tool/go1.png");
-    g_StorageResource.push("Art/Tool/bangdinh.png");
-    g_StorageResource.push("Art/Tool/dinh3.png");
-    g_StorageResource.push("Art/Tool/dinh.png");
-    g_StorageResource.push("Art/Tool/go2.png");
+    //g_StorageResource.push("Art/Crops/Field/apple.png");
+    //g_StorageResource.push("Art/Crops/Field/caroot.png");
+    //g_StorageResource.push("Art/Crops/Field/crops.png");
+    //g_StorageResource.push("Art/Crops/Field/vhili pepper.png");
+    //g_StorageResource.push("Art/Crops/Field/indigo.png");
+    //g_StorageResource.push("Art/Crops/Field/tomato.png");
+    //g_StorageResource.push("Art/Crops/Field/strawberry.png");
+    //g_StorageResource.push("Art/Tool/dinh2.png");
+    //g_StorageResource.push("Art/Tool/go1.png");
+    //g_StorageResource.push("Art/Tool/bangdinh.png");
+    //g_StorageResource.push("Art/Tool/dinh3.png");
+    //g_StorageResource.push("Art/Tool/dinh.png");
+    //g_StorageResource.push("Art/Tool/go2.png");
+    //g_StorageResource.push("Art/Crops/Field/corn.png");
+    //g_StorageResource.push("Art/Crops/Field/dau.png");
+    //g_StorageResource.push("Art/Crops/Field/mia.png");
+    //g_StorageResource.push("Art/Tool/dinh2.png");
+    //g_StorageResource.push("Art/Tool/go1.png");
+    //g_StorageResource.push("Art/Tool/bangdinh.png");
+    //g_StorageResource.push("Art/Tool/dinh3.png");
+    //g_StorageResource.push("Art/Tool/dinh.png");
+    //g_StorageResource.push("Art/Tool/go2.png");
+    //
+    StorageResource.storageItemResource.forEach(function(content) {
+        g_StorageResource.push(content.nameIcon);
+    });
 
     for (var k in StorageResource) {
         g_StorageResource.push(StorageResource[k]);

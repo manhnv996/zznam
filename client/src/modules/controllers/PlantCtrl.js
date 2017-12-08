@@ -202,7 +202,7 @@ var PlantCtrl = cc.Class.extend({
         if (user.reduceRuby(rubiBuy)){
             if (user.getAsset().getFoodStorage().addItem(seedType, 1)){
 
-                testnetwork.connector.sendBuyItemByRubi(seedType);
+                testnetwork.connector.sendBuyItemByRubi(seedType, 1);
                 return true;
             } else {
                 return false;

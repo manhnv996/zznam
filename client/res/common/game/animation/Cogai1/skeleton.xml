@@ -1,5 +1,5 @@
 <dragonBones name="Cogai1" frameRate="24" version="2.3">
- <armature name="Symbol 1">
+ <armature name="Cogai1">
   <bone name="Layer 5">
    <transform x="38.6" y="104.8" skX="0" skY="0" scX="1" scY="0.89"/>
   </bone>

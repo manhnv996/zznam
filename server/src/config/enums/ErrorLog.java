@@ -21,17 +21,21 @@ public enum ErrorLog {
     ERROR_STORAGE_NOT_ADD((short) 21),
 
     ERROR_RUBY_NOT_REDUCE((short) 30),
+    ERROR_RUBY_NOT_ENOUGH((short) 31),
+
+    ERROR_ORDER_NOT_COMPLETE((short) 40),
     
-    ERROR_BUY_MAP_OBJECT_COLLISION((short) 70),
-    ERROR_BUY_GOLD_NOT_ENOUGH((short) 71),
-    ERROR_BUY_CANT_ADD_FIELD((short) 72),
-    ERROR_BUY_GOLD_NOT_REDUCE((short) 73),
+    ERROR_BUY_FAIL((short) 70),
+    ERROR_BUY_MAP_OBJECT_COLLISION((short) 71),
+    ERROR_GOLD_NOT_ENOUGH((short) 72),
+    ERROR_CANT_ADD_FIELD((short) 73),
+    ERROR_GOLD_NOT_REDUCE((short) 74),
     
-    ERROR_BUY_TOOL_RUBY_NOT_ENOUGH((short) 80),
-    ERROR_BUY_TOOL_RUBY_NOT_REDUCE((short) 81),
     ERROR_CANT_ADD_TOOL((short) 82),
     
-    ERROR_UPGRADE_FAIL((short)  83);
+    ERROR_UPGRADE_FAIL((short)  83),
+    
+    ERROR_COMPLETED_BUIDING_FAIL((short) 90);
                                     
 
 

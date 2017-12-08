@@ -108,7 +108,7 @@
                 <key>sourceSize</key>
                 <string>{55,29}</string>
             </dict>
-            <key>Ga_di/banchanga_triong.png</key>
+            <key>Ga_di.psd Assets/banchanga_triong.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{116,109},{17,14}}</string>
@@ -121,7 +121,7 @@
                 <key>sourceSize</key>
                 <string>{17,14}</string>
             </dict>
-            <key>Ga_di/banchangangoai.png</key>
+            <key>Ga_di.psd Assets/banchangangoai.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{116,109},{17,14}}</string>
@@ -134,7 +134,7 @@
                 <key>sourceSize</key>
                 <string>{17,14}</string>
             </dict>
-            <key>Ga_di/cangga_ngoai.png</key>
+            <key>Ga_di.psd Assets/cangga_ngoai.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{116,127},{15,14}}</string>
@@ -147,7 +147,7 @@
                 <key>sourceSize</key>
                 <string>{17,14}</string>
             </dict>
-            <key>Ga_di/cangga_trong.png</key>
+            <key>Ga_di.psd Assets/cangga_trong.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{30,186},{15,14}}</string>
@@ -160,7 +160,7 @@
                 <key>sourceSize</key>
                 <string>{17,14}</string>
             </dict>
-            <key>Ga_di/canhga1.png</key>
+            <key>Ga_di.psd Assets/canhga1.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{1,154},{33,24}}</string>
@@ -173,7 +173,7 @@
                 <key>sourceSize</key>
                 <string>{33,24}</string>
             </dict>
-            <key>Ga_di/canhtrong1.png</key>
+            <key>Ga_di.psd Assets/canhtrong1.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{95,161},{16,18}}</string>
@@ -186,7 +186,7 @@
                 <key>sourceSize</key>
                 <string>{16,18}</string>
             </dict>
-            <key>Ga_di/coga1.png</key>
+            <key>Ga_di.psd Assets/coga1.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{86,54},{33,44}}</string>
@@ -199,7 +199,7 @@
                 <key>sourceSize</key>
                 <string>{33,44}</string>
             </dict>
-            <key>Ga_di/dauga1.png</key>
+            <key>Ga_di.psd Assets/dauga1.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{1,66},{27,41}}</string>
@@ -212,7 +212,7 @@
                 <key>sourceSize</key>
                 <string>{27,41}</string>
             </dict>
-            <key>Ga_di/duigan1.png</key>
+            <key>Ga_di.psd Assets/duigan1.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{1,234},{22,20}}</string>
@@ -225,7 +225,7 @@
                 <key>sourceSize</key>
                 <string>{22,20}</string>
             </dict>
-            <key>Ga_di/duigat1.png</key>
+            <key>Ga_di.psd Assets/duigat1.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{115,143},{18,15}}</string>
@@ -238,7 +238,7 @@
                 <key>sourceSize</key>
                 <string>{18,15}</string>
             </dict>
-            <key>Ga_di/duoiga1.png</key>
+            <key>Ga_di.psd Assets/duoiga1.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{67,161},{23,27}}</string>
@@ -251,7 +251,7 @@
                 <key>sourceSize</key>
                 <string>{23,27}</string>
             </dict>
-            <key>Ga_di/thanga1.png</key>
+            <key>Ga_di.psd Assets/thanga1.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{201,1},{51,39}}</string>

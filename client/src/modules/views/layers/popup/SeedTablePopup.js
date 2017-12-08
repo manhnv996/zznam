@@ -135,6 +135,40 @@ var SeedTablePopup = TablePopup.extend({
     //    this.addChild(tool);
     //
     //},
+    showToolPopup: function(fieldId){
+        //cc.log("showPopup");
+
+        this.disablePopup(null);
+        this.disableProgressBarInprogress();
+
+
+        this._bg = cc.Sprite.create(res.popup2);
+        //this._bg.setPosition(- this.width / 8, this.height * 4 / 3);
+        this._bg.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
+        this.addChild(this._bg);
+
+        var index = MapLayer.instance.getIndexOfFieldList(fieldId);
+        if (index != null) {
+            var fieldSelected = user.getAsset().getFieldById(MapLayer.instance.fieldList[index].fieldId);
+
+            var fieldScreenPosition = MapValues.logicToScreenPosition(fieldSelected.getCoordinate().getCurrX(), fieldSelected.getCoordinate().getCurrY());
+            this._bg.setPosition(fieldScreenPosition.x - MapLayer.instance.fieldList[index].width * 1 / 2,
+                fieldScreenPosition.y + MapLayer.instance.fieldList[index].height * 2 / 3);
+
+        }
+
+
+
+        var tool = new CropToolSprite(this, res.liem);
+
+        tool.setPosition(cc.p(this._bg.x, this._bg.y));
+
+
+        this.popupItemList = [];
+        this.popupItemList.push(tool);
+        this.addChild(tool);
+
+    },
 
     //
     disableItemOfPopupByListIndex: function (pageIndex, seedShowNumber) {

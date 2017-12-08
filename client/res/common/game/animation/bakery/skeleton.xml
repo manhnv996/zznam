@@ -206,7 +206,7 @@
     </frame>
    </timeline>
   </animation>
-  <animation name="selected" fadeInTime="0" duration="24" scale="1" loop="0" autoTween="1" tweenEasing="NaN">
+  <animation name="selected" fadeInTime="0" duration="24" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
    <timeline name="Layer 35" scale="1" offset="0">
     <frame z="0" duration="50">
      <transform x="-4.95" y="188.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>

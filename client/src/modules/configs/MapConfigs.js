@@ -21,7 +21,7 @@ MapConfigs.NhaChinh = {
 };
 
 MapConfigs.TruckOrder = {
-	position: { x: 14, y: 19 },
+	position: { x: 14, y: 20 },
 	size: {
 		width: 1,
 		height: 2
@@ -202,21 +202,43 @@ MapConfigs.SugarMaker = {
 		height: 2
 	}
 }
-MapConfigs.Creamery = {
+MapConfigs.BakeryMachine = {
+	size: {
+		width: 3,
+		height: 3
+	}
+}
+
+MapConfigs.FoodMachine = {
+	size: {
+		width: 3,
+		height: 3
+	}
+}
+
+MapConfigs.ButterMachine = {
 	size: {
 		width: 4,
 		height: 4
 	}
 }
-MapConfigs.PopcornMaker = {
+
+MapConfigs.SugarMachine = {
 	size: {
 		width: 2,
 		height: 2
 	}
 }
+
 MapConfigs.Bakery = {
 	size: {
 		width: 3,
 		height: 3
+	}
+}
+MapConfigs.PopcornMachine = {
+	size: {
+		width: 2,
+		height: 2
 	}
 }

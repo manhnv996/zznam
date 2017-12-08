@@ -1,12 +1,12 @@
 
-var AnimalLodge = ConstructedObject.extend({
+var AnimalLodge = CoordinatedObject.extend({
     animalList: null,
     id: 0,
     type: '',
 
-    ctor: function (coordinate, startBuildTime, completed, type, id, animalList) {
+    ctor: function (coordinate, type, id, animalList) {
         //
-        this._super(startBuildTime, completed, coordinate);
+        this._super(coordinate);
         this.type = type;
         this.id = id;
         this.animalList = animalList ? animalList : [];
@@ -25,6 +25,23 @@ var AnimalLodge = ConstructedObject.extend({
     },
     getType: function() {
         return this.type;
-    }
+    },
 
+    getMaxRemainTime: function() {
+        var max = 0;
+        var animalType = this.type.split('_')[0];
+        var timeToHarvest = AnimalConfig[animalType].time * 1000;
+        var currentTime = new Date().getTime();
+        this.animalList.forEach(function(animal) {
+            var remainTime = timeToHarvest - (currentTime - animal.feededTime);
+            if (remainTime > max) {
+                max = remainTime;
+            }
+        });
+        return max;
+    },
+
+    getAnimalCount: function() {
+        return this.animalList.length;
+    }
 });

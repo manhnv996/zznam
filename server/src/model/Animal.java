@@ -10,15 +10,15 @@ public class Animal {
     
     public Animal(int id, AnimalEnum type) {
         this.id = id;
-        this.feededTime = 0;
-        this.feeded = false;
+        this.feededTime = System.currentTimeMillis();
+        this.feeded = true;
         this.type = type;
     }
     
     public Animal(AnimalEnum type) {
         this.id = 0;
-        this.feededTime = 0;
-        this.feeded = false;
+        this.feededTime = System.currentTimeMillis();
+        this.feeded = true;
         this.type = type;
     }
     

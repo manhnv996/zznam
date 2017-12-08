@@ -1,0 +1,166 @@
+<dragonBones name="Nhdangxay4x4" frameRate="24" version="2.3">
+ <armature name="trang thai xay dung4x4">
+  <bone name="Layer 273">
+   <transform x="520" y="489.5" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="Layer 274">
+   <transform x="493.5" y="482.5" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="Layer 275 copy 4">
+   <transform x="828.5" y="428.5" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="Layer 275 copy 5">
+   <transform x="134.5" y="465.5" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="Group 74">
+   <transform x="480.5" y="352" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="Layer 3">
+   <transform x="541.05" y="560.7" skX="0" skY="0" scX="0.42" scY="0.42"/>
+  </bone>
+  <bone name="Layer 275">
+   <transform x="142.5" y="513.5" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="Layer 275 copy">
+   <transform x="863.5" y="509.5" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="Layer 275 copy 2">
+   <transform x="341.5" y="626.5" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="Layer 275 copy 3">
+   <transform x="712.5" y="598.5" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <skin name="default">
+   <slot name="Layer 273" parent="Layer 273" z="0">
+    <display name="112/Layer 273" type="image">
+     <transform x="-517" y="-266.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Layer 274" parent="Layer 274" z="1">
+    <display name="112/Layer 274" type="image">
+     <transform x="-419.5" y="-251.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Layer 275 copy 4" parent="Layer 275 copy 4" z="2">
+    <display name="112/Layer 275 copy 4" type="image">
+     <transform x="-56.5" y="-34.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Layer 275 copy 5" parent="Layer 275 copy 5" z="3">
+    <display name="112/Layer 275 copy 5" type="image">
+     <transform x="-56.5" y="-54.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Group 74" parent="Group 74" z="4">
+    <display name="112/Group 74" type="image">
+     <transform x="-369.5" y="-352" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Layer 3" parent="Layer 3" z="5">
+    <display name="112/bongden" type="image">
+     <transform x="-94.45" y="-89.45" skX="0" skY="0" scX="1" scY="1" pX="-57" pY="-52"/>
+    </display>
+   </slot>
+   <slot name="Layer 275" parent="Layer 275" z="6">
+    <display name="112/Layer 275" type="image">
+     <transform x="-56.5" y="-34.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Layer 275 copy" parent="Layer 275 copy" z="7">
+    <display name="112/Layer 275 copy" type="image">
+     <transform x="-56.5" y="-34.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Layer 275 copy 2" parent="Layer 275 copy 2" z="8">
+    <display name="112/Layer 275 copy 2" type="image">
+     <transform x="-61.5" y="-54.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Layer 275 copy 3" parent="Layer 275 copy 3" z="9">
+    <display name="112/Layer 275 copy 3" type="image">
+     <transform x="-56.5" y="-34.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+  </skin>
+  <animation name="4" fadeInTime="0" duration="40" scale="1" loop="0" autoTween="1" tweenEasing="NaN">
+   <timeline name="Layer 273" scale="1" offset="0">
+    <frame z="0" duration="40">
+     <transform x="520" y="489.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <colorTransform aO="0" rO="0" gO="0" bO="0" aM="45" rM="100" gM="100" bM="100"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 274" scale="1" offset="0">
+    <frame z="1" duration="40">
+     <transform x="493.5" y="482.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <colorTransform aO="0" rO="0" gO="0" bO="0" aM="30" rM="100" gM="100" bM="100"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 275 copy 4" scale="1" offset="0">
+    <frame z="2" duration="40">
+     <transform x="828.5" y="428.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 275 copy 5" scale="1" offset="0">
+    <frame z="3" tweenEasing="0" duration="21">
+     <transform x="134.5" y="465.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="3" tweenEasing="0" duration="18">
+     <transform x="134.5" y="465.5" skX="6.28" skY="0" scX="1" scY="1.01" pX="0" pY="0"/>
+    </frame>
+    <frame z="3" duration="1">
+     <transform x="134.5" y="465.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Group 74" scale="1" offset="0">
+    <frame z="4" duration="40">
+     <transform x="480.5" y="352" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 3" scale="1" offset="0">
+    <frame z="5" tweenEasing="0" duration="10">
+     <transform x="541.05" y="560.7" skX="0" skY="0" scX="0.42" scY="0.42" pX="0" pY="0"/>
+    </frame>
+    <frame z="5" tweenEasing="0" duration="11">
+     <transform x="541.05" y="560.7" skX="0" skY="0" scX="0.42" scY="0.42" pX="0" pY="0"/>
+     <colorTransform aO="0" rO="51" gO="76" bO="0" aM="100" rM="100" gM="100" bM="100"/>
+    </frame>
+    <frame z="5" tweenEasing="0" duration="10">
+     <transform x="541.05" y="560.7" skX="0" skY="0" scX="0.42" scY="0.42" pX="0" pY="0"/>
+    </frame>
+    <frame z="5" tweenEasing="0" duration="8">
+     <transform x="541.05" y="560.7" skX="0" skY="0" scX="0.42" scY="0.42" pX="0" pY="0"/>
+     <colorTransform aO="0" rO="51" gO="76" bO="0" aM="100" rM="100" gM="100" bM="100"/>
+    </frame>
+    <frame z="5" duration="1">
+     <transform x="541.05" y="560.7" skX="0" skY="0" scX="0.42" scY="0.42" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 275" scale="1" offset="0">
+    <frame z="6" duration="40">
+     <transform x="142.5" y="513.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 275 copy" scale="1" offset="0">
+    <frame z="7" duration="40">
+     <transform x="863.5" y="509.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 275 copy 2" scale="1" offset="0">
+    <frame z="8" tweenEasing="0" duration="20">
+     <transform x="341.5" y="626.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="8" tweenEasing="0" duration="19">
+     <transform x="341.5" y="626.5" skX="-3.15" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="8" tweenEasing="0" duration="1">
+     <transform x="341.5" y="626.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 275 copy 3" scale="1" offset="0">
+    <frame z="9" duration="40">
+     <transform x="712.5" y="598.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+ </armature>
+</dragonBones>

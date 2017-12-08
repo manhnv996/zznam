@@ -27,7 +27,7 @@ var res = {
     //popup
     ZCSD_POPUP_MINI_GAME:"zcsd/game/mini_game/PopupMiniGame.json",
     //images
-    Slot1_png : "zcsd/slot1.png",
+    Slot1_png : "zcsd/slot1.png"
 
 
 
@@ -114,7 +114,7 @@ for (var i in res) {
     g_resources.push(res[i]);
 }
 
-//g_resources = g_resources.concat(g_MapResource, g_ShopResource);
+g_resources = g_resources.concat(g_MapResource, g_ShopResource, g_AnimalLodgeResource);
 
 
 for (var k in HavestResource) {
@@ -138,8 +138,15 @@ for (var k in FontResource) {
     res[k] = FontResource[k];
 }
 
-
 //add resources in /machines/item
 for (var k in MachineItemResource) {
     res[k] = MachineItemResource[k];
+}
+//
+for (var k in OrderResource) {
+    res[k] = OrderResource[k];
+}
+// Add animal lodge resource
+for (var k in AnimalLodgeResource) {
+    res[k] = AnimalLodgeResource[k];
 }

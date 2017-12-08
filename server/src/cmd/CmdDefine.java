@@ -36,15 +36,36 @@ public class CmdDefine {
     public static final short RESPONSE_SYNC_FOOD_STORAGE_ITEM = 5084;
     
     
+    //    
+    public static final short MAKE_ORDER = 10001;
+    public static final short CANCEL_ORDER = 10002;
+    public static final short CREATE_NEW_ORDER = 10003;
+    public static final short BOOST_WAIT_ORDER = 10004;
+    
+    public static final short MAKE_ORDER_NPC = 10011;
+    public static final short CANCEL_ORDER_NPC = 10012;
+    public static final short CREATE_NEW_ORDER_NPC = 10013;
+    
+    public static final short RESPONSE_SYNC_ORDER = 10081;
+    public static final short RESPONSE_SYNC_ORDER_NPC = 10091;
+    
+    
+    
+    
     public static final short MOVE_FIELD = 6001;
     public static final short MOVE_STORAGE = 6002;
+    public static final short MOVE_MAP_BLOCK = 6003;
     public static final short RESPONSE_MOVE = 6100;
     
     
     public static final short BUY_MAP_OBJECT_REQUEST = 7001;
+    public static final short BUY_MAP_OBJECT_BY_RUBY = 7002;
     
     public static final short BUY_TOOL_REQUEST = 8001;
     public static final short UPGRADE_STORAGE_REQUEST = 8002;
+    
+    public static final short BUILD_COMPLETED_REQUEST = 9001;
+    public static final short BOOST_BUILD_REQUEST = 9002;
     
     public static final short GET_FRIENDS = 3001;
     public static final short FRIEND_SEND_MESSAGE = 3002;

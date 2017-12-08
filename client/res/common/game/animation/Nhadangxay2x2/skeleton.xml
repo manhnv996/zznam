@@ -1,0 +1,137 @@
+<dragonBones name="Nhadangxay2x2" frameRate="24" version="2.3">
+ <armature name="Nhadangxay2x2">
+  <bone name="Layer 96 copy 2">
+   <transform x="197.5" y="336.5" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="Layer 274">
+   <transform x="431" y="310" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="Layer 273">
+   <transform x="263" y="319.5" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="Layer 275">
+   <transform x="240.5" y="326" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="Group 74">
+   <transform x="235" y="206.5" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="Layer 188 copy">
+   <transform x="271" y="358" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="Layer 9">
+   <transform x="297" y="281" skX="0" skY="0" scX="0.4" scY="0.4"/>
+  </bone>
+  <skin name="default">
+   <slot name="Layer 96 copy 2" parent="Layer 96 copy 2" z="0">
+    <display name="trang thai xay dung2x21/Layer 96 copy 2" type="image">
+     <transform x="-131.5" y="-77.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Layer 274" parent="Layer 274" z="1">
+    <display name="trang thai xay dung2x21/Layer 274" type="image">
+     <transform x="-36" y="-25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Layer 273" parent="Layer 273" z="2">
+    <display name="trang thai xay dung2x21/Layer 273" type="image">
+     <transform x="-261" y="-138.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Layer 275" parent="Layer 275" z="3">
+    <display name="trang thai xay dung2x21/Layer 275" type="image">
+     <transform x="-225.5" y="-108" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Group 74" parent="Group 74" z="4">
+    <display name="trang thai xay dung2x21/Group 74" type="image">
+     <transform x="-193" y="-206.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Layer 188 copy" parent="Layer 188 copy" z="5">
+    <display name="trang thai xay dung2x21/Layer 188 copy" type="image">
+     <transform x="-227" y="-68" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Layer 9" parent="Layer 9" z="6">
+    <display name="trang thai xay dung2x21/bongden" type="image">
+     <transform x="-94.5" y="-89.5" skX="0" skY="0" scX="1" scY="1" pX="-57" pY="-52"/>
+    </display>
+   </slot>
+  </skin>
+  <animation name="2" fadeInTime="0" duration="40" scale="1" loop="0" autoTween="1" tweenEasing="NaN">
+   <timeline name="Layer 96 copy 2" scale="1" offset="0">
+    <frame z="0" duration="39">
+     <transform x="197.5" y="336.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <colorTransform aO="0" rO="0" gO="0" bO="0" aM="67" rM="100" gM="100" bM="100"/>
+    </frame>
+    <frame z="0" duration="1">
+     <transform x="197.5" y="336.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <colorTransform aO="0" rO="0" gO="0" bO="0" aM="67" rM="100" gM="100" bM="100"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 274" scale="1" offset="0">
+    <frame z="1" duration="39">
+     <transform x="431" y="310" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="1" duration="1">
+     <transform x="431" y="310" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 273" scale="1" offset="0">
+    <frame z="2" duration="39">
+     <transform x="263" y="319.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <colorTransform aO="0" rO="0" gO="0" bO="0" aM="45" rM="100" gM="100" bM="100"/>
+    </frame>
+    <frame z="2" duration="1">
+     <transform x="263" y="319.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <colorTransform aO="0" rO="0" gO="0" bO="0" aM="45" rM="100" gM="100" bM="100"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 275" scale="1" offset="0">
+    <frame z="3" duration="39">
+     <transform x="240.5" y="326" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <colorTransform aO="0" rO="0" gO="0" bO="0" aM="30" rM="100" gM="100" bM="100"/>
+    </frame>
+    <frame z="3" duration="1">
+     <transform x="240.5" y="326" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <colorTransform aO="0" rO="0" gO="0" bO="0" aM="30" rM="100" gM="100" bM="100"/>
+    </frame>
+   </timeline>
+   <timeline name="Group 74" scale="1" offset="0">
+    <frame z="4" duration="39">
+     <transform x="235" y="206.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" duration="1">
+     <transform x="235" y="206.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 188 copy" scale="1" offset="0">
+    <frame z="5" duration="39">
+     <transform x="271" y="358" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="5" duration="1">
+     <transform x="271" y="358" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 9" scale="1" offset="0">
+    <frame z="6" tweenEasing="0" duration="9">
+     <transform x="297" y="281" skX="0" skY="0" scX="0.4" scY="0.4" pX="0" pY="0"/>
+    </frame>
+    <frame z="6" tweenEasing="0" duration="10">
+     <transform x="297" y="281" skX="0" skY="0" scX="0.4" scY="0.4" pX="0" pY="0"/>
+     <colorTransform aO="0" rO="32" gO="58" bO="3" aM="100" rM="100" gM="100" bM="100"/>
+    </frame>
+    <frame z="6" tweenEasing="0" duration="11">
+     <transform x="297" y="281" skX="0" skY="0" scX="0.4" scY="0.4" pX="0" pY="0"/>
+    </frame>
+    <frame z="6" tweenEasing="0" duration="9">
+     <transform x="297" y="281" skX="0" skY="0" scX="0.4" scY="0.4" pX="0" pY="0"/>
+     <colorTransform aO="0" rO="32" gO="58" bO="3" aM="100" rM="100" gM="100" bM="100"/>
+    </frame>
+    <frame z="6" duration="1">
+     <transform x="297" y="281" skX="0" skY="0" scX="0.4" scY="0.4" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+ </armature>
+</dragonBones>

@@ -29,7 +29,6 @@ var TablePopupLayer = cc.Layer.extend({
         this.addChild(this._layout);
     },
 
-
     ////TablePopupLayer.instance.removeUpdateDisableListener();
 
 

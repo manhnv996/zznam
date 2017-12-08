@@ -101,11 +101,11 @@ public class StorageHandler extends BaseClientRequestHandler{
                     return;
                 }
             } else {
-                send(new ResponseErrorCode(ErrorLog.ERROR_BUY_TOOL_RUBY_NOT_REDUCE.getValue()), user);
+                send(new ResponseErrorCode(ErrorLog.ERROR_RUBY_NOT_REDUCE.getValue()), user);
                 return;
             }
         } else {
-            send(new ResponseErrorCode(ErrorLog.ERROR_BUY_TOOL_RUBY_NOT_ENOUGH.getValue()), user);
+            send(new ResponseErrorCode(ErrorLog.ERROR_RUBY_NOT_ENOUGH.getValue()), user);
             return;
         }
         
@@ -139,6 +139,7 @@ public class StorageHandler extends BaseClientRequestHandler{
         int number1 = 0;
         int number2 = 0;
         int number3 = 0;
+        int level = 0;
         
         Storage storage = null;
         
@@ -146,9 +147,11 @@ public class StorageHandler extends BaseClientRequestHandler{
             if (StorageType.FOOD_STORAGE.toString().equals(reqUpgrade.storageType)) {
                 storage = userInfo.getAsset().getFoodStorage();
                 obj = parser.parse(new FileReader("src/config/json/upgradeSiloConfigs.json")).getAsJsonArray();
-                number1 = obj.get(reqUpgrade.level).getAsJsonObject().get("tool_nail").getAsInt();
-                number2 = obj.get(reqUpgrade.level).getAsJsonObject().get("tool_screw").getAsInt();
-                number3 = obj.get(reqUpgrade.level).getAsJsonObject().get("tool_woodPanel").getAsInt();
+                
+                level = storage.getLevel() + 1;
+                number1 = obj.get(level).getAsJsonObject().get("tool_nail").getAsInt();
+                number2 = obj.get(level).getAsJsonObject().get("tool_screw").getAsInt();
+                number3 = obj.get(level).getAsJsonObject().get("tool_woodPanel").getAsInt();
                 
                 product1 = ProductType.TOOL_NAIL;
                 product2 = ProductType.TOOL_SCREW;
@@ -156,28 +159,25 @@ public class StorageHandler extends BaseClientRequestHandler{
             } else {
                 storage = userInfo.getAsset().getWarehouse();
                 obj = parser.parse(new FileReader("src/config/json/upgradeWareConfigs.json")).getAsJsonArray();
-                number1 = obj.get(reqUpgrade.level).getAsJsonObject().get("tool_bolt").getAsInt();
-                number2 = obj.get(reqUpgrade.level).getAsJsonObject().get("tool_plank").getAsInt();
-                number3 = obj.get(reqUpgrade.level).getAsJsonObject().get("tool_ductTape").getAsInt();
+                
+                level = storage.getLevel() + 1;
+                number1 = obj.get(level).getAsJsonObject().get("tool_bolt").getAsInt();
+                number2 = obj.get(level).getAsJsonObject().get("tool_plank").getAsInt();
+                number3 = obj.get(level).getAsJsonObject().get("tool_ductTape").getAsInt();
                 
                 product1 = ProductType.TOOL_BOLT;
                 product2 = ProductType.TOOL_PLANK;
                 product3 = ProductType.TOOL_DUCTTAPE;
             }
-//            System.out.println(obj.get(0).getAsJsonObject().get("capacity").getAsInt());
             
         } catch (FileNotFoundException e) {
              e.printStackTrace();
         }
-//        System.out.println("Storage Type" + reqUpgrade.storageType.equals(StorageType.FOOD_STORAGE));
         if (storage.upgradeLevel(userInfo, product1, number1, product2, number2, product3, number3)) { 
             //set New Capacity
-            storage.setCapacity(obj.get(reqUpgrade.level).getAsJsonObject().get("capacity").getAsInt());
+            storage.setCapacity(obj.get(level).getAsJsonObject().get("capacity").getAsInt());
             
             send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
-//            System.out.println("Upgrade Success " + storage.upgradeLevel(user, product1, number1, product2, number2, product3, number3));
-//            System.out.println("Storge Item Nail " + userInfo.getAsset().getWarehouse().getItemQuantity(product1));
-//            System.out.println("Storage New Capacity " + reqUpgrade.storageType + " " + storage.getStoragetype() + " " + storage.getCapacity());
             System.out.println("Level new " + storage.getStoragetype() + " " + storage.getLevel());
         } else {
             send(new ResponseErrorCode(ErrorLog.ERROR_UPGRADE_FAIL.getValue()), user);

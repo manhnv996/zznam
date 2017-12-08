@@ -22,5 +22,25 @@
   {
     "type": "goat_habitat",
     "price": 1000
+  },
+  {
+    "type": "bakery_machine",
+    "price": 20
+  },
+  {
+    "type": "food_machine",
+    "price": 3795
+  },
+  {
+    "type": "butter_machine",
+    "price": 50
+  },
+  {
+    "type": "sugar_machine",
+    "price": 350
+  },
+  {
+    "type": "popcorn_machine",
+    "price": 1180
   }
 ]

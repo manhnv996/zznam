@@ -83,7 +83,8 @@ var MachineTablePopup = TablePopup.extend({
         this._popUpItemSpriteList = [];
         //add item sprite by productlist config of each machine.
         for (var i = 0; i < productList.length; i++){
-            var item = new ProductSprite(this, productList[i]);
+            //var item = new ProductSprite(this, productList[i]);
+            var item = new MachineProductSprite(productList[i]);
 
             //item.setPosition(this._screenPosition.x - this._machineWidth * 1 / 3,
             //    this._screenPosition.y + this._machineHeight * 1 / 3);

@@ -1,5 +1,5 @@
 <dragonBones name="Fairy" frameRate="24" version="2.3">
- <armature name="dairy">
+ <armature name="Fairy">
   <bone name="Layer 238 copy 3">
    <transform x="-9.45" y="253.55" skX="0" skY="0" scX="1" scY="1"/>
   </bone>

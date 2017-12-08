@@ -14,11 +14,13 @@ var SiloSprite = AnimationSprite.extend({
 	},
 
 	onClick: function() {
-		StorageLayer.instance.initStorage(user.getAsset().getFoodStorage());
+		BaseGUILayer.instance.showStorage(user.getAsset().getFoodStorage());
 		// cc.log("Silo", this.getLocalZOrder(), this.lx, this.ly, this.blockSizeX, this.blockSizeY);
 	},
 
 	onFinishMove: function(lx, ly) {
-		testnetwork.connector.sendMoveStorage(MapItemEnum.SILO, lx, ly);
+		user.asset.foodStorage.coordinate.x = lx;
+		user.asset.foodStorage.coordinate.y = ly;
+		testnetwork.connector.sendMoveMapBlock(MapItemEnum.SILO, 0, lx, ly);
 	}
 });
