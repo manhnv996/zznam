@@ -208,18 +208,28 @@ var MachineTable = cc.Layer.extend({
                         case "bakery_machine":
                             this._sprite = new BakerySprite(user.getAsset().getMachineList().length + 1,
                                 createP.x, createP.y);
-                            this._sprite.setLocalZOrder(10000);
                             break;
-                        //case "food_machine":
-                        //    break;
-                        //case "butter_machine":
-                        //    break;
-                        //case "sugar_machine":
-                        //    break;
-                        //case "popcorn_machine":
-                        //    break;
+                        case "food_machine":
+                            this._sprite = new FoodMachineSprite(user.getAsset().getMachineList().length + 1,
+                                createP.x, createP.y);
+                            break;
+                        case "butter_machine":
+                            this._sprite = new ButterMachineSprite(user.getAsset().getMachineList().length + 1,
+                                createP.x, createP.y);
+                            break;
+                        case "sugar_machine":
+                            this._sprite = new SugarCaneSprite(user.getAsset().getMachineList().length + 1,
+                                createP.x, createP.y);
+                            break;
+                        case "popcorn_machine":
+                            this._sprite = new PopcornMachineSprite(user.getAsset().getMachineList().length + 1,
+                                createP.x, createP.y);
+                            break;
                     }
-                    MapLayer.instance.addChild(this._sprite);
+                    this._sprite.setLocalZOrder(10000);
+                    if (this._sprite) {
+                        MapLayer.instance.addChild(this._sprite);
+                    }
                 }
                 //cc.log(this._sprite);
                 //if (this._sprite) {
@@ -282,18 +292,33 @@ var MachineTable = cc.Layer.extend({
                                         MapConfigs.BakeryMachine.size.width, MapConfigs.BakeryMachine.size.height,
                                         machineModel.coordinate.x, machineModel.coordinate.y,
                                         MapItemEnum.MACHINE, MapItemEnum.BAKERY);
-                                    //break;
-                                //case "food_machine":
-                                //    break;
-                                //case "butter_machine":
-                                //    break;
-                                //case "sugar_machine":
-                                //    break;
-                                //case "popcorn_machine":
-                                //    break;
+                                    break;
+                                case "food_machine":
+                                    this._sprite = new ConstructedSprite(machineModel.id,
+                                        MapConfigs.FoodMachine.size.width, MapConfigs.FoodMachine.size.height,
+                                        machineModel.coordinate.x, machineModel.coordinate.y,
+                                        MapItemEnum.MACHINE, MapItemEnum.FOOD_GRINDER);
+                                    break;
+                                case "butter_machine":
+                                    this._sprite = new ConstructedSprite(machineModel.id,
+                                        MapConfigs.ButterMachine.size.width, MapConfigs.ButterMachine.size.height,
+                                        machineModel.coordinate.x, machineModel.coordinate.y,
+                                        MapItemEnum.MACHINE, MapItemEnum.BUTTER);
+                                    break;
+                                case "sugar_machine":
+                                    this._sprite = new ConstructedSprite(machineModel.id,
+                                        MapConfigs.SugarMachine.size.width, MapConfigs.SugarMachine.size.height,
+                                        machineModel.coordinate.x, machineModel.coordinate.y,
+                                        MapItemEnum.MACHINE, MapItemEnum.SUGAR_MAKER);
+                                    break;
+                                case "popcorn_machine":
+                                    this._sprite = new ConstructedSprite(machineModel.id,
+                                        MapConfigs.PopcornMachine.size.width, MapConfigs.PopcornMachine.size.height,
+                                        machineModel.coordinate.x, machineModel.coordinate.y,
+                                        MapItemEnum.MACHINE, MapItemEnum.POPCORN_MAKER);
+                                    break;
 
                             }
-
                             MapLayer.instance.addChild(this._sprite);
                             MapCtrl.instance.addSpriteAlias(this._sprite);
                             this._sprite.setLogicPosition(this._sprite.lx, this._sprite.ly, true);

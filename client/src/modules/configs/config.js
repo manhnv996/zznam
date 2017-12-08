@@ -362,7 +362,7 @@ function onReceiveUser(userInfo) {
             machineInfo.boostBuild,
             machineInfo.completed,
             machineInfo.startBuildTime,
-            machineInfo.retainBuildTime,
+            machineInfo.remainBuildTime,
             new Coordinate(machineInfo.x, machineInfo.y)
         );
         machineList.push(machine);

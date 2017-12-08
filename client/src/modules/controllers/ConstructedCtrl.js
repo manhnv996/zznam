@@ -10,7 +10,7 @@ var ConstructedCtrl = cc.Class.extend({
     //    var machineConfig = getMachineConfigByType(machineModel.type);
     //    //var startTime = machineModel.startBuildTime;
     //    //var curTime = new Date().getTime();
-    //    var buildTime = machineConfig.time - machineModel.retainBuildTime;
+    //    var buildTime = machineConfig.time - machineModel.remainBuildTime;
     //    return buildTime;
     //},
 
@@ -18,7 +18,8 @@ var ConstructedCtrl = cc.Class.extend({
         var machineModel = user.asset.getMachineById(id);
         var machineConfig = getMachineConfigByType(machineModel.type);
 
-        var buildTime = machineConfig.time - machineModel.retainBuildTime;
+        var buildTime = machineConfig.time - machineModel.remainBuildTime;
+        cc.log("machineModel.remainBuildTime", machineModel.remainBuildTime);
 
         var reduceRuby = Math.floor(buildTime / machineConfig.reduceRubyTime);
         var buildExpress = machineConfig.buildExpress - reduceRuby;
@@ -41,10 +42,13 @@ var ConstructedCtrl = cc.Class.extend({
                 var machineModel = user.asset.getMachineById(sprite.id);
                 var machineConfig = getMachineConfigByType(machineModel.type);
                 //this.totalTime = machineConfig.time * 1000;
-                machineModel.reduceRetainBuildTime(dt);
+                machineModel.reduceRemainBuildTime(dt);
 
-                var buildTime = machineConfig.time - machineModel.retainBuildTime;
+                var buildTime = machineConfig.time - machineModel.remainBuildTime;
 
+                //cc.log("machineConfig.reduceRubyTime ", machineConfig.reduceRubyTime);
+                //cc.log("machineModel.remainBuildTime", machineModel.remainBuildTime);
+                //cc.log("buildTime % machineConfig.reduceRubyTime", (buildTime % machineConfig.reduceRubyTime));
                 if (!(buildTime % machineConfig.reduceRubyTime)) {
                     if (sprite.buildExpress > 0) {
                         sprite.buildExpress--;
@@ -54,7 +58,8 @@ var ConstructedCtrl = cc.Class.extend({
                     }
                 }
 
-                if (machineModel.retainBuildTime === 0) {
+                if (machineModel.remainBuildTime === 0) {
+                    sprite.unschedule(sprite.updateTime);
                     //var completedSprite = new ConstructedCompletedSprite(id, machineModel.coordinate.x,
                     //    machineModel.coordinate.y, sprite.typeBuilding, sprite.typeMapObject);
                     //MapLayer.instance.addChild(completedSprite);
@@ -89,14 +94,22 @@ var ConstructedCtrl = cc.Class.extend({
                         machineSprite = new BakerySprite(id, machineModel.coordinate.x,
                             machineModel.coordinate.y);
                         break;
-                    //case "food_machine":
-                    //    break;
-                    //case "butter_machine":
-                    //    break;
-                    //case "sugar_machine":
-                    //    break;
-                    //case "popcorn_machine":
-                    //    break;
+                    case "food_machine":
+                        machineSprite = new FoodMachineSprite(id, machineModel.coordinate.x,
+                            machineModel.coordinate.y);
+                        break;
+                    case "butter_machine":
+                        machineSprite = new ButterMachineSprite(id, machineModel.coordinate.x,
+                            machineModel.coordinate.y);
+                        break;
+                    case "sugar_machine":
+                        machineSprite = new SugarCaneSprite(id, machineModel.coordinate.x,
+                            machineModel.coordinate.y);
+                        break;
+                    case "popcorn_machine":
+                        machineSprite = new PopcornMachineSprite(id, machineModel.coordinate.x,
+                            machineModel.coordinate.y);
+                        break;
                 }
                 break;
         }
@@ -122,7 +135,8 @@ var ConstructedCtrl = cc.Class.extend({
                 _loadingBarConstructed = new LoadingBarLayout(machineConfig.time,
                                                             machineModel.startBuildTime,
                                                             fr.Localization.text(machineConfig.name),
-                                                            sprite.buildExpress.toString());
+                                                            sprite.buildExpress.toString(),
+                                                            machineModel.remainBuildTime);
                 var py = machineModel.coordinate.y;
                 var px = machineModel.coordinate.x;
                 var p = MapValues.logicToScreenPosition(px, py);
@@ -156,7 +170,7 @@ var ConstructedCtrl = cc.Class.extend({
                 //Check ruby ---> send server --> set completed build
                 var ruby = parseInt(_loadingBarConstructed.rubyNumber.getString());
                 if (ruby > user.ruby) {
-                    BaseGUILayer.instance.notifyNotEnoughRuby(user.ruby - ruby);
+                    BaseGUILayer.instance.notifyNotEnoughRuby(ruby - user.ruby, true);
                 } else {
                     user.reduceRuby(ruby);
                     testnetwork.connector.sendBoostBuild(_loadingBarConstructed.sprite.id,

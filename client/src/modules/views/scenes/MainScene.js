@@ -69,7 +69,7 @@ var MainScene = cc.Scene.extend({
         ////cc.log("model " + model.coordinate.x + " " + model.coordinate.y + " id " + model.id + " slot " + model.slot);
         ////var machine = user.asset.getMachineById(model.id);
         ////cc.log("machine " + machine.coordinate.x + " " + machine.coordinate.y + " id " + machine.id + " slot " + machine.slot);
-        //var bakery = new ConstructedSprite(model.id, 3, 3, 20, 20, MapItemEnum.MACHINE, MapItemEnum.BAKERY);
+        //var bakery = new BakerySprite(0, 20, 20);
         //MapLayer.instance.addChild(bakery);
 	},
 

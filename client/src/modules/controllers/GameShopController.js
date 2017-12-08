@@ -65,39 +65,11 @@ var GameShopController = cc.Class.extend({
         var userRuby = user.ruby;
 
         if (userRuby < ruby) {
-            BaseGUILayer.instance.notifyNotEnoughRuby(ruby - userRuby);
+            BaseGUILayer.instance.notifyNotEnoughRuby(ruby - userRuby, false);
         } else {
-            //Tao Sprite --> Model --> trừ ruby --> send server
             this._sprite = null;
-            //switch (typeObject) {
-            //    case "field":
-            //        break;
-            //    case "chicken_habitat":
-            //    case "cow_habitat":
-            //        break;
-            //    case "chicken":
-            //    case "cow":
-            //        break;
-            //    case "bakery_machine":
-            //    case "food_machine":
-            //    case "butter_machine":
-            //    case "sugar_machine":
-            //    case "popcorn_machine":
-            //        break;
-            //}
             if (typeObject == "field") {
                 cc.log("Buy field By Ruby");
-                    ////Sprite
-                    //this._sprite = new FieldSprite(user.getAsset().getFieldList().length + 1, lx, ly);
-                    ////this._sprite.setLocalZOrder(10000);
-                    //
-                    //var fieldModel = new Field(new Coordinate(this._sprite.lx, this._sprite.ly), this._sprite.fieldId);
-                    //user.getAsset().addField(fieldModel);
-                    //MapLayer.instance.fieldList.push(this._sprite);
-                    //this._sprite.field = fieldModel;
-                    //// Send server
-                    //testnetwork.connector.sendBuyMapObjectRequest(this._sprite.fieldId,
-                    //    typeObject, this._sprite.lx, this._sprite.ly);
                 this.buyField(typeObject, lx, ly, ruby);
             } else if (typeObject == "chicken_habitat") {
 
@@ -140,38 +112,37 @@ var GameShopController = cc.Class.extend({
         var machineConfig = getMachineConfigByType(typeObject);
         var machineModel = new Machine(0, typeObject, machineConfig.slot, 0, null, false,
             false, new Date().getTime(), machineConfig.time, new Coordinate(lx, ly));
-        //var machineModel = new Machine(id, typeObject, 0, 0, null, false,
-        //    0, new Coordinate(lx, ly));
         user.asset.addMachine(machineModel);
 
         //Sprite
         //this._sprite = null;
         switch (typeObject) {
             case "bakery_machine":
-
-                //this._sprite = new BakerySprite(id, lx, ly);
                 this._sprite = new ConstructedSprite(machineModel.id,
                     MapConfigs.BakeryMachine.size.width, MapConfigs.BakeryMachine.size.height,
-                    lx, ly, MapItemEnum.MACHINE);
-                //cc.log("user.asset.addMachine " + getMachineConfigByType(typeObject));
-
+                    lx, ly, MapItemEnum.MACHINE, MapItemEnum.BAKERY);
                 break;
             case "food_machine":
+                this._sprite = new ConstructedSprite(machineModel.id,
+                    MapConfigs.FoodMachine.size.width, MapConfigs.FoodMachine.size.height,
+                    lx, ly, MapItemEnum.MACHINE, MapItemEnum.FOOD_GRINDER);
                 break;
             case "butter_machine":
+                this._sprite = new ConstructedSprite(machineModel.id,
+                    MapConfigs.ButterMachine.size.width, MapConfigs.ButterMachine.size.height,
+                    lx, ly, MapItemEnum.MACHINE, MapItemEnum.BUTTER);
                 break;
             case "sugar_machine":
+                this._sprite = new ConstructedSprite(machineModel.id,
+                    MapConfigs.SugarMachine.size.width, MapConfigs.SugarMachine.size.height,
+                    lx, ly, MapItemEnum.MACHINE, MapItemEnum.SUGAR_MAKER);
                 break;
             case "popcorn_machine":
+                this._sprite = new ConstructedSprite(machineModel.id,
+                    MapConfigs.PopcornMachine.size.width, MapConfigs.PopcornMachine.size.height,
+                    lx, ly, MapItemEnum.MACHINE, MapItemEnum.POPCORN_MAKER);
                 break;
         }
-        //MapLayer.instance.addChild(this._sprite);
-        //MapCtrl.instance.addSpriteAlias(this._sprite);
-        //this._sprite.setLogicPosition(this._sprite.lx, this._sprite.ly, false);
-
-
-
-
         GameShopLayout.instance._gameShop._machineTable._tableView.reloadData();
 
         //Send server

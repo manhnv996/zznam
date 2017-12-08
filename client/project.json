@@ -84,6 +84,10 @@
         "src/modules/views/sprites/CowLodgeSprite.js",
         "src/modules/views/sprites/ConstructedSprite.js",
         "src/modules/views/sprites/ConstructedCompletedSprite.js",
+        "src/modules/views/sprites/FoodMachineSprite.js",
+        "src/modules/views/sprites/ButterMachineSprite.js",
+        "src/modules/views/sprites/SugarCaneSprite.js",
+        "src/modules/views/sprites/PopcornMachineSprite.js",
 
 
         "src/modules/views/layers/popup/TablePopup.js",

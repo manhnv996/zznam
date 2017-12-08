@@ -20,7 +20,8 @@ public class Machine extends ConstructedObject {
     private long startTime;
     private List<String> productQueue;
 
-    public Machine(int id, MachineTypeEnum type, int slot, long startBuildTime, boolean boostBuild, boolean completed, int x, int y) {
+    public Machine(int id, MachineTypeEnum type, int slot, long startBuildTime, 
+                   boolean boostBuild, boolean completed, int x, int y) {
         super(startBuildTime, boostBuild, completed, x, y);
         
         this.productQueue = new ArrayList<>();
@@ -54,11 +55,14 @@ public class Machine extends ConstructedObject {
         return this.startTime;
     }
     
-    public int getRetainTime() {
+    public int getRemainTime() {
         MachineConfig machineConfig = ConfigContainer.getMachineConfigByType(this.type.toString());
         long curTime = new Date().getTime();
         int buildTime = (int) Math.floor((curTime - getStartBuildTime()) / 1000);
-        int retainTime = machineConfig.time - buildTime;
-        return retainTime;
+        int remainTime = machineConfig.time - buildTime;
+        if (remainTime > 0) {
+            return remainTime;
+        } 
+        return 0;
     }
 }

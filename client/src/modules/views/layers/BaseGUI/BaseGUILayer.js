@@ -76,9 +76,9 @@ var BaseGUILayer = cc.Layer.extend({
         }
     },
 
-    notifyNotEnoughRuby: function (ruby) {
+    notifyNotEnoughRuby: function (ruby, hideShop) {
         //cc.log("this._layout " + this._layout);
-        this._layout = new NotifyNotEnoughG(ruby.toString());
+        this._layout = new NotifyNotEnoughG(ruby.toString(), hideShop);
         this._layout.gImg.setTexture(res.ruby_small);
         //cc.log("this._layout.gImg " + this._layout.gImg.getTexture());
         if (this._layout._hasCloseButton) {
