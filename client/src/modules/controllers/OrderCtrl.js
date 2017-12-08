@@ -136,7 +136,8 @@ var OrderCtrl = cc.Class.extend({
                 BaseGUILayer.instance.removeBlockListener();
 
                 // //
-                // MapLayer.instance.getNPCByOrderNPCId(orderId).setPause();
+                MapLayer.instance.getNPCByOrderNPCId(orderId).setPause();
+                MapLayer.instance.getNPCByOrderNPCId(orderId).actionGetOut1();
                 // //
             } else {
                 var missionItem = orderNPCSelected.checkCondition();
@@ -165,8 +166,10 @@ var OrderCtrl = cc.Class.extend({
                 INPROGRESS
                  */
                 // //
-                // MapLayer.instance.getNPCByOrderNPCId(orderId).setPause();
+                MapLayer.instance.getNPCByOrderNPCId(orderId).setPause();
+                MapLayer.instance.getNPCByOrderNPCId(orderId).actionGetOut1();
                 // //
+                BaseGUILayer.instance.removeBlockListener();
             } else {
                 //
 
@@ -184,7 +187,8 @@ var OrderCtrl = cc.Class.extend({
                 testnetwork.connector.sendCancelOrderNpc(orderId);
 
                 // //
-                // MapLayer.instance.getNPCByOrderNPCId(orderId).setPause();
+                MapLayer.instance.getNPCByOrderNPCId(orderId).setPause();
+                MapLayer.instance.getNPCByOrderNPCId(orderId).actionGetOut1();
                 // //
             }
         }

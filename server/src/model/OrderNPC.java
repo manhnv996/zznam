@@ -123,11 +123,25 @@ public class OrderNPC {
     public void setNpcResAni(ZPUserInfo user) {
         this.npcResAni = NPCresAni.getListNPCresAni()[(int) Math.floor(Math.random() * NPCresAni.getListNPCresAni().length * 0.99)];
         
+//        for (int i = 0; i < user.getAsset().getOrderNPCList().size(); i++){
+//            if (user.getAsset().getOrderNPCList().get(i).getNpcResAni().equals(this.npcResAni)){  
+//                this.setNpcResAni(user);
+//            }
+//            return;
+//        }        
         for (int i = 0; i < user.getAsset().getOrderNPCList().size(); i++){
-            if (user.getAsset().getOrderNPCList().get(i).getNpcResAni().equals(this.npcResAni)){  
-                this.setNpcResAni(user);
+            for (int j = 0; j < NPCresAni.getListNPCresAni().length; j++){
+                if (user.getAsset().getOrderNPCList().get(i).getNpcResAni().equals(NPCresAni.getListNPCresAni()[j])){
+                    String s = NPCresAni.getListNPCresAni()[j];
+                    NPCresAni.getListNPCresAni()[j] = NPCresAni.getListNPCresAni()[NPCresAni.getListNPCresAni().length -1];
+                    NPCresAni.getListNPCresAni()[NPCresAni.getListNPCresAni().length -1] = s;
+                    
+                    this.npcResAni = NPCresAni.getListNPCresAni()[(int) Math.floor(Math.random() * (NPCresAni.getListNPCresAni().length - 1) * 0.99)];
+                
+                } else {
+                    return;
+                }
             }
-            return;
         }
     }
 
@@ -139,7 +153,8 @@ public class OrderNPC {
 
     //    @Override
     public short createOrder(ZPUserInfo user) {
-        if ((this.waittingTime + OrderNPCUtil.getNPCRemainTime(user.getLevel()) * 60 * 1000 - 5000) <= new Date().getTime()){
+//        if ((this.waittingTime + OrderNPCUtil.getNPCRemainTime(user.getLevel()) * 60 * 1000 - 5000) <= new Date().getTime()){
+        if ((this.waittingTime + OrderNPCUtil.getNPCRemainTime(user.getLevel()) * 5 * 1000 - 5000) <= new Date().getTime()){
 
             this.waittingTime = 0;
             this.setOrderItem(user);

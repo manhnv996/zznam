@@ -723,16 +723,28 @@ var MapLayer = cc.Layer.extend({
 
 	// //
 	getNPCByOrderNPCId: function (orderNPCId) {
-        if (orderNPCId == null){
-            return null;
-        }
-        for (var i = 0; i < this.npcList.length; i++){
-            if (this.npcList[i].orderId == orderNPCId){
-                return this.npcList[i];
-            }
-        }
-        return null;
-    },
+		if (orderNPCId == null){
+			return null;
+		}
+		for (var i = 0; i < this.npcList.length; i++){
+			if (this.npcList[i].orderId == orderNPCId){
+				return this.npcList[i];
+			}
+		}
+		return null;
+	},
+
+	getIndexByOrderNPCId: function (orderNPCId) {
+		if (orderNPCId == null){
+			return null;
+		}
+		for (var i = 0; i < this.npcList.length; i++){
+			if (this.npcList[i].orderId == orderNPCId){
+				return i;
+			}
+		}
+		return null;
+	},
 
 
 

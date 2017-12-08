@@ -236,7 +236,15 @@ testnetwork.Connector = cc.Class.extend({
 
                 if (orderNPCSelected.checkStatus() == OrderStatusTypes.REALIZABLE){
                     //
-                    MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).setResume();
+                    //MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).setResume();
+                    var index = MapLayer.instance.getIndexByOrderNPCId(orderNPCSelected.orderId);
+                    MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).removeNPC();
+cc.log("index = " + index);
+                    var npcSprite = new NPCSprite(17, 19, orderNPCSelected);
+                    MapLayer.instance.npcList.splice(index, 1);
+                    MapLayer.instance.npcList.push(npcSprite);
+
+                    MapLayer.instance.addChild(npcSprite);
                     //
                 } else {
                     //

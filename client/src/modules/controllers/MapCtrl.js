@@ -149,17 +149,30 @@ var MapCtrl = cc.Class.extend({
         MapLayer.instance.npcList = [];
         var orderNPCList = user.asset.orderNPCList;
         for (var i = 0; i < orderNPCList.length; i++){
-            var npcSprite = new NPCSprite(15 + i, 20 - i, orderNPCList[i]);
-            MapLayer.instance.addChild(npcSprite);
+            var npcSprite = null;
 
-            // //
-            MapLayer.instance.npcList.push(npcSprite);
-
-            if (orderNPCList[i].checkStatus() == OrderStatusTypes.WAITTING){
-                //
-                MapLayer.instance.getNPCByOrderNPCId(orderNPCList[i].orderId).setPause();
-                //
+            if (orderNPCList[i].getOrderItem() != null){
+                npcSprite = new NPCSprite(15 + i, 20 - i, orderNPCList[i]);
+                //npcSprite.pause();
             }
+            //else {
+            //    npcSprite = new NPCSprite(31, 31 + i);
+            //    //npcSprite.resume();
+            //}
+
+            if (npcSprite != null){
+                MapLayer.instance.addChild(npcSprite);
+                // //
+                MapLayer.instance.npcList.push(npcSprite);
+
+//                //
+                if (orderNPCList[i].checkStatus() == OrderStatusTypes.WAITTING){
+                    //
+                    MapLayer.instance.getNPCByOrderNPCId(orderNPCList[i].orderId).setPause();
+                    //
+                }
+            }
+
         }
 
     },

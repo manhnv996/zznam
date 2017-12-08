@@ -31,7 +31,7 @@ var CarSprite = AnimationSprite.extend({
         }
 
         // this.addEventListener();
-        // this.registerTouchEvents();
+         this.registerTouchEvents({ lockMove: true });
     },
 
 
@@ -47,6 +47,9 @@ var CarSprite = AnimationSprite.extend({
         //}
         if (this.isStatus == DeliveryStatus.RECEIVABLE) {
             this.actionReceive();
+        } else {
+
+            OrderCtrl.instance.onShowOrderBG();
         }
     },
     onBeginClick: function() {
@@ -69,9 +72,16 @@ var CarSprite = AnimationSprite.extend({
     delivery: function () {
         if (this.isStatus == DeliveryStatus.EMPTY){
             this.play("2");
-            this.content.setPosition(MapValues.logicToPosition(0, 0));
-
-            this.delivery2();
+            //this.content.setPosition(MapValues.logicToPosition(0, 0));
+            //
+            //this.delivery2();
+            var action = cc.sequence(
+                cc.delayTime(2),
+                cc.callFunc(function () {
+                    this.delivery2();
+                }.bind(this))
+            );
+            this.runAction(action);
         }
 
         this.isStatus = DeliveryStatus.DELIVERY;
