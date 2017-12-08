@@ -32,7 +32,7 @@ var Machine = ConstructedObject.extend({
     },
     //lay ra thoi gian san xuat cua san pham theo productType
     getProductTime:function(machineType, productType){
-        var indexMachine  = this.getIndexMachineByType(machineType);
+        var indexMachine  = this.getIndexMachineInConfigByType(machineType);
         cc.log(indexMachine);
         if (indexMachine == -1){
             cc.log("getIndexMachineByType ERROR");
@@ -47,7 +47,7 @@ var Machine = ConstructedObject.extend({
         return 0;
     },
     // lấy ra index của máy trong MACHINE_LIST theo loại máy
-    getIndexMachineByType: function(machineType){
+    getIndexMachineInConfigByType: function(machineType){
         for (var i = 0; i < MACHINE_LIST.length; i++){
             if (MACHINE_LIST[i].machineType == machineType){
                 for (var i = 0; i < MACHINE_LIST.length; i++){
@@ -60,7 +60,7 @@ var Machine = ConstructedObject.extend({
         return -1;
     },
     getProductResPath:function (machineType, productType) {
-        var indexMachine  = this.getIndexMachineByType(machineType);
+        var indexMachine  = this.getIndexMachineInConfigByType(machineType);
         if (indexMachine == -1){
             cc.log("getIndexMachineByType ERROR");
             return null;

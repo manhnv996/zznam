@@ -139,6 +139,7 @@ public class UserHandler extends BaseClientRequestHandler {
                 ConfigContainer.mapConfig.Warehouse.position.y);
 
         foodStorage.addItem(ProductType.CROP_CARROT, 5);
+        foodStorage.addItem(ProductType.CROP_WHEAT, 8);
         foodStorage.addItem(ProductType.CROP_SOYBEAN, 10);
         
 //        warehouse.addItem(ProductType.TOOL_NAIL, 5);

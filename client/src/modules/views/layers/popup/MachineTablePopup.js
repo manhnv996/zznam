@@ -27,6 +27,7 @@ var MachineTablePopup = TablePopup.extend({
 
         //lay ra width height cua machine sprite da goi
         var index =  MachineController.instance.getIndexInMachineSpriteList(machineId);
+        cc.log("12082017" + index);
         var spriteCalled = MapLayer.instance.machineSpriteList[index];
         this._machineWidth = spriteCalled.width;
         this._machineHeight = spriteCalled.height;
@@ -38,11 +39,13 @@ var MachineTablePopup = TablePopup.extend({
         if (this._machineConfig.productList.length > 5){
             this._super(res.popup5, this._machine.coordinate.x, this._machine.coordinate.y,
                 spriteCalled);
+            this._bg.setScale(1.05);
         } else {
             switch ( this._machineConfig.productList.length % 5 ){
                 case 0:
                     this._super(res.popup5, this._machine.coordinate.x, this._machine.coordinate.y,
                         spriteCalled);
+                    this._bg.setScale(1.05);
                     break;
                 case 1:
                     this._super(res.popup1, this._machine.coordinate.x, this._machine.coordinate.y,
@@ -95,7 +98,7 @@ var MachineTablePopup = TablePopup.extend({
                 this._bg.y - this._bg.height / 2));
             this.addChild(this.btTurnPage);
             //
-            //this.btTurnPage.addClickEventListener(this.turnPageEvent.bind(this));
+            this.btTurnPage.addClickEventListener(this.turnPageEvent.bind(this));
             //
             this.pagesSpriteList = [];
             for (var i = 0; i < numberOfPages; i++){
@@ -112,11 +115,41 @@ var MachineTablePopup = TablePopup.extend({
             }
 
         }
+
         this.setProductListPosition(this._currPage);
 
 
 
 
+    },
+    turnPageEvent: function(){
+
+        this.removeAllCurrentItemSprite();
+
+
+        this.pagesSpriteList[this._currPage].setTexture(res.page);
+
+        this._currPage = (this._currPage + 1) % (Math.ceil(this._popUpItemSpriteList.length / 5));
+        LastPageUtil.instance.setLastOpenPage(this._machineConfig.machineType, this._currPage);
+        this.setProductListPosition(this._currPage);
+
+        this.pagesSpriteList[this._currPage].setTexture(res.pageSelected);
+    },
+    removeAllCurrentItemSprite:function(){
+        var numberOfPages = Math.ceil(this._popUpItemSpriteList.length / 5);
+        var visibleProducts = 5;
+        if (numberOfPages > 1) {
+            if (this._currPage < numberOfPages - 1){
+                visibleProducts = 5;
+            } else {
+                visibleProducts = this._popUpItemSpriteList.length - (numberOfPages - 1) * 5;
+            }
+        } else {
+            visibleProducts = this._popUpItemSpriteList.length;
+        }
+        for (var i = 0; i < visibleProducts; i++){
+            this._popUpItemSpriteList[5* this._currPage + i].setVisible(false);
+        }
     },
     setProductListPosition: function(pageIndex){
         var numberOfPages = Math.ceil(this._popUpItemSpriteList.length / 5);
@@ -130,19 +163,23 @@ var MachineTablePopup = TablePopup.extend({
         } else {
             visibleProducts = this._popUpItemSpriteList.length;
         }
-
+        for (var  i = 0; i < visibleProducts; i++){
+            this._popUpItemSpriteList[5 * pageIndex + i].setVisible(true);
+        }
         //setPosition
         switch (visibleProducts % 5){
             case 1:
-                this.popupItemList[5 * pageIndex + 0].setPosition(cc.p(this._bg.x, this._bg.y));
+
+                this._popUpItemSpriteList[5 * pageIndex + 0].setPosition(cc.p(this._bg.x, this._bg.y));
+
                 //
                 break;
             case 2:
                 this._popUpItemSpriteList[5 * pageIndex + 1].setPosition(cc.p(this._bg.x, this._bg.y));
                 this._popUpItemSpriteList[5 * pageIndex + 0].setPosition(cc.p(this._bg.x, this._bg.y));
                 //
-                this.popupItemList[5 * pageIndex + 1].runAction(new cc.moveBy(0.1, - (this._popUpItemSpriteList[0].width / 2), - (this._popUpItemSpriteList[5 * pageIndex + 1].height / 4)));
-                this.popupItemList[5 * pageIndex + 0].runAction(new cc.moveBy(0.1, (this._popUpItemSpriteList[1].height / 2), (this._popUpItemSpriteList[5 * pageIndex + 0].height / 4)));
+                this._popUpItemSpriteList[5 * pageIndex + 1].runAction(new cc.moveBy(0.1, - (this._popUpItemSpriteList[0].width / 2), - (this._popUpItemSpriteList[5 * pageIndex + 1].height / 4)));
+                this._popUpItemSpriteList[5 * pageIndex + 0].runAction(new cc.moveBy(0.1, (this._popUpItemSpriteList[1].height / 2), (this._popUpItemSpriteList[5 * pageIndex + 0].height / 4)));
                 break;
             case 3:
                 this._popUpItemSpriteList[5 * pageIndex + 2].setPosition(cc.p(this._bg.x ,this._bg.y));
@@ -160,11 +197,11 @@ var MachineTablePopup = TablePopup.extend({
                 this._popUpItemSpriteList[5 * pageIndex + 1].setPosition(cc.p(this._bg.x, this._bg.y));
                 this._popUpItemSpriteList[5 * pageIndex + 0].setPosition(cc.p(this._bg.x, this._bg.y));
                 //
-                this._popUpItemSpriteList[5 * pageIndex + 3].runAction(new cc.moveBy(0.1, - (this._popUpItemSpriteList[5 * pageIndex + 3].width), 0));
-                this._popUpItemSpriteList[5 * pageIndex + 2].runAction(new cc.moveBy(0.1, 0, (this._popUpItemSpriteList[5 * pageIndex + 2].height / 4)));
-                this.popupItemList[5 * pageIndex + 1].runAction(new cc.moveBy(0.1, (this._popUpItemSpriteList[5 * pageIndex + 1].width), (this._popUpItemSpriteList[5 * pageIndex + 1].height / 2)));
+                this._popUpItemSpriteList[5 * pageIndex + 3].runAction(new cc.moveBy(0.1, - (this._popUpItemSpriteList[5 * pageIndex + 3].width *1.5), 0));
+                this._popUpItemSpriteList[5 * pageIndex + 2].runAction(new cc.moveBy(0.1,  - (this._popUpItemSpriteList[5 * pageIndex + 2].width *.5),0));
+                this._popUpItemSpriteList[5 * pageIndex + 1].runAction(new cc.moveBy(0.1, (this._popUpItemSpriteList[5 * pageIndex + 1].width)*.5, 0));
 
-                this._popUpItemSpriteList[5 * pageIndex + 0].runAction(new cc.moveBy(0.1, (this._popUpItemSpriteList[5 * pageIndex + 0].width * 2 / 4), - (this._popUpItemSpriteList[5 * pageIndex + 0].height / 2)));
+                this._popUpItemSpriteList[5 * pageIndex + 0].runAction(new cc.moveBy(0.1, (this._popUpItemSpriteList[5 * pageIndex + 0].width * 1.5), 0));
 
                 break;
             case 0:

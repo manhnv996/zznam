@@ -305,8 +305,9 @@ var MapCtrl = cc.Class.extend({
         var productQueue = ["product_bread", "product_corn_bread", "product_bread", "product_corn_bread", "product_bread", "product_corn_bread"];
         user.asset.addMachine(new Machine(coordinate, startBuildTime, completed, machineId, machineType, productQueue,startTime));
         user.asset.addMachine(new Machine({x:20, y: 20}, startBuildTime, completed, "food_machine", "food_machine", productQueue, startTime));
-        user.asset.addMachine(new Machine({x:18, y: 18}, startBuildTime, completed, "popcorn_machine", "popcorn_machine", productQueue, startTime));
+        user.asset.addMachine(new Machine({x:18, y: 18}, startBuildTime, completed, "popcorn_machine", "popcorn_machine", [], startTime));
         user.asset.addMachine(new Machine({x:18, y: 24}, startBuildTime, completed, "sugar_machine", "sugar_machine", productQueue, startTime));
+        user.asset.addMachine(new Machine({x:24, y: 24}, startBuildTime, completed, "butter_machine", "butter_machine", productQueue, startTime));
         cc.log(user.asset.machineList[0].coordinate.x+ "===========" + "===========" +user.asset.machineList[0].coordinate.y );
 
         Machine.instance = new Machine();
@@ -334,6 +335,9 @@ var MapCtrl = cc.Class.extend({
         MapLayer.instance.machineSpriteList.push(spritePopcornMachine);
 
 
+        //var spriteButterMachine = new MachineSprite("butter_machine");
+        //MapLayer.instance.addChild(spriteButterMachine);
+        //MapLayer.instance.machineSpriteList.push(spriteButterMachine);
 
          //var spriteSugarMachine = new MachineSprite("sugar_machine");
          //MapLayer.instance.addChild(spriteSugarMachine);

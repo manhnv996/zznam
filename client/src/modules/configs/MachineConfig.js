@@ -111,8 +111,8 @@ MACHINE_LIST.push({
 MACHINE_LIST.push({
     machineType: "butter_machine",
     size: {
-        width: 3,
-        height: 3
+        width: 4,
+        height: 4
     },
     slot: 2,
     mapItemEnum: MapItemEnum.CREAMERY,

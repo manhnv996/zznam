@@ -17,7 +17,7 @@ var MachineController = cc.Class.extend({
             return null;
         }
         for (var i = 0; i < MapLayer.instance.machineSpriteList.length; i++){
-            if (MapLayer.instance.machineSpriteList[i].machineId == machineId){
+            if (MapLayer.instance.machineSpriteList[i]._machineId == machineId){
                 return i;
             }
         }
