@@ -23,6 +23,7 @@ import cmd.send.demo.ResponseSyncFoodStorageItem;
 import cmd.send.map.ResponseMoveBlock;
 
 import config.enums.AnimalLodgeEnum;
+import config.enums.MachineTypeEnum;
 import config.enums.MapItemEnum;
 
 import config.utils.ConfigContainer;
@@ -32,6 +33,7 @@ import java.awt.Point;
 import model.AnimalLodge;
 import model.CoordinateObject;
 import model.Field;
+import model.Machine;
 import model.MapAlias;
 import model.Storage;
 import model.ZPUserInfo;
@@ -112,7 +114,14 @@ public class MapHandler extends BaseClientRequestHandler {
                 return;
             }
             break;
+        case MapItemEnum.MACHINE:
+            if (!moveMachine(userInfo, id, x, y)) {
+                send(new ResponseMoveBlock((short)0, -1), user);
+                return;
+            }
+            break;
         }
+
         
         try {
             userInfo.saveModel(user.getId());
@@ -184,6 +193,41 @@ public class MapHandler extends BaseClientRequestHandler {
         
         MapAlias map = userInfo.getMap();
         return tryToMove(map, lodge, x, y, width, height, type);
+    }
+    
+    private boolean moveMachine(ZPUserInfo userInfo, int id, int x, int y) {
+        Machine machine = userInfo.getAsset().getMachineById(id);
+        if (machine == null) {
+            return false;    
+        }
+        int width = 0;
+        int height = 0;
+        int type = MapItemEnum.MACHINE;
+        if (machine.getType() == MachineTypeEnum.bakery_machine) {
+            width = ConfigContainer.mapConfig.Machine.Bakery_Machine.size.width;
+            height = ConfigContainer.mapConfig.Machine.Bakery_Machine.size.height;
+            
+        } else if (machine.getType() == MachineTypeEnum.food_machine) {
+            width = ConfigContainer.mapConfig.Machine.Food_Machine.size.width;
+            height = ConfigContainer.mapConfig.Machine.Food_Machine.size.height;
+            
+        } else if (machine.getType() == MachineTypeEnum.butter_machine) {
+            width = ConfigContainer.mapConfig.Machine.Butter_Machine.size.width;
+            height = ConfigContainer.mapConfig.Machine.Butter_Machine.size.height;
+            
+        } else if (machine.getType() == MachineTypeEnum.sugar_machine) {
+            width = ConfigContainer.mapConfig.Machine.Sugar_Machine.size.width;
+            height = ConfigContainer.mapConfig.Machine.Sugar_Machine.size.height;
+            
+        } else if (machine.getType() == MachineTypeEnum.popcorn_machine) {
+            width = ConfigContainer.mapConfig.Machine.Popcorn_Machine.size.width;
+            height = ConfigContainer.mapConfig.Machine.Popcorn_Machine.size.height;
+        } else{
+            return false;    
+        }
+        
+        MapAlias map = userInfo.getMap();
+        return tryToMove(map, machine, x, y, width, height, type);
     }
     
     private boolean tryToMove(MapAlias map, CoordinateObject obj, int x, int y, int width, int height, int type) {

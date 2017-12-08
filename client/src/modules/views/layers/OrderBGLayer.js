@@ -8,7 +8,7 @@ var OrderBGLayer = BaseLayout.extend({
     ctor:function(){
 
         //this._super();
-        this._super(res.bgTruckOrder, "text_title_order_neighbor", true, true, false);
+        this._super(res.bgTruckOrder, "text_title_order_neighbor", true, true, true);
 
         //this._title.setFntFile(res.FONT_OUTLINE_30);
         //this._title.x = this.width / 2;

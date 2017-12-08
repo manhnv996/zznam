@@ -17,18 +17,21 @@ var BaseLayout = ccui.Layout.extend({
         this._hasCloseButton = hasCloseButton;
         this._hideShop = hideShop;
 
-        if (this._hideShop) {
+        //if (this._hideShop) {
             if (!GameShopLayout.instance._isHide) {
+                //cc.log("GameShopLayout.instance._isHide " + GameShopLayout.instance._isHide);
                 GameShopLayout.instance.hide();
+                //cc.log("GameShopLayout.instance._isHide2 " + GameShopLayout.instance._isHide);
             }
-        } else {
-            cc.log("Lock Shop" + GameShopLayout.instance._isHide);
-            if (!GameShopLayout.instance._isHide) {
-                //GameShopLayout.instance.hide();
-                //cc.log("Lock Shop");
-                GameShopLayout.instance._gameShop.lockGameShop();
-            }
-        }
+        //}
+        //else {
+        //    cc.log("Lock Shop" + GameShopLayout.instance._isHide);
+        //    if (!GameShopLayout.instance._isHide) {
+        //        GameShopLayout.instance.hide();
+        //        cc.log("Lock Shop");
+                //GameShopLayout.instance._gameShop.lockGameShop();
+            //}
+        //}
 
         this.x = cc.winSize.width / 2;
         this.y = cc.winSize.height / 2;

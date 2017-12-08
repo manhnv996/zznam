@@ -61,6 +61,7 @@ var GameShopLayout = ccui.Layout.extend({
             cc.eventManager.removeListener(this.listener);
             //cc.log("remove listener");
         }
+        //cc.log("this._isHide hide " + this._isHide);
     },
 
     show: function () {
@@ -76,7 +77,7 @@ var GameShopLayout = ccui.Layout.extend({
         this.blockListener();
         //cc.log("this.listener2" + this.listener);
 
-        //cc.log("this._isHide " + this._isHide);
+        //cc.log("this._isHide show " + this._isHide);
     },
 
     blockListener: function () {
@@ -106,19 +107,19 @@ var GameShopLayout = ccui.Layout.extend({
                 this.hide();
                 return false;
                 //return true;
-            }.bind(this),
-
-            onTouchMoved: function(touch) {
-                this._isClose = false;
-                var delta = touch.getDelta();
-                //MapLayer.instance.move(delta.x, delta.y);
-            }.bind(this),
-
-            onTouchEnded: function() {
-                if (this._isClose) {
-                    this.hide();
-                }
             }.bind(this)
+
+            //onTouchMoved: function(touch) {
+            //    this._isClose = false;
+            //    var delta = touch.getDelta();
+            //    //MapLayer.instance.move(delta.x, delta.y);
+            //}.bind(this),
+            //
+            //onTouchEnded: function() {
+            //    if (this._isClose) {
+            //        this.hide();
+            //    }
+            //}.bind(this)
         });
         //cc.log("add listener");
         cc.eventManager.addListener(this.listener, 3);
@@ -128,7 +129,7 @@ var GameShopLayout = ccui.Layout.extend({
             this._layoutBlockListener.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
             this._layoutBlockListener.setBackGroundColor(cc.color.YELLOW);
         }
-    },
+    }
 
     //update: function (dt) {
     //    if (!this._isClose) {

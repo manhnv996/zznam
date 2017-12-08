@@ -448,10 +448,10 @@ cc.log("index = " + index);
         this.gameClient.sendPacket(pk);
     },
 
-    sendBuyMapObjectByRuby: function (id, type, x, y, ruby) {
+    sendBuyMapObjectByRuby: function (id, type, x, y) {
         cc.log("Send buy map object by ruby");
         var pk = this.gameClient.getOutPacket(CmdSendBuyMapObjectByRuby);
-        pk.pack(id, type, x, y, ruby);
+        pk.pack(id, type, x, y);
         this.gameClient.sendPacket(pk);
     },
 
@@ -472,6 +472,13 @@ cc.log("index = " + index);
     sendBuildCompleted: function (id, typeBuilding) {
         cc.log("Send Completed Building");
         var pk = this.gameClient.getOutPacket(CmdSendBuildCompleted);
+        pk.pack(id, typeBuilding);
+        this.gameClient.sendPacket(pk);
+    },
+
+    sendBoostBuild: function (id, typeBuilding) {
+        cc.log("Send Boost Build");
+        var pk = this.gameClient.getOutPacket(CmdSendBoostBuild);
         pk.pack(id, typeBuilding);
         this.gameClient.sendPacket(pk);
     }

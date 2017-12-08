@@ -59,6 +59,7 @@ gv.CMD.UPGRADE_STORAGE_REQUEST = 8002;
 
 //Constructed
 gv.CMD.BUID_COMPLETED = 9001;
+gv.CMD.BOOST_BUILD = 9002;
 
 
 testnetwork = testnetwork||{};
@@ -429,13 +430,12 @@ CmdSendBuyMapObjectByRuby = fr.OutPacket.extend({
         this.initData(100);
         this.setCmdId(gv.CMD.BUY_MAP_OBJECT_BY_RUBY);
     },
-    pack: function (id, type, x, y, ruby) {
+    pack: function (id, type, x, y) {
         this.packHeader();
         this.putInt(id);
         this.putString(type);
         this.putInt(x);
         this.putInt(y);
-        this.putInt(ruby);
         this.updateSize();
     }
 });
@@ -485,6 +485,20 @@ CmdSendBuildCompleted = fr.OutPacket.extend({
         this._super();
         this.initData(100);
         this.setCmdId(gv.CMD.BUID_COMPLETED);
+    },
+    pack: function (id, typeBuilding) {
+        this.packHeader();
+        this.putInt(id);
+        this.putInt(typeBuilding);
+        this.updateSize();
+    }
+});
+
+CmdSendBoostBuild = fr.OutPacket.extend({
+    ctor: function () {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.BOOST_BUILD);
     },
     pack: function (id, typeBuilding) {
         this.packHeader();
@@ -1089,8 +1103,10 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         machine.y = this.getInt();
         machine.slot = this.getInt();
         machine.startTime = parseInt(this.getLong());
+        machine.boostBuild = this.getInt() ? true : false;
         machine.completed = this.getInt() ? true : false;
         machine.startBuildTime = parseInt(this.getLong());
+        machine.remainBuildTime = this.getInt();
 
         machine.productQueue = [];
         var size = this.getInt();

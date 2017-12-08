@@ -63,6 +63,14 @@ var MainScene = cc.Scene.extend({
 		//cc.log(res.infoCoopItem[0]["id"]);
 
 		//BaseGUILayer.instance.loadingBar();
+
+        //var model = new Machine(0, "bakery_machine", 3, 0, null, false, new Date().getTime(), new Coordinate(20, 20));
+        //user.asset.addMachine(model);
+        ////cc.log("model " + model.coordinate.x + " " + model.coordinate.y + " id " + model.id + " slot " + model.slot);
+        ////var machine = user.asset.getMachineById(model.id);
+        ////cc.log("machine " + machine.coordinate.x + " " + machine.coordinate.y + " id " + machine.id + " slot " + machine.slot);
+        //var bakery = new BakerySprite(0, 20, 20);
+        //MapLayer.instance.addChild(bakery);
 	},
 
     //

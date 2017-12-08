@@ -17,6 +17,7 @@ import cmd.send.user.ResponseUser;
 
 import config.enums.AnimalEnum;
 import config.enums.AnimalLodgeEnum;
+import config.enums.MachineTypeEnum;
 import config.enums.ProductType;
 import config.enums.StorageType;
 
@@ -41,6 +42,7 @@ import model.Animal;
 import model.AnimalLodge;
 import model.Asset;
 import model.Field;
+import model.Machine;
 import model.NatureThing;
 import model.Order;
 import model.OrderNPC;
@@ -222,6 +224,13 @@ public class UserHandler extends BaseClientRequestHandler {
         
         Animal animal = new Animal(AnimalEnum.chicken);
         chickenLodge.addAnimal(animal);
+        
+        
+        // Add Food Machine
+        Machine machine = new Machine(0, MachineTypeEnum.food_machine, 
+                        ConfigContainer.getMachineSlot(MachineTypeEnum.food_machine.toString()),
+                        0, false, true, 9, 17);
+        asset.addMachine(machine);
         
         // Last
         ZPUserInfo userInfo = new ZPUserInfo(userId, asset); // ...Update map alias

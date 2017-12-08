@@ -14,7 +14,7 @@ var AnimationSprite = MapBlockSprite.extend({
 		// 	this.__fixNaturePosition = true;
 		// }
 
-		////
+		//
 		//this.addEventListener();
 	},
 

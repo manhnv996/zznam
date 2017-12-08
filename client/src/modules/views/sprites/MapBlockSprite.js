@@ -1,6 +1,6 @@
 var MapBlockSprite = cc.Sprite.extend({
-	lx: 0,
-	ly: 0,
+    lx: 0,
+    ly: 0,
     mapAliasType: 0,
     boundingPoints: null,
 
@@ -21,12 +21,12 @@ var MapBlockSprite = cc.Sprite.extend({
     originalPosition: null,
     lstLocation: null,
 
-	ctor: function(resource, blockSizeX, blockSizeY, x, y, mapAliasType) {
-		this._super(resource);
-		this.blockSizeX = blockSizeX;
-		this.blockSizeY = blockSizeY;
+    ctor: function(resource, blockSizeX, blockSizeY, x, y, mapAliasType) {
+        this._super(resource);
+        this.blockSizeX = blockSizeX;
+        this.blockSizeY = blockSizeY;
         this.mapAliasType = mapAliasType;
-		this.setLogicPosition(x, y);
+        this.setLogicPosition(x, y);
     },
 
     // Override there methods in inherited class
@@ -36,7 +36,7 @@ var MapBlockSprite = cc.Sprite.extend({
     onFinishMove: function(lx, ly) {},
 
     // Register touch event, call this in constructor
-	registerTouchEvents: function(option) {
+    registerTouchEvents: function(option) {
         this.eventOption = option || this.eventOption;
 
         this.caculateBoundingPoints();
@@ -48,7 +48,7 @@ var MapBlockSprite = cc.Sprite.extend({
             onTouchEnded: this.onTouchEnded.bind(this)
         });
         cc.eventManager.addListener(this.touchListener, this.getPriority());
-	},
+    },
 
     onTouchBegan: function(touch) {
         var touchLocation = touch.getLocation();
@@ -96,10 +96,10 @@ var MapBlockSprite = cc.Sprite.extend({
                 // cc.log("Finish move to", newLocation);
                 if (MapCtrl.instance.checkValidBlock(newLocation.x, newLocation.y, this.blockSizeX, this.blockSizeY)) {
                     this.setLogicPosition(newLocation);
-                    
+
                     // Callback when successfully moved
                     // check if original location is different with new location
-                    if (newLocation.x !== originalPosition.x || 
+                    if (newLocation.x !== originalPosition.x ||
                         newLocation.y !== originalPosition.y
                     ) {
                         this.onFinishMove(newLocation.x, newLocation.y);
@@ -181,7 +181,7 @@ var MapBlockSprite = cc.Sprite.extend({
     onTouchEnded: function(touch, event) {
         this.onEndClick();
         PopupLayer.instance.removeArrow();
-        
+
         if (this.touchListener.scheduling) {
             // When callback didnot be executed 
             this.touchListener.scheduling = false;
@@ -217,23 +217,24 @@ var MapBlockSprite = cc.Sprite.extend({
         // disable onClick event after long click
         this.touchMoved = true;
         this.arrowShowed = true;
-        PopupLayer.instance.showArrow(this.lstMouse.x, this.lstMouse.y, 
-                this.startMovingSpriteMode.bind(this));
+        PopupLayer.instance.showArrow(this.lstMouse.x, this.lstMouse.y,
+            this.startMovingSpriteMode.bind(this));
     },
 
     startMovingSpriteMode: function() {
         InertiaEngine.instance.stopAndGetVelocity();
-            
+
         this.moveSpriteMode = true;
         // this.lstMouse = touchLocation;
         // Enable highest priority for this listener and zOrder
-        this.updateEventPriority(1);                          
+        this.updateEventPriority(1);
         this.setLocalZOrder(10000);
         // Enable Tint action
         var action = new cc.Sequence([
-                new cc.TintBy(0.8, -100, -100, -100),
-                new cc.TintBy(0.8, 100, 100, 100)]);
+            new cc.TintBy(0.8, -100, -100, -100),
+            new cc.TintBy(0.8, 100, 100, 100)]);
         this.runAction(new cc.RepeatForever(action));
+
         // Save original position
         this.originalPosition = this.getLogicPosition();
         this.lstLocation = this.originalPosition;
@@ -308,7 +309,7 @@ var MapBlockSprite = cc.Sprite.extend({
         //    \*/
         //     B
         var leftPoint = MapValues.logicToPosition(
-            this.lx, 
+            this.lx,
             this.ly + this.blockSizeY
         );
         var rightPoint = MapValues.logicToPosition(
@@ -338,7 +339,7 @@ var MapBlockSprite = cc.Sprite.extend({
         );
         // Polygon with 5 verts
         this.boundingPoints = [
-            bottomPoint, leftPoint, topLeftPoint, 
+            bottomPoint, leftPoint, topLeftPoint,
             topRightPoint, rightPoint
         ];
         return this.boundingPoints;
@@ -364,8 +365,8 @@ var MapBlockSprite = cc.Sprite.extend({
         var logic = MapValues.screenPositionToLogic(location.x, location.y);
         logic.x = Math.floor(logic.x);
         logic.y = Math.floor(logic.y);
-        if (this.lstLocation.x !== logic.x || 
-                this.lstLocation.y !== logic.y) {
+        if (this.lstLocation.x !== logic.x ||
+            this.lstLocation.y !== logic.y) {
             // cc.log("Map Alias", this.mapAliasType);
             // cc.log("move to", logic, MapCtrl.instance.checkValidBlock(logic.x, logic.y, this.blockSizeX, this.blockSizeY, this.mapAliasType));
             this.lstLocation = logic;
@@ -403,7 +404,7 @@ var MapBlockSprite = cc.Sprite.extend({
         if (!notUpdatePriority) {
             this.updateEventPriority();
             this.updateZOrder();
-                // Math.max(this.lx + this.blockSizeX, this.ly + this.blockSizeY));
+            // Math.max(this.lx + this.blockSizeX, this.ly + this.blockSizeY));
             // this.setLocalZOrder(this.lx + this.blockSizeX +this.ly + this.blockSizeY);
         }
 
@@ -423,7 +424,7 @@ var MapBlockSprite = cc.Sprite.extend({
             p.x += pOffset.x;
             p.y += pOffset.y;
             // if (this.natureId === 1) {
-                // cc.log(pOffset);
+            // cc.log(pOffset);
             // }
             this.setPosition(p);
             return;
@@ -436,10 +437,10 @@ var MapBlockSprite = cc.Sprite.extend({
             ly - this.blockSizeY
         );
 
-        var dx = contentSize.width / 2 + 2 * point2.x - 
-                point1.x - this.blockSizeX * MapValues.iLength / 2;
+        var dx = contentSize.width / 2 + 2 * point2.x -
+            point1.x - this.blockSizeX * MapValues.iLength / 2;
         var dy = contentSize.height / 2 + 2 * point2.y - point1.y;
-        
+
         this.setPosition(cc.p(dx, dy));
     },
 

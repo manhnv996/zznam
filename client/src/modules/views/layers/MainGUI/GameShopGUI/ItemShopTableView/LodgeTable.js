@@ -310,7 +310,7 @@ var LodgeTable = cc.Layer.extend({
                 break;
             case ccui.Widget.TOUCH_CANCELED:
                 this.unscheduleUpdate();
-                GameShopLayout.instance.show();
+                //GameShopLayout.instance.show();
                 if (this._sprite) {
                     var endP = sender.getTouchEndPosition();
                     var endPl = MapValues.screenPositionToLogic(endP.x, endP.y);
@@ -323,6 +323,10 @@ var LodgeTable = cc.Layer.extend({
                     if (!this._check) {
                         this._sprite.removeFromParent(true);
                         BaseGUILayer.instance.notifyCantPut(endP.x, endP.y);
+                        if (GameShopLayout.instance._isHide) {
+                            //cc.log("GameShopLayout.instance._isHide " + GameShopLayout.instance._isHide);
+                            GameShopLayout.instance.show();
+                        }
                     } else {
                         var missGold = GameShopController.instance.checkGold(sender.parent.getChildByTag(5).getString());
                         cc.log(missGold);
@@ -351,15 +355,12 @@ var LodgeTable = cc.Layer.extend({
                                 //    break;
                                 //case "cow_habitat":
                                 //    break;
-                                //case "pig_habitat":
-                                //    break;
-                                //case "sheep_habitat":
-                                //    break;
-                                //case "goat_habitat":
-                                //    break;
                             }
                             //cc.log("Gold User" + user.getGold());
                             user.reduceGold(sender.parent.getChildByTag(5).getString());
+
+
+                            GameShopLayout.instance.show();
                         }
                     }
                 }

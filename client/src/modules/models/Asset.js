@@ -4,7 +4,7 @@ var Asset = cc.Class.extend({
     foodStorage: Storages,
     warehouse: Storages,
     fieldList: null,
-    machineList: null,
+    machineList: [],
     natureThingList: null,
     myShop: null,
     orderList: [],
@@ -97,15 +97,15 @@ var Asset = cc.Class.extend({
 
     addMachine: function (machine) {
         this.machineList.push(machine);
+        if (machine.id == 0) {
+            machine.id = this.machineList.length;
+        }
     },
 
     getLodgeById: function(id) {
         return this.animalLodgeList.find(function(lodge) {
             return lodge.id === id;
         });
-        if (machine.id == 0) {
-            machine.id = this.machineList.length;
-        }
     },
 
 //    //
@@ -193,7 +193,7 @@ var Asset = cc.Class.extend({
 
     getMachineById: function (id) {
         var machine = this.machineList.find(function (f) {
-            return f.id = id;
+            return f.id === id;
         });
         return machine;
     }

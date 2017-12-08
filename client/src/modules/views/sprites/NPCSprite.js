@@ -60,9 +60,9 @@ var NPCSprite = AnimationSprite.extend({
     //
     actionGetOut1: function () {
         this.play("1");
-        if (this.getLogicPosition() != cc.p(17, 19)){
-            var dx = 17 - this.getLogicPosition().x;
-            var dy = 18 - this.getLogicPosition().y;
+        if (this.getLogicPosition() != cc.p(18, 19)){
+            var dx = 18 - this.getLogicPosition().x;
+            var dy = 19 - this.getLogicPosition().y;
 
             var action = cc.sequence(
                 cc.moveTo(1, MapValues.logicToPosition(dx, dy)),
@@ -80,10 +80,10 @@ var NPCSprite = AnimationSprite.extend({
 
     actionGetOut2: function () {
         var action = cc.sequence(
-            cc.moveTo(2, MapValues.logicToPosition(0, 15)),
+            cc.moveTo(2, MapValues.logicToPosition(0, 14)),
             cc.callFunc(function () {
                 //
-                this.setLogicPosition(this.getLogicPosition().x + 0, this.getLogicPosition().y + 15);
+                this.setLogicPosition(this.getLogicPosition().x + 0, this.getLogicPosition().y + 14);
                 this.content.setPosition(MapValues.logicToPosition(0, 0));
 
                 this.actionGetOut3();

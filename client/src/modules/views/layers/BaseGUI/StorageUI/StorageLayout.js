@@ -55,7 +55,7 @@ var StorageLayout = BaseLayout.extend({
         this._layoutContent.addChild(this._multiLayer);
 
         /**
-         * Debug
+         *
          */
         if(this._debug) {
             progressLayout.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);

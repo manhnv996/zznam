@@ -84,6 +84,15 @@ function getMachineConfigByType (type) {
     }
 }
 
+function getProductConfigById (id) {
+    for (var i = 0; res.storageItemResource.length; i++) {
+        if (res.storageItemResource[i].id === id) {
+            return res.storageItemResource[i];
+        }
+    }
+    return null;
+}
+
 function getResAniIdBySeedType(seedType) {
     switch (seedType) {
         case ProductTypes.CROP_WHEAT:
@@ -350,8 +359,10 @@ function onReceiveUser(userInfo) {
             machineInfo.slot,
             machineInfo.startTime,
             machineInfo.productQueue,
+            machineInfo.boostBuild,
             machineInfo.completed,
             machineInfo.startBuildTime,
+            machineInfo.remainBuildTime,
             new Coordinate(machineInfo.x, machineInfo.y)
         );
         machineList.push(machine);

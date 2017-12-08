@@ -141,7 +141,7 @@ var PopupLayer = cc.Layer.extend({
         //
         var field = user.asset.fieldList.find(function(f) {
             return f.fieldId === fieldId;
-        })
+        });
         if (!field || field.getPlantedTime() == null){
             return false;
         }

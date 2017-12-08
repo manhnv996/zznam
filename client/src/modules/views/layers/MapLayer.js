@@ -41,9 +41,8 @@ var MapLayer = cc.Layer.extend({
 		this.initEvent();
 
 		this.initFieldList();
+        //
 
-		//var bakery = new BakerySprite(0, 20, 20);
-		//this.addChild(bakery);
 	},
 
 	onEnter: function() {
