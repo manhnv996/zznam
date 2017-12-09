@@ -283,8 +283,11 @@ var LodgeTable = cc.Layer.extend({
                             this._sprite.setLocalZOrder(10000);
                             MapLayer.instance.addChild(this._sprite);
                             break;
-                        //case "chicken_habitat":
-                        //    break;
+                        case "chicken_habitat":
+                            this._sprite = new ChickenLodgeSprite(createP.x, createP.y);
+                            this._sprite.setLocalZOrder(10000);
+                            MapLayer.instance.addChild(this._sprite);
+                            break;
                         //case "cow_habitat":
                         //    break;
                         //case "pig_habitat":
@@ -338,6 +341,18 @@ var LodgeTable = cc.Layer.extend({
                             // Success
                             MapCtrl.instance.addSpriteAlias(this._sprite);
                             this._sprite.setLogicPosition(this._sprite.lx, this._sprite.ly, false);
+                            if (typeObject === "field") {
+                                var fieldModel = new Field(new Coordinate(this._sprite.lx, this._sprite.ly), this._sprite.fieldId);
+                                user.getAsset().addField(fieldModel);
+                                MapLayer.instance.fieldList.push(this._sprite);
+                                this._sprite.field = fieldModel;
+                                // Send server
+                                testnetwork.connector.sendBuyMapObjectRequest(this._sprite.fieldId,
+                                    sender.parent.getChildByTag(0).getString(),
+                                    this._sprite.lx, this._sprite.ly);
+                            } else {
+
+                            }
                             switch (typeObject) {
                                 case "field":
                                     var fieldModel = new Field(new Coordinate(this._sprite.lx, this._sprite.ly), this._sprite.fieldId);

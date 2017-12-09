@@ -207,6 +207,8 @@ public class GameShopHandler extends BaseClientRequestHandler{
             send(new ResponseErrorCode(ErrorLog.ERROR_BUY_MAP_OBJECT_COLLISION.getValue()), user);
             return;
         }
+        
+//        System.out.println("abcxyz");
 
         //Check ruby
         
