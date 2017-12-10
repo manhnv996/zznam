@@ -145,6 +145,12 @@ testnetwork.Connector = cc.Class.extend({
                     cc.log("[E] Error occurs");
                 }
                 break;
+            case gv.CMD.ANIMAL_HARVEST:
+                cc.log("ANIMAL_HARVEST Error:", packet.error);
+                break;
+            case gv.CMD.ANIMAL_FEED:
+                cc.log("ANIMAL_FEED Error:", packet.error);
+                break;
         }
     },
     sendGetUserInfo:function() // Old
@@ -306,6 +312,20 @@ testnetwork.Connector = cc.Class.extend({
         cc.log("Send Completed Building");
         var pk = this.gameClient.getOutPacket(CmdSendBuildCompleted);
         pk.pack(id, typeBuilding);
+        this.gameClient.sendPacket(pk);
+    },
+
+    sendAnimalHarvest: function(lodgeId, animalId) {
+        cc.log("Send Animal Harvest");
+        var pk = this.gameClient.getOutPacket(CmdSendAnimalHarvest);
+        pk.pack(lodgeId, animalId);
+        this.gameClient.sendPacket(pk);
+    },
+
+    sendAnimalFeed: function(lodgeId, animalId) {
+        cc.log("Send Animal Feed", lodgeId, animalId);
+        var pk = this.gameClient.getOutPacket(CmdSendAnimalFeed);
+        pk.pack(lodgeId, animalId);
         this.gameClient.sendPacket(pk);
     }
 });

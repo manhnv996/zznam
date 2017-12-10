@@ -50,4 +50,13 @@ public class AnimalLodge extends CoordinateObject {
     public AnimalLodgeEnum getType() {
         return this.type;    
     }
+
+    public Animal getAnimalById(int id) {
+        for (int i = 0; i < this.animalList.size(); i++) {
+            if (this.animalList.get(i).getId() == id) {
+                return this.animalList.get(i);
+            }
+        }
+        return null;
+    }
 }

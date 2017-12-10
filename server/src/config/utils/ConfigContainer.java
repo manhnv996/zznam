@@ -14,6 +14,7 @@ import config.enums.MapItemEnum;
 
 import config.jsonobject.MachineConfig;
 import config.jsonobject.ShopCoopConfig;
+import config.jsonobject.AnimalConfig;
 import config.jsonobject.map.NaturalObject;
 
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class ConfigContainer {
     
     public static ShopCoopConfig[] shopCoopConfig;
     public static MachineConfig[] machineConfig;
+    public static AnimalConfig animalConfig;
     
     
     public static void init() {
@@ -123,6 +125,7 @@ public class ConfigContainer {
         try {
             shopCoopConfig = gson.fromJson(new FileReader("src/config/json/shopCoopconfig.json"), ShopCoopConfig[].class);
             machineConfig =  gson.fromJson(new FileReader("src/config/json/machineConfig.json"), MachineConfig[].class);
+            animalConfig = gson.fromJson(new FileReader("src/config/json/animalConfig.json"), AnimalConfig.class);
 //            System.out.println(shopCoopConfig[0].type);
         } catch (FileNotFoundException e) {
             e.printStackTrace();    

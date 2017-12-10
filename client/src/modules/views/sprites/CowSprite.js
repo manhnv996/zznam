@@ -25,6 +25,18 @@ var CowSprite = AnimalSprite.extend({
 			return;
 		}
 
+		if (this.remainTime > 0) {
+			// cc.log("Set scheduleOnce after", this.remainTime / 1000);
+			this.scheduleOnce(this.harvest, this.remainTime / 1000);
+			this.doAction();
+			this.scheduleOnce(function() {
+				// cc.log("Start schedule");
+				this.schedule(this.doAction, 4.0);
+			}.bind(this), Math.round(Math.random() * 100) % 40 / 10);
+		} else {
+			this.harvest();
+		}
+
 		// var rand = Math.round(Math.random() * 10) % 3;
 		// if (rand === 0) {
 		// 	this.walk();
@@ -33,12 +45,6 @@ var CowSprite = AnimalSprite.extend({
 		// } else {
 		// 	return this.play(CowSprite.Idle1);
 		// }
-		
-		this.doAction();
-		this.scheduleOnce(function() {
-			// cc.log("Start schedule");
-			this.schedule(this.doAction, 4.0);
-		}.bind(this), Math.round(Math.random() * 100) % 40 / 10);
 	},
 
 	doAction: function() {

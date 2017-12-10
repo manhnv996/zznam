@@ -73,5 +73,7 @@ public class CmdDefine {
     public static final short FRIEND_RESPONSE_INVITATION = 3019;
     public static final short FRIEND_SET_STAR = 3020;
 
-
+    // Animal
+    public static final short ANIMAL_HARVEST = 12001;
+    public static final short ANIMAL_FEED = 12002;
 }

@@ -49,4 +49,13 @@ public class Animal {
     public void setFeeded(boolean feeded) {
         this.feeded = feeded;
     }
+
+    public void feed() {
+        this.feeded = true;
+        this.feededTime = System.currentTimeMillis();
+    }
+
+    public void harvest() {
+        this.feeded = false;
+    }
 }

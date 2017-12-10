@@ -44,6 +44,9 @@ gv.CMD.UPGRADE_STORAGE_REQUEST = 8002;
 //Constructed
 gv.CMD.BUID_COMPLETED = 9001;
 
+// Animal
+gv.CMD.ANIMAL_HARVEST = 12001;
+gv.CMD.ANIMAL_FEED = 12002;
 
 testnetwork = testnetwork||{};
 testnetwork.packetMap = {};
@@ -322,6 +325,35 @@ CmdSendBuildCompleted = fr.OutPacket.extend({
         this.packHeader();
         this.putInt(id);
         this.putInt(typeBuilding);
+        this.updateSize();
+    }
+});
+
+// Animal
+CmdSendAnimalHarvest = fr.OutPacket.extend({
+    ctor: function() {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.ANIMAL_HARVEST);
+    },
+    pack: function(lodgeId, animalId) {
+        this.packHeader();
+        this.putInt(lodgeId);
+        this.putInt(animalId);
+        this.updateSize();
+    }
+});
+
+CmdSendAnimalFeed = fr.OutPacket.extend({
+    ctor: function() {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.ANIMAL_FEED);
+    },
+    pack: function(lodgeId, animalId) {
+        this.packHeader();
+        this.putInt(lodgeId);
+        this.putInt(animalId);
         this.updateSize();
     }
 });
@@ -730,5 +762,23 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         }
 
         return machine;
+    }
+});
+
+testnetwork.packetMap[gv.CMD.ANIMAL_HARVEST] = fr.InPacket.extend({
+    ctor: function() {
+        this._super();
+    },
+    readData: function() {
+        this.error = this.getInt();
+    }
+});
+
+testnetwork.packetMap[gv.CMD.ANIMAL_FEED] = fr.InPacket.extend({
+    ctor: function() {
+        this._super();
+    },
+    readData: function() {
+        this.error = this.getInt();
     }
 });
