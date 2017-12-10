@@ -65,6 +65,11 @@ for f in crtdict.keys():
 
 save_db(crtdict)
 
+for f in changed_files:
+    print('[CHANGE] ' + f)
+
+print('\n -- BUILD --\n')
+
 if len(changed_files) > 0:
     command = build_command(changed_files)
     print command
