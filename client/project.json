@@ -55,6 +55,7 @@
         "src/modules/utils/caculateDistance.js",
         "src/modules/configs/MapItemEnum.js",
         "src/modules/configs/AnimalConfig.js",
+        "src/modules/configs/TagClusters.js",
 
         "src/modules/configs/MapConfigs.js",
         "src/modules/configs/ListenerPriorityConfigs.js",
@@ -102,6 +103,7 @@
         "src/modules/controllers/GameShopController.js",
         "src/modules/controllers/StorageCtrl.js",
         "src/modules/controllers/ConstructedCtrl.js",
+        "src/modules/controllers/AnimalCtrl.js",
 
         "src/modules/models/CoordinatedObject.js",
         "src/modules/models/ConstructedObject.js",

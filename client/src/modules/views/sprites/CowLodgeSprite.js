@@ -14,9 +14,9 @@ var CowLodgeSprite = AnimalLodgeSprite.extend({
 		// }
 	},
 
-	// onClick: function() {
-	// 	cc.log('Cow lodge clicked', this.getLocalZOrder(), this.lx, this.ly);
-	// },
+	onClick: function(lx, ly) {
+		AnimalCtrl.instance.onMoveFeedTool(lx, ly);
+	},
 
 	setLogicPosition: function(lx, ly, notUpdatePriority) {
 		this._super(lx, ly, notUpdatePriority);

@@ -1,6 +1,8 @@
 var CowSprite = AnimalSprite.extend({
 	direction: null,
 	lstAction: 0,
+	entered: false,
+	isHungry: false,
 
 	ctor: function() {
 		this._super(resAniId.Fix_cow);
@@ -9,6 +11,7 @@ var CowSprite = AnimalSprite.extend({
 
 	onEnter: function() {
 		this._super();
+		this.entered = true;
 
 		// Random position
 		this.maxX = this.getParent().blockSizeX;
@@ -16,32 +19,26 @@ var CowSprite = AnimalSprite.extend({
 		var lx = (Math.round(Math.random() * 100) % ((this.maxX - 1) * 10)) / 10 + 0.5;
 		var ly = (Math.round(Math.random() * 100) % ((this.maxY - 1) * 10)) / 10 + 0.5;
 		this.setLogicPosition(lx, ly);
-
-		var rand = Math.round(Math.random() * 10) % 3;
-		if (rand === 0) {
-			this.walk();
-		} else if (rand === 1) {
-			 this.play(CowSprite.Idle2);
-		} else {
-			return this.play(CowSprite.Idle1);
-		}
 		
-		// this.doAction();
-		this.play(Math.random() > 0.5 ? CowSprite.Idle1 : CowSprite.Idle2);
+		if (this.isHungry) {
+			this.play(CowSprite.Hungry);
+			return;
+		}
+
+		// var rand = Math.round(Math.random() * 10) % 3;
+		// if (rand === 0) {
+		// 	this.walk();
+		// } else if (rand === 1) {
+		// 	 this.play(CowSprite.Idle2);
+		// } else {
+		// 	return this.play(CowSprite.Idle1);
+		// }
+		
+		this.doAction();
 		this.scheduleOnce(function() {
 			// cc.log("Start schedule");
 			this.schedule(this.doAction, 4.0);
-		}.bind(this), Math.round(Math.random() * 100) % 50 / 10);
-
-		// this.walk();
-
-		// this.scheduleOnce(function() {
-		// 	this.unschedule(this.doAction);
-		// 	this.harvest();
-		// }.bind(this), 10);
-		// this.scheduleOnce(function() {
-		// 	this.hungry();
-		// }.bind(this), 15);
+		}.bind(this), Math.round(Math.random() * 100) % 40 / 10);
 	},
 
 	doAction: function() {
@@ -88,11 +85,21 @@ var CowSprite = AnimalSprite.extend({
 
 	harvest: function() {
 		this.unscheduleUpdate();
+		this.unschedule(this.doAction);
 		this.play(CowSprite.Harvest);
 	},
 
 	hungry: function() {
-		this.play(CowSprite.Hungry);
+		cc.log("Set hungry");
+		this.isHungry = true; // firstTime only
+		if (this.entered) {
+			this.play(CowSprite.Hungry);
+		}
+	},
+
+	feed: function() {
+		this.doAction();
+		this.schedule(this.doAction, 4.0);
 	},
 
 	update: function(dt) {
@@ -109,6 +116,10 @@ var CowSprite = AnimalSprite.extend({
 			return;
 		}
 		this.setLogicPosition(newX, newY);
+	},
+
+	setOnHarvestTime: function(time) {
+		this._setOnHarvestTime(time, AnimalConfig.cow.time * 1000);
 	}
 });
 

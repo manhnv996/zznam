@@ -92,6 +92,24 @@ var User = cc.Class.extend({
             return true;
         }
         return false;
-    }
+    },
 
+    getModelObjectAtMap: function(lx, ly) {
+        ly = Math.floor(lx.y || ly);
+        lx = Math.floor(lx.x || lx);
+        // Check for click outside of x
+        if (!this.map[lx]) {
+            return null;
+        }
+        var type = this.map[lx][ly];
+        switch (type) {
+            case MapItemEnum.LODGE:
+                return {
+                    type: type,
+                    model: this.asset.getLodgeByPosition(lx, ly)
+                }
+            default:
+                return null;
+        }
+    }
 });

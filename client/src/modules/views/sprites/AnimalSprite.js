@@ -40,5 +40,23 @@ var AnimalSprite = cc.Sprite.extend({
 
 	setId: function(id) {
 		this.id = id;
+	},
+
+	// Need to override
+	hungry: function() {},
+	feed: function() {},
+	setOnHarvestTime: function(time) {},
+	_setOnHarvestTime: function(time, totalTime) {
+		cc.log("Set On harvest time", time);
+		var current = new Date().getTime();
+		var deltaTime = current - time;
+		this.remainTime = totalTime - deltaTime;
+		if (this.entered) {
+			if (this.remainTime > 0) {
+				this.scheduleOnce(this.harvest, this.remainTime / 1000);
+			} else {
+				this.harvest();
+			}
+		}
 	}
 });

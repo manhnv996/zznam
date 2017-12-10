@@ -71,5 +71,35 @@ var AnimalLodge = CoordinatedObject.extend({
             }
         });
         return count;
+    },
+
+    isHungry: function() {
+        for (var i = 0; i < this.animalList.length; i++) {
+            if (!this.animalList[i].feeded) {
+                return true;
+            }
+        }
+        return false;
+    },
+
+    canHarvest: function() {
+        var crtTime = new Date().getTime();
+        var harvestTime = AnimalConfig[this.type.split('_')[0]].time * 1000;
+
+        for (var i = 0; i < this.animalList.length; i++) {
+            var animal = this.animalList[i];
+            var duration = crtTime - animal.feededTime;
+            if (duration > harvestTime) {
+                return true;
+            }
+        }
+        return false;
+    },
+
+    getAnimalById: function(id) {
+        return this.animalList.find(function(animal) {
+            return animal.id === id;
+        });
     }
+
 });

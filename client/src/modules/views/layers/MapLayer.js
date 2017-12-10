@@ -367,7 +367,7 @@ var MapLayer = cc.Layer.extend({
 		for (var i = 0; i < MapConfigs.Init.width; i++) {
 			_res.push(Math.round(Math.random() * 10 ) % 3);
 		}
-		var resArr = [res.STONE_13, res.HOA_2, res.HOA_1];
+		var resArr = [res.STONE_12, res.STONE_13, res.HOA_2, res.HOA_1];
 		for (var i = 0; i < 32; i++) {
 			var sprite = new cc.Sprite(resArr[_res[i]]);
 			sprite.setPosition(MapValues.logicToPosition(i, -1));
@@ -526,6 +526,10 @@ var MapLayer = cc.Layer.extend({
 	            		}
 	            		this.lstDistance = caculateDistance(p1, p2);
 	            	}
+            	}
+            	if (__DEBUG) {
+            		var lp = MapValues.screenPositionToLogic(touch.getLocation().x, touch.getLocation().y);
+            		cc.log("Map Clicked", lp, user.getModelObjectAtMap(lp.x, lp.y));
             	}
 				return true;
             }.bind(this),
