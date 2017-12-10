@@ -30,7 +30,7 @@ var MapBlockSprite = cc.Sprite.extend({
     },
 
     // Override there methods in inherited class
-    onClick: function() {},
+    onClick: function(lx, ly) {},
     onBeginClick: function() {},
     onEndClick: function() {},
     onFinishMove: function(lx, ly) {},
@@ -208,7 +208,9 @@ var MapBlockSprite = cc.Sprite.extend({
             // MapLayer.instance.inertia(velocity);
         }
         if (!this.touchMoved && !this.moveSpriteMode) {
-            this.onClick();
+            // caculate logic position and pass to onClick
+            var lp = MapValues.screenPositionToLogic(this.lstMouse.x, this.lstMouse.y);
+            this.onClick(lp.x, lp.y);
         }
     },
 
