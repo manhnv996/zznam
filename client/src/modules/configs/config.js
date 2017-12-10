@@ -93,6 +93,13 @@ function getProductConfigById (id) {
     return null;
 }
 
+function fromGoldToRuby(gold) {
+    var ruby = gold / 15;
+    if(gold % 15) ruby++;
+    ruby = Math.floor(ruby);
+    return ruby;
+}
+
 function getResAniIdBySeedType(seedType) {
     switch (seedType) {
         case ProductTypes.CROP_WHEAT:
