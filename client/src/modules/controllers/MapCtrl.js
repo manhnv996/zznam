@@ -171,7 +171,7 @@ var MapCtrl = cc.Class.extend({
             var lodge = animalLodgeList[i];
             var lodgeSprite = null;
             if (lodge.type === AnimalLodgeType.cow_habitat) {
-                lodgeSprite = new CowLodgeSprite(lodge.coordinate.x, lodge.coordinate.y);
+                lodgeSprite = new CowLodgeSprite(lodge.id, lodge.coordinate.x, lodge.coordinate.y);
                 for (var j = 0; j < lodge.animalList.length; j++) {
                     var cowSprite = new CowSprite();
                     cowSprite.setId(lodge.animalList[j].id);
@@ -184,7 +184,7 @@ var MapCtrl = cc.Class.extend({
                     }
                 }
             } else if (lodge.type === AnimalLodgeType.chicken_habitat) {
-                lodgeSprite = new ChickenLodgeSprite(lodge.coordinate.x, lodge.coordinate.y);
+                lodgeSprite = new ChickenLodgeSprite(lodge.id, lodge.coordinate.x, lodge.coordinate.y);
                 for (var j = 0; j < lodge.animalList.length; j++) {
                     var chickenSprite = new ChickenSprite();
                     chickenSprite.setId(lodge.animalList[j].id);

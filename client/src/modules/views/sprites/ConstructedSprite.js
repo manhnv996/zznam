@@ -7,7 +7,7 @@ var ConstructedSprite = AnimationSprite.extend({
     id: null,
     //buildTime: 0,
 
-    ctor: function (id, w, h, x, y, typeBuilding, typeMapObject) {
+    ctor: function (id, w, h, x, y, typeBuilding) {
         var aniId;
         var nameAni;
         if (w === 2 && h === 2){
@@ -20,11 +20,10 @@ var ConstructedSprite = AnimationSprite.extend({
             aniId = resAniId.Nhdangxay4x4;
             nameAni = "4";
         }
-        this._super(aniId, w, h, x, y ,typeMapObject);
+        this._super(aniId, w, h, x, y ,typeBuilding);
 
         this.id = id;
         this.typeBuilding = typeBuilding;
-        this.typeMapObject = typeMapObject;
         //cc.log("Constructed sprite id", this.id);
 
         //this.buildTime = ConstructedCtrl.instance.getBuildTime(id);

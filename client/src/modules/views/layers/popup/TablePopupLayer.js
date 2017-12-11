@@ -33,6 +33,6 @@ var TablePopupLayer = cc.Layer.extend({
             this.removeAllChildren();
             this._layout = null;
         }
-    },
+    }
 
 });

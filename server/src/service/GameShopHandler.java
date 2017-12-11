@@ -17,6 +17,7 @@ import cmd.receive.gameshop.RequestBuyMapObjectByRuby;
 
 import cmd.send.demo.ResponseErrorCode;
 
+import config.enums.AnimalLodgeEnum;
 import config.enums.ErrorLog;
 import config.enums.MachineTypeEnum;
 import config.enums.MapItemEnum;
@@ -27,6 +28,7 @@ import config.utils.ConfigContainer;
 
 import java.util.Date;
 
+import model.AnimalLodge;
 import model.Field;
 import model.Machine;
 import model.ZPUserInfo;
@@ -40,6 +42,13 @@ public class GameShopHandler extends BaseClientRequestHandler{
     
     public static short GAMESHOP_MULTI_IDS = 7000;
     private final Logger logger = LoggerFactory.getLogger("GameShopBuyHandler");
+    
+    private int width;
+    private int height;
+    private int price;
+    private int mapType;
+    private MachineTypeEnum machineType;
+    private AnimalLodgeEnum animalLodgeType;
     
     public GameShopHandler() {
         super();
@@ -79,48 +88,9 @@ public class GameShopHandler extends BaseClientRequestHandler{
         if (userInfo == null) {
             return;    
         }
-        int width;
-        int height;
-        int price;
-        int mapType;
-        if (req.type.equals("field")) {
-            width = ConfigContainer.mapConfig.Field.size.width;
-            height = ConfigContainer.mapConfig.Field.size.height;
-            price = ConfigContainer.getCoopPrice(req.type);
-            mapType = MapItemEnum.FIELD;
-            
-        } else if (req.type.equals("bakery_machine")) {
-            width = ConfigContainer.mapConfig.Machine.Bakery_Machine.size.width;
-            height = ConfigContainer.mapConfig.Machine.Bakery_Machine.size.height;
-            price = ConfigContainer.getCoopPrice(req.type);
-            mapType = MapItemEnum.BAKERY;
-            
-        } else if (req.type.equals("food_machine")) {
-            width = ConfigContainer.mapConfig.Machine.Food_Machine.size.width;
-            height = ConfigContainer.mapConfig.Machine.Food_Machine.size.height;
-            price = ConfigContainer.getCoopPrice(req.type);
-            mapType = MapItemEnum.FOOD_GRINDER;
-            
-        } else if (req.type.equals("butter_machine")) {
-            width = ConfigContainer.mapConfig.Machine.Butter_Machine.size.width;
-            height = ConfigContainer.mapConfig.Machine.Butter_Machine.size.height;
-            price = ConfigContainer.getCoopPrice(req.type);
-            mapType = MapItemEnum.BUTTER;
-            
-        } else if (req.type.equals("sugar_machine")) {
-            width = ConfigContainer.mapConfig.Machine.Sugar_Machine.size.width;
-            height = ConfigContainer.mapConfig.Machine.Sugar_Machine.size.height;
-            price = ConfigContainer.getCoopPrice(req.type);
-            mapType = MapItemEnum.SUGAR_MAKER;
-            
-        } else if (req.type.equals("popcorn_machine")) {
-            width = ConfigContainer.mapConfig.Machine.Popcorn_Machine.size.width;
-            height = ConfigContainer.mapConfig.Machine.Popcorn_Machine.size.height;
-            price = ConfigContainer.getCoopPrice(req.type);
-            mapType = MapItemEnum.POPCORN_MAKER;
-        } else {
-            return;
-        }
+        
+        //get info object
+        getInfoObj(req.type);
 
         //Check Collision
         if (!userInfo.getMap().checkValidBlock(req.x, req.y, width, height)) {
@@ -143,7 +113,7 @@ public class GameShopHandler extends BaseClientRequestHandler{
         }
 
         //OK
-        addObject(user, userInfo, mapType, req.id, req.x, req.y, width, height);
+        addObject(user, userInfo, req.type, req.id, req.x, req.y);
 
         send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
         
@@ -165,43 +135,8 @@ public class GameShopHandler extends BaseClientRequestHandler{
             return;    
         }
         
-        int width;
-        int height;
-        int price;
-        int mapType;
-        if (reqRuby.type.equals("field")) {
-            width = ConfigContainer.mapConfig.Field.size.width;
-            height = ConfigContainer.mapConfig.Field.size.height;
-            price = ConfigContainer.getCoopPrice(reqRuby.type);
-            mapType = MapItemEnum.FIELD;
-        } else if (reqRuby.type.equals("bakery_machine")) {
-            width = ConfigContainer.mapConfig.Machine.Bakery_Machine.size.width;
-            height = ConfigContainer.mapConfig.Machine.Bakery_Machine.size.height;
-            price = ConfigContainer.getCoopPrice(reqRuby.type);
-            mapType = MapItemEnum.BAKERY;
-        } else if (reqRuby.type.equals("food_machine")) {
-            width = ConfigContainer.mapConfig.Machine.Food_Machine.size.width;
-            height = ConfigContainer.mapConfig.Machine.Food_Machine.size.height;
-            price = ConfigContainer.getCoopPrice(reqRuby.type);
-            mapType = MapItemEnum.FOOD_GRINDER;
-        } else if (reqRuby.type.equals("butter_machine")) {
-            width = ConfigContainer.mapConfig.Machine.Butter_Machine.size.width;
-            height = ConfigContainer.mapConfig.Machine.Butter_Machine.size.height;
-            price = ConfigContainer.getCoopPrice(reqRuby.type);
-            mapType = MapItemEnum.BUTTER;
-        } else if (reqRuby.type.equals("sugar_machine")) {
-            width = ConfigContainer.mapConfig.Machine.Sugar_Machine.size.width;
-            height = ConfigContainer.mapConfig.Machine.Sugar_Machine.size.height;
-            price = ConfigContainer.getCoopPrice(reqRuby.type);
-            mapType = MapItemEnum.SUGAR_MAKER;
-        } else if (reqRuby.type.equals("popcorn_machine")) {
-            width = ConfigContainer.mapConfig.Machine.Popcorn_Machine.size.width;
-            height = ConfigContainer.mapConfig.Machine.Popcorn_Machine.size.height;
-            price = ConfigContainer.getCoopPrice(reqRuby.type);
-            mapType = MapItemEnum.POPCORN_MAKER;
-        } else {
-            return;
-        }
+        getInfoObj(reqRuby.type);
+        
         //Check collision
         if (!userInfo.getMap().checkValidBlock(reqRuby.x, reqRuby.y, width, height)) {
             send(new ResponseErrorCode(ErrorLog.ERROR_BUY_MAP_OBJECT_COLLISION.getValue()), user);
@@ -231,7 +166,7 @@ public class GameShopHandler extends BaseClientRequestHandler{
         }
 
         //OK
-        addObject(user, userInfo, mapType, reqRuby.id, reqRuby.x, reqRuby.y, width, height);
+        addObject(user, userInfo, reqRuby.type, reqRuby.id, reqRuby.x, reqRuby.y);
 
         send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
         
@@ -242,8 +177,8 @@ public class GameShopHandler extends BaseClientRequestHandler{
         }
     }
 
-    public void addObject(User user, ZPUserInfo userInfo, int mapType, int id, int x, int y, int width, int height) {
-        userInfo.getMap().addMapAlias(x, y, width, height, mapType);
+    public void addObject(User user, ZPUserInfo userInfo, String typeObj, int id, int x, int y) {
+        userInfo.getMap().addMapAlias(x, y, this.width, this.height, this.mapType);
         switch (mapType) {
             case MapItemEnum.FIELD:
                 Field fieldModel = new Field(id, x, y);
@@ -252,35 +187,15 @@ public class GameShopHandler extends BaseClientRequestHandler{
                     return;
                 }
                 break;
-            case MapItemEnum.BAKERY:
-                Machine bakeryModel =
-                    new Machine(id, MachineTypeEnum.bakery_machine, ConfigContainer.getMachineSlot("bakery_machine"),
-                                new Date().getTime(), false, false, x, y);
-                userInfo.getAsset().addMachine(bakeryModel);
+            case MapItemEnum.MACHINE:
+                Machine machineModel = new Machine(id, this.machineType, ConfigContainer.getMachineSlot(typeObj),
+                                    new Date().getTime(), false, false, x, y);
+                userInfo.getAsset().addMachine(machineModel);
                 break;
-            case MapItemEnum.FOOD_GRINDER:
-                Machine foodMachineModel =
-                    new Machine(id, MachineTypeEnum.food_machine, ConfigContainer.getMachineSlot("food_machine"),
-                                new Date().getTime(), false, false, x, y);
-                userInfo.getAsset().addMachine(foodMachineModel);
-                break;
-            case MapItemEnum.BUTTER:
-                Machine butterMachineModel =
-                    new Machine(id, MachineTypeEnum.butter_machine, ConfigContainer.getMachineSlot("butter_machine"),
-                                new Date().getTime(), false, false, x, y);
-                userInfo.getAsset().addMachine(butterMachineModel);
-                break;
-            case MapItemEnum.SUGAR_MAKER:
-                Machine sugarMachineModel =
-                    new Machine(id, MachineTypeEnum.sugar_machine, ConfigContainer.getMachineSlot("sugar_machine"),
-                                new Date().getTime(), false, false, x, y);
-                userInfo.getAsset().addMachine(sugarMachineModel);
-                break;
-            case MapItemEnum.POPCORN_MAKER:
-                Machine popcornMachineModel =
-                    new Machine(id, MachineTypeEnum.popcorn_machine, ConfigContainer.getMachineSlot("popcorn_machine"),
-                                new Date().getTime(), false, false, x, y);
-                userInfo.getAsset().addMachine(popcornMachineModel);
+            case MapItemEnum.LODGE:
+                AnimalLodge animalLodge =
+                    new AnimalLodge(id, this.animalLodgeType, x, y);
+                userInfo.getAsset().addAnimalLodge(animalLodge);
                 break;
         }
     }
@@ -292,5 +207,59 @@ public class GameShopHandler extends BaseClientRequestHandler{
         } else {
             return ruby;
         }
+    }
+    
+    private void getInfoObj(String typeObj) {
+        if (typeObj.equals("field")) {
+            this.width = ConfigContainer.mapConfig.Field.size.width;
+            this.height = ConfigContainer.mapConfig.Field.size.height;
+//            this.price = ConfigContainer.getCoopPrice(typeObj);
+            this.mapType = MapItemEnum.FIELD;
+        } else if (typeObj.equals("bakery_machine")) {
+            this.width = ConfigContainer.mapConfig.Machine.Bakery_Machine.size.width;
+            this.height = ConfigContainer.mapConfig.Machine.Bakery_Machine.size.height;
+//            this.price = ConfigContainer.getCoopPrice(typeObj);
+            this.machineType = MachineTypeEnum.bakery_machine;
+            this.mapType = MapItemEnum.MACHINE;
+        } else if (typeObj.equals("food_machine")) {
+            this.width = ConfigContainer.mapConfig.Machine.Food_Machine.size.width;
+            this.height = ConfigContainer.mapConfig.Machine.Food_Machine.size.height;
+//            this.price = ConfigContainer.getCoopPrice(typeObj);
+            this.machineType = MachineTypeEnum.food_machine;
+            this.mapType = MapItemEnum.MACHINE;
+        } else if (typeObj.equals("butter_machine")) {
+            this.width = ConfigContainer.mapConfig.Machine.Butter_Machine.size.width;
+            this.height = ConfigContainer.mapConfig.Machine.Butter_Machine.size.height;
+//            this.price = ConfigContainer.getCoopPrice(typeObj);
+            this.machineType = MachineTypeEnum.butter_machine;
+            this.mapType = MapItemEnum.MACHINE;
+        } else if (typeObj.equals("sugar_machine")) {
+            width = ConfigContainer.mapConfig.Machine.Sugar_Machine.size.width;
+            height = ConfigContainer.mapConfig.Machine.Sugar_Machine.size.height;
+//            price = ConfigContainer.getCoopPrice(typeObj);
+            this.machineType = MachineTypeEnum.sugar_machine;
+            mapType = MapItemEnum.MACHINE;
+        } else if (typeObj.equals("popcorn_machine")) {
+            this.width = ConfigContainer.mapConfig.Machine.Popcorn_Machine.size.width;
+            this.height = ConfigContainer.mapConfig.Machine.Popcorn_Machine.size.height;
+//            this.price = ConfigContainer.getCoopPrice(typeObj);
+            this.machineType = MachineTypeEnum.popcorn_machine;
+            this.mapType = MapItemEnum.MACHINE;
+        } else if (typeObj.equals("chicken_habitat")) {
+            this.width = ConfigContainer.mapConfig.ChickenLodge.size.width;
+            this.height = ConfigContainer.mapConfig.ChickenLodge.size.height;
+//            this.price = ConfigContainer.getCoopPrice(typeObj);
+            this.animalLodgeType = AnimalLodgeEnum.chicken_habitat;
+            this.mapType = MapItemEnum.LODGE;
+        } else if (typeObj.equals("cow_habitat")) {
+            this.width = ConfigContainer.mapConfig.CowLodge.size.width;
+            this.height = ConfigContainer.mapConfig.CowLodge.size.height;
+//            this.price = ConfigContainer.getCoopPrice(typeObj);
+            this.animalLodgeType = AnimalLodgeEnum.cow_habitat;
+            this.mapType = MapItemEnum.LODGE;
+        } else{
+            return;
+        }
+        this.price = ConfigContainer.getCoopPrice(typeObj);
     }
 }

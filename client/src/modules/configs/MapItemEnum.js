@@ -4,11 +4,11 @@ var MapItemEnum = {
 	WAREHOUSE: 2,
 	FIELD: 3,
 
-	BUTTER: 4,
-	BAKERY: 5,
-	SUGAR_MAKER: 6,
-	FOOD_GRINDER: 7,
-	POPCORN_MAKER: 8,
+	BUTTER: 4, // Unused
+	BAKERY: 5, // Unused
+	SUGAR_MAKER: 6, // Unused
+	FOOD_GRINDER: 7, // Unused
+	POPCORN_MAKER: 8, // Unused
 
 	COW_LODGE: 10,
 	CHICKEN_LODGE: 11,

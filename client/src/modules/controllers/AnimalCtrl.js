@@ -47,7 +47,7 @@ var AnimalCtrl = cc.Class.extend({
 			return;
 		}
 		var lodgeSprite = MapLayer.instance.getChildByTag(TagClusters.Lodge + lodge.id);
-		lodgeSprite.getAnimalIdsAroundPoint(lx, ly)
+		lodgeSprite.getAnimalIdsAroundPoint(lx, ly) // ids
 		.map(function(id) {
 			return lodge.getAnimalById(id);
 		})

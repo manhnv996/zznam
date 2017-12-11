@@ -1,7 +1,8 @@
 var CowLodgeSprite = AnimalLodgeSprite.extend({
 	cowSpriteList: [],
+	id: null,
 
-	ctor: function(x, y) {
+	ctor: function(id, x, y) {
 		this._super(
 			res.COW_LODGE_GROUND, res.COW_LODGE_FENCE,
 			22, 13, 26,
@@ -12,6 +13,8 @@ var CowLodgeSprite = AnimalLodgeSprite.extend({
 		// 	cow.id = i;
 		// 	this.addChild(cow);
 		// }
+
+		this.id = id;
 	},
 
 	onClick: function(lx, ly) {

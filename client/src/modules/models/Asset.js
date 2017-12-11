@@ -95,8 +95,15 @@ var Asset = cc.Class.extend({
 
     addMachine: function (machine) {
         this.machineList.push(machine);
-        if (machine.id == 0) {
+        if (machine.id === 0) {
             machine.id = this.machineList.length;
+        }
+    },
+
+    addAnimalLodge: function (animalLodge) {
+        this.animalLodgeList.push(animalLodge);
+        if (animalLodge.id === 0) {
+            animalLodge.id = this.animalLodgeList.length;
         }
     },
 

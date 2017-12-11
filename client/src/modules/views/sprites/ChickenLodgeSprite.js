@@ -1,11 +1,14 @@
 var ChickenLodgeSprite = AnimalLodgeSprite.extend({
 	// chickenSpriteList: [],
+	id: null,
 
-	ctor: function(x, y) {
+	ctor: function(id, x, y) {
 		this._super(
 			res.CHICKEN_LODGE_GROUND, res.CHICKEN_LODGE_FENCE, 
 			19, 9, 22,
 			3, 3, x, y, MapItemEnum.LODGE);
+
+		this.id = id;
 	},
 
 	setLogicPosition: function(lx, ly, notUpdatePriority) {

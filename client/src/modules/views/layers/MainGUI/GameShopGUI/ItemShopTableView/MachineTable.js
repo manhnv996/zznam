@@ -291,31 +291,31 @@ var MachineTable = cc.Layer.extend({
                                     this._sprite = new ConstructedSprite(machineModel.id,
                                         MapConfigs.BakeryMachine.size.width, MapConfigs.BakeryMachine.size.height,
                                         machineModel.coordinate.x, machineModel.coordinate.y,
-                                        MapItemEnum.MACHINE, MapItemEnum.BAKERY);
+                                        MapItemEnum.MACHINE);
                                     break;
                                 case "food_machine":
                                     this._sprite = new ConstructedSprite(machineModel.id,
                                         MapConfigs.FoodMachine.size.width, MapConfigs.FoodMachine.size.height,
                                         machineModel.coordinate.x, machineModel.coordinate.y,
-                                        MapItemEnum.MACHINE, MapItemEnum.FOOD_GRINDER);
+                                        MapItemEnum.MACHINE);
                                     break;
                                 case "butter_machine":
                                     this._sprite = new ConstructedSprite(machineModel.id,
                                         MapConfigs.ButterMachine.size.width, MapConfigs.ButterMachine.size.height,
                                         machineModel.coordinate.x, machineModel.coordinate.y,
-                                        MapItemEnum.MACHINE, MapItemEnum.BUTTER);
+                                        MapItemEnum.MACHINE);
                                     break;
                                 case "sugar_machine":
                                     this._sprite = new ConstructedSprite(machineModel.id,
                                         MapConfigs.SugarMachine.size.width, MapConfigs.SugarMachine.size.height,
                                         machineModel.coordinate.x, machineModel.coordinate.y,
-                                        MapItemEnum.MACHINE, MapItemEnum.SUGAR_MAKER);
+                                        MapItemEnum.MACHINE);
                                     break;
                                 case "popcorn_machine":
                                     this._sprite = new ConstructedSprite(machineModel.id,
                                         MapConfigs.PopcornMachine.size.width, MapConfigs.PopcornMachine.size.height,
                                         machineModel.coordinate.x, machineModel.coordinate.y,
-                                        MapItemEnum.MACHINE, MapItemEnum.POPCORN_MAKER);
+                                        MapItemEnum.MACHINE);
                                     break;
 
                             }
@@ -327,7 +327,6 @@ var MachineTable = cc.Layer.extend({
                             //Send Server
                             testnetwork.connector.sendBuyMapObjectRequest(this._sprite.id,
                                 this.typeObject, this._sprite.lx, this._sprite.ly);
-
 
                             GameShopLayout.instance.show();
                         }

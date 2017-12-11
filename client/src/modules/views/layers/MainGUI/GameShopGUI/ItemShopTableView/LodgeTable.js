@@ -279,17 +279,16 @@ var LodgeTable = cc.Layer.extend({
                     createP.y = Math.floor(createP.y);
                     switch (sender.parent.getChildByTag(0).getString()) {
                         case "field":
-                            this._sprite = new FieldSprite(user.getAsset().getFieldList().length + 1, createP.x, createP.y);
-                            this._sprite.setLocalZOrder(10000);
-                            MapLayer.instance.addChild(this._sprite);
+                            this._sprite = new FieldSprite(user.asset.getFieldList().length + 1, createP.x, createP.y);
                             break;
-                        case "chicken_habitat":
-                            this._sprite = new ChickenLodgeSprite(createP.x, createP.y);
-                            this._sprite.setLocalZOrder(10000);
-                            MapLayer.instance.addChild(this._sprite);
+                        case AnimalLodgeType.chicken_habitat:
+                            this._sprite = new ChickenLodgeSprite(user.asset.getAnimalLodgeList().length + 1,
+                                createP.x, createP.y);
                             break;
-                        //case "cow_habitat":
-                        //    break;
+                        case AnimalLodgeType.cow_habitat:
+                            this._sprite = new CowLodgeSprite(user.asset.getAnimalLodgeList().length + 1,
+                                createP.x, createP.y);
+                            break;
                         //case "pig_habitat":
                         //    break;
                         //case "sheep_habitat":
@@ -297,6 +296,8 @@ var LodgeTable = cc.Layer.extend({
                         //case "goat_habitat":
                         //    break;
                     }
+                    this._sprite.setLocalZOrder(10000);
+                    MapLayer.instance.addChild(this._sprite);
                 }
                 //cc.log(this._sprite);
                 //if (this._sprite) {
@@ -343,37 +344,23 @@ var LodgeTable = cc.Layer.extend({
                             this._sprite.setLogicPosition(this._sprite.lx, this._sprite.ly, false);
                             if (typeObject === "field") {
                                 var fieldModel = new Field(new Coordinate(this._sprite.lx, this._sprite.ly), this._sprite.fieldId);
-                                user.getAsset().addField(fieldModel);
+                                user.asset.addField(fieldModel);
                                 MapLayer.instance.fieldList.push(this._sprite);
                                 this._sprite.field = fieldModel;
                                 // Send server
                                 testnetwork.connector.sendBuyMapObjectRequest(this._sprite.fieldId,
-                                    sender.parent.getChildByTag(0).getString(),
-                                    this._sprite.lx, this._sprite.ly);
+                                    typeObject, this._sprite.lx, this._sprite.ly);
                             } else {
-
+                                //Model
+                                var lodgeModel = new AnimalLodge(new Coordinate(this._sprite.lx, this._sprite.ly),
+                                                            typeObject, this._sprite.id, null);
+                                user.asset.addAnimalLodge(lodgeModel);
+                                this._sprite.tag = TagClusters.Lodge + lodgeModel.id;
+                                //Send server
+                                testnetwork.connector.sendBuyMapObjectRequest(lodgeModel.id, typeObject,
+                                                                        this._sprite.lx, this._sprite.ly);
                             }
-                            switch (typeObject) {
-                                case "field":
-                                    var fieldModel = new Field(new Coordinate(this._sprite.lx, this._sprite.ly), this._sprite.fieldId);
-                                    user.getAsset().addField(fieldModel);
-                                    MapLayer.instance.fieldList.push(this._sprite);
-                                    this._sprite.field = fieldModel;
-                                    // Send server
-                                    testnetwork.connector.sendBuyMapObjectRequest(this._sprite.fieldId,
-                                        sender.parent.getChildByTag(0).getString(),
-                                        this._sprite.lx, this._sprite.ly);
-                                    //cc.log("Send server buy field");
-                                    //...
-                                    break;
-                                //case "chicken_habitat":
-                                //    break;
-                                //case "cow_habitat":
-                                //    break;
-                            }
-                            //cc.log("Gold User" + user.getGold());
-                            user.reduceGold(sender.parent.getChildByTag(5).getString());
-
+                            user.reduceGold(parseInt(sender.parent.getChildByTag(5).getString()));
 
                             GameShopLayout.instance.show();
                         }

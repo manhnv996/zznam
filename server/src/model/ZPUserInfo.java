@@ -1,6 +1,7 @@
 package model;
 
 import config.enums.AnimalLodgeEnum;
+import config.enums.MachineTypeEnum;
 import config.enums.MapItemEnum;
 import config.enums.ProductType;
 import config.enums.StorageType;
@@ -96,6 +97,40 @@ public class ZPUserInfo extends DataModel {
                     MapItemEnum.LODGE);
             } else {
                 System.out.println("[E] Unhandled animal lodge type " + lodge.getType().toString());    
+            }
+        }
+        
+        // Add Machine to map 
+        List<Machine> machineList = this.asset.getMachineList();
+        for (int i = 0; i < machineList.size(); i++) {
+            Machine machine = machineList.get(i);
+            if (machine.getType() == MachineTypeEnum.bakery_machine) {
+                this.map.addMapAlias(machine.getX(), machine.getY(), 
+                    ConfigContainer.mapConfig.Machine.Bakery_Machine.size.width,
+                    ConfigContainer.mapConfig.Machine.Bakery_Machine.size.height,
+                    MapItemEnum.MACHINE);
+            } else if (machine.getType() == MachineTypeEnum.food_machine) {
+                this.map.addMapAlias(machine.getX(), machine.getY(), 
+                    ConfigContainer.mapConfig.Machine.Food_Machine.size.width,
+                    ConfigContainer.mapConfig.Machine.Food_Machine.size.height,
+                    MapItemEnum.MACHINE);
+            } else if (machine.getType() == MachineTypeEnum.butter_machine) {
+                this.map.addMapAlias(machine.getX(), machine.getY(), 
+                    ConfigContainer.mapConfig.Machine.Butter_Machine.size.width,
+                    ConfigContainer.mapConfig.Machine.Butter_Machine.size.height,
+                    MapItemEnum.MACHINE);
+            } else if (machine.getType() == MachineTypeEnum.sugar_machine) {
+                this.map.addMapAlias(machine.getX(), machine.getY(), 
+                    ConfigContainer.mapConfig.Machine.Sugar_Machine.size.width,
+                    ConfigContainer.mapConfig.Machine.Sugar_Machine.size.height,
+                    MapItemEnum.MACHINE);
+            } else if (machine.getType() == MachineTypeEnum.popcorn_machine) {
+                this.map.addMapAlias(machine.getX(), machine.getY(), 
+                    ConfigContainer.mapConfig.Machine.Popcorn_Machine.size.width,
+                    ConfigContainer.mapConfig.Machine.Popcorn_Machine.size.height,
+                    MapItemEnum.MACHINE);
+            } else{
+                System.out.println("[E] Unhandled machine type " + machine.getType().toString());    
             }
         }
     }
