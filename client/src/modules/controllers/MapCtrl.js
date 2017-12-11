@@ -160,13 +160,13 @@ var MapCtrl = cc.Class.extend({
                 for (var j = 0; j < lodge.animalList.length; j++) {
                     var chickenSprite = new ChickenSprite();
                     chickenSprite.setId(lodge.animalList[j].id);
-                    cc.log(lodge.animalList[j]);
+                    // cc.log(lodge.animalList[j]);
                     lodgeSprite.addAnimalSprite(chickenSprite);
 
                     if (lodge.animalList[j].feeded) {
                         chickenSprite.setOnHarvestTime(lodge.animalList[j].feededTime);
                     } else {
-                        cc.log("hungry");
+                        // cc.log("hungry");
                         chickenSprite.hungry();
                     }
                 }

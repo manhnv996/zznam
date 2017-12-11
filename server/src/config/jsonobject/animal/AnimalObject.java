@@ -1,5 +1,6 @@
 package config.jsonobject.animal;
 
-public class ChickenObject {
+public class AnimalObject {
 	public int time;
+	public int harvestExp;
 }

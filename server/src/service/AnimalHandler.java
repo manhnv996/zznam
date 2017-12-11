@@ -78,10 +78,13 @@ public class AnimalHandler extends BaseClientRequestHandler {
         animal.harvest();
         // Add to storage
         String product = "";
+        int exp = 0;
         if (animal.getType() == AnimalEnum.chicken) {
         	product = ProductType.GOOD_EGG;
+        	exp = ConfigContainer.animalConfig.chicken.harvestExp;
         } else if (animal.getType() == AnimalEnum.cow) {
         	product = ProductType.GOOD_MILK;
+        	exp = ConfigContainer.animalConfig.cow.harvestExp;
         } else {
         	System.out.println("Unhandled " + animal.getType().toString());
         	return;
@@ -92,6 +95,9 @@ public class AnimalHandler extends BaseClientRequestHandler {
         	send(new ResponseAnimalHarvest(-4), user);
         	return;
         }
+
+        // Add exp
+        userInfo.addExp(exp);
 
         // Save model
 		try {

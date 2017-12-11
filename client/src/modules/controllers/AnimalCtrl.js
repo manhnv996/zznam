@@ -1,5 +1,10 @@
 var AnimalCtrl = cc.Class.extend({
 	onMoveHarvestTool: function(lx, ly, lodgeType) {
+		var flx = Math.floor(lx);
+		var fly = Math.floor(ly);
+		if (!user.map[flx] || user.map[flx][fly] !== MapItemEnum.LODGE) {
+			return;
+		}
 		var lodge = user.asset.getLodgeByPosition(lx, ly);
 		if (!lodge || lodge.type !== lodgeType) {
 			// Stop check
@@ -22,6 +27,7 @@ var AnimalCtrl = cc.Class.extend({
 				var animalSprite = lodgeSprite.getChildByTag(TagClusters.Animal + animal.id);
 				animalSprite.hungry();
 				animal.harvest();
+				user.addExp(AnimalConfig[animal.type].harvestExp);
 				// Send to server
 				testnetwork.connector.sendAnimalHarvest(lodge.id, animal.id);
 			} else {
@@ -31,6 +37,11 @@ var AnimalCtrl = cc.Class.extend({
 	},
 
 	onMoveFeedTool: function(lx, ly, lodgeType) {
+		var flx = Math.floor(lx);
+		var fly = Math.floor(ly);
+		if (!user.map[flx] || user.map[flx][fly] !== MapItemEnum.LODGE) {
+			return;
+		}
 		var lodge = user.asset.getLodgeByPosition(lx, ly);
 		if (!lodge || lodge.type !== lodgeType) {
 			return;
