@@ -580,9 +580,9 @@ var MapLayer = cc.Layer.extend({
 			}.bind(this)
         });
         // cc.eventManager.addListener(this.touchListener, 10 * Math.max(MapConfigs.Init.width + 5, MapConfigs.Init.height + 5));
-        cc.eventManager.addListener(this.touchListener, 100);
+        cc.eventManager.addListener(this.touchListener, 50);
         
-        cc.log("Register map touch event with priority", 100);
+        cc.log("Register map touch event with priority", 50);
         var mouseListener = cc.EventListener.create({
 			event: cc.EventListener.MOUSE,
 			onMouseScroll: function(e) {

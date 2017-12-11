@@ -95,10 +95,12 @@
         "src/modules/views/layers/popup/TablePopupLayer.js",
         "src/modules/views/layers/popup/SeedTablePopup.js",
         "src/modules/views/layers/popup/CropToolPopup.js",
+        "src/modules/views/layers/popup/AnimalToolPopup.js",
         "src/modules/views/layers/PopupLayer.js",
 
         "src/modules/views/sprites/SeedSprite.js",
         "src/modules/views/sprites/CropToolSprite.js",
+        "src/modules/views/sprites/AnimalFoodSprite.js",
         "src/modules/views/sprites/FieldSprite.js",
         "src/modules/views/sprites/OrderSprite.js",
         "src/modules/views/sprites/ProductSprite.js",

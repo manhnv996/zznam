@@ -15,36 +15,37 @@ var CowLodgeSprite = AnimalLodgeSprite.extend({
 	},
 
 	onClick: function(lx, ly) {
-		AnimalCtrl.instance.onMoveHarvestTool(lx, ly, AnimalLodgeType.cow_habitat);
-		// if (this.lodge.getAnimalCount() > 0) {
-		// 	var startTime = this.lodge.getLastFeededTime();
-		// 	var remain = AnimalConfig.cow.time * 1000 - (new Date().getTime() - startTime);
-		// 	if (remain > 0) {
-		// 		// Animal feeded
-		// 		this.loadingBar = new LoadingBarLayout(
-		// 			AnimalConfig.cow.time, startTime,
-		// 			// fr.Localization.text("Ga"), 1);
-		// 			"Ga", 1);
-		// 		var p = MapValues.logicToScreenPosition(this.lx, this.ly);
-		// 		this.loadingBar.setPosition(p.x, p.y + 50);
-		// 		BaseGUILayer.instance.addChild(this.loadingBar);
-		// 	}
+		// AnimalCtrl.instance.onMoveHarvestTool(lx, ly, AnimalLodgeType.cow_habitat);
+		if (this.lodge.getAnimalCount() > 0) {
+			var startTime = this.lodge.getLastFeededTime();
+			var remain = AnimalConfig.cow.time * 1000 - (new Date().getTime() - startTime);
+			if (remain > 0) {
+				// Animal feeded
+				this.loadingBar = new LoadingBarLayout(
+					AnimalConfig.cow.time, startTime,
+					// fr.Localization.text("Ga"), 1);
+					"Ga", 1);
+				var p = MapValues.logicToScreenPosition(this.lx, this.ly);
+				this.loadingBar.setPosition(p.x, p.y + 50);
+				BaseGUILayer.instance.addChild(this.loadingBar);
+			}
 
-		// 	if (this.lodge.isHungry()) {
-		// 		// Show feed tools
-		// 		cc.log('Hungry');
-		// 	}
+			if (this.lodge.isHungry()) {
+				// Show feed tools
+				cc.log('Hungry');
+			}
 
-		// 	if (this.lodge.canHarvest()) {
-		// 		cc.log("Harvest");
-		// 	}
+			if (this.lodge.canHarvest()) {
+				cc.log("Harvest");
+			}
 
-		// 	cc.log("HarvestableCount", this.lodge.harvestableCount());
+			// cc.log("HarvestableCount", this.lodge.harvestableCount());
+			TablePopupLayer.instance.showAnimalToolPopup(this.lx, this.ly, this.type);
 
-		// } else {
-		// 	// Open store to buy animal
-		// 	cc.log("Open store to buy animal");
-		// }
+		} else {
+			// Open store to buy animal
+			cc.log("Open store to buy animal");
+		}
 	},
 
 	setLogicPosition: function(lx, ly, notUpdatePriority) {

@@ -39,8 +39,8 @@ var TablePopup = ccui.Layout.extend({
 
                 this._isMoved = true;
 
-                var delta = touch.getDelta();
-                MapLayer.instance.move(delta.x, delta.y);
+                // var delta = touch.getDelta();
+                // MapLayer.instance.move(delta.x, delta.y);
                 /*
                  DONE
                  */
@@ -62,7 +62,7 @@ var TablePopup = ccui.Layout.extend({
 
             }.bind(this)
         });
-        cc.eventManager.addListener(this.disableListener, this);
+        cc.eventManager.addListener(this.disableListener, 60);
     },
 
     update: function (dt) {
