@@ -138,6 +138,10 @@ for (var k in FontResource) {
     res[k] = FontResource[k];
 }
 
+//
+for (var k in OrderResource) {
+    res[k] = OrderResource[k];
+}
 // Add animal lodge resource
 for (var k in AnimalLodgeResource) {
     res[k] = AnimalLodgeResource[k];

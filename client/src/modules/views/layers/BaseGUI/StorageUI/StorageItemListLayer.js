@@ -107,8 +107,9 @@ var StorageItemListLayer = cc.Layer.extend({
                     //var key = getKeyByValue(this._listItems[idx * 3 + i].getTypeItem());
                     keyItem.setString(typeItem);
                     keyItem.setVisible(false);
+                    var productConfig = getProductConfigById(typeItem);
                     //cc.log("itemResource " + keyItem.getString());
-                    button.loadTextureNormal(res.storageItemResource[typeItem].nameIcon);
+                    button.loadTextureNormal(productConfig.nameIcon);
                     button.addTouchEventListener(this.touchItem, this);
                     label.setString(this._listItems[idx * 3 + i].getQuantityItem());
                 } else {
@@ -132,37 +133,34 @@ var StorageItemListLayer = cc.Layer.extend({
         switch (type) {
             case ccui.Widget.TOUCH_BEGAN:
                 cc.log("Touch Button Product");
-                this._tooltip = new cc.Sprite(res.tooltip_png);
+                //this._tooltip = new cc.Sprite(res.tooltip_png);
+                var type = sender.parent.getChildByTag(sender.tag + 20).getString();
+                var productConfig = getProductConfigById(type);
+
+                this._tooltip = new ToolTipLayout(fr.Localization.text(productConfig.name),
+                    productConfig.timeMin);
                 var touchP = sender.getTouchBeganPosition();
 
                 if (touchP.y < cc.winSize.height / 2) {
-                    this._tooltip.x = touchP.x;
-                    this._tooltip.y = touchP.y + this._tooltip.height;
+                    this._tooltip.x = touchP.x - this._tooltip.width / 2;
+                    this._tooltip.y = touchP.y + this._tooltip.height / 2;
                 } else {
                     switch (sender.tag) {
                         case 0:
-                            this._tooltip.x = touchP.x + this._tooltip.width;
-                            this._tooltip.y = touchP.y;
+                            this._tooltip.x = touchP.x + this._tooltip.width / 2;
+                            this._tooltip.y = touchP.y - this._tooltip.height / 2;
                             break;
                         case 1:
                             //break;
                         case 2:
-                            this._tooltip.x = touchP.x - this._tooltip.width;
-                            this._tooltip.y = touchP.y;
+                            this._tooltip.x = touchP.x - this._tooltip.width * 3 / 2;
+                            this._tooltip.y = touchP.y - this._tooltip.height / 2;
                             break;
                     }
                 }
                 BaseGUILayer.instance.addChild(this._tooltip);
 
-                var type = sender.parent.getChildByTag(sender.tag + 20).getString();
-
-                var name = new cc.LabelBMFont(fr.Localization.text(res.storageItemResource[type].name), res.FONT_OUTLINE_30);
-                name.x = this._tooltip.width / 2;
-                name.y = this._tooltip.height;
-                name.setAnchorPoint(0.5, 1);
-                this._tooltip.addChild(name);
-
-                var description = new cc.LabelBMFont(fr.Localization.text(res.storageItemResource[type].description), res.FONT_NORMAL_30);
+                var description = new cc.LabelBMFont(fr.Localization.text(productConfig.description), res.FONT_NORMAL_30);
                 description.x = this._tooltip.width / 2;
                 description.y = this._tooltip.height / 2;
                 description.setContentSize(this._tooltip.width / 7 * 5, this._tooltip.height / 3);
@@ -170,19 +168,6 @@ var StorageItemListLayer = cc.Layer.extend({
                 description.setAlignment(cc.TEXT_ALIGNMENT_CENTER);
                 description.color = cc.color(77, 41, 1);
                 this._tooltip.addChild(description);
-
-                if (res.storageItemResource[type].time != "") {
-                    var time = new cc.LabelBMFont(res.storageItemResource[type].time + " " +
-                        fr.Localization.text(res.storageItemResource[type].typeTime), res.FONT_OUTLINE_30);
-                    time.x = this._tooltip.width / 2;
-                    time.y = 0;
-                    time.setAnchorPoint(0.5, 0);
-                    this._tooltip.addChild(time);
-                }
-                this._tooltip.setScale(0.5);
-                var scaleUp = cc.scaleTo(0.2, 1.4);
-                var scaleDown = cc.scaleTo(0.15, 1.3);
-                this._tooltip.runAction(cc.sequence(scaleUp, scaleDown));
 
                 /**
                  *

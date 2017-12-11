@@ -42,9 +42,8 @@ var MapLayer = cc.Layer.extend({
 		this.initEvent();
 
 		this.initFieldList();
+        //
 
-		//var bakery = new BakerySprite(0, 20, 20);
-		//this.addChild(bakery);
 	},
 
 	onEnter: function() {
@@ -758,6 +757,22 @@ var MapLayer = cc.Layer.extend({
 			this.fieldList[index].changeTexture(res.field);
 		}
 	},
+
+
+	// //
+	getNPCByOrderNPCId: function (orderNPCId) {
+        if (orderNPCId == null){
+            return null;
+        }
+        for (var i = 0; i < this.npcList.length; i++){
+            if (this.npcList[i].orderId == orderNPCId){
+                return this.npcList[i];
+            }
+        }
+        return null;
+    },
+
+
 
 	inertia: function(velocity) {
 		if (!this.scheduling) {

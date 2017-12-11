@@ -21,6 +21,27 @@ var CommonPopup = cc.Layer.extend({
         //3. calculate the center point
         this.centerpos = cc.p(size.width / 2, size.height / 2);
 
+
+
+
+       //////set background
+       //// var spritebg = new cc.Sprite(this.background);
+       //// cc.log("spritebg " + spritebg.width + " " + spritebg.height);
+       //// //spritebg.setScale(fr.clientConfig.getResourceScale().)
+       //// spritebg.setPosition(this.centerpos);
+       //// this.addChild(spritebg);
+       //
+       // this.background.setPosition(this.centerpos);
+       // this.addChild(this.background);
+       //
+       //
+       // //set title
+       // var labelTitle = new cc.LabelBMFont(this.title, res.FONT_OUTLINE_30);
+       // //labelTitle.setPosition(size.width/2, size.height/2 + spritebg.height/2-50);
+       // //this.addChild(labelTitle);
+       // labelTitle.setPosition(this.background.width / 2, this.background.height - labelTitle.height * 4 / 3);
+       // this.background.addChild(labelTitle);
+
        //set background
         this.spritebg = new cc.Sprite(this.background);
         //cc.log("spritebg " + this.spritebg.width + " " + this.spritebg.height);
@@ -38,6 +59,19 @@ var CommonPopup = cc.Layer.extend({
             this.btnClose = new ccui.Button(res.TU_CHOI_PNG);
             var btnCloseSize = this.btnClose.getSize();
             cc.log("btnCloseSize " + btnCloseSize.width + "  " + btnCloseSize.height);
+//<<<<<<< HEAD
+//            //btnClose.setPosition(size.width/2 + spritebg.width/2 - btnCloseSize.width/2, size.height/2 + spritebg.height/2 - btnCloseSize.height/2);
+//            btnClose.setPosition(this.background.width - btnCloseSize.width / 2, this.background.height - btnCloseSize.height / 2);
+//            btnClose.addClickEventListener(this.onSelectClose.bind(this));
+//            //this.addChild(btnClose);
+//            this.background.addChild(btnClose);
+//        }
+//
+//        //set animation
+//        var action1 = new cc.ScaleTo(0.13, 1.4);
+//        var action2 = new cc.ScaleTo(0.1, 1.25);
+//        this.runAction(cc.sequence(action1, cc.delayTime(0.01), action2));
+//=======
             this.btnClose.setPosition(size.width/2 + this.spritebg.width/2 - btnCloseSize.width/2, size.height/2 + this.spritebg.height/2 - btnCloseSize.height/2);
             this.btnClose.addClickEventListener(this.onSelectClose.bind(this));
             this.addChild(this.btnClose);
@@ -53,6 +87,7 @@ var CommonPopup = cc.Layer.extend({
         //commonButton.setPosition(centerpos);
         //this.addChild(commonButton);
 
+        // this.isShowBG = false;
     },
 
     displayEffect: function (height) {
@@ -64,11 +99,22 @@ var CommonPopup = cc.Layer.extend({
 
     onSelectClose:function(sender)
     {
+        // if (this.isShowBG){
+            this.removeFromParent(true);
+            MainGuiLayer.instance.isShowPopup = false;
+            // this.isShowBG = false;
+        // }
+
+    },
+    showBG: function () {
+        // this.onSelectClose();
+        // // this.init();
+        // // MainGuiLayer.instance.addChild(this);
+        // this.isShowBG = true;
         this.removeFromParent(true);
         MainGuiLayer.instance.isShowPopup = false;
     }
 });
-
 
 var CommonButton =  ccui.Scale9Sprite.extend(
     {

@@ -2,12 +2,13 @@
  * Created by CPU60075_LOCAL on 12/4/2017.
  */
 
+
 var LoadingBarLayout = ccui.Layout.extend({
     totalTime : 0,
     startTime: 0,
     _isClose: false,
 
-   ctor: function (totalTime, startTime, name, ruby) {
+   ctor: function (totalTime, startTime, name, ruby, remainTime) {
        this._super();
 
        this.totalTime = totalTime * 1000;
@@ -33,7 +34,7 @@ var LoadingBarLayout = ccui.Layout.extend({
        this.nameProgess.y = this.progressBar.height / 16 * 11;
        this.nameProgess.setAnchorPoint(0.5, 0);
 
-       this.timeRemain = new cc.LabelBMFont("time Remain", res.FONT_OUTLINE_30);
+       this.timeRemain = new cc.LabelBMFont("", res.FONT_OUTLINE_30);
        this.timeRemain.x = this.progressBar.width / 2;
        this.timeRemain.y = this.progressBar.height / 3;
        this.timeRemain.setAnchorPoint(0.5, 0.7);
@@ -66,18 +67,34 @@ var LoadingBarLayout = ccui.Layout.extend({
        this.addChild(this.boostBtn);
 
        this.setScale(0.4);
-
+       //
        //this.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
        //this.setBackGroundColor(cc.color.BLACK);
 
        //cc.log("total time", this.totalTime);
        //cc.log("start time", this.startTime);
-       this.remainTime = this.totalTime - (new Date().getTime() - this.startTime) + 1000;
        // cc.log("Remain time", this.remainTime);
+       //this.remainTime = this.totalTime - (new Date().getTime() - this.startTime) + 1000;
+       //cc.log("Remain time", this.remainTime);
 
        this.actionShow();
+
+       if (remainTime) {
+           this.remainTime = remainTime;
+           //this.progress.setPercent(0);
+           //this.setTimeString(this.remainTime);
+           this.progress.setPercent((this.totalTime - (this.remainTime * 1000)) / this.totalTime * 100);
+           this.schedule(this.updateRemainTime ,0.1);
+           cc.log("this.remainTime progress bar", this.remainTime);
+       } else {
+           this.remainTime = this.totalTime - (new Date().getTime() - this.startTime) + 1000;
+           this.scheduleUpdate();
+       }
+       //this.scheduleUpdate();
+
+
+
        this.disableLoadingBar();
-       this.scheduleUpdate();
    },
 
     actionShow: function () {
@@ -91,17 +108,18 @@ var LoadingBarLayout = ccui.Layout.extend({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: false,
             onTouchBegan: function (touch, event) {
+                //this.closeLoadingBar();
                 //var target = event.getCurrentTarget();
-                var target = this;
+                //var target = this;
 
-                var locationInNode = target.convertToNodeSpace(touch.getLocation());
-                var s = target.getContentSize();
-                var rect = cc.rect(0, 0, s.width, s.height);
+                //var locationInNode = target.convertToNodeSpace(touch.getLocation());
+                //var s = target.getContentSize();
+                //var rect = cc.rect(0, 0, s.width, s.height);
 
-                if (!cc.rectContainsPoint(rect, locationInNode)) {
+                //if (!cc.rectContainsPoint(rect, locationInNode)) {
                     this._isClose = true;
                     //return true;
-                }
+                //}
                 //cc.log("Touch Close Loading Bar ");
 
                 return true;
@@ -130,6 +148,21 @@ var LoadingBarLayout = ccui.Layout.extend({
         var time = this.remainTime / 1000;
         //cc.log("remainTime " + time);
 
+        var hour = 0;
+        var min = 0;
+        var sec = 0;
+        if (time > 3600) {
+            hour = Math.floor(time / 3600);
+        }
+        min = Math.floor((time - hour * 3600) / 60);
+        sec = Math.floor(time - hour * 3600 - min * 60);
+
+        this.setTimeString(hour, min, sec);
+
+        if (hour === 0 && min === 0 && sec === 0) {
+            this.closeLoadingBar();
+        }
+
         //if (this.remainTime > 60 * 60 * 1000){
         //    var hour = Math.ceil(this.remainTime / 3600000);
         //    var min = Math.ceil((this.remainTime - hour * 3600000) / 60000);
@@ -140,14 +173,43 @@ var LoadingBarLayout = ccui.Layout.extend({
         //    var sec = Math.ceil(this.remainTime - hour * 3600000 - min * 60000);
         //    timeRemainShow = min + ": " + sec;
         //}
+
+        //
+        if(this._isClose) {
+            this.closeLoadingBar();
+        }
+    },
+
+    updateRemainTime: function (dt) {
+        this.remainTime -= dt;
+
+        //cc.log("((this.totalTime - this.remainTime) / this.totalTime * 100)",
+        //    ((this.totalTime - (this.remainTime * 1000)) / this.totalTime * 100));
+        this.progress.setPercent((this.totalTime - (this.remainTime * 1000)) / this.totalTime * 100);
+
         var hour = 0;
         var min = 0;
         var sec = 0;
-        if (time > 3600) {
-            hour = Math.floor(time / 3600);
+        if (this.remainTime > 3600) {
+            hour = Math.floor(this.remainTime / 3600);
         }
-        min = Math.floor((time - hour * 3600) / 60);
-        sec = Math.floor(time - hour * 3600 - min * 60);
+        min = Math.floor((this.remainTime - hour * 3600) / 60);
+        sec = Math.floor(this.remainTime - hour * 3600 - min * 60);
+
+        this.setTimeString(hour, min, sec);
+
+        //this.setTimeString(this.remainTime);
+
+        if ((hour === 0 && min === 0 && sec === 0) || this._isClose) {
+            this.closeProgressBar();
+        }
+        //
+        //if(this._isClose) {
+        //    this.closeProgressBar();
+        //}
+    },
+
+    setTimeString: function (hour, min, sec) {
 
         if (hour && min) {
             this.timeRemain.setString(hour + fr.Localization.text("Text_time_hour")
@@ -159,23 +221,29 @@ var LoadingBarLayout = ccui.Layout.extend({
         } else {
             this.timeRemain.setString(sec + fr.Localization.text("Text_time_second"));
         }
+    },
 
-        if(this._isClose) {
-            this.closeLoadingBar();
-            //this.unscheduleUpdate();
+    closeProgressBar: function (){
+        this.unschedule(this.updateRemainTime);
+        if (this.parent) {
+            this.removeFromParent(true);
+            cc.log("removeFromParent");
         }
-
-        if (hour === 0 && min === 0 && sec === 0) {
-            //cc.log("remainTime " + this.remainTime);
-            this.progress.setPercent(100);
-            this.closeLoadingBar();
-        }
+        this._isClose = false;
+        //_loadingBarConstructed.removeFromParent(true);
+        _loadingBarConstructed = null;
+        cc.eventManager.removeListener(this.listener);
     },
 
     closeLoadingBar: function () {
         this.unscheduleUpdate();
-        this.removeFromParent(true);
+        if (this.parent) {
+            this.removeFromParent(true);
+            cc.log("removeFromParent");
+        }
         this._isClose = false;
+        //_loadingBarConstructed.removeFromParent(true);
+        _loadingBarConstructed = null;
         cc.eventManager.removeListener(this.listener);
     }
 });

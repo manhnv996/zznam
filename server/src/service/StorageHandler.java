@@ -101,11 +101,11 @@ public class StorageHandler extends BaseClientRequestHandler{
                     return;
                 }
             } else {
-                send(new ResponseErrorCode(ErrorLog.ERROR_BUY_TOOL_RUBY_NOT_REDUCE.getValue()), user);
+                send(new ResponseErrorCode(ErrorLog.ERROR_RUBY_NOT_REDUCE.getValue()), user);
                 return;
             }
         } else {
-            send(new ResponseErrorCode(ErrorLog.ERROR_BUY_TOOL_RUBY_NOT_ENOUGH.getValue()), user);
+            send(new ResponseErrorCode(ErrorLog.ERROR_RUBY_NOT_ENOUGH.getValue()), user);
             return;
         }
         

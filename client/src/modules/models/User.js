@@ -70,6 +70,7 @@ var User = cc.Class.extend({
         NOT YET STARTED
         if level up
          */
+        MainGuiLayer.instance.labelExp.setString(this.exp);
     },
 
     reduceGold: function (number) {

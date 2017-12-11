@@ -4,7 +4,7 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>Ot/Layer 1.png</key>
+            <key>Ot.psd Assets/Layer 1.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{168,228},{258,129}}</string>
@@ -17,7 +17,7 @@
                 <key>sourceSize</key>
                 <string>{258,129}</string>
             </dict>
-            <key>Ot/Layer 10 copy 2.png</key>
+            <key>Ot.psd Assets/Layer 10 copy 2.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{49,173},{18,49}}</string>
@@ -30,7 +30,7 @@
                 <key>sourceSize</key>
                 <string>{18,49}</string>
             </dict>
-            <key>Ot/Layer 10 copy 3.png</key>
+            <key>Ot.psd Assets/Layer 10 copy 3.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{68,173},{18,49}}</string>
@@ -43,7 +43,7 @@
                 <key>sourceSize</key>
                 <string>{18,49}</string>
             </dict>
-            <key>Ot/Layer 10 copy.png</key>
+            <key>Ot.psd Assets/Layer 10 copy.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{178,173},{27,45}}</string>
@@ -56,7 +56,7 @@
                 <key>sourceSize</key>
                 <string>{27,45}</string>
             </dict>
-            <key>Ot/Layer 10.png</key>
+            <key>Ot.psd Assets/Layer 10.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{129,173},{24,46}}</string>
@@ -69,7 +69,7 @@
                 <key>sourceSize</key>
                 <string>{24,46}</string>
             </dict>
-            <key>Ot/Layer 107 copy 9.png</key>
+            <key>Ot.psd Assets/Layer 107 copy 9.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{206,173},{44,38}}</string>
@@ -82,7 +82,7 @@
                 <key>sourceSize</key>
                 <string>{44,38}</string>
             </dict>
-            <key>Ot/Layer 2 copy 2.png</key>
+            <key>Ot.psd Assets/Layer 2 copy 2.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{1,173},{47,52}}</string>
@@ -95,7 +95,7 @@
                 <key>sourceSize</key>
                 <string>{47,52}</string>
             </dict>
-            <key>Ot/Layer 2.png</key>
+            <key>Ot.psd Assets/Layer 2.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{288,157},{220,70}}</string>
@@ -108,7 +108,7 @@
                 <key>sourceSize</key>
                 <string>{220,70}</string>
             </dict>
-            <key>Ot/Layer 64 copy 12.png</key>
+            <key>Ot.psd Assets/Layer 64 copy 12.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{298,228},{201,135}}</string>
@@ -121,7 +121,7 @@
                 <key>sourceSize</key>
                 <string>{201,135}</string>
             </dict>
-            <key>Ot/Layer 64 copy 8.png</key>
+            <key>Ot.psd Assets/Layer 64 copy 8.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{288,1},{220,155}}</string>
@@ -134,7 +134,7 @@
                 <key>sourceSize</key>
                 <string>{220,155}</string>
             </dict>
-            <key>Ot/Layer 65 copy 16.png</key>
+            <key>Ot.psd Assets/Layer 65 copy 16.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{111,173},{17,47}}</string>
@@ -147,7 +147,7 @@
                 <key>sourceSize</key>
                 <string>{17,47}</string>
             </dict>
-            <key>Ot/Layer 65 copy 17.png</key>
+            <key>Ot.psd Assets/Layer 65 copy 17.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{87,173},{23,47}}</string>
@@ -160,7 +160,7 @@
                 <key>sourceSize</key>
                 <string>{23,47}</string>
             </dict>
-            <key>Ot/Layer 65 copy 18.png</key>
+            <key>Ot.psd Assets/Layer 65 copy 18.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{154,173},{23,46}}</string>
@@ -173,7 +173,7 @@
                 <key>sourceSize</key>
                 <string>{23,46}</string>
             </dict>
-            <key>Ot/Layer 65 copy 20.png</key>
+            <key>Ot.psd Assets/Layer 65 copy 20.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{1,228},{272,166}}</string>
@@ -186,7 +186,7 @@
                 <key>sourceSize</key>
                 <string>{272,166}</string>
             </dict>
-            <key>Ot/Layer 65 copy 32.png</key>
+            <key>Ot.psd Assets/Layer 65 copy 32.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{1,1},{286,171}}</string>

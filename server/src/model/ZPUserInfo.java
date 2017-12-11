@@ -40,9 +40,10 @@ public class ZPUserInfo extends DataModel {
         
         id = _id;
         
-        this.level = 1;
-        this.gold = 100;
+        this.level = 16;
+        this.gold = 20;
         this.ruby = 10;
+
         this.exp = 0L;
         this.name = "";
         
@@ -54,6 +55,8 @@ public class ZPUserInfo extends DataModel {
 //                this.map[i][j] = ConfigContainer.defaultMap[i][j];
 //            }
 //        }
+//                System.out.println("abcxyz");
+
         this.map = new MapAlias();
         // Add silo to map
         Storage silo = this.asset.getFoodStorage();
@@ -139,6 +142,9 @@ public class ZPUserInfo extends DataModel {
     
     public void addExp(int value) {
         this.exp += value;
+        /*
+         * not yet started
+         */
     }
     
     public void addRuby(int value) {
