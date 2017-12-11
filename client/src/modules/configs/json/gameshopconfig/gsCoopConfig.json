@@ -5,7 +5,7 @@
     "price": 1,
     "width": 1,
     "height": 1,
-    "level": 1,
+    "level": [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34, 37, 40],
     "nameIconShop": "Art/Shop/icon chuong/odat2.png",
     "detail": "empty_field_detail_tab",
     "name": "NAME_TAB_EMPTY_FIELD"

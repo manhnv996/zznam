@@ -251,6 +251,26 @@ testnetwork.Connector = cc.Class.extend({
                     cc.log('[E] Error occurs!');
                 }
                 break;
+
+            case gv.CMD.RESPONSE_BUY_OBJECT:
+                cc.log("BUY_OBJECT Error:", packet.error);
+                if (packet.error !== 0) {
+                    cc.log('[E] Error occurs!');
+                }
+                break;
+
+            case gv.CMD.RESPONSE_UPGRADE_STORAGE:
+                cc.log("UPGRADE_STORAGE Error:", packet.error);
+                if (packet.error !== 0) {
+                    cc.log('[E] Error occurs!');
+                }
+                break;
+            case gv.CMD.RESPONSE_BUY_TOOL_UPGRADE:
+                cc.log("BUY_TOOL_UPGRADE Error:", packet.error);
+                if (packet.error !== 0) {
+                    cc.log('[E] Error occurs!');
+                }
+                break;
         }
     },
     sendGetUserInfo:function() // Old

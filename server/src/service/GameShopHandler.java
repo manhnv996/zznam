@@ -17,6 +17,8 @@ import cmd.receive.gameshop.RequestBuyMapObjectByRuby;
 
 import cmd.send.demo.ResponseErrorCode;
 
+import cmd.send.gameshop.ResponseBuyObject;
+
 import config.enums.AnimalLodgeEnum;
 import config.enums.ErrorLog;
 import config.enums.MachineTypeEnum;
@@ -95,27 +97,27 @@ public class GameShopHandler extends BaseClientRequestHandler{
         //Check Collision
         if (!userInfo.getMap().checkValidBlock(req.x, req.y, width, height)) {
             System.out.println("Collision");
-            send(new ResponseErrorCode(ErrorLog.ERROR_BUY_MAP_OBJECT_COLLISION.getValue()), user);
+            send(new ResponseBuyObject(ErrorLog.ERROR_BUY_MAP_OBJECT_COLLISION.getValue()), user);
             return;
         }
 
         //Check gold enough
         if (!(price <= userInfo.getGold())) {
             //                System.out.println("Not enough gold");
-            send(new ResponseErrorCode(ErrorLog.ERROR_GOLD_NOT_ENOUGH.getValue()), user);
+            send(new ResponseBuyObject(ErrorLog.ERROR_GOLD_NOT_ENOUGH.getValue()), user);
             return;
         }
 
         //Reduce gold
         if (!userInfo.reduceGold(price)) {
-            send(new ResponseErrorCode(ErrorLog.ERROR_GOLD_NOT_REDUCE.getValue()), user);
+            send(new ResponseBuyObject(ErrorLog.ERROR_GOLD_NOT_REDUCE.getValue()), user);
             return;
         }
 
         //OK
         addObject(user, userInfo, req.type, req.id, req.x, req.y);
 
-        send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
+        send(new ResponseBuyObject(ErrorLog.SUCCESS.getValue()), user);
         
         try {
             userInfo.saveModel(user.getId());
@@ -139,7 +141,7 @@ public class GameShopHandler extends BaseClientRequestHandler{
         
         //Check collision
         if (!userInfo.getMap().checkValidBlock(reqRuby.x, reqRuby.y, width, height)) {
-            send(new ResponseErrorCode(ErrorLog.ERROR_BUY_MAP_OBJECT_COLLISION.getValue()), user);
+            send(new ResponseBuyObject(ErrorLog.ERROR_BUY_MAP_OBJECT_COLLISION.getValue()), user);
             return;
         }
         
@@ -149,26 +151,26 @@ public class GameShopHandler extends BaseClientRequestHandler{
         
         int gold = userInfo.getGold();
         if (!(price > gold)) {
-            send(new ResponseErrorCode(ErrorLog.ERROR_BUY_FAIL.getValue()), user);
+            send(new ResponseBuyObject(ErrorLog.ERROR_BUY_FAIL.getValue()), user);
             return;
         }
         int ruby = fromGoldToRuby(price - gold);
         System.out.println("fromGoldToRuby " + ruby);
         if (!(ruby <= userInfo.getRuby())) {
-            send(new ResponseErrorCode(ErrorLog.ERROR_RUBY_NOT_ENOUGH.getValue()), user);
+            send(new ResponseBuyObject(ErrorLog.ERROR_RUBY_NOT_ENOUGH.getValue()), user);
             return;
         }
 
         //Reduce ruby
         if (!userInfo.reduceRuby(ruby)) {
-            send(new ResponseErrorCode(ErrorLog.ERROR_RUBY_NOT_REDUCE.getValue()), user);
+            send(new ResponseBuyObject(ErrorLog.ERROR_RUBY_NOT_REDUCE.getValue()), user);
             return;
         }
 
         //OK
         addObject(user, userInfo, reqRuby.type, reqRuby.id, reqRuby.x, reqRuby.y);
 
-        send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
+        send(new ResponseBuyObject(ErrorLog.SUCCESS.getValue()), user);
         
         try {
             userInfo.saveModel(user.getId());
