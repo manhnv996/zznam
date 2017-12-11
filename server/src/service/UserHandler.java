@@ -148,7 +148,7 @@ public class UserHandler extends BaseClientRequestHandler {
 //        warehouse.addItem(ProductType.TOOL_BOLT, 1);
         warehouse.addItem(ProductType.TOOL_PLANK, 4);
         warehouse.addItem(ProductType.TOOL_DUCTTAPE, 2);
-        
+        warehouse.addItem(ProductType.FOOD_CHICKEN, 1);
         
         // Load natural thingList
         List<NatureThing> natureThingList = new ArrayList<>();
@@ -183,7 +183,7 @@ public class UserHandler extends BaseClientRequestHandler {
         
         Animal animal2 = new Animal(AnimalEnum.chicken);
         animal2.setFeededTime(animal2.getFeededTime());
-        animal2.setFeeded(true);
+        animal2.setFeeded(false);
         chickenLodge.addAnimal(animal2);
         
         Animal animal3 = new Animal(AnimalEnum.cow);

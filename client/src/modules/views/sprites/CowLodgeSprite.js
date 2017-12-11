@@ -15,7 +15,7 @@ var CowLodgeSprite = AnimalLodgeSprite.extend({
 	},
 
 	onClick: function(lx, ly) {
-		AnimalCtrl.instance.onMoveHarvestTool(lx, ly);
+		AnimalCtrl.instance.onMoveHarvestTool(lx, ly, AnimalLodgeType.cow_habitat);
 		// if (this.lodge.getAnimalCount() > 0) {
 		// 	var startTime = this.lodge.getLastFeededTime();
 		// 	var remain = AnimalConfig.cow.time * 1000 - (new Date().getTime() - startTime);

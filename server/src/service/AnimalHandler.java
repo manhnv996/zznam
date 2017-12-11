@@ -14,6 +14,7 @@ import config.utils.ConfigContainer;
 import config.enums.AnimalEnum;
 import cmd.send.animal.ResponseAnimalFeed;
 import cmd.send.animal.ResponseAnimalHarvest;
+import config.enums.ProductType;
 
 public class AnimalHandler extends BaseClientRequestHandler {
 	public static short ANIMAL_MULTI_IDS = 12000;
@@ -62,6 +63,9 @@ public class AnimalHandler extends BaseClientRequestHandler {
         	harvestTime = ConfigContainer.animalConfig.cow.time;
         } else if (animal.getType() == AnimalEnum.chicken) {
         	harvestTime = ConfigContainer.animalConfig.chicken.time;
+        } else {
+        	System.out.println("Unhandled " + animal.getType().toString());
+        	return;
         }
 
         long duration = currentTime - animal.getFeededTime();
@@ -71,10 +75,25 @@ public class AnimalHandler extends BaseClientRequestHandler {
         	return;
         }
 
-        animal.feed();
+        animal.harvest();
         // Add to storage
+        String product = "";
+        if (animal.getType() == AnimalEnum.chicken) {
+        	product = ProductType.GOOD_EGG;
+        } else if (animal.getType() == AnimalEnum.cow) {
+        	product = ProductType.GOOD_MILK;
+        } else {
+        	System.out.println("Unhandled " + animal.getType().toString());
+        	return;
+        }
 
-        // End add to storage
+        // try to add item
+        if (!userInfo.getAsset().getWarehouse().addItem(product, 1)) {
+        	send(new ResponseAnimalHarvest(-4), user);
+        	return;
+        }
+
+        // Save model
 		try {
             userInfo.saveModel(user.getId());
         } catch (Exception e) {
@@ -92,7 +111,7 @@ public class AnimalHandler extends BaseClientRequestHandler {
             e.printStackTrace();  
         }
         if (userInfo == null) {
-            return;    
+            return;
         }
 
         AnimalLodge lodge = userInfo.getAsset().getAnimalLodgeById(req.lodgeId);
@@ -110,8 +129,18 @@ public class AnimalHandler extends BaseClientRequestHandler {
         	return;
         }
 
+        String product = "";
+        if (animal.getType() == AnimalEnum.chicken) {
+        	product = ProductType.FOOD_CHICKEN;
+        } else if (animal.getType() == AnimalEnum.cow) {
+        	product = ProductType.FOOD_COW;
+        } else {
+        	System.out.println("Unhandled " + animal.getType().toString());
+        	return;
+        }
+
         // Check if warehouse is enough foods
-        if (!true) {
+        if (!userInfo.getAsset().getWarehouse().takeItem(product, 1)) {
         	// Send status
         	send(new ResponseAnimalHarvest(-3), user);
         	return;

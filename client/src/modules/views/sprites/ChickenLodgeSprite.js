@@ -50,6 +50,6 @@ var ChickenLodgeSprite = AnimalLodgeSprite.extend({
 		// 	cc.log("Open store to buy animal");
 		// }
 
-		AnimalCtrl.instance.onMoveFeedTool(lx, ly);
+		AnimalCtrl.instance.onMoveFeedTool(lx, ly, AnimalLodgeType.chicken_habitat);
 	}
 });

@@ -19,4 +19,9 @@ public class ProductType {
     public static final String TOOL_BOLT = "tool_bolt";
     public static final String TOOL_PLANK = "tool_plank";
     public static final String TOOL_DUCTTAPE = "tool_ductTape";
+
+    public static final String GOOD_EGG = "good_egg";
+    public static final String GOOD_MILK = "good_milk";
+    public static final String FOOD_CHICKEN = "food_chicken";
+    public static final String FOOD_COW = "food_cow";
 }

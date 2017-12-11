@@ -19,13 +19,13 @@ var ProductTypes = {
     TOOL_DUCTTAPE : "tool_ductTape",
 
     GOOD_EGG: "good_egg",
-    GOOF_MILK: "good_milk"
+    GOOF_MILK: "good_milk",
     //
     //PRODUCT_BREAD: 20,
     //PRODUCT_CORN_BREAD: 21,
     //PRODUCT_COOKIE: 22,
-    //FOOD_CHICKEN: 23,
-    //FOOD_COW: 24,
+    FOOD_CHICKEN: "food_chicken",
+    FOOD_COW: "food_cow"
     //PRODUCT_CREAM: 25,
     //PRODUCT_BUTTER: 26,
     //PRODUCT_BROWN_SUGAR: 27,

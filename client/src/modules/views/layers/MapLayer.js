@@ -773,6 +773,7 @@ var MapLayer = cc.Layer.extend({
 			this.unscheduleUpdate();
 			this.scheduling = false;
 		}
+		this.stopAllActions();
 	},
 
 	update: function(dt) {

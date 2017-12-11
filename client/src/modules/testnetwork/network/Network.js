@@ -142,14 +142,20 @@ testnetwork.Connector = cc.Class.extend({
             case gv.CMD.RESPONSE_MOVE:
                 cc.log("RESPONSE_MOVE Error: ", packet.error);
                 if (packet.error !== 0) {
-                    cc.log("[E] Error occurs");
+                    cc.log("[E] Error occurs!");
                 }
                 break;
             case gv.CMD.ANIMAL_HARVEST:
                 cc.log("ANIMAL_HARVEST Error:", packet.error);
+                if (packet.error !== 0) {
+                    cc.log('[E] Error occurs!');
+                }
                 break;
             case gv.CMD.ANIMAL_FEED:
                 cc.log("ANIMAL_FEED Error:", packet.error);
+                if (packet.error !== 0) {
+                    cc.log('[E] Error occurs!');
+                }
                 break;
         }
     },

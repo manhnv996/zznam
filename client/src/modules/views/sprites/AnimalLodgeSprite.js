@@ -79,6 +79,14 @@ var AnimalLodgeSprite = MapBlockSprite.extend({
 		}
 	},
 
+	onBeginClick: function() {
+		this.setColor(cc.color(155, 155, 155));
+	},
+
+	onEndClick: function() {
+		this.setColor(cc.color(255, 255, 255));
+	},
+
 	caculateBoundingPoints: function() {
 		this._super();
 		var topPoint = MapValues.logicToPosition(

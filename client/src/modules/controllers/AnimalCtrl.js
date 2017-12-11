@@ -1,7 +1,7 @@
 var AnimalCtrl = cc.Class.extend({
-	onMoveHarvestTool: function(lx, ly) {
+	onMoveHarvestTool: function(lx, ly, lodgeType) {
 		var lodge = user.asset.getLodgeByPosition(lx, ly);
-		if (!lodge) {
+		if (!lodge || lodge.type !== lodgeType) {
 			// Stop check
 			return;
 		}
@@ -14,23 +14,25 @@ var AnimalCtrl = cc.Class.extend({
 			return animal.canHarvest();
 		})
 		.forEach(function(animal) {
-			if (user.asset.warehouse.addItem(animal.type === 'chicken' ? ProductTypes.GOOD_EGG : ProductTypes.GOOD_MILK, 1)) {
+			// try to add product to warehouse
+			var product = animal.type === AnimalType.chicken 
+					? ProductTypes.GOOD_EGG 
+					: ProductTypes.GOOD_MILK;
+			if (user.asset.warehouse.addItem(product, 1)) {
 				var animalSprite = lodgeSprite.getChildByTag(TagClusters.Animal + animal.id);
 				animalSprite.hungry();
 				animal.harvest();
-				// Add product to warehouse
-
 				// Send to server
 				testnetwork.connector.sendAnimalHarvest(lodge.id, animal.id);
 			} else {
-				cc.log("Full Warehouse");				
+				cc.log("Full Warehouse");
 			}
 		});
 	},
 
-	onMoveFeedTool: function(lx, ly) {
+	onMoveFeedTool: function(lx, ly, lodgeType) {
 		var lodge = user.asset.getLodgeByPosition(lx, ly);
-		if (!lodge) {
+		if (!lodge || lodge.type !== lodgeType) {
 			return;
 		}
 		var lodgeSprite = MapLayer.instance.getChildByTag(TagClusters.Lodge + lodge.id);
@@ -42,15 +44,20 @@ var AnimalCtrl = cc.Class.extend({
 			return !animal.feeded;
 		})
 		.forEach(function(animal) {
-			var animalSprite = lodgeSprite.getChildByTag(TagClusters.Animal + animal.id);
-			animal.feed();
-			animalSprite.feed();
-			animalSprite.setOnHarvestTime(animal.feededTime);
-			// Substract products from warehouse
-			
-			///
-			// Send to server
-			testnetwork.connector.sendAnimalFeed(lodge.id, animal.id);
+			// try to take item
+			var product = animal.type === AnimalType.chicken
+					? ProductTypes.FOOD_CHICKEN 
+					: ProductTypes.FOOD_COW;
+			if (user.asset.warehouse.takeItem(product, 1)) {
+				var animalSprite = lodgeSprite.getChildByTag(TagClusters.Animal + animal.id);
+				animal.feed();
+				animalSprite.feed();
+				animalSprite.setOnHarvestTime(animal.feededTime);
+				// Send to server
+				testnetwork.connector.sendAnimalFeed(lodge.id, animal.id);
+			} else {
+				cc.log("Not enough item");				
+			}
 		});
 	}
 });
