@@ -338,7 +338,7 @@ function onReceiveUser(userInfo) {
 
     var machineList = [];
     for (var i = 0; i < userInfo.asset.machineList.length; i++) {
-        cc.log("userInfo.asset.machineList[i] " + userInfo.asset.machineList.length);
+        // cc.log("userInfo.asset.machineList[i] " + userInfo.asset.machineList.length);
         var machineInfo = userInfo.asset.machineList[i];
 
         var machine = new Machine(
