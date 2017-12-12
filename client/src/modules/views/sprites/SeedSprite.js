@@ -101,7 +101,6 @@ var SeedSprite = ProductSprite.extend({
         popupMsg.setScale(0.5);
         this.addChild(popupMsg);
 
-
         var msg = new cc.LabelBMFont("LevelUnlock: " + getProductObjByType(this.seedType).level, res.FONT_OUTLINE_30);
         msg.setPosition(cc.p(popupMsg.width / 2, popupMsg.height / 2));
         popupMsg.addChild(msg);
@@ -114,19 +113,24 @@ var SeedSprite = ProductSprite.extend({
             if (this.quantity == 0){
                 quantitySeed.setString("0");
             }
-
+            //
             this.slot = new cc.Sprite(res.slot);
             quantitySeed.setPosition(new cc.p(this.slot.width / 2, this.slot.height / 2));
             this.slot.setPosition(new cc.p(this.width / 4, this.height * 3 / 4));
             this.slot.addChild(quantitySeed);
             this.addChild(this.slot);
 
-            var muiten = new cc.Sprite(res.ten);
-            muiten.setPosition(new cc.p(this.width * 3 / 4, this.height / 4));
-            this.addChild(muiten);
-
+            //
+            this.showSuggest();
         }
-
     },
+
+    showSuggest: function () {
+        //
+        //var muiten = new cc.Sprite(res.ten);
+        var muiten = new ccui.ImageView(res.ten);
+        muiten.setPosition(new cc.p(this.width * 3 / 4, this.height / 4));
+        this.addChild(muiten);
+    }
 
 });

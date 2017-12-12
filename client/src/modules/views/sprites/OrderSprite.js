@@ -37,7 +37,8 @@ var OrderSprite = cc.Sprite.extend({
 
         var price = new cc.LabelBMFont(this.order.orderPrice, res.FONT_OUTLINE_20);
         price.setPosition(this.width  * 2 / 5, this.height * 3.5 / 5);
-        var gold = new cc.Sprite(res.goldOrder);
+        //var gold = new cc.Sprite(res.goldOrder);
+        var gold = new ccui.ImageView(res.goldOrder);
         // gold.setPosition(this.width  * 3.5 / 5, this.height * 3.5 / 5);
         gold.setPosition(price.width + gold.width / 2, price.height / 2);
         gold.setScale(0.5);
@@ -48,7 +49,8 @@ var OrderSprite = cc.Sprite.extend({
         //
         var exp = new cc.LabelBMFont(this.order.orderExp, res.FONT_OUTLINE_20);
         exp.setPosition(this.width  * 2 / 5, this.height * 2.5 / 5);
-        var star = new cc.Sprite(res.expOrder);
+        //var star = new cc.Sprite(res.expOrder);
+        var star = new ccui.ImageView(res.expOrder);
         // star.setPosition(this.width  * 3.5 / 5 / 2.5, this.height * 3.5 / 5 / 2.5);
         star.setPosition(exp.width + star.width / 5, exp.height / 2);
         star.setScale(0.25);
@@ -59,7 +61,8 @@ var OrderSprite = cc.Sprite.extend({
 //
         if (this.order != null){
             if (this.order.checkCondition() == true){
-                var tickSprite = new cc.Sprite(res.tickOrder);
+                //var tickSprite = new cc.Sprite(res.tickOrder);
+                var tickSprite = new ccui.ImageView(res.tickOrder);
                 tickSprite.setPosition(cc.p(this.width * 3 / 4, this.height / 4));
                 this.addChild(tickSprite);
             }
@@ -67,7 +70,8 @@ var OrderSprite = cc.Sprite.extend({
     },
 
     initWaittingTime: function () {
-        var slo = new cc.Sprite(res.sloPaper);
+        //var slo = new cc.Sprite(res.sloPaper);
+        var slo = new ccui.ImageView(res.sloPaper);
         slo.setPosition(this.width / 2, this.height * 3 / 5);
         this.addChild(slo);
 
@@ -169,7 +173,8 @@ var OrderSprite = cc.Sprite.extend({
         }
     },
     setupItemListPosition: function(parent) {
-        var icon = new cc.Sprite(res.iconGoodMilk); //template
+        //var icon = new cc.Sprite(res.iconGoodMilk); //template
+        var icon = new ccui.ImageView(res.iconGoodMilk); //template
 
         for (var i = 0; i < this.itemList.length; i++){
             // this.itemList[i].setPosition(cc.p(this.itemList[i].width  * 3 / 4 + Math.abs(i % 3) * this.itemList[i].width,
@@ -184,7 +189,8 @@ var OrderSprite = cc.Sprite.extend({
     showPriceInfo: function (parent) {
         var price = new cc.LabelBMFont(this.order.orderPrice, res.FONT_OUTLINE_30);
         price.setPosition(parent.orderInfo.width  * 1 / 5, parent.orderInfo.height * 1.05);
-        var gold = new cc.Sprite(res.goldOrder);
+        //var gold = new cc.Sprite(res.goldOrder);
+        var gold = new ccui.ImageView(res.goldOrder);
         // gold.setPosition(this.width  * 3.5 / 5, this.height * 3.5 / 5);
         gold.setPosition(price.width + gold.width / 2, price.height / 2);
         gold.setScale(0.5);
@@ -195,7 +201,8 @@ var OrderSprite = cc.Sprite.extend({
         //
         var exp = new cc.LabelBMFont(this.order.orderExp, res.FONT_OUTLINE_30);
         exp.setPosition(parent.orderInfo.width  * 2.5 / 5, parent.orderInfo.height * 1.05);
-        var star = new cc.Sprite(res.expOrder);
+        //var star = new cc.Sprite(res.expOrder);
+        var star = new ccui.ImageView(res.expOrder);
         // star.setPosition(this.width  * 3.5 / 5 / 2.5, this.height * 3.5 / 5 / 2.5);
         star.setPosition(exp.width + star.width / 5, exp.height / 2);
         star.setScale(0.25);
@@ -227,7 +234,8 @@ var OrderSprite = cc.Sprite.extend({
         btBoost.setScale(0.625);
         btBoost.setZoomScale(0.625);
 
-        var rubi = new cc.Sprite(res.rubi);
+        //var rubi = new cc.Sprite(res.rubi);
+        var rubi = new ccui.ImageView(res.rubi);
         rubi.setPosition(cc.p(btBoost.width * 4 / 5, btBoost.height / 2));
         btBoost.addChild(rubi);
 

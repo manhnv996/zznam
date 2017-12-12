@@ -268,7 +268,6 @@ public class UserHandler extends BaseClientRequestHandler {
             asset.addOrderNPC(new OrderNPC(userInfo));
         }
         
-        System.out.println("here is log2222");
         for (int i = 0; i < asset.getOrderNPCList().size(); i++){
             System.out.println(asset.getOrderNPCList().get(i).getOrderItem().getTypeItem() + ", " + 
                                asset.getOrderNPCList().get(i).getOrderItem().getQuantity() + ", " + 

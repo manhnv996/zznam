@@ -271,8 +271,11 @@ var CarSprite = AnimationSprite.extend({
         //this.y = 50;
         //this.runAction(seq2);
 
+    },
+
+
+    // Make offset
+    _offset: function() {
+        return cc.p(0, 50);
     }
-
-
-
 });

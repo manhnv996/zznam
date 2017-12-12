@@ -151,13 +151,13 @@ var MapCtrl = cc.Class.extend({
             var npcSprite = null;
 
             if (orderNPCList[i].getOrderItem() != null){
-                npcSprite = new NPCSprite(15 + i, 20 - i, orderNPCList[i]);
                 npcSprite = new NPCSprite(NPCSprite.startPoint.x - 0.5 * i, NPCSprite.startPoint.y - 0.25 * i, orderNPCList[i]);
                 // npcSprite.setResume();
             }
             else {
-               npcSprite = new NPCSprite(NPCSprite.finishPoint.x, NPCSprite.finishPoint.y, orderNPCList[i]);
-               // npcSprite.setPause();
+                npcSprite = new NPCSprite(NPCSprite.finishPoint.x, NPCSprite.finishPoint.y, orderNPCList[i]);
+                npcSprite.setVisible(false);
+                // npcSprite.setPause();
             }
 
             if (npcSprite != null){

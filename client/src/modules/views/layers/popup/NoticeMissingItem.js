@@ -25,7 +25,8 @@ var NoticeMissingItem = BaseLayout.extend({
     initMissingItemList: function (storageMissingItemList) {
         this.initMsgContent();
 
-        var itemSprite = new cc.Sprite(res.iconGoodMilk);
+        //var itemSprite = new cc.Sprite(res.iconGoodMilk);
+        var itemSprite = new ccui.ImageView(res.iconGoodMilk);
         for (var i = 0; i < storageMissingItemList.length; i++){
             this.initMissingItem(storageMissingItemList[i], this._bg.width / 2 - (itemSprite.width / 2 * (storageMissingItemList.length - 1)) + itemSprite.width * i);
 
@@ -37,7 +38,8 @@ var NoticeMissingItem = BaseLayout.extend({
 
     initMissingItem: function (missingItem, xPos) {
 //
-        var seedImg = new cc.Sprite(getProductIconById(missingItem.typeItem));
+//        var seedImg = new cc.Sprite(getProductIconById(missingItem.typeItem));
+        var seedImg = new ccui.ImageView(getProductIconById(missingItem.typeItem));
         //seedImg.setPosition(cc.p(this._bg.width / 2, this._bg.height / 2));
         seedImg.setPosition(cc.p(xPos, this._bg.height / 2));
         seedImg.setScale(0.8);
@@ -94,7 +96,8 @@ var NoticeMissingItem = BaseLayout.extend({
         msgSuggest.setPosition(cc.p(btBuy.width * 3 / 5, btBuy.height / 2));
         btBuy.addChild(msgSuggest);
 
-        var rubi = new cc.Sprite(res.rubi);
+        //var rubi = new cc.Sprite(res.rubi);
+        var rubi = new ccui.ImageView(res.rubi);
         rubi.setPosition(cc.p(btBuy.width * 1 / 5, btBuy.height / 2));
         btBuy.addChild(rubi);
 

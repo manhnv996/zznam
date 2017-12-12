@@ -16,7 +16,8 @@ var TruckOrderSprite = MapBlockSprite.extend({
 
 		this.stickList = [];
 		for (var i = 0; i < user.getAsset().getOrderList().length; i++){
-			var icon = new cc.Sprite(res.stickIcon);
+			//var icon = new cc.Sprite(res.stickIcon);
+			var icon = new ccui.ImageView(res.stickIcon);
 			this.stickList.push(icon);
 
 			this.addChild(icon);
@@ -36,7 +37,8 @@ var TruckOrderSprite = MapBlockSprite.extend({
 			if (order.checkStatus() == OrderStatusTypes.REALIZABLE){
 				if (order.checkCondition() == true){
 
-                    var check = new cc.Sprite(res.checkIcon);
+                    //var check = new cc.Sprite(res.checkIcon);
+                    var check = new ccui.ImageView(res.checkIcon);
                     check.setPosition(this.stickList[i].width * 0.625, this.stickList[i].height / 2);
                     this.stickList[i].addChild(check);
 				}
