@@ -232,7 +232,7 @@ var MapBlockSprite = cc.Sprite.extend({
         this.moveSpriteMode = true;
         // this.lstMouse = touchLocation;
         // Enable highest priority for this listener and zOrder
-        this.updateEventPriority(101);
+        this.updateEventPriority(40);
         this.setLocalZOrder(1000);
 
         // Enable Tint action

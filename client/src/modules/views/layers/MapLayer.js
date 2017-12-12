@@ -578,9 +578,9 @@ var MapLayer = cc.Layer.extend({
             }.bind(this),
             onTouchEnded: function (touch, event) {
             	// Caculate velocity and add ineria
-				var velocity = InertiaEngine.instance.stopAndGetVelocity(touch.getLocation());
-				// cc.log("v =", this.velocity);
-				this.inertia(velocity);
+				// var velocity = InertiaEngine.instance.stopAndGetVelocity(touch.getLocation());
+				// // cc.log("v =", this.velocity);
+				// this.inertia(velocity);
 
 				// PopupLayer.instance.disablePopup();
 				// PopupLayer.instance.disableProgressBarInprogress();
@@ -626,6 +626,12 @@ var MapLayer = cc.Layer.extend({
 
 	lock: false,
 	lockMap: function(lock) {
+		if (lock) {
+			// Remove all touches in map
+			this.touchesMap = {
+				length: 0
+			};
+		}
 		this.lock = lock;
 	},
 
