@@ -170,7 +170,7 @@ public class Asset {
         if (this.orderNPCList == null){
             return false;
         }
-        if (this.orderNPCList.size() < 2){
+        if (this.orderNPCList.size() < 1){
             this.orderNPCList.add(order);
             this.orderNPCList.get(this.orderNPCList.size() - 1).setOrderId(this.orderNPCList.size() - 1);
             

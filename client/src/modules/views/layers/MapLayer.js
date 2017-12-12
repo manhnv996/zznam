@@ -10,8 +10,8 @@ var MapLayer = cc.Layer.extend({
 	BOTTOM_LIMIT: null,
 
 
-//		  flow plant and crop
-	fieldList: [],
+// //		  flow plant and crop
+// 	fieldList: [],
 
 
 	ctor: function() {
@@ -39,9 +39,6 @@ var MapLayer = cc.Layer.extend({
 		// cc.log("Move to", center);
 		// this.setPosition(cc.p((this.width / 2 - center.x) * this.scale, (this.height / 2 - center.y) * this.scale));
 		this.initEvent();
-
-		this.initFieldList();
-        //
 
 	},
 
@@ -507,8 +504,9 @@ var MapLayer = cc.Layer.extend({
             	this.uninertia();
 				InertiaEngine.instance.init(mousePos);
 
-				// Disable planting popup
-				PopupLayer.instance.disableAllPopup();
+				// // Disable planting popup
+				// PopupLayer.instance.disableAllPopup();
+                TablePopupLayer.instance.removeUpdateDisableListener();
 				return true;
             }.bind(this),
             onTouchMoved: function(touch, event) {
@@ -523,6 +521,7 @@ var MapLayer = cc.Layer.extend({
 				var velocity = InertiaEngine.instance.stopAndGetVelocity(touch.getLocation());
 				// cc.log("v =", this.velocity);
 				this.inertia(velocity);
+
 				// PopupLayer.instance.disablePopup();
 				// PopupLayer.instance.disableProgressBarInprogress();
 			}.bind(this)
@@ -639,8 +638,9 @@ var MapLayer = cc.Layer.extend({
 			this.move(dx, dy);
 		}
 
-		PopupLayer.instance.disablePopup();
-		PopupLayer.instance.disableProgressBarInprogress();
+		// PopupLayer.instance.disablePopup();
+		// PopupLayer.instance.disableProgressBarInprogress();
+        TablePopupLayer.instance.removeUpdateDisableListener();
 	},
 
 	handleKeyboard: function(keycode, event) {
@@ -677,13 +677,7 @@ var MapLayer = cc.Layer.extend({
 
 
 
-//		////
-	initFieldList: function () {
-		this.fieldList = [];
-
-	},
-
-
+// //		////
     getIndexOfFieldList: function (fieldId) {
         if (fieldId == null){
             return null;
@@ -696,7 +690,6 @@ var MapLayer = cc.Layer.extend({
         return null;
     },
 	// //
-
 
 	runAnimationPlantting: function(fieldId, seedType){
 		// var index = this.getIndexOfFieldList(fieldId);
@@ -744,7 +737,7 @@ var MapLayer = cc.Layer.extend({
 		}
 		return null;
 	},
-
+//	  //
 
 
 	inertia: function(velocity) {

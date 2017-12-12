@@ -17,13 +17,18 @@ var TablePopup = ccui.Layout.extend({
 
 
         var screenPosition = MapValues.logicToScreenPosition(xlogic, ylogic);
-        this._bg.setPosition(screenPosition.x - spriteCalled.width * 2 / 3,
-            screenPosition.y + spriteCalled.height * 2 / 3);
+        if (spriteCalled != null){
+
+            this._bg.setPosition(screenPosition.x - spriteCalled.width * 2 / 3,
+                screenPosition.y + spriteCalled.height * 2 / 3);
+        } else {
+            this._bg.setPosition(screenPosition.x, screenPosition.y);
+        }
 
 
 
-        this.addDisableListener();
-        this.scheduleUpdate();
+        // this.addDisableListener();
+        // this.scheduleUpdate();
     },
 
     addDisableListener: function () {
@@ -31,6 +36,19 @@ var TablePopup = ccui.Layout.extend({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
             onTouchBegan: function (touch, event) {
+//
+                var target = this._bg;
+
+                var locationInNode = target.convertToNodeSpace(touch.getLocation());
+                var s = target.getContentSize();
+                var rect = cc.rect(0, 0, s.width, s.height);
+
+                if (!cc.rectContainsPoint(rect, locationInNode)) {
+                    cc.log("Touch Block Event ");
+                    this._isClose = true;
+
+                    this.clearEventListeer();
+                }
 
                 return true;
             }.bind(this),
@@ -48,17 +66,6 @@ var TablePopup = ccui.Layout.extend({
             }.bind(this),
 
             onTouchEnded: function (touch, event) {
-                //
-                var target = this._bg;
-
-                var locationInNode = target.convertToNodeSpace(touch.getLocation());
-                var s = target.getContentSize();
-                var rect = cc.rect(0, 0, s.width, s.height);
-
-                if (!cc.rectContainsPoint(rect, locationInNode)) {
-                    cc.log("Touch Block Event ");
-                    this._isClose = true;
-                }
 
             }.bind(this)
         });
@@ -80,10 +87,10 @@ var TablePopup = ccui.Layout.extend({
                 cc.eventManager.removeListener(this.disableListener);
                 this.removeAllChildren();
             }
-
             this._isClose = false;
         }
     },
 
+    clearEventListeer: function () {},
 
 });

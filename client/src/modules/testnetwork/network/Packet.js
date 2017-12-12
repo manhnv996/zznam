@@ -1041,8 +1041,6 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         order.orderExp = this.getInt();
         order.waittingTime = this.getLong();
 
-        cc.log(order.waittingTime + " ,,,,,,,,,,")
-
         order.npc_res = this.getString();
 
         return order;

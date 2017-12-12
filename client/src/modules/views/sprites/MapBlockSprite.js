@@ -59,8 +59,9 @@ var MapBlockSprite = cc.Sprite.extend({
         this.autoMoveVer = 0;
         this.autoMoveHor = 0;
 
-        // Disable all popup
-        PopupLayer.instance.disableAllPopup();
+        // // Disable all popup
+        // PopupLayer.instance.disableAllPopup();
+        TablePopupLayer.instance.removeUpdateDisableListener();
 
         var location = MapValues.screenPositionToMapPosition(touchLocation.x, touchLocation.y);
         // Check if is click inside sprite

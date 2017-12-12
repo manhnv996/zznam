@@ -24,7 +24,7 @@ var OrderCtrl = cc.Class.extend({
                  runAction
                  */
                 //CarSprite.instance.updateOrder(orderSelected.orderPrice, orderSelected.orderExp);
-                CarSprite.instance.delivery();
+                CarSprite.instance.delivery(orderSelected.itemList);
                 //
                 BaseGUILayer.instance.removeBlockListener();
 
@@ -56,7 +56,7 @@ var OrderCtrl = cc.Class.extend({
                  runAction
                  */
                 //CarSprite.instance.updateOrder(orderSelected.orderPrice, orderSelected.orderExp);
-                CarSprite.instance.delivery();
+                CarSprite.instance.delivery(orderSelected.itemList);
                 //
                 BaseGUILayer.instance.removeBlockListener();
 
@@ -108,6 +108,8 @@ var OrderCtrl = cc.Class.extend({
         var rubiBuy = getProductObjById(storageMissingItem.typeItem).rubiMuaNgay * storageMissingItem.quantity;
         if (user.reduceRuby(rubiBuy)){
             if (user.getAsset().addItemToStorageById(storageMissingItem.typeItem, storageMissingItem.quantity)){
+                //
+                BaseGUILayer.instance.removeBlockListener();
 
                 testnetwork.connector.sendBuyItemByRubi(storageMissingItem.typeItem, storageMissingItem.quantity);
                 return true;
@@ -136,9 +138,14 @@ var OrderCtrl = cc.Class.extend({
                 BaseGUILayer.instance.removeBlockListener();
 
                 // //
-                MapLayer.instance.getNPCByOrderNPCId(orderId).setPause();
-                MapLayer.instance.getNPCByOrderNPCId(orderId).actionGetOut1();
+                // MapLayer.instance.getNPCByOrderNPCId(orderId).setPause();
+                // MapLayer.instance.getNPCByOrderNPCId(orderId).actionGetOut1();
+                // // //
                 // //
+                if (MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId) != null){
+                    MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).runScheduleWalkingOut(true);
+                    MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).runScheduleUpdateOrderNPC();
+                }
             } else {
                 var missionItem = orderNPCSelected.checkCondition();
                 /*
@@ -166,9 +173,14 @@ var OrderCtrl = cc.Class.extend({
                 INPROGRESS
                  */
                 // //
-                MapLayer.instance.getNPCByOrderNPCId(orderId).setPause();
-                MapLayer.instance.getNPCByOrderNPCId(orderId).actionGetOut1();
+                // MapLayer.instance.getNPCByOrderNPCId(orderId).setPause();
+                // MapLayer.instance.getNPCByOrderNPCId(orderId).actionGetOut1();
                 // //
+                if (MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId) != null){
+                    MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).runScheduleWalkingOut(true);
+                    MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).runScheduleUpdateOrderNPC();
+                }
+
                 BaseGUILayer.instance.removeBlockListener();
             } else {
                 //
@@ -186,10 +198,14 @@ var OrderCtrl = cc.Class.extend({
 
                 testnetwork.connector.sendCancelOrderNpc(orderId);
 
+                // // //
+                // MapLayer.instance.getNPCByOrderNPCId(orderId).setPause();
+                // MapLayer.instance.getNPCByOrderNPCId(orderId).actionGetOut1();
                 // //
-                MapLayer.instance.getNPCByOrderNPCId(orderId).setPause();
-                MapLayer.instance.getNPCByOrderNPCId(orderId).actionGetOut1();
-                // //
+                if (MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId) != null){
+                    MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).runScheduleWalkingOut(false);
+                    MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).runScheduleUpdateOrderNPC();
+                }
             }
         }
         /*

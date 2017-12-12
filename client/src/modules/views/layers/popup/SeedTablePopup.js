@@ -14,7 +14,6 @@ var SeedTablePopup = TablePopup.extend({
             MapLayer.instance.fieldList[index]);
 
         //
-        //this.pageCurr = 0;
         this.pageCurr = LastPageUtil.instance.lastIndexOfPageSeedTableClick;
         //
         this.showSeedPopup(fieldId, seedList);
@@ -32,36 +31,17 @@ var SeedTablePopup = TablePopup.extend({
 
         //
         if (seedList != null){
-
-            // this._bg.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
-            //
-            // var index = MapLayer.instance.getIndexOfFieldList(fieldId);
-            // //cc.log("index = " + index);
-            // if (index != null) {
-            //     var fieldSelected = user.getAsset().getFieldById(MapLayer.instance.fieldList[index].fieldId);
-            //
-            //     var fieldScreenPosition = MapValues.logicToScreenPosition(fieldSelected.getCoordinate().getCurrX(), fieldSelected.getCoordinate().getCurrY());
-            //     this._bg.setPosition(fieldScreenPosition.x - MapLayer.instance.fieldList[index].width * 2 / 3,
-            //         fieldScreenPosition.y + MapLayer.instance.fieldList[index].height * 2 / 3);
-            // }
-
-
             //
             for (var i = 0; i < seedList.length; i++){
                 var seed_type = seedList[i].getTypeItem();
-
                 var seed_img = getSeedImgBySeedTypeAndQuantity(seed_type, seedList[i].getQuantityItem());
 
                 var seed = new SeedSprite(this, seed_img, seed_type);
                 seed.quantity = seedList[i].getQuantityItem();
 
-                // seed.setPosition(cc.p(this._bg.x, this._bg.y));
-
-                /////
+                //
                 seed.addQuantityInfo();
-
                 this.popupItemList.push(seed);
-                // this.addChild(seed);
             }
 
             for (var i = this.popupItemList.length - 1; i >= 0; i--){
@@ -94,46 +74,9 @@ var SeedTablePopup = TablePopup.extend({
 
             }
 
-
             this.setSeedListPosition(this.pageCurr, seedList);
 
         }
-
-    },
-
-    showToolPopup: function(fieldId){
-        //cc.log("showPopup");
-
-        this.disablePopup(null);
-        this.disableProgressBarInprogress();
-
-
-        this._bg = cc.Sprite.create(res.popup2);
-        //this._bg.setPosition(- this.width / 8, this.height * 4 / 3);
-        this._bg.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
-        this.addChild(this._bg);
-
-        var index = MapLayer.instance.getIndexOfFieldList(fieldId);
-        if (index != null) {
-            var fieldSelected = user.getAsset().getFieldById(MapLayer.instance.fieldList[index].fieldId);
-
-            var fieldScreenPosition = MapValues.logicToScreenPosition(fieldSelected.getCoordinate().getCurrX(), fieldSelected.getCoordinate().getCurrY());
-            this._bg.setPosition(fieldScreenPosition.x - MapLayer.instance.fieldList[index].width * 1 / 2,
-                fieldScreenPosition.y + MapLayer.instance.fieldList[index].height * 2 / 3);
-
-        }
-
-
-
-        var tool = new CropToolSprite(this, res.liem);
-
-        tool.setPosition(cc.p(this._bg.x, this._bg.y));
-
-
-        this.popupItemList = [];
-        this.popupItemList.push(tool);
-        this.addChild(tool);
-
     },
 
     //
@@ -217,7 +160,6 @@ var SeedTablePopup = TablePopup.extend({
                 this.popupItemList[5 * pageIndex + 0].runAction(new cc.moveBy(0.1, (this.popupItemList[5 * pageIndex + 0].width * 3 / 4), - (this.popupItemList[5 * pageIndex + 0].height / 4)));
 
                 break;
-
         }
     },
 
@@ -232,29 +174,22 @@ var SeedTablePopup = TablePopup.extend({
     },
 
     disablePopup: function(seedId){
-        //cc.log("disvisible");
         this.disablePopupBackground();
-
         this.disableItemOfPopup(seedId);
-
     },
 
     //
     disablePopupBackground: function () {
         if (this._bg != null) {
-
             this._bg.setVisible(false);
-            //this._bg.removeFromParent(true);
-
-            //this._bg = null;
         }
         if (this.btTurnPage != null){
             this.btTurnPage.setVisible(false);
             this.btTurnPage.removeFromParent(true);
             this.btTurnPage = null;
         }
-//
-    },//
+    },
+    //
     disableItemOfPopup: function(seedId){
         var index = this.getIndexSeedOfPopupItemList(seedId);
         if (index == null){
@@ -266,7 +201,6 @@ var SeedTablePopup = TablePopup.extend({
                         this.popupItemList[i].removeFromParent(true);
                         this.popupItemList[i].clearListener();
                     }
-
                 }
             }
             this.popupItemList = [];
@@ -280,9 +214,7 @@ var SeedTablePopup = TablePopup.extend({
                             this.popupItemList[i].removeFromParent(true);
                             this.popupItemList[i].clearListener();
                         }
-
                     }
-
                 }
             }
             this.popupItemList = [];

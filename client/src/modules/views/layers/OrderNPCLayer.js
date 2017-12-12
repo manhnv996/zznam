@@ -13,8 +13,6 @@ var OrderNPCLayer = BaseLayout.extend({
 
         this._bg.setVisible(false);
 
-        // this._bg.runAction(cc.MoveBy(0.1, cc.p(- cc.winSize.width / 3.5, - cc.winSize.height / 8)));
-
         //
         this.initOrderNPC(orderNPC);
     },
@@ -91,7 +89,7 @@ var OrderNPCLayer = BaseLayout.extend({
     },
 
     initOptional: function () {
-
+        //
         this.btSell = this.initButton(this.slotNpc.x + this.slotNpc.width * 0.1, cc.winSize.height * 0.35, "text_btn_deleiver_npc", 0);
         this.addChild(this.btSell);
         this.btSell.addClickEventListener(this.sellEvent.bind(this));
@@ -105,7 +103,6 @@ var OrderNPCLayer = BaseLayout.extend({
         this.btWait = this.initButton(this.slotNpc.x + this.slotNpc.width * 0.1, cc.winSize.height * 0.35, "text_btn_later_npc", 2);
         this.addChild(this.btWait);
         this.btWait.addClickEventListener(this.waitEvent.bind(this));
-
     },
 
     initButton: function (x, y, text, i) {
@@ -113,8 +110,6 @@ var OrderNPCLayer = BaseLayout.extend({
         var button = new ccui.Button(res.answerNpc);
         button.setPosition(cc.p(x, y - button.height * i * 1.1));
 
-        // var msg = new cc.LabelBMFont(fr.Localization.text(text), res.FONT_OUTLINE_30);
-        // msg.setPosition(cc.p(button.width / 2, button.height / 2));
         var msg = this.initText(button.width / 2, button.height / 2, text, res.FONT_OUTLINE_20);
         button.addChild(msg);
 

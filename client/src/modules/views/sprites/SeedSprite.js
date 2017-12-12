@@ -2,7 +2,8 @@
  * Created by CPU60133_LOCAL on 11/8/2017.
  */
 
-var SeedSprite = cc.Sprite.extend({
+// var SeedSprite = cc.Sprite.extend({
+var SeedSprite = ProductSprite.extend({
 
     data: null,
     seedType: null,
@@ -10,124 +11,89 @@ var SeedSprite = cc.Sprite.extend({
     quantity: null,
 
     ctor: function(parent, seed_img, seedType) {
-        this._super(seed_img);
+        // this._super(seed_img);
+        this._super(seed_img, seedType);
 
         //
-        this.render(seedType);
-        this.addDragEventListener(parent, seedType);
+        this.render(parent, seedType);
 
     },
-    render: function (seedType) {
+    render: function (parent, seedType) {
 
         this.seedType = seedType;
         //
         this.quantity = null;
+
+        this.popupParent = parent;
     },
+
+
 
 
     //
-    addDragEventListener: function (parent, seedType) {
-        this.dragListener = cc.EventListener.create({
-            event: cc.EventListener.TOUCH_ONE_BY_ONE,
-            swallowTouches: true,
-            onTouchBegan: function (touch, event) {
-                // var target = event.getCurrentTarget();
-                var target = this;
-                var locationInNode = target.convertToNodeSpace(touch.getLocation());
-                var s = target.getContentSize();
-                var rect = cc.rect(0, 0, s.width, s.height);
+    onBeginClick: function (touch) {
+        //
+        this.runAction(new cc.ScaleTo(0.1, 1.5, 1.5));
+        //
+        this.touchListener._isFirstMove = false;
+        if (this.quantity == null){
+            /*
+            DONE
+            SHOW LEVEL UNLOCK
+             */
+            this.showInfo();
 
-                if (cc.rectContainsPoint(rect, locationInNode)) {
-                    // cc.log("sprite began... x = " + locationInNode.x + ", y = " + locationInNode.y);
-
-                    //
-                    target.runAction(new cc.ScaleTo(0.1, 1.5, 1.5));
-                    //
-                    this.dragListener._isFirstMove = false;
-
-
-                    if (target.quantity == null){
-                        /*
-                        DONE
-                        SHOW LEVEL UNLOCK
-                         */
-                        target.showInfo();
-
-                    } else {
-                        target.slot.runAction(new cc.MoveBy(0.1, target.width / 4, target.height / 4));
-                    }
-
-
-                    return true;
-                }
-                return false;
-            }.bind(this),
-            onTouchMoved: function (touch, event) {
-
-                var delta = touch.getDelta();
-                // var target = event.getCurrentTarget();
-                var target = this;
-
-                if (target.quantity == null){
-                    return false;
-                }
-
-                this.x += delta.x;
-                this.y += delta.y;
-
-                ////
-                if (!this.dragListener._isFirstMove){
-                    parent.disablePopup(seedType);
-
-                    //
-                    this.dragListener._isFirstMove = true;
-                    target.removeAllChildrenWithCleanup(true);  //remove all child
-
-                    //
-                    TablePopupLayer.instance._layout._isVisible = false;
-                }
-
-
-                //Call ctrl
-                var mouse = touch.getLocation();
-                //cc.log(MapValues.screenPositionToLogic(mouse.x, mouse.y));
-
-                PlantCtrl.instance.onDragSeed(seedType, mouse.x, mouse.y);
-                /*
-                 DONE
-                 */
-
-            }.bind(this),
-
-            onTouchEnded: function (touch, event) {
-                // cc.log("sprite onTouchesEnded.. ");
-
-                // var target = event.getCurrentTarget();
-                var target = this;
-
-                if (!this.dragListener._isFirstMove){
-                    target.runAction(new cc.ScaleTo(0.1, 1, 1));
-
-                    if (target.quantity == null){
-                        target.removeAllChildrenWithCleanup(true);
-                    } else {
-                        target.slot.runAction(new cc.MoveBy(0.1, - target.width / 4, - target.height / 4));
-                    }
-                } else {
-
-                    parent.disablePopup(seedType);
-                    target.removeFromParent(true);
-                    //cc.eventManager.removeListener(this.dragListener);
-
-                    //
-                    TablePopupLayer.instance._layout._isClose = true;
-                }
-
-            }.bind(this)
-        });
-        //cc.eventManager.addListener(this.dragListener, 1);
-        cc.eventManager.addListener(this.dragListener, this);
+        } else {
+            this.slot.runAction(new cc.MoveBy(0.1, this.width / 4, this.height / 4));
+        }
     },
+    onMoveClick: function (touch) {
+        var delta = touch.getDelta();
+
+        if (this.quantity == null){
+            return false;
+        }
+        this.x += delta.x;
+        this.y += delta.y;
+
+        ////
+        if (!this.touchListener._isFirstMove){
+            this.popupParent.disablePopup(this.seedType);
+
+            //
+            this.touchListener._isFirstMove = true;
+            this.removeAllChildrenWithCleanup(true);  //remove all child
+
+            // //
+            // TablePopupLayer.instance._layout._isVisible = false;
+        }
+
+        //Call ctrl
+        var mouse = touch.getLocation();
+        PlantCtrl.instance.onDragSeed(this.seedType, mouse.x, mouse.y);
+        /*
+         DONE
+         */
+    },
+    onEndClick: function (touch) {
+        if (!this.touchListener._isFirstMove){
+            this.runAction(new cc.ScaleTo(0.1, 1, 1));
+
+            if (this.quantity == null){
+                this.removeAllChildrenWithCleanup(true);
+            } else {
+                this.slot.runAction(new cc.MoveBy(0.1, - this.width / 4, - this.height / 4));
+            }
+        } else {
+
+            this.popupParent.disablePopup(this.seedType);
+            this.removeFromParent(true);
+            // //
+            // TablePopupLayer.instance._layout._isClose = true;
+        }
+    },
+    //
+
     //
     showInfo: function () {
         var popupMsg = cc.Sprite.create(res.tooltip);
@@ -163,7 +129,4 @@ var SeedSprite = cc.Sprite.extend({
 
     },
 
-    clearListener: function() {
-        cc.eventManager.removeListener(this.dragListener);
-    }
 });

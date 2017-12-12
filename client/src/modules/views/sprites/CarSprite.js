@@ -69,14 +69,38 @@ var CarSprite = AnimationSprite.extend({
         this.isStatus = car.getStatus();
     },
 
-    delivery: function () {
+
+    prepareItem: function (productId) {
+        var item = new ProductSprite(getProductIconById(productId), null);
+        item.setPosition(cc.p(0, this.height * 0.9));
+        item.setScale(1.5);
+        this.addChild(item);
+        item.fadeOutProduct();
+    },
+
+    runPrepare: function (productList) {
+        var action = cc.sequence(
+            cc.delayTime(0.6),
+            cc.callFunc(function () {
+                if (this.indexCurr < this.sumProduct){
+                    this.prepareItem(productList[this.indexCurr].typeItem);
+                    this.runPrepare(productList);
+                }
+                this.indexCurr ++;
+            }.bind(this))
+        );
+        this.runAction(action);
+    },
+
+    delivery: function (productList) {
+        this.sumProduct = productList.length;
+        this.indexCurr = 0;
+        this.runPrepare(productList);
+
         if (this.isStatus == DeliveryStatus.EMPTY){
             this.play("2");
-            //this.content.setPosition(MapValues.logicToPosition(0, 0));
-            //
-            //this.delivery2();
             var action = cc.sequence(
-                cc.delayTime(2),
+                cc.delayTime(0.6 * this.sumProduct + 2),
                 cc.callFunc(function () {
                     this.delivery2();
                 }.bind(this))
@@ -99,7 +123,7 @@ var CarSprite = AnimationSprite.extend({
     delivery3: function () {
         this.play("3");
         var action = cc.sequence(
-            cc.moveTo(0.65, MapValues.logicToPosition(-2, 12)),
+            cc.moveTo((0.2 * 2 * Math.sqrt(2)), MapValues.logicToPosition(-2, 12)),
             cc.callFunc(function () {
                 this.delivery4();
             }.bind(this))
@@ -109,7 +133,7 @@ var CarSprite = AnimationSprite.extend({
     delivery4: function () {
         this.play("4");
         var action = cc.sequence(
-            cc.moveTo(2.4, MapValues.logicToPosition(-15, 12)),
+            cc.moveTo(2.6, MapValues.logicToPosition(-15, 12)),
             cc.callFunc(function () {
                 this.delivery5();
             }.bind(this))
@@ -120,7 +144,7 @@ var CarSprite = AnimationSprite.extend({
         this.play("5");
         this.content.setPosition(MapValues.logicToPosition(15, 12));
         var action = cc.sequence(
-            cc.moveTo(2, MapValues.logicToPosition(2, 12)),
+            cc.moveTo(2.6, MapValues.logicToPosition(2, 12)),
             cc.callFunc(function () {
                 this.delivery6();
             }.bind(this))
@@ -130,7 +154,7 @@ var CarSprite = AnimationSprite.extend({
     delivery6: function () {
         this.play("6");
         var action = cc.sequence(
-            cc.moveTo(0.5, MapValues.logicToPosition(0, 10)),
+            cc.moveTo((0.2 * 2 * Math.sqrt(2)), MapValues.logicToPosition(0, 10)),
             cc.callFunc(function () {
                 this.delivery7();
             }.bind(this))

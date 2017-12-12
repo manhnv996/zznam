@@ -70,6 +70,15 @@ var AnimationSprite = MapBlockSprite.extend({
 	//	this.content.gotoAndPlay(aniName, 0);
 	//},
 
+    changeTexture: function (aniId) {
+		this.removeAllChildrenWithCleanup(true);
+        this.content = fr.createAnimationById(aniId, this);
+        this.addChild(this.content);
+
+        // Get boundingbox at first time
+        this.__boundingBox = this.content.getBoundingBox();
+    },
+
 	// Override
 	runAction: function(action) {
 		this.content.runAction(action);

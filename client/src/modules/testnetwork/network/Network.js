@@ -193,6 +193,7 @@ testnetwork.Connector = cc.Class.extend({
                     BaseGUILayer.instance._layout.initInfo();
                 }
 
+                TablePopupLayer.instance.runUpdateOrderWaittingTime();
                 break;
 
             case gv.CMD.RESPONSE_SYNC_CAR:
@@ -238,18 +239,32 @@ testnetwork.Connector = cc.Class.extend({
                     //
                     //MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).setResume();
                     var index = MapLayer.instance.getIndexByOrderNPCId(orderNPCSelected.orderId);
-                    MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).removeNPC();
-cc.log("index = " + index);
-                    var npcSprite = new NPCSprite(17, 19, orderNPCSelected);
-                    MapLayer.instance.npcList.splice(index, 1);
-                    MapLayer.instance.npcList.push(npcSprite);
+                    if (index != null){
+                        MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).changeTexture(orderNPCSelected);
+                        MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).runScheduleWalkingBack();
+                        MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).stopScheduleUpdateOrderNPC();
+                    }
+                    // if (index != null){
+                    //     MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).removeNPC();
+                    //
+                    //     MapLayer.instance.npcList.splice(index, 1);
+                    // }
+                    //
+                    // var npcSprite = new NPCSprite(31, 32, orderNPCSelected);
+                    // npcSprite.runScheduleWalkingBack();
+                    // MapLayer.instance.npcList.push(npcSprite);
+                    //
+                    // MapLayer.instance.addChild(npcSprite);// //
 
-                    MapLayer.instance.addChild(npcSprite);
                     //
                 } else {
+                    // //
+                    // // MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).setPause();
+                    // if (MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId) != null){
+                    //     MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).setPause();
+                    // }
                     //
-                    MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).setPause();
-                    //
+                    // //
                 }
 
                 break;

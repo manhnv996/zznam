@@ -393,7 +393,7 @@ function onReceiveUser(userInfo) {
             userInfo.asset.orderNPCList[i].orderExp,
             userInfo.asset.orderNPCList[i].npc_res
         );
-        orderNPCList.waittingTime = new Date(parseInt(userInfo.asset.orderNPCList[i].waittingTime));
+        orderNPC.waittingTime = new Date(parseInt(userInfo.asset.orderNPCList[i].waittingTime));
         orderNPCList.push(orderNPC);
     }
     //

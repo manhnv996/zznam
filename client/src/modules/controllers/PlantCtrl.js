@@ -44,7 +44,8 @@ var PlantCtrl = cc.Class.extend({
                 /*
                 Show status
                  */
-                PopupLayer.instance.showProgressBarInprogress(fieldId);
+                // PopupLayer.instance.showProgressBarInprogress(fieldId);
+                TablePopupLayer.instance.showTimeRemainProgressBar(fieldId);
 
             }
 
@@ -115,7 +116,8 @@ var PlantCtrl = cc.Class.extend({
                      */
                     if (this.firstShowNotice == false){
 
-                        PopupLayer.instance.showNoticeFullFoodStorageBG();
+                        // PopupLayer.instance.showNoticeFullFoodStorageBG();
+                        BaseGUILayer.instance.notifyFullStorage(StorageTypes.FOOD_STORAGE);
                         this.firstShowNotice = true;
                     }
 
@@ -161,7 +163,8 @@ var PlantCtrl = cc.Class.extend({
                     if (this.firstDragEmptyField){
                         cc.log("FLOW BUY SEEDDDDDDDDDDD!!!!!!!!!!!!!!!!!!!");
 
-                        PopupLayer.instance.showSuggestBuyingSeedBG(seedType);
+                        // PopupLayer.instance.showSuggestBuyingSeedBG(seedType);
+                        BaseGUILayer.instance.showSuggestBuyMissionItem([new StorageItem(seedType, 1)], null, null);
                         /*
                         done
                         FLOW BUY SEED
