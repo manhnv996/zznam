@@ -38,4 +38,5 @@ public class ProductType {
     public static final String TOOL_BOLT = "tool_bolt";
     public static final String TOOL_PLANK = "tool_plank";
     public static final String TOOL_DUCTTAPE = "tool_ductTape";
+
 }

@@ -11,14 +11,14 @@ public class Animal {
     public Animal(int id, AnimalEnum type) {
         this.id = id;
         this.feededTime = System.currentTimeMillis();
-        this.feeded = true;
+        this.feeded = false;
         this.type = type;
     }
     
     public Animal(AnimalEnum type) {
         this.id = 0;
         this.feededTime = System.currentTimeMillis();
-        this.feeded = true;
+        this.feeded = false;
         this.type = type;
     }
     
@@ -28,6 +28,10 @@ public class Animal {
     
     public long getFeededTime() {
         return this.feededTime;
+    }
+    
+    public void setFeededTime(long time) {
+        this.feededTime = time;    
     }
     
     public int getId() {
@@ -40,5 +44,18 @@ public class Animal {
     
     public AnimalEnum getType() {
         return this.type;    
+    }
+
+    public void setFeeded(boolean feeded) {
+        this.feeded = feeded;
+    }
+
+    public void feed() {
+        this.feeded = true;
+        this.feededTime = System.currentTimeMillis();
+    }
+
+    public void harvest() {
+        this.feeded = false;
     }
 }

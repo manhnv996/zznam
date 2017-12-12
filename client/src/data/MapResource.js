@@ -27,7 +27,9 @@ var _ = (function() {
 	    HABOR: 			r("habor.png"),
 	    ROADSIDE_SHOP: 	r("roadside-shop.png"),
 	    MAIL_BOX: 		r("mail-box.png"),
-	    O_DAT: 			r("Odat.png")
+	    O_DAT: 			r("Odat.png"),
+	    STONE_13: 		r("stone13.png"),
+	    STONE_12: 		r("stone12.png")
 	};
 
 	var g_MapResource = [];

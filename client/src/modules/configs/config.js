@@ -93,6 +93,13 @@ function getProductConfigById (id) {
     return null;
 }
 
+function fromGoldToRuby(gold) {
+    var ruby = gold / 15;
+    if(gold % 15) ruby++;
+    ruby = Math.floor(ruby);
+    return ruby;
+}
+
 function getResAniIdBySeedType(seedType) {
     switch (seedType) {
         case ProductTypes.CROP_WHEAT:
@@ -350,7 +357,7 @@ function onReceiveUser(userInfo) {
 
     var machineList = [];
     for (var i = 0; i < userInfo.asset.machineList.length; i++) {
-        cc.log("userInfo.asset.machineList[i] " + userInfo.asset.machineList.length);
+        // cc.log("userInfo.asset.machineList[i] " + userInfo.asset.machineList.length);
         var machineInfo = userInfo.asset.machineList[i];
 
         var machine = new Machine(
@@ -416,6 +423,8 @@ function onReceiveUser(userInfo) {
     user.exp = userInfo.exp;
 
     // cc.log("AnimalLodge", user.asset.animalLodgeList);
+    MainScene.instance = new MainScene();
+    cc.director.runScene(MainScene.instance);
     MainScene.instance.onGettedData();
 
 

@@ -110,8 +110,10 @@ cc.game.onStart = function () {
         PreloaderScene.instance = new PreloaderScene();
         cc.director.runScene(PreloaderScene.instance);
 
-        //MainScene.instance = new MainScene();
-		//cc.director.runScene(MainScene.instance);
+  //       InertiaEngine.instance = new InertiaEngine();
+  //       MainScene.instance = new MainScene();
+  //       MainScene.instance.addChild(InertiaEngine.instance);
+		// cc.director.runScene(MainScene.instance);
     }, this);
 };
 cc.game.run();

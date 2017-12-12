@@ -1,6 +1,8 @@
 var ChickenSprite = AnimalSprite.extend({
 	direction: null,
 	lstAction: 0,
+	entered: false,
+	isHungry: false,
 
 	ctor: function() {
 		this._super(resAniId.Chicken_Fix);
@@ -9,6 +11,7 @@ var ChickenSprite = AnimalSprite.extend({
 
 	onEnter: function() {
 		this._super();
+		this.entered = true;
 
 		this.maxX = this.getParent().blockSizeX;
 		this.maxY = this.getParent().blockSizeY;
@@ -16,18 +19,21 @@ var ChickenSprite = AnimalSprite.extend({
 		var ly = (Math.round(Math.random() * 100) % ((this.maxY - 1) * 10)) / 10 + 0.5;
 		this.setLogicPosition(lx, ly);
 
-		var rand = Math.round(Math.random() * 10) % 3;
-		if (rand === 0) {
-			this.walk();
-		} else if (rand === 1) {
-			Math.random() > 0.5 ? this.play(ChickenSprite.Idle2) : this.play(ChickenSprite.Idle3);
-		} else {
-			Math.random() > 0.5 ? this.play(ChickenSprite.Idle1) : this.play(ChickenSprite.Idle4);
+		if (this.isHungry) {
+			this.play(ChickenSprite.Hungry);
+			return;
 		}
-		this.scheduleOnce(function() {
-			this.schedule(this.doAction, 4.0);
-		}.bind(this), Math.round(Math.random() * 100) % 50 / 10);
-		// this.walk();
+
+		if (this.remainTime > 0) {
+			// cc.log("Set scheduleOnce after", this.remainTime / 1000);
+			this.scheduleOnce(this.harvest, this.remainTime / 1000);
+			this.doAction();
+			this.scheduleOnce(function() {
+				this.schedule(this.doAction, 4.0);
+			}.bind(this), Math.round(Math.random() * 100) % 40 / 10);
+		} else {
+			this.harvest();
+		}
 	},
 
 	doAction: function() {
@@ -78,11 +84,21 @@ var ChickenSprite = AnimalSprite.extend({
 
 	harvest: function() {
 		this.unscheduleUpdate();
+		this.unschedule(this.doAction);
 		this.play(ChickenSprite.Harvest);
 	},
 
 	hungry: function() {
-		this.play(ChickenSprite.Hungry);
+		cc.log("Set hungry");
+		this.isHungry = true; // firstTime only
+		if (this.entered) {
+			this.play(ChickenSprite.Hungry);
+		}
+	},
+
+	feed: function() {
+		this.doAction();
+		this.schedule(this.doAction, 4.0);
 	},
 
 	update: function(dt) {
@@ -98,6 +114,10 @@ var ChickenSprite = AnimalSprite.extend({
 			return;
 		}
 		this.setLogicPosition(newX, newY);
+	},
+
+	setOnHarvestTime: function(time) {
+		this._setOnHarvestTime(time, AnimalConfig.chicken.time * 1000);
 	}
 });
 

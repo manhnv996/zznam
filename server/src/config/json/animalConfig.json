@@ -1,0 +1,10 @@
+{
+	"chicken": {
+		"time": 1200,
+		"harvestExp": 2
+	},
+	"cow": {
+		"time": 3600,
+		"harvestExp": 3
+	}
+}

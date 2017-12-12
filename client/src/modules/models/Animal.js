@@ -18,8 +18,14 @@ var Animal = cc.Class.extend({
 
     feed: function () {
         //boolean
+        this.feeded = true;
+        this.feededTime = new Date().getTime();
     },
-    
+
+    harvest: function() {
+        this.feeded = false;
+    },
+
     getProduct: function () {
         //productType
         return ProductTypes.GOOD_EGG;
@@ -37,5 +43,15 @@ var Animal = cc.Class.extend({
     // return in milisecond
     getRemainTime: function() {
         cc.log(this.type);
+    },
+
+    canHarvest: function() {
+        if (!this.feeded) {
+            return false;
+        }
+        var crtTime = new Date().getTime();
+        var harvestTime = AnimalConfig[this.type].time * 1000;
+        var duration = crtTime - this.feededTime;
+        return (duration > harvestTime);
     }
 });

@@ -8,8 +8,8 @@ var RoadShopSprite = MapBlockSprite.extend({
 		this.registerTouchEvents({ lockMove: true });
 	},
 
-	onClick: function() {
-		cc.log("Roadshop clicked");
+	onClick: function(lx, ly) {
+		cc.log("Roadshop clicked", lx, ly);
 	},
 
 	onBeginClick: function() {

@@ -79,6 +79,14 @@ var AnimalLodgeSprite = MapBlockSprite.extend({
 		}
 	},
 
+	onBeginClick: function() {
+		this.setColor(cc.color(155, 155, 155));
+	},
+
+	onEndClick: function() {
+		this.setColor(cc.color(255, 255, 255));
+	},
+
 	caculateBoundingPoints: function() {
 		this._super();
 		var topPoint = MapValues.logicToPosition(
@@ -103,7 +111,7 @@ var AnimalLodgeSprite = MapBlockSprite.extend({
 
 	addAnimalSprite: function(animalSprite) {
 		this.addChild(animalSprite);
-		animalSprite
+		animalSprite.setTag(TagClusters.Animal + animalSprite.id);
 		this.animalSpriteList.push(animalSprite);
 	},
 
@@ -124,24 +132,6 @@ var AnimalLodgeSprite = MapBlockSprite.extend({
 		this.lodge = user.asset.getLodgeById(this.id);
 	},
 
-	onClick: function() {
-		if (this.lodge.getAnimalCount() > 0) {
-			var remain = this.lodge.getMaxRemainTime();
-			if (remain > 0) {
-				// Show remain dialog
-				cc.log("Remain", this.lodge.getMaxRemainTime());
-
-			} else {
-				// Show Harvest tool
-				cc.log("Harvest");
-
-			}
-		} else {
-			// Open store to buy animal
-			cc.log("Open store to buy animal");
-		}
-	},
-
 	onFinishMove: function(lx, ly) {
         cc.log("lodge moved to", lx, ly);
         
@@ -149,5 +139,19 @@ var AnimalLodgeSprite = MapBlockSprite.extend({
         this.lodge.coordinate.y = ly;
         // Send to server
         testnetwork.connector.sendMoveMapBlock(MapItemEnum.LODGE, this.id, lx, ly);
+    },
+
+    getAnimalIdsAroundPoint: function(lx, ly) {
+    	var lp = cc.p(lx - this.lx, ly - this.ly);
+    	var result = [];
+    	// cc.log("List length", this.animalSpriteList.length);
+    	this.animalSpriteList.forEach(function(animalSprite) {
+    		var p = cc.p(animalSprite.lx, animalSprite.ly);
+    		// cc.log(lx, ly, animalSprite.lx, animalSprite.ly);
+    		if (caculateDistance(lp, p) < 0.4) {
+    			result.push(animalSprite.id);
+    		}
+    	});
+    	return result;
     }
 });

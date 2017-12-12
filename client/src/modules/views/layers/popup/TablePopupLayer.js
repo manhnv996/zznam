@@ -13,25 +13,43 @@ var TablePopupLayer = cc.Layer.extend({
 
 
     showSeedTablePopup: function (fieldId, seedShow) {
-        TablePopupLayer.instance.removeUpdateDisableListener();
+        this.removeUpdateDisableListener();
         this._layout = new SeedTablePopup(fieldId, seedShow);
         this.addChild(this._layout);
     },
 
     showCropToolPopup: function (fieldId) {
-        TablePopupLayer.instance.removeUpdateDisableListener();
+        this.removeUpdateDisableListener();
         this._layout = new CropToolPopup(fieldId);
         this.addChild(this._layout);
     },
 
     showTimeRemainProgressBar: function (fieldId) {
-        TablePopupLayer.instance.removeUpdateDisableListener();
-        this._layout = new TimeRemainProgressBar(fieldId);
-        this.addChild(this._layout);
+        //this.removeUpdateDisableListener();
+        //this._layout = new TimeRemainProgressBar(fieldId);
+        //this.addChild(this._layout);
+        var field = user.asset.getFieldById(fieldId);
+        this.loadingBar = new LoadingBarLayout(
+            getProductConfigById(field.plantType).timeMin * 60, field.plantedTime,
+            getProductConfigById(field.plantType).name, 1);
+        var p = MapValues.logicToScreenPosition(field.coordinate.x, field.coordinate.y);
+        this.loadingBar.setPosition(p.x, p.y);
+        BaseGUILayer.instance.addChild(this.loadingBar);
+
+        //
+        this.loadingBar.setOnClick(function() {
+            if (PlantCtrl.instance.boostPlant(fieldId)) {
+                this.loadingBar.closeLoadingBar();
+            }
+        }.bind(this));
     },
 
     ////TablePopupLayer.instance.removeUpdateDisableListener();
-
+    showAnimalToolPopup: function(lx, ly, type, mode, caller) {
+        this.removeUpdateDisableListener();
+        this._layout = new AnimalToolPopup(lx, ly, type, mode, caller);
+        this.addChild(this._layout);
+    },
 
 
     //
@@ -68,6 +86,6 @@ var TablePopupLayer = cc.Layer.extend({
             this.removeAllChildren();
             this._layout = null;
         }
-    },
+    }
 
 });

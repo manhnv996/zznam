@@ -1,4 +1,7 @@
 var AnimalType = {
 	COW: 'COW',
-	CHICKEN: 'CHICKEN'
+	CHICKEN: 'CHICKEN',
+
+	cow: 'cow',
+	chicken: 'chicken'
 };

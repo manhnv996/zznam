@@ -30,7 +30,7 @@ var MapBlockSprite = cc.Sprite.extend({
     },
 
     // Override there methods in inherited class
-    onClick: function() {},
+    onClick: function(lx, ly) {},
     onBeginClick: function() {},
     onEndClick: function() {},
     onFinishMove: function(lx, ly) {},
@@ -59,11 +59,12 @@ var MapBlockSprite = cc.Sprite.extend({
         this.autoMoveVer = 0;
         this.autoMoveHor = 0;
 
-        // // Disable all popup
-        // PopupLayer.instance.disableAllPopup();
+        // Disable all popup
+        //PopupLayer.instance.disableAllPopup();
         TablePopupLayer.instance.removeUpdateDisableListener();
 
-        var location = MapValues.screenPositionToMapPosition(touchLocation.x, touchLocation.y);
+        var location = MapValues.screenPositionToMapPosition(
+            touchLocation.x, touchLocation.y);
         // Check if is click inside sprite
         if (rayCasting(location, this.boundingPoints)) {
             // Inside sprite
@@ -76,8 +77,8 @@ var MapBlockSprite = cc.Sprite.extend({
                 return true;
             }
             // Stop Map inertia and capture velocity
-            MapLayer.instance.uninertia();
-            InertiaEngine.instance.init(touchLocation);
+            // MapLayer.instance.uninertia();
+            // InertiaEngine.instance.init(touchLocation);
             if (!this.eventOption.lockMove) {
                 // When sprite is normal
                 // cc.log("Start schedule outOfHoldTimeCallback");
@@ -91,6 +92,8 @@ var MapBlockSprite = cc.Sprite.extend({
             if (this.moveSpriteMode) {
                 // On click outside
                 this.moveSpriteMode = false;
+                MapLayer.instance.lockMap(false);
+                this.unschedule(this.movingUpdate); // unschedule if represent
                 // Finish move
                 var newLocation = this.lstLocation;
                 var originalPosition = this.originalPosition;
@@ -112,20 +115,19 @@ var MapBlockSprite = cc.Sprite.extend({
                 MapCtrl.instance.addSpriteAlias(this);
                 // Reupdate event priority and zOrder
                 this.updateEventPriority();
-                // this.setLocalZOrder(Math.max(this.lx + this.blockSizeX, this.ly + this.blockSizeY));
                 // Disable tint action and set default color
                 this.stopAllActions();
                 this.setColor(cc.color(255, 255, 255));
             }
+            return false;
         }
-        return false;
     },
 
     onTouchMoved: function(touch) {
         var location = touch.getLocation();
         var lstMouse = this.lstMouse;
         // Add new move position to InertialEngine
-        InertiaEngine.instance.setPoint(location);
+        // InertiaEngine.instance.setPoint(location);
 
         // Move map and disable onclick
         if (!this.touchMoved) {
@@ -174,8 +176,8 @@ var MapBlockSprite = cc.Sprite.extend({
             }
         } else {
             // Move map
-            var delta = touch.getDelta();
-            MapLayer.instance.move(delta.x, delta.y);
+            // var delta = touch.getDelta();
+            // MapLayer.instance.move(delta.x, delta.y);
         }
     },
 
@@ -203,11 +205,13 @@ var MapBlockSprite = cc.Sprite.extend({
             this.unschedule(this.movingUpdate);
         } else {
             // Push last location and get velocity
-            var velocity = InertiaEngine.instance.stopAndGetVelocity(touch.getLocation());
-            MapLayer.instance.inertia(velocity);
+            // var velocity = InertiaEngine.instance.stopAndGetVelocity(touch.getLocation());
+            // MapLayer.instance.inertia(velocity);
         }
         if (!this.touchMoved && !this.moveSpriteMode) {
-            this.onClick();
+            // caculate logic position and pass to onClick
+            var lp = MapValues.screenPositionToLogic(this.lstMouse.x, this.lstMouse.y);
+            this.onClick(lp.x, lp.y);
         }
     },
 
@@ -218,18 +222,19 @@ var MapBlockSprite = cc.Sprite.extend({
         // disable onClick event after long click
         this.touchMoved = true;
         this.arrowShowed = true;
-        PopupLayer.instance.showArrow(this.lstMouse.x, this.lstMouse.y,
+        PopupLayer.instance.showArrow(this.lstMouse.x, this.lstMouse.y + 50,
             this.startMovingSpriteMode.bind(this));
     },
 
     startMovingSpriteMode: function() {
         InertiaEngine.instance.stopAndGetVelocity();
-
+        MapLayer.instance.lockMap(true);
         this.moveSpriteMode = true;
         // this.lstMouse = touchLocation;
         // Enable highest priority for this listener and zOrder
-        this.updateEventPriority(1);
-        this.setLocalZOrder(10000);
+        this.updateEventPriority(101);
+        this.setLocalZOrder(1000);
+
         // Enable Tint action
         var action = new cc.Sequence([
             new cc.TintBy(0.8, -100, -100, -100),
@@ -382,8 +387,10 @@ var MapBlockSprite = cc.Sprite.extend({
 
     removeFromParent: function(flag) {
         this._super(flag);
-        cc.log("Remove", this.touchListener);
-        cc.eventManager.removeListener(this.touchListener);
+        //cc.log("Remove", this.touchListener);
+        if (this.touchListener) {
+            cc.eventManager.removeListener(this.touchListener);
+        }
     },
 
     setLogicPosition: function(lx, ly, notUpdatePriority) {

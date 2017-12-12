@@ -9,15 +9,8 @@ var BaseGUILayer = cc.Layer.extend({
         this._super();
     },
 
-    notifyShopNotEnoughGold: function (gold, typeShopObject, lx, ly) {
-        //cc.log("Notify Miss Gold");
-
-        this._layout = new NotifyNotEnoughG(gold);
-
-        //this._layout.id = id;
-        this.typeShopObject = typeShopObject;
-        this.lx = lx;
-        this.ly = ly;
+    notifyNotEnoughGold: function (gold, hideShop) {
+        this._layout = new NotifyNotEnoughG(gold, hideShop);
 
         if (this._layout._hasCloseButton) {
             //cc.log("_btnClose");
@@ -38,7 +31,7 @@ var BaseGUILayer = cc.Layer.extend({
         rubyImg.y = this._layout.rubyBtn.height / 2;
         this._layout.rubyBtn.addChild(rubyImg);
 
-        this.rubyNumber = GameShopController.instance.fromGoldToRuby(gold);
+        this.rubyNumber = fromGoldToRuby(gold);
         var rubyNeeded = new cc.LabelBMFont(this.rubyNumber.toString(), res.FONT_OUTLINE_20);
         rubyNeeded.x = rubyImg.x - rubyImg.width - rubyNeeded.width;
         rubyNeeded.y = this._layout.rubyBtn.height / 2;
@@ -49,7 +42,14 @@ var BaseGUILayer = cc.Layer.extend({
         //}
 
         this.blockLayout();
-        //this.addChild(this._layout);
+    },
+
+    notifyShopNotEnoughGold: function (gold, typeShopObject, lx, ly) {
+        this.typeShopObject = typeShopObject;
+        this.lx = lx;
+        this.ly = ly;
+
+        this.notifyNotEnoughGold(gold, false);
     },
 
     touchBuyObjectByRuy: function (sender, type) {

@@ -194,7 +194,8 @@ public class UserHandler extends BaseClientRequestHandler {
 //        warehouse.addItem(ProductType.TOOL_BOLT, 1);
         warehouse.addItem(ProductType.TOOL_PLANK, 4);
         warehouse.addItem(ProductType.TOOL_DUCTTAPE, 2);
-        
+        warehouse.addItem(ProductType.FOOD_CHICKEN, 1);
+        warehouse.addItem(ProductType.FOOD_COW, 2);
         
         // Load natural thingList
         List<NatureThing> natureThingList = new ArrayList<>();
@@ -223,9 +224,25 @@ public class UserHandler extends BaseClientRequestHandler {
         asset.addAnimalLodge(cowLodge);
         
         Animal animal = new Animal(AnimalEnum.chicken);
+        animal.setFeededTime(animal.getFeededTime() - 1000 * 60 * 19 - 1000 * 40);
+        animal.setFeeded(false);
         chickenLodge.addAnimal(animal);
         
+        Animal animal2 = new Animal(AnimalEnum.chicken);
+        animal2.setFeededTime(animal2.getFeededTime());
+        animal2.setFeeded(false);
+        chickenLodge.addAnimal(animal2);
         
+        Animal animal3 = new Animal(AnimalEnum.cow);
+        animal3.setFeededTime(animal3.getFeededTime() - 1000 * 3600);
+        animal3.setFeeded(true);
+        cowLodge.addAnimal(animal3);
+        
+        Animal animal4 = new Animal(AnimalEnum.cow);
+        animal4.setFeededTime(animal4.getFeededTime());
+        animal4.setFeeded(true);
+        cowLodge.addAnimal(animal4);
+
         // Add Food Machine
         Machine machine = new Machine(0, MachineTypeEnum.food_machine, 
                         ConfigContainer.getMachineSlot(MachineTypeEnum.food_machine.toString()),

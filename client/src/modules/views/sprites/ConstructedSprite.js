@@ -5,7 +5,7 @@
 var ConstructedSprite = AnimationSprite.extend({
     typeBuilding: null,
     id: null,
-    buildTime: 0,
+    //buildTime: 0,
 
     ctor: function (id, w, h, x, y, typeBuilding, typeMapObject) {
         var aniId;
@@ -70,5 +70,11 @@ var ConstructedSprite = AnimationSprite.extend({
         if (ConstructedCtrl.instance.checkBuildTime(this, dt)) {
             this.removeFromParent(true);
         }
+    },
+
+    onFinishMove: function (lx, ly) {
+        user.asset.getMachineById(this.id).coordinate.x = lx;
+        user.asset.getMachineById(this.id).coordinate.y = ly;
+        testnetwork.connector.sendMoveMapBlock(MapItemEnum.MACHINE, this.id, lx, ly);
     }
 });

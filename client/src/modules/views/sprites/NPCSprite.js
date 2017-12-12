@@ -87,9 +87,9 @@ var NPCSprite = AnimationSprite.extend({
 
         var p = MapValues.logicToPosition(this.direction.x, this.direction.y);
         if (p.x < 0) {
-            this.setScaleX(-1);
-        } else {
             this.setScaleX(1);
+        } else {
+            this.setScaleX(-1);
         }
         this.scheduleUpdate();
     },

@@ -8,7 +8,7 @@ var ProductSprite = cc.Sprite.extend({
 
     // ctor: function(product_img) {
     //     this._super(product_img);
-    ctor: function(product_img, product_id) {
+    ctor: function(product_img, product_id, lx, ly) {
 
         this.item = product_id;
         this._super(product_img);
@@ -16,6 +16,10 @@ var ProductSprite = cc.Sprite.extend({
 
         //
         this.registerTouchEvents();
+        if (!isNaN(lx) && !isNaN(ly)) {
+            var position = MapValues.logicToPosition(lx, ly);
+            this.setPosition(position);
+        }
     },
 
 
@@ -145,6 +149,7 @@ var ProductSprite = cc.Sprite.extend({
     },
 
     fadeOutProduct: function () {
+        this.clearListener();
 
         var fadeIn = cc.fadeIn(0.2);
         var move = cc.moveBy(0.5, cc.p(0, - 150));

@@ -28,8 +28,8 @@ testnetwork.Connector = cc.Class.extend({
                 // this.sendGetUserInfo(); // Old. Do not use
                 this.sendGetUser();
 
-                MainScene.instance = new MainScene();
-                cc.director.runScene(MainScene.instance);
+                // MainScene.instance = new MainScene();
+                // cc.director.runScene(MainScene.instance);
 
                 break;
             case gv.CMD.USER_INFO:
@@ -273,7 +273,19 @@ testnetwork.Connector = cc.Class.extend({
             case gv.CMD.RESPONSE_MOVE:
                 cc.log("RESPONSE_MOVE Error: ", packet.error);
                 if (packet.error !== 0) {
-                    cc.log("[E] Error occurs");
+                    cc.log("[E] Error occurs!");
+                }
+                break;
+            case gv.CMD.ANIMAL_HARVEST:
+                cc.log("ANIMAL_HARVEST Error:", packet.error);
+                if (packet.error !== 0) {
+                    cc.log('[E] Error occurs!');
+                }
+                break;
+            case gv.CMD.ANIMAL_FEED:
+                cc.log("ANIMAL_FEED Error:", packet.error);
+                if (packet.error !== 0) {
+                    cc.log('[E] Error occurs!');
                 }
                 break;
         }
@@ -491,6 +503,20 @@ testnetwork.Connector = cc.Class.extend({
         this.gameClient.sendPacket(pk);
     },
 
+    sendAnimalHarvest: function(lodgeId, animalId) {
+        cc.log("Send Animal Harvest");
+        var pk = this.gameClient.getOutPacket(CmdSendAnimalHarvest);
+        pk.pack(lodgeId, animalId);
+        this.gameClient.sendPacket(pk);
+    },
+
+    sendAnimalFeed: function(lodgeId, animalId) {
+        cc.log("Send Animal Feed", lodgeId, animalId);
+        var pk = this.gameClient.getOutPacket(CmdSendAnimalFeed);
+        pk.pack(lodgeId, animalId);
+        this.gameClient.sendPacket(pk);
+    },
+    
     sendBoostBuild: function (id, typeBuilding) {
         cc.log("Send Boost Build");
         var pk = this.gameClient.getOutPacket(CmdSendBoostBuild);

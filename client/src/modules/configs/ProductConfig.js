@@ -11,7 +11,7 @@ productIconMap[ProductTypes.CROP_SOYBEAN] = res.iconCropSoybean;
 productIconMap[ProductTypes.CROP_SUGARCANE] = res.iconCropSugarcane;
 
 productIconMap[ProductTypes.GOOD_EGG] = res.iconGoodEgg;
-productIconMap[ProductTypes.GOOF_MILK] = res.iconGoodMilk;
+productIconMap[ProductTypes.GOOD_MILK] = res.iconGoodMilk;
 
 productIconMap[ProductTypes.PRODUCT_BREAD] = res.iconProductBread;
 productIconMap[ProductTypes.PRODUCT_CORN_BREAD] = res.iconProductCornBread;

@@ -55,6 +55,8 @@ public class ZPUserInfo extends DataModel {
 //                this.map[i][j] = ConfigContainer.defaultMap[i][j];
 //            }
 //        }
+//                System.out.println("abcxyz");
+
         this.map = new MapAlias();
         // Add silo to map
         Storage silo = this.asset.getFoodStorage();

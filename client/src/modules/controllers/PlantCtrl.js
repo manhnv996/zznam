@@ -194,12 +194,14 @@ var PlantCtrl = cc.Class.extend({
 //
                 //send pk to server {packet{fieldId}}
                 testnetwork.connector.sendPlantBoost(fieldSelected.getFieldId());
+                return true;
             } else {
                 cc.log("Not enough ruby");
+                return false;
             }
 
         }
-
+        return false;
     },
 
     buySeed: function (seedType) {

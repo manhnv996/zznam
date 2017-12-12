@@ -7,7 +7,7 @@ var ProductTypes = {
 
     //
     GOOD_EGG: "good_egg",
-    GOOF_MILK: "good_milk",
+    GOOD_MILK: "good_milk",
 
     PRODUCT_BREAD: "product_bread",
     PRODUCT_CORN_BREAD: "product_corn_bread",
@@ -39,8 +39,17 @@ var ProductTypes = {
 
     TOOL_BOLT : "tool_bolt",
     TOOL_PLANK : "tool_plank",
-    TOOL_DUCTTAPE : "tool_ductTape"
+    TOOL_DUCTTAPE : "tool_ductTape",
 
+    //
+    //PRODUCT_BREAD: 20,
+    //PRODUCT_CORN_BREAD: 21,
+    //PRODUCT_COOKIE: 22,
+    //PRODUCT_CREAM: 25,
+    //PRODUCT_BUTTER: 26,
+    //PRODUCT_BROWN_SUGAR: 27,
+    //PRODUCT_POPCORN: 28,
+    //PRODUCT_PANCAKE: 29,
     //
     //CUT_AXE: 30,
     //CUT_SAW: 31,

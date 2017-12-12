@@ -54,13 +54,6 @@ var GameShopController = cc.Class.extend({
         return missGold;
     },
 
-    fromGoldToRuby: function (gold) {
-        var ruby = gold / 15;
-        if(gold % 15) ruby++;
-        ruby = Math.floor(ruby);
-        return ruby;
-    },
-
     buyMapObjectByRuby: function (typeObject, lx, ly, ruby) {
         var userRuby = user.ruby;
 

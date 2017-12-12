@@ -7,6 +7,7 @@ var MainScene = cc.Scene.extend({
 		GameShopController.instance = new GameShopController();
 		StorageCtrl.instance = new StorageCtrl();
 		ConstructedCtrl.instance = new ConstructedCtrl();
+		AnimalCtrl.instance = new AnimalCtrl();
 
 		// Init layers
 		MapLayer.instance = new MapLayer();
@@ -18,7 +19,7 @@ var MainScene = cc.Scene.extend({
 		TablePopupLayer.instance = new TablePopupLayer();
 		this.addChild(TablePopupLayer.instance);
 
-		//var mainGuiLayer = new MainGuiLayer();
+		//var mainGuiLayer = new MainG+uiLayer();
 		//this.addChild(mainGuiLayer);
 		//MainGuiLayer.instance = new MainGuiLayer();
 		//this.addChild(MainGuiLayer.instance);

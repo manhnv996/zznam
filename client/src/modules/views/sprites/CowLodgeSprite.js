@@ -14,9 +14,42 @@ var CowLodgeSprite = AnimalLodgeSprite.extend({
 		// }
 	},
 
-	// onClick: function() {
-	// 	cc.log('Cow lodge clicked', this.getLocalZOrder(), this.lx, this.ly);
-	// },
+	onClick: function(lx, ly) {
+		// AnimalCtrl.instance.onMoveHarvestTool(lx, ly, AnimalLodgeType.cow_habitat);
+		if (this.lodge.getAnimalCount() > 0) {
+			var startTime = this.lodge.getLastFeededTime();
+			var remain = AnimalConfig.cow.time * 1000 - (new Date().getTime() - startTime);
+			if (remain > 0) {
+				// Animal feeded
+				this.loadingBar = new LoadingBarLayout(
+					AnimalConfig.cow.time, startTime,
+					// fr.Localization.text("Ga"), 1);
+					"Bo", 1);
+				var p = MapValues.logicToScreenPosition(this.lx + this.blockSizeX / 2, this.ly + this.blockSizeY / 2);
+				this.loadingBar.setPosition(p.x, p.y);
+				BaseGUILayer.instance.addChild(this.loadingBar);
+			}
+
+			var hungry = this.lodge.isHungry();
+			var harvest = this.lodge.canHarvest();
+			var mode = 0;
+			if (hungry && harvest) {
+				mode = 3;
+			} else if (hungry && !harvest) {
+				mode = 1;
+			} else if (!hungry && harvest) {
+				mode = 2;
+			}
+			if (mode !== 0) {
+				TablePopupLayer.instance.showAnimalToolPopup(this.lx, this.ly, AnimalLodgeType.cow_habitat, mode, this);
+			}
+			// cc.log("HarvestableCount", this.lodge.harvestableCount());
+
+		} else {
+			// Open store to buy animal
+			cc.log("Open store to buy animal");
+		}
+	},
 
 	setLogicPosition: function(lx, ly, notUpdatePriority) {
 		this._super(lx, ly, notUpdatePriority);

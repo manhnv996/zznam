@@ -10,8 +10,12 @@ var NoticeMissingItem = BaseLayout.extend({
         this._super(res.bgNotice2, "text_notice_title", true, true, true);
 
         //
-        this.targetType = targetType;
-        this.orderId = orderId;
+        if (targetType !== undefined) {
+            this.targetType = targetType;
+        }
+        if (orderId !== undefined) {
+            this.orderId = orderId;
+        }
 
         //
         this.initMissingItemList(storageMissingItemList);
