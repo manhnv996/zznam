@@ -126,6 +126,10 @@ var CowSprite = AnimalSprite.extend({
 
 	setOnHarvestTime: function(time) {
 		this._setOnHarvestTime(time, AnimalConfig.cow.time * 1000);
+	},
+
+	demo: function() {
+		this.play(CowSprite.Idle1);
 	}
 });
 

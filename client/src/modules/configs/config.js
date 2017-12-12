@@ -85,9 +85,18 @@ function getMachineConfigByType (type) {
 }
 
 function getProductConfigById (id) {
-    for (var i = 0; res.storageItemResource.length; i++) {
+    for (var i = 0; i < res.storageItemResource.length; i++) {
         if (res.storageItemResource[i].id === id) {
             return res.storageItemResource[i];
+        }
+    }
+    return null;
+}
+
+function getLodgeConfigById (id) {
+    for (var i = 0; i < res.infoCoopItem.length; i++) {
+        if (res.infoCoopItem[i].id === id) {
+            return res.infoCoopItem[i];
         }
     }
     return null;

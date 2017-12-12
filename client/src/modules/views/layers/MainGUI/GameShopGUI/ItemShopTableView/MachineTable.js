@@ -13,6 +13,7 @@ var MachineTable = cc.Layer.extend({
 
     ctor: function () {
         this._super();
+        //cc.log("Machine Table");
         this.init();
     },
 
@@ -60,7 +61,6 @@ var MachineTable = cc.Layer.extend({
         var maxslot = 0;
         var price;
 
-        //if (!cell) {
             cell = new cc.TableViewCell();
             var imgBg = new cc.Sprite(res.shop_slot_png);
             imgBg.x = 0;
@@ -92,13 +92,13 @@ var MachineTable = cc.Layer.extend({
             image.setScale(scaleImg);
             image.tag = 1;
 
-            title = new cc.LabelBMFont(fr.Localization.text(res.infoMachineItem[idx].name), "fonts/outline/30.fnt");
+            title = new cc.LabelBMFont(fr.Localization.text(res.infoMachineItem[idx].name), res.FONT_OUTLINE_30);
             title.x = box.width / 10 - 10;
             title.y = box.height - 10;
             title.setAnchorPoint(0, 1);
             title.tag = 2;
 
-            detail = new cc.LabelBMFont(fr.Localization.text(res.infoMachineItem[idx].detail), "fonts/normal/30.fnt");
+            detail = new cc.LabelBMFont(fr.Localization.text(res.infoMachineItem[idx].detail), res.FONT_NORMAL_30);
             detail.x = box.width / 3;
             detail.y = box.height / 2;
             detail.color = cc.color(77, 41, 1);
@@ -117,12 +117,12 @@ var MachineTable = cc.Layer.extend({
                 }
             }
 
-            slot = new cc.LabelBMFont(curslot + "/" + maxslot, "fonts/outline/30.fnt");
+            slot = new cc.LabelBMFont(curslot.toString() + "/" + maxslot.toString(), res.FONT_OUTLINE_30);
             slot.x = box.width / 3 * 2;
             slot.y = box.height / 5 * 4;
             slot.tag = 4;
 
-            price = new cc.LabelBMFont(res.infoMachineItem[idx].price, "fonts/outline/30.fnt");
+            price = new cc.LabelBMFont(res.infoMachineItem[idx].price, res.FONT_OUTLINE_30);
             price.x = box.width / 5 * 2;
             price.y = 0;
             price.setAnchorPoint(1, -0.5);
@@ -133,29 +133,6 @@ var MachineTable = cc.Layer.extend({
             cell.addChild(detail);
             cell.addChild(price);
             cell.addChild(slot);
-
-            // cc.log("create cell container " + idx);
-        //} else {
-        //    // cc.log("abc" + idx);
-        //    image = cell.getChildByTag(1);
-        //    image.setTexture(res.infoMachineItem[idx].nameIconShop);
-        //
-        //    title = cell.getChildByTag(2);
-        //    title.setString(res.infoMachineItem[idx].name);
-        //
-        //    detail = cell.getChildByTag(3);
-        //    detail.setString(res.infoMachineItem[idx].detail);
-        //
-        //    curslot = GameShopController.instance.getNumberMachine(res.infoMachineItem[idx].id);
-        //    maxslot = res.infoMachineItem[idx].number;
-        //
-        //    slot = cell.getChildByTag(4);
-        //    slot.setString(curslot + "/" + maxslot);
-        //
-        //    price = cell.getChildByTag(5);
-        //    price.setString(res.infoMachineItem[idx].price);
-        //}
-
         return cell;
     },
 
@@ -226,8 +203,8 @@ var MachineTable = cc.Layer.extend({
                                 createP.x, createP.y);
                             break;
                     }
-                    this._sprite.setLocalZOrder(10000);
                     if (this._sprite) {
+                        this._sprite.setLocalZOrder(10000);
                         MapLayer.instance.addChild(this._sprite);
                     }
                 }
@@ -272,7 +249,7 @@ var MachineTable = cc.Layer.extend({
                         if (missGold) {
                             //this._sprite.removeFromParent(true);
                             BaseGUILayer.instance.notifyShopNotEnoughGold(missGold, this.typeObject,
-                                this._sprite.lx, this._sprite.ly);
+                                endPl.x, endPl.y);
                         } else {
                             // Success
                             //MapCtrl.instance.addSpriteAlias(this._sprite);
@@ -325,8 +302,8 @@ var MachineTable = cc.Layer.extend({
                             //cc.log("Gold User" + user.getGold());
                             user.reduceGold(sender.parent.getChildByTag(5).getString());
                             //Send Server
-                            testnetwork.connector.sendBuyMapObjectRequest(this._sprite.id,
-                                this.typeObject, this._sprite.lx, this._sprite.ly);
+                            testnetwork.connector.sendBuyMapObjectRequest(machineModel.id,
+                                machineModel.type, endPl.x, endPl.y);
 
                             GameShopLayout.instance.show();
                         }

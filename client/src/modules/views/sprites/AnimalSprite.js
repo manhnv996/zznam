@@ -11,6 +11,7 @@ var AnimalSprite = cc.Sprite.extend({
 
 	onEnter: function() {
 		this._super();
+		cc.log("On Enter")
 		this.setLogicPosition(this.lx, this.ly);
 	},
 
@@ -19,8 +20,10 @@ var AnimalSprite = cc.Sprite.extend({
 		this._sprite.setCompleteListener(callback);
 	},
 
-	setLogicPosition: function(x, y) {
+	setLogicPosition: function(x, y, prepare) {
+		//cc.log("INSIDE Set logic position", x, y);
 		if (x.x) {
+			prepare = y;
 			y = x.y;
 			x = x.x
 		}
@@ -31,16 +34,22 @@ var AnimalSprite = cc.Sprite.extend({
 			return;
 		}
 		var p = MapValues.logicToPosition(x, y);
-		this.setLocalZOrder(10 * (x + y));
-		this.setPosition(
-			p.x + this.getParent().getContentSize().width / 2,
-			p.y + this.getParent().getContentSize().height
-		);
+		this.setLocalZOrder(10 * (x + y) + 1);
+		if (prepare) {
+			this.setPosition(p);
+		} else {
+			this.setPosition(
+				p.x + this.getParent().getContentSize().width / 2,
+				p.y + this.getParent().getContentSize().height
+			);
+		}
 	},
 
 	setId: function(id) {
 		this.id = id;
 	},
+
+	demo: function() {},
 
 	// Need to override
 	hungry: function() {},

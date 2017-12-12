@@ -4,10 +4,27 @@
 
 var GameShopController = cc.Class.extend({
 
-    getMaxField: function () {
-        var gameShop = new GameShop();
-        return gameShop.getMaxField();
+    getMaxLodge: function (id) {
+        var config = getLodgeConfigById(id);
+        var length = config.level.length;
+        var maxslot = 0;
+        if (user.level >= config.level[length - 1]) {
+            maxslot = config.number[length - 1];
+        } else {
+            for (var i = 0; i < length - 1; i++) {
+                if (config.level[i] <= user.level && user.level < config.level[i + 1]) {
+                    maxslot = config.number[i];
+                    break;
+                }
+            }
+        }
+        return maxslot;
     },
+
+    getLodgeSlotByType: function (type) {
+        return getLodgeConfigById(type).capacity;
+    },
+
 
     getNumberLodge: function (id) {
         var number = 0;
@@ -39,11 +56,11 @@ var GameShopController = cc.Class.extend({
         return number;
     },
 
-    checkBorder: function (lx, ly) {
-        if(lx < 0 || ly < 0)
-            return false;
-        return true;
-    },
+    //checkBorder: function (lx, ly) {
+    //    if(lx < 0 || ly < 0)
+    //        return false;
+    //    return true;
+    //},
 
     checkGold: function (price) {
         // cc.log(price);
@@ -60,21 +77,28 @@ var GameShopController = cc.Class.extend({
         if (userRuby < ruby) {
             BaseGUILayer.instance.notifyNotEnoughRuby(ruby - userRuby, false);
         } else {
+            //chicken --- cow -->> function #
             this._sprite = null;
-            if (typeObject == "field") {
-                cc.log("Buy field By Ruby");
-                this.buyField(typeObject, lx, ly, ruby);
-            } else if (typeObject == "chicken_habitat") {
-
-            } else if (typeObject == "cow_habitat") {
-
-            } else if (typeObject == "chicken") {
-
-            } else if (typeObject == "cow") {
-
-            } else {
-                this.buyMachine(typeObject, lx, ly, ruby);
+            switch (typeObject) {
+                case "field":
+                    this.buyField(typeObject, lx, ly, ruby);
+                    break;
+                case "chicken_habitat":
+                case "cow_habitat":
+                    this.buyLodge(typeObject, lx, ly, ruby);
+                    break;
+                case "chicken":
+                case "cow":
+                    break;
+                case "bakery_machine":
+                case "food_machine":
+                case "butter_machine":
+                case "sugar_machine":
+                case "popcorn_machine":
+                    this.buyMachine(typeObject, lx, ly, ruby);
+                    break;
             }
+
             user.reduceRuby(ruby);
 
             MapLayer.instance.addChild(this._sprite);
@@ -85,7 +109,6 @@ var GameShopController = cc.Class.extend({
 
     buyField: function (typeObject, lx, ly) {
         //Sprite
-        //this._sprite = null;
         this._sprite = new FieldSprite(user.getAsset().getFieldList().length + 1, lx, ly);
 
         //Model
@@ -108,38 +131,58 @@ var GameShopController = cc.Class.extend({
         user.asset.addMachine(machineModel);
 
         //Sprite
-        //this._sprite = null;
         switch (typeObject) {
             case "bakery_machine":
                 this._sprite = new ConstructedSprite(machineModel.id,
                     MapConfigs.BakeryMachine.size.width, MapConfigs.BakeryMachine.size.height,
-                    lx, ly, MapItemEnum.MACHINE, MapItemEnum.BAKERY);
+                    lx, ly, MapItemEnum.MACHINE);
                 break;
             case "food_machine":
                 this._sprite = new ConstructedSprite(machineModel.id,
                     MapConfigs.FoodMachine.size.width, MapConfigs.FoodMachine.size.height,
-                    lx, ly, MapItemEnum.MACHINE, MapItemEnum.FOOD_GRINDER);
+                    lx, ly, MapItemEnum.MACHINE);
                 break;
             case "butter_machine":
                 this._sprite = new ConstructedSprite(machineModel.id,
                     MapConfigs.ButterMachine.size.width, MapConfigs.ButterMachine.size.height,
-                    lx, ly, MapItemEnum.MACHINE, MapItemEnum.BUTTER);
+                    lx, ly, MapItemEnum.MACHINE);
                 break;
             case "sugar_machine":
                 this._sprite = new ConstructedSprite(machineModel.id,
                     MapConfigs.SugarMachine.size.width, MapConfigs.SugarMachine.size.height,
-                    lx, ly, MapItemEnum.MACHINE, MapItemEnum.SUGAR_MAKER);
+                    lx, ly, MapItemEnum.MACHINE);
                 break;
             case "popcorn_machine":
                 this._sprite = new ConstructedSprite(machineModel.id,
                     MapConfigs.PopcornMachine.size.width, MapConfigs.PopcornMachine.size.height,
-                    lx, ly, MapItemEnum.MACHINE, MapItemEnum.POPCORN_MAKER);
+                    lx, ly, MapItemEnum.MACHINE);
                 break;
         }
         GameShopLayout.instance._gameShop._machineTable._tableView.reloadData();
 
         //Send server
-        testnetwork.connector.sendBuyMapObjectByRuby(this._sprite.id, typeObject,
+        testnetwork.connector.sendBuyMapObjectByRuby(machineModel.id, typeObject,
+            lx, ly);
+    },
+
+    buyLodge: function (typeObject, lx, ly) {
+        //Model
+        var lodgeModel = new AnimalLodge(new Coordinate(lx, ly),
+            typeObject, 0, null);
+        user.asset.addAnimalLodge(lodgeModel);
+        //Sprite
+        switch (typeObject) {
+            case AnimalLodgeType.chicken_habitat:
+                this._sprite = new ChickenLodgeSprite(lodgeModel.id, lx, ly);
+                break;
+            case AnimalLodgeType.cow_habitat:
+                this._sprite = new CowLodgeSprite(lodgeModel.id, lx, ly);
+                break;
+        }
+        GameShopLayout.instance._gameShop._lodgeTable._tableView.reloadData();
+
+        //Send server
+        testnetwork.connector.sendBuyMapObjectByRuby(lodgeModel.id, typeObject,
             lx, ly);
     }
 });

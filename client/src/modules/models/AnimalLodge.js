@@ -15,10 +15,13 @@ var AnimalLodge = CoordinatedObject.extend({
     //     //
 
     // },
-    addAnimal: function () {
-        //
-
+    addAnimal: function (animal) {
+        this.animalList.push(animal);
+        if(animal.id === 0){
+            animal.id = this.animalList.length;
+        }
     },
+
     getCurrentSlot: function () {
         //
         return this.animalList.length;
