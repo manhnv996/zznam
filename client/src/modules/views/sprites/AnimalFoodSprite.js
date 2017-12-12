@@ -49,7 +49,7 @@ var AnimalFoodSprite = cc.Sprite.extend({
                 var count = AnimalCtrl.instance.onMoveFeedTool(lp.x, lp.y, type);
                 if (count !== 0) {
                     this.quantity -= count;
-                    this.quantityLabel.setString(count);
+                    this.quantityLabel.setString(this.quantity);
                 }
             }.bind(this),
 
