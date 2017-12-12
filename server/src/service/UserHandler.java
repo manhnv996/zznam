@@ -195,6 +195,7 @@ public class UserHandler extends BaseClientRequestHandler {
         warehouse.addItem(ProductType.TOOL_PLANK, 4);
         warehouse.addItem(ProductType.TOOL_DUCTTAPE, 2);
         warehouse.addItem(ProductType.FOOD_CHICKEN, 1);
+        warehouse.addItem(ProductType.FOOD_COW, 2);
         
         // Load natural thingList
         List<NatureThing> natureThingList = new ArrayList<>();

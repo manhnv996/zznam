@@ -24,8 +24,8 @@ var TablePopupLayer = cc.Layer.extend({
     },
 
     ////TablePopupLayer.instance.removeUpdateDisableListener();
-    showAnimalToolPopup: function(lx, ly) {
-        this._layout = new AnimalToolPopup(lx, ly);
+    showAnimalToolPopup: function(lx, ly, type, mode) {
+        this._layout = new AnimalToolPopup(lx, ly, type, mode);
         this.addChild(this._layout);
     },
 

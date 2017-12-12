@@ -40,12 +40,14 @@ var AnimalCtrl = cc.Class.extend({
 		var flx = Math.floor(lx);
 		var fly = Math.floor(ly);
 		if (!user.map[flx] || user.map[flx][fly] !== MapItemEnum.LODGE) {
-			return;
+			return 0;
 		}
 		var lodge = user.asset.getLodgeByPosition(lx, ly);
 		if (!lodge || lodge.type !== lodgeType) {
-			return;
+			return 0;
 		}
+
+		var count = 0;
 		var lodgeSprite = MapLayer.instance.getChildByTag(TagClusters.Lodge + lodge.id);
 		lodgeSprite.getAnimalIdsAroundPoint(lx, ly)
 		.map(function(id) {
@@ -64,11 +66,13 @@ var AnimalCtrl = cc.Class.extend({
 				animal.feed();
 				animalSprite.feed();
 				animalSprite.setOnHarvestTime(animal.feededTime);
+				count++;
 				// Send to server
 				testnetwork.connector.sendAnimalFeed(lodge.id, animal.id);
 			} else {
-				cc.log("Not enough item");				
+				cc.log("Not enough item");
 			}
 		});
+		return count;
 	}
 });

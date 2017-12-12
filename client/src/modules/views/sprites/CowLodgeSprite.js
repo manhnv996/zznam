@@ -24,23 +24,26 @@ var CowLodgeSprite = AnimalLodgeSprite.extend({
 				this.loadingBar = new LoadingBarLayout(
 					AnimalConfig.cow.time, startTime,
 					// fr.Localization.text("Ga"), 1);
-					"Ga", 1);
-				var p = MapValues.logicToScreenPosition(this.lx, this.ly);
-				this.loadingBar.setPosition(p.x, p.y + 50);
+					"Bo", 1);
+				var p = MapValues.logicToScreenPosition(this.lx + this.blockSizeX / 2, this.ly + this.blockSizeY / 2);
+				this.loadingBar.setPosition(p.x, p.y);
 				BaseGUILayer.instance.addChild(this.loadingBar);
 			}
 
-			if (this.lodge.isHungry()) {
-				// Show feed tools
-				cc.log('Hungry');
+			var hungry = this.lodge.isHungry();
+			var harvest = this.lodge.canHarvest();
+			var mode = 0;
+			if (hungry && harvest) {
+				mode = 3;
+			} else if (hungry && !harvest) {
+				mode = 1;
+			} else if (!hungry && harvest) {
+				mode = 2;
 			}
-
-			if (this.lodge.canHarvest()) {
-				cc.log("Harvest");
+			if (mode !== 0) {
+				TablePopupLayer.instance.showAnimalToolPopup(this.lx, this.ly, AnimalLodgeType.cow_habitat, mode);
 			}
-
 			// cc.log("HarvestableCount", this.lodge.harvestableCount());
-			TablePopupLayer.instance.showAnimalToolPopup(this.lx, this.ly, this.type);
 
 		} else {
 			// Open store to buy animal

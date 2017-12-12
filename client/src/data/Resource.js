@@ -146,3 +146,7 @@ for (var k in OrderResource) {
 for (var k in AnimalLodgeResource) {
     res[k] = AnimalLodgeResource[k];
 }
+
+for (var k in ToolResource) {
+    res[k] = ToolResource[k];
+}

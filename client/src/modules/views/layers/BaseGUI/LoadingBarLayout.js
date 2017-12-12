@@ -227,7 +227,7 @@ var LoadingBarLayout = ccui.Layout.extend({
         this.unschedule(this.updateRemainTime);
         if (this.parent) {
             this.removeFromParent(true);
-            cc.log("removeFromParent");
+            // cc.log("removeFromParent");
         }
         this._isClose = false;
         //_loadingBarConstructed.removeFromParent(true);
@@ -239,7 +239,7 @@ var LoadingBarLayout = ccui.Layout.extend({
         this.unscheduleUpdate();
         if (this.parent) {
             this.removeFromParent(true);
-            cc.log("removeFromParent");
+            // cc.log("removeFromParent");
         }
         this._isClose = false;
         //_loadingBarConstructed.removeFromParent(true);

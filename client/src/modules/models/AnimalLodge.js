@@ -88,9 +88,11 @@ var AnimalLodge = CoordinatedObject.extend({
 
         for (var i = 0; i < this.animalList.length; i++) {
             var animal = this.animalList[i];
-            var duration = crtTime - animal.feededTime;
-            if (duration > harvestTime) {
-                return true;
+            if (animal.feeded) {
+                var duration = crtTime - animal.feededTime;
+                if (duration > harvestTime) {
+                    return true;
+                }
             }
         }
         return false;

@@ -31,7 +31,16 @@ var TablePopup = ccui.Layout.extend({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
             onTouchBegan: function (touch, event) {
+                var target = this._bg;
 
+                var locationInNode = target.convertToNodeSpace(touch.getLocation());
+                var s = target.getContentSize();
+                var rect = cc.rect(0, 0, s.width, s.height);
+
+                if (!cc.rectContainsPoint(rect, locationInNode)) {
+                    this._isClose = true;
+                    return false;
+                }
                 return true;
             }.bind(this),
 
@@ -56,7 +65,7 @@ var TablePopup = ccui.Layout.extend({
                 var rect = cc.rect(0, 0, s.width, s.height);
 
                 if (!cc.rectContainsPoint(rect, locationInNode)) {
-                    cc.log("Touch Block Event ");
+                    // cc.log("Touch Block Event ");
                     this._isClose = true;
                 }
 
