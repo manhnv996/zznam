@@ -4,6 +4,7 @@
 
 var MachineController = cc.Class.extend({
     onMachineSelected:function(machineId){
+        cc.log(MA_LOG_TAG + "7 " + machineId);
         TablePopupLayer.instance.showMachineTablePopup(machineId);
     },
     initMachineSpriteList: function () {

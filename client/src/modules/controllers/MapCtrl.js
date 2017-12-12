@@ -43,7 +43,7 @@ var MapCtrl = cc.Class.extend({
         MainScene.instance.addChild(InertiaEngine.instance);
         this.renderUserInfo();
 
-        //this.renderMachine();
+        this.renderMachine();
 
         // Add sample
         // var chickenLodge = new ChickenLodgeSprite(18, 19);
@@ -200,7 +200,7 @@ var MapCtrl = cc.Class.extend({
      */
     renderMachines: function () {
         //cc.log("Render machine to Map");
-        var machineList = user.asset.machineList;
+        var machineList = user.asset.c;
         for (var i = 0; i < machineList.length; i++) {
             var machine = machineList[i];
             var type = machine.type;
@@ -434,60 +434,70 @@ var MapCtrl = cc.Class.extend({
         // }
     },
 
-    //renderMachine: function(){
-    //    //(coordinate, startBuildTime, completed, machineId, machineType, productQueue)
-    //
-    //    MapLayer.instance.machineSpriteList = [];
-    //
-    //    var coordinate = {x:24, y: 24};
-    //    var startBuildTime = "343434324";
-    //    var completed = true;
-    //    var machineId = "bakery_machine";
-    //    var machineType = "bakery_machine";
-    //    var startTime = "343434324";
-    //    var productQueue = ["product_bread", "product_corn_bread", "product_bread", "product_corn_bread", "product_bread", "product_corn_bread"];
-    //    user.asset.machineList = [];
-    //    user.asset.addMachine(new Machine(coordinate, startBuildTime, completed, machineId, machineType, productQueue,startTime));
-    //    user.asset.addMachine(new Machine({x:20, y: 20}, startBuildTime, completed, "food_machine", "food_machine", productQueue, startTime));
-    //    user.asset.addMachine(new Machine({x:18, y: 18}, startBuildTime, completed, "popcorn_machine", "popcorn_machine", [], startTime));
-    //    user.asset.addMachine(new Machine({x:18, y: 24}, startBuildTime, completed, "sugar_machine", "sugar_machine", productQueue, startTime));
-    //    user.asset.addMachine(new Machine({x:24, y: 24}, startBuildTime, completed, "butter_machine", "butter_machine", productQueue, startTime));
-    //    //cc.log(user.asset.machineList[0].coordinate.x+ "===========" + "===========" +user.asset.machineList[0].coordinate.y );
-    //
-    //    Machine.instance = new Machine();
-    //    Machine.instance.productQueue.push("product_bread");
-    //    Machine.instance.productQueue.push("product_bread");
-    //    Machine.instance.productQueue.push("product_bread");
-    //    Machine.instance.productQueue.push("product_bread");
-    //    Machine.instance.productQueue.push("product_corn_bread");
-    //    var now = new Date().getTime();
-    //    Machine.instance.machineType = MACHINE_LIST[1].machineType;
-    //    cc.log(MA_LOG_TAG + Machine.instance.machineType);
-    //    Machine.instance.setStartTime(now - 10 * 60 * 1000);
-    //    Machine.instance.updateCompletedProducts(now);
-    //    cc.log(MA_LOG_TAG +Machine.instance.completedProducts.toString());
-    //    cc.log(MA_LOG_TAG +Machine.instance.productQueue.toString());
-    //
-    //    var spriteBakery = new MachineSprite("bakery_machine");
-    //    MapLayer.instance.addChild(spriteBakery);
-    //    MapLayer.instance.machineSpriteList.push(spriteBakery);
-    //    var spriteFoodMachine = new MachineSprite("food_machine" );
-    //    MapLayer.instance.addChild(spriteFoodMachine);
-    //    MapLayer.instance.machineSpriteList.push(spriteFoodMachine);
-    //    var spritePopcornMachine = new MachineSprite("popcorn_machine");
-    //    MapLayer.instance.addChild(spritePopcornMachine);
-    //    MapLayer.instance.machineSpriteList.push(spritePopcornMachine);
-    //
-    //
-    //    //var spriteButterMachine = new MachineSprite("butter_machine");
-    //    //MapLayer.instance.addChild(spriteButterMachine);
-    //    //MapLayer.instance.machineSpriteList.push(spriteButterMachine);
-    //
-    //     //var spriteSugarMachine = new MachineSprite("sugar_machine");
-    //     //MapLayer.instance.addChild(spriteSugarMachine);
-    //
-    //
-    //}
+    renderMachine: function(){
+        //(coordinate, startBuildTime, completed, machineId, machineType, productQueue)
+
+        MapLayer.instance.machineSpriteList = [];
+
+        var coordinate = {x:24, y: 24};
+        var completed = true;
+        var machineId = "bakery_machine";
+        var machineType = "bakery_machine";
+        var slot = 2;
+        var startTime = "343434324";
+        var boostBuild = true;
+        var completed = true;
+        var startBuildTime = "343434324";
+        var remainBuildTime = "4343";
+        var productQueue = ["product_bread", "product_corn_bread", "product_bread", "product_corn_bread", "product_bread", "product_corn_bread"];
+        user.asset.machineList = [];
+        //cc.log(MA_LOG_TAG + "450" + user.asset.machineList);
+        //ctor: function (machineId, machineType, slot, startTime,  productQueue, boostBuild, completed, startBuildTime, remainBuildTime, coordinate) {        user.asset.addMachine(new Machine(coordinate, startBuildTime,startBuildTime,boostBuild , completed, machineId, machineType, productQueue,startTime));
+        user.asset.addMachine(new Machine(machineId, machineType, slot, startTime, productQueue, boostBuild, completed, startBuildTime, remainBuildTime,  {x:21, y: 24}));
+        user.asset.addMachine(new Machine("food_machine", "food_machine", slot, startTime, productQueue, boostBuild, completed, startBuildTime, remainBuildTime,  {x:18, y: 24}));
+        //user.asset.addMachine(new Machine("sugar_machine", "sugar_machine", slot, startTime, productQueue, boostBuild, completed, startBuildTime, remainBuildTime,  {x:18, y: 24}));
+        user.asset.addMachine(new Machine("popcorn_machine", "popcorn_machine", slot, startTime, productQueue, boostBuild, completed, startBuildTime, remainBuildTime,  {x:24, y: 24}));
+
+        cc.log(MA_LOG_TAG + "461" + user.asset.getMachineById("food_machine"));
+        //user.asset.addMachine(new Machine({x:18, y: 18}, startBuildTime, completed, "popcorn_machine", "popcorn_machine", [], startTime));
+        //user.asset.addMachine(new Machine({x:18, y: 24}, startBuildTime, completed, "sugar_machine", "sugar_machine", productQueue, startTime));
+        //user.asset.addMachine(new Machine({x:24, y: 24}, startBuildTime, completed, "butter_machine", "butter_machine", productQueue, startTime));
+        //cc.log(user.asset.machineList[0].coordinate.x+ "===========" + "===========" +user.asset.machineList[0].coordinate.y );
+
+        //Machine.instance = new Machine();
+        //Machine.instance.productQueue.push("product_bread");
+        //Machine.instance.productQueue.push("product_bread");
+        //Machine.instance.productQueue.push("product_bread");
+        //Machine.instance.productQueue.push("product_bread");
+        //Machine.instance.productQueue.push("product_corn_bread");
+        //var now = new Date().getTime();
+        //Machine.instance.machineType = MACHINE_LIST[1].machineType;
+        //cc.log(MA_LOG_TAG + Machine.instance.machineType);
+        //Machine.instance.setStartTime(now - 10 * 60 * 1000);
+        //Machine.instance.updateCompletedProducts(now);
+        //cc.log(MA_LOG_TAG +Machine.instance.completedProducts.toString());
+        //cc.log(MA_LOG_TAG +Machine.instance.productQueue.toString());
+
+        var spriteBakery = new MachineSprite("bakery_machine");
+        MapLayer.instance.addChild(spriteBakery);
+        MapLayer.instance.machineSpriteList.push(spriteBakery);
+        var spriteFoodMachine = new MachineSprite("food_machine" );
+        MapLayer.instance.addChild(spriteFoodMachine);
+        MapLayer.instance.machineSpriteList.push(spriteFoodMachine);
+        var spritePopcornMachine = new MachineSprite("popcorn_machine");
+        MapLayer.instance.addChild(spritePopcornMachine);
+        MapLayer.instance.machineSpriteList.push(spritePopcornMachine);
+
+
+        //var spriteButterMachine = new MachineSprite("butter_machine");
+        //MapLayer.instance.addChild(spriteButterMachine);
+        //MapLayer.instance.machineSpriteList.push(spriteButterMachine);
+
+         //var spriteSugarMachine = new MachineSprite("sugar_machine");
+         //MapLayer.instance.addChild(spriteSugarMachine);
+
+
+    }
 });
 
 // Moved to MainScene.js

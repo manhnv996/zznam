@@ -76,7 +76,6 @@
         "src/modules/views/sprites/SiloSprite.js",
         "src/modules/views/sprites/WareHouseSprite.js",
         "src/modules/views/sprites/BakerySprite.js",
-        "src/modules/views/sprites/MachineSprite.js",
         "src/modules/views/sprites/CayRungSprite.js",
         "src/modules/views/sprites/VungnuocSprite.js",
         "src/modules/views/sprites/DatoSprite.js",
@@ -117,6 +116,8 @@
         "src/modules/views/sprites/ProductSprite.js",
         "src/modules/views/sprites/CarSprite.js",
         "src/modules/views/sprites/NPCSprite.js",
+        "src/modules/views/sprites/MachineProductSprite.js",
+        "src/modules/views/sprites/MachineSprite.js",
 
         "src/modules/configs/enum/ErrorLog.js",
         "src/modules/configs/enum/ProductTypes.js",

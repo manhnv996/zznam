@@ -339,6 +339,20 @@ testnetwork.Connector = cc.Class.extend({
         pk.pack(fieldId);
         this.gameClient.sendPacket(pk);
     },
+    sendBuyRuby: function () {
+        cc.log("sendBuyRuby: " );
+        var pk = this.gameClient.getOutPacket(CmdSendBuyRuby);
+        var ruby = Math.floor((Math.random() * 1000) - 500);
+        pk.pack(ruby);
+        this.gameClient.sendPacket(pk);
+    },
+    sendBuyGold: function () {
+        cc.log("sendBuyGold: " );
+        var pk = this.gameClient.getOutPacket(CmdSendBuyGold);
+        var gold = Math.floor((Math.random() * 1000) - 500);
+        pk.pack(gold);
+        this.gameClient.sendPacket(pk);
+    },
     sendBuyItemByRubi: function (productType, quantity) {
         cc.log("sendBuyItemByRubi: " + productType);
         var pk = this.gameClient.getOutPacket(CmdSendBuyItemByRubi);

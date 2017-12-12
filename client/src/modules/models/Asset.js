@@ -193,11 +193,11 @@ var Asset = cc.Class.extend({
         return list;
     },
 
-    getMachineById: function (id) {
-        var machine = this.machineList.find(function (f) {
-            return f.id === id;
-        });
-        return machine;
-    }
+    //getMachineById: function (id) {
+    //    var machine = this.machineList.find(function (f) {
+    //        return f.id === id;
+    //    });
+    //    return machine;
+    //}
 
 });

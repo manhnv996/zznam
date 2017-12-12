@@ -20,6 +20,7 @@ var MachineTablePopup = TablePopup.extend({
 
         this._machineId = machineId;
 
+        cc.log(MA_LOG_TAG +"23 " +machineId);
         //lay ra may da goi trong Model
         this._machine = user.getAsset().getMachineById(machineId);
         this._machineConfig = MachineController.instance.getMachineConfigByType(this._machine.machineType);

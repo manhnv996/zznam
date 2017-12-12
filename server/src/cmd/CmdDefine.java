@@ -18,6 +18,8 @@ public class CmdDefine {
    
     //Log cmd
     public static final short MOVE = 2001;
+    public static final short BUY_GOLD = 2002;
+    public static final short BUY_RUBY = 2003;
     
     //
     public static final short GAME_INFO = 5099;    

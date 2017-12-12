@@ -10,7 +10,8 @@ gv.CMD.USER_INFO = 1001;
 gv.CMD.GET_USER = 1002; // New
 
 gv.CMD.MOVE = 2001;
-
+gv.CMD.BUY_GOLD  = 2002;
+gv.CMD.BUY_RUBY  = 2003;
 
 //
 gv.CMD.GAME_INFO = 5099;
@@ -183,6 +184,42 @@ CmdSendPlantBoost = fr.OutPacket.extend(
             this.packHeader();
 
             this.putShort(fieldId);
+            // this.putString(productType);
+
+            this.updateSize();
+        }
+    }
+);
+CmdSendBuyRuby = fr.OutPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+            this.initData(100);
+            this.setCmdId(gv.CMD.BUY_RUBY);
+        },
+        pack:function(addedRuby){
+            this.packHeader();
+
+            this.putShort(addedRuby);
+            // this.putString(productType);
+
+            this.updateSize();
+        }
+    }
+);
+CmdSendBuyGold = fr.OutPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+            this.initData(100);
+            this.setCmdId(gv.CMD.BUY_GOLD);
+        },
+        pack:function(addedGold){
+            this.packHeader();
+
+            this.putShort(addedGold);
             // this.putString(productType);
 
             this.updateSize();

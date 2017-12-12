@@ -61,7 +61,7 @@ var MainGuiLayer = cc.Layer.extend({
         this.addChild(imageGold);
 
         this.labelGold = new cc.LabelBMFont(user.getGold(), res.FONT_OUTLINE_30);
-        this.labelGold.setPosition(size.width - (btnBuyGoldSize.width + imageGoldSize.width + this.labelGold.width *2),size.height - btnBuyGoldSize.height/2 );
+        this.labelGold.setPosition(size.width - (btnBuyGoldSize.width + imageGoldSize.width + this.labelGold.width ),size.height - btnBuyGoldSize.height/2 );
         this.addChild(this.labelGold);
 
 
@@ -76,11 +76,11 @@ var MainGuiLayer = cc.Layer.extend({
         var imageRuby = new ccui.ImageView(res.rubi);
         var imageRubySize = imageRuby.getSize();
         //cc.log("imageRuby " + imageRubySize.width + "  " + imageRubySize.height);
-        imageRuby.setPosition(size.width - (btnBuyRubySize.width + imageRubySize.width), size.height - btnBuyGoldSize.height - btnBuyRubySize.height/2);
+        imageRuby.setPosition(size.width - (btnBuyGoldSize.width + imageGoldSize.width), size.height - btnBuyGoldSize.height - btnBuyRubySize.height/2);
         this.addChild(imageRuby);
 
         this.labelRuby = new cc.LabelBMFont(user.getRuby(), res.FONT_OUTLINE_30);
-        this.labelRuby.setPosition(size.width - ( btnBuyRubySize.width + imageRubySize.width + this.labelRuby.width * 1.5), size.height - 3*btnBuyRubySize.height/2);
+        this.labelRuby.setPosition(size.width - (btnBuyGoldSize.width + imageGoldSize.width + this.labelGold.width), size.height - 3*btnBuyRubySize.height/2);
         this.addChild(this.labelRuby);
 
 
@@ -168,18 +168,25 @@ var MainGuiLayer = cc.Layer.extend({
     },
     onSelectBuyGold:function(sender){
         //cc.log("==onSelectBuyGold clicked");
-        if (this.isShowPopup == false){
-            CommonPopup.instance  = new CommonPopup("Cấu Hình", res.BG_2_PNG, true);
-
-            this.addChild(CommonPopup.instance);
-
-
-            this.isShowPopup = true;
-        }
+        //if (this.isShowPopup == false){
+        //    CommonPopup.instance  = new CommonPopup("Cấu Hình", res.BG_2_PNG, true);
+        //
+        //    this.addChild(CommonPopup.instance);
+        //
+        //
+        //    this.isShowPopup = true;
+        //}
+        user.addGold(100);
+        MainGuiLayer.instance.labelGold.setString(user.getGold());
+        testnetwork.connector.sendBuyGold();
 
     },
     onSelectBuyRuby:function(sender){
         //cc.log("==onSelectBuyRuby clicked");
+        user.addRuby(100);
+        MainGuiLayer.instance.labelRuby.setString(user.getRuby());
+        //send pk to server {packet{fieldId}}
+        testnetwork.connector.sendBuyRuby();
     },
     onSelectFriends:function(sender){
         //cc.log("==onSelectFriends clicked");

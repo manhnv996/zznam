@@ -6,11 +6,13 @@ var Machine = ConstructedObject.extend({
     startTime: 0,
     productQueue: null,
     completedProducts: [],
-    ctor: function (coordinate, startBuildTime, completed, machineId, machineType, productQueue, startTime) {
+
+    ctor: function (machineId, machineType, slot, startTime,  productQueue, boostBuild, completed, startBuildTime, remainBuildTime, coordinate) {
         //
-        this._super(startBuildTime, completed, coordinate);
+        this._super(startBuildTime, remainBuildTime, boostBuild, completed, coordinate);
         this.machineId = machineId;
         this.machineType = machineType;
+        this.slot = slot;
         this.startTime = startTime;
         this.productQueue = productQueue ? productQueue : [];
     },
