@@ -29,7 +29,7 @@ var ChickenLodgeSprite = AnimalLodgeSprite.extend({
 					AnimalConfig.chicken.time, startTime,
 					// fr.Localization.text("Ga"), 1);
 					"Ga", 1);
-				var p = MapValues.logicToScreenPosition(this.lx + this.blockSizeX / 2, this.ly + this.blockSizeY / 2);
+				var p = MapValues.logicToScreenPosition(this.lx + this.blockSizeX, this.ly + this.blockSizeY);
 				this.loadingBar.setPosition(p.x, p.y);
 				BaseGUILayer.instance.addChild(this.loadingBar);
 			}

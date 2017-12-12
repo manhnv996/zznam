@@ -1,4 +1,6 @@
 var AnimalCtrl = cc.Class.extend({
+	dialogOpened: false,
+
 	onMoveHarvestTool: function(lx, ly, lodgeType) {
 		var flx = Math.floor(lx);
 		var fly = Math.floor(ly);
@@ -31,7 +33,12 @@ var AnimalCtrl = cc.Class.extend({
 				// Send to server
 				testnetwork.connector.sendAnimalHarvest(lodge.id, animal.id);
 			} else {
-				cc.log("Full Warehouse");
+				if (!this.dialogOpened) {
+					this.dialogOpened = true;
+					BaseGUILayer.instance.notifyFullStorage(StorageTypes.WAREHOUSE, function() {
+						this.dialogOpened = false;
+					}.bind(this));
+				}
 			}
 		});
 	},
@@ -67,10 +74,24 @@ var AnimalCtrl = cc.Class.extend({
 				animalSprite.feed();
 				animalSprite.setOnHarvestTime(animal.feededTime);
 				count++;
+				var productSprite = new ProductSprite(
+					animal.type === AnimalType.chicken
+					? res.iconFoodChicken
+					: res.iconFoodCow, null);
+				var p = MapValues.logicToPosition(lx, ly);
+				productSprite.setPosition(p.x, p.y + 150);
+				MapLayer.instance.addChild(productSprite);
+				productSprite.setLocalZOrder(1000);
+				productSprite.fadeOutProduct();
 				// Send to server
 				testnetwork.connector.sendAnimalFeed(lodge.id, animal.id);
 			} else {
-				cc.log("Not enough item");
+				if (!this.dialogOpened) {
+					this.dialogOpened = true;
+					BaseGUILayer.instance.showSuggestBuyMissionItem([new StorageItem(product, 1)], undefined, undefined, function() {
+						this.dialogOpened = false;
+					});
+				}
 			}
 		});
 		return count;
