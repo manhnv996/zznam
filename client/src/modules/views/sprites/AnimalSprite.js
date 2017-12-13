@@ -7,6 +7,7 @@ var AnimalSprite = cc.Sprite.extend({
 		this._super();
 		this._sprite = fr.createAnimationById(resAniId);
 		this.addChild(this._sprite);
+		this.initEvent();
 	},
 
 	onEnter: function() {
@@ -58,5 +59,48 @@ var AnimalSprite = cc.Sprite.extend({
 				this.harvest();
 			}
 		}
+	},
+
+	initEvent: function() {
+		// var dot = new cc.Sprite(res.DOT2_PNG);
+		// this.addChild(dot);
+		this.touchListener = cc.EventListener.create({
+			event: cc.EventListener.TOUCH_ONE_BY_ONE,
+			swallowTouches: true,
+			onTouchBegan: function(touch) {
+				var location = touch.getLocation();
+				var mp = MapValues.screenPositionToMapPosition(location.x, location.y);
+				var boundingbox = this._sprite.getBoundingBox();
+
+				var animalMp = MapValues.logicToPosition(this.lx + this.getParent().lx, this.ly + this.getParent().ly);
+				var rect = cc.rect(animalMp.x - boundingbox.width / 2, animalMp.y - boundingbox.height / 2,
+					boundingbox.width, boundingbox.height);
+				// cc.log("=====", this.id, "=====");
+				// cc.log(this._sprite.getBoundingBox());
+				// cc.log(rect);
+				// cc.log(mp);
+				if (cc.rectContainsPoint(rect, mp)) {
+					this._sprite.setColor(cc.color(155, 155, 155));
+					this.isMoved = false;
+					return true;
+				}
+				return false;
+			}.bind(this),
+			onTouchMoved: function(touch) {
+				this.isMoved = true;
+			}.bind(this),
+			onTouchEnded: function(touch) {
+				this._sprite.setColor(cc.color(255, 255, 255));
+				if (!this.isMoved) {
+					this.onClick();
+				}
+			}.bind(this)
+		});
+		cc.eventManager.addListener(this.touchListener, 60);
+	},
+
+	onClick: function() {
+		this.getParent().showAnimalRemain(this.id);
+		this.getParent().showAnimalTool();
 	}
 });

@@ -14,37 +14,47 @@ var CowLodgeSprite = AnimalLodgeSprite.extend({
 		// }
 	},
 
+	showAnimalRemain: function(id) {
+		var animal = null;
+		if (!id) {
+			animal = this.lodge.getAnimalLastFeededTime();
+		} else {
+			animal = this.lodge.getAnimalById(id);
+		}
+		var animalSprite = this.getChildByTag(TagClusters.Animal + animal.id);
+		var lp = cc.p(animalSprite.lx, animalSprite.ly);
+		var startTime = animal.feededTime;
+		var remain = AnimalConfig.cow.time * 1000 - (new Date().getTime() - startTime);
+		if (remain > 0) {
+			this.loadingBar = new LoadingBarLayout(
+				AnimalConfig.cow.time, startTime,
+				"NAME_TAB_COW", 1);
+			var p = MapValues.logicToScreenPosition(this.lx + lp.x, this.ly + lp.y);
+			this.loadingBar.setPosition(p.x + 75, p.y - 25);
+			BaseGUILayer.instance.addChild(this.loadingBar);
+			this.loadingBar.setOnClick(function() {
+				cc.log("Boost", animal.id);
+			});
+		}
+	},
+
+	showAnimalTool: function() {
+		// var hungry = this.lodge.isHungry();
+		var harvest = this.lodge.canHarvest();
+		var mode = 0;
+		if (harvest) {
+			mode = 1;
+		}
+		TablePopupLayer.instance.showAnimalToolPopup(this.lx, this.ly, 
+			AnimalLodgeType.cow_habitat, mode, this);
+		// cc.log("HarvestableCount", this.lodge.harvestableCount());
+	},
+
 	onClick: function(lx, ly) {
 		// AnimalCtrl.instance.onMoveHarvestTool(lx, ly, AnimalLodgeType.cow_habitat);
 		if (this.lodge.getAnimalCount() > 0) {
-			var startTime = this.lodge.getLastFeededTime();
-			var remain = AnimalConfig.cow.time * 1000 - (new Date().getTime() - startTime);
-			if (remain > 0) {
-				// Animal feeded
-				this.loadingBar = new LoadingBarLayout(
-					AnimalConfig.cow.time, startTime,
-					// fr.Localization.text("Ga"), 1);
-					"Bo", 1);
-				var p = MapValues.logicToScreenPosition(this.lx + this.blockSizeX, this.ly + this.blockSizeY);
-				this.loadingBar.setPosition(p.x, p.y);
-				BaseGUILayer.instance.addChild(this.loadingBar);
-			}
-
-			var hungry = this.lodge.isHungry();
-			var harvest = this.lodge.canHarvest();
-			var mode = 0;
-			if (hungry && harvest) {
-				mode = 3;
-			} else if (hungry && !harvest) {
-				mode = 1;
-			} else if (!hungry && harvest) {
-				mode = 2;
-			}
-			if (mode !== 0) {
-				TablePopupLayer.instance.showAnimalToolPopup(this.lx, this.ly, AnimalLodgeType.cow_habitat, mode, this);
-			}
-			// cc.log("HarvestableCount", this.lodge.harvestableCount());
-
+			this.showAnimalRemain();
+			this.showAnimalTool();
 		} else {
 			// Open store to buy animal
 			cc.log("Open store to buy animal");

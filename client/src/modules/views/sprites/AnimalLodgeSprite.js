@@ -148,7 +148,7 @@ var AnimalLodgeSprite = MapBlockSprite.extend({
     	this.animalSpriteList.forEach(function(animalSprite) {
     		var p = cc.p(animalSprite.lx, animalSprite.ly);
     		// cc.log(lx, ly, animalSprite.lx, animalSprite.ly);
-    		if (caculateDistance(lp, p) < 0.4) {
+    		if (caculateDistance(lp, p) < 0.5) {
     			result.push(animalSprite.id);
     		}
     	});

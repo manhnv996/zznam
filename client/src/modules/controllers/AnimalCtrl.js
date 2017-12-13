@@ -1,7 +1,10 @@
 var AnimalCtrl = cc.Class.extend({
-	dialogOpened: false,
+	lock: false,
 
 	onMoveHarvestTool: function(lx, ly, lodgeType) {
+		if (this.lock) {
+			return;
+		}
 		var flx = Math.floor(lx);
 		var fly = Math.floor(ly);
 		if (!user.map[flx] || user.map[flx][fly] !== MapItemEnum.LODGE) {
@@ -12,6 +15,7 @@ var AnimalCtrl = cc.Class.extend({
 			// Stop check
 			return;
 		}
+		var that = this;
 		var lodgeSprite = MapLayer.instance.getChildByTag(TagClusters.Lodge + lodge.id);
 		lodgeSprite.getAnimalIdsAroundPoint(lx, ly)
 		.map(function(id) {
@@ -33,17 +37,16 @@ var AnimalCtrl = cc.Class.extend({
 				// Send to server
 				testnetwork.connector.sendAnimalHarvest(lodge.id, animal.id);
 			} else {
-				if (!this.dialogOpened) {
-					this.dialogOpened = true;
-					BaseGUILayer.instance.notifyFullStorage(StorageTypes.WAREHOUSE, function() {
-						this.dialogOpened = false;
-					}.bind(this));
-				}
+				that.lock = true;
+				BaseGUILayer.instance.notifyFullStorage(StorageTypes.WAREHOUSE);
 			}
 		});
 	},
 
 	onMoveFeedTool: function(lx, ly, lodgeType) {
+		if (this.lock) {
+			return 0;
+		}
 		var flx = Math.floor(lx);
 		var fly = Math.floor(ly);
 		if (!user.map[flx] || user.map[flx][fly] !== MapItemEnum.LODGE) {
@@ -53,7 +56,7 @@ var AnimalCtrl = cc.Class.extend({
 		if (!lodge || lodge.type !== lodgeType) {
 			return 0;
 		}
-
+		var that = this;
 		var count = 0;
 		var lodgeSprite = MapLayer.instance.getChildByTag(TagClusters.Lodge + lodge.id);
 		lodgeSprite.getAnimalIdsAroundPoint(lx, ly)
@@ -86,14 +89,14 @@ var AnimalCtrl = cc.Class.extend({
 				// Send to server
 				testnetwork.connector.sendAnimalFeed(lodge.id, animal.id);
 			} else {
-				if (!this.dialogOpened) {
-					this.dialogOpened = true;
-					BaseGUILayer.instance.showSuggestBuyMissionItem([new StorageItem(product, 1)], undefined, undefined, function() {
-						this.dialogOpened = false;
-					});
-				}
+				that.lock = true;
+				BaseGUILayer.instance.showSuggestBuyMissionItem([new StorageItem(product, 1)]);
 			}
 		});
 		return count;
+	},
+	
+	unlock: function() {
+		this.lock = false;
 	}
 });

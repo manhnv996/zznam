@@ -125,6 +125,7 @@ var CowSprite = AnimalSprite.extend({
 	},
 
 	setOnHarvestTime: function(time) {
+		// cc.log("Harvest after", time);
 		this._setOnHarvestTime(time, AnimalConfig.cow.time * 1000);
 	}
 });
