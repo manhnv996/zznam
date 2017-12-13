@@ -70,7 +70,7 @@ public class DemoHandler extends BaseClientRequestHandler {
     public void processBuyGold(User user, RequestBuyGold buy_gold){
         try {
             ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
-        //            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(1, ZPUserInfo.class);
+        //            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(1, ZPUserInfo.class);  
             if (userInfo == null){
         //                send(new ResponseFieldStatus(ErrorLog.ERROR_USER_NOT_FOUND.getValue(), null), user);
                 return;

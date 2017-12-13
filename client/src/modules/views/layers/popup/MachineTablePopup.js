@@ -8,14 +8,19 @@ var MachineTablePopup = TablePopup.extend({
     _machineConfig: null,
     _popUpItemSpriteList: [],
     _FirstSlotSprite: null,
-    _SlotQueueSpriteList:null,
+    _queueSpriteList:null,
     _unlockSlotSprite: null,
+    _labelRubyToUnlockSlot: null,
     _labelMaChineName: null,
     _labelTime: null,
     _machineWidth: null,
     _machineHeight: null,
     _screenPosition: null,
     _currPage: null,
+    _btnBoost: null,
+    _labelRubyToBoost: null,
+    _currCompletedProduct: 0,
+
     ctor: function (machineId){
 
         this._machineId = machineId;
@@ -75,8 +80,10 @@ var MachineTablePopup = TablePopup.extend({
             this._screenPosition.y + this._machineHeight * 1 / 3);
 
         this.renderItemList(this._machineConfig.productList);
-        this.renderSlotList(this.machineId, spriteCalled);
-
+        this.renderFirstSlot(this._machineId, spriteCalled);
+        this.initSlotlist(this._machineId);
+        this.setPositionSlotList(this._machineId);
+        this.renderUnlockButton(this._machineId);
     },
     renderItemList: function(productList){
 
@@ -86,11 +93,8 @@ var MachineTablePopup = TablePopup.extend({
         for (var i = 0; i < productList.length; i++){
             //var item = new ProductSprite(this, productList[i]);
             var item = new MachineProductSprite(productList[i]);
-
-            //item.setPosition(this._screenPosition.x - this._machineWidth * 1 / 3,
-            //    this._screenPosition.y + this._machineHeight * 1 / 3);
             this._popUpItemSpriteList.push(item);
-            this.addChild(this._popUpItemSpriteList[i]);
+            this.addChild(this._popUpItemSpriteList[i], 1);
         }
 
         var numberOfPages = Math.ceil(this._popUpItemSpriteList.length / 5);
@@ -123,6 +127,32 @@ var MachineTablePopup = TablePopup.extend({
 
 
 
+    },
+    onUnlockSlotEvent: function(){
+        //todo unlock slot, do logic in controller
+        var index = MachineController.instance.getIndexMachineInListById(this._machineId);
+        if (index == -1){
+            cc.log("ERROR, cant find machine by id");
+        } else {
+            if (user.asset.machineList[index].slot == 2) {
+                this._labelRubyToUnlockSlot.setString(MACHINE_CONFIG.NEXT_PRICE_BUY_SLOT);
+            }
+            user.asset.machineList[index].slot += 1;
+            //add new slot square to queue
+            var squareSprite = new SquareSprite(res.o_trong_2_2);
+            this._queueSpriteList.push(squareSprite);
+            this.addChild(this._queueSpriteList[this._queueSpriteList.length -1]);
+
+            //set position to queue square list again...
+            this.setPositionSlotList(this._machineId);
+            this.setPositionForUnlockButton(this._machineId);
+        }
+
+    },
+    onBoostEvent:function(){
+        //todo boost by ruby, do logic in controller
+        cc.log("Boost button is clicked");
+        var index = MachineController.instance.getIndexMachineInListById(this._machineId);
     },
     turnPageEvent: function(){
 
@@ -224,55 +254,119 @@ var MachineTablePopup = TablePopup.extend({
 
         }
     },
-    renderSlotList: function (machineId, spriteCalled){
+    renderFirstSlot: function(machineId, spriteCalled){
+        var screenPosition = this._screenPosition;
         var machine = user.getAsset().getMachineById(machineId);
 
-        var screenPosition = this._screenPosition;
-
-        var testSquare = new SquareSprite(res.o_trong_1_1);
-        testSquare.setPosition(screenPosition.x + spriteCalled.width * 1 / 3,
+        this._FirstSlotSprite = new SquareSprite(res.o_trong_1_1);
+        this._FirstSlotSprite.setPosition(screenPosition.x + spriteCalled.width * 1 / 3,
             screenPosition.y );
-        testSquare.setScale(1.1);
-        this.addChild(testSquare);
+        this._FirstSlotSprite.setScale(1.1);
+        this.addChild(this._FirstSlotSprite);
+        this._btnBoost = ccui.Button(res.button_energy_2);
+        this._btnBoost.setPosition(screenPosition.x + spriteCalled.width * 1 / 3  , screenPosition.y - this._FirstSlotSprite.height/2);
+        this.addChild(this._btnBoost);
 
-        var spriteProduct = cc.Sprite(res.BREAD_PNG);
-        spriteProduct.setPosition(screenPosition.x + spriteCalled.width * 1 / 3  , screenPosition.y);
-        this.addChild(spriteProduct);
 
-        var btnBoost = cc.Sprite(res.button_energy_2);
-        btnBoost.setPosition(screenPosition.x + spriteCalled.width * 1 / 3  , screenPosition.y - testSquare.height/2);
-        this.addChild(btnBoost);
+        var rubiImage = new ccui.ImageView(res.rubi);
+        rubiImage.setPosition(cc.p(this._btnBoost.width * 3 / 4, this._btnBoost.height / 2));
+        this._btnBoost.addChild(rubiImage);
 
-        var labelTime = cc.LabelBMFont("15:34",res.FONT_NORMAL_30);
-        labelTime.setPosition(screenPosition.x + spriteCalled.width * 1 / 3  , screenPosition.y + testSquare.height * 0.7);
-        this.addChild(labelTime);
+        this._labelRubyToBoost = new cc.LabelBMFont("4", res.FONT_OUTLINE_30);
+        this._labelRubyToBoost.setPosition(cc.p(this._btnBoost.width   / 2, this._btnBoost.height /2));
+        this._btnBoost.addChild(this._labelRubyToBoost);
 
-        var testSquare2 = new SquareSprite(res.o_trong_2);
-        testSquare2.setPosition(screenPosition.x +  spriteCalled.width * 1 / 3+ 1.4 * testSquare2.width,
-            screenPosition.y );
-        this.addChild(testSquare2);
 
-        var testSquare3 = new SquareSprite(res.button_congG_1);
-        testSquare3.setPosition(screenPosition.x +  spriteCalled.width * 1 / 3+ 2.5 * testSquare2.width,
-            screenPosition.y );
-        testSquare3.setScale(testSquare2.width / testSquare3.width);
-        this.addChild(testSquare3);
+        this._labelTime = cc.LabelBMFont("15:34",res.FONT_NORMAL_30);
+        this._labelTime.setPosition(screenPosition.x + spriteCalled.width * 1 / 3  , screenPosition.y + this._FirstSlotSprite.height * 0.7);
+        this._btnBoost.addChild(this._labelTime);
+
+        this._btnBoost.addClickEventListener(this.onBoostEvent());
+    },
+    initSlotlist: function(machineId){
+        var machine = user.getAsset().getMachineById(machineId);
+        var slot = machine.slot;
+        this._queueSpriteList = [];
+        for (var i = 0 ; i < slot - 1; i++){
+
+            var squareSprite = new SquareSprite(res.o_trong_2_2);
+            this._queueSpriteList.push(squareSprite);
+            this.addChild(this._queueSpriteList[i]);
+        }
+    },
+    setPositionSlotList: function (machineId){
+
+        var machine = user.getAsset().getMachineById(machineId);
+        var slot = machine.slot;
+        for (var i = 0 ; i < slot - 1; i++){
+            this._queueSpriteList[i].setPosition(cc.p(this._FirstSlotSprite.x, this._FirstSlotSprite.y));
+
+            if (i < 4){
+                if (i == 0) {
+                    this._queueSpriteList[i].runAction(new cc.moveBy(0.1, (i +1)*this._FirstSlotSprite.width * 1.1, 0));
+                } else {
+                    this._queueSpriteList[i].runAction(new cc.moveBy(0.1, (i +1)*this._FirstSlotSprite.width * 1.05, 0));
+                }
+            } else {
+               switch (i){
+                   case 4: this._queueSpriteList[i].runAction(new cc.moveBy(0.1, this._FirstSlotSprite.width * 1.1, - this._FirstSlotSprite.height * 1.1)); break;
+                   case 5: this._queueSpriteList[i].runAction(new cc.moveBy(0.1, 2*this._FirstSlotSprite.width * 1.05, - this._FirstSlotSprite.height * 1.1)); break;
+                   case 6: this._queueSpriteList[i].runAction(new cc.moveBy(0.1, 3*this._FirstSlotSprite.width * 1.05, - this._FirstSlotSprite.height * 1.1)); break;
+                   case 7: this._queueSpriteList[i].runAction(new cc.moveBy(0.1, 4*this._FirstSlotSprite.width * 1.05, - this._FirstSlotSprite.height * 1.1)); break;
+               }
+
+            }
+        }
+
+
+    },
+    renderUnlockButton:function(machineId){
+        var machine = user.getAsset().getMachineById(machineId);
+        var slot = machine.slot;
+        if (slot < 9){
+            this._unlockSlotSprite = new ccui.Button(res.button_congG_1);
+            this._unlockSlotSprite.setScale(this._queueSpriteList[0].width/this._unlockSlotSprite.width);
+            this.addChild(this._unlockSlotSprite);
+
+            var rubiImage = new ccui.ImageView(res.rubi);
+            rubiImage.setPosition(cc.p(this._unlockSlotSprite.width * 2 / 3, this._unlockSlotSprite.height / 4));
+            this._unlockSlotSprite.addChild(rubiImage);
+            if (slot == 2){
+                this._labelRubyToUnlockSlot = new cc.LabelBMFont(MACHINE_CONFIG.FIRST_PRICE_BUY_SLOT, res.FONT_OUTLINE_30);
+            } else {
+                this._labelRubyToUnlockSlot = new cc.LabelBMFont(MACHINE_CONFIG.NEXT_PRICE_BUY_SLOT, res.FONT_OUTLINE_30);
+            }
+            this._labelRubyToUnlockSlot.setPosition(cc.p(this._unlockSlotSprite.width * 1 / 3, this._unlockSlotSprite.height /4));
+            this._unlockSlotSprite.addChild(this._labelRubyToUnlockSlot);
+        }
+        this.setPositionForUnlockButton(machineId);
+    },
+    setPositionForUnlockButton:function(machineId){
+        var machine = user.getAsset().getMachineById(machineId);
+        var slot = machine.slot;
+       if (slot < 9){
+           this._unlockSlotSprite.setPosition(this._FirstSlotSprite.x, this._FirstSlotSprite.y);
+           this._unlockSlotSprite.addClickEventListener(this.onUnlockSlotEvent.bind(this));
+
+           if (slot <= 5){
+               this._unlockSlotSprite.runAction(new cc.moveBy(0.1, slot*this._FirstSlotSprite.width * 1.05, 0));
+           }
+           else {
+               this._unlockSlotSprite.runAction(new cc.moveBy(0.1, ((slot + 1) % 5)*this._FirstSlotSprite.width * 1.05, - this._FirstSlotSprite.height * 1.1));
+           }
+       } else {
+           if (this._unlockSlotSprite != null) this._unlockSlotSprite.setVisible(false);
+       }
     },
 
-    onUnlockSlotEvent: function(){
-        //todo unlock slot, do logic in controller
-    },
-    onBoostEvent:function(){
-        //todo boost by ruby, do logic in controller
+    updateProductQueue:function(){
+
     }
 });
 
 var SquareSprite = cc.Sprite.extend({
     nullLabel: null,
     ctor:function(state){
-
         this._super(state);
-
-
     }
 })

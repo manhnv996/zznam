@@ -176,17 +176,19 @@ var MainGuiLayer = cc.Layer.extend({
         //
         //    this.isShowPopup = true;
         //}
-        user.addGold(100);
+        var gold = Math.floor((Math.random() * 1000) - 500);
+        user.addGold(gold);
         MainGuiLayer.instance.labelGold.setString(user.getGold());
-        testnetwork.connector.sendBuyGold();
+        testnetwork.connector.sendBuyGold(gold);
 
     },
     onSelectBuyRuby:function(sender){
         //cc.log("==onSelectBuyRuby clicked");
-        user.addRuby(100);
+        var ruby = Math.floor((Math.random() * 1000) - 500);
+        user.addRuby(ruby);
         MainGuiLayer.instance.labelRuby.setString(user.getRuby());
         //send pk to server {packet{fieldId}}
-        testnetwork.connector.sendBuyRuby();
+        testnetwork.connector.sendBuyRuby(ruby);
     },
     onSelectFriends:function(sender){
         //cc.log("==onSelectFriends clicked");

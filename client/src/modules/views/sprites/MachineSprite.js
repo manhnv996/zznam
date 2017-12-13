@@ -20,7 +20,7 @@ var MachineSprite = AnimationSprite.extend({
 
         cc.log(MA_LOG_TAG + this._machine.machineType + " ===== " );
         if (this._machine != null) {
-            var i = this._machine.getIndexMachineInConfigByType(this._machine.machineType);
+            var i = MachineController.instance.getIndexMachineInConfigByType(this._machine.machineType);
             if (i != -1){
                 this._super(MACHINE_LIST[i].aniId, MACHINE_LIST[i].size.width, MACHINE_LIST[i].size.width, this._machine.coordinate.x, this._machine.coordinate.y, MACHINE_LIST[i].mapItemEnum);
 

@@ -24,6 +24,17 @@ var MachineController = cc.Class.extend({
         }
         return null;
     },
+    getIndexMachineInListById: function(machineId) {
+        if (machineId == null) {
+            return -1;
+        }
+        for (var i = 0; i <= user.asset.machineList.length; i++) {
+            if (machineId == user.asset.machineList[i].machineId) {
+                return i;
+            }
+        }
+        return -1;
+    },
     getMachineById: function (machineId){
         var machine = MapLayer.instance.machineList.find(function(f) {
             return f.machineId === machineId;
@@ -41,6 +52,34 @@ var MachineController = cc.Class.extend({
             }
         }
         return null;
+    },
+    // lấy ra index của máy trong MACHINE_LIST theo loại máy
+    getIndexMachineInConfigByType: function(machineType){
+        for (var i = 0; i < MACHINE_LIST.length; i++){
+            if (MACHINE_LIST[i].machineType == machineType){
+                for (var i = 0; i < MACHINE_LIST.length; i++){
+                    if (MACHINE_LIST[i].machineType == machineType){
+                        return i;
+                    }
+                }
+            }
+        }
+        return -1;
+    },
+    //lay ra thoi gian san xuat cua san pham theo productType
+    getProductTime:function(machineType, productType){
+        cc.log("70 " + machineType +" == "+ productType);
+        var indexMachine  = this.getIndexMachineInConfigByType(machineType);
+        cc.log("72" + indexMachine);
+        if (indexMachine == -1){
+            cc.log("getIndexMachineByType ERROR");
+            return null;
+        }
+        for (var i = 0; i < MACHINE_LIST[indexMachine].productList.length; i++){
+            if (productType === MACHINE_LIST[indexMachine].productList[i].productType ){
+                return MACHINE_LIST[indexMachine].productList[i].time  * 60 * 1000;
+            }
+        }
+        return null;
     }
-
 })

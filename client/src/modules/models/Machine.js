@@ -4,8 +4,8 @@ var Machine = ConstructedObject.extend({
     machineType: null,
     slot: 2,
     startTime: 0,
+
     productQueue: null,
-    completedProducts: [],
 
     ctor: function (machineId, machineType, slot, startTime,  productQueue, boostBuild, completed, startBuildTime, remainBuildTime, coordinate) {
         //
@@ -15,6 +15,10 @@ var Machine = ConstructedObject.extend({
         this.slot = slot;
         this.startTime = startTime;
         this.productQueue = productQueue ? productQueue : [];
+    },
+    getProductInQueue:function(index){
+        if (index >=0) return this.productQueue[index];
+        return null;
     },
     setStartTime:function(startTime){
         this.startTime = startTime;
@@ -32,37 +36,9 @@ var Machine = ConstructedObject.extend({
         }
         return totalTime;
     },
-    //lay ra thoi gian san xuat cua san pham theo productType
-    getProductTime:function(machineType, productType){
-        var indexMachine  = this.getIndexMachineInConfigByType(machineType);
-        cc.log(indexMachine);
-        if (indexMachine == -1){
-            cc.log("getIndexMachineByType ERROR");
-            return 0;
-        }
-        for (var i = 0; i < MACHINE_LIST[indexMachine].productList.length; i++){
-             if (productType === MACHINE_LIST[indexMachine].productList[i].productType ){
-                 return MACHINE_LIST[indexMachine].productList[i].time  * 60 * 1000;
-             }
 
-        }
-        return 0;
-    },
-    // lấy ra index của máy trong MACHINE_LIST theo loại máy
-    getIndexMachineInConfigByType: function(machineType){
-        for (var i = 0; i < MACHINE_LIST.length; i++){
-            if (MACHINE_LIST[i].machineType == machineType){
-                for (var i = 0; i < MACHINE_LIST.length; i++){
-                    if (MACHINE_LIST[i].machineType == machineType){
-                        return i;
-                    }
-                }
-            }
-        }
-        return -1;
-    },
     getProductResPath:function (machineType, productType) {
-        var indexMachine  = this.getIndexMachineInConfigByType(machineType);
+        var indexMachine  = MachineController.instance.getIndexMachineInConfigByType(machineType);
         if (indexMachine == -1){
             cc.log("getIndexMachineByType ERROR");
             return null;
@@ -106,29 +82,29 @@ var Machine = ConstructedObject.extend({
         //boolean
 
     },
-    // var now = new Date().getTime();
-    updateCompletedProducts: function (now) {
-
-
-
-        //for (var i = 0; i < this.productQueue.length; i++){
-        //    now -= this.getProductTime(this.productQueue[i]);
-        //    if (now  >= this.startTime){
-        //        completedProducts.push(this.productQueue[i]);
-        //
-        //    } else break;
-        //}
-        //return completedProducts;
-        while (now > this.startTime){
-            now -= this.getProductTime(this.machineType, this.productQueue[0]);
-            if (now >= this.startTime){
-                this.startTime += this.getProductTime(this.machineType, this.productQueue[0]);
-                this.completedProducts.push(this.productQueue.shift());
-            }
-        }
-
-
-    },
+    //// var now = new Date().getTime();
+    //updateCompletedProducts: function (now) {
+    //
+    //
+    //
+    //    //for (var i = 0; i < this.productQueue.length; i++){
+    //    //    now -= this.getProductTime(this.productQueue[i]);
+    //    //    if (now  >= this.startTime){
+    //    //        completedProducts.push(this.productQueue[i]);
+    //    //
+    //    //    } else break;
+    //    //}
+    //    //return completedProducts;
+    //    while (now > this.startTime){
+    //        now -= this.getProductTime(this.machineType, this.productQueue[0]);
+    //        if (now >= this.startTime){
+    //            this.startTime += this.getProductTime(this.machineType, this.productQueue[0]);
+    //            this.completedProducts.push(this.productQueue.shift());
+    //        }
+    //    }
+    //
+    //
+    //},
     getPendingProduct: function () {
         //productType enum
 
@@ -137,13 +113,27 @@ var Machine = ConstructedObject.extend({
     takeCompletedProduct: function (now) {
         //productType enum
 
-        if (now > this.startTime + this.getProductTime(this.machineType, this.productQueue[0])){
+        if (now > this.startTime + MachineController.instance.getProductTime(this.machineType, this.productQueue[0])){
             //check kho day show
             //todo check server,  update storage
             return this.productQueue.shift();
         } else {
-            return "nothing_done";
+            return null;
         }
+    },
+    getNumberOfCompletedProducts: function (now){
+        var index = 0;
+        var numberOfProducts = 0;
+        var tempStartTime = this.startTime;
+        cc.log("125" + tempStartTime);
+        while (now > tempStartTime && index < this.productQueue.length){
+            cc.log("127" +MachineController.instance.getProductTime((this.machineType, this.productQueue[index])) );
+            tempStartTime += MachineController.instance.getProductTime((this.machineType, this.productQueue[index]));
+            if (now >tempStartTime){
+                numberOfProducts++;
+            }
+            index++;
+        }
+        return numberOfProducts;
     }
-
 });

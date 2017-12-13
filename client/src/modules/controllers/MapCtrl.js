@@ -439,15 +439,16 @@ var MapCtrl = cc.Class.extend({
 
         MapLayer.instance.machineSpriteList = [];
 
+        var now = new Date().getTime();
+
         var coordinate = {x:24, y: 24};
-        var completed = true;
         var machineId = "bakery_machine";
         var machineType = "bakery_machine";
-        var slot = 2;
-        var startTime = "343434324";
+        var slot = 9;
+        var startTime =  now - 5* 60 * 1000 * 3;
         var boostBuild = true;
         var completed = true;
-        var startBuildTime = "343434324";
+        var startBuildTime = now - 5* 60 * 1000 * 3;
         var remainBuildTime = "4343";
         var productQueue = ["product_bread", "product_corn_bread", "product_bread", "product_corn_bread", "product_bread", "product_corn_bread"];
         user.asset.machineList = [];
@@ -455,14 +456,11 @@ var MapCtrl = cc.Class.extend({
         //ctor: function (machineId, machineType, slot, startTime,  productQueue, boostBuild, completed, startBuildTime, remainBuildTime, coordinate) {        user.asset.addMachine(new Machine(coordinate, startBuildTime,startBuildTime,boostBuild , completed, machineId, machineType, productQueue,startTime));
         user.asset.addMachine(new Machine(machineId, machineType, slot, startTime, productQueue, boostBuild, completed, startBuildTime, remainBuildTime,  {x:21, y: 24}));
         user.asset.addMachine(new Machine("food_machine", "food_machine", slot, startTime, productQueue, boostBuild, completed, startBuildTime, remainBuildTime,  {x:18, y: 24}));
-        //user.asset.addMachine(new Machine("sugar_machine", "sugar_machine", slot, startTime, productQueue, boostBuild, completed, startBuildTime, remainBuildTime,  {x:18, y: 24}));
         user.asset.addMachine(new Machine("popcorn_machine", "popcorn_machine", slot, startTime, productQueue, boostBuild, completed, startBuildTime, remainBuildTime,  {x:24, y: 24}));
 
-        cc.log(MA_LOG_TAG + "461" + user.asset.getMachineById("food_machine"));
-        //user.asset.addMachine(new Machine({x:18, y: 18}, startBuildTime, completed, "popcorn_machine", "popcorn_machine", [], startTime));
-        //user.asset.addMachine(new Machine({x:18, y: 24}, startBuildTime, completed, "sugar_machine", "sugar_machine", productQueue, startTime));
-        //user.asset.addMachine(new Machine({x:24, y: 24}, startBuildTime, completed, "butter_machine", "butter_machine", productQueue, startTime));
-        //cc.log(user.asset.machineList[0].coordinate.x+ "===========" + "===========" +user.asset.machineList[0].coordinate.y );
+        //cc.log(MA_LOG_TAG + "462 " + user.asset.getMachineById("bakery_machine").productQueue);
+        //cc.log(MA_LOG_TAG + "462" + user.asset.getMachineById("bakery_machine").getNumberOfCompletedProducts(now));
+
 
         //Machine.instance = new Machine();
         //Machine.instance.productQueue.push("product_bread");
