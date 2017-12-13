@@ -226,7 +226,7 @@ public class OrderHandler extends BaseClientRequestHandler {
             /*
              * DONE
              */
-            short errorCode = userInfo.getAsset().getOrderdById(order.orderId).createOrder(userInfo.getLevel());
+            short errorCode = userInfo.getAsset().getOrderdById(order.orderId).createOrder(userInfo, userInfo.getLevel());
             
             //
             if (errorCode == ErrorLog.SUCCESS.getValue()){
