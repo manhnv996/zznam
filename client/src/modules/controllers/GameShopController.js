@@ -71,7 +71,7 @@ var GameShopController = cc.Class.extend({
         return missGold;
     },
 
-    buyMapObjectByRuby: function (typeObject, lx, ly, ruby) {
+    buyMapObjectByRuby: function (typeObject, lx, ly, ruby, lodgeId) {
         var userRuby = user.ruby;
 
         if (userRuby < ruby) {
@@ -79,31 +79,33 @@ var GameShopController = cc.Class.extend({
         } else {
             //chicken --- cow -->> function #
             this._sprite = null;
-            switch (typeObject) {
-                case "field":
-                    this.buyField(typeObject, lx, ly, ruby);
-                    break;
-                case "chicken_habitat":
-                case "cow_habitat":
-                    this.buyLodge(typeObject, lx, ly, ruby);
-                    break;
-                case "chicken":
-                case "cow":
-                    break;
-                case "bakery_machine":
-                case "food_machine":
-                case "butter_machine":
-                case "sugar_machine":
-                case "popcorn_machine":
-                    this.buyMachine(typeObject, lx, ly, ruby);
-                    break;
+            if (lodgeId) {
+                this.buyAnimalByRuby(lodgeId, typeObject, lx, ly);
+            } else {
+                switch (typeObject) {
+                    case "field":
+                        this.buyField(typeObject, lx, ly, ruby);
+                        break;
+                    case "chicken_habitat":
+                    case "cow_habitat":
+                        this.buyLodge(typeObject, lx, ly, ruby);
+                        break;
+                    case "chicken":
+                    case "cow":
+                        break;
+                    case "bakery_machine":
+                    case "food_machine":
+                    case "butter_machine":
+                    case "sugar_machine":
+                    case "popcorn_machine":
+                        this.buyMachine(typeObject, lx, ly, ruby);
+                        break;
+                }
+                MapLayer.instance.addChild(this._sprite);
+                MapCtrl.instance.addSpriteAlias(this._sprite);
+                this._sprite.setLogicPosition(this._sprite.lx, this._sprite.ly, false);
             }
-
             user.reduceRuby(ruby);
-
-            MapLayer.instance.addChild(this._sprite);
-            MapCtrl.instance.addSpriteAlias(this._sprite);
-            this._sprite.setLogicPosition(this._sprite.lx, this._sprite.ly, false);
         }
     },
 
@@ -173,17 +175,44 @@ var GameShopController = cc.Class.extend({
         //Sprite
         switch (typeObject) {
             case AnimalLodgeType.chicken_habitat:
-                this._sprite = new ChickenLodgeSprite(lodgeModel.id, lx, ly);
+                this._sprite = new ChickenLodgeSprite(lx, ly);
                 break;
             case AnimalLodgeType.cow_habitat:
-                this._sprite = new CowLodgeSprite(lodgeModel.id, lx, ly);
+                this._sprite = new CowLodgeSprite(lx, ly);
                 break;
         }
+        this._sprite.tag = TagClusters.Lodge + lodgeModel.id;
+        this._sprite.setId(lodgeModel.id);
         GameShopLayout.instance._gameShop._lodgeTable._tableView.reloadData();
+        GameShopLayout.instance._gameShop._animalTable._tableView.reloadData();
 
         //Send server
         testnetwork.connector.sendBuyMapObjectByRuby(lodgeModel.id, typeObject,
             lx, ly);
+    },
+
+    buyAnimalByRuby: function (lodgeId, typeObject, lx, ly) {
+        //model
+        var lodgeModel = user.asset.getLodgeById(lodgeId);
+        var animalModel = new Animal(typeObject, 0, false, 0);
+        lodgeModel.addAnimal(animalModel);
+
+        //sprite
+        switch (typeObject) {
+            case "chicken":
+                this._sprite = new ChickenSprite();
+                break;
+            case "cow":
+                this._sprite = new CowSprite();
+                break;
+        }
+        var lodgeSprite = MapLayer.instance.getChildByTag(TagClusters.Lodge + lodgeModel.id);
+        this._sprite.setId(animalModel.id);
+        lodgeSprite.addAnimalSprite(this._sprite);
+        this._sprite.hungry();
+
+        testnetwork.connector.sendBuyAnimalByRuby(lodgeModel.id, animalModel.id,
+            animalModel.type, lx, ly);
     }
 });
 

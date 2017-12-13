@@ -9,8 +9,6 @@ import cmd.CmdDefine;
 
 import cmd.receive.constructed.RequestBoostBuild;
 import cmd.receive.constructed.RequestBuildCompleted;
-import cmd.receive.gameshop.RequestBuyMapObject;
-import cmd.receive.gameshop.RequestBuyMapObjectByRuby;
 
 import cmd.send.demo.ResponseErrorCode;
 

@@ -53,6 +53,7 @@ gv.CMD.RESPONSE_MOVE = 6100;
 gv.CMD.BUY_MAP_OBJECT_REQUEST = 7001;
 gv.CMD.BUY_MAP_OBJECT_BY_RUBY = 7002;
 gv.CMD.BUY_ANIMAL = 7003;
+gv.CMD.BUY_ANIMAL_BY_RUBY = 7004;
 gv.CMD.RESPONSE_BUY_OBJECT = 7100;
 
 //Storage
@@ -549,6 +550,23 @@ CmdSendBuyAnimal = fr.OutPacket.extend({
         this._super();
         this.initData(100);
         this.setCmdId(gv.CMD.BUY_ANIMAL);
+    },
+    pack: function (lodgeId, animalId, animalType, lx, ly) {
+        this.packHeader();
+        this.putInt(lodgeId);
+        this.putInt(animalId);
+        this.putString(animalType);
+        this.putInt(lx);
+        this.putInt(ly);
+        this.updateSize();
+    }
+});
+
+CmdSendBuyAnimalByRuby = fr.OutPacket.extend({
+    ctor: function () {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.BUY_ANIMAL_BY_RUBY);
     },
     pack: function (lodgeId, animalId, animalType, lx, ly) {
         this.packHeader();

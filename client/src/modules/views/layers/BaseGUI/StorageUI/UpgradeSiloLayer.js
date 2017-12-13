@@ -194,7 +194,7 @@ var UpgradeSiloLayer = cc.Layer.extend({
             numberItem = user.getAsset().getWarehouse().getItem(ProductTypes.TOOL_WOODPANEL).quantity;
         }
 
-        label = new cc.LabelBMFont(numberItem + "/" + numberNeed, res.FONT_OUTLINE_20);
+        label = new cc.LabelBMFont(numberItem.toString() + "/" + numberNeed.toString(), res.FONT_OUTLINE_20);
         label.tag = 23;
         label.x = layout.width / 2;
         //label.y = sprite.y - sprite.height / 2 - label.height / 2;
@@ -284,8 +284,9 @@ var UpgradeSiloLayer = cc.Layer.extend({
             case ccui.Widget.TOUCH_CANCELED:
                 cc.log("Touch Buy Item");
                 var ruby = parseInt(sender.parent.getChildByTag(sender.tag + 10).getString());
-                if (ruby > user.getRuby()) {
-                    //Notify
+                if (ruby > user.ruby) {
+                    BaseGUILayer.instance.removeBlockListener();
+                    BaseGUILayer.instance.notifyNotEnoughRuby((ruby - user.ruby), true);
                 } else {
                     user.reduceRuby(ruby);
                     sender.parent.setVisible(false);

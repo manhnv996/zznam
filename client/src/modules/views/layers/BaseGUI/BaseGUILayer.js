@@ -44,10 +44,11 @@ var BaseGUILayer = cc.Layer.extend({
         this.blockLayout();
     },
 
-    notifyShopNotEnoughGold: function (gold, typeShopObject, lx, ly) {
+    notifyShopNotEnoughGold: function (gold, typeShopObject, lx, ly, lodgeId) {
         this.typeShopObject = typeShopObject;
         this.lx = lx;
         this.ly = ly;
+        this.lodgeId = lodgeId;
 
         this.notifyNotEnoughGold(gold, false);
     },
@@ -69,7 +70,7 @@ var BaseGUILayer = cc.Layer.extend({
                 //} else {
                 BaseGUILayer.instance.removeBlockListener();
                 GameShopController.instance.buyMapObjectByRuby(this.typeShopObject,
-                    this.lx, this.ly, this.rubyNumber);
+                    this.lx, this.ly, this.rubyNumber, this.lodgeId);
                 //BaseGUILayer.instance.removeBlockListener();
                 //}
                 break;

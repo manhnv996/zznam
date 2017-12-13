@@ -102,9 +102,7 @@ var AnimalTable = cc.Layer.extend({
 
         numberLodge = GameShopController.instance.getNumberLodge(res.infoAnimalItem[idx].id + "_habitat");
         curslot = GameShopController.instance.getNumberAnimal(res.infoAnimalItem[idx].id);
-        //cc.log("numberLodge", numberLodge, res.infoAnimalItem[idx].id + "_habitat");
         maxslot = numberLodge * res.infoAnimalItem[idx].slot;
-        //cc.log("maxslot", maxslot);
 
         if (!maxslot) {
             image.setTouchEnabled(false);
@@ -122,10 +120,7 @@ var AnimalTable = cc.Layer.extend({
             p = res.infoAnimalItem[idx].price[0];
         } else {
             for (var i = 1; i <= res.infoAnimalItem[idx].price.length - 1; i++) {
-                //cc.log("res.infoAnimalItem[idx].slot * i", res.infoAnimalItem[idx].slot * i);
-                //cc.log("res.infoAnimalItem[idx].slot * (i + 1)", res.infoAnimalItem[idx].slot * (i + 1));
                 if (res.infoAnimalItem[idx].slot * i <= curslot && curslot < res.infoAnimalItem[idx].slot * (i + 1)) {
-                    //cc.log("curslot < res.infoAnimalItem[idx].slot", res.infoAnimalItem[idx].id);
                     p = res.infoAnimalItem[idx].price[i];
                     break;
                 }
@@ -196,11 +191,9 @@ var AnimalTable = cc.Layer.extend({
                     switch (this.typeObject) {
                         case "chicken":
                             this._sprite = new ChickenSprite();
-                            //this.smoothMove = true;
                             break;
                         case "cow":
                             this._sprite = new CowSprite();
-                            //this.smoothMove = true;
                             break;
                     }
                     this.smoothMove = true;
@@ -244,10 +237,10 @@ var AnimalTable = cc.Layer.extend({
                         var missGold = GameShopController.instance.checkGold(sender.parent.getChildByTag(5).getString());
                         if (missGold) {
                             BaseGUILayer.instance.notifyShopNotEnoughGold(missGold, this.typeObject,
-                                endPl.x, endPl.y);
+                                endPl.x, endPl.y, lodgeModel.id);
                         } else {
                             //model
-                            var animalModel = new Animal(this.typeObject, lodgeModel.animalList.length, false, 0);
+                            var animalModel = new Animal(this.typeObject, 0, false, 0);
                             lodgeModel.addAnimal(animalModel);
 
                             //add to lodge sprite
