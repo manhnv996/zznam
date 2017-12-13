@@ -8,7 +8,7 @@ var NhaChinhSprite = MapBlockSprite.extend({
 	},
 
 	onClick: function() {
-		cc.log("Nha chinh is clicked");
+		cc.log("Nha chinh is clicked", this.getPriority());
 
 	},
 

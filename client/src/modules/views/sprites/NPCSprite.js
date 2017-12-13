@@ -17,11 +17,36 @@ var NPCSprite = AnimationSprite.extend({
         );
 
         this.play("2");
-
         // this.addEventListener();
         this.registerTouchEvents({ lockMove: true });
+        this.updateEventPriority(55);
+        // this._showBoundingPoints();
     },
 
+    // Override
+    caculateBoundingPoints: function() {
+        var contentSize = this.getContentSize();
+        var bottomLeft = cc.p(
+            this.x - contentSize.width / 2,
+            this.y
+        );
+        var bottomRight = cc.p(
+            this.x + contentSize.width / 2,
+            bottomLeft.y
+        );
+        var topLeft = cc.p(
+            bottomLeft.x,
+            this.y + contentSize.height
+        );
+        var topRight = cc.p(
+            bottomRight.x,
+            topLeft.y
+        );
+        this.boundingPoints = [
+            bottomLeft, topLeft, topRight, bottomRight
+        ];
+        return this.boundingPoints;
+    },
 
     onEnter: function() {
         this._super();
@@ -48,7 +73,6 @@ var NPCSprite = AnimationSprite.extend({
             this.schedule(this.doAction, 4.0);
         }.bind(this), Math.round(Math.random() * 100) % 50 / 10);
     },
-
 
     doAction: function () {
         var value = Math.floor(Math.random() * 3);
@@ -137,9 +161,12 @@ var NPCSprite = AnimationSprite.extend({
     },
 
 /////
-
+    setLogicPosition: function(lx, ly) {
+        this._super(lx, ly, 1);
+    },
 
     onClick: function() {
+        cc.log(this.getPriority());
         cc.log("NPC clicked", this.getLocalZOrder(), this.lx, this.ly, this.blockSizeX, this.blockSizeY);
         /*
         done

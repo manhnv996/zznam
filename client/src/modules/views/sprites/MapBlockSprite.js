@@ -393,11 +393,15 @@ var MapBlockSprite = cc.Sprite.extend({
         }
     },
 
-    setLogicPosition: function(lx, ly, notUpdatePriority) {
+    // updatePriorityMode:
+    // 1: ZOrder only
+    // undefined: all
+    // true: not update
+    setLogicPosition: function(lx, ly, updatePriorityMode) {
         lx = lx || 0;
         ly = ly || 0;
         if (typeof lx === 'object') {
-            notUpdatePriority = ly;
+            updatePriorityMode = ly;
             ly = lx.y;
             lx = lx.x;
         }
@@ -409,11 +413,15 @@ var MapBlockSprite = cc.Sprite.extend({
             // Recaculate. if not exists boundingPoints, do not caculate
             this.caculateBoundingPoints();
         }
-        if (!notUpdatePriority) {
+        if (!updatePriorityMode) {
             this.updateEventPriority();
             this.updateZOrder();
             // Math.max(this.lx + this.blockSizeX, this.ly + this.blockSizeY));
             // this.setLocalZOrder(this.lx + this.blockSizeX +this.ly + this.blockSizeY);
+        }
+
+        if (updatePriorityMode === 1) {
+            this.updateZOrder();
         }
 
         if (this.__isAnimation) {

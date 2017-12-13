@@ -12,7 +12,7 @@ var AnimalSprite = cc.Sprite.extend({
 
 	onEnter: function() {
 		this._super();
-		cc.log("On Enter")
+		// cc.log("On Enter")
 		this.setLogicPosition(this.lx, this.ly);
 	},
 

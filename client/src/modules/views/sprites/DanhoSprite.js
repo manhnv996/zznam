@@ -13,7 +13,7 @@ var DanhoSprite = AnimationSprite.extend({
 
 	onClick: function() {
 		this.play("2");
-		cc.log("DanhoSprite is clicked", "lx:", this.lx, "ly:", this.ly, "id:", this.natureId);
+		NatureCtrl.instance.cutDown(this.natureId);
 	},
 
 	_offset: function() {

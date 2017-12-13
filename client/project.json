@@ -98,11 +98,13 @@
         "src/modules/views/layers/popup/CropToolPopup.js",
         "src/modules/views/layers/popup/TimeRemainProgressBar.js",
         "src/modules/views/layers/popup/AnimalToolPopup.js",
+        "src/modules/views/layers/popup/NatureToolPopup.js",
         "src/modules/views/layers/PopupLayer.js",
 
         "src/modules/views/sprites/ProductSprite.js",
         "src/modules/views/sprites/SeedSprite.js",
         "src/modules/views/sprites/CropToolSprite.js",
+        "src/modules/views/sprites/NatureToolSprite.js",
         "src/modules/views/sprites/AnimalFoodSprite.js",
         "src/modules/views/sprites/AnimalHarvestSprite.js",
         "src/modules/views/sprites/FieldSprite.js",
@@ -132,6 +134,7 @@
         "src/modules/controllers/OrderCtrl.js",
         "src/modules/controllers/ConstructedCtrl.js",
         "src/modules/controllers/AnimalCtrl.js",
+        "src/modules/controllers/NatureCtrl.js",
 
         "src/modules/models/CoordinatedObject.js",
         "src/modules/models/ConstructedObject.js",
