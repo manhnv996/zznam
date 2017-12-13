@@ -3,16 +3,16 @@
  */
 
 var ConstructedCompletedSprite = AnimationSprite.extend({
-     ctor: function (id, x, y, typeBuilding, typeObject) {
-         this._super(resAniId.Nha_hoanthanh, 4, 4, x, y,
-             typeObject);
+    ctor: function (id, x, y, typeBuilding) {
+        this._super(resAniId.Nha_hoanthanh, 4, 4, x, y,
+            typeBuilding);
 
-         this.id = id;
-         this.typeBuilding = typeBuilding;
-         this.play("1");
+        this.id = id;
+        this.typeBuilding = typeBuilding;
+        this.play("1");
 
-         this.registerTouchEvents();
-     },
+        this.registerTouchEvents();
+    },
 
     onClick: function () {
         ConstructedCtrl.instance.completedBuild(this.id, this.typeBuilding);
@@ -20,7 +20,7 @@ var ConstructedCompletedSprite = AnimationSprite.extend({
     },
 
     _offset: function () {
-        var p = MapValues.logicToPosition(- 6, - 2);
+        var p = MapValues.logicToPosition(-6, -2);
         return p;
     }
 });

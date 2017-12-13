@@ -4,7 +4,7 @@ var BakerySprite = AnimationSprite.extend({
 	id: null,
 
 	ctor: function(bakeryId, x, y) {
-		this._super(resAniId.bakery, 3, 3, x, y, MapItemEnum.BAKERY);
+		this._super(resAniId.bakery, 3, 3, x, y, MapItemEnum.MACHINE);
 		//this._super(resAniId.popcorn_pot, 3, 3, x, y, MapItemEnum.BAKERY);
 
 		// this.content = fr.createAnimationById(resAniId.bakery, this);

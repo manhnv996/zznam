@@ -3,44 +3,52 @@
  */
 
 var AnimalTable = cc.Layer.extend({
+    _sprite: null,
+    _check: null,
+    _tableView: null,
+    lstP : {x: 0, y : 0},
+    autoMoveHor: 0,
+    autoMoveVer: 0,
+
     ctor: function () {
         this._super();
         this.init();
     },
 
-    init:function () {
+    init: function () {
         var winSize = cc.director.getWinSize();
 
-        var tableView = new cc.TableView(this, cc.size(363, cc.winSize.height / 9 * 8));
-        tableView.setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL);
-        tableView.x = 0;
-        tableView.y = 0;
-        tableView.setDelegate(this);
-        tableView.setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN);
-        this.addChild(tableView);
-        tableView.reloadData();
+        this._tableView = new cc.TableView(this, cc.size(363, cc.winSize.height / 9 * 8));
+        this._tableView.setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL);
+        this._tableView.x = 0;
+        this._tableView.y = 0;
+        this._tableView.setDelegate(this);
+        this._tableView.setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN);
+        this.addChild(this._tableView);
+        this._tableView.reloadData();
 
         return true;
     },
 
-    scrollViewDidScroll:function (view) {
+    scrollViewDidScroll: function (view) {
 
     },
-    scrollViewDidZoom:function (view) {
+    scrollViewDidZoom: function (view) {
 
     },
 
-    tableCellTouched:function (table, cell) {
-        cc.log("Tree Table: " + cell.getIdx());
+    tableCellTouched: function (table, cell) {
+        cc.log("Animal Table: " + cell.getIdx());
     },
 
-    tableCellSizeForIndex:function (table, idx) {
+    tableCellSizeForIndex: function (table, idx) {
         return cc.size((cc.winSize.width / 3), 142 * ((cc.winSize.width / 3) / 316));
     },
 
-    tableCellAtIndex:function (table, idx) {
+    tableCellAtIndex: function (table, idx) {
         // cc.log("Create Cell " + idx);
         var cell = table.dequeueCell();
+        var id;
         var image;
         var title;
         var detail;
@@ -50,142 +58,240 @@ var AnimalTable = cc.Layer.extend({
         var maxslot = 0;
         var numberLodge = 0;
 
-        if (!cell) {
-            cell = new cc.TableViewCell();
-            var imgBg = new cc.Sprite(res.shop_slot_png);
-            imgBg.x = 0;
-            imgBg.y = 0;
-            imgBg.anchorX = 0;
-            imgBg.anchorY = 0;
-            var scale = (cc.winSize.width / 3) / imgBg.getContentSize().width;
-            imgBg.setScale(scale);
-            cell.addChild(imgBg);
+        cell = new cc.TableViewCell();
+        var imgBg = new cc.Sprite(res.shop_slot_png);
+        imgBg.x = 0;
+        imgBg.y = 0;
+        imgBg.anchorX = 0;
+        imgBg.anchorY = 0;
+        var scale = (cc.winSize.width / 3) / imgBg.getContentSize().width;
+        imgBg.setScale(scale);
+        cell.addChild(imgBg);
 
-            var box = imgBg.getBoundingBox();
+        var box = imgBg.getBoundingBox();
 
-            var goldImg = new cc.Sprite(res.gold_png);
-            goldImg.x = imgBg.getBoundingBox().width / 2;
-            goldImg.y = 0;
-            goldImg.setAnchorPoint(0.5, -0.5);
-            cell.addChild(goldImg);
+        var goldImg = new cc.Sprite(res.gold_png);
+        goldImg.x = imgBg.getBoundingBox().width / 2;
+        goldImg.y = 0;
+        goldImg.setAnchorPoint(0.5, -0.5);
+        cell.addChild(goldImg);
 
-            image = new cc.Sprite(res.infoAnimalItem[idx].nameIconShop);
-            image.x = box.width / 4 * 3;
-            image.y = box.height / 2;
-            var scaleImg = imgBg.getContentSize().height / image.getContentSize().height;
-            image.setScale(scaleImg);
-            image.tag = 1;
+        id = new cc.LabelTTF(res.infoAnimalItem[idx].id);
+        id.tag = 0;
+        id.setVisible(false);
+        cell.addChild(id);
 
-            title = new cc.LabelBMFont(res.infoAnimalItem[idx].title, "fonts/outline/30.fnt");
-            title.x = box.width / 10 - 10;
-            title.y = box.height - 10;
-            title.setAnchorPoint(0, 1);
-            title.tag = 2;
+        image = new ccui.Button(res.infoAnimalItem[idx].nameIconShop);
+        image.x = box.width / 4 * 3;
+        image.y = box.height / 2;
+        var scaleImg = imgBg.getContentSize().height / image.getContentSize().height;
+        image.setScale(scaleImg);
+        image.tag = 1;
 
-            detail = new cc.LabelBMFont(res.infoAnimalItem[idx].detail, "fonts/normal/30.fnt");
-            detail.x = box.width / 3;
-            detail.y = box.height / 2;
-            detail.color = cc.color(77, 41, 1);
-            detail.tag = 3;
+        title = new cc.LabelBMFont(res.infoAnimalItem[idx].title, res.FONT_OUTLINE_30);
+        title.x = box.width / 10 - 10;
+        title.y = box.height - 10;
+        title.setAnchorPoint(0, 1);
+        title.tag = 2;
 
-            numberLodge = GameShopController.instance.getNumberLodge(res.infoAnimalItem[idx].id  + "_habitat");
-            curslot = GameShopController.instance.getNumberAnimal(res.infoAnimalItem[idx].id);
-            maxslot =  numberLodge * res.infoAnimalItem[idx].slot;
+        detail = new cc.LabelBMFont(res.infoAnimalItem[idx].detail, res.FONT_NORMAL_30);
+        detail.x = box.width / 3;
+        detail.y = box.height / 2;
+        detail.color = cc.color(77, 41, 1);
+        detail.tag = 3;
 
-            slot = new cc.LabelBMFont(curslot + "/" + maxslot, "fonts/outline/30.fnt");
-            slot.x = box.width / 3 * 2;
-            slot.y = box.height / 5 * 4;
-            slot.tag = 4;
+        numberLodge = GameShopController.instance.getNumberLodge(res.infoAnimalItem[idx].id + "_habitat");
+        curslot = GameShopController.instance.getNumberAnimal(res.infoAnimalItem[idx].id);
+        //cc.log("numberLodge", numberLodge, res.infoAnimalItem[idx].id + "_habitat");
+        maxslot = numberLodge * res.infoAnimalItem[idx].slot;
+        //cc.log("maxslot", maxslot);
 
-            var p;
-            //if (curslot < res.infoAnimalItem[idx].slot){
-            //    price = new cc.LabelBMFont(res.infoAnimalItem[idx].price1, "fonts/outline/30.fnt");
-            //} else {
-            //    if (numberLodge == 2) {
-            //        price = new cc.LabelBMFont(res.infoAnimalItem[idx].price2, "fonts/outline/30.fnt");
-            //    } else if (numberLodge == 3) {
-            //        if (curslot < res.infoAnimalItem[idx].slot * 2) {
-            //            price = new cc.LabelBMFont(res.infoAnimalItem[idx].price2, "fonts/outline/30.fnt");
-            //        } else {
-            //            price = new cc.LabelBMFont(res.infoAnimalItem[idx].price3, "fonts/outline/30.fnt");
-            //        }
-            //    }
-            //}
-            if (curslot < res.infoAnimalItem[idx].slot) {
-                p = res.infoAnimalItem[idx].price[0];
-            } else {
-                for (var i = 1; i <= numberLodge - 1; i++) {
-                    if (res.infoAnimalItem[idx].slot * i <= curslot && curslot < res.infoAnimalItem[idx].slot * (i + 1)) {
-                        p = res.infoAnimalItem[idx].price[i];
-                        break;
-                    }
-                }
-            }
-
-            price = new cc.LabelBMFont(p, "fonts/outline/30.fnt");
-            price.x = box.width / 5 * 2;
-            price.y = 0;
-            price.setAnchorPoint(1, -0.5);
-            price.tag = 5;
-
-            cell.addChild(image);
-            cell.addChild(title);
-            cell.addChild(detail);
-            cell.addChild(price);
-            cell.addChild(slot);
-
-            // cc.log("create cell container " + idx);
-        } else {
-            // cc.log("abc" + idx);
-            image = cell.getChildByTag(1);
-            image.setTexture(res.infoAnimalItem[idx].nameIconShop);
-
-            title = cell.getChildByTag(2);
-            title.setString(res.infoAnimalItem[idx].title);
-
-            detail = cell.getChildByTag(3);
-            detail.setString(res.infoAnimalItem[idx].detail);
-
-            numberLodge = GameShopController.instance.getNumberLodge(res.infoAnimalItem[idx].id  + "_habitat");
-            curslot = GameShopController.instance.getNumberAnimal(res.infoAnimalItem[idx].id);
-            maxslot =  numberLodge * res.infoAnimalItem[idx].slot;
-
-            slot = cell.getChildByTag(4);
-            slot.setString(curslot + "/" + maxslot);
-
-            var p;
-            if (curslot < res.infoAnimalItem[idx].slot) {
-                p = res.infoAnimalItem[idx].price[0];
-            } else {
-                for (var i = 1; i <= numberLodge - 1; i++) {
-                    if (res.infoAnimalItem[idx].slot * i <= curslot && curslot < res.infoAnimalItem[idx].slot * (i + 1)) {
-                        p = res.infoAnimalItem[idx].price[i];
-                        break;
-                    }
-                }
-            }
-
-            price = cell.getChildByTag(5);
-            price.setString(p);
-            //if (curslot < res.infoAnimalItem[idx].slot){
-            //    price.setString(res.infoAnimalItem[idx].price1);
-            //} else {
-            //    if (numberLodge == 2) {
-            //        price.setString(res.infoAnimalItem[idx].price2);
-            //    } else if (numberLodge == 3) {
-            //        if (curslot < res.infoAnimalItem[idx].slot * 2) {
-            //            price.setString(res.infoAnimalItem[idx].price2);
-            //        } else {
-            //            price.setString(res.infoAnimalItem[idx].price3);
-            //        }
-            //    }
-            //}
+        if (!maxslot) {
+            image.setTouchEnabled(false);
+        } else if (curslot < maxslot) {
+            image.addTouchEventListener(this.touchBuyEvent, this);
         }
+
+        slot = new cc.LabelBMFont(curslot.toString() + "/" + maxslot.toString(), res.FONT_OUTLINE_30);
+        slot.x = box.width / 3 * 2;
+        slot.y = box.height / 5 * 4;
+        slot.tag = 4;
+
+        var p;
+        if (curslot < res.infoAnimalItem[idx].slot) {
+            p = res.infoAnimalItem[idx].price[0];
+        } else {
+            for (var i = 1; i <= numberLodge - 1; i++) {
+                if (res.infoAnimalItem[idx].slot * i <= curslot && curslot < res.infoAnimalItem[idx].slot * (i + 1)) {
+                    p = res.infoAnimalItem[idx].price[i];
+                    break;
+                }
+            }
+        }
+
+        price = new cc.LabelBMFont(p, res.FONT_OUTLINE_30);
+        price.x = box.width / 5 * 2;
+        price.y = 0;
+        price.setAnchorPoint(1, -0.5);
+        price.tag = 5;
+
+        cell.addChild(image);
+        cell.addChild(title);
+        cell.addChild(detail);
+        cell.addChild(price);
+        cell.addChild(slot);
 
         return cell;
     },
 
     numberOfCellsInTableView:function (table) {
         return res.infoAnimalItem.length;
+    },
+
+    touchBuyEvent: function (sender, type) {
+        //var lstP = {x: 0, y : 0};
+        switch (type) {
+            case ccui.Widget.TOUCH_BEGAN:
+                this.lstLocation = sender.getTouchBeganPosition();
+                this.lstLocation = MapValues.screenPositionToLogic(this.lstLocation.x, this.lstLocation.y);
+                this.smoothMove = false;
+                //cc.log("Touch Began");
+                break;
+            case ccui.Widget.TOUCH_MOVED:
+                //cc.log(sender.getTouchBeganPosition());
+                this.movedP = sender.getTouchMovePosition();
+
+                var winSize = cc.winSize;
+                var BORDER_AUTO_MOVE = 100;
+
+                // Auto moving when mouse nears borders
+                if (this.movedP.x < BORDER_AUTO_MOVE) {
+                    this.autoMoveHor = -1;
+                } else if (winSize.width - this.movedP.x < BORDER_AUTO_MOVE) {
+                    this.autoMoveHor = 1;
+                } else {
+                    this.autoMoveHor = 0;
+                }
+
+                if (this.movedP.y < BORDER_AUTO_MOVE) {
+                    this.autoMoveVer = -1;
+                } else if (winSize.height - this.movedP.y < BORDER_AUTO_MOVE) {
+                    this.autoMoveVer = 1;
+                } else {
+                    this.autoMoveVer = 0;
+                }
+
+                if (!GameShopLayout.instance._isHide) {
+                    this.scheduleUpdate();
+                    GameShopLayout.instance.hide();
+                    //this._isHide = true;
+                    var beganP = sender.getTouchBeganPosition();
+                    var createP = MapValues.screenPositionToLogic(beganP.x, beganP.y);
+                    createP.x = Math.floor(createP.x);
+                    createP.y = Math.floor(createP.y);
+                    this.typeObject = sender.parent.getChildByTag(0).getString();
+                    switch (this.typeObject) {
+                        case "chicken":
+                            this._sprite = new ChickenSprite();
+                            //this.smoothMove = true;
+                            break;
+                        case "cow":
+                            this._sprite = new CowSprite();
+                            //this.smoothMove = true;
+                            break;
+                    }
+                    this.smoothMove = true;
+                    if (this._sprite) {
+                        this._sprite.demo();
+                        //this._sprite.setLocalZOrder(10000);
+                        MapLayer.instance.addChild(this._sprite);
+                    }
+                }
+                break;
+            case ccui.Widget.TOUCH_ENDED:
+                // cc.log("Touch Ended");
+                break;
+            case ccui.Widget.TOUCH_CANCELED:
+                this.unscheduleUpdate();
+                //if (GameShopLayout.instance._isHide) {
+                //    GameShopLayout.instance.show();
+                //}
+                if (this._sprite) {
+                    var endP = sender.getTouchEndPosition();
+                    var endPl = MapValues.screenPositionToLogic(endP.x, endP.y);
+                    endPl.x = Math.floor(endPl.x);
+                    endPl.y = Math.floor(endPl.y);
+                    // cc.log(endPl.x + " " + endPl.y);
+                    //var typeObject = sender.parent.getChildByTag(0).getString();
+                    //this._check = MapCtrl.instance.checkValidBlockSprite(this._sprite);
+                    // cc.log("this._check " + this._check);
+                    this._sprite.retain();
+                    this._sprite.removeFromParent(true);
+                    //MapLayer.instance.removeChildren(this._sprite);
+
+                    var lodgeModel = user.asset.getLodgeByPosition(endPl.x, endPl.y);
+                    if (!lodgeModel || (lodgeModel.animalList.length >= GameShopController.instance.getLodgeSlotByType(this.typeObject + "_habitat"))) {
+                        BaseGUILayer.instance.notifyCantPut(endP.x, endP.y);
+                        if (GameShopLayout.instance._isHide) {
+                            GameShopLayout.instance.show();
+                        }
+                    } else {
+                        //Check gold
+                        var missGold = GameShopController.instance.checkGold(sender.parent.getChildByTag(5).getString());
+                        if (missGold) {
+                            BaseGUILayer.instance.notifyShopNotEnoughGold(missGold, this.typeObject,
+                                endPl.x, endPl.y);
+                        } else {
+                            //model
+                            var animalModel = new Animal(this.typeObject, lodgeModel.animalList.length, false, 0);
+                            lodgeModel.addAnimal(animalModel);
+
+                            //add to lodge sprite
+                            var lodgeSprite = MapLayer.instance.getChildByTag(TagClusters.Lodge + lodgeModel.id);
+                            this._sprite.setId(animalModel.id);
+                            lodgeSprite.addAnimalSprite(this._sprite);
+                            this._sprite.hungry();
+
+                            user.reduceGold(sender.parent.getChildByTag(5).getString());
+                            //Send Server
+                            //testnetwork.connector.sendBuyAnimal(lodgeModel.id, lodgeModel.type,
+                            //    animalModel.id, animalModel.type, endPl.x, endPl.y);
+
+                            GameShopLayout.instance.show();
+                        }
+                    }
+                }
+                this._sprite = null;
+                this._tableView.updateCellAtIndex(sender.parent.getIdx());
+                break;
+        }
+    },
+
+    update: function (dt) {
+        var location = this.movedP;
+        var logic = MapValues.screenPositionToLogic(location.x, location.y);
+        if (this.smoothMove) {
+            if (this._sprite) {
+                this._sprite.setLogicPosition(logic, true);
+            }
+        } else {
+            logic.x = Math.floor(logic.x);
+            logic.y = Math.floor(logic.y);
+            if (this.lstLocation.x !== logic.x ||
+                this.lstLocation.y !== logic.y) {
+                // cc.log("Map Alias", this.mapAliasType);
+                // cc.log("move to", logic, MapCtrl.instance.checkValidBlock(logic.x, logic.y, this.blockSizeX, this.blockSizeY, this.mapAliasType));
+                this.lstLocation = logic;
+                if (this._sprite) {
+                    this._sprite.setLogicPosition(logic, true);
+                }
+            }
+        }
+        if (this.autoMoveHor || this.autoMoveVer) {
+            var dx = this.autoMoveHor * dt * 250;
+            var dy = this.autoMoveVer * dt * 250;
+            MapLayer.instance.move(-dx, -dy);
+        }
     }
+
 });

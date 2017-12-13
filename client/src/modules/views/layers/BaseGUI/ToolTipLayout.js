@@ -11,6 +11,7 @@ var ToolTipLayout = ccui.Layout.extend({
 
         this.addChild(bg);
         this.setContentSize(bg.getContentSize());
+        //this.setAnchorPoint(0.5, 0.5);
         //this.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
         //this.setBackGroundColor(cc.color.GREEN);
 

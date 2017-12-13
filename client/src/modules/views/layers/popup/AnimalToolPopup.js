@@ -7,15 +7,13 @@ var AnimalToolPopup = TablePopup.extend({
         // this._super(res.popup2, lx - 1.5, ly - 1.5, { width: 0, height: 0 });
 		this._super(res.popup2, lx, ly, { width: 150, height: 180 });
         this.type = type;
-        //cc.log("Type", type);
-        //cc.log("Mode", mode);
+        // cc.log("Type", type);
+        // cc.log("Mode", mode);
         if (mode === 1) {
-            this.renderFoodTool(true);
-        } else if (mode === 2) {
-            this.renderHarvestTool(true)
-        } else {
             this.renderFoodTool();
             this.renderHarvestTool();
+        } else {
+            this.renderFoodTool(true);
         }
 	},
 

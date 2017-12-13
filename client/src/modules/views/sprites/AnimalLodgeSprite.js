@@ -1,11 +1,12 @@
 var AnimalLodgeSprite = MapBlockSprite.extend({
-	animalSpriteList: [],
+	animalSpriteList: null,
 	id: null,
 
 	ctor: function(resGround, resFence, 
 		offsetX, offsetY, fenceColumnWidth,
 		blockSizeX, blockSizeY, lx, ly, mapItemType) {
 		this._super(resGround, blockSizeX, blockSizeY, lx, ly, mapItemType);
+		this.animalSpriteList = [];
 		this.renderFence(resFence, offsetX, offsetY, fenceColumnWidth);
 		this.registerTouchEvents();
 	},
@@ -144,11 +145,11 @@ var AnimalLodgeSprite = MapBlockSprite.extend({
     getAnimalIdsAroundPoint: function(lx, ly) {
     	var lp = cc.p(lx - this.lx, ly - this.ly);
     	var result = [];
-    	// cc.log("List length", this.animalSpriteList.length);
+		//cc.log("List length", this.animalSpriteList.length);
     	this.animalSpriteList.forEach(function(animalSprite) {
     		var p = cc.p(animalSprite.lx, animalSprite.ly);
     		// cc.log(lx, ly, animalSprite.lx, animalSprite.ly);
-    		if (caculateDistance(lp, p) < 0.4) {
+    		if (caculateDistance(lp, p) < 0.5) {
     			result.push(animalSprite.id);
     		}
     	});

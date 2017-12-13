@@ -8,7 +8,7 @@ var LodgeTable = cc.Layer.extend({
     _sprite: null,
     _check: null,
     _tableView: null,
-    lstP : {x: 0, y : 0},
+    lstP: {x: 0, y: 0},
     autoMoveHor: 0,
     autoMoveVer: 0,
 
@@ -17,7 +17,7 @@ var LodgeTable = cc.Layer.extend({
         this.init();
     },
 
-    init:function () {
+    init: function () {
         //var layoutColor = new ccui.Layout();
         //layoutColor.setContentSize(cc.winSize.width / 3, cc.winSize.height / 9 * 8);
         //layoutColor.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
@@ -43,22 +43,22 @@ var LodgeTable = cc.Layer.extend({
         //return true;
     },
 
-    scrollViewDidScroll:function (view) {
+    scrollViewDidScroll: function (view) {
         //this.setSwallowTouches(false);
     },
-    scrollViewDidZoom:function (view) {
+    scrollViewDidZoom: function (view) {
 
     },
 
-    tableCellTouched:function (table, cell) {
+    tableCellTouched: function (table, cell) {
         cc.log("Lodge Table " + cell.getIdx());
     },
 
-    tableCellSizeForIndex:function (table, idx) {
+    tableCellSizeForIndex: function (table, idx) {
         return cc.size(363, 142 * (363 / 316));
     },
 
-    tableCellAtIndex:function (table, idx) {
+    tableCellAtIndex: function (table, idx) {
         var cell = table.dequeueCell();
         var level = user.getLevel();
         var imgBg;
@@ -72,161 +72,94 @@ var LodgeTable = cc.Layer.extend({
         var price;
 
         //if (!cell) {
-            cell = new cc.TableViewCell();
-            imgBg = new cc.Sprite(res.shop_slot_png);
-            imgBg.x = 0;
-            imgBg.y = 0;
-            imgBg.anchorX = 0;
-            imgBg.anchorY = 0;
-            //var scale = (cc.winSize.width / 3) / imgBg.getContentSize().width;
-            var scale = 363 / imgBg.getContentSize().width;
-            imgBg.setScale(scale);
-            imgBg.tag = 1000;
+        cell = new cc.TableViewCell();
+        imgBg = new cc.Sprite(res.shop_slot_png);
+        imgBg.x = 0;
+        imgBg.y = 0;
+        imgBg.anchorX = 0;
+        imgBg.anchorY = 0;
+        //var scale = (cc.winSize.width / 3) / imgBg.getContentSize().width;
+        var scale = 363 / imgBg.getContentSize().width;
+        imgBg.setScale(scale);
+        //imgBg.tag = 1000;
 
-            var box = imgBg.getBoundingBox();
+        var box = imgBg.getBoundingBox();
 
-            var goldImg = new cc.Sprite(res.gold_png);
-            goldImg.x = box.width / 2;
-            goldImg.y = 0;
-            goldImg.setAnchorPoint(0.5, -0.5);
+        var goldImg = new cc.Sprite(res.gold_png);
+        goldImg.x = box.width / 2;
+        goldImg.y = 0;
+        goldImg.setAnchorPoint(0.5, -0.5);
 
-            id = new cc.LabelTTF(res.infoCoopItem[idx].id);
-            id.tag = 0;
-            id.setVisible(false);
-            cell.addChild(id);
+        id = new cc.LabelTTF(res.infoCoopItem[idx].id);
+        id.tag = 0;
+        id.setVisible(false);
+        cell.addChild(id);
 
-            image = new ccui.Button(res.infoCoopItem[idx].nameIconShop);
-            //image = new cc.Sprite(res.infoCoopItem[idx].nameIconShop);
-            image.x = box.width / 4 * 3;
-            image.y = box.height / 2;
-            var scaleImg = imgBg.getContentSize().height / image.getContentSize().height;
-            image.setScale(scaleImg);
-            image.tag = 1;
+        image = new ccui.Button(res.infoCoopItem[idx].nameIconShop);
+        //image = new cc.Sprite(res.infoCoopItem[idx].nameIconShop);
+        image.x = box.width / 4 * 3;
+        image.y = box.height / 2;
+        var scaleImg = imgBg.getContentSize().height / image.getContentSize().height;
+        image.setScale(scaleImg);
+        image.tag = 1;
 
-            title = new cc.LabelBMFont(fr.Localization.text(res.infoCoopItem[idx].name), "fonts/outline/30.fnt");
-            title.x = box.width / 10 - 10;
-            title.y = box.height - 10;
-            title.setAnchorPoint(0, 1);
-            title.tag = 2;
+        title = new cc.LabelBMFont(fr.Localization.text(res.infoCoopItem[idx].name), res.FONT_OUTLINE_30);
+        title.x = box.width / 10 - 10;
+        title.y = box.height - 10;
+        title.setAnchorPoint(0, 1);
+        title.tag = 2;
 
-            detail = new cc.LabelBMFont(fr.Localization.text(res.infoCoopItem[idx].detail), "fonts/normal/30.fnt");
-            detail.x = box.width / 3;
-            detail.y = box.height / 2;
-            detail.color = cc.color(77, 41, 1);
-            detail.tag = 3;
+        detail = new cc.LabelBMFont(fr.Localization.text(res.infoCoopItem[idx].detail), res.FONT_NORMAL_30);
+        detail.x = box.width / 3;
+        detail.y = box.height / 2;
+        detail.color = cc.color(77, 41, 1);
+        detail.tag = 3;
 
-            //curslot = GameShopController.instance.getNumberLodge(res.infoCoopItem[idx].id);
-            //maxslot = 0;
+        //curslot = GameShopController.instance.getNumberLodge(res.infoCoopItem[idx].id);
+        //maxslot = 0;
 
-            if(res.infoCoopItem[idx].id == "field"){
+        if (level < res.infoCoopItem[idx].level[0]) {
+            detail.setString(fr.Localization.text("text_unlock_detail") + res.infoCoopItem[idx].level[0]);
+            image.setTouchEnabled(false);
+        } else {
+            if (res.infoCoopItem[idx].id === "field") {
                 curslot = user.getAsset().getFieldList().length;
-                maxslot = GameShopController.instance.getMaxField();
-                //cc.log("Field slot " + curslot + " " + maxslot);
-                if (curslot < maxslot) {
-                    //cc.log("Add Event Buy Field");
-                    image.addTouchEventListener(this.touchBuyEvent, this);
-                }
             } else {
-                if (level < res.infoCoopItem[idx].level[0]) {
-                    detail.setString(fr.Localization.text("text_unlock_detail") + res.infoCoopItem[idx].level[0]);
-                    image.setTouchEnabled(false);
-                } else {
-                    curslot = GameShopController.instance.getNumberLodge(res.infoCoopItem[idx].id);
-                    var length = res.infoCoopItem[idx].level.length;
-                    if (level >= res.infoCoopItem[idx].level[length - 1]) {
-                        maxslot = length;
-                    } else {
-                        for (var i = 0; i < length - 1; i++) {
-                            if (res.infoCoopItem[idx].level[i] <= level && level < res.infoCoopItem[idx].level[i + 1]) {
-                                maxslot = i + 1;
-                            }
-                        }
-                    }
-                    if (curslot < maxslot) {
-                        image.addTouchEventListener(this.touchBuyEvent, this);
-                    }
-                }
+                curslot = GameShopController.instance.getNumberLodge(res.infoCoopItem[idx].id);
             }
-        //text_unlock_detail
-            //if(level >= res.infoCoopItem[idx].level3) {
-            //    maxslot = 3;
-            //} else if (res.infoCoopItem[idx].level2 <= level && level < res.infoCoopItem[idx].level3) {
-            //    maxslot = 2;
-            //} else if (res.infoCoopItem[idx].level <= level && level < res.infoCoopItem[idx].level2) {
-            //    maxslot = 1;
-            //}
+        }
 
-            slot = new cc.LabelBMFont(curslot + "/" + maxslot, "fonts/outline/30.fnt");
-            slot.x = box.width / 3 * 2;
-            slot.y = box.height / 5 * 4;
-            slot.tag = 4;
+        maxslot = GameShopController.instance.getMaxLodge(res.infoCoopItem[idx].id);
 
-            price = new cc.LabelBMFont(res.infoCoopItem[idx].price, "fonts/outline/30.fnt");
-            price.x = box.width / 5 * 2;
-            price.y = 0;
-            price.setAnchorPoint(1, -0.5);
-            price.tag = 5;
+        if (curslot < maxslot) {
+            image.addTouchEventListener(this.touchBuyEvent, this);
+        }
+
+        slot = new cc.LabelBMFont(curslot.toString() + "/" + maxslot.toString(), res.FONT_OUTLINE_30);
+        slot.x = box.width / 3 * 2;
+        slot.y = box.height / 5 * 4;
+        slot.tag = 4;
+
+        price = new cc.LabelBMFont(res.infoCoopItem[idx].price, res.FONT_OUTLINE_30);
+        price.x = box.width / 5 * 2;
+        price.y = 0;
+        price.setAnchorPoint(1, -0.5);
+        price.tag = 5;
 
 
-            cell.addChild(imgBg);
-            cell.addChild(goldImg);
+        cell.addChild(imgBg);
+        cell.addChild(goldImg);
 
-            cell.addChild(image);
-            cell.addChild(title);
-            cell.addChild(detail);
-            cell.addChild(price);
-            cell.addChild(slot);
-
-            // cc.log("create cell container " + idx);
-        //} else {
-        //    id = cell.getChildByTag(0);
-        //    id.setString(res.infoCoopItem[idx].id);
-        //
-        //    image = cell.getChildByTag(1);
-        //    //image.setTexture(res.infoCoopItem[idx].nameIconShop);
-        //    image.loadTextureNormal(res.infoCoopItem[idx].nameIconShop);
-        //
-        //    title = cell.getChildByTag(2);
-        //    title.setString(res.infoCoopItem[idx].title);
-        //
-        //    detail = cell.getChildByTag(3);
-        //    detail.setString(res.infoCoopItem[idx].detail);
-        //
-        //    slot = cell.getChildByTag(4);
-        //    if(res.infoCoopItem[idx].id == "field"){
-        //        curslot = user.getAsset().getFieldList().length;
-        //        maxslot = GameShopController.instance.getMaxField();
-        //        cc.log("Field slot " + curslot + " " + maxslot);
-        //        if (curslot < maxslot) {
-        //            image.addTouchEventListener(this.touchEvent, this);
-        //        }
-        //    } else {
-        //        var length = res.infoCoopItem[idx].level.length;
-        //        if(level >= res.infoCoopItem[idx].level[length - 1]) {
-        //            maxslot = length;
-        //        } else {
-        //            for(var i = 0; i < length - 1; i++) {
-        //                if (res.infoCoopItem[idx].level[i] <= level && level < res.infoCoopItem[idx].level[i + 1]) {
-        //                    maxslot = i + 1;
-        //                }
-        //            }
-        //        }
-        //        cc.log("Level User " + level);
-        //        //cc.log("Level unlock " + res.infoCoopItem[idx].level[0]);
-        //        if (level >= res.infoCoopItem[idx].level[0] && curslot < maxslot) {
-        //            image.addTouchEventListener(this.touchEvent, this);
-        //        }
-        //    }
-        //    slot.setString(curslot + "/" + maxslot);
-        //
-        //    price = cell.getChildByTag(5);
-        //    price.setString(res.infoCoopItem[idx].price);
-        //}
+        cell.addChild(image);
+        cell.addChild(title);
+        cell.addChild(detail);
+        cell.addChild(price);
+        cell.addChild(slot);
 
         return cell;
     },
 
-    numberOfCellsInTableView:function (table) {
+    numberOfCellsInTableView: function (table) {
         return res.infoCoopItem.length;
     },
 
@@ -264,11 +197,6 @@ var LodgeTable = cc.Layer.extend({
                     this.autoMoveVer = 0;
                 }
 
-
-                //var p = MapValues.screenPositionToLogic(this.movedP.x, this.movedP.y);
-                //p.x = Math.floor(p.x);
-                //p.y = Math.floor(p.y);
-                // cc.log(p.x + " " + p.y);
                 if (!GameShopLayout.instance._isHide) {
                     this.scheduleUpdate();
                     GameShopLayout.instance.hide();
@@ -279,23 +207,24 @@ var LodgeTable = cc.Layer.extend({
                     createP.y = Math.floor(createP.y);
                     switch (sender.parent.getChildByTag(0).getString()) {
                         case "field":
-                            this._sprite = new FieldSprite(user.getAsset().getFieldList().length + 1, createP.x, createP.y);
-                            this._sprite.setLocalZOrder(10000);
-                            MapLayer.instance.addChild(this._sprite);
+                            this._sprite = new FieldSprite(user.asset.getFieldList().length + 1, createP.x, createP.y);
                             break;
-                        case "chicken_habitat":
+                        case AnimalLodgeType.chicken_habitat:
                             this._sprite = new ChickenLodgeSprite(createP.x, createP.y);
-                            this._sprite.setLocalZOrder(10000);
-                            MapLayer.instance.addChild(this._sprite);
                             break;
-                        //case "cow_habitat":
-                        //    break;
+                        case AnimalLodgeType.cow_habitat:
+                            this._sprite = new CowLodgeSprite(createP.x, createP.y);
+                            break;
                         //case "pig_habitat":
                         //    break;
                         //case "sheep_habitat":
                         //    break;
                         //case "goat_habitat":
                         //    break;
+                    }
+                    if (this._sprite) {
+                        this._sprite.setLocalZOrder(10000);
+                        MapLayer.instance.addChild(this._sprite);
                     }
                 }
                 //cc.log(this._sprite);
@@ -335,45 +264,31 @@ var LodgeTable = cc.Layer.extend({
                         cc.log(missGold);
                         if (missGold) {
                             this._sprite.removeFromParent(true);
-                            BaseGUILayer.instance.notifyShopNotEnoughGold(missGold, this._sprite.fieldId, typeObject,
-                                this._sprite.lx, this._sprite.ly);
+                            BaseGUILayer.instance.notifyShopNotEnoughGold(missGold, typeObject, endPl.x, endPl.y);
                         } else {
                             // Success
                             MapCtrl.instance.addSpriteAlias(this._sprite);
                             this._sprite.setLogicPosition(this._sprite.lx, this._sprite.ly, false);
                             if (typeObject === "field") {
                                 var fieldModel = new Field(new Coordinate(this._sprite.lx, this._sprite.ly), this._sprite.fieldId);
-                                user.getAsset().addField(fieldModel);
+                                user.asset.addField(fieldModel);
                                 MapLayer.instance.fieldList.push(this._sprite);
                                 this._sprite.field = fieldModel;
                                 // Send server
-                                testnetwork.connector.sendBuyMapObjectRequest(this._sprite.fieldId,
-                                    sender.parent.getChildByTag(0).getString(),
-                                    this._sprite.lx, this._sprite.ly);
+                                testnetwork.connector.sendBuyMapObjectRequest(fieldModel.fieldId,
+                                    typeObject, endPl.x, endPl.y);
                             } else {
-
+                                //Model
+                                var lodgeModel = new AnimalLodge(new Coordinate(this._sprite.lx, this._sprite.ly),
+                                    typeObject, 0, null);
+                                user.asset.addAnimalLodge(lodgeModel);
+                                this._sprite.tag = TagClusters.Lodge + lodgeModel.id;
+                                this._sprite.setId(lodgeModel.id);
+                                //Send server
+                                testnetwork.connector.sendBuyMapObjectRequest(lodgeModel.id, typeObject,
+                                    endPl.x, endPl.y);
                             }
-                            switch (typeObject) {
-                                case "field":
-                                    var fieldModel = new Field(new Coordinate(this._sprite.lx, this._sprite.ly), this._sprite.fieldId);
-                                    user.getAsset().addField(fieldModel);
-                                    MapLayer.instance.fieldList.push(this._sprite);
-                                    this._sprite.field = fieldModel;
-                                    // Send server
-                                    testnetwork.connector.sendBuyMapObjectRequest(this._sprite.fieldId,
-                                        sender.parent.getChildByTag(0).getString(),
-                                        this._sprite.lx, this._sprite.ly);
-                                    //cc.log("Send server buy field");
-                                    //...
-                                    break;
-                                //case "chicken_habitat":
-                                //    break;
-                                //case "cow_habitat":
-                                //    break;
-                            }
-                            //cc.log("Gold User" + user.getGold());
-                            user.reduceGold(sender.parent.getChildByTag(5).getString());
-
+                            user.reduceGold(parseInt(sender.parent.getChildByTag(5).getString()));
 
                             GameShopLayout.instance.show();
                         }
@@ -381,6 +296,7 @@ var LodgeTable = cc.Layer.extend({
                 }
                 this._sprite = null;
                 this._tableView.updateCellAtIndex(sender.parent.getIdx());
+                GameShopLayout.instance._gameShop._animalTable._tableView.reloadData();
                 break;
         }
     },

@@ -7,7 +7,7 @@ var SugarCaneSprite = AnimationSprite.extend({
     id: null,
 
     ctor: function(sugarCaneId, x, y) {
-        this._super(resAniId.SugarCan, 2, 2, x, y, MapItemEnum.SUGAR_MAKER);
+        this._super(resAniId.SugarCan, 2, 2, x, y, MapItemEnum.MACHINE);
         //this._super(resAniId.popcorn_pot, 3, 3, x, y, MapItemEnum.BAKERY);
 
         // this.content = fr.createAnimationById(resAniId.bakery, this);

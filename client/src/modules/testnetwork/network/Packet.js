@@ -52,10 +52,13 @@ gv.CMD.RESPONSE_MOVE = 6100;
 //Shop
 gv.CMD.BUY_MAP_OBJECT_REQUEST = 7001;
 gv.CMD.BUY_MAP_OBJECT_BY_RUBY = 7002;
+gv.CMD.RESPONSE_BUY_OBJECT = 7100;
 
 //Storage
 gv.CMD.BUY_TOOL_REQUEST = 8001;
 gv.CMD.UPGRADE_STORAGE_REQUEST = 8002;
+gv.CMD.RESPONSE_UPGRADE_STORAGE = 8100;
+gv.CMD.RESPONSE_BUY_TOOL_UPGRADE = 8101;
 
 //Constructed
 gv.CMD.BUID_COMPLETED = 9001;
@@ -64,6 +67,7 @@ gv.CMD.BOOST_BUILD = 9002;
 // Animal
 gv.CMD.ANIMAL_HARVEST = 12001;
 gv.CMD.ANIMAL_FEED = 12002;
+gv.CMD.ANIMAL_BOOST = 12003;
 
 testnetwork = testnetwork||{};
 testnetwork.packetMap = {};
@@ -526,6 +530,20 @@ CmdSendAnimalFeed = fr.OutPacket.extend({
     }
 });
 
+CmdSendAnimalBoost = fr.OutPacket.extend({
+    ctor: function() {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.ANIMAL_BOOST);
+    },
+    pack: function(lodgeId, animalId) {
+        this.packHeader();
+        this.putInt(lodgeId);
+        this.putInt(animalId);
+        this.updateSize();
+    }
+});
+
 CmdSendBoostBuild = fr.OutPacket.extend({
     ctor: function () {
         this._super();
@@ -901,6 +919,32 @@ testnetwork.packetMap[gv.CMD.RESPONSE_SYNC_ORDER_NPC] = fr.InPacket.extend(
 );
 ////
 
+testnetwork.packetMap[gv.CMD.RESPONSE_BUY_OBJECT] = fr.InPacket.extend({
+    ctor: function () {
+        this._super();
+    },
+    readData: function () {
+        this.error = this.getShort();
+    }
+});
+
+testnetwork.packetMap[gv.CMD.RESPONSE_UPGRADE_STORAGE] = fr.InPacket.extend({
+    ctor: function () {
+        this._super();
+    },
+    readData: function () {
+        this.error = this.getShort();
+    }
+});
+
+testnetwork.packetMap[gv.CMD.RESPONSE_BUY_TOOL_UPGRADE] = fr.InPacket.extend({
+    ctor: function () {
+        this._super();
+    },
+    readData: function () {
+        this.error = this.getShort();
+    }
+});
 
 // Map
 testnetwork.packetMap[gv.CMD.RESPONSE_MOVE] = fr.InPacket.extend({
@@ -1159,6 +1203,15 @@ testnetwork.packetMap[gv.CMD.ANIMAL_HARVEST] = fr.InPacket.extend({
 });
 
 testnetwork.packetMap[gv.CMD.ANIMAL_FEED] = fr.InPacket.extend({
+    ctor: function() {
+        this._super();
+    },
+    readData: function() {
+        this.error = this.getInt();
+    }
+});
+
+testnetwork.packetMap[gv.CMD.ANIMAL_BOOST] = fr.InPacket.extend({
     ctor: function() {
         this._super();
     },

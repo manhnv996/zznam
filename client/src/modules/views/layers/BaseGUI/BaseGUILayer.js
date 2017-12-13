@@ -91,7 +91,7 @@ var BaseGUILayer = cc.Layer.extend({
         //this.addChild(this._layout);
     },
 
-    notifyFullStorage: function (storageType) {
+    notifyFullStorage: function (storageType, callback) {
         this._layout = new NotifyFullStorage(storageType);
         if (this._layout._hasCloseButton) {
             //cc.log("_btnClose");
@@ -128,10 +128,9 @@ var BaseGUILayer = cc.Layer.extend({
         //this.addChild(this._layout);
     },
 
-    showSuggestBuyMissionItem: function (storageMissingItemList, targetType, orderId) {
+    showSuggestBuyMissionItem: function (storageMissingItemList, targetType, orderId, callback) {
         this._layout = new NoticeMissingItem(storageMissingItemList, targetType, orderId);
         if (this._layout._hasCloseButton) {
-            //cc.log("_btnClose");
             this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);
         }
         this.blockLayout();

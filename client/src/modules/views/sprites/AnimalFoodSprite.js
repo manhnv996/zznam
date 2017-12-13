@@ -17,6 +17,7 @@ var AnimalFoodSprite = cc.Sprite.extend({
                     this.dragListener._isFirstMove = false;
 
                     target.slot.runAction(new cc.MoveBy(0.1, target.width / 4, target.height / 4));
+                    AnimalCtrl.instance.unlock();
                     return true;
                 }
 

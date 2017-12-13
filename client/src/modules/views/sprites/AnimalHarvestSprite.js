@@ -15,6 +15,7 @@ var AnimalHarvestSprite = cc.Sprite.extend({
                     this.dragListener._isFirstMove = false;
 
                     target.runAction(new cc.ScaleTo(0.1, 1.5, 1.5));
+                    AnimalCtrl.instance.unlock();
                     return true;
                 }
 
