@@ -54,6 +54,7 @@ var AnimalSprite = cc.Sprite.extend({
 
 	// Need to override
 	hungry: function() {},
+	harvest: function() {},
 	feed: function() {},
 	setOnHarvestTime: function(time) {},
 	_setOnHarvestTime: function(time, totalTime) {

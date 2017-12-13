@@ -288,6 +288,11 @@ testnetwork.Connector = cc.Class.extend({
                     cc.log('[E] Error occurs!');
                 }
                 break;
+            case gv.CMD.ANIMAL_BOOST:
+                cc.log("ANIMAL_BOOST Error:", packet.error);
+                if (packet.error !== 0) {
+                    cc.log('[E] Error occurs!');
+                }
 
             case gv.CMD.RESPONSE_BUY_OBJECT:
                 cc.log("BUY_OBJECT Error:", packet.error);
@@ -533,6 +538,13 @@ testnetwork.Connector = cc.Class.extend({
     sendAnimalFeed: function(lodgeId, animalId) {
         cc.log("Send Animal Feed", lodgeId, animalId);
         var pk = this.gameClient.getOutPacket(CmdSendAnimalFeed);
+        pk.pack(lodgeId, animalId);
+        this.gameClient.sendPacket(pk);
+    },
+
+    sendAnimalBoost: function(lodgeId, animalId) {
+        cc.log("Send Animal Boost", lodgeId, animalId);
+        var pk = this.gameClient.getOutPacket(CmdSendAnimalBoost);
         pk.pack(lodgeId, animalId);
         this.gameClient.sendPacket(pk);
     },

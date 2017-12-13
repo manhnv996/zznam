@@ -41,8 +41,9 @@ var ChickenLodgeSprite = AnimalLodgeSprite.extend({
 			this.loadingBar.setPosition(p.x + 50, p.y - 25);
 			BaseGUILayer.instance.addChild(this.loadingBar);
 			this.loadingBar.setOnClick(function() {
-				cc.log("Boost", animal.id);
-			});
+				AnimalCtrl.instance.boost(this.id, animal.id);
+				this.loadingBar.closeLoadingBar();
+			}.bind(this));
 		}
 	},
 
