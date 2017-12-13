@@ -193,6 +193,21 @@ testnetwork.Connector = cc.Class.extend({
                     BaseGUILayer.instance._layout.initInfo();
                 }
 
+                TablePopupLayer.instance.runUpdateOrderWaittingTime();
+                break;
+
+            case gv.CMD.RESPONSE_SYNC_CAR:
+                cc.log("RECEIVE RESPONSE_SYNC_CAR: ");
+                /*
+                 Inprogress
+                 */
+
+                var car = user.getAsset().getCar();
+                car.updateDelivery(packet.deliveryPrice, packet.deliveryExp);
+
+                cc.log(user.asset.car.deliveryPrice + "   dddd");
+                CarSprite.instance.updateCarStatus(car);
+
                 break;
 
             case gv.CMD.RESPONSE_SYNC_ORDER_NPC:
@@ -222,12 +237,34 @@ testnetwork.Connector = cc.Class.extend({
 
                 if (orderNPCSelected.checkStatus() == OrderStatusTypes.REALIZABLE){
                     //
-                    MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).setResume();
+                    //MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).setResume();
+                    var index = MapLayer.instance.getIndexByOrderNPCId(orderNPCSelected.orderId);
+                    if (index != null){
+                        MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).changeTexture(orderNPCSelected);
+                        MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).runScheduleWalkingBack();
+                        MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).stopScheduleUpdateOrderNPC();
+                    }
+                    // if (index != null){
+                    //     MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).removeNPC();
+                    //
+                    //     MapLayer.instance.npcList.splice(index, 1);
+                    // }
+                    //
+                    // var npcSprite = new NPCSprite(31, 32, orderNPCSelected);
+                    // npcSprite.runScheduleWalkingBack();
+                    // MapLayer.instance.npcList.push(npcSprite);
+                    //
+                    // MapLayer.instance.addChild(npcSprite);// //
+
                     //
                 } else {
+                    // //
+                    // // MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).setPause();
+                    // if (MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId) != null){
+                    //     MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).setPause();
+                    // }
                     //
-                    MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).setPause();
-                    //
+                    // //
                 }
 
                 break;
@@ -400,6 +437,12 @@ testnetwork.Connector = cc.Class.extend({
         cc.log("sendBoostWaitOrder: " + orderId);
         var pk = this.gameClient.getOutPacket(CmdSendBoostWaitOrder);
         pk.pack(orderId);
+        this.gameClient.sendPacket(pk);
+    },
+    sendReceiceDeliveryCar: function (price, exp) {
+        cc.log("sendReceiceDeliveryCar: ");
+        var pk = this.gameClient.getOutPacket(CmdSendReceiceDeliveryCar);
+        pk.pack(price, exp);
         this.gameClient.sendPacket(pk);
     },
     //

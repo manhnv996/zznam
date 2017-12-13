@@ -20,6 +20,13 @@ var OrderCtrl = cc.Class.extend({
 
         if (orderSelected != null){
             if (orderSelected.makeOrder() == true){
+                /*
+                 runAction
+                 */
+                //CarSprite.instance.updateOrder(orderSelected.orderPrice, orderSelected.orderExp);
+                CarSprite.instance.delivery(orderSelected.itemList);
+                //
+                BaseGUILayer.instance.removeBlockListener();
 
                 testnetwork.connector.sendMakeOrder(orderId, 0);
 
@@ -45,6 +52,13 @@ var OrderCtrl = cc.Class.extend({
         var orderSelected = user.getAsset().getOrderById(orderId);
         if (orderSelected != null){
             if (orderSelected.makeOrderByRuby(rubiBuy) == true){
+                /*
+                 runAction
+                 */
+                //CarSprite.instance.updateOrder(orderSelected.orderPrice, orderSelected.orderExp);
+                CarSprite.instance.delivery(orderSelected.itemList);
+                //
+                BaseGUILayer.instance.removeBlockListener();
 
                 testnetwork.connector.sendMakeOrder(orderId, rubiBuy);
 
@@ -54,11 +68,17 @@ var OrderCtrl = cc.Class.extend({
             }
         }
 
-        //
-        OrderCtrl.instance.onShowOrderBG();
+        ////
+        //OrderCtrl.instance.onShowOrderBG();
 
     },
 
+    onReceiveDelivery: function () {
+        if (user.getAsset().getCar().receive()){
+            testnetwork.connector.sendReceiceDeliveryCar(user.getAsset().getCar().deliveryPrice, user.getAsset().getCar().deliveryExp);
+
+        }
+    },
 
     onCancelOrder: function (orderId) {
         //
@@ -88,6 +108,8 @@ var OrderCtrl = cc.Class.extend({
         var rubiBuy = getProductObjById(storageMissingItem.typeItem).rubiMuaNgay * storageMissingItem.quantity;
         if (user.reduceRuby(rubiBuy)){
             if (user.getAsset().addItemToStorageById(storageMissingItem.typeItem, storageMissingItem.quantity)){
+                //
+                BaseGUILayer.instance.removeBlockListener();
 
                 testnetwork.connector.sendBuyItemByRubi(storageMissingItem.typeItem, storageMissingItem.quantity);
                 return true;
@@ -117,7 +139,13 @@ var OrderCtrl = cc.Class.extend({
 
                 // //
                 // MapLayer.instance.getNPCByOrderNPCId(orderId).setPause();
+                // MapLayer.instance.getNPCByOrderNPCId(orderId).actionGetOut1();
+                // // //
                 // //
+                if (MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId) != null){
+                    MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).runScheduleWalkingOut(true);
+                    MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).runScheduleUpdateOrderNPC();
+                }
             } else {
                 var missionItem = orderNPCSelected.checkCondition();
                 /*
@@ -146,7 +174,14 @@ var OrderCtrl = cc.Class.extend({
                  */
                 // //
                 // MapLayer.instance.getNPCByOrderNPCId(orderId).setPause();
+                // MapLayer.instance.getNPCByOrderNPCId(orderId).actionGetOut1();
                 // //
+                if (MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId) != null){
+                    MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).runScheduleWalkingOut(true);
+                    MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).runScheduleUpdateOrderNPC();
+                }
+
+                BaseGUILayer.instance.removeBlockListener();
             } else {
                 //
 
@@ -163,9 +198,14 @@ var OrderCtrl = cc.Class.extend({
 
                 testnetwork.connector.sendCancelOrderNpc(orderId);
 
-                // //
+                // // //
                 // MapLayer.instance.getNPCByOrderNPCId(orderId).setPause();
+                // MapLayer.instance.getNPCByOrderNPCId(orderId).actionGetOut1();
                 // //
+                if (MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId) != null){
+                    MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).runScheduleWalkingOut(false);
+                    MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).runScheduleUpdateOrderNPC();
+                }
             }
         }
         /*

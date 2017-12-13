@@ -409,14 +409,17 @@ function onReceiveUser(userInfo) {
             userInfo.asset.orderNPCList[i].orderExp,
             userInfo.asset.orderNPCList[i].npc_res
         );
-        orderNPCList.waittingTime = new Date(parseInt(userInfo.asset.orderNPCList[i].waittingTime));
+        orderNPC.waittingTime = new Date(parseInt(userInfo.asset.orderNPCList[i].waittingTime));
         orderNPCList.push(orderNPC);
     }
+    //
+    var car = new Car(userInfo.asset.car.deliveryPrice, userInfo.asset.car.deliveryExp);
+    //
 
     var asset = new Asset(
         foodStorage, warehouse, fieldList, animalLodgeList,
         machineList, natureThingList, myShop,
-        orderList, orderNPCList
+        orderList, orderNPCList, car
     );
 
     // cc.log("Asset", asset);
@@ -446,5 +449,7 @@ function onReceiveUser(userInfo) {
         cc.log(orderNPCList[i].waittingTime);
         cc.log(orderNPCList[i].npc_res);
     }
+
+    cc.log(user.asset.car.deliveryPrice + "   dddd");
 
 }

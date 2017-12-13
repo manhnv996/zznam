@@ -28,6 +28,7 @@
         "src/data/HavestResource.js",
         "src/data/OrderResource.js",
         "src/data/AnimalLodgeResource.js",
+        "src/data/ToolResource.js",
         "src/data/Resource.js",
         "src/data/ResourceAnimation.js",
         "src/framework/AnimationMgr.js",
@@ -95,13 +96,17 @@
         "src/modules/views/layers/popup/TablePopupLayer.js",
         "src/modules/views/layers/popup/SeedTablePopup.js",
         "src/modules/views/layers/popup/CropToolPopup.js",
+        "src/modules/views/layers/popup/TimeRemainProgressBar.js",
+        "src/modules/views/layers/popup/AnimalToolPopup.js",
         "src/modules/views/layers/PopupLayer.js",
 
+        "src/modules/views/sprites/ProductSprite.js",
         "src/modules/views/sprites/SeedSprite.js",
         "src/modules/views/sprites/CropToolSprite.js",
+        "src/modules/views/sprites/AnimalFoodSprite.js",
+        "src/modules/views/sprites/AnimalHarvestSprite.js",
         "src/modules/views/sprites/FieldSprite.js",
         "src/modules/views/sprites/OrderSprite.js",
-        "src/modules/views/sprites/ProductSprite.js",
         "src/modules/views/sprites/CarSprite.js",
         "src/modules/views/sprites/NPCSprite.js",
 
@@ -112,6 +117,7 @@
         "src/modules/configs/enum/StorageTypes.js",
         "src/modules/configs/enum/ProductResource.js",
         "src/modules/configs/enum/NPCresAni.js",
+        "src/modules/configs/enum/DeliveryStatus.js",
         "src/modules/configs/enum/BuyItemTargetType.js",
         "src/modules/configs/enum/AnimalType.js",
         "src/modules/configs/enum/AnimalLodgeType.js",
@@ -141,6 +147,7 @@
         "src/modules/models/NatureThing.js",
         "src/modules/models/Order.js",
         "src/modules/models/OrderNPC.js",
+        "src/modules/models/Car.js",
 
         "src/modules/models/AnimalLodge.js",
 

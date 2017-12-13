@@ -20,6 +20,8 @@ import cmd.receive.order.RequestMakeOrder;
 
 import cmd.receive.order.RequestMakeOrderNPC;
 
+import cmd.receive.order.RequestReceiveDeliveryCar;
+
 import cmd.send.demo.ResponseErrorCode;
 
 import cmd.send.demo.ResponseMove;
@@ -29,6 +31,7 @@ import cmd.send.demo.ResponseSyncFoodStorageItem;
 import cmd.send.demo.ResponseSyncStorage;
 import cmd.send.demo.ResponseSyncUserInfo;
 
+import cmd.send.order.ResponseSyncCar;
 import cmd.send.order.ResponseSyncOrder;
 
 import cmd.send.order.ResponseSyncOrderNPC;
@@ -81,7 +84,12 @@ public class OrderHandler extends BaseClientRequestHandler {
                     
                     processBoostWaitOrder(user, boostWaitOrder);
                     break;
-            
+                case CmdDefine.RECEIVE_DELIVERY_CAR:
+                    RequestReceiveDeliveryCar delivery = new RequestReceiveDeliveryCar(dataCmd);
+                    
+                    processReceiveDeliveryCar(user, delivery);
+                    break;
+                
                 //
                 case CmdDefine.MAKE_ORDER_NPC:
                     RequestMakeOrderNPC makeOrderNPC = new RequestMakeOrderNPC(dataCmd);
@@ -264,6 +272,40 @@ public class OrderHandler extends BaseClientRequestHandler {
                 
                 send(new ResponseSyncOrder(errorCode, userInfo.getAsset().getOrderdById(order.orderId)), user);
                 send(new ResponseSyncUserInfo(ErrorLog.ERROR_RUBY_NOT_REDUCE.getValue(), userInfo), user);
+            }
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }    
+    
+    //
+    public void processReceiveDeliveryCar(User user, RequestReceiveDeliveryCar delivery){
+        try {
+            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
+            if (userInfo == null){
+                
+                return;
+            }
+            
+            /*
+             * DONE
+             */
+            short errorCode = userInfo.getAsset().getCar().receive(userInfo);
+            
+            //
+            if (errorCode == ErrorLog.SUCCESS.getValue()){
+                send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
+
+                userInfo.saveModel(user.getId());                
+                //
+                send(new ResponseSyncCar(errorCode, userInfo.getAsset().getCar()), user);
+                
+            } else {
+                
+                send(new ResponseSyncCar(errorCode, userInfo.getAsset().getCar()), user);
+                send(new ResponseSyncUserInfo(ErrorLog.SUCCESS.getValue(), userInfo), user);
             }
             
             

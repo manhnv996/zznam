@@ -137,11 +137,14 @@ var OrderSprite = cc.Sprite.extend({
 //        ////////////
         parent.setTouchEnabledButton(true);
         //
+        this.showPriceInfo(parent);
+        //
         this.itemList = [];
         this.itemListModel = this.order.itemList;
 
         for (var i = 0; i < this.itemListModel.length; i++){
-            var productSprite = new ProductSprite(getProductIconById(this.itemListModel[i].typeItem));
+            // var productSprite = new ProductSprite(getProductIconById(this.itemListModel[i].typeItem));
+            var productSprite = new ProductSprite(getProductIconById(this.itemListModel[i].typeItem), this.itemListModel[i].typeItem);
             parent.orderInfo.addChild(productSprite);
 
             this.itemList.push(productSprite);
@@ -150,14 +153,20 @@ var OrderSprite = cc.Sprite.extend({
         }
 
         this.setupItemListPosition(parent);
-        this.showPriceInfo(parent);
 
+
+//        //
+        if (CarSprite.instance.isStatus != DeliveryStatus.EMPTY) {
+            parent.btMakeOrder.setTouchEnabled(false);
+            parent.btMakeOrder.setColor(cc.color(128, 128, 128));
+
+            return;
+        }
 
         //
         if (this.order.checkCondition() == true){
             parent.repeatSuggestMakeOrder();    //scale button makeOrder
         }
-
     },
     setupItemListPosition: function(parent) {
         var icon = new cc.Sprite(res.iconGoodMilk); //template

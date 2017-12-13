@@ -248,8 +248,8 @@ var AnimalTable = cc.Layer.extend({
 
                             //add to lodge sprite
                             var lodgeSprite = MapLayer.instance.getChildByTag(TagClusters.Lodge + lodgeModel.id);
-                            lodgeSprite.addChild(this._sprite);
                             this._sprite.setId(animalModel.id);
+                            lodgeSprite.addAnimalSprite(this._sprite);
                             this._sprite.hungry();
 
                             user.reduceGold(sender.parent.getChildByTag(5).getString());

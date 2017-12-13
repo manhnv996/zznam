@@ -12,6 +12,7 @@ import config.utils.OrderUtil;
 import config.utils.ProductUtil;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -121,14 +122,16 @@ public class OrderNPC {
 //    }
 
     public void setNpcResAni(ZPUserInfo user) {
-        this.npcResAni = NPCresAni.getListNPCresAni()[(int) Math.floor(Math.random() * NPCresAni.getListNPCresAni().length * 0.99)];
+        List<String> filter = new ArrayList<>();
+        List<OrderNPC> npcList = user.getAsset().getOrderNPCList();
+        for (int i = 0; i < npcList.size(); i++){
+            filter.add(npcList.get(i).getNpcResAni());
+        }
         
-//        for (int i = 0; i < user.getAsset().getOrderNPCList().size(); i++){
-//            if (user.getAsset().getOrderNPCList().get(i).getNpcResAni().equals(this.npcResAni)){  
-//                this.setNpcResAni(user);
-//            }
-//            return;
-//        }
+        List<String> listRes = NPCresAni.getListNPCresAni();
+        List<String> collect = new ArrayList<>(NPCresAni.filterRes(listRes, filter));
+        
+        this.npcResAni = collect.get((int) Math.floor(Math.random() * (listRes.size() - filter.size()) * 0.99));
     }
 
     public String getNpcResAni() {
@@ -140,6 +143,7 @@ public class OrderNPC {
     //    @Override
     public short createOrder(ZPUserInfo user) {
         if ((this.waittingTime + OrderNPCUtil.getNPCRemainTime(user.getLevel()) * 60 * 1000 - 5000) <= new Date().getTime()){
+//        if ((this.waittingTime + OrderNPCUtil.getNPCRemainTime(user.getLevel()) * 5 * 1000 - 5000) <= new Date().getTime()){
 
             this.waittingTime = 0;
             this.setOrderItem(user);

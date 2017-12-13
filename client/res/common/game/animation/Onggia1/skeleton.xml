@@ -1854,7 +1854,7 @@
     <frame duration="3" displayIndex="-1"/>
    </timeline>
   </animation>
-  <animation name="5" fadeInTime="0" duration="59" scale="1.07" loop="0" autoTween="1" tweenEasing="NaN">
+  <animation name="6" fadeInTime="0" duration="59" scale="1.07" loop="0" autoTween="1" tweenEasing="NaN">
    <timeline name="Cánh tay phải" scale="1" offset="0">
     <frame z="0" duration="15">
      <transform x="-81" y="-120.4" skX="-136.45" skY="-136.45" scX="1" scY="1" pX="0" pY="-0.05"/>
@@ -2179,7 +2179,7 @@
     </frame>
    </timeline>
   </animation>
-  <animation name="6" fadeInTime="0" duration="24" scale="1" loop="0" autoTween="1" tweenEasing="NaN">
+  <animation name="5" fadeInTime="0" duration="24" scale="1" loop="0" autoTween="1" tweenEasing="NaN">
    <timeline name="Cánh tay phải" scale="1" offset="0">
     <frame z="0" tweenEasing="0" duration="4">
      <transform x="-95.3" y="-134.3" skX="-124.95" skY="-124.95" scX="1" scY="1" pX="0.05" pY="-0.1"/>

@@ -29,7 +29,7 @@ var LoadingBarLayout = ccui.Layout.extend({
        this.progress.y = this.progressBar.height / 10 * 3;
        this.progress.setAnchorPoint(0, 0);
 
-       this.nameProgess = new cc.LabelBMFont(name, res.FONT_OUTLINE_30);
+       this.nameProgess = new cc.LabelBMFont(fr.Localization.text(name), res.FONT_OUTLINE_30);
        this.nameProgess.x = this.progressBar.width / 2;
        this.nameProgess.y = this.progressBar.height / 16 * 11;
        this.nameProgess.setAnchorPoint(0.5, 0);
@@ -96,6 +96,10 @@ var LoadingBarLayout = ccui.Layout.extend({
 
        this.disableLoadingBar();
    },
+
+    setOnClick: function(callback) {
+        this.boostBtn.addClickEventListener(callback);
+    },
 
     actionShow: function () {
         var scaleUp = cc.scaleTo(0.2, 0.9);
@@ -227,7 +231,7 @@ var LoadingBarLayout = ccui.Layout.extend({
         this.unschedule(this.updateRemainTime);
         if (this.parent) {
             this.removeFromParent(true);
-            cc.log("removeFromParent");
+            // cc.log("removeFromParent");
         }
         this._isClose = false;
         //_loadingBarConstructed.removeFromParent(true);
@@ -239,7 +243,7 @@ var LoadingBarLayout = ccui.Layout.extend({
         this.unscheduleUpdate();
         if (this.parent) {
             this.removeFromParent(true);
-            cc.log("removeFromParent");
+            // cc.log("removeFromParent");
         }
         this._isClose = false;
         //_loadingBarConstructed.removeFromParent(true);

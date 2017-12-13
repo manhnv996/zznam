@@ -16,6 +16,7 @@ public class Asset {
     private List<AnimalLodge> animalLodgeList;
     private List<Order> orderList;
     private List<OrderNPC> orderNPCList;
+    private Car car;
     private List<Machine> machineList;
     
     public Asset(Storage foodStorage,
@@ -32,6 +33,7 @@ public class Asset {
         
         this.orderList = new ArrayList<>();
         this.orderNPCList = new ArrayList<>();
+        this.car = new Car();
         
         this.fieldList = fieldList == null ? new ArrayList<Field>() : fieldList;
         this.natureThingList = natureThingList == null ? new ArrayList<NatureThing>() : natureThingList;
@@ -55,9 +57,11 @@ public class Asset {
     public List<Machine> getMachineList ()  {
         return this.machineList;
     }
-    
-    
-    
+
+    public Car getCar() {
+        return car;
+    }
+
     //
     public boolean addField(Field field){
         this.fieldList.add(field);
@@ -166,7 +170,7 @@ public class Asset {
         if (this.orderNPCList == null){
             return false;
         }
-        if (this.orderNPCList.size() < 2){
+        if (this.orderNPCList.size() < 1){
             this.orderNPCList.add(order);
             this.orderNPCList.get(this.orderNPCList.size() - 1).setOrderId(this.orderNPCList.size() - 1);
             

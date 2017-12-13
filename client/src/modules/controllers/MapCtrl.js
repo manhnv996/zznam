@@ -122,6 +122,8 @@ var MapCtrl = cc.Class.extend({
     },
 
     renderPlants: function() {
+        MapLayer.instance.fieldList = [];
+
         var fieldList = user.asset.fieldList;
         for (var i = 0; i < fieldList.length; i++) {
             var field = fieldList[i];
@@ -142,25 +144,44 @@ var MapCtrl = cc.Class.extend({
     },
 
     renderNPC: function () {
-
-        CarSprite.instance = new CarSprite(16, 23);
-        MapLayer.instance.addChild(CarSprite.instance);
-
         MapLayer.instance.npcList = [];
+
         var orderNPCList = user.asset.orderNPCList;
         for (var i = 0; i < orderNPCList.length; i++){
-            var npcSprite = new NPCSprite(16 + i, 20 - i, orderNPCList[i]);
-            MapLayer.instance.addChild(npcSprite);
+            var npcSprite = null;
 
-            // //
-            MapLayer.instance.npcList.push(npcSprite);
-
-            if (orderNPCList[i].checkStatus() == OrderStatusTypes.WAITTING){
-                //
-                MapLayer.instance.getNPCByOrderNPCId(orderNPCList[i].orderId).setPause();
-                //
+            if (orderNPCList[i].getOrderItem() != null){
+                npcSprite = new NPCSprite(15 + i, 20 - i, orderNPCList[i]);
+                npcSprite = new NPCSprite(NPCSprite.startPoint.x - 0.5 * i, NPCSprite.startPoint.y - 0.25 * i, orderNPCList[i]);
+                // npcSprite.setResume();
             }
+            else {
+               npcSprite = new NPCSprite(NPCSprite.finishPoint.x, NPCSprite.finishPoint.y, orderNPCList[i]);
+               // npcSprite.setPause();
+            }
+
+            if (npcSprite != null){
+                MapLayer.instance.addChild(npcSprite);
+                // //
+                MapLayer.instance.npcList.push(npcSprite);
+
+               //
+                if (orderNPCList[i].checkStatus() == OrderStatusTypes.WAITTING){
+                    // //
+                    // MapLayer.instance.getNPCByOrderNPCId(orderNPCList[i].orderId).runScheduleUpdateOrderNPC();
+                    // // MapLayer.instance.getNPCByOrderNPCId(orderNPCList[i].orderId).setPause();
+                    // //
+                    npcSprite.runScheduleUpdateOrderNPC();
+                }
+            }
+
         }
+
+
+
+//      //
+        CarSprite.instance = new CarSprite(MapConfigs.Car.position.x, MapConfigs.Car.position.y, user.getAsset().getCar());
+        MapLayer.instance.addChild(CarSprite.instance);
 
     },
 

@@ -9,10 +9,11 @@ var Asset = cc.Class.extend({
     myShop: null,
     orderList: [],
     orderNPCList: [],
+    car: null,
     animalLodgeList: null,
     // map: [],
 
-    ctor: function (foodStorage, warehouse, fieldList, animalLodgeList, machineList, natureThingList, myShop, orderList, orderNPCList) {
+    ctor: function (foodStorage, warehouse, fieldList, animalLodgeList, machineList, natureThingList, myShop, orderList, orderNPCList, car) {
         //
         //this._super();
 
@@ -31,6 +32,7 @@ var Asset = cc.Class.extend({
         this.myShop = myShop;
         this.orderList = (orderList == null) ? [] : orderList;
         this.orderNPCList = (orderNPCList == null) ? [] : orderNPCList;
+        this.car = car;
         // this.fieldList = [];
     },
 
@@ -114,6 +116,10 @@ var Asset = cc.Class.extend({
     },
 
 //    //
+    getCar: function () {
+        return this.car;
+    },
+
     getOrderList: function() {
         return this.orderList;
     },

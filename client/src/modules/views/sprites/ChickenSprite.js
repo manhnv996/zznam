@@ -123,6 +123,7 @@ var ChickenSprite = AnimalSprite.extend({
 	},
 
 	setOnHarvestTime: function(time) {
+		// cc.log("Harvest after", time);
 		this._setOnHarvestTime(time, AnimalConfig.chicken.time * 1000);
 	},
 

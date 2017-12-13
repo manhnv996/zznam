@@ -60,10 +60,11 @@ var MapBlockSprite = cc.Sprite.extend({
         this.autoMoveHor = 0;
 
         // Disable all popup
-        PopupLayer.instance.disableAllPopup();
+        //PopupLayer.instance.disableAllPopup();
+        TablePopupLayer.instance.removeUpdateDisableListener();
 
         var location = MapValues.screenPositionToMapPosition(
-                touchLocation.x, touchLocation.y);
+            touchLocation.x, touchLocation.y);
         // Check if is click inside sprite
         if (rayCasting(location, this.boundingPoints)) {
             // Inside sprite
@@ -221,8 +222,8 @@ var MapBlockSprite = cc.Sprite.extend({
         // disable onClick event after long click
         this.touchMoved = true;
         this.arrowShowed = true;
-        PopupLayer.instance.showArrow(this.lstMouse.x, this.lstMouse.y + 50, 
-                this.startMovingSpriteMode.bind(this));
+        PopupLayer.instance.showArrow(this.lstMouse.x, this.lstMouse.y + 50,
+            this.startMovingSpriteMode.bind(this));
     },
 
     startMovingSpriteMode: function() {
@@ -231,7 +232,7 @@ var MapBlockSprite = cc.Sprite.extend({
         this.moveSpriteMode = true;
         // this.lstMouse = touchLocation;
         // Enable highest priority for this listener and zOrder
-        this.updateEventPriority(101);                          
+        this.updateEventPriority(40);
         this.setLocalZOrder(1000);
 
         // Enable Tint action
@@ -386,8 +387,10 @@ var MapBlockSprite = cc.Sprite.extend({
 
     removeFromParent: function(flag) {
         this._super(flag);
-        cc.log("Remove", this.touchListener);
-        cc.eventManager.removeListener(this.touchListener);
+        //cc.log("Remove", this.touchListener);
+        if (this.touchListener) {
+            cc.eventManager.removeListener(this.touchListener);
+        }
     },
 
     setLogicPosition: function(lx, ly, notUpdatePriority) {

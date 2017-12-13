@@ -1178,7 +1178,7 @@
     </frame>
    </timeline>
   </animation>
-  <animation name="4" fadeInTime="0" duration="46" scale="0.8" loop="0" autoTween="1" tweenEasing="NaN">
+  <animation name="3" fadeInTime="0" duration="46" scale="0.8" loop="0" autoTween="1" tweenEasing="NaN">
    <timeline name="Layer 130" scale="1" offset="0">
     <frame z="0" tweenEasing="0" duration="4">
      <transform x="-18.7" y="-140.45" skX="0.47" skY="0.47" scX="1" scY="1" pX="0.05" pY="0"/>
@@ -2798,7 +2798,7 @@
     <frame duration="42" displayIndex="-1"/>
    </timeline>
   </animation>
-  <animation name="3" fadeInTime="0" duration="41" scale="0.95" loop="0" autoTween="1" tweenEasing="NaN">
+  <animation name="4" fadeInTime="0" duration="41" scale="0.95" loop="0" autoTween="1" tweenEasing="NaN">
    <timeline name="Layer 130" scale="1" offset="0">
     <frame z="0" tweenEasing="0" duration="7">
      <transform x="-25.65" y="-138.45" skX="-9.88" skY="-9.88" scX="1" scY="1" pX="0.05" pY="-0.1"/>

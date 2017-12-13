@@ -10,13 +10,15 @@ var NoticeMissingItem = BaseLayout.extend({
         this._super(res.bgNotice2, "text_notice_title", true, true, true);
 
         //
-        this.targetType = targetType;
-        this.orderId = orderId;
+        if (targetType !== undefined) {
+            this.targetType = targetType;
+        }
+        if (orderId !== undefined) {
+            this.orderId = orderId;
+        }
 
         //
         this.initMissingItemList(storageMissingItemList);
-
-
     },
 
 
@@ -54,32 +56,14 @@ var NoticeMissingItem = BaseLayout.extend({
         this.msgContent = new cc.LabelBMFont(fr.Localization.text("TEXT_NOT_ENOUGH_RESOURCE"), res.FONT_OUTLINE_30);
         this.msgContent.setPosition(cc.p(this._bg.width / 2, this._bg.height * 2 / 3));
         this._bg.addChild(this.msgContent);
-
     },
 
     initButtonBuy: function (storageMissingItemList) {
-
 //
         var btBuy = new ccui.Button(res.btSuggest);
         btBuy.setPosition(this._bg.width / 2, this._bg.height / 8);
         this._bg.addChild(btBuy);
-        // btBuy.addClickEventListener(this.addBuyingSeedEvent.bind(this));
         btBuy.addClickEventListener(function () {
-            //if (OrderCtrl.instance.onMakeOrderByRuby(storageMissingItemList)){
-            //    //
-            //    BaseGUILayer.instance.removeBlockListener();
-            //    //OrderCtrl.instance.onMakeOrder(LastPageUtil.instance.lastIndexOfOrderClick);
-            //    //
-            //    //if (BaseGUILayer.instance._layout == null){
-            //    //    BaseGUILayer.instance.showOrderLayer();
-            //    //}
-            //
-            //    //
-            //    TruckOrderSprite.instance.initTruckOrder();
-            //
-            //
-            //}
-
             if (user.getRuby() >= this.rubiBuy){
 
                 if (this.targetType == BuyItemTargetType.MAKE_ORDER){
@@ -94,7 +78,9 @@ var NoticeMissingItem = BaseLayout.extend({
                         //
                     }
                 } else {
-                    OrderCtrl.instance.buyMissingItem(storageMissingItemList);
+                    if (!OrderCtrl.instance.buyMissingItem(storageMissingItemList[0])){
+                        this.msgContent.setString("Mua vật phẩm không thành công");
+                    }
                 }
 
             } else {
