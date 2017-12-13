@@ -20,6 +20,7 @@ import javax.sql.RowSet;
 import javax.sql.rowset.Predicate;
 
 import model.StorageItem;
+import model.ZPUserInfo;
 
 
 /**
@@ -215,7 +216,8 @@ public class OrderUtil {
     }
     
     
-    public static List<ProductConfig> randomTypeProduct(int level){
+//    public static List<ProductConfig> randomTypeProduct(int level){    
+    public static List<ProductConfig> randomTypeProduct(ZPUserInfo user, int level){
         
         List<ProductConfig> productList = new ArrayList<>();
         
@@ -225,7 +227,8 @@ public class OrderUtil {
             
 //            List<ProductConfig> productCategory = ProductUtil.getProductConfObjByCategory(category);
 //            productCategory = ProductUtil.sortProductListByRandomProduct(productCategory);
-            List<ProductConfig> productCategory = ProductUtil.randomSortProductConfByCategory(category);
+            List<ProductConfig> productCategory = ProductUtil.randomSortProductConfByCategory(user, category);
+//            List<ProductConfig> productCategory = ProductUtil.randomSortProductConfByCategory(category);
             //
             productCategory = filterProductByLevel(level, productCategory);
             

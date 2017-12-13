@@ -132,7 +132,7 @@ var Field = CoordinatedObject.extend({
             if (user.reduceRuby(1)){
                 var date = new Date();
                 var intDate = date.getTime();
-                 this.plantedTime.setTime(intDate - getProductObjByType(this.plantType).time * 1000);
+                this.plantedTime.setTime(intDate - getProductObjByType(this.plantType).time * 1000);
                 //this.plantedTime.setTime(intDate - 6000);   //HERE IS TEST
 
                 return true;

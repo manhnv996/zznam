@@ -260,7 +260,8 @@ public class UserHandler extends BaseClientRequestHandler {
         
         //
         for (int i = 0; i < OrderUtil.getNumberOfOrderByLevel(userInfo.getLevel()); i++){
-            asset.addOrder(userInfo.getLevel(), new Order(userInfo.getLevel()));
+//            asset.addOrder(userInfo.getLevel(), new Order(userInfo.getLevel()));
+            asset.addOrder(userInfo.getLevel(), new Order(userInfo, userInfo.getLevel()));
         }
         
         //
