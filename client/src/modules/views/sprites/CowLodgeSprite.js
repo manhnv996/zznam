@@ -1,5 +1,5 @@
 var CowLodgeSprite = AnimalLodgeSprite.extend({
-	cowSpriteList: [],
+	// cowSpriteList: [],
 
 	ctor: function(x, y) {
 		this._super(
@@ -67,8 +67,8 @@ var CowLodgeSprite = AnimalLodgeSprite.extend({
 		this.y += -30;
 	},
  
-	addCowSprite: function(cow) {
-		this.cowSpriteList.push(cow);
-		this.addChild(cow);
-	}
+	// addCowSprite: function(cow) {
+	// 	this.cowSpriteList.push(cow);
+	// 	this.addChild(cow);
+	// }
 });
