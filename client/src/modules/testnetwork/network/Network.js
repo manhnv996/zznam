@@ -182,10 +182,8 @@ testnetwork.Connector = cc.Class.extend({
                 orderSelected.itemList = packet.order.itemList;
                 orderSelected.orderPrice = packet.order.orderPrice;
                 orderSelected.orderExp = packet.order.orderExp;
-                //orderSelected.waittingTime = packet.order.waittingTime;
                 orderSelected.waittingTime = new Date(parseInt(packet.order.waittingTime));
-
-
+                
                 ////
                 TruckOrderSprite.instance.initTruckOrder();
                 // OrderCtrl.instance.onShowOrderBG();
@@ -199,13 +197,12 @@ testnetwork.Connector = cc.Class.extend({
             case gv.CMD.RESPONSE_SYNC_CAR:
                 cc.log("RECEIVE RESPONSE_SYNC_CAR: ");
                 /*
-                 Inprogress
+                 done
                  */
 
                 var car = user.getAsset().getCar();
                 car.updateDelivery(packet.deliveryPrice, packet.deliveryExp);
 
-                cc.log(user.asset.car.deliveryPrice + "   dddd");
                 CarSprite.instance.updateCarStatus(car);
 
                 break;
@@ -228,13 +225,6 @@ testnetwork.Connector = cc.Class.extend({
                 orderNPCSelected.npc_res = packet.orderNPC.npc_res;
 
 
-                //////
-                //TruckOrderSprite.instance.initTruckOrder();
-                //// OrderCtrl.instance.onShowOrderBG();
-                //if (BaseGUILayer.instance._layout != null){
-                //    BaseGUILayer.instance._layout.initInfo();
-                //}
-
                 if (orderNPCSelected.checkStatus() == OrderStatusTypes.REALIZABLE){
                     //
                     //MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).setResume();
@@ -244,18 +234,6 @@ testnetwork.Connector = cc.Class.extend({
                         MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).runScheduleWalkingBack();
                         MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).stopScheduleUpdateOrderNPC();
                     }
-                    // if (index != null){
-                    //     MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).removeNPC();
-                    //
-                    //     MapLayer.instance.npcList.splice(index, 1);
-                    // }
-                    //
-                    // var npcSprite = new NPCSprite(31, 32, orderNPCSelected);
-                    // npcSprite.runScheduleWalkingBack();
-                    // MapLayer.instance.npcList.push(npcSprite);
-                    //
-                    // MapLayer.instance.addChild(npcSprite);// //
-
                     //
                 } else {
                     // //
