@@ -107,10 +107,6 @@ var ChickenSprite = AnimalSprite.extend({
 		this.schedule(this.doAction, 4.0);
 	},
 
-	demo: function() {
-		this.play(ChickenSprite.Idle1);
-	},
-
 	update: function(dt) {
 		// UpdateWalk
 		// cc.log("Direction", this.id, this.direction);
@@ -128,6 +124,10 @@ var ChickenSprite = AnimalSprite.extend({
 
 	setOnHarvestTime: function(time) {
 		this._setOnHarvestTime(time, AnimalConfig.chicken.time * 1000);
+	},
+
+	demo: function() {
+		this.play(ChickenSprite.Idle1);
 	}
 });
 

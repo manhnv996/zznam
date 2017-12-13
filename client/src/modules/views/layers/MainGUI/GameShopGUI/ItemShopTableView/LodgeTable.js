@@ -197,11 +197,6 @@ var LodgeTable = cc.Layer.extend({
                     this.autoMoveVer = 0;
                 }
 
-
-                //var p = MapValues.screenPositionToLogic(this.movedP.x, this.movedP.y);
-                //p.x = Math.floor(p.x);
-                //p.y = Math.floor(p.y);
-                // cc.log(p.x + " " + p.y);
                 if (!GameShopLayout.instance._isHide) {
                     this.scheduleUpdate();
                     GameShopLayout.instance.hide();
@@ -215,12 +210,10 @@ var LodgeTable = cc.Layer.extend({
                             this._sprite = new FieldSprite(user.asset.getFieldList().length + 1, createP.x, createP.y);
                             break;
                         case AnimalLodgeType.chicken_habitat:
-                            this._sprite = new ChickenLodgeSprite(user.asset.getAnimalLodgeList().length + 1,
-                                createP.x, createP.y);
+                            this._sprite = new ChickenLodgeSprite(createP.x, createP.y);
                             break;
                         case AnimalLodgeType.cow_habitat:
-                            this._sprite = new CowLodgeSprite(user.asset.getAnimalLodgeList().length + 1,
-                                createP.x, createP.y);
+                            this._sprite = new CowLodgeSprite(createP.x, createP.y);
                             break;
                         //case "pig_habitat":
                         //    break;
@@ -287,9 +280,10 @@ var LodgeTable = cc.Layer.extend({
                             } else {
                                 //Model
                                 var lodgeModel = new AnimalLodge(new Coordinate(this._sprite.lx, this._sprite.ly),
-                                    typeObject, this._sprite.id, null);
+                                    typeObject, 0, null);
                                 user.asset.addAnimalLodge(lodgeModel);
                                 this._sprite.tag = TagClusters.Lodge + lodgeModel.id;
+                                this._sprite.setId(lodgeModel.id);
                                 //Send server
                                 testnetwork.connector.sendBuyMapObjectRequest(lodgeModel.id, typeObject,
                                     endPl.x, endPl.y);
