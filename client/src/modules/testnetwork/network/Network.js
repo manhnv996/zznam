@@ -542,5 +542,12 @@ testnetwork.Connector = cc.Class.extend({
         var pk = this.gameClient.getOutPacket(CmdSendBoostBuild);
         pk.pack(id, typeBuilding);
         this.gameClient.sendPacket(pk);
+    },
+
+    sendBuyAnimal: function (lodgeId, animalId, animalType, lx, ly) {
+        cc.log("Send Buy Animal", + animalType);
+        var pk = this.gameClient.getOutPacket(CmdSendBuyAnimal);
+        pk.pack(lodgeId, animalId, animalType, lx, ly);
+        this.gameClient.sendPacket(pk);
     }
 });

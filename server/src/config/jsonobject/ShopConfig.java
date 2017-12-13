@@ -1,6 +1,7 @@
 package config.jsonobject;
 
-public class ShopCoopConfig {
+public class ShopConfig {
     public String type;
+    public int capacity;
     public int price;
 }

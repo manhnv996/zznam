@@ -6,6 +6,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import config.enums.AnimalEnum;
+
 import config.jsonobject.MapConfig;
 
 import java.io.FileNotFoundException;
@@ -13,8 +15,9 @@ import java.io.FileReader;
 import config.enums.MapItemEnum;
 
 import config.jsonobject.MachineConfig;
-import config.jsonobject.ShopCoopConfig;
+import config.jsonobject.ShopConfig;
 import config.jsonobject.AnimalConfig;
+import config.jsonobject.animal.AnimalObject;
 import config.jsonobject.map.NaturalObject;
 
 import java.util.ArrayList;
@@ -29,7 +32,7 @@ public class ConfigContainer {
     public static int[][] defaultMap;
     public static List<NaturalObject> defaultNatural;
     
-    public static ShopCoopConfig[] shopCoopConfig;
+    public static ShopConfig[] shopConfig;
     public static MachineConfig[] machineConfig;
     public static AnimalConfig animalConfig;
     
@@ -123,7 +126,7 @@ public class ConfigContainer {
 //            System.out.println("[Value] " + jobj.get("id").getAsString());
         }
         try {
-            shopCoopConfig = gson.fromJson(new FileReader("src/config/json/shopCoopconfig.json"), ShopCoopConfig[].class);
+            shopConfig = gson.fromJson(new FileReader("src/config/json/shopConfig.json"), ShopConfig[].class);
             machineConfig =  gson.fromJson(new FileReader("src/config/json/machineConfig.json"), MachineConfig[].class);
             animalConfig = gson.fromJson(new FileReader("src/config/json/animalConfig.json"), AnimalConfig.class);
 //            System.out.println(shopCoopConfig[0].type);
@@ -132,15 +135,34 @@ public class ConfigContainer {
         }
     }
     
-    public static int getCoopPrice (String type) {
-        for (int i = 0; i < shopCoopConfig.length; i++) {
-            if (shopCoopConfig[i].type.equals(type)) {
-                return shopCoopConfig[i].price;
+    public static int getPrice (String type) {
+        for (int i = 0; i < shopConfig.length; i++) {
+            if (shopConfig[i].type.equals(type)) {
+                return shopConfig[i].price;
             }
         }
         return 0;
     }
     
+    public static AnimalObject getAnimalConfigByType(String animalType) {
+        AnimalObject obj = null;
+        if (animalType.equals(AnimalEnum.chicken.toString())){
+            obj = animalConfig.chicken;
+        } else if (animalType.equals(AnimalEnum.cow.toString())) {
+            obj = animalConfig.cow;
+        }
+        return obj;
+    }
+    
+    public static int getLodgeCapacityByType(String type) {
+        for (int i = 0; i < shopConfig.length; i++) {
+            if (shopConfig[i].type.equals(type)) {
+                return shopConfig[i].capacity;
+            }
+        }
+        return 0;
+    }
+
     public static int getMachineSlot (String type) {
         for (int i = 0; i< machineConfig.length; i++) {
             if (machineConfig[i].id.equals(type)) {
@@ -149,6 +171,7 @@ public class ConfigContainer {
         }
         return 0;
     }
+    
     
     public static MachineConfig getMachineConfigByType (String type) {
         for (int i = 0; i< machineConfig.length; i++) {

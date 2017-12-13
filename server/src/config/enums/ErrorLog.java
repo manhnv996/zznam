@@ -30,6 +30,7 @@ public enum ErrorLog {
     ERROR_GOLD_NOT_ENOUGH((short) 72),
     ERROR_CANT_ADD_FIELD((short) 73),
     ERROR_GOLD_NOT_REDUCE((short) 74),
+    ERROR_BUY_ANIMAL_FAIL((short) 75),
     
     ERROR_CANT_ADD_TOOL((short) 82),
     

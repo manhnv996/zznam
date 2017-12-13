@@ -1,5 +1,9 @@
 package model;
 
+import config.enums.AnimalEnum;
+
+import config.enums.AnimalLodgeEnum;
+
 import config.utils.OrderUtil;
 
 import java.util.ArrayList;
@@ -201,6 +205,11 @@ public class Asset {
         }
     }
     
+    public List<AnimalLodge> getAnimalLodgeByType() {
+        
+        return null;
+    }
+    
     public AnimalLodge getAnimalLodgeById(int id) {
         for (int i = 0; i < this.animalLodgeList.size(); i++) {
             AnimalLodge lodge = this.animalLodgeList.get(i);
@@ -209,6 +218,25 @@ public class Asset {
             }
         }
         return null;
+    }
+    
+    public int getNumberLogdeByType (String type) {
+        AnimalLodgeEnum lodgeType;
+        if (type.equals(AnimalLodgeEnum.chicken_habitat.toString())) {
+            lodgeType = AnimalLodgeEnum.chicken_habitat;
+        } else if (type.equals(AnimalLodgeEnum.cow_habitat.toString())){
+            lodgeType = AnimalLodgeEnum.cow_habitat;
+        } else {
+            return 0;
+        }
+        
+        int number = 0;
+        for (int i = 0; i < this.animalLodgeList.size(); i++) {
+            if (lodgeType == this.animalLodgeList.get(i).getType()) {
+                number++;
+            }
+        }
+        return 0;
     }
     
     public void addMachine (Machine machine) {
@@ -225,5 +253,24 @@ public class Asset {
             }
         }
         return null;
+    }
+    
+    public int getNumberAnimalByType(String animalType) {
+        AnimalLodgeEnum lodgeType;
+        if (animalType.equals(AnimalEnum.chicken.toString())) {
+            lodgeType = AnimalLodgeEnum.chicken_habitat;
+        } else if (animalType.equals(AnimalEnum.cow.toString())) {
+            lodgeType = AnimalLodgeEnum.cow_habitat;
+        } else {
+            return 0;
+        }
+        
+        int numberAnimal = 0;
+        for (int i = 0; i < this.animalLodgeList.size(); i++) {
+            if (lodgeType == this.animalLodgeList.get(i).getType()) {
+                numberAnimal += this.animalLodgeList.get(i).getCurrentSlot();
+            }
+        }
+        return numberAnimal;
     }
 }

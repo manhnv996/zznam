@@ -121,8 +121,11 @@ var AnimalTable = cc.Layer.extend({
         if (curslot < res.infoAnimalItem[idx].slot) {
             p = res.infoAnimalItem[idx].price[0];
         } else {
-            for (var i = 1; i <= numberLodge - 1; i++) {
+            for (var i = 1; i <= res.infoAnimalItem[idx].price.length - 1; i++) {
+                //cc.log("res.infoAnimalItem[idx].slot * i", res.infoAnimalItem[idx].slot * i);
+                //cc.log("res.infoAnimalItem[idx].slot * (i + 1)", res.infoAnimalItem[idx].slot * (i + 1));
                 if (res.infoAnimalItem[idx].slot * i <= curslot && curslot < res.infoAnimalItem[idx].slot * (i + 1)) {
+                    //cc.log("curslot < res.infoAnimalItem[idx].slot", res.infoAnimalItem[idx].id);
                     p = res.infoAnimalItem[idx].price[i];
                     break;
                 }
@@ -230,7 +233,8 @@ var AnimalTable = cc.Layer.extend({
                     //MapLayer.instance.removeChildren(this._sprite);
 
                     var lodgeModel = user.asset.getLodgeByPosition(endPl.x, endPl.y);
-                    if (!lodgeModel || (lodgeModel.animalList.length >= GameShopController.instance.getLodgeSlotByType(this.typeObject + "_habitat"))) {
+                    if (!lodgeModel || lodgeModel.type != (this.typeObject + "_habitat") ||
+                        (lodgeModel.animalList.length >= GameShopController.instance.getLodgeSlotByType(lodgeModel.type))) {
                         BaseGUILayer.instance.notifyCantPut(endP.x, endP.y);
                         if (GameShopLayout.instance._isHide) {
                             GameShopLayout.instance.show();
@@ -254,8 +258,9 @@ var AnimalTable = cc.Layer.extend({
 
                             user.reduceGold(sender.parent.getChildByTag(5).getString());
                             //Send Server
-                            //testnetwork.connector.sendBuyAnimal(lodgeModel.id, lodgeModel.type,
-                            //    animalModel.id, animalModel.type, endPl.x, endPl.y);
+                            testnetwork.connector.sendBuyAnimal(lodgeModel.id, animalModel.id,
+                                animalModel.type, endPl.x, endPl.y);
+                            cc.log("animalModel.type", animalModel.type);
 
                             GameShopLayout.instance.show();
                         }

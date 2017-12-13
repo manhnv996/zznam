@@ -52,6 +52,7 @@ gv.CMD.RESPONSE_MOVE = 6100;
 //Shop
 gv.CMD.BUY_MAP_OBJECT_REQUEST = 7001;
 gv.CMD.BUY_MAP_OBJECT_BY_RUBY = 7002;
+gv.CMD.BUY_ANIMAL = 7003;
 gv.CMD.RESPONSE_BUY_OBJECT = 7100;
 
 //Storage
@@ -539,6 +540,23 @@ CmdSendBoostBuild = fr.OutPacket.extend({
         this.packHeader();
         this.putInt(id);
         this.putInt(typeBuilding);
+        this.updateSize();
+    }
+});
+
+CmdSendBuyAnimal = fr.OutPacket.extend({
+    ctor: function () {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.BUY_ANIMAL);
+    },
+    pack: function (lodgeId, animalId, animalType, lx, ly) {
+        this.packHeader();
+        this.putInt(lodgeId);
+        this.putInt(animalId);
+        this.putString(animalType);
+        this.putInt(lx);
+        this.putInt(ly);
         this.updateSize();
     }
 });

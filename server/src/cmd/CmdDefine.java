@@ -62,6 +62,7 @@ public class CmdDefine {
     
     public static final short BUY_MAP_OBJECT_REQUEST = 7001;
     public static final short BUY_MAP_OBJECT_BY_RUBY = 7002;
+    public static final short BUY_ANIMAL = 7003;
     public static final short RESPONSE_BUY_OBJECT = 7100;
     
     public static final short BUY_TOOL_REQUEST = 8001;

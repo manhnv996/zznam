@@ -1,10 +1,12 @@
 {
 	"chicken": {
 		"time": 1200,
-		"harvestExp": 2
+		"harvestExp": 2,
+                "price": [10, 140, 270]
 	},
 	"cow": {
 		"time": 3600,
-		"harvestExp": 3
+		"harvestExp": 3,
+                "price": [50, 600, 1150]
 	}
 }
