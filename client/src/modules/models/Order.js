@@ -31,6 +31,10 @@ var Order = cc.Class.extend({
     getOrderId: function () {
         return this.orderId;
     },
+    setOrderId: function (orderId) {
+        this.orderId = orderId;
+    },
+
     getItemList: function () {
         //StorageItem
         return this.itemList;

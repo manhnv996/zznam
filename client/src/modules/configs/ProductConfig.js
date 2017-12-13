@@ -2,6 +2,8 @@
  * Created by CPU60133_LOCAL on 11/30/2017.
  */
 
+var ProductConfig = null;
+
 var productIconMap = {};
 
 productIconMap[ProductTypes.CROP_WHEAT] = res.iconCropWheat;
@@ -51,19 +53,27 @@ function getProductIconById(productId){
 }
 
 
-// function removeBlockListener(productId) {
 function getProductObjById(productId) {
-    var productTypeObj = null;
-    cc.loader.loadJson(res.productconfig, function (error, data) {
-        productTypeObj = data;
-        //ProductType = data;
-    });
-
-    for (var i = 0; i < productTypeObj.length; i++) {
-        if (productTypeObj[i].id == productId) {
-            return productTypeObj[i];
+    //var productTypeObj = null;
+    //cc.loader.loadJson(res.productconfig, function (error, data) {
+    //    productTypeObj = data;
+    //    //ProductType = data;
+    //});
+    if (ProductConfig == null){
+        cc.loader.loadJson(res.productconfig, function (error, data) {
+            ProductConfig = data;
+        });
+    }
+    for (var i = 0; i < ProductConfig.length; i++) {
+        if (ProductConfig[i].id == productId) {
+            return ProductConfig[i];
         }
     }
+    //for (var i = 0; i < productTypeObj.length; i++) {
+    //    if (productTypeObj[i].id == productId) {
+    //        return productTypeObj[i];
+    //    }
+    //}
 
     return null;
 }

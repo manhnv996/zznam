@@ -64,12 +64,25 @@ var User = cc.Class.extend({
         MainGuiLayer.instance.labelRuby.setString(this.ruby);
     },
     addExp: function (number) {
-        this.exp += parseInt(number);
-        //bug
         /*
-        NOT YET STARTED
-        if level up
+        DONE
          */
+
+        if (this.exp + parseInt(number)> getLevelupObjById(this.level + 1).exp){
+            this.level ++;
+            var expCurr = this.exp;
+            this.exp = 0;
+            this.addExp(expCurr - parseInt(number) - getLevelupObjById(user.level).exp);
+            MainGuiLayer.instance.labelLevel.setString(this.level);
+
+            if (this.getAsset().getOrderList().length < getNumberOfOrderByLevel(this.level)){
+                testnetwork.connector.sendCreateNewOrder(this.getAsset().getOrderList().length);
+            }
+
+        } else {
+            this.exp += parseInt(number);
+        }
+
         MainGuiLayer.instance.labelExp.setString(this.exp);
     },
 

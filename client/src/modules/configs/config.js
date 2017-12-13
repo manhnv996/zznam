@@ -5,41 +5,56 @@ var GameInfo = null;
 
 
 function getProductObjByType(productId) {
-    var productTypeObj = null;
-    cc.loader.loadJson(res.cropconfig, function (error, data) {
-        productTypeObj = data;
-        //ProductType = data;
-    });
-
-    for (var i = 0; i < productTypeObj.length; i++) {
-        if (productTypeObj[i].id == productId) {
-            return productTypeObj[i];
+    //var productTypeObj = null;
+    if (ProductType == null){
+        cc.loader.loadJson(res.cropconfig, function (error, data) {
+            //productTypeObj = data;
+            ProductType = data;
+        });
+    }
+    for (var i = 0; i < ProductType.length; i++) {
+        if (ProductType[i].id == productId) {
+            return ProductType[i];
         }
     }
+    //for (var i = 0; i < productTypeObj.length; i++) {
+    //    if (productTypeObj[i].id == productId) {
+    //        return productTypeObj[i];
+    //    }
+    //}
 
     return null;
 }
 
 function getSeedLevel(level) {
 
-    var productTypeObj = null;
+    //var productTypeObj = null;
     /*
     Read from json file
      */
-    cc.loader.loadJson(res.cropconfig, function (error, data) {
-        productTypeObj = data;
-        ProductType = data;
-        //cc.log("data " + str);// data is the json object
-    });
+    if (ProductType == null){
+        cc.loader.loadJson(res.cropconfig, function (error, data) {
+            //productTypeObj = data;
+            ProductType = data;
+            //cc.log("data " + str);// data is the json object
+        });
+    }
 
     var seedLevelList = [];
-    for (var i = 0; i < productTypeObj.length; i++) {
+    for (var i = 0; i < ProductType.length; i++) {
 
-        if (productTypeObj[i].level <= (level + 2)) {
+        if (ProductType[i].level <= (level + 2)) {
             //seedLevelList.push(productTypeObj[i].id);
-            seedLevelList.unshift(productTypeObj[i].id);
+            seedLevelList.unshift(ProductType[i].id);
         }
     }
+    //for (var i = 0; i < productTypeObj.length; i++) {
+    //
+    //    if (productTypeObj[i].level <= (level + 2)) {
+    //        //seedLevelList.push(productTypeObj[i].id);
+    //        seedLevelList.unshift(productTypeObj[i].id);
+    //    }
+    //}
 
     return seedLevelList;
 }

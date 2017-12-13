@@ -131,8 +131,8 @@ var Asset = cc.Class.extend({
     addOrder: function(/*level, */order){
 
         // if (this.orderList.size() < OrderUtil.getNumberOfOrderByLevel(level)){
-            this.orderList.add(order);
-            this.orderList.get(this.orderList.size() - 1).setOrderId(this.orderList.size() - 1);
+            this.orderList.push(order);
+            //this.orderList.get(this.orderList.size() - 1).setOrderId(this.orderList.size() - 1);
 
             return true;
         // }

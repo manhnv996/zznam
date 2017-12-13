@@ -179,11 +179,26 @@ testnetwork.Connector = cc.Class.extend({
                  */
                 var orderSelected = user.getAsset().getOrderById(packet.order.orderId);
 
-                orderSelected.itemList = packet.order.itemList;
-                orderSelected.orderPrice = packet.order.orderPrice;
-                orderSelected.orderExp = packet.order.orderExp;
-                orderSelected.waittingTime = new Date(parseInt(packet.order.waittingTime));
-                
+                if (orderSelected != null){
+
+                    orderSelected.itemList = packet.order.itemList;
+                    orderSelected.orderPrice = packet.order.orderPrice;
+                    orderSelected.orderExp = packet.order.orderExp;
+                    orderSelected.waittingTime = new Date(parseInt(packet.order.waittingTime));
+
+                }
+                else {
+                    var order = new Order(
+                        packet.order.orderId,
+                        packet.order.itemList,
+                        packet.order.orderPrice,
+                        packet.order.orderExp
+                    );
+                    order.waittingTime = new Date(parseInt(packet.order.waittingTime));
+
+                    user.getAsset().addOrder(order);
+                }
+
                 ////
                 TruckOrderSprite.instance.initTruckOrder();
                 // OrderCtrl.instance.onShowOrderBG();
