@@ -369,7 +369,76 @@
     "typeTime": "",
     "nameIcon" : "Art/Tool/bangdinh.png",
     "price": 11
+  },
+
+  {
+    "id": "tool_axe",
+    "name": "tool_axe_name",
+    "speedUp": 1,
+    "rubiMuaNgay": 5,
+    "timeMin": "",
+    "exp": 1,
+    "maxPrice": 1,
+    "levelUnlock": 1,
+    "description" : "tool_axe_description",
+    "typeTime": "",
+    "nameIcon" : "Art/Tool/riu.png",
+    "price": 5
+  },
+  {
+    "id": "tool_saw",
+    "name": "tool_saw_name",
+    "speedUp": 1,
+    "rubiMuaNgay": 5,
+    "timeMin": "",
+    "exp": 1,
+    "maxPrice": 1,
+    "levelUnlock": 1,
+    "description" : "tool_saw_description",
+    "typeTime": "",
+    "nameIcon" : "Art/Tool/cua.png",
+    "price": 5
+  },
+  {
+    "id": "tool_shovel",
+    "name": "tool_shovel_name",
+    "speedUp": 1,
+    "rubiMuaNgay": 5,
+    "timeMin": "",
+    "exp": 1,
+    "maxPrice": 1,
+    "levelUnlock": 1,
+    "description" : "tool_shovel_description",
+    "typeTime": "",
+    "nameIcon" : "Art/Tool/xeng.png",
+    "price": 5
+  },
+  {
+    "id": "tool_dynamite",
+    "name": "tool_dynamite_name",
+    "speedUp": 1,
+    "rubiMuaNgay": 5,
+    "timeMin": "",
+    "exp": 1,
+    "maxPrice": 1,
+    "levelUnlock": 1,
+    "description" : "tool_dynamite_description",
+    "typeTime": "",
+    "nameIcon" : "Art/Tool/bomb.png",
+    "price": 5
+  },
+  {
+    "id": "tool_demolition_charge",
+    "name": "tool_demolition_charge_name",
+    "speedUp": 1,
+    "rubiMuaNgay": 5,
+    "timeMin": "",
+    "exp": 1,
+    "maxPrice": 1,
+    "levelUnlock": 1,
+    "description" : "tool_demolition_charge_description",
+    "typeTime": "",
+    "nameIcon" : "Art/Tool/bomb TNT.png",
+    "price": 5
   }
-
-
 ]

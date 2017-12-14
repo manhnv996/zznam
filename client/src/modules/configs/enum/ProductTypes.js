@@ -51,12 +51,11 @@ var ProductTypes = {
     //PRODUCT_POPCORN: 28,
     //PRODUCT_PANCAKE: 29,
     //
-    //CUT_AXE: 30,
-    //CUT_SAW: 31,
-    //CUT_DYNOMITE: 32,
-    //CUT_BIG_BYNOMITE: 33,
-    //CUT_SHOVEL: 34
-
+    TOOL_AXE: "tool_axe",
+    TOOl_SAW: "tool_saw",
+    TOOL_DYNOMITE: "tool_dynamite",
+    TOOL_DEMOLITION_CHARGE: "tool_demolition_charge",
+    TOOL_SHOVEL: "tool_shovel"
 };
 
 function getKeyByValue(value) {

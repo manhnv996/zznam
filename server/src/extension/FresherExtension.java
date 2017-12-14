@@ -47,6 +47,7 @@ import service.OrderHandler;
 import service.PlantHandler;
 import service.StorageHandler;
 import service.UserHandler;
+import service.NatureHandler;
 
 import util.GuestLogin;
 
@@ -138,6 +139,7 @@ public class FresherExtension extends BZExtension {
         addRequestHandler(StorageHandler.STORAGE_MULTI_IDS, StorageHandler.class);
         addRequestHandler(ConstructedHandler.CONSTRUCTED_MULTI_IDS, ConstructedHandler.class);
         addRequestHandler(AnimalHandler.ANIMAL_MULTI_IDS, AnimalHandler.class);
+        addRequestHandler(NatureHandler.NATURE_MULTI_IDS, NatureHandler.class);
 
         trace(" Event Handler ");
         addEventHandler(BZEventType.USER_LOGIN, LoginSuccessHandler.class);

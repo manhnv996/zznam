@@ -226,4 +226,14 @@ public class Asset {
         }
         return null;
     }
+
+    public NatureThing getNatureThingById(int id) {
+        for (int i = 0; i < this.natureThingList.size(); i++) {
+            NatureThing nt = this.natureThingList.get(i);
+            if (nt.getId() == id) {
+                return nt;
+            }
+        }
+        return null;
+    }
 }

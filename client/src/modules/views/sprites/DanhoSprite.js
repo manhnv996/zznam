@@ -13,10 +13,18 @@ var DanhoSprite = AnimationSprite.extend({
 
 	onClick: function() {
 		this.play("2");
-		NatureCtrl.instance.cutDown(this.natureId);
+		// NatureCtrl.instance.cutDown(this.natureId);
+		TablePopupLayer.instance.showNatureToolPopup(this.lx, this.ly, NaturalThingEnum.ROCK_SMALL, this.natureId);
 	},
 
 	_offset: function() {
 		return cc.p(0, - MapValues.jLength / 2);
+	},
+
+	collect: function() {
+		this.removeTouchEvents();
+		this.play("3", function() {
+			this.removeFromParent(true);
+		}.bind(this));
 	}
 });

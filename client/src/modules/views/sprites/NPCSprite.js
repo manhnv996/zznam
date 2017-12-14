@@ -26,17 +26,18 @@ var NPCSprite = AnimationSprite.extend({
     // Override
     caculateBoundingPoints: function() {
         var contentSize = this.getContentSize();
+        var base = MapValues.logicToPosition(this.lx, this.ly);
         var bottomLeft = cc.p(
-            this.x - contentSize.width / 2,
-            this.y
+            base.x - contentSize.width / 2,
+            base.y
         );
         var bottomRight = cc.p(
-            this.x + contentSize.width / 2,
+            base.x + contentSize.width / 2,
             bottomLeft.y
         );
         var topLeft = cc.p(
             bottomLeft.x,
-            this.y + contentSize.height
+            base.y + contentSize.height
         );
         var topRight = cc.p(
             bottomRight.x,

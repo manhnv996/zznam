@@ -60,6 +60,7 @@
         "src/modules/utils/LastPageUtil.js",
         "src/modules/configs/AnimalConfig.js",
         "src/modules/configs/TagClusters.js",
+        "src/modules/configs/NaturalThingEnum.js",
 
         "src/modules/configs/MapConfigs.js",
         "src/modules/configs/ListenerPriorityConfigs.js",

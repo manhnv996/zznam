@@ -415,12 +415,15 @@ var MapCtrl = cc.Class.extend({
             if (typeName === 'forest_swamp') {
                 var sprite = new VungnuocSprite(x, y, id);
                 MapLayer.instance.addChild(sprite);
+                sprite.setTag(TagClusters.Nature + id);
             } else if (typeName === 'forest_big_stone_1') {
                 var sprite = new DatoSprite(x, y, id);
                 MapLayer.instance.addChild(sprite);
+                sprite.setTag(TagClusters.Nature + id);
             } else if (typeName === 'forest_small_stone_1' ) {
                 var sprite = new DanhoSprite(x, y, id);
                 MapLayer.instance.addChild(sprite);
+                sprite.setTag(TagClusters.Nature + id);
             } else {
                 // Trees
                 var types = {
@@ -433,6 +436,7 @@ var MapCtrl = cc.Class.extend({
                 if (type) {
                     var sprite = new CayRungSprite(x, y, type, id);
                     MapLayer.instance.addChild(sprite);
+                    sprite.setTag(TagClusters.Nature + id);
                 } else {
                     cc.log("missing", user.asset.natureThingList[i].type);
                 }

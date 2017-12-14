@@ -360,7 +360,7 @@ var MapBlockSprite = cc.Sprite.extend({
             MapLayer.instance.addChild(dot);
         }
 
-        var dot6 = new cc.Sprite(res.DOT2_PNG);
+        var dot6 = new cc.Sprite(res.DOT_PNG);
         dot6.setPosition(MapValues.logicToPosition(this.lx, this.ly));
         dot6.setLocalZOrder(1000);
         MapLayer.instance.addChild(dot6);
@@ -390,6 +390,14 @@ var MapBlockSprite = cc.Sprite.extend({
         //cc.log("Remove", this.touchListener);
         if (this.touchListener) {
             cc.eventManager.removeListener(this.touchListener);
+            this.touchListener = null;
+        }
+    },
+
+    removeTouchEvents: function() {
+        if (this.touchListener) {
+            cc.eventManager.removeListener(this.touchListener);
+            this.touchListener = null;
         }
     },
 

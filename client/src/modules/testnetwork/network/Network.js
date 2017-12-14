@@ -291,6 +291,12 @@ testnetwork.Connector = cc.Class.extend({
                     cc.log('[E] Error occurs!');
                 }
                 break;
+            case gv.CMD.NATURE_COLLECT:
+                cc.log("NATURE_COLLECT Error:", packet.error);
+                if (packet.error !== 0) {
+                    cc.log('[E] Error occurs');
+                }
+                break;
         }
     },
     sendGetUserInfo:function() // Old
@@ -531,6 +537,13 @@ testnetwork.Connector = cc.Class.extend({
         cc.log("Send Boost Build");
         var pk = this.gameClient.getOutPacket(CmdSendBoostBuild);
         pk.pack(id, typeBuilding);
+        this.gameClient.sendPacket(pk);
+    },
+
+    sendNatureCollect: function(id) {
+        cc.log("Send Nature collect");
+        var pk = this.gameClient.getOutPacket(CmdSendCollectNatureThing);
+        pk.pack(id);
         this.gameClient.sendPacket(pk);
     }
 });

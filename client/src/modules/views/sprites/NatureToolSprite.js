@@ -1,13 +1,14 @@
 var NatureToolSprite = cc.Sprite.extend({
 	type: null,
-	quantity: 0,
 
-	ctor: function(resImg) {
-		this._super(resImg, type, quantity);
-		this.type = type;
-		this.quantity = quantity;
+	ctor: function(resImg, quantity) {
+		this._super(resImg);
+		if (!isNaN(quantity)) {
+			this.quantity = quantity;
+			this.renderQuantity();
+		}
+		this.renderMuiTen();
 		this.initEvent();
-		this.renderQuantity();
 	},
 
 	initEvent: function() {
@@ -23,8 +24,9 @@ var NatureToolSprite = cc.Sprite.extend({
                 if (cc.rectContainsPoint(rect, locationInNode)) {
                     target.runAction(new cc.ScaleTo(0.1, 1.5, 1.5));
                     this._isFirstMove = false;
-
-                    target.slot.runAction(new cc.MoveBy(0.1, target.width / 4, target.height / 4));
+                    if (target.slot) {
+                    	target.slot.runAction(new cc.MoveBy(0.1, target.width / 4, target.height / 4));
+                    }
                     NatureCtrl.instance.unlock();
                     return true;
                 }
@@ -32,14 +34,14 @@ var NatureToolSprite = cc.Sprite.extend({
                 return false;
 			}.bind(this),
 
-			onTouchMove: function(touch) {
+			onTouchMoved: function(touch) {
 				var delta = touch.getDelta();
 				this.x += delta.x;
 				this.y += delta.y;
 
 				if (!this._isFirstMove) {
 					this._isFirstMove = true;
-					TablePopupLayer.instance._layout._isVisible = false;
+        			TablePopupLayer.instance._layout._bg.setVisible(false);
 				}
 
 				var mouse = touch.getLocation();
@@ -49,14 +51,15 @@ var NatureToolSprite = cc.Sprite.extend({
 
 			onTouchEnded: function(touch) {
 				var target = this;
-                if (!this.dragListener._isFirstMove) {
+                if (!this._isFirstMove) {
                     target.runAction(new cc.ScaleTo(0.1, 1, 1));
-                    target.slot.runAction(new cc.MoveBy(0.1, - target.width / 4, - target.height / 4));
+                    if (target.slot) {
+                    	target.slot.runAction(new cc.MoveBy(0.1, - target.width / 4, - target.height / 4));
+                    }
                 } else {
                     target.removeFromParent(true);
-                    TablePopupLayer.instance._layout._isClose = true;
                 }
-			}
+			}.bind(this)
 		});
 		cc.eventManager.addListener(this.dragListener, this);
 	},
@@ -72,6 +75,12 @@ var NatureToolSprite = cc.Sprite.extend({
         this.slot.setPosition(new cc.p(this.width / 4, this.height * 3 / 4));
         this.slot.addChild(this.quantityLabel);
         this.addChild(this.slot);
+	},
+
+	renderMuiTen: function() {
+		var muiten = new cc.Sprite(res.ten);
+        muiten.setPosition(new cc.p(this.width * 3 / 4, this.height / 4));
+        this.addChild(muiten);
 	},
 
 	// Override
