@@ -50,10 +50,10 @@ var GameShopLayout = ccui.Layout.extend({
     hide: function () {
         this._isHide = true;
         MainGuiLayer.instance.btnSettings.setTouchEnabled(true);
-        var moveActionBtn = cc.moveTo(0.05, cc.p(0, 0));
+        var moveActionBtn = cc.moveTo(0.03, cc.p(0, 0));
         this._btnGameShop.runAction(moveActionBtn);
         //var moveAction = cc.moveTo(0.1, cc.p(-(cc.winSize.width / 3 + cc.winSize.width / 7), 0));
-        var moveAction = cc.moveTo(0.1, cc.p(0, 0));
+        var moveAction = cc.moveTo(0.08, cc.p(0, 0));
         this._layoutBlockListener.runAction(moveAction);
         this._gameShop.runAction(moveAction.clone());
         //cc.log("this.listener" + this.listener);
@@ -68,10 +68,10 @@ var GameShopLayout = ccui.Layout.extend({
         //this.scheduleUpdate();
         this._isHide = false;
         MainGuiLayer.instance.btnSettings.setTouchEnabled(false);
-        var moveActionBtn = cc.moveTo(0.1, cc.p(cc.winSize.width / 3 - 10, 0));
+        var moveActionBtn = cc.moveTo(0.2, cc.p(cc.winSize.width / 3 - 10, 0));
         this._btnGameShop.runAction(moveActionBtn);
         //var moveAction = cc.moveTo(0.1, cc.p(0, 0));
-        var moveAction = cc.moveTo(0.1, cc.p((cc.winSize.width / 3 + cc.winSize.width / 7), 0));
+        var moveAction = cc.moveTo(0.2, cc.p((cc.winSize.width / 3 + cc.winSize.width / 7), 0));
         this._layoutBlockListener.runAction(moveAction);
         this._gameShop.runAction(moveAction.clone());
         this.blockListener();

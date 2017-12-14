@@ -5,6 +5,7 @@
 var ConstructedSprite = AnimationSprite.extend({
     typeBuilding: null,
     id: null,
+    //blockSize: null,
     //buildTime: 0,
 
     ctor: function (id, w, h, x, y, typeBuilding) {
@@ -24,6 +25,7 @@ var ConstructedSprite = AnimationSprite.extend({
 
         this.id = id;
         this.typeBuilding = typeBuilding;
+        //this.blockSize = w;
         //cc.log("Constructed sprite id", this.id);
 
         //this.buildTime = ConstructedCtrl.instance.getBuildTime(id);

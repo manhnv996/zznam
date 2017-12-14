@@ -82,6 +82,7 @@ var AnimalLodgeSprite = MapBlockSprite.extend({
 
 	onBeginClick: function() {
 		this.setColor(cc.color(155, 155, 155));
+		//cc.log("Click lodge", this.id);
 	},
 
 	onEndClick: function() {

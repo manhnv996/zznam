@@ -295,7 +295,7 @@ var MapCtrl = cc.Class.extend({
     addConstructedSprite: function (boostBuild, remainBuildTime, id, width, height, x, y) {
         var machineSprite;
         if (boostBuild || !remainBuildTime) {
-            machineSprite = new ConstructedCompletedSprite(id, x, y, MapItemEnum.MACHINE);
+            machineSprite = new ConstructedCompletedSprite(id, x, y, MapItemEnum.MACHINE, width);
         } else {
             machineSprite = new ConstructedSprite(id, width, height, x, y, MapItemEnum.MACHINE);
         }

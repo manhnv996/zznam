@@ -238,7 +238,13 @@ var LodgeTable = cc.Layer.extend({
                 // cc.log("Touch Moved");
                 break;
             case ccui.Widget.TOUCH_ENDED:
-                // cc.log("Touch Ended");
+                if(this._sprite){
+                    //cc.log("this._sprite", this._sprite.parent);
+                    this._sprite.setVisible(false);
+                    this._sprite.removeFromParent(true);
+                    this._sprite = null;
+                }
+                //cc.log("Touch Ended");
                 break;
             case ccui.Widget.TOUCH_CANCELED:
                 this.unscheduleUpdate();
@@ -253,6 +259,7 @@ var LodgeTable = cc.Layer.extend({
                     // cc.log("this._check " + this._check);
                     var typeObject = sender.parent.getChildByTag(0).getString();
                     if (!this._check) {
+                        this._sprite.setVisible(false);
                         this._sprite.removeFromParent(true);
                         BaseGUILayer.instance.notifyCantPut(endP.x, endP.y);
                         if (GameShopLayout.instance._isHide) {
@@ -263,6 +270,7 @@ var LodgeTable = cc.Layer.extend({
                         var missGold = GameShopController.instance.checkGold(sender.parent.getChildByTag(5).getString());
                         cc.log(missGold);
                         if (missGold) {
+                            this._sprite.setVisible(false);
                             this._sprite.removeFromParent(true);
                             BaseGUILayer.instance.notifyShopNotEnoughGold(missGold, typeObject, endPl.x, endPl.y);
                         } else {

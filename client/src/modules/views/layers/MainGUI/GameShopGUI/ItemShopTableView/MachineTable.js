@@ -219,6 +219,12 @@ var MachineTable = cc.Layer.extend({
                 // cc.log("Touch Moved");
                 break;
             case ccui.Widget.TOUCH_ENDED:
+                if(this._sprite){
+                    //cc.log("this._sprite", this._sprite.parent);
+                    this._sprite.setVisible(false);
+                    this._sprite.removeFromParent(true);
+                    this._sprite = null;
+                }
                 // cc.log("Touch Ended");
                 break;
             case ccui.Widget.TOUCH_CANCELED:

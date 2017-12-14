@@ -203,28 +203,26 @@ var AnimalTable = cc.Layer.extend({
                         MapLayer.instance.addChild(this._sprite);
                     }
                 }
+                //cc.log("Touch Moved");
                 break;
             case ccui.Widget.TOUCH_ENDED:
-                // cc.log("Touch Ended");
+                if(this._sprite){
+                    this._sprite.setVisible(false);
+                    this._sprite.removeFromParent(true);
+                    this._sprite = null;
+                }
+                 //cc.log("Touch Ended");
                 break;
             case ccui.Widget.TOUCH_CANCELED:
                 this.unscheduleUpdate();
-                //if (GameShopLayout.instance._isHide) {
-                //    GameShopLayout.instance.show();
-                //}
                 if (this._sprite) {
                     var endP = sender.getTouchEndPosition();
                     var endPl = MapValues.screenPositionToLogic(endP.x, endP.y);
                     endPl.x = Math.floor(endPl.x);
                     endPl.y = Math.floor(endPl.y);
-                    // cc.log(endPl.x + " " + endPl.y);
-                    //var typeObject = sender.parent.getChildByTag(0).getString();
-                    //this._check = MapCtrl.instance.checkValidBlockSprite(this._sprite);
-                    // cc.log("this._check " + this._check);
                     this._sprite.retain();
                     this._sprite.removeFromParent(true);
-                    //MapLayer.instance.removeChildren(this._sprite);
-
+                    cc.log("endPl.x", endPl.x, " ", endPl.y);
                     var lodgeModel = user.asset.getLodgeByPosition(endPl.x, endPl.y);
                     if (!lodgeModel || lodgeModel.type != (this.typeObject + "_habitat") ||
                         (lodgeModel.animalList.length >= GameShopController.instance.getLodgeSlotByType(lodgeModel.type))) {
@@ -248,12 +246,10 @@ var AnimalTable = cc.Layer.extend({
                             this._sprite.setId(animalModel.id);
                             lodgeSprite.addAnimalSprite(this._sprite);
                             this._sprite.hungry();
-
                             user.reduceGold(sender.parent.getChildByTag(5).getString());
                             //Send Server
                             testnetwork.connector.sendBuyAnimal(lodgeModel.id, animalModel.id,
                                 animalModel.type, endPl.x, endPl.y);
-                            cc.log("animalModel.type", animalModel.type);
 
                             GameShopLayout.instance.show();
                         }

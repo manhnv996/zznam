@@ -101,11 +101,11 @@ public class GameShopHandler extends BaseClientRequestHandler {
             return;
         }
         //Process
-        if (!processBuyMapObject(user, userInfo, req)&& !checkGold(user, userInfo, this.price)) {
+        if (!processBuyMapObject(user, userInfo, req) || !checkGold(user, userInfo, this.price)) {
             return;
         }
         //OK
-        addObject(user, userInfo, req.type, req.id, req.x, req.y);
+        addObject(userInfo, req.type, req.id, req.x, req.y);
         send(new ResponseBuyObject(ErrorLog.SUCCESS.getValue()), user);
         //Save info
         try {
@@ -126,11 +126,11 @@ public class GameShopHandler extends BaseClientRequestHandler {
             return;
         }
         //Process
-        if(!processBuyMapObject(user, userInfo, req) && !checkRuby(user, userInfo, this.price)) {
+        if(!processBuyMapObject(user, userInfo, req) || !checkRuby(user, userInfo, this.price)) {
             return;
         }
         //OK
-        addObject(user, userInfo, req.type, req.id, req.x, req.y);
+        addObject(userInfo, req.type, req.id, req.x, req.y);
         send(new ResponseBuyObject(ErrorLog.SUCCESS.getValue()), user);
         //Save Info
         try {
@@ -160,7 +160,8 @@ public class GameShopHandler extends BaseClientRequestHandler {
             send(new ResponseBuyObject(ErrorLog.ERROR_BUY_ANIMAL_FAIL.getValue()), user);
             return;
         }
-        if (!processBuyAnimal(user, userInfo, reqAnimal, animalLodge) && !checkGold(user, userInfo, priceAnimal)) {
+        if (!processBuyAnimal(user, reqAnimal, animalLodge) || !checkGold(user, userInfo, priceAnimal)) {
+//        if (!processBuyAnimal(user, reqAnimal, animalLodge)) {
             return;
         }
         //Add model
@@ -197,7 +198,7 @@ public class GameShopHandler extends BaseClientRequestHandler {
             send(new ResponseBuyObject(ErrorLog.ERROR_BUY_FAIL.getValue()), user);
             return;
         }
-        if (!processBuyAnimal(user, userInfo, reqAnimal, animalLodge) && !checkRuby(user, userInfo, priceAnimal)) {
+        if (!processBuyAnimal(user, reqAnimal, animalLodge) || !checkRuby(user, userInfo, priceAnimal)) {
             return;
         }
         //Add Model 
@@ -229,7 +230,7 @@ public class GameShopHandler extends BaseClientRequestHandler {
         return true;
     }
     
-    private boolean processBuyAnimal(User user, ZPUserInfo userInfo, RequestBuyAnimal reqAnimal, AnimalLodge animalLodge) {
+    private boolean processBuyAnimal(User user, RequestBuyAnimal reqAnimal, AnimalLodge animalLodge) {
         //Check type
         if (!animalLodge.getType().toString().equals(reqAnimal.animalType + "_habitat")) {
             send(new ResponseBuyObject(ErrorLog.ERROR_BUY_ANIMAL_FAIL.getValue()), user);
@@ -243,7 +244,7 @@ public class GameShopHandler extends BaseClientRequestHandler {
         return true;
     }
 
-    private void addObject(User user, ZPUserInfo userInfo, String typeObj, int id, int x, int y) {
+    private void addObject(ZPUserInfo userInfo, String typeObj, int id, int x, int y) {
         userInfo.getMap().addMapAlias(x, y, this.width, this.height, this.mapType);
         switch (this.mapType) {
         case MapItemEnum.FIELD:
@@ -380,6 +381,7 @@ public class GameShopHandler extends BaseClientRequestHandler {
     }
     
     private boolean checkGold(User user, ZPUserInfo userInfo, int price) {
+        System.out.println("buy buy buy gold " + price);
         //Check gold enough
         if ((price > userInfo.getGold())) {
             send(new ResponseBuyObject(ErrorLog.ERROR_GOLD_NOT_ENOUGH.getValue()), user);

@@ -85,7 +85,7 @@ var FieldSprite = MapBlockSprite.extend({
     // When click
     onClick: function() {
         PlantCtrl.instance.onFieldSelected(this.fieldId);
-        cc.log('Field clicked', this.getLocalZOrder(), this.lx, this.ly);
+        cc.log('Field clicked', this.fieldId);
     },
 
     // When begin click
