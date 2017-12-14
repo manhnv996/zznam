@@ -16,8 +16,6 @@ var AnimalTable = cc.Layer.extend({
     },
 
     init: function () {
-        var winSize = cc.director.getWinSize();
-
         this._tableView = new cc.TableView(this, cc.size(363, cc.winSize.height / 9 * 8));
         this._tableView.setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL);
         this._tableView.x = 0;
@@ -182,7 +180,6 @@ var AnimalTable = cc.Layer.extend({
                 if (!GameShopLayout.instance._isHide) {
                     this.scheduleUpdate();
                     GameShopLayout.instance.hide();
-                    //this._isHide = true;
                     var beganP = sender.getTouchBeganPosition();
                     var createP = MapValues.screenPositionToLogic(beganP.x, beganP.y);
                     createP.x = Math.floor(createP.x);
@@ -208,10 +205,11 @@ var AnimalTable = cc.Layer.extend({
             case ccui.Widget.TOUCH_ENDED:
                 if(this._sprite){
                     this._sprite.setVisible(false);
+                    cc.eventManager.removeListener(this._sprite.touchListener);
                     this._sprite.removeFromParent(true);
                     this._sprite = null;
                 }
-                 //cc.log("Touch Ended");
+                 cc.log("Touch Ended");
                 break;
             case ccui.Widget.TOUCH_CANCELED:
                 this.unscheduleUpdate();
@@ -222,18 +220,20 @@ var AnimalTable = cc.Layer.extend({
                     endPl.y = Math.floor(endPl.y);
                     this._sprite.retain();
                     this._sprite.removeFromParent(true);
-                    cc.log("endPl.x", endPl.x, " ", endPl.y);
                     var lodgeModel = user.asset.getLodgeByPosition(endPl.x, endPl.y);
                     if (!lodgeModel || lodgeModel.type != (this.typeObject + "_habitat") ||
                         (lodgeModel.animalList.length >= GameShopController.instance.getLodgeSlotByType(lodgeModel.type))) {
                         BaseGUILayer.instance.notifyCantPut(endP.x, endP.y);
+                        cc.eventManager.removeListener(this._sprite.touchListener);
                         if (GameShopLayout.instance._isHide) {
                             GameShopLayout.instance.show();
                         }
                     } else {
+                        cc.log("lodgeModel", lodgeModel.type);
                         //Check gold
                         var missGold = GameShopController.instance.checkGold(sender.parent.getChildByTag(5).getString());
                         if (missGold) {
+                            cc.eventManager.removeListener(this._sprite.touchListener);
                             BaseGUILayer.instance.notifyShopNotEnoughGold(missGold, this.typeObject,
                                 endPl.x, endPl.y, lodgeModel.id);
                         } else {

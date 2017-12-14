@@ -38,9 +38,7 @@ var ConstructedSprite = AnimationSprite.extend({
     },
 
     onBeginClick: function () {
-        //ConstructedCtrl.instance.selectConstructedObject(this.id, this.typeBuilding, this.buildExpress);
         if (_loadingBarConstructed) {
-            //cc.log("!_loadingBarConstructed.parent" + !_loadingBarConstructed.parent);
             if (_loadingBarConstructed.parent) {
                 _loadingBarConstructed.removeFromParent();
             }
@@ -66,8 +64,6 @@ var ConstructedSprite = AnimationSprite.extend({
     },
 
     updateTime: function (dt) {
-        //cc.log("dt " + dt);
-        //if (ConstructedCtrl.instance.checkBuildTime(this.id, this.typeBuilding, this.typeObject, dt)) {
         if (ConstructedCtrl.instance.checkBuildTime(this, dt)) {
             this.removeFromParent(true);
         }

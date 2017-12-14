@@ -4,7 +4,6 @@
 
 
 var LodgeTable = cc.Layer.extend({
-    //_isHide: false,
     _sprite: null,
     _check: null,
     _tableView: null,
@@ -32,19 +31,10 @@ var LodgeTable = cc.Layer.extend({
         this._tableView.reloadData();
 
         this.addChild(this._tableView);
-        //
-        //layoutColor.addChild(tableView);
-        //this.addChild(layoutColor);
-
-        //
-        //layoutColor.addChild(tableView);
-        //this.addChild(layoutColor);
-
-        //return true;
     },
 
     scrollViewDidScroll: function (view) {
-        //this.setSwallowTouches(false);
+
     },
     scrollViewDidZoom: function (view) {
 

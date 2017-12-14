@@ -210,7 +210,8 @@ var GameShopController = cc.Class.extend({
         this._sprite.setId(animalModel.id);
         lodgeSprite.addAnimalSprite(this._sprite);
         this._sprite.hungry();
-
+        GameShopLayout.instance._gameShop._animalTable._tableView.reloadData();
+        //Send server
         testnetwork.connector.sendBuyAnimalByRuby(lodgeModel.id, animalModel.id,
             animalModel.type, lx, ly);
     }

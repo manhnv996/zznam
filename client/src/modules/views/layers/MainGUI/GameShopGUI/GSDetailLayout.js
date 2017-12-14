@@ -7,7 +7,7 @@ var GSDetailLayout = ccui.Layout.extend({
     _btnAnimal: null,
     _btnMachine: null,
     _btnTree: null,
-    _bg_size: 0,
+    _bgSize: 0,
     _scaleBtn: 0,
     _layout: null,
     _multiLayer: null,
@@ -15,16 +15,14 @@ var GSDetailLayout = ccui.Layout.extend({
     ctor: function () {
         this._super();
 
-        var sizeWidthList = cc.winSize.width / 3;
-
         this._bg = new cc.Sprite(res.shop_bg_png);
-        this._bg_size = this._bg.getContentSize();
-        this._bg.setScale(sizeWidthList / this._bg_size.width, cc.winSize.height / this._bg_size.height);
+        this._bgSize = this._bg.getContentSize();
+        this._bg.setScale((cc.winSize.width / 3) / this._bgSize.width, cc.winSize.height / this._bgSize.height);
         this._bg.setAnchorPoint(0, 0);
 
         //menu button
         this.listButton = new ccui.Layout();
-        this.listButton.x = this._bg_size.width - 5;
+        this.listButton.x = this._bgSize.width - 5;
         this.listButton.y = cc.winSize.height / 9 * 8;
         var linearLayout = new ccui.LinearLayoutParameter();
         this.listButton.setLayoutParameter(linearLayout);
@@ -33,7 +31,6 @@ var GSDetailLayout = ccui.Layout.extend({
 
         this._btnLodge = new ccui.Button(res.shop_btLodge_n_png);
         this._btnLodge.setName("Lodge");
-        this._scaleBtn = (cc.winSize.height / 6) / this._btnLodge.getContentSize().height;
         this._btnLodge.setZoomScale(0);
         this._btnLodge.addTouchEventListener(this.touchEvent, this);
         this._btnLodge.setAnchorPoint(0, 0.5);
@@ -56,6 +53,7 @@ var GSDetailLayout = ccui.Layout.extend({
         this._btnTree.addTouchEventListener(this.touchEvent, this);
         this._btnTree.setAnchorPoint(0, 0.5);
 
+        this._scaleBtn = (cc.winSize.height / 6) / this._btnLodge.getContentSize().height;
         this.listButton.setScale(this._scaleBtn);
         this.listButton.addChild(this._btnLodge);
         this.listButton.addChild(this._btnAnimal);
@@ -73,11 +71,11 @@ var GSDetailLayout = ccui.Layout.extend({
     },
 
     init: function () {
-        //Item Table
         this._layout = new ccui.Layout();
-        this._layout.setContentSize(cc.size(this._bg_size.width, cc.winSize.height / 9 * 8));
+        this._layout.setContentSize(cc.size(this._bgSize.width, cc.winSize.height / 9 * 8));
         this.addChild(this._layout);
 
+        //Item Table
         this._lodgeTable = new LodgeTable();
         this._animalTable = new AnimalTable();
         this._machineTable = new MachineTable();
@@ -87,7 +85,7 @@ var GSDetailLayout = ccui.Layout.extend({
         this._multiLayer.switchTo(0);
 
         this._layout.addChild(this._multiLayer);
-        cc.log("GSDetail");
+        //cc.log("GSDetail");
     },
 
     touchEvent: function (sender, type) {
