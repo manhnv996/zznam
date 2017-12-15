@@ -65,7 +65,7 @@ function getSeedShow(level) {
     }
 
     seedShow.sort(function(a, b) {
-        cc.log("getProductObjByType" + getProductObjByType(a.getTypeItem()).id);
+        // cc.log("getProductObjByType" + getProductObjByType(a.getTypeItem()).id);
         if (getProductObjByType(a.getTypeItem()).level <= user.getLevel() || a.getQuantityItem() != null){
             return getProductObjByType(a.getTypeItem()).level - getProductObjByType(b.getTypeItem()).level;
         }
@@ -281,6 +281,7 @@ function updateGameInfo(gameInfoJson){
 
 // New
 function onReceiveUser(userInfo) {
+    user = new User();
     // Add FoodStorage
     var foodStorage = new Storages(
         new Coordinate(userInfo.asset.foodStorage.x,
@@ -426,6 +427,7 @@ function onReceiveUser(userInfo) {
 
     // Create user
     user = new User(asset, userInfo.map);
+    cc.log("user.map", userInfo.map.length);
     user.level = userInfo.level;
     user.gold = userInfo.gold;
     user.ruby = userInfo.ruby;

@@ -20,10 +20,11 @@ var DatoSprite = AnimationSprite.extend({
 		return cc.p(0, - MapValues.jLength + 20);
 	},
 
-	collect: function() {
+	collect: function(callback) {
 		this.removeTouchEvents();
 		this.play("forest_big_stone_1_collect", function() {
 			this.removeFromParent(true);
+			callback && callback();
 		}.bind(this));
 	}
 });

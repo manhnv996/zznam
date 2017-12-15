@@ -98,7 +98,7 @@ cc.game.onStart = function () {
         fr.clientConfig.updateResourceSearchPath();
         gv.gameClient = new GameClient();
         gv.poolObjects = new PoolObject();
-        user = new User();
+        // user = new User();
         testnetwork.connector = new testnetwork.Connector(gv.gameClient);
 
 		//cc.director.runScene(new MainScene());

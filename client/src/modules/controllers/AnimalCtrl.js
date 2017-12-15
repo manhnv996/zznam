@@ -33,7 +33,10 @@ var AnimalCtrl = cc.Class.extend({
 				var animalSprite = lodgeSprite.getChildByTag(TagClusters.Animal + animal.id);
 				animalSprite.hungry();
 				animal.harvest();
-				user.addExp(AnimalConfig[animal.type].harvestExp);
+				var exp = AnimalConfig[animal.type].harvestExp;
+				user.addExp(exp);
+				var p = MapValues.logicToScreenPosition(lodgeSprite.lx + animalSprite.lx, lodgeSprite.ly + animalSprite.ly);
+				AnimateEventLayer.instance.animate(p.x, p.y, StorageTypes.WAREHOUSE, product, 1, exp);
 				// Send to server
 				testnetwork.connector.sendAnimalHarvest(lodge.id, animal.id);
 			} else {
@@ -59,8 +62,8 @@ var AnimalCtrl = cc.Class.extend({
 		var that = this;
 		var count = 0;
 		var lodgeSprite = MapLayer.instance.getChildByTag(TagClusters.Lodge + lodge.id);
-		lodgeSprite.getAnimalIdsAroundPoint(lx, ly) // ids
-		.map(function(id) {
+		var ids = lodgeSprite.getAnimalIdsAroundPoint(lx, ly) // ids
+		ids.map(function(id) {
 			return lodge.getAnimalById(id);
 		})
 		.filter(function(animal) {

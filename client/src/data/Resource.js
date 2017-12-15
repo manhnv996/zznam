@@ -150,3 +150,7 @@ for (var k in AnimalLodgeResource) {
 for (var k in ToolResource) {
     res[k] = ToolResource[k];
 }
+
+for (var k in AnimateEventResource) {
+    res[k] = AnimateEventResource[k];
+}

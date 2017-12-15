@@ -303,6 +303,7 @@ var MapCtrl = cc.Class.extend({
     },
 
     _showDebugMap: function() {
+        cc.log("Map", user.map.length, user.map[0].length);
         for (var i = 0; i < user.map.length; i++) {
             var str = '';
             for (var j = 0; j < user.map[i].length; j++) {

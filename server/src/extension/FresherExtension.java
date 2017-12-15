@@ -33,6 +33,10 @@ import eventhandler.LogoutHandler;
 
 import java.util.List;
 
+import model.GameInfo;
+
+import model.Users;
+
 import org.apache.commons.lang.exception.ExceptionUtils;
 
 import org.json.JSONObject;
@@ -41,6 +45,7 @@ import service.ConstructedHandler;
 import service.DemoHandler;
 import service.AnimalHandler;
 
+import service.FriendHandler;
 import service.GameShopHandler;
 import service.MapHandler;
 import service.OrderHandler;
@@ -111,7 +116,8 @@ public class FresherExtension extends BZExtension {
         ConfigHandle.instance().get("servers_key") == null ? "servers" : ConfigHandle.instance().get("servers_key");
 
     private ServerLoop svrLoop;
-
+    private Users users;
+    
     public FresherExtension() {
         super();
         setName("Fresher");
@@ -140,7 +146,8 @@ public class FresherExtension extends BZExtension {
         addRequestHandler(ConstructedHandler.CONSTRUCTED_MULTI_IDS, ConstructedHandler.class);
         addRequestHandler(AnimalHandler.ANIMAL_MULTI_IDS, AnimalHandler.class);
         addRequestHandler(NatureHandler.NATURE_MULTI_IDS, NatureHandler.class);
-
+        addRequestHandler(FriendHandler.FRIEND_MULTI_IDS, FriendHandler.class);
+        
         trace(" Event Handler ");
         addEventHandler(BZEventType.USER_LOGIN, LoginSuccessHandler.class);
         addEventHandler(BZEventType.USER_LOGOUT, LogoutHandler.class);
@@ -148,6 +155,13 @@ public class FresherExtension extends BZExtension {
         ConfigContainer.init();
         // System.out.println("[+] Value " + ConfigContainer.mapConfig.Init.height);
 //        doTest();
+        // Init usersInfo
+        this.users = Users.getUsers();
+        
+        if (this.users == null) {
+            this.users = new Users();
+            this.users.save();
+        }
     }
 	
 	
@@ -318,7 +332,9 @@ public class FresherExtension extends BZExtension {
             UserInfo uInfo = getUserInfo(reqGet.sessionKey, reqGet.userId, session.getAddress());
             User u = ExtensionUtility.instance().canLogin(uInfo, "", session);
             if (u!=null)
-                u.setProperty("userId", uInfo.getUserId());            
+                u.setProperty("userId", uInfo.getUserId());
+            users.findAndAdd(u.getId());
+            users.save();
         } catch (Exception e) {
             Debug.warn("DO LOGIN EXCEPTION " + e.getMessage());
             Debug.warn(ExceptionUtils.getStackTrace(e));

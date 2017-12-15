@@ -70,10 +70,11 @@ var CayRungSprite = AnimationSprite.extend({
 		return cc.p(0, - MapValues.jLength / 2);
 	},
 
-	collect: function() {
+	collect: function(callback) {
 		this.removeTouchEvents();
 		this.play(2 * this.treeType, function() {
 			this.removeFromParent(true);
+			callback && callback();
 		}.bind(this));
 	}
 });

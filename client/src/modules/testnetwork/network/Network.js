@@ -297,6 +297,9 @@ testnetwork.Connector = cc.Class.extend({
                     cc.log('[E] Error occurs');
                 }
                 break;
+            case gv.CMD.FRIEND_GET_LIST:
+                cc.log("FRIEND_GET_LIST");
+                cc.log(packet.idList);
         }
     },
     sendGetUserInfo:function() // Old
@@ -558,6 +561,14 @@ testnetwork.Connector = cc.Class.extend({
         cc.log("Send Nature collect");
         var pk = this.gameClient.getOutPacket(CmdSendCollectNatureThing);
         pk.pack(id);
+        this.gameClient.sendPacket(pk);
+    },
+
+    // Friend
+    sendFriendGetList: function() {
+        cc.log("Send Friend get list");
+        var pk = this.gameClient.getOutPacket(CmdSendFriendGetList);
+        pk.pack();
         this.gameClient.sendPacket(pk);
     }
 });

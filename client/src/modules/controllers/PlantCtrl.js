@@ -129,8 +129,14 @@ var PlantCtrl = cc.Class.extend({
 /////
 
                     //animation
-                    MapLayer.instance.runAnimationCrop(fieldSelected.getFieldId(), seedType);
-
+                    MapLayer.instance.runAnimationCrop(fieldSelected.getFieldId(), seedType, function() {
+                        var position = MapValues.logicToScreenPosition(
+                                fieldSelected.coordinate.x, fieldSelected.coordinate.y);
+                        AnimateEventLayer.instance.animate(
+                            position.x, position.y, 
+                            StorageTypes.FOOD_STORAGE, seedType, 2,
+                            getProductObjByType(seedType).harvestExp);
+                    });
                 }
             } else {
                 /*

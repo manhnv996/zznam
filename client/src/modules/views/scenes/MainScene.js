@@ -9,7 +9,8 @@ var MainScene = cc.Scene.extend({
 		ConstructedCtrl.instance = new ConstructedCtrl();
 		AnimalCtrl.instance = new AnimalCtrl();
 		NatureCtrl.instance = new NatureCtrl();
-
+		FriendCtrl.instance = new FriendCtrl();
+		
 		// Init layers
 		MapLayer.instance = new MapLayer();
 		this.addChild(MapLayer.instance);
@@ -19,6 +20,9 @@ var MainScene = cc.Scene.extend({
 
 		TablePopupLayer.instance = new TablePopupLayer();
 		this.addChild(TablePopupLayer.instance);
+
+		AnimateEventLayer.instance = new AnimateEventLayer();
+		this.addChild(AnimateEventLayer.instance);
 
 		//var mainGuiLayer = new MainG+uiLayer();
 		//this.addChild(mainGuiLayer);

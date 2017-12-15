@@ -21,10 +21,11 @@ var VungnuocSprite = AnimationSprite.extend({
 		return cc.p(- MapValues.iLength + 20, -20);
 	},
 
-	collect: function() {
+	collect: function(callback) {
 		this.removeTouchEvents();
 		this.play("swamp_collect", function() {
 			this.removeFromParent(true);
+			callback && callback();
 		}.bind(this));
 	}
 });

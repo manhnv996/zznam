@@ -86,6 +86,7 @@ public class UserHandler extends BaseClientRequestHandler {
                 getUserInfo(user);
                 break;
             case CmdDefine.GET_USER: // New get user
+                System.out.println("[INFO] User request information " + user.getId());
                 returnUser(user);
                 break;
             }
@@ -237,6 +238,26 @@ public class UserHandler extends BaseClientRequestHandler {
         animal2.setFeededTime(animal2.getFeededTime());
         animal2.setFeeded(false);
         chickenLodge.addAnimal(animal2);
+
+        Animal animal21 = new Animal(AnimalEnum.chicken);
+        animal2.setFeededTime(animal2.getFeededTime());
+        animal2.setFeeded(false);
+        chickenLodge.addAnimal(animal21);
+
+        Animal animal22 = new Animal(AnimalEnum.chicken);
+        animal2.setFeededTime(animal2.getFeededTime());
+        animal2.setFeeded(false);
+        chickenLodge.addAnimal(animal22);
+
+        Animal animal23 = new Animal(AnimalEnum.chicken);
+        animal2.setFeededTime(animal2.getFeededTime());
+        animal2.setFeeded(false);
+        chickenLodge.addAnimal(animal23);
+
+        Animal animal24 = new Animal(AnimalEnum.chicken);
+        animal2.setFeededTime(animal2.getFeededTime());
+        animal2.setFeeded(false);
+        chickenLodge.addAnimal(animal24);
         
         Animal animal3 = new Animal(AnimalEnum.cow);
         animal3.setFeededTime(animal3.getFeededTime() - 1000 * 3600);

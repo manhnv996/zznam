@@ -47,7 +47,10 @@ var NatureCtrl = cc.Class.extend({
 				user.asset.removeNatureThing(this.nature.id);
 				user.addExp(5); // add 5exp
 				testnetwork.connector.sendNatureCollect(this.nature.id);
-				this.natureSprite.collect();
+				this.natureSprite.collect(function() {
+					var p = MapValues.logicToScreenPosition(this.nature.coordinate.x, this.nature.coordinate.y);
+					AnimateEventLayer.instance.animateExp(p.x, p.y, 5);
+				}.bind(this));
 			} else {
 				this.lock = true;
 				// Show popup

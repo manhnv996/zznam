@@ -122,7 +122,7 @@ var TablePopupLayer = cc.Layer.extend({
             delta.y = - thresholdY + (cc.winSize.height - p.y);
         }
         
-        cc.log("l'", lx_2, ly_2)
+        // cc.log("l'", lx_2, ly_2)
         // Set threshold
         if (lx_2 <= -26 || lx_2 >= 26) {
             delta.x = 0;

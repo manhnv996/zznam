@@ -112,11 +112,11 @@ var MainGuiLayer = cc.Layer.extend({
         this.labelExp.setPosition(center_top_pos);
         this.addChild(this.labelExp);
 
-        var imageLevel = new ccui.ImageView(res.STAR_1_PNG);
-        var imageLevelSize = imageLevel.getSize();
+        this.imageLevel = new ccui.ImageView(res.STAR_1_PNG);
+        var imageLevelSize = this.imageLevel.getSize();
         //cc.log("imageLevelSize " + imageLevelSize.width + "  " + imageLevelSize.height);
-        imageLevel.setPosition(center_top_pos.x-imageExp_111Size.width/2,center_top_pos.y);
-        this.addChild(imageLevel);
+        this.imageLevel.setPosition(center_top_pos.x-imageExp_111Size.width/2,center_top_pos.y);
+        this.addChild(this.imageLevel);
 
         this.labelLevel = new cc.LabelBMFont(user.getLevel(), res.FONT_OUTLINE_30);
         this.labelLevel.setPosition(center_top_pos.x - imageExp_111Size.width/2,center_top_pos.y);
@@ -182,7 +182,8 @@ var MainGuiLayer = cc.Layer.extend({
         //cc.log("==onSelectBuyRuby clicked");
     },
     onSelectFriends:function(sender){
-        //cc.log("==onSelectFriends clicked");
+        // cc.log("==onSelectFriends clicked");
+        FriendCtrl.instance.viewFriendHome();
     },
     setIsShowPopup:function(bool){
         this.isShowPopup = bool;

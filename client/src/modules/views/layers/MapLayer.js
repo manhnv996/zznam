@@ -784,11 +784,11 @@ var MapLayer = cc.Layer.extend({
 
 	},
 
-	runAnimationCrop: function (fieldId, seedType) {
+	runAnimationCrop: function (fieldId, seedType, callback) {
 		cc.log("Run animation crop");
 		var index = this.getIndexOfFieldList(fieldId);
 		if (index != null){
-			this.fieldList[index].cropAnimation(seedType);
+			this.fieldList[index].cropAnimation(seedType, callback);
 
 			this.fieldList[index].changeTexture(res.field);
 		}
