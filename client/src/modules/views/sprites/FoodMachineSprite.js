@@ -24,6 +24,7 @@ var FoodMachineSprite = AnimationSprite.extend({
 
     onBeginClick: function() {
         this.play("selected");
+        audioEngine.playEffect(res.tools_food_produce, false);
     },
 
     onClick: function() {

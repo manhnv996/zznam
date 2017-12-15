@@ -164,6 +164,7 @@ var SeedTablePopup = TablePopup.extend({
     },
 
     turnPageEvent: function () {
+        audioEngine.playEffect(res.func_click_button_mp3, false);
         this.pageListNumber[this.pageCurr].setTexture(res.page);
 
         this.pageCurr = (this.pageCurr + 1) % (Math.ceil(this.popupItemList.length / 5));

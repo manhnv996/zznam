@@ -24,6 +24,7 @@ var ButterMachineSprite = AnimationSprite.extend({
 
     onBeginClick: function() {
         this.play("selected");
+        audioEngine.playEffect(res.tools_fairy_mp3, false);
     },
 
     onClick: function() {

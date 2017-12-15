@@ -11,6 +11,7 @@ var SiloSprite = AnimationSprite.extend({
 
 	onBeginClick: function() {
 		this.play("selected");
+		audioEngine.playEffect(res.tools_silo_mp3, false);
 	},
 
 	onClick: function() {

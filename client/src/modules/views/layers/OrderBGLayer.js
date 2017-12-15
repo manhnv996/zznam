@@ -84,6 +84,7 @@ var OrderBGLayer = BaseLayout.extend({
 
     cancelOrderEvent: function () {
         //
+        audioEngine.playEffect(res.func_click_button_mp3, false);
         if (this.lastIndexItemClick != null){
             this.stopAllRepeatAction();
 
@@ -97,6 +98,7 @@ var OrderBGLayer = BaseLayout.extend({
         //
         if (this.lastIndexItemClick != null){
             this.stopAllRepeatAction();
+            audioEngine.playEffect(res.func_click_button_mp3, false);
 
             OrderCtrl.instance.onMakeOrder(this.lastIndexItemClick);
         }

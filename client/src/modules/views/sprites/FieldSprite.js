@@ -90,6 +90,7 @@ var FieldSprite = MapBlockSprite.extend({
 
     // When begin click
     onBeginClick: function() {
+        audioEngine.playEffect(res.farm_click_dirt, false);
         this.setOpacity(180);
         if (this.plantSprite){
             this.plantSprite.setOpacity(180);

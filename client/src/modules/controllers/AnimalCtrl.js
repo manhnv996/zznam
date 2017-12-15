@@ -34,6 +34,8 @@ var AnimalCtrl = cc.Class.extend({
 				animalSprite.hungry();
 				animal.harvest();
 				user.addExp(AnimalConfig[animal.type].harvestExp);
+
+				audioEngine.playEffect(res.ani_harvest_product_mp3, false);
 				// Send to server
 				testnetwork.connector.sendAnimalHarvest(lodge.id, animal.id);
 			} else {
@@ -86,6 +88,8 @@ var AnimalCtrl = cc.Class.extend({
 				MapLayer.instance.addChild(productSprite);
 				productSprite.setLocalZOrder(1000);
 				productSprite.fadeOutProduct();
+				audioEngine.playEffect(res.ani_feed_mp3, false);
+
 				// Send to server
 				testnetwork.connector.sendAnimalFeed(lodge.id, animal.id);
 			} else {

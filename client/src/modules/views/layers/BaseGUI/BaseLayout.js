@@ -17,21 +17,9 @@ var BaseLayout = ccui.Layout.extend({
         this._hasCloseButton = hasCloseButton;
         this._hideShop = hideShop;
 
-        //if (this._hideShop) {
-            if (!GameShopLayout.instance._isHide) {
-                //cc.log("GameShopLayout.instance._isHide " + GameShopLayout.instance._isHide);
-                GameShopLayout.instance.hide();
-                //cc.log("GameShopLayout.instance._isHide2 " + GameShopLayout.instance._isHide);
-            }
-        //}
-        //else {
-        //    cc.log("Lock Shop" + GameShopLayout.instance._isHide);
-        //    if (!GameShopLayout.instance._isHide) {
-        //        GameShopLayout.instance.hide();
-        //        cc.log("Lock Shop");
-                //GameShopLayout.instance._gameShop.lockGameShop();
-            //}
-        //}
+        if (!GameShopLayout.instance._isHide) {
+            GameShopLayout.instance.hide();
+        }
 
         this.x = cc.winSize.width / 2;
         this.y = cc.winSize.height / 2;
@@ -61,10 +49,7 @@ var BaseLayout = ccui.Layout.extend({
             this._btnClose = new ccui.Button(res.close_png);
             this._btnClose.setZoomScale(-0.1);
             this._btnClose.setScale(0.9);
-            //this._btnClose.setPosition(this.width * 19 / 20, this.height * 7 / 8);
             this._btnClose.setPosition(this.width * 19 / 20, this.height * 5 / 6);
-            //this._btnClose.addTouchEventListener(this.touchCloseButton, this);
-            //cc.log("_btnClose");
             this.addChild(this._btnClose);
         }
 
@@ -75,7 +60,7 @@ var BaseLayout = ccui.Layout.extend({
         /**
          *  Debug
          */
-        if(this._debug) {
+        if (this._debug) {
             this.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
             this.setBackGroundColor(cc.color.RED);
         }
@@ -89,7 +74,8 @@ var BaseLayout = ccui.Layout.extend({
         this.runAction(cc.sequence(scaleUp, cc.delayTime(0.05), scaleDown));
     },
 
-    initInfo: function () {},
+    initInfo: function () {
 
+    }
 
 });

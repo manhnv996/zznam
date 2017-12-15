@@ -67,6 +67,9 @@ var ChickenLodgeSprite = AnimalLodgeSprite.extend({
 			this.showAnimalTool();
 		} else {
 			// Open store to buy animal
+			//if (GameShopLayout.instance._isHide) {
+				GameShopLayout.instance._gameShop.openAnimalTable();
+			//}
 			cc.log("Open store to buy animal");
 		}
 

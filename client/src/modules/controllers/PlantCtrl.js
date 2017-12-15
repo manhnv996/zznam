@@ -124,6 +124,7 @@ var PlantCtrl = cc.Class.extend({
                     //
                     cc.log("FLOW UpgradeStorage!!!!!!!!!!!!!!!!!!!");
                 } else {
+                    audioEngine.playEffect(res.farm_harvest_01_mp3, false);
                     //send pk to server {packet{fieldId}}
                     testnetwork.connector.sendCrop(fieldSelected.getFieldId());
 /////
@@ -152,6 +153,7 @@ var PlantCtrl = cc.Class.extend({
                 //
                 if (fieldSelected.plant(seedType)){     //plant and if success
 //
+                    audioEngine.playEffect(res.farm_plant_01_mp3, false);
                     //send pk to server {packet{fieldId, productType}}
                     testnetwork.connector.sendPlant(fieldSelected.getFieldId(), fieldSelected.getPlantType());
 /////

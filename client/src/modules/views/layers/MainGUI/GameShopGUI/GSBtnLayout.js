@@ -22,6 +22,7 @@ var GSBtnLayout = ccui.Layout.extend({
     onclickBtnGS: function (sender, type) {
         switch (type) {
             case ccui.Widget.TOUCH_BEGAN:
+                audioEngine.playEffect(res.func_click_button_mp3, false);
                 break;
             case ccui.Widget.TOUCH_ENDED:
             case ccui.Widget.TOUCH_CANCELED:

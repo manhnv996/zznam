@@ -24,6 +24,7 @@ var SugarCaneSprite = AnimationSprite.extend({
 
     onBeginClick: function() {
         this.play("selected");
+        audioEngine.playEffect(res.tools_sugarcane_mp3, false);
     },
 
     onClick: function() {

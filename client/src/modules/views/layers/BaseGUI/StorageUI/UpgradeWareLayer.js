@@ -263,7 +263,6 @@ var UpgradeWareLayer = cc.Layer.extend({
         this._buttonV.x = layoutT.width / 6 * 5;
         this._buttonV.y = layoutT.height / 5;
         this._buttonV.setScale(0.9);
-        //buttonV.setTouchEnabled(false);
         layoutT.addChild(this._buttonV);
 
         this.checkButtonV();
@@ -271,7 +270,11 @@ var UpgradeWareLayer = cc.Layer.extend({
 
     checkButtonV: function () {
         if (this._check_bolt && this._check_ductTape && this._check_plank) {
+            this._buttonV.setTouchEnabled(true);
             this._buttonV.addTouchEventListener(this.touchUpgradeWare, this);
+        }
+        else {
+            this._buttonV.setTouchEnabled(false);
         }
     },
 
@@ -334,17 +337,7 @@ var UpgradeWareLayer = cc.Layer.extend({
         switch (type) {
             case ccui.Widget.TOUCH_ENDED:
             case ccui.Widget.TOUCH_CANCELED:
-                //upgrade storage ---> sendserver
-                if (user.getAsset().getWarehouse().upgrade(ProductTypes.TOOL_BOLT, res.upgradeWarehouse[this._level + 1].tool_bolt,
-                        ProductTypes.TOOL_DUCTTAPE, res.upgradeWarehouse[this._level + 1].tool_ductTape,
-                        ProductTypes.TOOL_PLANK, res.upgradeWarehouse[this._level + 1].tool_plank)) {
-                    user.getAsset().getWarehouse().setCapacity(res.upgradeWarehouse[this._level + 1].capacity);
-                    //StorageLayer.instance._layoutStorage.removeFromParent(true);
-                    BaseGUILayer.instance.removeBlockListener();
-
-                    //send server
-                    testnetwork.connector.sendUpgradeStorage(StorageTypes.WAREHOUSE, (this._level + 1));
-                }
+                StorageCtrl.instance.upgradeWare(this._level);
                 break;
         }
     },
@@ -352,6 +345,7 @@ var UpgradeWareLayer = cc.Layer.extend({
     touchBackBtn: function (sender, type){
         switch (type) {
             case ccui.Widget.TOUCH_BEGAN:
+                audioEngine.playEffect(res.func_click_button_mp3, false);
                 var scaleByBtn = cc.scaleTo(0.1, 0.9);
                 sender.runAction(scaleByBtn);
                 break;

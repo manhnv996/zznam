@@ -51,72 +51,70 @@ var StorageItemListLayer = cc.Layer.extend({
         this.addChild(this._tableItems);
     },
 
-    scrollViewDidScroll:function (view) {
+    scrollViewDidScroll: function (view) {
 
     },
-    scrollViewDidZoom:function (view) {
+    scrollViewDidZoom: function (view) {
 
     },
 
-    tableCellTouched:function (table, cell) {
+    tableCellTouched: function (table, cell) {
         cc.log("Lodge Table " + cell.getIdx());
     },
 
-    tableCellSizeForIndex:function (table, idx) {
-        //cc.log("cell width " + cc.winSize.width / 2);
+    tableCellSizeForIndex: function (table, idx) {
         return cc.size(cc.winSize.width / 2, cc.winSize.height / 5);
-        //return cc.size(cc.winSize.width / 2, (cc.winSize.height / 5 * 2) / 2);
     },
 
-    tableCellAtIndex:function (table, idx) {
+    tableCellAtIndex: function (table, idx) {
         var cell = table.dequeueCell();
         //var level = user.getLevel();
         //cc.log("create cell" + idx);
         //if (!cell) {
-            cell = new cc.TableViewCell();
+        cell = new cc.TableViewCell();
 
         //cc.log("cell width " + cell.getBoundingBox().width);
 
-            for (var i = 0; i < 3; i++) {
-                var button = new ccui.Button(res.storage_apple);
-                button.x = (cc.winSize.width / 6) * i + cc.winSize.width / 12;
-                button.y = (cc.winSize.height / 5 * 2) / 4;
-                button.setZoomScale(-0.1);
-                button.tag = i;
-                cell.addChild(button);
+        for (var i = 0; i < 3; i++) {
+            var button = new ccui.Button(res.storage_apple);
+            button.x = (cc.winSize.width / 6) * i + cc.winSize.width / 12;
+            button.y = (cc.winSize.height / 5 * 2) / 4;
+            button.setZoomScale(-0.1);
+            button.tag = i;
+            cell.addChild(button);
 
-                var keyItem = new cc.LabelTTF("");
-                keyItem.tag = 20 + i;
-                cell.addChild(keyItem);
+            var keyItem = new cc.LabelTTF("");
+            keyItem.tag = 20 + i;
+            cell.addChild(keyItem);
 
-                var label = new cc.LabelBMFont(20, res.FONT_OUTLINE_20);
-                label.x = (cc.winSize.width / 6) * i + cc.winSize.width / 12;
-                label.y = button.y - button.height / 2 - label.height / 3;
-                label.tag = 10 + i;
-                cell.addChild(label);
+            var label = new cc.LabelBMFont(20, res.FONT_OUTLINE_20);
+            label.x = (cc.winSize.width / 6) * i + cc.winSize.width / 12;
+            label.y = button.y - button.height / 2 - label.height / 3;
+            label.tag = 10 + i;
+            cell.addChild(label);
 
-            }
-            //
+        }
+        //
         //cc.log(this._listItems);
-            for (var i = 0; i < 3; i++) {
-                var button = cell.getChildByTag(i);
-                var label = cell.getChildByTag(10 + i);
-                var keyItem = cell.getChildByTag(20 + i);
-                if ((idx * 3 + i) < this._listItems.length) {
-                    var typeItem = this._listItems[idx * 3 + i].getTypeItem();
-                    //var key = getKeyByValue(this._listItems[idx * 3 + i].getTypeItem());
-                    keyItem.setString(typeItem);
-                    keyItem.setVisible(false);
-                    var productConfig = getProductConfigById(typeItem);
-                    //cc.log("itemResource " + keyItem.getString());
-                    button.loadTextureNormal(productConfig.nameIcon);
-                    button.addTouchEventListener(this.touchItem, this);
-                    label.setString(this._listItems[idx * 3 + i].getQuantityItem());
-                } else {
-                    button.setVisible(false);
-                    label.setVisible(false);
-                }
+        for (var i = 0; i < 3; i++) {
+            var button = cell.getChildByTag(i);
+            var label = cell.getChildByTag(10 + i);
+            var keyItem = cell.getChildByTag(20 + i);
+            if ((idx * 3 + i) < this._listItems.length) {
+                var typeItem = this._listItems[idx * 3 + i].getTypeItem();
+                //var key = getKeyByValue(this._listItems[idx * 3 + i].getTypeItem());
+                keyItem.setString(typeItem);
+                keyItem.setVisible(false);
+                var productConfig = getProductConfigById(typeItem);
+                //cc.log("itemResource " + keyItem.getString());
+                button.loadTextureNormal(productConfig.nameIcon);
+                button.addTouchEventListener(this.touchItem, this);
+                label.setString(this._listItems[idx * 3 + i].getQuantityItem());
+            } else {
+                button.setVisible(false);
+                label.setVisible(false);
             }
+        }
         //} else {
         //
         //}
@@ -124,7 +122,7 @@ var StorageItemListLayer = cc.Layer.extend({
         return cell;
     },
 
-    numberOfCellsInTableView:function (table) {
+    numberOfCellsInTableView: function (table) {
         //cc.log("numberOfCellsInTableView " + (this._listItems.length % 3) ? (Math.floor(this._listItems.length / 3) + 1) : (this._listItems.length / 3))
         return (this._listItems.length % 3) ? (Math.floor(this._listItems.length / 3) + 1) : (this._listItems.length / 3);
     },
@@ -133,7 +131,10 @@ var StorageItemListLayer = cc.Layer.extend({
         switch (type) {
             case ccui.Widget.TOUCH_BEGAN:
                 cc.log("Touch Button Product");
-                //this._tooltip = new cc.Sprite(res.tooltip_png);
+
+                var scaleDown = cc.scaleTo(0.1, 0.9);
+                sender.runAction(scaleDown);
+
                 var type = sender.parent.getChildByTag(sender.tag + 20).getString();
                 var productConfig = getProductConfigById(type);
 
@@ -151,7 +152,7 @@ var StorageItemListLayer = cc.Layer.extend({
                             this._tooltip.y = touchP.y - this._tooltip.height / 2;
                             break;
                         case 1:
-                            //break;
+                        //break;
                         case 2:
                             this._tooltip.x = touchP.x - this._tooltip.width * 3 / 2;
                             this._tooltip.y = touchP.y - this._tooltip.height / 2;
@@ -181,6 +182,10 @@ var StorageItemListLayer = cc.Layer.extend({
                 break;
             case ccui.Widget.TOUCH_ENDED:
             case ccui.Widget.TOUCH_CANCELED:
+                audioEngine.playEffect(res.func_click_button_mp3, false);
+                var scaleUp = cc.scaleTo(0.1, 1.1);
+                var scaleDown = cc.scaleTo(0.05, 1.0);
+                sender.runAction(cc.sequence(scaleUp, cc.delayTime(0.02), scaleDown));
                 this._tooltip.removeFromParent(true);
                 break;
         }
@@ -189,6 +194,7 @@ var StorageItemListLayer = cc.Layer.extend({
     touchUpgrade: function (sender, type) {
         switch (type) {
             case ccui.Widget.TOUCH_BEGAN:
+                audioEngine.playEffect(res.func_click_button_mp3, false);
                 var scaleBy = cc.scaleTo(0.1, 0.9);
                 sender.runAction(scaleBy);
                 break;

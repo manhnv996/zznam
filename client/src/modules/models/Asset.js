@@ -244,5 +244,15 @@ var Asset = cc.Class.extend({
         this.natureThingList = this.natureThingList.filter(function(nature) {
             return nature.id !== natureId;
         });
+    },
+
+    countAnimalByType: function (animalType) {
+        var number = 0;
+        for(var i = 0; i < this.animalLodgeList.length; i++) {
+            if (this.animalLodgeList[i].type === (animalType + "_habitat")) {
+                number += this.animalLodgeList[i].animalList.length;
+            }
+        }
+        return number;
     }
 });

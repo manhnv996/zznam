@@ -54,6 +54,7 @@ var LoginLayer = cc.Layer.extend({
     },
     onClickLogin: function(){
         cc.log("==onplay clicked");
+        audioEngine.playEffect(res.func_click_button_mp3, false);
         var username = this.userNameBox.getString();
         var password = this.passwordBox.getString();
         cc.log("==onplay clicked, username : " + username);

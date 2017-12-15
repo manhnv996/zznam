@@ -68,6 +68,7 @@ cc.log = function() {
 }
 
 var user = null;
+var audioEngine = null;
 
 cc.game.onStart = function () {
     if (!cc.sys.isNative && document.getElementById("cocosLoading")) //If referenced loading.js, please remove it
@@ -107,6 +108,15 @@ cc.game.onStart = function () {
         cc.log("Preload some animations");
         fr.preloadAnimation(['SILO', 'Barn', 'Carot', 'DauHL', 'Cayrung',
                 'Dato', 'Vungnuoc1', 'Danho']);
+
+        audioEngine = cc.AudioEngine.getInstance();
+        //Preload Sound and Music
+        audioEngine.preloadMusic(res.bg_luamoi_mp3);
+        audioEngine.playMusic(res.bg_luamoi_mp3, true);
+        //for(var k in SoundResource) {
+        //    audioEngine.preloadEffect(SoundResource[k]);
+        //}
+
         PreloaderScene.instance = new PreloaderScene();
         cc.director.runScene(PreloaderScene.instance);
 

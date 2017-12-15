@@ -24,6 +24,7 @@
         "src/data/MainGuiResource.js",
         "src/data/MapResource.js",
         "src/data/ShopResource.js",
+        "src/data/SoundResource.js",
         "src/data/StorageResource.js",
         "src/data/HavestResource.js",
         "src/data/OrderResource.js",
@@ -136,6 +137,7 @@
         "src/modules/controllers/ConstructedCtrl.js",
         "src/modules/controllers/AnimalCtrl.js",
         "src/modules/controllers/NatureCtrl.js",
+        "src/modules/controllers/SoundCtrl.js",
 
         "src/modules/models/CoordinatedObject.js",
         "src/modules/models/ConstructedObject.js",

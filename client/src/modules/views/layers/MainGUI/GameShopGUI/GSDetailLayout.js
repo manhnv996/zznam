@@ -91,6 +91,7 @@ var GSDetailLayout = ccui.Layout.extend({
     touchEvent: function (sender, type) {
         switch (type) {
             case ccui.Widget.TOUCH_BEGAN:
+                audioEngine.playEffect(res.func_click_button_mp3, false);
                 sender.runAction(cc.scaleTo(0.1, 0.9));
                 break;
             case ccui.Widget.TOUCH_ENDED:
@@ -130,6 +131,15 @@ var GSDetailLayout = ccui.Layout.extend({
         this._btnAnimal.loadTextureNormal(res.shop_btAnimal_n_png);
         this._btnMachine.loadTextureNormal(res.shop_btMachine_n_png);
         this._btnTree.loadTextureNormal(res.shop_btTree_n_png);
+    },
+
+    openAnimalTable: function () {
+        if (this.parent._isHide) {
+            this.parent.show();
+        }
+        this._multiLayer.switchTo(1);
+        this.setNormalButton();
+        this._btnAnimal.loadTextureNormal(res.shop_btAnimal_s_png);
     }
 
     //lockGameShop: function () {

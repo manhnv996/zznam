@@ -94,7 +94,7 @@ var TreeTable = cc.Layer.extend({
             slot.y = box.height / 5 * 4;
             slot.tag = 4;
 
-            price = new cc.LabelBMFont(res.infoTreeItem[idx].price, "fonts/outline/30.fnt");
+            price = new cc.LabelBMFont(fr.toMoney(res.infoTreeItem[idx].price), "fonts/outline/30.fnt");
             price.x = box.width / 5 * 2;
             price.y = 0;
             price.setAnchorPoint(1, -0.5);

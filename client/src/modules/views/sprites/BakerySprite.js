@@ -21,6 +21,7 @@ var BakerySprite = AnimationSprite.extend({
 
 	onBeginClick: function() {
 		this.play("selected");
+		audioEngine.playEffect(res.tools_bread_oven_mp3, false);
 	},
 
 	onClick: function() {

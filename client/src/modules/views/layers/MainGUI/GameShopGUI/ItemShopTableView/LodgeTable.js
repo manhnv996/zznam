@@ -130,7 +130,7 @@ var LodgeTable = cc.Layer.extend({
         slot.y = box.height / 5 * 4;
         slot.tag = 4;
 
-        price = new cc.LabelBMFont(res.infoCoopItem[idx].price, res.FONT_OUTLINE_30);
+        price = new cc.LabelBMFont(fr.toMoney(res.infoCoopItem[idx].price), res.FONT_OUTLINE_30);
         price.x = box.width / 5 * 2;
         price.y = 0;
         price.setAnchorPoint(1, -0.5);
@@ -217,22 +217,15 @@ var LodgeTable = cc.Layer.extend({
                         MapLayer.instance.addChild(this._sprite);
                     }
                 }
-                //cc.log(this._sprite);
-                //if (this._sprite) {
-                //    if (p.x !== this.lstP.x || p.y !== this.lstP.y) {
-                //        this._sprite.setLogicPosition(p.x, p.y, true);
-                //        this.lstP = p;
-                //        //cc.log(Math.floor(psl.x) + " : " + Math.floor(psl.y));
-                //    }
-                //}
-                // cc.log("Touch Moved");
                 break;
             case ccui.Widget.TOUCH_ENDED:
                 if(this._sprite){
-                    //cc.log("this._sprite", this._sprite.parent);
                     this._sprite.setVisible(false);
                     this._sprite.removeFromParent(true);
                     this._sprite = null;
+                    if (GameShopLayout.instance._isHide) {
+                        GameShopLayout.instance.show();
+                    }
                 }
                 //cc.log("Touch Ended");
                 break;
@@ -251,9 +244,8 @@ var LodgeTable = cc.Layer.extend({
                     if (!this._check) {
                         this._sprite.setVisible(false);
                         this._sprite.removeFromParent(true);
-                        BaseGUILayer.instance.notifyCantPut(endP.x, endP.y);
+                        BaseGUILayer.instance.notifyCantPut(fr.Localization.text("Text_can_not_place"), endP.x, endP.y);
                         if (GameShopLayout.instance._isHide) {
-                            //cc.log("GameShopLayout.instance._isHide " + GameShopLayout.instance._isHide);
                             GameShopLayout.instance.show();
                         }
                     } else {

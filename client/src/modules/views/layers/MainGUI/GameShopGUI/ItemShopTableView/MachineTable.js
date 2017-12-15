@@ -122,7 +122,8 @@ var MachineTable = cc.Layer.extend({
             slot.y = box.height / 5 * 4;
             slot.tag = 4;
 
-            price = new cc.LabelBMFont(res.infoMachineItem[idx].price, res.FONT_OUTLINE_30);
+            price = new cc.LabelBMFont(fr.toMoney(res.infoMachineItem[idx].price), res.FONT_OUTLINE_30);
+            //price = new cc.LabelBMFont(res.infoMachineItem[idx].price, res.FONT_OUTLINE_30);
             price.x = box.width / 5 * 2;
             price.y = 0;
             price.setAnchorPoint(1, -0.5);
@@ -220,48 +221,37 @@ var MachineTable = cc.Layer.extend({
                 break;
             case ccui.Widget.TOUCH_ENDED:
                 if(this._sprite){
-                    //cc.log("this._sprite", this._sprite.parent);
                     this._sprite.setVisible(false);
                     this._sprite.removeFromParent(true);
                     this._sprite = null;
+                    if (GameShopLayout.instance._isHide) {
+                        GameShopLayout.instance.show();
+                    }
                 }
                 // cc.log("Touch Ended");
                 break;
             case ccui.Widget.TOUCH_CANCELED:
                 this.unscheduleUpdate();
-                //if (GameShopLayout.instance._isHide) {
-                //    GameShopLayout.instance.show();
-                //}
                 if (this._sprite) {
                     var endP = sender.getTouchEndPosition();
                     var endPl = MapValues.screenPositionToLogic(endP.x, endP.y);
                     endPl.x = Math.floor(endPl.x);
                     endPl.y = Math.floor(endPl.y);
-                    // cc.log(endPl.x + " " + endPl.y);
-                    //var typeObject = sender.parent.getChildByTag(0).getString();
                     this._check = MapCtrl.instance.checkValidBlockSprite(this._sprite);
-                    // cc.log("this._check " + this._check);
                     this._sprite.removeFromParent(true);
                     if (!this._check) {
-                        //this._sprite.removeFromParent(true);
-                        BaseGUILayer.instance.notifyCantPut(endP.x, endP.y);
+                        BaseGUILayer.instance.notifyCantPut(fr.Localization.text("Text_can_not_place"), endP.x, endP.y);
                         if (GameShopLayout.instance._isHide) {
-                            //cc.log("GameShopLayout.instance._isHide " + GameShopLayout.instance._isHide);
                             GameShopLayout.instance.show();
                         }
                     } else {
                         var missGold = GameShopController.instance.checkGold(sender.parent.getChildByTag(5).getString());
                         cc.log(missGold);
                         if (missGold) {
-                            //this._sprite.removeFromParent(true);
                             BaseGUILayer.instance.notifyShopNotEnoughGold(missGold, this.typeObject,
                                 endPl.x, endPl.y);
                         } else {
                             // Success
-                            //MapCtrl.instance.addSpriteAlias(this._sprite);
-                            //this._sprite.setLogicPosition(this._sprite.lx, this._sprite.ly, false);
-                            //var machineModel;
-                            //Create Model
                             var machineConfig = getMachineConfigByType(this.typeObject);
                             var machineModel = new Machine(0, this.typeObject, machineConfig.slot, 0, null, false,
                                 false, new Date().getTime(), machineConfig.time, new Coordinate(endPl.x, endPl.y));
@@ -305,7 +295,6 @@ var MachineTable = cc.Layer.extend({
                             MapLayer.instance.addChild(this._sprite);
                             MapCtrl.instance.addSpriteAlias(this._sprite);
                             this._sprite.setLogicPosition(this._sprite.lx, this._sprite.ly, true);
-                            //cc.log("Gold User" + user.getGold());
                             user.reduceGold(sender.parent.getChildByTag(5).getString());
                             //Send Server
                             testnetwork.connector.sendBuyMapObjectRequest(machineModel.id,
@@ -316,10 +305,7 @@ var MachineTable = cc.Layer.extend({
                     }
                 }
                 this._sprite = null;
-                //GameShopLayout.instance.show();
-                //this._tableView.reloadData();
                 this._tableView.updateCellAtIndex(sender.parent.getIdx());
-                //this._isHide = false;
                 // cc.log("Touch Canceled");
                 break;
         }

@@ -11,6 +11,7 @@ var WareHouseSprite = AnimationSprite.extend({
 
 	onBeginClick: function() {
 		this.play("selected");
+		audioEngine.playEffect(res.tools_barn_mp3, false);
 	},
 
 	onClick: function() {

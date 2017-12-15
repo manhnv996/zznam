@@ -46,6 +46,27 @@ var NatureCtrl = cc.Class.extend({
 				MapCtrl.instance.removeSpriteAlias(this.natureSprite);
 				user.asset.removeNatureThing(this.nature.id);
 				user.addExp(5); // add 5exp
+
+				switch (this.nature.type) {
+					case NaturalThingEnum.PINE_BIG:
+					case NaturalThingEnum.PINE_SMALL:
+					case NaturalThingEnum.TREE_SMALL:
+						audioEngine.playEffect(res.obj_small_tree_crack_mp3, false);
+						break;
+					case NaturalThingEnum.TREE_BIG:
+						audioEngine.playEffect(res.obj_big_tree_saw_mp3, false);
+						break;
+					case NaturalThingEnum.VUNG_NUOC:
+						audioEngine.playEffect(res.obj_clear_pool_mp3, false);
+						break;
+					case NaturalThingEnum.ROCK_BIG:
+						audioEngine.playEffect(res.obj_big_rock_explosion01_mp3, false);
+						break;
+					case NaturalThingEnum.ROCK_SMALL:
+						audioEngine.playEffect(res.obj_small_rock_explosion_mp3, false);
+						break;
+				}
+
 				testnetwork.connector.sendNatureCollect(this.nature.id);
 				this.natureSprite.collect();
 			} else {
