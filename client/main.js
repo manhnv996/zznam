@@ -112,7 +112,7 @@ cc.game.onStart = function () {
         audioEngine = cc.AudioEngine.getInstance();
         //Preload Sound and Music
         audioEngine.preloadMusic(res.bg_luamoi_mp3);
-        audioEngine.playMusic(res.bg_luamoi_mp3, true);
+        //audioEngine.playMusic(res.bg_luamoi_mp3, true);
         //for(var k in SoundResource) {
         //    audioEngine.preloadEffect(SoundResource[k]);
         //}

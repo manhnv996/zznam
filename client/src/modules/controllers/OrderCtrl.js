@@ -75,6 +75,7 @@ var OrderCtrl = cc.Class.extend({
 
     onReceiveDelivery: function () {
         if (user.getAsset().getCar().receive()){
+            audioEngine.playEffect(res.order_collect_money_from_car_mp3, false);
             testnetwork.connector.sendReceiceDeliveryCar(user.getAsset().getCar().deliveryPrice, user.getAsset().getCar().deliveryExp);
 
         }

@@ -3,8 +3,8 @@
  */
 
 var StorageLayout = BaseLayout.extend({
-    _debug: false,
-    //_debug: true,
+    //_debug: false,
+    _debug: true,
 
     ctor: function (storage) {
         this._super(res.storage_bg_png, "", false, true, true);
@@ -53,6 +53,7 @@ var StorageLayout = BaseLayout.extend({
         this._multiLayer.switchTo(0);
 
         this._layoutContent.addChild(this._multiLayer);
+        cc.log("this.y", this.y - this.getBoundingBox().height);
 
         /**
          *

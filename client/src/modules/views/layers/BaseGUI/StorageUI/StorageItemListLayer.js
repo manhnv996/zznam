@@ -3,15 +3,17 @@
  */
 
 var StorageItemListLayer = cc.Layer.extend({
-    _listItems: [],
+    _listItems: null,
     _tableItems: null,
-    _debug: false,
-    //_debug: true,
+    _listCellIndex: null,
+    //_debug: false,
+    _debug: true,
 
     ctor: function (listItems) {
         this._super();
 
-        this._listItems = listItems;
+        this._listItems = listItems || [];
+        this._listCellIndex = [];
 
         this.upgradeBtn = new ccui.Button(res.storage_btn_png);
         this.upgradeBtn.x = cc.winSize.width / 4;
@@ -33,15 +35,18 @@ var StorageItemListLayer = cc.Layer.extend({
         this._tableItems.setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL);
         this._tableItems.x = 0;
         this._tableItems.y = cc.winSize.height / 10;
+        //this._tableItems.x = 0;
+        //this._tableItems.y = 0;
         this._tableItems.setDelegate(this);
         this._tableItems.setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN);
         this._tableItems.reloadData();
+        //this._tableItems.name = "tableView";
 
         if (this._debug) {
             var layout = ccui.Layout();
             layout.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
             layout.setBackGroundColor(cc.color.GREEN);
-            layout.setContentSize(cc.winSize.width / 2, cc.winSize.height / 5 * 2);
+            layout.setContentSize(cc.winSize.width / 2, cc.winSize.height / 5);
             layout.x = 0;
             layout.y = cc.winSize.height / 10;
             this.addChild(layout);
@@ -49,10 +54,14 @@ var StorageItemListLayer = cc.Layer.extend({
         //layout.addChild(listItem);
 
         this.addChild(this._tableItems);
+
+        //cc.log("schedule");
+        //cc.log("schedule2222 222");
     },
 
     scrollViewDidScroll: function (view) {
-
+        //cc.log("view", view.getChildrenCount());
+        this.scheduleUpdate();
     },
     scrollViewDidZoom: function (view) {
 
@@ -63,22 +72,21 @@ var StorageItemListLayer = cc.Layer.extend({
     },
 
     tableCellSizeForIndex: function (table, idx) {
+        //cc.log("size", idx);
         return cc.size(cc.winSize.width / 2, cc.winSize.height / 5);
     },
 
     tableCellAtIndex: function (table, idx) {
-        var cell = table.dequeueCell();
+        //var cell = table.dequeueCell();
         //var level = user.getLevel();
-        //cc.log("create cell" + idx);
+        //cc.log("create cell", idx);
         //if (!cell) {
-        cell = new cc.TableViewCell();
-
-        //cc.log("cell width " + cell.getBoundingBox().width);
+        var cell = new cc.TableViewCell();
 
         for (var i = 0; i < 3; i++) {
             var button = new ccui.Button(res.storage_apple);
             button.x = (cc.winSize.width / 6) * i + cc.winSize.width / 12;
-            button.y = (cc.winSize.height / 5 * 2) / 4;
+            button.y = cc.winSize.height / 10;
             button.setZoomScale(-0.1);
             button.tag = i;
             cell.addChild(button);
@@ -108,6 +116,11 @@ var StorageItemListLayer = cc.Layer.extend({
                 var productConfig = getProductConfigById(typeItem);
                 //cc.log("itemResource " + keyItem.getString());
                 button.loadTextureNormal(productConfig.nameIcon);
+                var sprite = new cc.Sprite(res.debug_png);
+                sprite.x = 0;
+                sprite.y = 0;
+                button.addChild(sprite);
+                //button.setTouchEnabled(false);
                 button.addTouchEventListener(this.touchItem, this);
                 label.setString(this._listItems[idx * 3 + i].getQuantityItem());
             } else {
@@ -206,6 +219,21 @@ var StorageItemListLayer = cc.Layer.extend({
                 StorageLayout.instance.upgradeLayer.backBtn.runAction(scaleBy);
                 break;
         }
+    },
+
+    update: function (dt) {
+        cc.log("updateStorage", this.parent.parent.y);
+        for(var i = 0; i < this.numberOfCellsInTableView(); i++) {
+            var cell = this._tableItems.cellAtIndex(i);
+            if (cell != undefined) {
+                var button = cell.getChildByTag(0);
+                /**
+                 * get absolute from relatively
+                 */
+                cc.log("button.y", button.y);
+            }
+        }
+        this.unscheduleUpdate();
     }
 
 });
