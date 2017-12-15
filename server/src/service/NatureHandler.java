@@ -7,10 +7,13 @@ import bitzero.server.extensions.data.DataCmd;
 import cmd.CmdDefine;
 import cmd.send.nature.ResponseCollectNatureThing;
 import cmd.receive.nature.RequestCollectNatureThing;
+
 import model.NatureThing;
 import model.ZPUserInfo;
 import config.enums.NaturalThingEnum;
 import config.enums.ProductType;
+
+import config.utils.ConfigContainer;
 
 public class NatureHandler extends BaseClientRequestHandler {
 	public static short NATURE_MULTI_IDS = 13000;
@@ -38,7 +41,7 @@ public class NatureHandler extends BaseClientRequestHandler {
 
         NatureThing nt = userInfo.getAsset().getNatureThingById(req.id);
         if (nt == null) {
-        	System.out.println("Nature thing not found " + req.lodgeId);
+        	System.out.println("Nature thing not found " + req.id);
             send(new ResponseCollectNatureThing(-1), user);
             return;
         }
@@ -59,19 +62,28 @@ public class NatureHandler extends BaseClientRequestHandler {
         	case NaturalThingEnum.TREE_SMALL:
         		tool = ProductType.TOOL_AXE;
         		break;
-        	case NatureThingEnum.VUNG_NUOC:
+        	case NaturalThingEnum.VUNG_NUOC:
         		tool = ProductType.TOOL_SHOVEL;
         		break;
         	default:
         		System.out.println("[E] Unhandled Nature thing type");
         }
 
-        if (!user.getAsset().getWarehouse().takeItem(tool, 1)) {
+        if (!userInfo.getAsset().getWarehouse().takeItem(tool, 1)) {
             send(new ResponseCollectNatureThing(-2), user);
         }
 
-        // Continue...
-
+        
+        int width = 1;
+        int height = 1;
+        if (nt.getType() == NaturalThingEnum.ROCK_BIG || nt.getType() == NaturalThingEnum.VUNG_NUOC) {
+            width = 2;
+            height = 2;
+        }
+        
+        userInfo.getMap().removeMapAlias(nt.getX(), nt.getY(), width, height);
+        userInfo.getAsset().getNatureThingList().remove(nt);
+        userInfo.addExp(5);
         // Save model
         try {
             userInfo.saveModel(user.getId());

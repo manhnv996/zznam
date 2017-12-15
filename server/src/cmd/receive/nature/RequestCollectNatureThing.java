@@ -8,7 +8,7 @@ public class RequestCollectNatureThing extends BaseCmd{
     
     public int id;
     
-    public RequestBuyItemByRubi(DataCmd dataCmd) {
+    public RequestCollectNatureThing(DataCmd dataCmd) {
         super(dataCmd);
         unpackData();
     }

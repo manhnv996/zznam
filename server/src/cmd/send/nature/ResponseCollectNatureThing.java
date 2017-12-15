@@ -6,7 +6,7 @@ import java.nio.ByteBuffer;
 
 public class ResponseCollectNatureThing extends BaseMsg {
 	public int errNo;
-    public ResponseAnimalBoost(int errNo) {
+    public ResponseCollectNatureThing(int errNo) {
         super(CmdDefine.NATURE_COLLECT, (short)0);
         this.errNo = errNo;
     }

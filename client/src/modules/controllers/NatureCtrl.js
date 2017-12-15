@@ -41,8 +41,12 @@ var NatureCtrl = cc.Class.extend({
 		if (MapValues.positionInsideMapBlockSprite(flx, fly, this.natureSprite)) {
 		// if (flx === this.nature.coordinate.x && fly === this.nature.coordinate.y) {
 			if (user.asset.warehouse.takeItem(this.tool, 1)) {
+				TablePopupLayer.instance.removeUpdateDisableListener(); // Disable popup
+				
 				MapCtrl.instance.removeSpriteAlias(this.natureSprite);
 				user.asset.removeNatureThing(this.nature.id);
+				user.addExp(5); // add 5exp
+				testnetwork.connector.sendNatureCollect(this.nature.id);
 				this.natureSprite.collect();
 			} else {
 				this.lock = true;
