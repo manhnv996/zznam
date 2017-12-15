@@ -50,8 +50,8 @@ var NatureCtrl = cc.Class.extend({
 				this.natureSprite.collect();
 			} else {
 				this.lock = true;
-				BaseGUILayer.instance.showSuggestBuyMissionItem([new StorageItem(this.tool, 1)]);
 				// Show popup
+				BaseGUILayer.instance.showSuggestBuyMissionItem([new StorageItem(this.tool, 1)]);
 			}
 		}
 	},

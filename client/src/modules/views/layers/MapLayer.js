@@ -507,6 +507,7 @@ var MapLayer = cc.Layer.extend({
 				}
 
             	// Stop inertia and capture velocity
+            	// cc.log("Map Begin");
             	this.uninertia();
 				InertiaEngine.instance.init(mousePos);
 
@@ -523,7 +524,7 @@ var MapLayer = cc.Layer.extend({
 	            	if (this.touchesMap.length === 1) {
 	            		InertiaEngine.instance.init(touch.getLocation());
 						PopupLayer.instance.disableAllPopup();
-	            		this.uninertia();
+	            		// this.uninertia();
 	            	} else { // === 2
 	            		InertiaEngine.instance.stop();
 	            		var p1 = touch.getLocation();
@@ -679,6 +680,22 @@ var MapLayer = cc.Layer.extend({
 		}
 	},
 
+	moveBy: function(x, y, time) {
+		if (x.x) {
+			time = y;
+			y = x.y;
+			x = x.x;
+		}
+		if (time) {
+			cc.log("Time", time);
+			var action = new cc.MoveBy(time, cc.p(x, y)).easing(cc.easeExponentialOut());
+			this.runAction(action);
+			// cc.log("Run action");
+		} else {
+			this.setPosition(cc.p(x, y));
+		}
+	},
+
 	zoomBy: function(sign, cursor) {
 		var standartSign = sign * this.scale;
 		var deltaScale = Math.round(SCALE_RATIO * sign * 1000) / 1000;
@@ -819,6 +836,7 @@ var MapLayer = cc.Layer.extend({
 			this.unscheduleUpdate();
 			this.scheduling = false;
 		}
+		// cc.log("Stop action");
 		this.stopAllActions();
 	},
 
@@ -830,7 +848,10 @@ var MapLayer = cc.Layer.extend({
 		this.velocity.x *= reduce;
 		this.velocity.y *= reduce;
 		if (dx * dx + dy * dy < 0.5) {
-			return this.uninertia();
+			// return this.uninertia();
+			this.unscheduleUpdate();
+			this.scheduling = false;
+			return;
 		}
 		this.move(dx, dy);
 	}

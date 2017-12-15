@@ -16,12 +16,16 @@ var TablePopupLayer = cc.Layer.extend({
         this.removeUpdateDisableListener();
         this._layout = new SeedTablePopup(fieldId, seedShow);
         this.addChild(this._layout);
+        var field = user.asset.getFieldById(fieldId);
+        this.autoMove(field.coordinate.x, field.coordinate.y, 350, 220);
     },
 
     showCropToolPopup: function (fieldId) {
         this.removeUpdateDisableListener();
         this._layout = new CropToolPopup(fieldId);
         this.addChild(this._layout);
+        var field = user.asset.getFieldById(fieldId);
+        this.autoMove(field.coordinate.x, field.coordinate.y, 280, 200);
     },
 
     showTimeRemainProgressBar: function (fieldId) {
@@ -49,12 +53,14 @@ var TablePopupLayer = cc.Layer.extend({
         this.removeUpdateDisableListener();
         this._layout = new AnimalToolPopup(lx, ly, type, mode, caller);
         this.addChild(this._layout);
+        this.autoMove(lx, ly, 220, 220);
     },
 
     showNatureToolPopup: function(lx, ly, type, natureId) {
         this.removeUpdateDisableListener();
         this._layout = new NatureToolPopup(lx, ly, type, natureId);
         this.addChild(this._layout);
+        this.autoMove(lx, ly, 180, 200);
     },
 
     //
@@ -91,6 +97,41 @@ var TablePopupLayer = cc.Layer.extend({
             this.removeAllChildren();
             this._layout = null;
         }
+    },
+
+    layerRunAction: function(action) {
+        if (this._layout) {
+            // cc.log("Run");
+            this._layout.runAction(action);
+        }
+    },
+
+    autoMove: function(lx, ly, thresholdX, thresholdY) {
+        var lx_2 = lx - ly;
+        var ly_2 = -lx - ly;
+
+        var p = MapValues.logicToScreenPosition(lx, ly);
+        // cc.log(p);
+        var delta = cc.p(0, 0);
+        if (p.x < thresholdX) {
+            delta.x = thresholdX - p.x;
+        }
+        if (p.y < 50) {
+            delta.y = 50 - p.y;
+        } else if (cc.winSize.height - p.y < thresholdY) {
+            delta.y = - thresholdY + (cc.winSize.height - p.y);
+        }
+        
+        // Set threshold
+        if (lx_2 < -28 || lx_2 > 28) {
+            delta.x = 0;
+        }
+        if (ly_2 < -60 || ly_2 > -2) {
+            delta.y = 0;
+        }
+        var action = new cc.MoveBy(1, delta).easing(cc.easeExponentialOut());
+        MapLayer.instance.runAction(action);
+        this.layerRunAction(action.clone());
     }
 
 });

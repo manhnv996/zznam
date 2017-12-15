@@ -17,6 +17,7 @@ var CayRungSprite = AnimationSprite.extend({
 
 	onClick: function() {
 		this.play(2 * this.treeType - 1);
+
 		var type = 0;
 		switch (this.treeType) {
 			case 1:
@@ -33,6 +34,36 @@ var CayRungSprite = AnimationSprite.extend({
 				break;
 		}
 		TablePopupLayer.instance.showNatureToolPopup(this.lx, this.ly, type, this.natureId);
+		// Animate
+		// var lx_2 = this.lx - this.ly;
+		// var ly_2 = -this.lx - this.ly;
+
+		// var p = MapValues.logicToScreenPosition(this.lx, this.ly);
+		// cc.log(p);
+		// var delta = cc.p(0, 0);
+		// if (p.x < 180) {
+		// 	delta.x = 180 - p.x;
+		// }
+		// if (p.y < 50) {
+		// 	delta.y = 50 - p.y;
+		// } else if (cc.winSize.height - p.y < 200) {
+		// 	delta.y = - 200 + (cc.winSize.height - p.y);
+		// }
+		
+		// // Set threshold
+		// if (lx_2 < -28 || lx_2 > 28) {
+		// 	delta.x = 0;
+		// }
+		// if (ly_2 < -60 || ly_2 > -2) {
+		// 	delta.y = 0;
+		// }
+		// // delta.x *= MapLayer.instance.scale;
+		// // delta.y *= MapLayer.instance.scale;
+
+		// var action = new cc.MoveBy(1, delta).easing(cc.easeExponentialOut());
+		// MapLayer.instance.runAction(action);
+		// TablePopupLayer.instance.layerRunAction(action.clone());
+		
 	},
 
 	_offset: function() {
