@@ -35,7 +35,6 @@ public class CmdDefine {
     public static final short RESPONSE_SYNC_STORAGE = 5083;
     public static final short RESPONSE_SYNC_FOOD_STORAGE_ITEM = 5084;
     
-    
     //    
     public static final short MAKE_ORDER = 10001;
     public static final short CANCEL_ORDER = 10002;
@@ -51,7 +50,11 @@ public class CmdDefine {
     public static final short RESPONSE_SYNC_CAR = 10089;
     public static final short RESPONSE_SYNC_ORDER_NPC = 10091;
     
-    
+    //
+    public static final short SELL_PRODUCT = 12001;
+    public static final short BUY_PRODUCT = 12002;
+    public static final short RECEIVE_MONEY_FROM_SOLD_PRODUCT = 12003;
+    //
     
     
     public static final short MOVE_FIELD = 6001;

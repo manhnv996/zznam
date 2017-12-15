@@ -43,9 +43,11 @@ import model.AnimalLodge;
 import model.Asset;
 import model.Field;
 import model.Machine;
+import model.MyShop;
 import model.NatureThing;
 import model.Order;
 import model.OrderNPC;
+import model.ProductSale;
 import model.Storage;
 import model.StorageItem;
 import model.ZPUserInfo;
@@ -126,6 +128,12 @@ public class UserHandler extends BaseClientRequestHandler {
             userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
             if (userInfo == null) {
                 userInfo = createUser(user.getId());
+                
+                //
+                userInfo.getAsset().getMyShop().sell(userInfo, 0, new ProductSale(new StorageItem(ProductType.CROP_WHEAT, 5), 10));
+                userInfo.getAsset().getMyShop().sell(userInfo, 3, new ProductSale(new StorageItem(ProductType.GOOD_MILK, 3), 27));
+                //
+                
                 userInfo.saveModel(user.getId());
             }
         } catch (Exception e) {
@@ -206,7 +214,12 @@ public class UserHandler extends BaseClientRequestHandler {
 //            System.out.println("id" + nObj.id + " type" + nObj.type);
         }
         
-        Asset asset = new Asset(foodStorage, warehouse, null, natureThingList, null, null);
+        MyShop myShop = new MyShop(6);
+//        myShop.sell(user, 0, new ProductSale(new StorageItem(ProductType.CROP_WHEAT, 5), 10));
+//        myShop.sell(user, 0, new ProductSale(new StorageItem(ProductType.GOOD_MILK, 3), 27));
+        
+        
+        Asset asset = new Asset(foodStorage, warehouse, null, natureThingList, null, null, myShop);
         
         // Add some fields
         for (int i = 1; i < 5; i++){

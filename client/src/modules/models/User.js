@@ -72,7 +72,7 @@ var User = cc.Class.extend({
             this.level ++;
             var expCurr = this.exp;
             this.exp = 0;
-            this.addExp(expCurr - parseInt(number) - getLevelupObjById(user.level).exp);
+            this.addExp(expCurr + parseInt(number) - getLevelupObjById(user.level).exp);
             MainGuiLayer.instance.labelLevel.setString(this.level);
 
             if (this.getAsset().getOrderList().length < getNumberOfOrderByLevel(this.level)){
@@ -83,7 +83,8 @@ var User = cc.Class.extend({
             this.exp += parseInt(number);
         }
 
-        MainGuiLayer.instance.labelExp.setString(this.exp);
+        //MainGuiLayer.instance.labelExp.setString(this.exp + " / " + getLevelupObjById(this.level + 1).exp);
+        MainGuiLayer.instance.setExpPecent();
     },
 
     reduceGold: function (number) {

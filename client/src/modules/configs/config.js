@@ -399,8 +399,6 @@ function onReceiveUser(userInfo) {
         machineList.push(machine);
     }
 
-    var myShop = null;
-
     //Order List
     var orderList = [];
     for (var i = 0; i < userInfo.asset.orderList.length; i++) {
@@ -431,6 +429,9 @@ function onReceiveUser(userInfo) {
     var car = new Car(userInfo.asset.car.deliveryPrice, userInfo.asset.car.deliveryExp);
     //
 
+    var myShop = new MyShop(userInfo.asset.myShop.maxSlot, userInfo.asset.myShop.productList, userInfo.asset.myShop.lastTimeNpcCome);
+
+
     var asset = new Asset(
         foodStorage, warehouse, fieldList, animalLodgeList,
         machineList, natureThingList, myShop,
@@ -451,4 +452,11 @@ function onReceiveUser(userInfo) {
     cc.director.runScene(MainScene.instance);
     MainScene.instance.onGettedData();
 
+
+    /*
+     */
+    cc.log("MYSHOP: " + userInfo.asset.myShop);
+    cc.log(userInfo.asset.myShop.maxSlot);
+    cc.log(userInfo.asset.myShop.productList);
+    cc.log(userInfo.asset.myShop.lastTimeNpcCome);
 }

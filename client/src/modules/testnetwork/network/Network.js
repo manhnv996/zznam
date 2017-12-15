@@ -462,6 +462,19 @@ testnetwork.Connector = cc.Class.extend({
         pk.pack(orderId);
         this.gameClient.sendPacket(pk);
     },
+    //
+    sendSellProduct: function (intSlot, productType, quantity, price) {
+        cc.log("sendSellProduct: " + intSlot);
+        var pk = this.gameClient.getOutPacket(CmdSendSellProduct);
+        pk.pack(intSlot, productType, quantity, price);
+        this.gameClient.sendPacket(pk);
+    },
+    sendBuyProduct: function (intSlot) {
+        cc.log("sendBuyProduct: " + intSlot);
+        var pk = this.gameClient.getOutPacket(CmdSendBuyProduct);
+        pk.pack(intSlot);
+        this.gameClient.sendPacket(pk);
+    },
     ///
 
     // Map

@@ -176,6 +176,14 @@ var Asset = cc.Class.extend({
         }
     },
 
+    takeItemToStorageById: function (productId, quantity) {
+        if (productId.indexOf("crop_") >= 0){
+            return this.getFoodStorage().takeItem(productId, quantity);
+        } else {
+            return this.getWarehouse().takeItem(productId, quantity);
+        }
+    },
+
     //
     getWaittingOrderList: function () {
         var list = [];

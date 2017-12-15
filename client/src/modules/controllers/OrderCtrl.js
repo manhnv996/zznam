@@ -2,13 +2,6 @@
 var OrderCtrl = cc.Class.extend({
 
     onShowOrderBG: function () {
-        // var orderList = user.getAsset().getOrderList();
-
-        // MainGuiLayer.instance.addChild(OrderBGLayer.instance);
-        //OrderBGLayer.instance.showBG();
-        // if (BaseGUILayer.instance._blockLayout != null){
-        //     BaseGUILayer.instance.removeBlockListener();
-        // }
         if (BaseGUILayer.instance._layout != null){
             BaseGUILayer.instance.removeBlockListener();
         }
@@ -33,7 +26,7 @@ var OrderCtrl = cc.Class.extend({
             } else {
                 var missionItem = orderSelected.checkCondition();
                 /*
-                INPROGRESS
+                done
                  */
 
                 BaseGUILayer.instance.removeBlockListener();
@@ -132,15 +125,10 @@ var OrderCtrl = cc.Class.extend({
 
                 testnetwork.connector.sendMakeOrderNpc(orderId, 0);
                 /*
-                 Inprogress
                  Run animation
                  */
                 BaseGUILayer.instance.removeBlockListener();
 
-                // //
-                // MapLayer.instance.getNPCByOrderNPCId(orderId).setPause();
-                // MapLayer.instance.getNPCByOrderNPCId(orderId).actionGetOut1();
-                // // //
                 // //
                 if (MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId) != null){
                     MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).runScheduleWalkingOut(true);
@@ -149,7 +137,7 @@ var OrderCtrl = cc.Class.extend({
             } else {
                 var missionItem = orderNPCSelected.checkCondition();
                 /*
-                 INPROGRESS
+                 done
                  */
                 BaseGUILayer.instance.removeBlockListener();
                 BaseGUILayer.instance.showSuggestBuyMissionItem(missionItem, BuyItemTargetType.MAKE_ORDER_NPC, orderId);
@@ -170,11 +158,8 @@ var OrderCtrl = cc.Class.extend({
 
                 testnetwork.connector.sendMakeOrderNpc(orderId, rubiBuy);
                 /*
-                INPROGRESS
+                done
                  */
-                // //
-                // MapLayer.instance.getNPCByOrderNPCId(orderId).setPause();
-                // MapLayer.instance.getNPCByOrderNPCId(orderId).actionGetOut1();
                 // //
                 if (MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId) != null){
                     MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).runScheduleWalkingOut(true);
@@ -198,9 +183,6 @@ var OrderCtrl = cc.Class.extend({
 
                 testnetwork.connector.sendCancelOrderNpc(orderId);
 
-                // // //
-                // MapLayer.instance.getNPCByOrderNPCId(orderId).setPause();
-                // MapLayer.instance.getNPCByOrderNPCId(orderId).actionGetOut1();
                 // //
                 if (MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId) != null){
                     MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).runScheduleWalkingOut(false);
@@ -208,10 +190,6 @@ var OrderCtrl = cc.Class.extend({
                 }
             }
         }
-        /*
-        Inprogress
-        Run animation
-         */
     },
 
 

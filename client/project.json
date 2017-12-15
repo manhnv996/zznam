@@ -96,7 +96,6 @@
         "src/modules/views/layers/popup/TablePopupLayer.js",
         "src/modules/views/layers/popup/SeedTablePopup.js",
         "src/modules/views/layers/popup/CropToolPopup.js",
-        "src/modules/views/layers/popup/TimeRemainProgressBar.js",
         "src/modules/views/layers/popup/AnimalToolPopup.js",
         "src/modules/views/layers/PopupLayer.js",
 
@@ -149,6 +148,8 @@
         "src/modules/models/Order.js",
         "src/modules/models/OrderNPC.js",
         "src/modules/models/Car.js",
+        "src/modules/models/ProductSale.js",
+        "src/modules/models/MyShop.js",
 
         "src/modules/models/AnimalLodge.js",
 

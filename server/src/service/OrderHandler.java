@@ -112,7 +112,6 @@ public class OrderHandler extends BaseClientRequestHandler {
                 
             }
             
-                
         } catch (Exception e) {
             logger.warn("ORDER HANDLER EXCEPTION " + e.getMessage());
             logger.warn(ExceptionUtils.getStackTrace(e));
@@ -125,7 +124,6 @@ public class OrderHandler extends BaseClientRequestHandler {
         try {
             ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
             if (userInfo == null){
-                
                 return;
             }
             
@@ -141,18 +139,11 @@ public class OrderHandler extends BaseClientRequestHandler {
                 } else {
                     //
                     errorCode = userInfo.getAsset().getOrderdById(order.orderId).makeOrderByRuby(userInfo);
-                    
                 }
-                
             } else {
                 errorCode = userInfo.getAsset().getOrderdById(order.orderId).makeOrder(userInfo);
-                
             }
             
-            
-            
-//            //
-//            short errorCode = userInfo.getAsset().getOrderdById(order.orderId).makeOrder(userInfo);
             
             //
             if (errorCode == ErrorLog.SUCCESS.getValue()){
@@ -163,8 +154,6 @@ public class OrderHandler extends BaseClientRequestHandler {
                 send(new ResponseSyncOrder(errorCode, userInfo.getAsset().getOrderdById(order.orderId)), user);
                 
             } else {
-//                userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
-                
                 if (errorCode == ErrorLog.ERROR_STORAGE_NOT_REDUCE.getValue()){
                     Storage foodStorage = userInfo.getAsset().getFoodStorage();
                     Storage warehouse = userInfo.getAsset().getWarehouse();
@@ -178,10 +167,8 @@ public class OrderHandler extends BaseClientRequestHandler {
                 
                 //
                 send(new ResponseSyncOrder(errorCode, userInfo.getAsset().getOrderdById(order.orderId)), user);
-                
             }
-            
-            
+
         } catch (Exception e) {
         }
     }
@@ -190,7 +177,6 @@ public class OrderHandler extends BaseClientRequestHandler {
         try {
             ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
             if (userInfo == null){
-                
                 return;
             }
             
@@ -212,7 +198,6 @@ public class OrderHandler extends BaseClientRequestHandler {
                 send(new ResponseSyncOrder(errorCode, userInfo.getAsset().getOrderdById(order.orderId)), user);
             }
             
-            
         } catch (Exception e) {
         }
     }
@@ -222,19 +207,16 @@ public class OrderHandler extends BaseClientRequestHandler {
         try {
             ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
             if (userInfo == null){
-                
                 return;
             }
             
             
             if (userInfo.getAsset().getOrderdById(order.orderId) == null){
-                
                 if (userInfo.getAsset().addOrder(userInfo.getLevel(), new Order(userInfo, userInfo.getLevel()))){
                     send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
 
                     userInfo.saveModel(user.getId());                
                     //
-                    
                     send(new ResponseSyncOrder(ErrorLog.SUCCESS.getValue(), userInfo.getAsset().getOrderList().get(userInfo.getAsset().getOrderList().size() - 1)), user);
                 }
                 
@@ -370,8 +352,6 @@ public class OrderHandler extends BaseClientRequestHandler {
                 send(new ResponseSyncOrderNPC(errorCode, userInfo.getAsset().getOrderdNPCById(order.orderId)), user);
                 
             } else {
-            //                userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
-                
                 if (errorCode == ErrorLog.ERROR_STORAGE_NOT_REDUCE.getValue()){
                     Storage foodStorage = userInfo.getAsset().getFoodStorage();
                     Storage warehouse = userInfo.getAsset().getWarehouse();
@@ -382,10 +362,8 @@ public class OrderHandler extends BaseClientRequestHandler {
                     //
                     send(new ResponseSyncUserInfo(errorCode, userInfo), user);
                 }
-                
                 //
                 send(new ResponseSyncOrderNPC(errorCode, userInfo.getAsset().getOrderdNPCById(order.orderId)), user);
-                
             }
             
             
@@ -397,7 +375,6 @@ public class OrderHandler extends BaseClientRequestHandler {
         try {
             ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
             if (userInfo == null){
-                
                 return;
             }
             

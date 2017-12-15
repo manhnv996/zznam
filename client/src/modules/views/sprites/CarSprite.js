@@ -1,9 +1,6 @@
 
 var CarSprite = AnimationSprite.extend({
 
-    // orderId: 0,
-    // order: null,
-
     price: 0,
     exp: 0,
 
@@ -39,12 +36,8 @@ var CarSprite = AnimationSprite.extend({
     onClick: function() {
         cc.log("Car clicked", this.getLocalZOrder(), this.lx, this.ly, this.blockSizeX, this.blockSizeY);
         /*
-        not yet started
+        done
          */
-        //if (!this.isReceivable){
-        //    this.delivery();
-        //
-        //}
         if (this.isStatus == DeliveryStatus.RECEIVABLE) {
             this.actionReceive();
         } else {
@@ -173,7 +166,6 @@ var CarSprite = AnimationSprite.extend({
     },
     delivery8: function () {
         this.play("8");
-        //this.isStatus = DeliveryStatus.RECEIVABLE;
         this.isStatus = DeliveryStatus.RECEIVABLE;
     },
 
@@ -181,24 +173,8 @@ var CarSprite = AnimationSprite.extend({
     actionReceive: function () {
         this.play("1");
         /*
-        Inprogress
+        done
          */
-
-        //user.addGold(this.price);
-        //user.addExp(this.exp);
-        //
-        //this.isStatus = DeliveryStatus.EMPTY;
-        //this.price = 0;
-        //this.exp = 0;
-
-        //if (user.getAsset().getCar().receive()){
-        //    testnetwork.connector.sendReceiceDeliveryCar(this.price, this.exp);
-        //
-        //
-        //    this.isStatus = DeliveryStatus.EMPTY;
-        //    this.price = 0;
-        //    this.exp = 0;
-        //}
         OrderCtrl.instance.onReceiveDelivery();
         this.isStatus = DeliveryStatus.EMPTY;
     },

@@ -42,6 +42,10 @@ gv.CMD.RESPONSE_SYNC_ORDER = 10081;
 gv.CMD.RESPONSE_SYNC_CAR = 10089;
 gv.CMD.RESPONSE_SYNC_ORDER_NPC = 10091;
 
+//
+gv.CMD.SELL_PRODUCT = 12001;
+gv.CMD.BUY_PRODUCT = 12002;
+
 
 // Map
 gv.CMD.MOVE_FIELD = 6001;
@@ -361,6 +365,46 @@ CmdSendCreateNewOrderNpc = fr.OutPacket.extend(
             this.packHeader();
 
             this.putInt(orderId);
+
+            this.updateSize();
+        }
+    }
+);
+////
+
+CmdSendSellProduct = fr.OutPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+            this.initData(100);
+            this.setCmdId(gv.CMD.SELL_PRODUCT);
+        },
+        pack:function(intSlot, productType, quantity, price){
+            this.packHeader();
+
+            this.putInt(intSlot);
+            this.putString(productType);
+            this.putInt(quantity);
+            this.putInt(price);
+
+            this.updateSize();
+        }
+    }
+);
+
+CmdSendBuyProduct = fr.OutPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+            this.initData(100);
+            this.setCmdId(gv.CMD.BUY_PRODUCT);
+        },
+        pack:function(intSlot){
+            this.packHeader();
+
+            this.putInt(intSlot);
 
             this.updateSize();
         }
@@ -975,6 +1019,7 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         this.unpackCar();
         this.unpackAnimalLodges();
         this.unpackMachines();
+        this.unpackMyShop();
     },
 
     unpackBasicInfo: function() {
@@ -1189,6 +1234,39 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         }
 
         return machine;
+    },
+
+    //
+    unpackMyShop: function () {
+        var myShop = {};
+
+        myShop.maxSlot = this.getInt();
+
+        myShop.productList = [];
+        var size = this.getInt();
+        for (var i = 0; i < size; i++){
+            myShop.productList.push(this.unpackProductSale());  //
+        }
+        myShop.lastTimeNpcCome = this.getLong();
+
+        this.user.asset.myShop = myShop;
+    },
+
+    unpackProductSale: function () {
+        var product = {};
+
+        product.slot = this.getInt();
+
+        var itemIsNull = this.getInt();
+        if (itemIsNull == 0){
+            product.product = null;
+        } else {
+            product.product = this.unpackStorageItem();
+        }
+        product.price = this.getInt();
+        product.isSold = this.getBool();
+
+        return product;
     }
 
 });

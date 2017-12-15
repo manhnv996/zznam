@@ -18,13 +18,15 @@ public class Asset {
     private List<OrderNPC> orderNPCList;
     private Car car;
     private List<Machine> machineList;
+    private MyShop myShop;
     
     public Asset(Storage foodStorage,
                  Storage warehouse, 
                  List<Field> fieldList,
                  List<NatureThing> natureThingList,
                  List<AnimalLodge> animalLodgeList,
-                 List<Machine> machineList
+                 List<Machine> machineList,
+                 MyShop myShop
                  ) {
         super();
         
@@ -39,6 +41,7 @@ public class Asset {
         this.natureThingList = natureThingList == null ? new ArrayList<NatureThing>() : natureThingList;
         this.animalLodgeList = animalLodgeList == null ? new ArrayList<AnimalLodge>() : animalLodgeList;
         this.machineList = machineList == null ? new ArrayList<Machine>() : machineList;
+        this.myShop = myShop == null ? new MyShop(6) : myShop;
     }
 
     
@@ -60,6 +63,10 @@ public class Asset {
 
     public Car getCar() {
         return car;
+    }
+
+    public MyShop getMyShop() {
+        return myShop;
     }
 
     //
@@ -126,6 +133,14 @@ public class Asset {
             return this.getFoodStorage().addItem(productId, quantity);
         } else {
             return this.getWarehouse().addItem(productId, quantity);
+        }
+    }
+    
+    public boolean takeItemToStorageById(String productId, int quantity){
+        if (productId.contains("crop_")) {
+            return this.getFoodStorage().takeItem(productId, quantity);
+        } else {
+            return this.getWarehouse().takeItem(productId, quantity);
         }
     }
     

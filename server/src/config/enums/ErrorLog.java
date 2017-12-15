@@ -35,7 +35,10 @@ public enum ErrorLog {
     
     ERROR_UPGRADE_FAIL((short)  83),
     
-    ERROR_COMPLETED_BUIDING_FAIL((short) 90);
+    ERROR_COMPLETED_BUIDING_FAIL((short) 90),
+    
+    ERROR_OVER_MAX_SLOT((short) 97),
+    ERROR_NOT_EXIST_SLOT((short) 98);
                                     
 
 
