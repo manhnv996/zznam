@@ -122,11 +122,12 @@ var TablePopupLayer = cc.Layer.extend({
             delta.y = - thresholdY + (cc.winSize.height - p.y);
         }
         
+        cc.log("l'", lx_2, ly_2)
         // Set threshold
-        if (lx_2 < -28 || lx_2 > 28) {
+        if (lx_2 <= -26 || lx_2 >= 26) {
             delta.x = 0;
         }
-        if (ly_2 < -60 || ly_2 > -2) {
+        if (ly_2 <= -56 || ly_2 >= -6) {
             delta.y = 0;
         }
         var action = new cc.MoveBy(1, delta).easing(cc.easeExponentialOut());
