@@ -95,6 +95,27 @@ var AnimalCtrl = cc.Class.extend({
 		});
 		return count;
 	},
+
+	calculateRubyByRemainTime: function(time) {
+		return 1;
+	},
+
+	boost: function(lodgeId, animalId) {
+		var lodge = user.asset.getLodgeById(lodgeId);
+		var animal = lodge.getAnimalById(animalId);
+		if (user.reduceRuby(this.calculateRubyByRemainTime())) {
+			var lodgeSprite = MapLayer.instance.getChildByTag(TagClusters.Lodge + lodge.id);
+			var animalSprite = lodgeSprite.getChildByTag(TagClusters.Animal + animal.id);
+			animalSprite.harvest();
+			animal.boost();
+
+			// Send to server
+			testnetwork.connector.sendAnimalBoost(lodgeId, animalId);
+			// cc.log("Boost", lodgeId, animalId);
+		} else {
+			cc.log("Not enough ruby");
+		}
+	},
 	
 	unlock: function() {
 		this.lock = false;

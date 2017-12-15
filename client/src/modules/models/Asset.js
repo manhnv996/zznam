@@ -232,5 +232,17 @@ var Asset = cc.Class.extend({
             }
         }
         return null;
+    },
+
+    getNatureThingById: function(natureId) {
+        return this.natureThingList.find(function(nature) {
+            return nature.id === natureId;
+        });
+    },
+
+    removeNatureThing: function(natureId) {
+        this.natureThingList = this.natureThingList.filter(function(nature) {
+            return nature.id !== natureId;
+        });
     }
 });

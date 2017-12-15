@@ -31,6 +31,9 @@ var ChickenLodgeSprite = AnimalLodgeSprite.extend({
 		}
 		var animalSprite = this.getChildByTag(TagClusters.Animal + animal.id);
 		var lp = cc.p(animalSprite.lx, animalSprite.ly);
+		if (!animal.feeded) {
+			return;
+		}
 		var startTime = animal.feededTime;
 		var remain = AnimalConfig.chicken.time * 1000 - (new Date().getTime() - startTime);
 		if (remain > 0) {
@@ -41,8 +44,9 @@ var ChickenLodgeSprite = AnimalLodgeSprite.extend({
 			this.loadingBar.setPosition(p.x + 50, p.y - 25);
 			BaseGUILayer.instance.addChild(this.loadingBar);
 			this.loadingBar.setOnClick(function() {
-				cc.log("Boost", animal.id);
-			});
+				AnimalCtrl.instance.boost(this.id, animal.id);
+				this.loadingBar.closeLoadingBar();
+			}.bind(this));
 		}
 	},
 

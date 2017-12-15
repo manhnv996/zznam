@@ -10,11 +10,11 @@ var AnimalSprite = cc.Sprite.extend({
         this.initEvent();
     },
 
-    onEnter: function () {
-        this._super();
-        cc.log("On Enter")
-        this.setLogicPosition(this.lx, this.ly);
-    },
+	onEnter: function() {
+		this._super();
+		// cc.log("On Enter")
+		this.setLogicPosition(this.lx, this.ly);
+	},
 
     play: function (name, callback) {
         this._sprite.gotoAndPlay(name);
@@ -53,26 +53,24 @@ var AnimalSprite = cc.Sprite.extend({
     demo: function () {
     },
 
-    // Need to override
-    hungry: function () {
-    },
-    feed: function () {
-    },
-    setOnHarvestTime: function (time) {
-    },
-    _setOnHarvestTime: function (time, totalTime) {
-        cc.log("Set On harvest time", time);
-        var current = new Date().getTime();
-        var deltaTime = current - time;
-        this.remainTime = totalTime - deltaTime;
-        if (this.entered) {
-            if (this.remainTime > 0) {
-                this.scheduleOnce(this.harvest, this.remainTime / 1000);
-            } else {
-                this.harvest();
-            }
-        }
-    },
+	// Need to override
+	hungry: function() {},
+	harvest: function() {},
+	feed: function() {},
+	setOnHarvestTime: function(time) {},
+	_setOnHarvestTime: function(time, totalTime) {
+		cc.log("Set On harvest time", time);
+		var current = new Date().getTime();
+		var deltaTime = current - time;
+		this.remainTime = totalTime - deltaTime;
+		if (this.entered) {
+			if (this.remainTime > 0) {
+				this.scheduleOnce(this.harvest, this.remainTime / 1000);
+			} else {
+				this.harvest();
+			}
+		}
+	},
 
     initEvent: function () {
         // var dot = new cc.Sprite(res.DOT2_PNG);

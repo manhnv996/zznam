@@ -51,6 +51,11 @@ var TablePopupLayer = cc.Layer.extend({
         this.addChild(this._layout);
     },
 
+    showNatureToolPopup: function(lx, ly, type, natureId) {
+        this.removeUpdateDisableListener();
+        this._layout = new NatureToolPopup(lx, ly, type, natureId);
+        this.addChild(this._layout);
+    },
 
     //
     runUpdateOrderWaittingTime: function () {

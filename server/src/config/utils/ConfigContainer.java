@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
+import config.enums.NaturalThingEnum;
 
 public class ConfigContainer {
     public static MapConfig mapConfig;
@@ -111,7 +111,7 @@ public class ConfigContainer {
             int y = Integer.parseInt(jobj.get("y").getAsString());
             int width = 0;
             int height = 0;
-            if (nobj.type.equals("forest_swamp") || nobj.type.equals("forest_big_stone_1")) {
+            if (nobj.type.equals(NaturalThingEnum.VUNG_NUOC) || nobj.type.equals(NaturalThingEnum.ROCK_BIG)) {
                 width = ConfigContainer.mapConfig.BigNatureThing.size.width;
                 height = ConfigContainer.mapConfig.BigNatureThing.size.height;
             } else {

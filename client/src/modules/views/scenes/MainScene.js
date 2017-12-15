@@ -8,6 +8,7 @@ var MainScene = cc.Scene.extend({
 		StorageCtrl.instance = new StorageCtrl();
 		ConstructedCtrl.instance = new ConstructedCtrl();
 		AnimalCtrl.instance = new AnimalCtrl();
+		NatureCtrl.instance = new NatureCtrl();
 
 		// Init layers
 		MapLayer.instance = new MapLayer();

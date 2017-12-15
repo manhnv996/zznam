@@ -17,11 +17,37 @@ var NPCSprite = AnimationSprite.extend({
         );
 
         this.play("2");
-
         // this.addEventListener();
         this.registerTouchEvents({ lockMove: true });
+        this.updateEventPriority(55);
+        // this._showBoundingPoints();
     },
 
+    // Override
+    caculateBoundingPoints: function() {
+        var contentSize = this.getContentSize();
+        var base = MapValues.logicToPosition(this.lx, this.ly);
+        var bottomLeft = cc.p(
+            base.x - contentSize.width / 2,
+            base.y
+        );
+        var bottomRight = cc.p(
+            base.x + contentSize.width / 2,
+            bottomLeft.y
+        );
+        var topLeft = cc.p(
+            bottomLeft.x,
+            base.y + contentSize.height
+        );
+        var topRight = cc.p(
+            bottomRight.x,
+            topLeft.y
+        );
+        this.boundingPoints = [
+            bottomLeft, topLeft, topRight, bottomRight
+        ];
+        return this.boundingPoints;
+    },
 
     onEnter: function() {
         this._super();
@@ -48,7 +74,6 @@ var NPCSprite = AnimationSprite.extend({
             this.schedule(this.doAction, 4.0);
         }.bind(this), Math.round(Math.random() * 100) % 50 / 10);
     },
-
 
     doAction: function () {
         var value = Math.floor(Math.random() * 3);
@@ -112,12 +137,14 @@ var NPCSprite = AnimationSprite.extend({
 //
     quote: function () {
         if (this.orderNPC.orderItem != null){
-            var quote = new cc.Sprite(res.quoteNpc);
+            //var quote = new cc.Sprite(res.quoteNpc);
+            var quote = new ccui.ImageView(res.quoteNpc);
             quote.setPosition(cc.p(this.width, this.height));
             // this.content.addChild(quote, "TAG_QUOTE");
             this.addChild(quote);
 
-            var item = new cc.Sprite(getProductIconById(this.orderNPC.orderItem.typeItem));
+            //var item = new cc.Sprite(getProductIconById(this.orderNPC.orderItem.typeItem));
+            var item = new ccui.ImageView(getProductIconById(this.orderNPC.orderItem.typeItem));
             item.setPosition(cc.p(quote.width / 2, quote.height * 0.65));
             quote.addChild(item);
 
@@ -135,9 +162,12 @@ var NPCSprite = AnimationSprite.extend({
     },
 
 /////
-
+    setLogicPosition: function(lx, ly) {
+        this._super(lx, ly, 1);
+    },
 
     onClick: function() {
+        cc.log(this.getPriority());
         cc.log("NPC clicked", this.getLocalZOrder(), this.lx, this.ly, this.blockSizeX, this.blockSizeY);
         /*
         done
@@ -209,6 +239,8 @@ var NPCSprite = AnimationSprite.extend({
         this.play("1");
         this.schedule(this.updateWalkingBack, 0.05);
         this.isStatus = OrderStatusTypes.WAITTING;
+
+        this.setVisible(true);
     },
     ////
     updateWalkingOut: function (dt) {
@@ -238,6 +270,7 @@ var NPCSprite = AnimationSprite.extend({
             this.unschedule(this.doAction);
 
             this.isStatus = OrderStatusTypes.REALIZABLE;
+            this.setVisible(false);
             return;
         }
         this.setLogicPosition(newX, newY);
@@ -287,47 +320,47 @@ var NPCSprite = AnimationSprite.extend({
     },
 
 
-/////
-    addEventListener: function () {
-        //
-        this.caculateBoundingPoints();
-        this.clickListener = cc.EventListener.create({
-            event: cc.EventListener.TOUCH_ONE_BY_ONE,
-            swallowTouches: true,
-            onTouchBegan: function (touch, event) {
-                // // Disable all popup
-                // PopupLayer.instance.disableAllPopup();
-
-                var touchLocation = touch.getLocation();
-                var location = MapValues.screenPositionToMapPosition(touchLocation.x, touchLocation.y);
-
-                // Check if is click inside sprite
-                if (rayCasting(location, this.boundingPoints)) {
-                    this.onBeginClick();
-
-                    return true;
-                }
-                return false;
-            }.bind(this),
-            onTouchMoved: function (touch, event) {
-                var delta = touch.getDelta();
-                MapLayer.instance.move(delta.x, delta.y);
-
-            }.bind(this),
-
-            onTouchEnded: function (touch, event) {
-                //
-                this.onClick();
-                this.onEndClick();
-
-            }.bind(this)
-        });
-        cc.eventManager.addListener(this.clickListener, this);
-    },
-
-    clearListener: function() {
-        cc.eventManager.removeListener(this.clickListener);
-    },
+///////
+//    addEventListener: function () {
+//        //
+//        this.caculateBoundingPoints();
+//        this.clickListener = cc.EventListener.create({
+//            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+//            swallowTouches: true,
+//            onTouchBegan: function (touch, event) {
+//                // // Disable all popup
+//                // PopupLayer.instance.disableAllPopup();
+//
+//                var touchLocation = touch.getLocation();
+//                var location = MapValues.screenPositionToMapPosition(touchLocation.x, touchLocation.y);
+//
+//                // Check if is click inside sprite
+//                if (rayCasting(location, this.boundingPoints)) {
+//                    this.onBeginClick();
+//
+//                    return true;
+//                }
+//                return false;
+//            }.bind(this),
+//            onTouchMoved: function (touch, event) {
+//                var delta = touch.getDelta();
+//                MapLayer.instance.move(delta.x, delta.y);
+//
+//            }.bind(this),
+//
+//            onTouchEnded: function (touch, event) {
+//                //
+//                this.onClick();
+//                this.onEndClick();
+//
+//            }.bind(this)
+//        });
+//        cc.eventManager.addListener(this.clickListener, this);
+//    },
+//
+//    clearListener: function() {
+//        cc.eventManager.removeListener(this.clickListener);
+//    },
 
 
 
@@ -353,6 +386,17 @@ var NPCSprite = AnimationSprite.extend({
     },
 
 
+    // Make offset
+    _offset: function() {
+        if (this.orderNPC != null){
+            if (this.orderNPC.npc_res == resAniId.Cogai1){
+                return cc.p(0, 100);
+            } else {
+                return cc.p(0, 0);
+            }
+        }
+        return cc.p(0, 0);
+    }
 });
 
 NPCSprite.minLimit = cc.p(15, 18);

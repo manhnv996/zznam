@@ -100,4 +100,8 @@ public class CmdDefine {
     // Animal
     public static final short ANIMAL_HARVEST = 12001;
     public static final short ANIMAL_FEED = 12002;
+    public static final short ANIMAL_BOOST = 12003;
+
+    // Nature
+    public static final short NATURE_COLLECT = 13001;
 }

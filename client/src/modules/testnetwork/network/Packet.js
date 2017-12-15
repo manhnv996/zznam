@@ -69,6 +69,10 @@ gv.CMD.BOOST_BUILD = 9002;
 // Animal
 gv.CMD.ANIMAL_HARVEST = 12001;
 gv.CMD.ANIMAL_FEED = 12002;
+gv.CMD.ANIMAL_BOOST = 12003;
+
+// Nature
+gv.CMD.NATURE_COLLECT = 13001;
 
 testnetwork = testnetwork||{};
 testnetwork.packetMap = {};
@@ -531,6 +535,20 @@ CmdSendAnimalFeed = fr.OutPacket.extend({
     }
 });
 
+CmdSendAnimalBoost = fr.OutPacket.extend({
+    ctor: function() {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.ANIMAL_BOOST);
+    },
+    pack: function(lodgeId, animalId) {
+        this.packHeader();
+        this.putInt(lodgeId);
+        this.putInt(animalId);
+        this.updateSize();
+    }
+});
+
 CmdSendBoostBuild = fr.OutPacket.extend({
     ctor: function () {
         this._super();
@@ -575,6 +593,19 @@ CmdSendBuyAnimalByRuby = fr.OutPacket.extend({
         this.putString(animalType);
         this.putInt(lx);
         this.putInt(ly);
+        this.updateSize();
+    }
+});
+
+CmdSendCollectNatureThing = fr.OutPacket.extend({
+    ctor: function() {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.NATURE_COLLECT);
+    },
+    pack: function(id) {
+        this.packHeader();
+        this.putInt(id);
         this.updateSize();
     }
 });
@@ -1224,6 +1255,24 @@ testnetwork.packetMap[gv.CMD.ANIMAL_HARVEST] = fr.InPacket.extend({
 });
 
 testnetwork.packetMap[gv.CMD.ANIMAL_FEED] = fr.InPacket.extend({
+    ctor: function() {
+        this._super();
+    },
+    readData: function() {
+        this.error = this.getInt();
+    }
+});
+
+testnetwork.packetMap[gv.CMD.ANIMAL_BOOST] = fr.InPacket.extend({
+    ctor: function() {
+        this._super();
+    },
+    readData: function() {
+        this.error = this.getInt();
+    }
+});
+
+testnetwork.packetMap[gv.CMD.NATURE_COLLECT] = fr.InPacket.extend({
     ctor: function() {
         this._super();
     },

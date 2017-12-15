@@ -28,20 +28,24 @@ public class Order extends DataModel{
         
     }
     
-    public Order(int level) {
+//    public Order(int level) {    
+    public Order(ZPUserInfo user, int level) {
         super();
         
 //        this.orderId = orderId;
         
         this.waittingTime = 0;
-        this.createOrder(level);
+//        this.createOrder(level);
+        this.createOrder(user, level);
     }
     
 
 
-    public short createOrder(int level){
+//    public short createOrder(int level){
+    public short createOrder(ZPUserInfo user, int level){
         if ((this.waittingTime + OrderUtil.getRemainTime(level) * 60 * 1000 - 5000) <= new Date().getTime()){
-            this.setItemList(level);
+//            this.setItemList(level);
+            this.setItemList(user, level);
             this.setOrderPrice(level);
             this.setOrderExp(level);
             
@@ -64,8 +68,10 @@ public class Order extends DataModel{
     }
 
 //
-    public void setItemList(int level) {
-        List<ProductConfig> productList = OrderUtil.randomTypeProduct(level);
+//    public void setItemList(int level) {
+    public void setItemList(ZPUserInfo user, int level) {
+//        List<ProductConfig> productList = OrderUtil.randomTypeProduct(level);
+        List<ProductConfig> productList = OrderUtil.randomTypeProduct(user, level);
         this.itemList = OrderUtil.randomQuantityOfProductList(level, productList);
         
     }
@@ -153,7 +159,8 @@ public class Order extends DataModel{
 //        user.addExp(this.getOrderExp());
         //        
         this.waittingTime = 0;
-        this.createOrder(user.getLevel());
+//        this.createOrder(user.getLevel());
+        this.createOrder(user, user.getLevel());
         
         return ErrorLog.SUCCESS.getValue();
     }
@@ -179,7 +186,8 @@ public class Order extends DataModel{
 //        user.addExp(this.getOrderExp());
         //        
         this.waittingTime = 0;
-        this.createOrder(user.getLevel());
+//        this.createOrder(user.getLevel());
+        this.createOrder(user, user.getLevel());
         
         return ErrorLog.SUCCESS.getValue();
     }
@@ -202,7 +210,8 @@ public class Order extends DataModel{
         if (user.reduceRuby(3)){
             //        
             this.waittingTime = 0;
-            this.createOrder(user.getLevel());
+//            this.createOrder(user.getLevel());
+            this.createOrder(user, user.getLevel());
             
             return ErrorLog.SUCCESS.getValue();
         }

@@ -80,13 +80,10 @@ var Field = CoordinatedObject.extend({
     },
     crop: function () {
         //return ProductType
-        cc.log("Crop called");
         if (this.checkStatus() == FieldStatusTypes.DONE){
-            cc.log("Done");
-            //////////user is global variable
             if (user.getAsset().getFoodStorage().addItem(this.plantType, 2)){
 
-                user.addExp(getProductObjByType((this.plantType)).harvestExp);
+                user.addExp(parseInt(getProductObjByType(this.plantType).harvestExp));
 
                 var productCrop = this.plantType;
                 this.plantType = null;
@@ -95,7 +92,6 @@ var Field = CoordinatedObject.extend({
 
                 return productCrop;
             }
-
         }
         return null;
     },
@@ -136,7 +132,7 @@ var Field = CoordinatedObject.extend({
             if (user.reduceRuby(1)){
                 var date = new Date();
                 var intDate = date.getTime();
-                 this.plantedTime.setTime(intDate - getProductObjByType(this.plantType).time * 1000);
+                this.plantedTime.setTime(intDate - getProductObjByType(this.plantType).time * 1000);
                 //this.plantedTime.setTime(intDate - 6000);   //HERE IS TEST
 
                 return true;

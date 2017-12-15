@@ -53,5 +53,10 @@ var Animal = cc.Class.extend({
         var harvestTime = AnimalConfig[this.type].time * 1000;
         var duration = crtTime - this.feededTime;
         return (duration > harvestTime);
+    },
+
+    boost: function() {
+        var time = AnimalConfig[this.type].time * 1000;
+        this.feededTime -= time;
     }
 });

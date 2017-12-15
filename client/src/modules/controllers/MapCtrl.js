@@ -151,13 +151,13 @@ var MapCtrl = cc.Class.extend({
             var npcSprite = null;
 
             if (orderNPCList[i].getOrderItem() != null){
-                npcSprite = new NPCSprite(15 + i, 20 - i, orderNPCList[i]);
                 npcSprite = new NPCSprite(NPCSprite.startPoint.x - 0.5 * i, NPCSprite.startPoint.y - 0.25 * i, orderNPCList[i]);
                 // npcSprite.setResume();
             }
             else {
-               npcSprite = new NPCSprite(NPCSprite.finishPoint.x, NPCSprite.finishPoint.y, orderNPCList[i]);
-               // npcSprite.setPause();
+                npcSprite = new NPCSprite(NPCSprite.finishPoint.x, NPCSprite.finishPoint.y, orderNPCList[i]);
+                npcSprite.setVisible(false);
+                // npcSprite.setPause();
             }
 
             if (npcSprite != null){
@@ -415,12 +415,15 @@ var MapCtrl = cc.Class.extend({
             if (typeName === 'forest_swamp') {
                 var sprite = new VungnuocSprite(x, y, id);
                 MapLayer.instance.addChild(sprite);
+                sprite.setTag(TagClusters.Nature + id);
             } else if (typeName === 'forest_big_stone_1') {
                 var sprite = new DatoSprite(x, y, id);
                 MapLayer.instance.addChild(sprite);
+                sprite.setTag(TagClusters.Nature + id);
             } else if (typeName === 'forest_small_stone_1' ) {
                 var sprite = new DanhoSprite(x, y, id);
                 MapLayer.instance.addChild(sprite);
+                sprite.setTag(TagClusters.Nature + id);
             } else {
                 // Trees
                 var types = {
@@ -433,6 +436,7 @@ var MapCtrl = cc.Class.extend({
                 if (type) {
                     var sprite = new CayRungSprite(x, y, type, id);
                     MapLayer.instance.addChild(sprite);
+                    sprite.setTag(TagClusters.Nature + id);
                 } else {
                     cc.log("missing", user.asset.natureThingList[i].type);
                 }

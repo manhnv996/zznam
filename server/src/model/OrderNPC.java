@@ -131,7 +131,12 @@ public class OrderNPC {
         List<String> listRes = NPCresAni.getListNPCresAni();
         List<String> collect = new ArrayList<>(NPCresAni.filterRes(listRes, filter));
         
-        this.npcResAni = collect.get((int) Math.floor(Math.random() * (listRes.size() - filter.size()) * 0.99));
+        if (!collect.isEmpty()){
+            this.npcResAni = collect.get((int) Math.floor(Math.random() * (listRes.size() - filter.size()) * 0.99));
+        } else {
+            this.npcResAni = NPCresAni.NPC_THANH_NIEN;
+        }
+        
     }
 
     public String getNpcResAni() {

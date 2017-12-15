@@ -16,12 +16,33 @@ var CayRungSprite = AnimationSprite.extend({
 	},
 
 	onClick: function() {
-		cc.log("Cayrung is clicked", this.getLocalZOrder(), "lx:", this.lx, "ly:", this.ly, "id:", this.natureId, this.getPriority());
 		this.play(2 * this.treeType - 1);
-		// this.play(2 * this.treeType);
+		var type = 0;
+		switch (this.treeType) {
+			case 1:
+				type = NaturalThingEnum.PINE_SMALL;
+				break;
+			case 2:
+				type = NaturalThingEnum.PINE_BIG;
+				break;
+			case 3:
+				type = NaturalThingEnum.TREE_BIG;
+				break;
+			case 4:
+				type = NaturalThingEnum.TREE_SMALL
+				break;
+		}
+		TablePopupLayer.instance.showNatureToolPopup(this.lx, this.ly, type, this.natureId);
 	},
 
 	_offset: function() {
 		return cc.p(0, - MapValues.jLength / 2);
+	},
+
+	collect: function() {
+		this.removeTouchEvents();
+		this.play(2 * this.treeType, function() {
+			this.removeFromParent(true);
+		}.bind(this));
 	}
 });

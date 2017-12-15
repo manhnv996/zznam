@@ -436,20 +436,4 @@ function onReceiveUser(userInfo) {
     cc.director.runScene(MainScene.instance);
     MainScene.instance.onGettedData();
 
-
-//
-    var orderNPCList = user.asset.getOrderNPCList();
-    for (var i = 0; i < orderNPCList.length; i++){
-        // cc.log(orderList.getItemList()[i].getTypeItem() + ", " + orderList.getItemList()[i].getQuantityItem());
-
-        cc.log(orderNPCList[i].orderId);
-        cc.log(orderNPCList[i].orderItem);
-        cc.log(orderNPCList[i].orderPrice);
-        cc.log(orderNPCList[i].orderExp);
-        cc.log(orderNPCList[i].waittingTime);
-        cc.log(orderNPCList[i].npc_res);
-    }
-
-    cc.log(user.asset.car.deliveryPrice + "   dddd");
-
 }

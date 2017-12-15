@@ -183,8 +183,13 @@ public class UserHandler extends BaseClientRequestHandler {
         foodStorage.addItem(ProductType.CROP_CORN, 10);
         foodStorage.addItem(ProductType.CROP_WHEAT, 10);
         
-        warehouse.addItem(ProductType.GOOD_EGG, 10);        
-        warehouse.addItem(ProductType.GOOD_MILK, 10);
+        warehouse.addItem(ProductType.GOOD_EGG, 1);        
+        warehouse.addItem(ProductType.GOOD_MILK, 1);
+        warehouse.addItem(ProductType.TOOL_AXE, 1);
+        warehouse.addItem(ProductType.TOOL_SAW, 2);
+        warehouse.addItem(ProductType.TOOL_DYNOMITE, 1);
+        warehouse.addItem(ProductType.TOOL_DEMOLITION_CHARGE, 2);
+        warehouse.addItem(ProductType.TOOL_SHOVEL, 3);
         //
         
 //        warehouse.addItem(ProductType.TOOL_NAIL, 5);
@@ -195,7 +200,7 @@ public class UserHandler extends BaseClientRequestHandler {
         warehouse.addItem(ProductType.TOOL_PLANK, 4);
         warehouse.addItem(ProductType.TOOL_DUCTTAPE, 2);
         warehouse.addItem(ProductType.FOOD_CHICKEN, 1);
-        warehouse.addItem(ProductType.FOOD_COW, 2);
+        warehouse.addItem(ProductType.FOOD_COW, 6);
         
         // Load natural thingList
         List<NatureThing> natureThingList = new ArrayList<>();
@@ -260,7 +265,8 @@ public class UserHandler extends BaseClientRequestHandler {
         
         //
         for (int i = 0; i < OrderUtil.getNumberOfOrderByLevel(userInfo.getLevel()); i++){
-            asset.addOrder(userInfo.getLevel(), new Order(userInfo.getLevel()));
+//            asset.addOrder(userInfo.getLevel(), new Order(userInfo.getLevel()));
+            asset.addOrder(userInfo.getLevel(), new Order(userInfo, userInfo.getLevel()));
         }
         
         //
@@ -268,7 +274,6 @@ public class UserHandler extends BaseClientRequestHandler {
             asset.addOrderNPC(new OrderNPC(userInfo));
         }
         
-        System.out.println("here is log2222");
         for (int i = 0; i < asset.getOrderNPCList().size(); i++){
             System.out.println(asset.getOrderNPCList().get(i).getOrderItem().getTypeItem() + ", " + 
                                asset.getOrderNPCList().get(i).getOrderItem().getQuantity() + ", " + 

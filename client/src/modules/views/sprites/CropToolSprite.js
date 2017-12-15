@@ -10,11 +10,11 @@ var CropToolSprite = ProductSprite.extend({
         this._super(tool_img, "tool_crop");
 
         this.popupParent = parent;
-        // //
-        // this.render();
+         //
+         this.render();
     },
     render: function () {
-
+        this.showSuggest();
     },
 
 
@@ -22,18 +22,25 @@ var CropToolSprite = ProductSprite.extend({
     onBeginClick: function (touch) {
         //
         this.runAction(new cc.ScaleTo(0.1, 1.5, 1.5));
-
+        //
+        this.touchListener._isFirstMove = false;
     },
     onMoveClick: function (touch) {
         var delta = touch.getDelta();
 
         this.x += delta.x;
         this.y += delta.y;
+        ////
+        if (!this.touchListener._isFirstMove){
+            //
+            this.touchListener._isFirstMove = true;
 
-        this.popupParent.popupItemList.shift();
-        this.popupParent.disablePopup(null);
-        // //
-        // TablePopupLayer.instance._layout._isVisible = false;
+            this.popupParent.popupItemList.shift();
+            this.popupParent.disablePopup(null);
+            this.removeAllChildrenWithCleanup(true);  //remove all child
+            // //
+            // TablePopupLayer.instance._layout._isVisible = false;
+        }
 
         var mouse = touch.getLocation();
         //Call ctrl
@@ -43,15 +50,24 @@ var CropToolSprite = ProductSprite.extend({
          */
     },
     onEndClick: function (touch) {
-        this.runAction(new cc.ScaleTo(0.1, 1/1.5, 1/1.5));
+        if (!this.touchListener._isFirstMove){
+            this.runAction(new cc.ScaleTo(0.1, 1, 1));
 
-        this.popupParent.popupItemList.shift();
-        this.popupParent.disablePopup(null);
-        this.removeFromParent(true);
-        // //
-        // TablePopupLayer.instance._layout._isClose = true;
+        } else {
+            this.popupParent.popupItemList.shift();
+            this.popupParent.disablePopup(null);
+            this.removeFromParent(true);
+            // //
+            // TablePopupLayer.instance._layout._isClose = true;
+        }
 
     },
     //
 
+    showSuggest: function () {
+        //var muiten = new cc.Sprite(res.ten);
+        var muiten = new ccui.ImageView(res.ten);
+        muiten.setPosition(new cc.p(this.width * 3 / 4, this.height / 4));
+        this.addChild(muiten);
+    }
 });

@@ -273,8 +273,8 @@ var CarSprite = AnimationSprite.extend({
 
     },
 
+    // Make offset
     _offset: function() {
         return cc.p(0, 50);
     }
-
 });

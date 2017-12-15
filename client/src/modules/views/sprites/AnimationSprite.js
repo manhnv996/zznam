@@ -61,8 +61,9 @@ var AnimationSprite = MapBlockSprite.extend({
     },
 
 	// Play animation
-	play: function(aniName) {
+	play: function(aniName, callback) {
 		this.content.gotoAndPlay(aniName, -1);
+		this.content.setCompleteListener(callback);
 	},
 
 	//Finish animation
@@ -103,7 +104,8 @@ var AnimationSprite = MapBlockSprite.extend({
 
 	// Override
 	getBoundingBox: function() {
-		return this.__boundingBox;
+		// return this.__boundingBox;
+		return this.content.getBoundingBox();
 	},
 
 	// Make offset

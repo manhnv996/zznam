@@ -5,7 +5,12 @@ var _ = (function() {
 
 	var ToolResource = {
 		GIO: r("gio.png"),
-		XO: r("xo.png")
+		XO: r("xo.png"),
+		CUA: r("cua.png"),
+		RIU: r("riu.png"),
+		XENG: r("xeng.png"),
+		BOMB: r("bomb.png"),
+		BOMB_TNT: r("bomb TNT.png")
 	}
 
 	var g_ToolResource = [];

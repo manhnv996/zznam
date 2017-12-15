@@ -360,7 +360,7 @@ var MapBlockSprite = cc.Sprite.extend({
             MapLayer.instance.addChild(dot);
         }
 
-        var dot6 = new cc.Sprite(res.DOT2_PNG);
+        var dot6 = new cc.Sprite(res.DOT_PNG);
         dot6.setPosition(MapValues.logicToPosition(this.lx, this.ly));
         dot6.setLocalZOrder(1000);
         MapLayer.instance.addChild(dot6);
@@ -390,14 +390,26 @@ var MapBlockSprite = cc.Sprite.extend({
         //cc.log("Remove", this.touchListener);
         if (this.touchListener) {
             cc.eventManager.removeListener(this.touchListener);
+            this.touchListener = null;
         }
     },
 
-    setLogicPosition: function(lx, ly, notUpdatePriority) {
+    removeTouchEvents: function() {
+        if (this.touchListener) {
+            cc.eventManager.removeListener(this.touchListener);
+            this.touchListener = null;
+        }
+    },
+
+    // updatePriorityMode:
+    // 1: ZOrder only
+    // undefined: all
+    // true: not update
+    setLogicPosition: function(lx, ly, updatePriorityMode) {
         lx = lx || 0;
         ly = ly || 0;
         if (typeof lx === 'object') {
-            notUpdatePriority = ly;
+            updatePriorityMode = ly;
             ly = lx.y;
             lx = lx.x;
         }
@@ -409,11 +421,15 @@ var MapBlockSprite = cc.Sprite.extend({
             // Recaculate. if not exists boundingPoints, do not caculate
             this.caculateBoundingPoints();
         }
-        if (!notUpdatePriority) {
+        if (!updatePriorityMode) {
             this.updateEventPriority();
             this.updateZOrder();
             // Math.max(this.lx + this.blockSizeX, this.ly + this.blockSizeY));
             // this.setLocalZOrder(this.lx + this.blockSizeX +this.ly + this.blockSizeY);
+        }
+
+        if (updatePriorityMode === 1) {
+            this.updateZOrder();
         }
 
         if (this.__isAnimation) {
