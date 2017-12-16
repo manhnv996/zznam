@@ -64,15 +64,9 @@ var BaseGUILayer = cc.Layer.extend({
             case ccui.Widget.TOUCH_CANCELED:
                 var scaleBy = cc.scaleTo(0.1, 1.0);
                 sender.runAction(scaleBy);
-                //var ruby = user.ruby;
-                //if (ruby < this._layout.rubyNumber) {
-                //    BaseGUILayer.instance.notifyNotEnoughRuby(this._layout.rubyNumber - ruby);
-                //} else {
                 BaseGUILayer.instance.removeBlockListener();
                 GameShopController.instance.buyMapObjectByRuby(this.typeShopObject,
                     this.lx, this.ly, this.rubyNumber, this.lodgeId);
-                //BaseGUILayer.instance.removeBlockListener();
-                //}
                 break;
         }
     },
@@ -111,9 +105,7 @@ var BaseGUILayer = cc.Layer.extend({
         }
 
         this._layout = new OrderBGLayer();
-        // this._layout = OrderBGLayer.instance;
         if (this._layout._hasCloseButton) {
-            //cc.log("_btnClose");
             this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);
         }
         this.blockLayout();

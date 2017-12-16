@@ -134,33 +134,9 @@ var GSDetailLayout = ccui.Layout.extend({
     },
 
     openAnimalTable: function () {
-        if (this.parent._isHide) {
-            this.parent.show();
-        }
+        this.parent.show();
         this._multiLayer.switchTo(1);
         this.setNormalButton();
         this._btnAnimal.loadTextureNormal(res.shop_btAnimal_s_png);
     }
-
-    //lockGameShop: function () {
-    //    this._btnAnimal.setTouchEnabled(false);
-    //    this._btnLodge.setTouchEnabled(false);
-    //    this._btnMachine.setTouchEnabled(false);
-    //    this._btnTree.setTouchEnabled(false);
-    //    //this.lodgeTable.setTouchEnabled(false);
-    //    //this.animalTable.setInertiaScrollEnabled(false);
-    //    //this.machineTable.setTouchEnabled(false);
-    //    //this.treeTable.setInertiaScrollEnabled(false);
-    //},
-    //
-    //unlockGameShop: function () {
-    //    this._btnAnimal.setTouchEnabled(true);
-    //    this._btnLodge.setTouchEnabled(true);
-    //    this._btnMachine.setTouchEnabled(true);
-    //    this._btnTree.setTouchEnabled(true);
-    //    //this.lodgeTable.setTouchEnabled(false);
-    //    //this.animalTable.setInertiaScrollEnabled(false);
-    //    //this.machineTable.setTouchEnabled(false);
-    //    //this.treeTable.setInertiaScrollEnabled(false);
-    //}
 });

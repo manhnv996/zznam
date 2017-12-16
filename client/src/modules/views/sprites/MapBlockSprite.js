@@ -377,7 +377,10 @@ var MapBlockSprite = cc.Sprite.extend({
             // cc.log("move to", logic, MapCtrl.instance.checkValidBlock(logic.x, logic.y, this.blockSizeX, this.blockSizeY, this.mapAliasType));
             this.lstLocation = logic;
             this.setLogicPosition(logic, true);
+            //cc.log("changeColor", this);
+            //MapCtrl.instance.changeColor(this);
         }
+        //MapCtrl.instance.changeColor(this);
         if (this.autoMoveHor || this.autoMoveVer) {
             var dx = this.autoMoveHor * dt * 250;
             var dy = this.autoMoveVer * dt * 250;

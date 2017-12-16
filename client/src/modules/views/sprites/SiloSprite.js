@@ -9,12 +9,9 @@ var SiloSprite = AnimationSprite.extend({
 		this.registerTouchEvents();
 	},
 
-	onBeginClick: function() {
+	onClick: function() {
 		this.play("selected");
 		audioEngine.playEffect(res.tools_silo_mp3, false);
-	},
-
-	onClick: function() {
 		BaseGUILayer.instance.showStorage(user.getAsset().getFoodStorage());
 		// cc.log("Silo", this.getLocalZOrder(), this.lx, this.ly, this.blockSizeX, this.blockSizeY);
 	},

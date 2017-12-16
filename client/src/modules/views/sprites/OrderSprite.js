@@ -101,7 +101,7 @@ var OrderSprite = cc.Sprite.extend({
             }.bind(this),
 
             onTouchEnded: function (touch, event) {
-
+                audioEngine.playEffect(res.func_click_button_mp3, false);
                 var target = event.getCurrentTarget();
 
                 //
@@ -157,7 +157,6 @@ var OrderSprite = cc.Sprite.extend({
         }
 
         this.setupItemListPosition(parent);
-
 
 //        //
         if (CarSprite.instance.isStatus != DeliveryStatus.EMPTY) {

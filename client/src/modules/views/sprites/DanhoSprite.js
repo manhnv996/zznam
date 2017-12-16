@@ -11,7 +11,7 @@ var DanhoSprite = AnimationSprite.extend({
 		this.registerTouchEvents({ lockMove: true });
 	},
 
-	onClick: function() {
+	onEndClick: function() {
 		this.play("2");
 		// NatureCtrl.instance.cutDown(this.natureId);
 		audioEngine.playEffect(res.touch_small_rock_mp3, false);

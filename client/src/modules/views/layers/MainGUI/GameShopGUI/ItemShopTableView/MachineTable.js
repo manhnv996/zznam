@@ -323,6 +323,7 @@ var MachineTable = cc.Layer.extend({
             this.lstLocation = logic;
             if (this._sprite) {
                 this._sprite.setLogicPosition(logic, true);
+                MapCtrl.instance.changeColor(this._sprite);
             }
         }
         if (this.autoMoveHor || this.autoMoveVer) {

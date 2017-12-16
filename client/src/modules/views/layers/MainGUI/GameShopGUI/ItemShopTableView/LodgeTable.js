@@ -298,12 +298,10 @@ var LodgeTable = cc.Layer.extend({
         logic.y = Math.floor(logic.y);
         if (this.lstLocation.x !== logic.x ||
             this.lstLocation.y !== logic.y) {
-            // cc.log("Map Alias", this.mapAliasType);
-            // cc.log("move to", logic, MapCtrl.instance.checkValidBlock(logic.x, logic.y, this.blockSizeX, this.blockSizeY, this.mapAliasType));
             this.lstLocation = logic;
-            //this._sprite.setLogicPosition(logic, true);
             if (this._sprite) {
                 this._sprite.setLogicPosition(logic, true);
+                MapCtrl.instance.changeColor(this._sprite);
             }
         }
         if (this.autoMoveHor || this.autoMoveVer) {

@@ -363,6 +363,14 @@ var MapCtrl = cc.Class.extend({
         return this.checkValidBlock(sprite.lx, sprite.ly, sprite.blockSizeX, sprite.blockSizeY);
     },
 
+    changeColor: function (sprite) {
+        if(!this.checkValidBlockSprite(sprite)) {
+            sprite.setColor(cc.color(150, 50, 150));
+        } else {
+            sprite.setColor(cc.color(255, 255, 255));
+        }
+    },
+
     removeMapAlias: function(x, y, width, height) {
         for (var i = 0; i < width; i++) {
             for (var j = 0; j < height; j++) {

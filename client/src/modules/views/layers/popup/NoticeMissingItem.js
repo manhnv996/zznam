@@ -66,6 +66,7 @@ var NoticeMissingItem = BaseLayout.extend({
         btBuy.setPosition(this._bg.width / 2, this._bg.height / 8);
         this._bg.addChild(btBuy);
         btBuy.addClickEventListener(function () {
+            audioEngine.playEffect(res.func_click_button_mp3, false);
             if (user.getRuby() >= this.rubiBuy){
 
                 if (this.targetType == BuyItemTargetType.MAKE_ORDER){

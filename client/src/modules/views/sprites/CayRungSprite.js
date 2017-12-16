@@ -15,7 +15,7 @@ var CayRungSprite = AnimationSprite.extend({
 		
 	},
 
-	onClick: function() {
+	onEndClick: function() {
 		this.play(2 * this.treeType - 1);
 		var type = 0;
 		switch (this.treeType) {

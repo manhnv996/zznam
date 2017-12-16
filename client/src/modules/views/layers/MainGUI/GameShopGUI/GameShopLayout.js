@@ -38,33 +38,42 @@ var GameShopLayout = ccui.Layout.extend({
     },
 
     hide: function () {
-        MainGuiLayer.instance.btnSettings.setTouchEnabled(true);
-        var moveActionBtn = cc.moveTo(0.2, cc.p(0, 0));
-        this._btnGameShop.runAction(moveActionBtn);
-        var moveAction = cc.moveTo(0.25, cc.p(0, 0));
-        this._layoutBlockListener.runAction(moveAction);
-        this._gameShop.runAction(moveAction.clone());
+        if (!this._isHide) {
+            MainGuiLayer.instance.btnSettings.setTouchEnabled(true);
+            var moveActionBtn = cc.moveTo(0.2, cc.p(0, 0));
+            this._btnGameShop.stopAllActions();
+            this._btnGameShop.runAction(moveActionBtn);
 
+            var moveAction = cc.moveTo(0.25, cc.p(0, 0));
+            this._layoutBlockListener.stopAllActions();
+            this._layoutBlockListener.runAction(moveAction);
 
-        //this._gameShop.runAction(cc.sequence(moveAction.clone(), cc.callFunc(function() {
+            this._gameShop.stopAllActions();
+            this._gameShop.runAction(moveAction.clone());
+
+            if (this.listener) {
+                cc.eventManager.removeListener(this.listener);
+            }
             this._isHide = true;
-            //cc.log("isHide 1", this._isHide);
-        //})));
-        //cc.log("isHide 2", this._isHide);
-        if (this.listener) {
-            cc.eventManager.removeListener(this.listener);
         }
     },
 
     show: function () {
-        this._isHide = false;
-        MainGuiLayer.instance.btnSettings.setTouchEnabled(false);
-        var moveActionBtn = cc.moveTo(0.3, cc.p(cc.winSize.width / 3 - 10, 0));
-        this._btnGameShop.runAction(moveActionBtn);
-        var moveAction = cc.moveTo(0.3, cc.p((cc.winSize.width / 3 + cc.winSize.width / 7), 0));
-        this._layoutBlockListener.runAction(moveAction);
-        this._gameShop.runAction(moveAction.clone());
-        this.blockListener();
+        if(this._isHide) {
+            MainGuiLayer.instance.btnSettings.setTouchEnabled(false);
+            var moveActionBtn = cc.moveTo(0.3, cc.p(cc.winSize.width / 3 - 10, 0));
+            this._btnGameShop.stopAllActions();
+            this._btnGameShop.runAction(moveActionBtn);
+
+            var moveAction = cc.moveTo(0.3, cc.p((cc.winSize.width / 3 + cc.winSize.width / 7), 0));
+            this._layoutBlockListener.stopAllActions();
+            this._layoutBlockListener.runAction(moveAction);
+
+            this._gameShop.stopAllActions();
+            this._gameShop.runAction(moveAction.clone());
+            this.blockListener();
+            this._isHide = false;
+        }
     },
 
     blockListener: function () {
@@ -84,18 +93,6 @@ var GameShopLayout = ccui.Layout.extend({
                 this.hide();
                 return false;
             }.bind(this)
-
-            //onTouchMoved: function(touch) {
-            //    this._isClose = false;
-            //    var delta = touch.getDelta();
-            //    //MapLayer.instance.move(delta.x, delta.y);
-            //}.bind(this),
-            //
-            //onTouchEnded: function() {
-            //    if (this._isClose) {
-            //        this.hide();
-            //    }
-            //}.bind(this)
         });
         cc.eventManager.addListener(this.listener, 3);
 

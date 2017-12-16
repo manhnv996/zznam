@@ -48,12 +48,12 @@ var NatureCtrl = cc.Class.extend({
 				user.addExp(5); // add 5exp
 
 				switch (this.nature.type) {
-					case NaturalThingEnum.PINE_BIG:
+					case NaturalThingEnum.TREE_BIG:
 					case NaturalThingEnum.PINE_SMALL:
 					case NaturalThingEnum.TREE_SMALL:
 						audioEngine.playEffect(res.obj_small_tree_crack_mp3, false);
 						break;
-					case NaturalThingEnum.TREE_BIG:
+					case NaturalThingEnum.PINE_BIG:
 						audioEngine.playEffect(res.obj_big_tree_saw_mp3, false);
 						break;
 					case NaturalThingEnum.VUNG_NUOC:

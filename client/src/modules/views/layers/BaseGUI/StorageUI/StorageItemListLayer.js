@@ -5,42 +5,21 @@
 var StorageItemListLayer = cc.Layer.extend({
     _listItems: null,
     _tableItems: null,
-    _listCellIndex: null,
-    //_debug: false,
-    _debug: true,
+    _debug: false,
+    //_debug: true,
 
     ctor: function (listItems) {
         this._super();
 
         this._listItems = listItems || [];
-        this._listCellIndex = [];
-
-        this.upgradeBtn = new ccui.Button(res.storage_btn_png);
-        this.upgradeBtn.x = cc.winSize.width / 4;
-        this.upgradeBtn.y = cc.winSize.width / 10 - cc.winSize.width / 12;
-        this.upgradeBtn.addTouchEventListener(this.touchUpgrade, this);
-        this.upgradeBtn.setZoomScale(0.0);
-        this.addChild(this.upgradeBtn);
-
-        cc.log("this.width " + this.width);
-
-        var labelUpgrade = new cc.LabelBMFont(fr.Localization.text("text_btn_upgrade"), res.FONT_OUTLINE_50);
-        labelUpgrade.x = this.upgradeBtn.width / 2;
-        labelUpgrade.y = this.upgradeBtn.height / 2;
-        labelUpgrade.setScale(0.7);
-        this.upgradeBtn.addChild(labelUpgrade);
-        //cc.log("wh" + this.width);
 
         this._tableItems = new cc.TableView(this, cc.size(cc.winSize.width / 2, cc.winSize.height / 5 * 2));
         this._tableItems.setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL);
         this._tableItems.x = 0;
         this._tableItems.y = cc.winSize.height / 10;
-        //this._tableItems.x = 0;
-        //this._tableItems.y = 0;
         this._tableItems.setDelegate(this);
         this._tableItems.setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN);
         this._tableItems.reloadData();
-        //this._tableItems.name = "tableView";
 
         if (this._debug) {
             var layout = ccui.Layout();
@@ -51,17 +30,26 @@ var StorageItemListLayer = cc.Layer.extend({
             layout.y = cc.winSize.height / 10;
             this.addChild(layout);
         }
-        //layout.addChild(listItem);
 
         this.addChild(this._tableItems);
 
-        //cc.log("schedule");
-        //cc.log("schedule2222 222");
+        this.upgradeBtn = new ccui.Button(res.storage_btn_png);
+        this.upgradeBtn.x = cc.winSize.width / 4;
+        this.upgradeBtn.y = cc.winSize.width / 10 - cc.winSize.width / 12;
+        this.upgradeBtn.addTouchEventListener(this.touchUpgrade, this);
+        this.upgradeBtn.setZoomScale(0.0);
+        this.addChild(this.upgradeBtn);
+
+        var labelUpgrade = new cc.LabelBMFont(fr.Localization.text("text_btn_upgrade"), res.FONT_OUTLINE_50);
+        labelUpgrade.x = this.upgradeBtn.width / 2;
+        labelUpgrade.y = this.upgradeBtn.height / 2;
+        labelUpgrade.setScale(0.7);
+        this.upgradeBtn.addChild(labelUpgrade);
+
+        cc.log("maxOffset " + this._tableItems.maxContainerOffset());
     },
 
     scrollViewDidScroll: function (view) {
-        //cc.log("view", view.getChildrenCount());
-        this.scheduleUpdate();
     },
     scrollViewDidZoom: function (view) {
 
@@ -72,16 +60,14 @@ var StorageItemListLayer = cc.Layer.extend({
     },
 
     tableCellSizeForIndex: function (table, idx) {
-        //cc.log("size", idx);
         return cc.size(cc.winSize.width / 2, cc.winSize.height / 5);
     },
 
     tableCellAtIndex: function (table, idx) {
-        //var cell = table.dequeueCell();
+        var cell = table.dequeueCell();
         //var level = user.getLevel();
-        //cc.log("create cell", idx);
         //if (!cell) {
-        var cell = new cc.TableViewCell();
+        cell = new cc.TableViewCell();
 
         for (var i = 0; i < 3; i++) {
             var button = new ccui.Button(res.storage_apple);
@@ -120,7 +106,6 @@ var StorageItemListLayer = cc.Layer.extend({
                 sprite.x = 0;
                 sprite.y = 0;
                 button.addChild(sprite);
-                //button.setTouchEnabled(false);
                 button.addTouchEventListener(this.touchItem, this);
                 label.setString(this._listItems[idx * 3 + i].getQuantityItem());
             } else {
@@ -136,7 +121,6 @@ var StorageItemListLayer = cc.Layer.extend({
     },
 
     numberOfCellsInTableView: function (table) {
-        //cc.log("numberOfCellsInTableView " + (this._listItems.length % 3) ? (Math.floor(this._listItems.length / 3) + 1) : (this._listItems.length / 3))
         return (this._listItems.length % 3) ? (Math.floor(this._listItems.length / 3) + 1) : (this._listItems.length / 3);
     },
 
@@ -215,25 +199,9 @@ var StorageItemListLayer = cc.Layer.extend({
             case ccui.Widget.TOUCH_CANCELED:
                 this.parent.switchTo(1);
                 var scaleBy = cc.scaleTo(0.1, 1.0);
-                //StorageLayout.instance.upgradeLayer.backBtn.setScale(0.9);
                 StorageLayout.instance.upgradeLayer.backBtn.runAction(scaleBy);
                 break;
         }
-    },
-
-    update: function (dt) {
-        cc.log("updateStorage", this.parent.parent.y);
-        for(var i = 0; i < this.numberOfCellsInTableView(); i++) {
-            var cell = this._tableItems.cellAtIndex(i);
-            if (cell != undefined) {
-                var button = cell.getChildByTag(0);
-                /**
-                 * get absolute from relatively
-                 */
-                cc.log("button.y", button.y);
-            }
-        }
-        this.unscheduleUpdate();
     }
 
 });
