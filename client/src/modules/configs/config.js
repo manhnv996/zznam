@@ -435,6 +435,8 @@ function onReceiveUser(userInfo) {
     user.gold = userInfo.gold;
     user.ruby = userInfo.ruby;
     user.exp = userInfo.exp;
+    user.id = userInfo.id;
+    user.name = userInfo.name;
 
     // cc.log("AnimalLodge", user.asset.animalLodgeList);
     MainScene.instance = new MainScene();

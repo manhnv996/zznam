@@ -45,7 +45,7 @@ var MainScene = cc.Scene.extend({
 	},
 
 	onGettedData: function() {
-
+		cc.log("Welcome", user.id, user.name);
 		MainGuiLayer.instance = new MainGuiLayer();
 		this.addChild(MainGuiLayer.instance);
 

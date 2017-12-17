@@ -7,6 +7,8 @@ var User = cc.Class.extend({
     exp: 0,
     asset: null,
     map: [],
+    id: 0,
+    name: null,
     
     ctor: function (asset, map) {
         //
