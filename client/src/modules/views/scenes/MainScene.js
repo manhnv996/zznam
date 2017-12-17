@@ -33,6 +33,10 @@ var MainScene = cc.Scene.extend({
 
         OrderCtrl.instance = new OrderCtrl();
 
+        // Add ScheduleLoop
+        // ScheduleLoop.instance = new ScheduleLoop();
+        ScheduleLoop.instance.clearAllSchedule(); // Flush cached
+        this.addChild(ScheduleLoop.instance); // Instance created in ScheduleLoop.js
 		cc.log("Start Scene");
 	},
 

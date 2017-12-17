@@ -68,7 +68,7 @@ cc.log = function() {
 }
 
 var user = null;
-
+var home = true;
 cc.game.onStart = function () {
     if (!cc.sys.isNative && document.getElementById("cocosLoading")) //If referenced loading.js, please remove it
         document.body.removeChild(document.getElementById("cocosLoading"));
@@ -98,6 +98,7 @@ cc.game.onStart = function () {
         fr.clientConfig.updateResourceSearchPath();
         gv.gameClient = new GameClient();
         gv.poolObjects = new PoolObject();
+
         // user = new User();
         testnetwork.connector = new testnetwork.Connector(gv.gameClient);
 

@@ -25,6 +25,9 @@ var AnimalCtrl = cc.Class.extend({
 			return animal.canHarvest();
 		})
 		.forEach(function(animal) {
+			if (that.lock) {
+				return;
+			}
 			// try to add product to warehouse
 			var product = animal.type === AnimalType.chicken 
 					? ProductTypes.GOOD_EGG 
@@ -71,6 +74,9 @@ var AnimalCtrl = cc.Class.extend({
 		})
 		.forEach(function(animal) {
 			// try to take item
+			if (that.lock) {
+				return;
+			}
 			var product = animal.type === AnimalType.chicken
 					? ProductTypes.FOOD_CHICKEN 
 					: ProductTypes.FOOD_COW;
@@ -78,7 +84,10 @@ var AnimalCtrl = cc.Class.extend({
 				var animalSprite = lodgeSprite.getChildByTag(TagClusters.Animal + animal.id);
 				animal.feed();
 				animalSprite.feed();
-				animalSprite.setOnHarvestTime(animal.feededTime);
+				// animalSprite.setOnHarvestTime(animal.feededTime);
+				animalSprite.setRemainTime(
+					AnimalConfig[animal.type].time * 1000
+				);
 				count++;
 				var productSprite = new ProductSprite(
 					animal.type === AnimalType.chicken

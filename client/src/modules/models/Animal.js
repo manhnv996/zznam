@@ -8,18 +8,25 @@ var Animal = cc.Class.extend({
     feededTime: null,
     id: 0,
     type: '',
+    remainTime: null,
 
-    ctor: function (type, id, feeded, feefedTime) {
+    ctor: function (type, id, feeded, feefedTime, remainTime) {
         this.type = type;
         this.id = id;
         this.feeded = feeded || false;
         this.feededTime = feefedTime || 0;
+        this.remainTime = remainTime;
+        var that = this;
+        this.loopIndex = ScheduleLoop.instance.registerScheduleOneSecond(function(dt) {
+            that.remainTime -= dt * 1000;
+        });
     },
 
     feed: function () {
         //boolean
         this.feeded = true;
         this.feededTime = new Date().getTime();
+        this.remainTime = AnimalConfig[this.type].time * 1000;
     },
 
     harvest: function() {

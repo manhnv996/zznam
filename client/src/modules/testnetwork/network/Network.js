@@ -74,6 +74,7 @@ testnetwork.Connector = cc.Class.extend({
             case gv.CMD.GET_USER: // New
                 cc.log("[N] RECEIVE GET_USER");
                 // process packet.user here
+                home = true;
                 onReceiveUser(packet.user);
                 break;
 
@@ -300,6 +301,13 @@ testnetwork.Connector = cc.Class.extend({
             case gv.CMD.FRIEND_GET_LIST:
                 cc.log("FRIEND_GET_LIST");
                 cc.log(packet.idList);
+                this.sendFriendGetInfo(packet.idList[0]);
+                break;
+            case gv.CMD.FRIEND_GET_INFO:
+                cc.log("FRIEND_GET_INFO");
+                home = false;
+                onReceiveUser(packet.user);
+                break;
         }
     },
     sendGetUserInfo:function() // Old
@@ -569,6 +577,12 @@ testnetwork.Connector = cc.Class.extend({
         cc.log("Send Friend get list");
         var pk = this.gameClient.getOutPacket(CmdSendFriendGetList);
         pk.pack();
+        this.gameClient.sendPacket(pk);
+    },
+    sendFriendGetInfo: function(id) {
+        cc.log("Send Friend get info", id);
+        var pk = this.gameClient.getOutPacket(CmdSendFriendGetInfo);
+        pk.pack(id);
         this.gameClient.sendPacket(pk);
     }
 });

@@ -35,6 +35,12 @@ public class ResponseUser extends BaseMsg {
         this.user = user;
         this.bf = this.makeBuffer();
     }
+
+    public ResponseUser(ZPUserInfo user, short cmd) {
+        super(cmd);
+        this.user = user;
+        this.bf = this.makeBuffer();
+    }
     
     @Override
     public byte[] createData() {
@@ -189,16 +195,18 @@ public class ResponseUser extends BaseMsg {
         List<Animal> animalList = lodge.getAnimalList();
         int size = animalList.size();
         bf.putInt(size);
+        long crtTme = System.currentTimeMillis();
         for (int i = 0; i < size; i++) {
-            this.packAnimal(animalList.get(i));    
+            this.packAnimal(animalList.get(i), crtTme);    
         }
     }
     
-    private void packAnimal(Animal animal) {
+    private void packAnimal(Animal animal, long currentTime) {
         putStr(bf, animal.getType().toString());    
         bf.putInt(animal.getId());
         bf.putInt(animal.isFeeded() ? 1 : 0);
         bf.putLong(animal.getFeededTime());
+        bf.putLong(currentTime - animal.getFeededTime());
     }
     
     /**

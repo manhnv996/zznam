@@ -80,6 +80,7 @@ testnetwork.packetMap = {};
 
 // Friend
 gv.CMD.FRIEND_GET_LIST = 14001;
+gv.CMD.FRIEND_GET_INFO = 14002;
 
 /** Outpacket */
 
@@ -625,6 +626,19 @@ CmdSendFriendGetList = fr.OutPacket.extend({
         this.updateSize();
     }
 });
+
+CmdSendFriendGetInfo = fr.OutPacket.extend({
+    ctor: function() {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.FRIEND_GET_INFO);
+    },
+    pack: function(id) {
+        this.packHeader();
+        this.putInt(id);
+        this.updateSize();
+    }
+})
 
 /**
  * InPacket
@@ -1226,7 +1240,7 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         animal.id = this.getInt();
         animal.feeded = this.getInt() ? true : false;
         animal.feededTime = parseInt(this.getLong());
-
+        animal.passedTime = parseInt(this.getLong());
         return animal;
     },
 
@@ -1311,3 +1325,6 @@ testnetwork.packetMap[gv.CMD.FRIEND_GET_LIST] = fr.InPacket.extend({
         }
     }
 });
+
+testnetwork.packetMap[gv.CMD.FRIEND_GET_INFO] 
+        = testnetwork.packetMap[gv.CMD.GET_USER]; // Same

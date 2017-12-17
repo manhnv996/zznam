@@ -10,6 +10,8 @@ var MapLayer = cc.Layer.extend({
 	BOTTOM_LIMIT: null,
 	touchCount: 0,
 
+	touchesMap: null,
+	lstDistance: 0,
 
 // //		  flow plant and crop
 // 	fieldList: [],
@@ -17,6 +19,8 @@ var MapLayer = cc.Layer.extend({
 
 	ctor: function() {
 		this._super();
+		this.touchesMap = { length: 0 };
+
 		// Init limit points of map
 		this.initBorder();
 
@@ -488,11 +492,6 @@ var MapLayer = cc.Layer.extend({
 		// Lamb.setLocalZOrder(1);
 	},
 
-	touchesMap: {
-		length: 0
-	},
-	lstDistance: 0,
-
 	initEvent: function() {
 		this.touchListener = cc.EventListener.create({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -525,7 +524,7 @@ var MapLayer = cc.Layer.extend({
 	            		InertiaEngine.instance.init(touch.getLocation());
 						PopupLayer.instance.disableAllPopup();
 	            		// this.uninertia();
-	            	} else { // === 2
+	            	} else if (this.touchesMap.length === 2) { // === 2
 	            		InertiaEngine.instance.stop();
 	            		var p1 = touch.getLocation();
 
@@ -536,6 +535,7 @@ var MapLayer = cc.Layer.extend({
 	            				break;
 	            			}
 	            		}
+	            		cc.log(this.touchesMap);
 	            		this.lstDistance = caculateDistance(p1, p2);
 	            	}
             	}

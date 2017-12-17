@@ -59,6 +59,7 @@
         "src/modules/utils/caculateDistance.js",
         "src/modules/configs/MapItemEnum.js",
         "src/modules/utils/LastPageUtil.js",
+        "src/modules/utils/ScheduleLoop.js",
         "src/modules/configs/AnimalConfig.js",
         "src/modules/configs/TagClusters.js",
         "src/modules/configs/NaturalThingEnum.js",

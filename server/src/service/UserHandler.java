@@ -132,7 +132,7 @@ public class UserHandler extends BaseClientRequestHandler {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+        send(new ResponseUser(userInfo), user);
         
         
         /*
@@ -159,9 +159,6 @@ public class UserHandler extends BaseClientRequestHandler {
         
 //        this.orderItem = OrderNPCUtil.randomProductConfByCategory(user, OrderNPCUtil.randomCategoryNPC());
         
-        System.out.println("here is log");
-        //
-        send(new ResponseUser(userInfo), user);
     }
 
     private void userDisconnect(User user) {

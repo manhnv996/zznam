@@ -15,7 +15,7 @@ var MapBlockSprite = cc.Sprite.extend({
 
     // Last touch location
     lstMouse: null,
-    eventOption: { lockMove: false },
+    eventOption: null,
 
     // On moving sprite mode. Logic position
     originalPosition: null,
@@ -26,6 +26,7 @@ var MapBlockSprite = cc.Sprite.extend({
         this.blockSizeX = blockSizeX;
         this.blockSizeY = blockSizeY;
         this.mapAliasType = mapAliasType;
+        this.eventOption = { lockMove: false };
         this.setLogicPosition(x, y);
     },
 
@@ -38,7 +39,9 @@ var MapBlockSprite = cc.Sprite.extend({
     // Register touch event, call this in constructor
     registerTouchEvents: function(option) {
         this.eventOption = option || this.eventOption;
-
+        if (!this.eventOption.force && !home) {
+            return;
+        }
         this.caculateBoundingPoints();
         this.touchListener = cc.EventListener.create({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -117,6 +120,7 @@ var MapBlockSprite = cc.Sprite.extend({
                 this.updateEventPriority();
                 // Disable tint action and set default color
                 this.stopAllActions();
+                this.runningTint = false;
                 this.setColor(cc.color(255, 255, 255));
             }
             return false;
@@ -152,6 +156,7 @@ var MapBlockSprite = cc.Sprite.extend({
                 PopupLayer.instance.removeArrow();
             }
         }
+
         this.lstMouse = location;
 
         if (this.moveSpriteMode) {
@@ -200,6 +205,12 @@ var MapBlockSprite = cc.Sprite.extend({
                 MapLayer.instance.moveToLogic(this.originalPosition, 2);
                 // Show notification
                 BaseGUILayer.instance.notifyCantPut(touch.getLocation());
+                this.runningTint = true;
+                this.setColor(cc.color(255, 255, 255));
+                var action = new cc.Sequence([
+                    new cc.TintBy(0.8, -100, -100, -100),
+                    new cc.TintBy(0.8, 100, 100, 100)]);
+                this.runAction(new cc.RepeatForever(action));
             }
             // cc.log('Unschedule update');
             this.unschedule(this.movingUpdate);
@@ -240,6 +251,7 @@ var MapBlockSprite = cc.Sprite.extend({
             new cc.TintBy(0.8, -100, -100, -100),
             new cc.TintBy(0.8, 100, 100, 100)]);
         this.runAction(new cc.RepeatForever(action));
+        this.runningTint = true;
 
         // Save original position
         this.originalPosition = this.getLogicPosition();
@@ -377,6 +389,23 @@ var MapBlockSprite = cc.Sprite.extend({
             // cc.log("move to", logic, MapCtrl.instance.checkValidBlock(logic.x, logic.y, this.blockSizeX, this.blockSizeY, this.mapAliasType));
             this.lstLocation = logic;
             this.setLogicPosition(logic, true);
+            if (MapCtrl.instance.checkValidBlock(logic.x, logic.y, this.blockSizeX, this.blockSizeY)) {
+                if (!this.runningTint) {
+                    this.runningTint = true;
+                    this.setColor(cc.color(255, 255, 255));
+                    var action = new cc.Sequence([
+                        new cc.TintBy(0.8, -100, -100, -100),
+                        new cc.TintBy(0.8, 100, 100, 100)]);
+                    this.runAction(new cc.RepeatForever(action));
+                }
+            } else {
+                if (this.runningTint) {
+                    this.stopAllActions();
+                    this.runningTint = false;
+                    this.setColor(cc.color(255, 100, 100));
+                }
+            }
+
         }
         if (this.autoMoveHor || this.autoMoveVer) {
             var dx = this.autoMoveHor * dt * 250;

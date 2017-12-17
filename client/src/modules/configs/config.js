@@ -347,12 +347,15 @@ function onReceiveUser(userInfo) {
         
         for (var j = 0; j < animalLodgeInfo.animalList.length; j++) {
             var animalInfo = animalLodgeInfo.animalList[j];
+            var remainTime = AnimalConfig[animalInfo.type].time * 1000 - animalInfo.passedTime;
             var animal = new Animal(
                 animalInfo.type,
                 animalInfo.id,
                 animalInfo.feeded,
-                animalInfo.feededTime
+                animalInfo.feededTime,
+                remainTime
             );
+            // cc.log("[R]", animal.remainTime);
             animalList.push(animal);
         }
 
