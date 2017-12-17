@@ -77,6 +77,7 @@ var AnimalSprite = cc.Sprite.extend({
     // [New]
     setRemainTime: function(remainTime) {
         this.remainTime = remainTime;
+        // cc.log("Set remain time", this.remainTime);
         if (this.entered) {
             if (remainTime > 0) {
                 cc.log("[RemainTime]", remainTime);

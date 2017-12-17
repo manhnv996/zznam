@@ -69,7 +69,8 @@ var NatureToolSprite = cc.Sprite.extend({
         if (this.quantity == 0){
             this.quantityLabel.setString("0");
         }
-
+		this.quantityLabel.setScale(1.3);
+		
         this.slot = new cc.Sprite(res.slot);
         this.quantityLabel.setPosition(new cc.p(this.slot.width / 2, this.slot.height / 2));
         this.slot.setPosition(new cc.p(this.width / 4, this.height * 3 / 4));

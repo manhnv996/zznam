@@ -301,7 +301,9 @@ testnetwork.Connector = cc.Class.extend({
             case gv.CMD.FRIEND_GET_LIST:
                 cc.log("FRIEND_GET_LIST");
                 cc.log(packet.idList);
-                this.sendFriendGetInfo(packet.idList[0]);
+                var id = packet.idList[0] || user.id; // or last id
+                cc.log("[F] Choose", id);
+                this.sendFriendGetInfo(id);
                 break;
             case gv.CMD.FRIEND_GET_INFO:
                 cc.log("FRIEND_GET_INFO");

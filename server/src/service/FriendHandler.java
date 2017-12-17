@@ -33,7 +33,7 @@ public class FriendHandler extends BaseClientRequestHandler {
     
     private void processFriendGetList(RequestFriendGetList req, User user) {
         Users users = Users.getUsers();
-        send(new ResponseFriendGetList(users.getIdList()), user);
+        send(new ResponseFriendGetList(users.getIdList(), user.getId()), user);
     }
 
     private void processFriendGetInfo(RequestFriendGetInfo req, User user) {

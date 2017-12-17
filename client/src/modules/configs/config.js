@@ -430,7 +430,7 @@ function onReceiveUser(userInfo) {
 
     // Create user
     user = new User(asset, userInfo.map);
-    cc.log("user.map", userInfo.map.length);
+    // cc.log("user.map", userInfo.map.length);
     user.level = userInfo.level;
     user.gold = userInfo.gold;
     user.ruby = userInfo.ruby;

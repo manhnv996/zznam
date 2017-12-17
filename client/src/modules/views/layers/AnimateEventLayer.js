@@ -50,7 +50,7 @@ var AnimateEventLayer = cc.Layer.extend({
 		groupSprite.setPosition(x, y);
 		
 		var sprite = new cc.Sprite(item);
-		sprite.setScale(0.5);
+		// sprite.setScale(0.5);
 		if (count) {
 			var countSprite = new cc.LabelBMFont("+" + count, res.FONT_OUTLINE_30);
 			countSprite.setAnchorPoint(0, 0.5);
@@ -75,7 +75,7 @@ var AnimateEventLayer = cc.Layer.extend({
 		groupSprite.setPosition(x, y);
 		var starPosition = MainGuiLayer.instance.imageLevel.getPosition();
 		var star = new cc.Sprite(res.STAR_1_PNG);
-		star.setScale(0.5);
+		// star.setScale(0.5);
 		groupSprite.addChild(star);
 
 		var countSprite = new cc.LabelBMFont("+" + exp, res.FONT_OUTLINE_30);

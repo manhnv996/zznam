@@ -221,7 +221,7 @@ var MapCtrl = cc.Class.extend({
 
                     if (chicken.feeded) {
                         // chickenSprite.setOnHarvestTime(lodge.animalList[j].feededTime);
-                        chickenSprite.setRemainTime(lodge.animalList[j].feededTime);
+                        chickenSprite.setRemainTime(chicken.remainTime);
                     } else {
                         // cc.log("hungry");
                         chickenSprite.hungry();
