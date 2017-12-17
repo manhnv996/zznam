@@ -82,7 +82,7 @@ public class NatureHandler extends BaseClientRequestHandler {
             height = 2;
         }
 
-        System.out.println(nt.getType() + " " + NaturalThingEnum.VUNG_NUOC + " width " + width + "height " + height);
+        // System.out.println(nt.getType() + " " + NaturalThingEnum.VUNG_NUOC + " width " + width + "height " + height);
         
         userInfo.getMap().removeMapAlias(nt.getX(), nt.getY(), width, height);
         userInfo.getAsset().getNatureThingList().remove(nt);
