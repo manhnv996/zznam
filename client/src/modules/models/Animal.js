@@ -65,5 +65,6 @@ var Animal = cc.Class.extend({
     boost: function() {
         var time = AnimalConfig[this.type].time * 1000;
         this.feededTime -= time;
+        this.remainTime = 0;
     }
 });

@@ -27,6 +27,9 @@ var CowLodgeSprite = AnimalLodgeSprite.extend({
 		// var startTime = animal.feededTime;
 		// var remain = AnimalConfig.cow.time * 1000 - (new Date().getTime() - startTime);
 		var remain = animal.remainTime;
+		if (!animal.feeded) {
+			return;
+		}
 		if (remain > 0) {
 			this.loadingBar = new LoadingBarLayout(
 				AnimalConfig.cow.time, null,

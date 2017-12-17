@@ -37,10 +37,9 @@ var AnimateEventLayer = cc.Layer.extend({
 			this.renderStorage(storageType);
 		}
 		
-		this.callerCount++;
-		
 		this.animateExp(x, y, exp);
 		if (productType) {
+			this.callerCount++;
 			var item = getProductIconById(productType);
 			this.animateIcon(x, y, item, count);
 		}
