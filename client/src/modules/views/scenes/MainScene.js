@@ -35,7 +35,6 @@ var MainScene = cc.Scene.extend({
 
         // Add ScheduleLoop
         // ScheduleLoop.instance = new ScheduleLoop();
-        ScheduleLoop.instance.clearAllSchedule(); // Flush cached
         this.addChild(ScheduleLoop.instance); // Instance created in ScheduleLoop.js
 		cc.log("Start Scene");
 	},

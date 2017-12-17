@@ -18,6 +18,7 @@ var Animal = cc.Class.extend({
         this.remainTime = remainTime;
         var that = this;
         this.loopIndex = ScheduleLoop.instance.registerScheduleOneSecond(function(dt) {
+            // cc.log("Loop");
             that.remainTime -= dt * 1000;
         });
     },
