@@ -2,6 +2,8 @@ package model;
 
 import config.enums.AnimalEnum;
 
+import config.utils.ConfigContainer;
+
 public class Animal {
     private boolean feeded;
     private long feededTime;
@@ -57,5 +59,13 @@ public class Animal {
 
     public void harvest() {
         this.feeded = false;
+    }
+    
+    public void boost() {
+        if (this.type == AnimalEnum.chicken) {
+            this.feededTime -= ConfigContainer.animalConfig.chicken.time * 1000;
+        } else if (this.type == AnimalEnum.cow) {
+            this.feededTime -= ConfigContainer.animalConfig.cow.time * 1000;
+        }
     }
 }

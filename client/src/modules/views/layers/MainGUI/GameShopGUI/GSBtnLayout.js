@@ -20,10 +20,8 @@ var GSBtnLayout = ccui.Layout.extend({
     },
 
     onclickBtnGS: function (sender, type) {
-        var size = cc.director.getVisibleSize();
         switch (type) {
             case ccui.Widget.TOUCH_BEGAN:
-                //sender.setScale((size.height / 7) / sender.getContentSize().height - 0.1);
                 break;
             case ccui.Widget.TOUCH_ENDED:
             case ccui.Widget.TOUCH_CANCELED:
@@ -32,11 +30,9 @@ var GSBtnLayout = ccui.Layout.extend({
                 } else {
                     this.getParent().hide();
                 }
-                //this._statusGS = (this._statusGS + 1) % 2;
-                //sender.setScale((size.height / 7) / sender.getContentSize().height);
                 break;
             default:
                 break;
-        }
+        }78
     }
 });

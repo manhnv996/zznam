@@ -1,6 +1,6 @@
 var MapBlockSprite = cc.Sprite.extend({
-	lx: 0,
-	ly: 0,
+    lx: 0,
+    ly: 0,
     mapAliasType: 0,
     boundingPoints: null,
 
@@ -15,18 +15,19 @@ var MapBlockSprite = cc.Sprite.extend({
 
     // Last touch location
     lstMouse: null,
-    eventOption: { lockMove: false },
+    eventOption: null,
 
     // On moving sprite mode. Logic position
     originalPosition: null,
     lstLocation: null,
 
-	ctor: function(resource, blockSizeX, blockSizeY, x, y, mapAliasType) {
-		this._super(resource);
-		this.blockSizeX = blockSizeX;
-		this.blockSizeY = blockSizeY;
+    ctor: function(resource, blockSizeX, blockSizeY, x, y, mapAliasType) {
+        this._super(resource);
+        this.blockSizeX = blockSizeX;
+        this.blockSizeY = blockSizeY;
         this.mapAliasType = mapAliasType;
-		this.setLogicPosition(x, y);
+        this.eventOption = { lockMove: false };
+        this.setLogicPosition(x, y);
     },
 
     // Override there methods in inherited class
@@ -36,9 +37,11 @@ var MapBlockSprite = cc.Sprite.extend({
     onFinishMove: function(lx, ly) {},
 
     // Register touch event, call this in constructor
-	registerTouchEvents: function(option) {
+    registerTouchEvents: function(option) {
         this.eventOption = option || this.eventOption;
-
+        if (!this.eventOption.force && !home) {
+            return;
+        }
         this.caculateBoundingPoints();
         this.touchListener = cc.EventListener.create({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -48,7 +51,7 @@ var MapBlockSprite = cc.Sprite.extend({
             onTouchEnded: this.onTouchEnded.bind(this)
         });
         cc.eventManager.addListener(this.touchListener, this.getPriority());
-	},
+    },
 
     onTouchBegan: function(touch) {
         var touchLocation = touch.getLocation();
@@ -60,10 +63,11 @@ var MapBlockSprite = cc.Sprite.extend({
         this.autoMoveHor = 0;
 
         // Disable all popup
-        PopupLayer.instance.disableAllPopup();
+        //PopupLayer.instance.disableAllPopup();
+        TablePopupLayer.instance.removeUpdateDisableListener();
 
         var location = MapValues.screenPositionToMapPosition(
-                touchLocation.x, touchLocation.y);
+            touchLocation.x, touchLocation.y);
         // Check if is click inside sprite
         if (rayCasting(location, this.boundingPoints)) {
             // Inside sprite
@@ -99,10 +103,10 @@ var MapBlockSprite = cc.Sprite.extend({
                 // cc.log("Finish move to", newLocation);
                 if (MapCtrl.instance.checkValidBlock(newLocation.x, newLocation.y, this.blockSizeX, this.blockSizeY)) {
                     this.setLogicPosition(newLocation);
-                    
+
                     // Callback when successfully moved
                     // check if original location is different with new location
-                    if (newLocation.x !== originalPosition.x || 
+                    if (newLocation.x !== originalPosition.x ||
                         newLocation.y !== originalPosition.y
                     ) {
                         this.onFinishMove(newLocation.x, newLocation.y);
@@ -116,6 +120,7 @@ var MapBlockSprite = cc.Sprite.extend({
                 this.updateEventPriority();
                 // Disable tint action and set default color
                 this.stopAllActions();
+                this.runningTint = false;
                 this.setColor(cc.color(255, 255, 255));
             }
             return false;
@@ -151,6 +156,7 @@ var MapBlockSprite = cc.Sprite.extend({
                 PopupLayer.instance.removeArrow();
             }
         }
+
         this.lstMouse = location;
 
         if (this.moveSpriteMode) {
@@ -183,7 +189,7 @@ var MapBlockSprite = cc.Sprite.extend({
     onTouchEnded: function(touch, event) {
         this.onEndClick();
         PopupLayer.instance.removeArrow();
-        
+
         if (this.touchListener.scheduling) {
             // When callback didnot be executed 
             this.touchListener.scheduling = false;
@@ -199,6 +205,12 @@ var MapBlockSprite = cc.Sprite.extend({
                 MapLayer.instance.moveToLogic(this.originalPosition, 2);
                 // Show notification
                 BaseGUILayer.instance.notifyCantPut(touch.getLocation());
+                this.runningTint = true;
+                this.setColor(cc.color(255, 255, 255));
+                var action = new cc.Sequence([
+                    new cc.TintBy(0.8, -100, -100, -100),
+                    new cc.TintBy(0.8, 100, 100, 100)]);
+                this.runAction(new cc.RepeatForever(action));
             }
             // cc.log('Unschedule update');
             this.unschedule(this.movingUpdate);
@@ -221,8 +233,8 @@ var MapBlockSprite = cc.Sprite.extend({
         // disable onClick event after long click
         this.touchMoved = true;
         this.arrowShowed = true;
-        PopupLayer.instance.showArrow(this.lstMouse.x, this.lstMouse.y + 50, 
-                this.startMovingSpriteMode.bind(this));
+        PopupLayer.instance.showArrow(this.lstMouse.x, this.lstMouse.y + 50,
+            this.startMovingSpriteMode.bind(this));
     },
 
     startMovingSpriteMode: function() {
@@ -231,13 +243,15 @@ var MapBlockSprite = cc.Sprite.extend({
         this.moveSpriteMode = true;
         // this.lstMouse = touchLocation;
         // Enable highest priority for this listener and zOrder
-        this.updateEventPriority(101);                          
+        this.updateEventPriority(40);
         this.setLocalZOrder(1000);
+
         // Enable Tint action
         var action = new cc.Sequence([
-                new cc.TintBy(0.8, -100, -100, -100),
-                new cc.TintBy(0.8, 100, 100, 100)]);
+            new cc.TintBy(0.8, -100, -100, -100),
+            new cc.TintBy(0.8, 100, 100, 100)]);
         this.runAction(new cc.RepeatForever(action));
+        this.runningTint = true;
 
         // Save original position
         this.originalPosition = this.getLogicPosition();
@@ -313,7 +327,7 @@ var MapBlockSprite = cc.Sprite.extend({
         //    \*/
         //     B
         var leftPoint = MapValues.logicToPosition(
-            this.lx, 
+            this.lx,
             this.ly + this.blockSizeY
         );
         var rightPoint = MapValues.logicToPosition(
@@ -343,7 +357,7 @@ var MapBlockSprite = cc.Sprite.extend({
         );
         // Polygon with 5 verts
         this.boundingPoints = [
-            bottomPoint, leftPoint, topLeftPoint, 
+            bottomPoint, leftPoint, topLeftPoint,
             topRightPoint, rightPoint
         ];
         return this.boundingPoints;
@@ -358,7 +372,7 @@ var MapBlockSprite = cc.Sprite.extend({
             MapLayer.instance.addChild(dot);
         }
 
-        var dot6 = new cc.Sprite(res.DOT2_PNG);
+        var dot6 = new cc.Sprite(res.DOT_PNG);
         dot6.setPosition(MapValues.logicToPosition(this.lx, this.ly));
         dot6.setLocalZOrder(1000);
         MapLayer.instance.addChild(dot6);
@@ -369,12 +383,29 @@ var MapBlockSprite = cc.Sprite.extend({
         var logic = MapValues.screenPositionToLogic(location.x, location.y);
         logic.x = Math.floor(logic.x);
         logic.y = Math.floor(logic.y);
-        if (this.lstLocation.x !== logic.x || 
-                this.lstLocation.y !== logic.y) {
+        if (this.lstLocation.x !== logic.x ||
+            this.lstLocation.y !== logic.y) {
             // cc.log("Map Alias", this.mapAliasType);
             // cc.log("move to", logic, MapCtrl.instance.checkValidBlock(logic.x, logic.y, this.blockSizeX, this.blockSizeY, this.mapAliasType));
             this.lstLocation = logic;
             this.setLogicPosition(logic, true);
+            if (MapCtrl.instance.checkValidBlock(logic.x, logic.y, this.blockSizeX, this.blockSizeY)) {
+                if (!this.runningTint) {
+                    this.runningTint = true;
+                    this.setColor(cc.color(255, 255, 255));
+                    var action = new cc.Sequence([
+                        new cc.TintBy(0.8, -100, -100, -100),
+                        new cc.TintBy(0.8, 100, 100, 100)]);
+                    this.runAction(new cc.RepeatForever(action));
+                }
+            } else {
+                if (this.runningTint) {
+                    this.stopAllActions();
+                    this.runningTint = false;
+                    this.setColor(cc.color(255, 100, 100));
+                }
+            }
+
         }
         if (this.autoMoveHor || this.autoMoveVer) {
             var dx = this.autoMoveHor * dt * 250;
@@ -385,15 +416,29 @@ var MapBlockSprite = cc.Sprite.extend({
 
     removeFromParent: function(flag) {
         this._super(flag);
-        cc.log("Remove", this.touchListener);
-        cc.eventManager.removeListener(this.touchListener);
+        //cc.log("Remove", this.touchListener);
+        if (this.touchListener) {
+            cc.eventManager.removeListener(this.touchListener);
+            this.touchListener = null;
+        }
     },
 
-    setLogicPosition: function(lx, ly, notUpdatePriority) {
+    removeTouchEvents: function() {
+        if (this.touchListener) {
+            cc.eventManager.removeListener(this.touchListener);
+            this.touchListener = null;
+        }
+    },
+
+    // updatePriorityMode:
+    // 1: ZOrder only
+    // undefined: all
+    // true: not update
+    setLogicPosition: function(lx, ly, updatePriorityMode) {
         lx = lx || 0;
         ly = ly || 0;
         if (typeof lx === 'object') {
-            notUpdatePriority = ly;
+            updatePriorityMode = ly;
             ly = lx.y;
             lx = lx.x;
         }
@@ -405,11 +450,15 @@ var MapBlockSprite = cc.Sprite.extend({
             // Recaculate. if not exists boundingPoints, do not caculate
             this.caculateBoundingPoints();
         }
-        if (!notUpdatePriority) {
+        if (!updatePriorityMode) {
             this.updateEventPriority();
             this.updateZOrder();
-                // Math.max(this.lx + this.blockSizeX, this.ly + this.blockSizeY));
+            // Math.max(this.lx + this.blockSizeX, this.ly + this.blockSizeY));
             // this.setLocalZOrder(this.lx + this.blockSizeX +this.ly + this.blockSizeY);
+        }
+
+        if (updatePriorityMode === 1) {
+            this.updateZOrder();
         }
 
         if (this.__isAnimation) {
@@ -428,7 +477,7 @@ var MapBlockSprite = cc.Sprite.extend({
             p.x += pOffset.x;
             p.y += pOffset.y;
             // if (this.natureId === 1) {
-                // cc.log(pOffset);
+            // cc.log(pOffset);
             // }
             this.setPosition(p);
             return;
@@ -441,10 +490,10 @@ var MapBlockSprite = cc.Sprite.extend({
             ly - this.blockSizeY
         );
 
-        var dx = contentSize.width / 2 + 2 * point2.x - 
-                point1.x - this.blockSizeX * MapValues.iLength / 2;
+        var dx = contentSize.width / 2 + 2 * point2.x -
+            point1.x - this.blockSizeX * MapValues.iLength / 2;
         var dy = contentSize.height / 2 + 2 * point2.y - point1.y;
-        
+
         this.setPosition(cc.p(dx, dy));
     },
 

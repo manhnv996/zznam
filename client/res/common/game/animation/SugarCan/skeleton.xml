@@ -1,5 +1,5 @@
 <dragonBones name="SugarCan" frameRate="24" version="2.3">
- <armature name="sugar_mill">
+ <armature name="SugarCan">
   <bone name="Layer 188 copy">
    <transform x="5.05" y="135.5" skX="0" skY="0" scX="1" scY="1"/>
   </bone>

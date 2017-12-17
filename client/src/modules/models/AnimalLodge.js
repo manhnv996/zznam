@@ -15,10 +15,13 @@ var AnimalLodge = CoordinatedObject.extend({
     //     //
 
     // },
-    addAnimal: function () {
-        //
-
+    addAnimal: function (animal) {
+        this.animalList.push(animal);
+        if(animal.id === 0){
+            animal.id = this.animalList.length;
+        }
     },
+
     getCurrentSlot: function () {
         //
         return this.animalList.length;
@@ -47,7 +50,6 @@ var AnimalLodge = CoordinatedObject.extend({
 
     getLastFeededTime: function() {
         var time = 0;
-        var currentTime = new Date().getTime();
         this.animalList.forEach(function(animal) {
             if (animal.feeded) {
                 if (animal.feededTime > time) {
@@ -56,6 +58,18 @@ var AnimalLodge = CoordinatedObject.extend({
             }
         });
         return time;
+    },
+
+    getAnimalLastFeededTime: function() {
+        var obj = this.animalList[0];
+        this.animalList.forEach(function(animal) {
+            if (animal.feeded) {
+                if (animal.feededTime > obj.feededTime) {
+                    obj = animal;
+                }
+            }
+        });
+        return obj;
     },
 
     harvestableCount: function() {
@@ -88,9 +102,11 @@ var AnimalLodge = CoordinatedObject.extend({
 
         for (var i = 0; i < this.animalList.length; i++) {
             var animal = this.animalList[i];
-            var duration = crtTime - animal.feededTime;
-            if (duration > harvestTime) {
-                return true;
+            if (animal.feeded) {
+                var duration = crtTime - animal.feededTime;
+                if (duration > harvestTime) {
+                    return true;
+                }
             }
         }
         return false;

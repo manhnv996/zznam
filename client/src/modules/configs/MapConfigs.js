@@ -21,7 +21,7 @@ MapConfigs.NhaChinh = {
 };
 
 MapConfigs.TruckOrder = {
-	position: { x: 14, y: 19 },
+	position: { x: 14, y: 20 },
 	size: {
 		width: 1,
 		height: 2
@@ -222,5 +222,13 @@ MapConfigs.PopcornMachine = {
 	size: {
 		width: 2,
 		height: 2
+	}
+}
+
+MapConfigs.Car = {
+	position: { x: 16, y: 23 },
+	size: {
+		width: 2,
+		height: 1
 	}
 }

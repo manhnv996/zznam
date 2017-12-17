@@ -1,5 +1,5 @@
 <dragonBones name="Oto_2016" frameRate="24" version="2.3">
- <armature name="Xetai_2016">
+ <armature name="Oto_2016">
   <bone name="Layer 82">
    <transform x="-9" y="12" skX="0" skY="0" scX="1" scY="1"/>
   </bone>
@@ -756,7 +756,7 @@
     </frame>
    </timeline>
   </animation>
-  <animation name="2" fadeInTime="0" duration="40" scale="0.85" loop="0" autoTween="1" tweenEasing="NaN">
+  <animation name="8" fadeInTime="0" duration="40" scale="0.85" loop="0" autoTween="1" tweenEasing="NaN">
    <timeline name="Layer 82" scale="1" offset="0">
     <frame z="0" tweenEasing="0" duration="4">
      <transform x="-9" y="12" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
@@ -1030,7 +1030,7 @@
     <frame duration="3" displayIndex="-1"/>
    </timeline>
   </animation>
-  <animation name="3" fadeInTime="0" duration="15" scale="1" loop="0" autoTween="1" tweenEasing="NaN">
+  <animation name="7" fadeInTime="0" duration="15" scale="1" loop="0" autoTween="1" tweenEasing="NaN">
    <timeline name="Layer 82" scale="1" offset="0">
     <frame z="0" tweenEasing="0" duration="7">
      <transform x="-9" y="12" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
@@ -2157,7 +2157,7 @@
     </frame>
    </timeline>
   </animation>
-  <animation name="7" fadeInTime="0" duration="6" scale="1.2" loop="0" autoTween="1" tweenEasing="NaN">
+  <animation name="3" fadeInTime="0" duration="6" scale="1.2" loop="0" autoTween="1" tweenEasing="NaN">
    <timeline name="Layer 79" scale="1" offset="0">
     <frame z="37" displayIndex="1" tweenEasing="0" duration="3">
      <transform x="9.95" y="42.75" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
@@ -2334,7 +2334,7 @@
     </frame>
    </timeline>
   </animation>
-  <animation name="8" fadeInTime="0" duration="17" scale="1" loop="0" autoTween="1" tweenEasing="NaN">
+  <animation name="2" fadeInTime="0" duration="17" scale="1" loop="0" autoTween="1" tweenEasing="NaN">
    <timeline name="Layer 11" scale="1" offset="0">
     <frame duration="2" displayIndex="-1"/>
     <frame z="53" tweenEasing="0" duration="6">

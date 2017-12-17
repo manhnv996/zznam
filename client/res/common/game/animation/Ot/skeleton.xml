@@ -75,122 +75,122 @@
   <skin name="default">
    <slot name="Layer 1" parent="Layer 1" z="0">
     <display name="Ot.psd Assets/Layer 1" type="image">
-     <transform x="-129" y="-64.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-129" y="-84.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 3" parent="Layer 3" z="1">
     <display name="Ot.psd Assets/Layer 64 copy 12" type="image">
-     <transform x="-100.5" y="-67.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-100.5" y="-87.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 4" parent="Layer 4" z="2">
     <display name="Ot.psd Assets/Layer 64 copy 8" type="image">
-     <transform x="-110" y="-77.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-110" y="-97.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 5" parent="Layer 5" z="3">
     <display name="Ot.psd Assets/Layer 65 copy 20" type="image">
-     <transform x="-136" y="-83" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-136" y="-103" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 2" parent="Layer 2" z="4">
     <display name="Ot.psd Assets/Layer 2" type="image">
-     <transform x="-110" y="-35" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-110" y="-55" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 6" parent="Layer 6" z="5">
     <display name="Ot.psd Assets/Layer 65 copy 32" type="image">
-     <transform x="-143" y="-168.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-143" y="-188.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 8" parent="Layer 8" z="6">
     <display name="Ot.psd Assets/Layer 2 copy 2" type="image">
-     <transform x="-23.5" y="-50" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-23.5" y="-70" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 9" parent="Layer 9" z="7">
     <display name="Ot.psd Assets/Layer 65 copy 18" type="image">
-     <transform x="-16.75" y="-44.45" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-16.75" y="-64.45" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 10" parent="Layer 10" z="8">
     <display name="Ot.psd Assets/Layer 65 copy 16" type="image">
-     <transform x="-8.55" y="-23.55" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-8.55" y="-43.55" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 11" parent="Layer 11" z="9">
     <display name="Ot.psd Assets/Layer 65 copy 17" type="image">
-     <transform x="-15.7" y="-46" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-15.7" y="-66" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 12" parent="Layer 12" z="10">
     <display name="Ot.psd Assets/Layer 10" type="image">
-     <transform x="-5.2" y="-42.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-5.2" y="-62.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 13" parent="Layer 13" z="11">
     <display name="Ot.psd Assets/Layer 10 copy" type="image">
-     <transform x="-22.4" y="-42" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-22.4" y="-62" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 14" parent="Layer 14" z="12">
     <display name="Ot.psd Assets/Layer 10 copy 2" type="image">
-     <transform x="-5.8" y="-49.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-5.8" y="-69.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 15" parent="Layer 15" z="13">
     <display name="Ot.psd Assets/Layer 10 copy 3" type="image">
-     <transform x="-9.1" y="-47.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-9.1" y="-67.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 7" parent="Layer 7" z="14">
     <display name="Ot.psd Assets/Layer 107 copy 9" type="image">
-     <transform x="-22" y="-38" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-22" y="-58" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 32" parent="Layer 32" z="15">
     <display name="Ot.psd Assets/Layer 2 copy 2" type="image">
-     <transform x="-23.5" y="-50" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-23.5" y="-70" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 31" parent="Layer 31" z="16">
     <display name="Ot.psd Assets/Layer 65 copy 18" type="image">
-     <transform x="-16.8" y="-44.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-16.8" y="-64.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 30" parent="Layer 30" z="17">
     <display name="Ot.psd Assets/Layer 65 copy 16" type="image">
-     <transform x="-8.55" y="-23.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-8.55" y="-43.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 29" parent="Layer 29" z="18">
     <display name="Ot.psd Assets/Layer 65 copy 17" type="image">
-     <transform x="-15.75" y="-46.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-15.75" y="-66.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 28" parent="Layer 28" z="19">
     <display name="Ot.psd Assets/Layer 10" type="image">
-     <transform x="-5.2" y="-42" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-5.2" y="-62" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 27" parent="Layer 27" z="20">
     <display name="Ot.psd Assets/Layer 10 copy" type="image">
-     <transform x="-22.45" y="-41.95" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-22.45" y="-61.95" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 26" parent="Layer 26" z="21">
     <display name="Ot.psd Assets/Layer 10 copy 2" type="image">
-     <transform x="-5.75" y="-49.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-5.75" y="-69.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 25" parent="Layer 25" z="22">
     <display name="Ot.psd Assets/Layer 10 copy 3" type="image">
-     <transform x="-9.1" y="-46.95" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-9.1" y="-66.95" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="Layer 16" parent="Layer 16" z="23">
     <display name="Ot.psd Assets/Layer 107 copy 9" type="image">
-     <transform x="-22" y="-38" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-22" y="-58" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
   </skin>

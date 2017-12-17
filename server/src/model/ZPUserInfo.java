@@ -1,6 +1,7 @@
 package model;
 
 import config.enums.AnimalLodgeEnum;
+import config.enums.MachineTypeEnum;
 import config.enums.MapItemEnum;
 import config.enums.ProductType;
 import config.enums.StorageType;
@@ -40,9 +41,10 @@ public class ZPUserInfo extends DataModel {
         
         id = _id;
         
-        this.level = 1;
-        this.gold = 100;
-        this.ruby = 10;
+        this.level = 15;
+        this.gold = 50000;
+        this.ruby = 20000;
+
         this.exp = 0L;
         this.name = "";
         
@@ -54,6 +56,8 @@ public class ZPUserInfo extends DataModel {
 //                this.map[i][j] = ConfigContainer.defaultMap[i][j];
 //            }
 //        }
+//                System.out.println("abcxyz");
+
         this.map = new MapAlias();
         // Add silo to map
         Storage silo = this.asset.getFoodStorage();
@@ -93,6 +97,40 @@ public class ZPUserInfo extends DataModel {
                     MapItemEnum.LODGE);
             } else {
                 System.out.println("[E] Unhandled animal lodge type " + lodge.getType().toString());    
+            }
+        }
+        
+        // Add Machine to map 
+        List<Machine> machineList = this.asset.getMachineList();
+        for (int i = 0; i < machineList.size(); i++) {
+            Machine machine = machineList.get(i);
+            if (machine.getType() == MachineTypeEnum.bakery_machine) {
+                this.map.addMapAlias(machine.getX(), machine.getY(), 
+                    ConfigContainer.mapConfig.Machine.Bakery_Machine.size.width,
+                    ConfigContainer.mapConfig.Machine.Bakery_Machine.size.height,
+                    MapItemEnum.MACHINE);
+            } else if (machine.getType() == MachineTypeEnum.food_machine) {
+                this.map.addMapAlias(machine.getX(), machine.getY(), 
+                    ConfigContainer.mapConfig.Machine.Food_Machine.size.width,
+                    ConfigContainer.mapConfig.Machine.Food_Machine.size.height,
+                    MapItemEnum.MACHINE);
+            } else if (machine.getType() == MachineTypeEnum.butter_machine) {
+                this.map.addMapAlias(machine.getX(), machine.getY(), 
+                    ConfigContainer.mapConfig.Machine.Butter_Machine.size.width,
+                    ConfigContainer.mapConfig.Machine.Butter_Machine.size.height,
+                    MapItemEnum.MACHINE);
+            } else if (machine.getType() == MachineTypeEnum.sugar_machine) {
+                this.map.addMapAlias(machine.getX(), machine.getY(), 
+                    ConfigContainer.mapConfig.Machine.Sugar_Machine.size.width,
+                    ConfigContainer.mapConfig.Machine.Sugar_Machine.size.height,
+                    MapItemEnum.MACHINE);
+            } else if (machine.getType() == MachineTypeEnum.popcorn_machine) {
+                this.map.addMapAlias(machine.getX(), machine.getY(), 
+                    ConfigContainer.mapConfig.Machine.Popcorn_Machine.size.width,
+                    ConfigContainer.mapConfig.Machine.Popcorn_Machine.size.height,
+                    MapItemEnum.MACHINE);
+            } else{
+                System.out.println("[E] Unhandled machine type " + machine.getType().toString());    
             }
         }
     }
@@ -139,6 +177,9 @@ public class ZPUserInfo extends DataModel {
     
     public void addExp(int value) {
         this.exp += value;
+        /*
+         * not yet started
+         */
     }
     
     public void addRuby(int value) {

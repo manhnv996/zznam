@@ -17,18 +17,21 @@ var BaseLayout = ccui.Layout.extend({
         this._hasCloseButton = hasCloseButton;
         this._hideShop = hideShop;
 
-        if (this._hideShop) {
+        //if (this._hideShop) {
             if (!GameShopLayout.instance._isHide) {
+                //cc.log("GameShopLayout.instance._isHide " + GameShopLayout.instance._isHide);
                 GameShopLayout.instance.hide();
+                //cc.log("GameShopLayout.instance._isHide2 " + GameShopLayout.instance._isHide);
             }
-        } else {
-            cc.log("Lock Shop" + GameShopLayout.instance._isHide);
-            if (!GameShopLayout.instance._isHide) {
-                //GameShopLayout.instance.hide();
-                //cc.log("Lock Shop");
-                GameShopLayout.instance._gameShop.lockGameShop();
-            }
-        }
+        //}
+        //else {
+        //    cc.log("Lock Shop" + GameShopLayout.instance._isHide);
+        //    if (!GameShopLayout.instance._isHide) {
+        //        GameShopLayout.instance.hide();
+        //        cc.log("Lock Shop");
+                //GameShopLayout.instance._gameShop.lockGameShop();
+            //}
+        //}
 
         this.x = cc.winSize.width / 2;
         this.y = cc.winSize.height / 2;
@@ -81,9 +84,12 @@ var BaseLayout = ccui.Layout.extend({
     actionShow: function () {
         var scale = (cc.winSize.height - cc.winSize.height / 80 * 3) / this.height;
         //cc.log("scale " + scale);
-        var scaleUp = cc.scaleTo(0.2, scale + 0.15);
-        var scaleDown = cc.scaleTo(0.15, scale);
-        this.runAction(cc.sequence(scaleUp, scaleDown));
-    }
+        var scaleUp = cc.scaleTo(0.25, scale + 0.15);
+        var scaleDown = cc.scaleTo(0.2, scale);
+        this.runAction(cc.sequence(scaleUp, cc.delayTime(0.05), scaleDown));
+    },
+
+    initInfo: function () {},
+
 
 });

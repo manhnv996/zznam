@@ -12,27 +12,29 @@ var ChickenSprite = AnimalSprite.extend({
 	onEnter: function() {
 		this._super();
 		this.entered = true;
+		var parent = this.getParent();
+		if (parent.blockSizeX) {
+			this.maxX = this.getParent().blockSizeX;
+			this.maxY = this.getParent().blockSizeY;
+			var lx = (Math.round(Math.random() * 100) % ((this.maxX - 1) * 10)) / 10 + 0.5;
+			var ly = (Math.round(Math.random() * 100) % ((this.maxY - 1) * 10)) / 10 + 0.5;
+			this.setLogicPosition(lx, ly);
 
-		this.maxX = this.getParent().blockSizeX;
-		this.maxY = this.getParent().blockSizeY;
-		var lx = (Math.round(Math.random() * 100) % ((this.maxX - 1) * 10)) / 10 + 0.5;
-		var ly = (Math.round(Math.random() * 100) % ((this.maxY - 1) * 10)) / 10 + 0.5;
-		this.setLogicPosition(lx, ly);
+			if (this.isHungry) {
+				this.play(ChickenSprite.Hungry);
+				return;
+			}
 
-		if (this.isHungry) {
-			this.play(ChickenSprite.Hungry);
-			return;
-		}
-
-		if (this.remainTime > 0) {
-			// cc.log("Set scheduleOnce after", this.remainTime / 1000);
-			this.scheduleOnce(this.harvest, this.remainTime / 1000);
-			this.doAction();
-			this.scheduleOnce(function() {
-				this.schedule(this.doAction, 4.0);
-			}.bind(this), Math.round(Math.random() * 100) % 40 / 10);
-		} else {
-			this.harvest();
+			if (this.remainTime > 0) {
+				// cc.log("Set scheduleOnce after", this.remainTime / 1000);
+				this.scheduleOnce(this.harvest, this.remainTime / 1000);
+				this.doAction();
+				this.scheduleOnce(function() {
+					this.schedule(this.doAction, 4.0);
+				}.bind(this), Math.round(Math.random() * 100) % 40 / 10);
+			} else {
+				this.harvest();
+			}
 		}
 	},
 
@@ -52,6 +54,10 @@ var ChickenSprite = AnimalSprite.extend({
 	},
 
 	walk: function() {
+		if (!this.maxX) {
+			this.maxX = this.getParent().blockSizeX;
+			this.maxY = this.getParent().blockSizeY;
+		}
 		// cc.log("Walk");
 		this.play(ChickenSprite.Walk);
 		this.direction.x = 2 * (Math.random() - 0.5);
@@ -89,7 +95,7 @@ var ChickenSprite = AnimalSprite.extend({
 	},
 
 	hungry: function() {
-		cc.log("Set hungry");
+		// cc.log("Set hungry");
 		this.isHungry = true; // firstTime only
 		if (this.entered) {
 			this.play(ChickenSprite.Hungry);
@@ -117,7 +123,12 @@ var ChickenSprite = AnimalSprite.extend({
 	},
 
 	setOnHarvestTime: function(time) {
+		// cc.log("Harvest after", time);
 		this._setOnHarvestTime(time, AnimalConfig.chicken.time * 1000);
+	},
+
+	demo: function() {
+		this.play(ChickenSprite.Idle1);
 	}
 });
 

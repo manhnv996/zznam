@@ -138,7 +138,19 @@ for (var k in FontResource) {
     res[k] = FontResource[k];
 }
 
+//
+for (var k in OrderResource) {
+    res[k] = OrderResource[k];
+}
 // Add animal lodge resource
 for (var k in AnimalLodgeResource) {
     res[k] = AnimalLodgeResource[k];
+}
+
+for (var k in ToolResource) {
+    res[k] = ToolResource[k];
+}
+
+for (var k in AnimateEventResource) {
+    res[k] = AnimateEventResource[k];
 }

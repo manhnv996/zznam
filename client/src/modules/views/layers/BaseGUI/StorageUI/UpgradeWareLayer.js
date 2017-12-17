@@ -281,8 +281,10 @@ var UpgradeWareLayer = cc.Layer.extend({
             case ccui.Widget.TOUCH_CANCELED:
                 cc.log("Touch Buy Item");
                 var ruby = parseInt(sender.parent.getChildByTag(sender.tag + 10).getString());
-                if (ruby > user.getRuby()) {
-                    //Notify
+                if (ruby > user.ruby) {
+                    BaseGUILayer.instance.removeBlockListener();
+                    BaseGUILayer.instance.notifyNotEnoughRuby((ruby - user.ruby), true);
+
                 } else {
                     user.reduceRuby(ruby);
                     sender.parent.setVisible(false);

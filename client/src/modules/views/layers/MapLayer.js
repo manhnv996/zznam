@@ -10,16 +10,20 @@ var MapLayer = cc.Layer.extend({
 	BOTTOM_LIMIT: null,
 	touchCount: 0,
 
+	touchesMap: null,
+	lstDistance: 0,
 
-//		  flow plant and crop
-	fieldList: [],
+// //		  flow plant and crop
+// 	fieldList: [],
 
 
 	ctor: function() {
 		this._super();
+		this.touchesMap = { length: 0 };
+
 		// Init limit points of map
 		this.initBorder();
-		
+
 		this.renderGrassBlock();
 		this.renderSong();
 		this.renderRoad();
@@ -30,7 +34,7 @@ var MapLayer = cc.Layer.extend({
 		this.renderDuongRay();
 
 		// Move to MapCtrl
-		// this.renderDefaultConstruct(); 
+		// this.renderDefaultConstruct();
 		// this.renderSample();
 		this.setScale(0.4);
 		// Set map to center of screen, Note that setting scale before setting position.
@@ -41,10 +45,6 @@ var MapLayer = cc.Layer.extend({
 		// this.setPosition(cc.p((this.width / 2 - center.x) * this.scale, (this.height / 2 - center.y) * this.scale));
 		this.initEvent();
 
-		this.initFieldList();
-
-		//var bakery = new BakerySprite(0, 20, 20);
-		//this.addChild(bakery);
 	},
 
 	onEnter: function() {
@@ -193,13 +193,13 @@ var MapLayer = cc.Layer.extend({
 				MapConfigs.Song.endX,
 				i * riverSide2BlockSizeY
 			));
-			
+
 			this.addChild(sprite);
 		}
 
 		// Render harbor
 		var harborConfig = MapConfigs.Song.harbor;
-		var harbor = new MapBlockSprite(res.HABOR, 
+		var harbor = new MapBlockSprite(res.HABOR,
 				harborConfig.blockSizeX, harborConfig.blockSizeY);
 		harbor.setLogicPosition(harborConfig.position);
 		this.addChild(harbor);
@@ -256,7 +256,7 @@ var MapLayer = cc.Layer.extend({
 
 			var sprite = new cc.Sprite(res.NHOM_CAY_1);
 			var contentSize = sprite.getContentSize();
-			
+
 			var startX = this.LEFT_LIMIT.x; // because of anchor 1,0
 			var startY = MapValues.yLinearByXl(lineXl, startX);
 			while (startY <= this.TOP_LIMIT.y) {
@@ -292,7 +292,7 @@ var MapLayer = cc.Layer.extend({
 				for (var i = countX; i >= 0; i--) {
 					var sprite = new cc.Sprite(res.NHOM_CAY_1);
 					sprite.setPosition(
-						startX, 
+						startX,
 						startY + i * (contentSize.height - overlapY)
 					);
 					sprite.setAnchorPoint(cc.p(0.5, 0));
@@ -303,7 +303,7 @@ var MapLayer = cc.Layer.extend({
 				startY = MapValues.yLinearByYl(lineYl, startX);
 			}
 		}.bind(this))();
-		
+
 		// Render bottom-left forest
 		(function() {
 			var config = MapConfigs.Forest.bottomLeft;
@@ -349,7 +349,7 @@ var MapLayer = cc.Layer.extend({
 				for (var i = 0; i <= countX; i++) {
 					var sprite = new cc.Sprite(res.NHOM_CAY_2);
 					sprite.setPosition(
-						startX, 
+						startX,
 						startY - i * (contentSize.height - overlapY)
 					);
 					sprite.setAnchorPoint(0.5, 1);
@@ -390,9 +390,9 @@ var MapLayer = cc.Layer.extend({
 		// 	sprite.setLocalZOrder(2);
 		// }
 		// var _resHoa2 = [
-		// 	cc.p(10, 38), cc.p(15, 37), cc.p(15, 38), 
-		// 	cc.p(42, 10), cc.p(41, 14), cc.p(41, 18), 
-		// 	cc.p(42, 19), cc.p(42, 23), cc.p(4, -4), 
+		// 	cc.p(10, 38), cc.p(15, 37), cc.p(15, 38),
+		// 	cc.p(42, 10), cc.p(41, 14), cc.p(41, 18),
+		// 	cc.p(42, 19), cc.p(42, 23), cc.p(4, -4),
 		// 	cc.p(20, -4), cc.p(21, -3)
 		// ];
 		// for (var i = 0; i < _resHoa2.length; i++) {
@@ -454,8 +454,8 @@ var MapLayer = cc.Layer.extend({
 		// ];
 		// for (var i = 0; i < _res_tree_outside.length; i++) {
 		// 	var sprite = new cc.Sprite(
-		// 		_res_tree_outside[i].v === 0 
-		// 		? res.CAY_02_OUT 
+		// 		_res_tree_outside[i].v === 0
+		// 		? res.CAY_02_OUT
 		// 		: res.CAY_01_OUT
 		// 	);
 		// 	sprite.setPosition(MapValues.logicToPosition(
@@ -492,16 +492,27 @@ var MapLayer = cc.Layer.extend({
 		// Lamb.setLocalZOrder(1);
 	},
 
-	touchesMap: {
-		length: 0
-	},
-	lstDistance: 0,
-
 	initEvent: function() {
 		this.touchListener = cc.EventListener.create({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: false,
             onTouchBegan: function (touch, event) {
+				var mousePos = touch.getLocation();
+				var position = MapValues.screenPositionToLogic(mousePos.x, mousePos.y);
+				position.x = Math.floor(position.x);
+				position.y = Math.floor(position.y);
+				if (__DEBUG) {
+					cc.log('Map Clicked', position);
+				}
+
+            	// Stop inertia and capture velocity
+            	// cc.log("Map Begin");
+            	this.uninertia();
+				InertiaEngine.instance.init(mousePos);
+
+				// // Disable planting popup
+				// PopupLayer.instance.disableAllPopup();
+                TablePopupLayer.instance.removeUpdateDisableListener();
             	if (!this.lock) {
             		if (this.touchesMap.length < 2) {
 		            	// cc.log("Began", touch.getID());
@@ -512,8 +523,8 @@ var MapLayer = cc.Layer.extend({
 	            	if (this.touchesMap.length === 1) {
 	            		InertiaEngine.instance.init(touch.getLocation());
 						PopupLayer.instance.disableAllPopup();
-	            		this.uninertia();
-	            	} else { // === 2
+	            		// this.uninertia();
+	            	} else if (this.touchesMap.length === 2) { // === 2
 	            		InertiaEngine.instance.stop();
 	            		var p1 = touch.getLocation();
 
@@ -524,6 +535,7 @@ var MapLayer = cc.Layer.extend({
 	            				break;
 	            			}
 	            		}
+	            		cc.log(this.touchesMap);
 	            		this.lstDistance = caculateDistance(p1, p2);
 	            	}
             	}
@@ -566,12 +578,19 @@ var MapLayer = cc.Layer.extend({
     			// cc.log("Ori", touch.getLocation());
             }.bind(this),
             onTouchEnded: function (touch, event) {
+            	// Caculate velocity and add ineria
+				// var velocity = InertiaEngine.instance.stopAndGetVelocity(touch.getLocation());
+				// // cc.log("v =", this.velocity);
+				// this.inertia(velocity);
+
+				// PopupLayer.instance.disablePopup();
+				// PopupLayer.instance.disableProgressBarInprogress();
             	if (!this.lock) {
             		if (this.touchesMap[touch.getID()]) {
 	            		delete this.touchesMap[touch.getID()];
 		            	this.touchesMap.length--;
 		            	// cc.log(this.touchesMap);
-		            	
+
 	            	}
 	            	if (InertiaEngine.instance.isRecording()) {
 						var velocity = InertiaEngine.instance.stopAndGetVelocity(touch.getLocation());
@@ -581,9 +600,9 @@ var MapLayer = cc.Layer.extend({
 			}.bind(this)
         });
         // cc.eventManager.addListener(this.touchListener, 10 * Math.max(MapConfigs.Init.width + 5, MapConfigs.Init.height + 5));
-        cc.eventManager.addListener(this.touchListener, 100);
-        
-        cc.log("Register map touch event with priority", 100);
+        cc.eventManager.addListener(this.touchListener, 50);
+
+        cc.log("Register map touch event with priority", 50);
         var mouseListener = cc.EventListener.create({
 			event: cc.EventListener.MOUSE,
 			onMouseScroll: function(e) {
@@ -591,7 +610,7 @@ var MapLayer = cc.Layer.extend({
 			}.bind(this)
 		});
 		cc.eventManager.addListener(mouseListener, this);
-		
+
 		this.centerPoint = cc.p(
 			this.getContentSize().width / 2,
 			this.getContentSize().height / 2
@@ -608,6 +627,12 @@ var MapLayer = cc.Layer.extend({
 
 	lock: false,
 	lockMap: function(lock) {
+		if (lock) {
+			// Remove all touches in map
+			this.touchesMap = {
+				length: 0
+			};
+		}
 		this.lock = lock;
 	},
 
@@ -655,6 +680,22 @@ var MapLayer = cc.Layer.extend({
 		}
 	},
 
+	moveBy: function(x, y, time) {
+		if (x.x) {
+			time = y;
+			y = x.y;
+			x = x.x;
+		}
+		if (time) {
+			cc.log("Time", time);
+			var action = new cc.MoveBy(time, cc.p(x, y)).easing(cc.easeExponentialOut());
+			this.runAction(action);
+			// cc.log("Run action");
+		} else {
+			this.setPosition(cc.p(x, y));
+		}
+	},
+
 	zoomBy: function(sign, cursor) {
 		var standartSign = sign * this.scale;
 		var deltaScale = Math.round(SCALE_RATIO * sign * 1000) / 1000;
@@ -679,8 +720,9 @@ var MapLayer = cc.Layer.extend({
 			this.move(dx, dy);
 		}
 
-		PopupLayer.instance.disablePopup();
-		PopupLayer.instance.disableProgressBarInprogress();
+		// PopupLayer.instance.disablePopup();
+		// PopupLayer.instance.disableProgressBarInprogress();
+        TablePopupLayer.instance.removeUpdateDisableListener();
 	},
 
 	handleKeyboard: function(keycode, event) {
@@ -717,13 +759,7 @@ var MapLayer = cc.Layer.extend({
 
 
 
-//		////
-	initFieldList: function () {
-		this.fieldList = [];
-
-	},
-
-
+// //		////
     getIndexOfFieldList: function (fieldId) {
         if (fieldId == null){
             return null;
@@ -737,7 +773,6 @@ var MapLayer = cc.Layer.extend({
     },
 	// //
 
-
 	runAnimationPlantting: function(fieldId, seedType){
 		// var index = this.getIndexOfFieldList(fieldId);
 		var field = this.fieldList.find(function(f) {
@@ -749,15 +784,43 @@ var MapLayer = cc.Layer.extend({
 
 	},
 
-	runAnimationCrop: function (fieldId, seedType) {
+	runAnimationCrop: function (fieldId, seedType, callback) {
 		cc.log("Run animation crop");
 		var index = this.getIndexOfFieldList(fieldId);
 		if (index != null){
-			this.fieldList[index].cropAnimation(seedType);
+			this.fieldList[index].cropAnimation(seedType, callback);
 
 			this.fieldList[index].changeTexture(res.field);
 		}
 	},
+
+
+	// //
+	getNPCByOrderNPCId: function (orderNPCId) {
+		if (orderNPCId == null){
+			return null;
+		}
+		for (var i = 0; i < this.npcList.length; i++){
+			if (this.npcList[i].orderId == orderNPCId){
+				return this.npcList[i];
+			}
+		}
+		return null;
+	},
+
+	getIndexByOrderNPCId: function (orderNPCId) {
+		if (orderNPCId == null){
+			return null;
+		}
+		for (var i = 0; i < this.npcList.length; i++){
+			if (this.npcList[i].orderId == orderNPCId){
+				return i;
+			}
+		}
+		return null;
+	},
+//	  //
+
 
 	inertia: function(velocity) {
 		if (!this.scheduling) {
@@ -773,6 +836,7 @@ var MapLayer = cc.Layer.extend({
 			this.unscheduleUpdate();
 			this.scheduling = false;
 		}
+		// cc.log("Stop action");
 		this.stopAllActions();
 	},
 
@@ -780,7 +844,10 @@ var MapLayer = cc.Layer.extend({
 		var dx = this.velocity.x * dt;
 		var dy = this.velocity.y * dt;
 		if (dx * dx + dy * dy < 0.5) {
-			return this.uninertia();
+			// return this.uninertia();
+			this.unscheduleUpdate();
+			this.scheduling = false;
+			return;
 		}
 		var reduce = Math.pow(0.93, dt * 60);
 		// cc.log("Reduce", reduce);

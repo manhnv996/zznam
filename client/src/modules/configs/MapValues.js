@@ -95,4 +95,8 @@ var MapValues = new function() {
 	this.positionInsideBlock = function(lx, ly, blx, bly, bsx, bsy) {
 		return (lx >= blx && lx < (blx + bsx) && ly >= bly && ly < (bly + bsy));
 	}
+
+	this.positionInsideMapBlockSprite = function(lx, ly, sprite) {
+		return this.positionInsideBlock(lx, ly, sprite.lx, sprite.ly, sprite.blockSizeX, sprite.blockSizeY);
+	}
 };

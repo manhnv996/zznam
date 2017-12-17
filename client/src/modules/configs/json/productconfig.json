@@ -1,0 +1,444 @@
+[
+  {
+    "id": "crop_wheat",
+    "name": "crop_wheat_name",
+    "speedUp": 1,
+    "rubiMuaNgay": 1,
+    "timeMin": 2,
+    "exp": 1,
+    "maxPrice": 3,
+    "levelUnlock": 1,
+
+    "description" : "crop_wheat_description",
+    "nameIcon" : "Art/Crops/Field/crops.png"
+  },
+  {
+    "id": "crop_corn",
+    "name": "crop_corn_name",
+    "speedUp": 1,
+    "rubiMuaNgay": 1,
+    "timeMin": 5,
+    "exp": 1,
+    "maxPrice": 7,
+    "levelUnlock": 3,
+
+    "description" : "crop_corn_description",
+    "nameIcon" : "Art/Crops/Field/corn.png"
+  },
+  {
+    "id": "crop_carrot",
+    "name": "crop_carrot_name",
+    "speedUp": 1,
+    "rubiMuaNgay": 2,
+    "timeMin": 10,
+    "exp": 2,
+    "maxPrice": 7,
+    "levelUnlock": 9,
+
+    "description" : "crop_carrot_description",
+    "nameIcon" : "Art/Crops/Field/caroot.png"
+  },
+  {
+    "id": "crop_soybean",
+    "name": "crop_soybean_name",
+    "speedUp": 1,
+    "rubiMuaNgay": 2,
+    "timeMin": 20,
+    "exp": 2,
+    "maxPrice": 10,
+    "levelUnlock": 5,
+
+    "description" : "crop_soybean_description",
+    "nameIcon" : "Art/Crops/Field/dau.png"
+  },
+  {
+    "id": "crop_sugarcane",
+    "name": "crop_sugarcane_name",
+    "speedUp": 1,
+    "rubiMuaNgay": 3,
+    "timeMin": 30,
+    "exp": 3,
+    "maxPrice": 14,
+    "levelUnlock": 7,
+
+    "description" : "crop_sugarcane_description",
+    "nameIcon" : "Art/Crops/Field/mia.png"
+  },
+  {
+    "id": "good_egg",
+    "name": "good_egg_name",
+    "speedUp": 1,
+    "rubiMuaNgay": 4,
+    "timeMin": 20,
+    "exp": 2,
+    "maxPrice": 18,
+    "levelUnlock": 1,
+
+    "description" : "good_egg_description",
+    "nameIcon" : "Art/Machine/items/feed mill/egg.png"
+  },
+  {
+    "id": "good_milk",
+    "name": "good_milk_name",
+    "speedUp": 1,
+    "rubiMuaNgay": 6,
+    "timeMin": 60,
+    "exp": 3,
+    "maxPrice": 32,
+    "levelUnlock": 6,
+
+    "description" : "good_milk_description",
+    "nameIcon" : "Art/Machine/items/feed mill/milk.png"
+  },
+  {
+    "id": "product_bread",
+    "name": "product_bread_name",
+    "speedUp": 1,
+    "rubiMuaNgay": 4,
+    "timeMin": 5,
+    "exp": 3,
+    "maxPrice": 21,
+    "levelUnlock": 2,
+
+    "description" : "product_bread_description",
+    "nameIcon" : "Art/Machine/items/bakery/bread.png"
+  },
+  {
+    "id": "product_corn_bread",
+    "name": "product_corn_bread_name",
+    "speedUp": 1,
+    "rubiMuaNgay": 13,
+    "timeMin": 30,
+    "exp": 8,
+    "maxPrice": 60,
+    "levelUnlock": 7,
+
+    "description" : "product_corn_bread_description",
+    "nameIcon" : "Art/Machine/items/bakery/bread corn.png"
+  },
+  {
+    "id": "product_cookie",
+    "name": "product_cookie_name",
+    "speedUp": 1,
+    "rubiMuaNgay": 19,
+    "timeMin": 60,
+    "exp": 13,
+    "maxPrice": 87,
+    "levelUnlock": 9,
+
+    "description" : "product_cookie_description",
+    "nameIcon" : "Art/Machine/items/bakery/cookie.png"
+  },
+  {
+    "id": "food_chicken",
+    "name": "food_chicken_name",
+    "speedUp": 1,
+    "rubiMuaNgay": 2,
+    "timeMin": 5,
+    "exp": 1,
+    "maxPrice": 7,
+    "levelUnlock": 2,
+
+    "description" : "food_chicken_description",
+    "nameIcon" : "Art/Machine/items/feed mill/Feed-chicken.png"
+  },
+  {
+    "id": "food_cow",
+    "name": "food_cow_name",
+    "speedUp": 1,
+    "rubiMuaNgay": 3,
+    "timeMin": 10,
+    "exp": 2,
+    "maxPrice": 14,
+    "levelUnlock": 6,
+
+    "description" : "food_cow_description",
+    "nameIcon" : "Art/Machine/items/feed mill/Feed-cow.png"
+  },
+  {
+    "id": "product_cream",
+    "name": "product_cream_name",
+    "speedUp": 1,
+    "rubiMuaNgay": 8,
+    "timeMin": 20,
+    "exp": 6,
+    "maxPrice": 50,
+    "levelUnlock": 6,
+
+    "description" : "product_cream_description",
+    "nameIcon" : "Art/Machine/items/Dairy/cream.png"
+  },
+  {
+    "id": "product_butter",
+    "name": "product_butter_name",
+    "speedUp": 1,
+    "rubiMuaNgay": 15,
+    "timeMin": 30,
+    "exp": 10,
+    "maxPrice": 82,
+    "levelUnlock": 9,
+
+    "description" : "product_butter_description",
+    "nameIcon" : "Art/Machine/items/Dairy/butter.png"
+  },
+  {
+    "id": "product_brown_sugar",
+    "name": "product_brown_sugar_name",
+    "speedUp": 1,
+    "rubiMuaNgay": 5,
+    "timeMin": 20,
+    "exp": 4,
+    "maxPrice": 32,
+    "levelUnlock": 7,
+
+    "description" : "product_brown_sugar_description",
+    "nameIcon" : "Art/Machine/items/Sugar mill/brown-sugar.png"
+  },
+  {
+    "id": "product_popcorn",
+    "name": "product_popcorn_name",
+    "speedUp": 1,
+    "rubiMuaNgay": 5,
+    "timeMin": 30,
+    "exp": 4,
+    "maxPrice": 32,
+    "levelUnlock": 8,
+
+    "description" : "product_popcorn_description",
+    "nameIcon" : "Art/Machine/items/Popcorn pot/popcorn.png"
+  },
+  {
+    "id": "product_pancake",
+    "name": "product_pancake_name",
+    "speedUp": 1,
+    "rubiMuaNgay": 22,
+    "timeMin": 30,
+    "exp": 13,
+    "maxPrice": 100,
+    "levelUnlock": 9,
+
+    "description" : "product_pancake_description",
+    "nameIcon" : "Art/Machine/items/BBQ Grill/pancake.png"
+  },
+
+
+
+
+
+  {
+    "id": "crop_indigo",
+    "name": "crop_indigo_name",
+    "speedUp": 1,
+    "rubiMuaNgay": 5,
+    "timeMin": 120,
+    "exp": 5,
+    "maxPrice": 25,
+    "levelUnlock": 13,
+    "description" : "crop_indigo_description",
+    "nameIcon" : "Art/Crops/Field/indigo.png"
+  },
+  {
+    "id": "crop_chili_pepper",
+    "name": "crop_chili_pepper_name",
+    "speedUp": 1,
+    "rubiMuaNgay": 7,
+    "timeMin": 240,
+    "exp": 7,
+    "maxPrice": 36,
+    "levelUnlock": 25,
+    "description" : "crop_chili_pepper_description",
+    "nameIcon" : "Art/Crops/Field/vhili pepper.png"
+  },
+  {
+    "id": "crop_tomato",
+    "name": "crop_tomato_name",
+    "speedUp": 1,
+    "rubiMuaNgay": 8,
+    "timeMin": 360,
+    "exp": 8,
+    "maxPrice": 43,
+    "levelUnlock": 30,
+    "description" : "crop_tomato_description",
+    "nameIcon" : "Art/Crops/Field/tomato.png"
+  },
+  {
+    "id": "crop_strawberry",
+    "name": "crop_strawberry_name",
+    "speedUp": 1,
+    "rubiMuaNgay": 10,
+    "timeMin": 48,
+    "exp": 10,
+    "maxPrice": 50,
+    "levelUnlock": 34,
+    "description" : "crop_strawberry_description",
+    "nameIcon" : "Art/Crops/Field/strawberry.png"
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+  {
+    "id": "tool_nail",
+    "name": "tool_nail_name",
+    "speedUp": 1,
+    "rubiMuaNgay": 1,
+    "timeMin": "",
+    "exp": 1,
+    "maxPrice": 5,
+    "levelUnlock": 5,
+    "description" : "tool_nail_description",
+    "typeTime": "",
+    "nameIcon" : "Art/Tool/dinh3.png",
+    "price": 5
+  },
+  {
+    "id": "tool_screw",
+    "name": "tool_screw_name",
+    "speedUp": 1,
+    "rubiMuaNgay": 1,
+    "timeMin": "",
+    "exp": 1,
+    "maxPrice": 10,
+    "levelUnlock": 10,
+    "description" : "tool_screw_description",
+    "typeTime": "Text_time_minute",
+    "nameIcon" : "Art/Tool/dinh.png",
+    "price": 10
+  },
+  {
+    "id": "tool_woodPanel",
+    "name": "tool_woodPanel_name",
+    "speedUp": 1,
+    "rubiMuaNgay": 1,
+    "timeMin": "",
+    "exp": 1,
+    "maxPrice": 15,
+    "levelUnlock": 15,
+    "description" : "tool_woodPanel_description",
+    "typeTime": "",
+    "nameIcon" : "Art/Tool/go2.png",
+    "price": 15
+
+  },
+  {
+    "id": "tool_bolt",
+    "name": "tool_bolt_name",
+    "speedUp": 1,
+    "rubiMuaNgay": 1,
+    "timeMin": "",
+    "exp": 1,
+    "maxPrice": 7,
+    "levelUnlock": 7,
+    "description" : "tool_bolt_description",
+    "typeTime": "",
+    "nameIcon" : "Art/Tool/dinh2.png",
+    "price": 7
+  },
+  {
+    "id": "tool_plank",
+    "name": "tool_plank_name",
+    "speedUp": 1,
+    "rubiMuaNgay": 1,
+    "timeMin": "",
+    "exp": 1,
+    "maxPrice": 9,
+    "levelUnlock": 9,
+    "description" : "tool_plank_description",
+    "typeTime": "",
+    "nameIcon" : "Art/Tool/go1.png",
+    "price": 9
+  },
+  {
+    "id": "tool_ductTape",
+    "name": "tool_ductTape_name",
+    "speedUp": 1,
+    "rubiMuaNgay": 1,
+    "timeMin": "",
+    "exp": 1,
+    "maxPrice": 11,
+    "levelUnlock": 11,
+    "description" : "tool_ductTape_description",
+    "typeTime": "",
+    "nameIcon" : "Art/Tool/bangdinh.png",
+    "price": 11
+  },
+
+  {
+    "id": "tool_axe",
+    "name": "tool_axe_name",
+    "speedUp": 1,
+    "rubiMuaNgay": 5,
+    "timeMin": "",
+    "exp": 1,
+    "maxPrice": 1,
+    "levelUnlock": 1,
+    "description" : "tool_axe_description",
+    "typeTime": "",
+    "nameIcon" : "Art/Tool/riu.png",
+    "price": 5
+  },
+  {
+    "id": "tool_saw",
+    "name": "tool_saw_name",
+    "speedUp": 1,
+    "rubiMuaNgay": 5,
+    "timeMin": "",
+    "exp": 1,
+    "maxPrice": 1,
+    "levelUnlock": 1,
+    "description" : "tool_saw_description",
+    "typeTime": "",
+    "nameIcon" : "Art/Tool/cua.png",
+    "price": 5
+  },
+  {
+    "id": "tool_shovel",
+    "name": "tool_shovel_name",
+    "speedUp": 1,
+    "rubiMuaNgay": 5,
+    "timeMin": "",
+    "exp": 1,
+    "maxPrice": 1,
+    "levelUnlock": 1,
+    "description" : "tool_shovel_description",
+    "typeTime": "",
+    "nameIcon" : "Art/Tool/xeng.png",
+    "price": 5
+  },
+  {
+    "id": "tool_dynamite",
+    "name": "tool_dynamite_name",
+    "speedUp": 1,
+    "rubiMuaNgay": 5,
+    "timeMin": "",
+    "exp": 1,
+    "maxPrice": 1,
+    "levelUnlock": 1,
+    "description" : "tool_dynamite_description",
+    "typeTime": "",
+    "nameIcon" : "Art/Tool/bomb.png",
+    "price": 5
+  },
+  {
+    "id": "tool_demolition_charge",
+    "name": "tool_demolition_charge_name",
+    "speedUp": 1,
+    "rubiMuaNgay": 5,
+    "timeMin": "",
+    "exp": 1,
+    "maxPrice": 1,
+    "levelUnlock": 1,
+    "description" : "tool_demolition_charge_description",
+    "typeTime": "",
+    "nameIcon" : "Art/Tool/bomb TNT.png",
+    "price": 5
+  }
+]

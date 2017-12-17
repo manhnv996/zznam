@@ -24,6 +24,34 @@
 	  	"cropAni": "Luanuoc_Harvest"
 
 	},
+
+	{
+		"id": "crop_corn",
+		"harvest": "2",
+		"time": "300",
+		"level": "2",
+		"name": "Ngo",
+		"harvestExp": "1",
+		"percentMaterial": "1",
+		"maxPrice": "7",
+		"growTimeType": "1",
+		"rPrice": "1",
+		"instantPrice": "1",
+
+
+
+		"animation_res": "game/animation/Ngo",
+		"plantAni": "Ngo_hat",
+
+		"grow1": "Ngo_non",
+		"grow2": "Ngo_Hoa",
+		"grow3": "selected",
+		"grow4": "Ngo_bap",
+
+
+		"cropAni": "Ngo_Th"
+	},
+
 	{
 		"id": "crop_carrot",
 		"harvest": "2",
@@ -124,6 +152,40 @@
 		"cropAni": "OaiHuong_TH"
 
 	},
+
+
+
+
+	{
+		"id": "crop_chili_pepper",
+		"harvest": "2",
+		"time": "14400",
+		"level": "25",
+		"name": "Ot",
+		"harvestExp": "7",
+		"percentMaterial": "5",
+		"maxPrice": "36",
+		"growTimeType": "2",
+		"rPrice": "7",
+		"instantPrice": "7",
+
+
+		"animation_res": "game/animation/Ot",
+		"plantAni": "Ot_Mam",
+
+		"grow1": "Ot_la",
+		"grow2": "Ot_Hoa",
+		"grow3": "selected",
+		"grow4": "Ot_to",
+
+		"cropAni": "Ot_Harvest"
+
+
+	},
+
+
+
+
 	{
 		"id": "crop_tomato",
 		"harvest": "2",

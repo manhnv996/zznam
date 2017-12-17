@@ -3,7 +3,12 @@ package model;
 import config.enums.AnimalLodgeEnum;
 import config.enums.MachineTypeEnum;
 
+import config.jsonobject.MachineConfig;
+
+import config.utils.ConfigContainer;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -15,8 +20,9 @@ public class Machine extends ConstructedObject {
     private long startTime;
     private List<String> productQueue;
 
-    public Machine(int id, MachineTypeEnum type, int slot, long startBuildTime, boolean completed, int x, int y) {
-        super(startBuildTime, completed, x, y);
+    public Machine(int id, MachineTypeEnum type, int slot, long startBuildTime, 
+                   boolean boostBuild, boolean completed, int x, int y) {
+        super(startBuildTime, boostBuild, completed, x, y);
         
         this.productQueue = new ArrayList<>();
         this.id = id;
@@ -47,5 +53,16 @@ public class Machine extends ConstructedObject {
     
     public long getStartTime () {
         return this.startTime;
+    }
+    
+    public int getRemainTime() {
+        MachineConfig machineConfig = ConfigContainer.getMachineConfigByType(this.type.toString());
+        long curTime = new Date().getTime();
+        int buildTime = (int) Math.floor((curTime - getStartBuildTime()) / 1000);
+        int remainTime = machineConfig.time - buildTime;
+        if (remainTime > 0) {
+            return remainTime;
+        } 
+        return 0;
     }
 }

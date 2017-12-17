@@ -4,6 +4,22 @@ var ProductType = null;
 var GameInfo = null;
 
 
+function getProductObjByType(productId) {
+    var productTypeObj = null;
+    cc.loader.loadJson(res.cropconfig, function (error, data) {
+        productTypeObj = data;
+        //ProductType = data;
+    });
+
+    for (var i = 0; i < productTypeObj.length; i++) {
+        if (productTypeObj[i].id == productId) {
+            return productTypeObj[i];
+        }
+    }
+
+    return null;
+}
+
 function getSeedLevel(level) {
 
     var productTypeObj = null;
@@ -35,6 +51,7 @@ function getSeedShow(level) {
 
     var seedShow = [];
     for (var i = 0; i < seedLevel.length; i++){
+        //cc.log("abc " + getProductObjByType(seedLevel[i]));
         if (user.getAsset().getFoodStorage().getQuantity(seedLevel[i]) == 0){
             if (getProductObjByType(seedLevel[i]).level <= user.getLevel()){
                 seedShow.push(new StorageItem(seedLevel[i], 0));
@@ -48,6 +65,7 @@ function getSeedShow(level) {
     }
 
     seedShow.sort(function(a, b) {
+        // cc.log("getProductObjByType" + getProductObjByType(a.getTypeItem()).id);
         if (getProductObjByType(a.getTypeItem()).level <= user.getLevel() || a.getQuantityItem() != null){
             return getProductObjByType(a.getTypeItem()).level - getProductObjByType(b.getTypeItem()).level;
         }
@@ -66,20 +84,29 @@ function getMachineConfigByType (type) {
     }
 }
 
-function getProductObjByType(productId) {
-    var productTypeObj = null;
-    cc.loader.loadJson(res.cropconfig, function (error, data) {
-        productTypeObj = data;
-        //ProductType = data;
-    });
-
-    for (var i = 0; i < productTypeObj.length; i++) {
-        if (productTypeObj[i].id == productId) {
-            return productTypeObj[i];
+function getProductConfigById (id) {
+    for (var i = 0; i < res.storageItemResource.length; i++) {
+        if (res.storageItemResource[i].id === id) {
+            return res.storageItemResource[i];
         }
     }
-
     return null;
+}
+
+function getLodgeConfigById (id) {
+    for (var i = 0; i < res.infoCoopItem.length; i++) {
+        if (res.infoCoopItem[i].id === id) {
+            return res.infoCoopItem[i];
+        }
+    }
+    return null;
+}
+
+function fromGoldToRuby(gold) {
+    var ruby = gold / 15;
+    if(gold % 15) ruby++;
+    ruby = Math.floor(ruby);
+    return ruby;
 }
 
 function getResAniIdBySeedType(seedType) {
@@ -185,6 +212,7 @@ function getSeedImgBySeedTypeAndQuantity(seedType, quantity) {
 }
 
 
+
 function updateGameInfo(gameInfoJson){
     var gameInfo = null;
     /*
@@ -253,6 +281,7 @@ function updateGameInfo(gameInfoJson){
 
 // New
 function onReceiveUser(userInfo) {
+    user = new User();
     // Add FoodStorage
     var foodStorage = new Storages(
         new Coordinate(userInfo.asset.foodStorage.x,
@@ -318,12 +347,15 @@ function onReceiveUser(userInfo) {
         
         for (var j = 0; j < animalLodgeInfo.animalList.length; j++) {
             var animalInfo = animalLodgeInfo.animalList[j];
+            var remainTime = AnimalConfig[animalInfo.type].time * 1000 - animalInfo.passedTime;
             var animal = new Animal(
                 animalInfo.type,
                 animalInfo.id,
                 animalInfo.feeded,
-                animalInfo.feededTime
+                animalInfo.feededTime,
+                remainTime
             );
+            // cc.log("[R]", animal.remainTime);
             animalList.push(animal);
         }
 
@@ -338,7 +370,7 @@ function onReceiveUser(userInfo) {
 
     var machineList = [];
     for (var i = 0; i < userInfo.asset.machineList.length; i++) {
-        cc.log("userInfo.asset.machineList[i] " + userInfo.asset.machineList.length);
+        // cc.log("userInfo.asset.machineList[i] " + userInfo.asset.machineList.length);
         var machineInfo = userInfo.asset.machineList[i];
 
         var machine = new Machine(
@@ -347,8 +379,10 @@ function onReceiveUser(userInfo) {
             machineInfo.slot,
             machineInfo.startTime,
             machineInfo.productQueue,
+            machineInfo.boostBuild,
             machineInfo.completed,
             machineInfo.startBuildTime,
+            machineInfo.remainBuildTime,
             new Coordinate(machineInfo.x, machineInfo.y)
         );
         machineList.push(machine);
@@ -356,15 +390,47 @@ function onReceiveUser(userInfo) {
 
     var myShop = null;
 
+    //Order List
+    var orderList = [];
+    for (var i = 0; i < userInfo.asset.orderList.length; i++) {
+        var order = new Order(
+            userInfo.asset.orderList[i].orderId,
+            userInfo.asset.orderList[i].itemList,
+            userInfo.asset.orderList[i].orderPrice,
+            userInfo.asset.orderList[i].orderExp
+        );
+        order.waittingTime = new Date(parseInt(userInfo.asset.orderList[i].waittingTime));
+        orderList.push(order);
+    }
+
+    //Order NPC List
+    var orderNPCList = [];
+    for (var i = 0; i < userInfo.asset.orderNPCList.length; i++) {
+        var orderNPC = new OrderNPC(
+            userInfo.asset.orderNPCList[i].orderId,
+            userInfo.asset.orderNPCList[i].orderItem,
+            userInfo.asset.orderNPCList[i].orderPrice,
+            userInfo.asset.orderNPCList[i].orderExp,
+            userInfo.asset.orderNPCList[i].npc_res
+        );
+        orderNPC.waittingTime = new Date(parseInt(userInfo.asset.orderNPCList[i].waittingTime));
+        orderNPCList.push(orderNPC);
+    }
+    //
+    var car = new Car(userInfo.asset.car.deliveryPrice, userInfo.asset.car.deliveryExp);
+    //
+
     var asset = new Asset(
         foodStorage, warehouse, fieldList, animalLodgeList,
-        machineList, natureThingList, myShop
+        machineList, natureThingList, myShop,
+        orderList, orderNPCList, car
     );
 
     // cc.log("Asset", asset);
 
     // Create user
     user = new User(asset, userInfo.map);
+    cc.log("user.map", userInfo.map.length);
     user.level = userInfo.level;
     user.gold = userInfo.gold;
     user.ruby = userInfo.ruby;
@@ -374,4 +440,5 @@ function onReceiveUser(userInfo) {
     MainScene.instance = new MainScene();
     cc.director.runScene(MainScene.instance);
     MainScene.instance.onGettedData();
+
 }

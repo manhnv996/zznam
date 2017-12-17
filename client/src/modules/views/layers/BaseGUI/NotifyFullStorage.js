@@ -6,7 +6,7 @@ var NotifyFullStorage = BaseLayout.extend({
     _storageType: null,
 
     ctor: function (storageType) {
-        this._super(res.bg_notify_png, "text_notice_title", true, true, true);
+        this._super(res.bgNotice, "text_notice_title", true, true, true);
         this._storageType = storageType;
 
         var fullSilo = new cc.Sprite(res.silo_full);
@@ -34,13 +34,14 @@ var NotifyFullStorage = BaseLayout.extend({
         switch (type) {
             case ccui.Widget.TOUCH_ENDED:
             case ccui.Widget.TOUCH_CANCELED:
-                this.removeFromParent(true);
+                // this.removeFromParent(true);
+                BaseGUILayer.instance.removeBlockListener();
                 if (this._storageType === StorageTypes.FOOD_STORAGE) {
-                    StorageLayer.instance.initStorage(user.getAsset().getFoodStorage());
+                    BaseGUILayer.instance.showStorage(user.getAsset().getFoodStorage());
                 } else {
-                    StorageLayer.instance.initStorage(user.getAsset().getWarehouse());
+                    BaseGUILayer.instance.showStorage(user.getAsset().getWarehouse());
                 }
-                StorageLayer.instance._multiLayer.switchTo(1);
+                StorageLayout.instance._multiLayer.switchTo(1);
                 break;
         }
     }

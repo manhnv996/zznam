@@ -8,13 +8,21 @@ var MainScene = cc.Scene.extend({
 		StorageCtrl.instance = new StorageCtrl();
 		ConstructedCtrl.instance = new ConstructedCtrl();
 		AnimalCtrl.instance = new AnimalCtrl();
-
+		NatureCtrl.instance = new NatureCtrl();
+		FriendCtrl.instance = new FriendCtrl();
+		
 		// Init layers
 		MapLayer.instance = new MapLayer();
 		this.addChild(MapLayer.instance);
 
-		PopupLayer.instance = new PopupLayer();
-		this.addChild(PopupLayer.instance);
+        PopupLayer.instance = new PopupLayer();
+        this.addChild(PopupLayer.instance);
+
+		TablePopupLayer.instance = new TablePopupLayer();
+		this.addChild(TablePopupLayer.instance);
+
+		AnimateEventLayer.instance = new AnimateEventLayer();
+		this.addChild(AnimateEventLayer.instance);
 
 		//var mainGuiLayer = new MainG+uiLayer();
 		//this.addChild(mainGuiLayer);
@@ -22,7 +30,13 @@ var MainScene = cc.Scene.extend({
 		//this.addChild(MainGuiLayer.instance);
 
 		MapCtrl.instance = new MapCtrl();
-		
+
+        OrderCtrl.instance = new OrderCtrl();
+
+        // Add ScheduleLoop
+        // ScheduleLoop.instance = new ScheduleLoop();
+        ScheduleLoop.instance.clearAllSchedule(); // Flush cached
+        this.addChild(ScheduleLoop.instance); // Instance created in ScheduleLoop.js
 		cc.log("Start Scene");
 	},
 
@@ -42,14 +56,32 @@ var MainScene = cc.Scene.extend({
 		MapCtrl.instance.init();
 		MapCtrl.instance._showDebugMap();
 
+		//NotifyLayer.instance.notifyFullSilo();
+
+		OrderBGLayer.instance = new OrderBGLayer();
+		// this.addChild(OrderBGLayer.instance);
+
+        //BaseGUILayer.instance.notifyFullStorage(StorageTypes.FOOD_STORAGE);
+		//BaseGUILayer.instance.notifyMissGold(50);
+
 		//BaseGUILayer.instance.notifyFullStorage(StorageTypes.FOOD_STORAGE);
 		//BaseGUILayer.instance.notifyMissGold(50);
 		//cc.log(res.infoCoopItem[0]["id"]);
 
 		//BaseGUILayer.instance.loadingBar();
+
+        //var model = new Machine(0, "bakery_machine", 3, 0, null, false, new Date().getTime(), new Coordinate(20, 20));
+        //user.asset.addMachine(model);
+        ////cc.log("model " + model.coordinate.x + " " + model.coordinate.y + " id " + model.id + " slot " + model.slot);
+        ////var machine = user.asset.getMachineById(model.id);
+        ////cc.log("machine " + machine.coordinate.x + " " + machine.coordinate.y + " id " + machine.id + " slot " + machine.slot);
+        //var bakery = new BakerySprite(0, 20, 20);
+        //MapLayer.instance.addChild(bakery);
 	},
 
-	init: function() {
+
+
+    init: function() {
 
 		//gv.gameClient.connect();
 		//testnetwork.connector.sendLoginRequest();

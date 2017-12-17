@@ -18,7 +18,10 @@ var PlantCtrl = cc.Class.extend({
 
                 var seedShow = getSeedShow(user.getLevel());
 
-                PopupLayer.instance.showSeedPopup(fieldId, seedShow);
+                //PopupLayer.instance.showSeedPopup(fieldId, seedShow);
+                TablePopupLayer.instance.showSeedTablePopup(fieldId, seedShow);
+
+
                 //
                 this.firstDragEmptyField = true;
                 this.firstDragField = true;
@@ -30,7 +33,8 @@ var PlantCtrl = cc.Class.extend({
                 /*
                 Show croptool
                  */
-                PopupLayer.instance.showToolPopup(fieldId);
+                //PopupLayer.instance.showToolPopup(fieldId);
+                TablePopupLayer.instance.showCropToolPopup(fieldId);
 
                 this.firstShowNotice = false;
 
@@ -40,7 +44,8 @@ var PlantCtrl = cc.Class.extend({
                 /*
                 Show status
                  */
-                PopupLayer.instance.showProgressBarInprogress(fieldId);
+                // PopupLayer.instance.showProgressBarInprogress(fieldId);
+                TablePopupLayer.instance.showTimeRemainProgressBar(fieldId);
 
             }
 
@@ -111,7 +116,8 @@ var PlantCtrl = cc.Class.extend({
                      */
                     if (this.firstShowNotice == false){
 
-                        PopupLayer.instance.showNoticeFullFoodStorageBG();
+                        // PopupLayer.instance.showNoticeFullFoodStorageBG();
+                        BaseGUILayer.instance.notifyFullStorage(StorageTypes.FOOD_STORAGE);
                         this.firstShowNotice = true;
                     }
 
@@ -123,8 +129,14 @@ var PlantCtrl = cc.Class.extend({
 /////
 
                     //animation
-                    MapLayer.instance.runAnimationCrop(fieldSelected.getFieldId(), seedType);
-
+                    MapLayer.instance.runAnimationCrop(fieldSelected.getFieldId(), seedType, function() {
+                        var position = MapValues.logicToScreenPosition(
+                                fieldSelected.coordinate.x, fieldSelected.coordinate.y);
+                        AnimateEventLayer.instance.animate(
+                            position.x, position.y, 
+                            StorageTypes.FOOD_STORAGE, seedType, 2,
+                            getProductObjByType(seedType).harvestExp);
+                    });
                 }
             } else {
                 /*
@@ -157,7 +169,8 @@ var PlantCtrl = cc.Class.extend({
                     if (this.firstDragEmptyField){
                         cc.log("FLOW BUY SEEDDDDDDDDDDD!!!!!!!!!!!!!!!!!!!");
 
-                        PopupLayer.instance.showSuggestBuyingSeedBG(seedType);
+                        // PopupLayer.instance.showSuggestBuyingSeedBG(seedType);
+                        BaseGUILayer.instance.showSuggestBuyMissionItem([new StorageItem(seedType, 1)], null, null);
                         /*
                         done
                         FLOW BUY SEED
@@ -187,12 +200,14 @@ var PlantCtrl = cc.Class.extend({
 //
                 //send pk to server {packet{fieldId}}
                 testnetwork.connector.sendPlantBoost(fieldSelected.getFieldId());
+                return true;
             } else {
                 cc.log("Not enough ruby");
+                return false;
             }
 
         }
-
+        return false;
     },
 
     buySeed: function (seedType) {
@@ -200,7 +215,7 @@ var PlantCtrl = cc.Class.extend({
         if (user.reduceRuby(rubiBuy)){
             if (user.getAsset().getFoodStorage().addItem(seedType, 1)){
 
-                testnetwork.connector.sendBuyItemByRubi(seedType);
+                testnetwork.connector.sendBuyItemByRubi(seedType, 1);
                 return true;
             } else {
                 return false;

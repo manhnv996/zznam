@@ -14,27 +14,30 @@ var CowSprite = AnimalSprite.extend({
 		this.entered = true;
 
 		// Random position
-		this.maxX = this.getParent().blockSizeX;
-		this.maxY = this.getParent().blockSizeY;
-		var lx = (Math.round(Math.random() * 100) % ((this.maxX - 1) * 10)) / 10 + 0.5;
-		var ly = (Math.round(Math.random() * 100) % ((this.maxY - 1) * 10)) / 10 + 0.5;
-		this.setLogicPosition(lx, ly);
-		
-		if (this.isHungry) {
-			this.play(CowSprite.Hungry);
-			return;
-		}
+		var parent = this.getParent();
+		if (parent.blockSizeX) {
+			this.maxX = this.getParent().blockSizeX;
+			this.maxY = this.getParent().blockSizeY;
+			var lx = (Math.round(Math.random() * 100) % ((this.maxX - 1) * 10)) / 10 + 0.5;
+			var ly = (Math.round(Math.random() * 100) % ((this.maxY - 1) * 10)) / 10 + 0.5;
+			this.setLogicPosition(lx, ly);
 
-		if (this.remainTime > 0) {
-			// cc.log("Set scheduleOnce after", this.remainTime / 1000);
-			this.scheduleOnce(this.harvest, this.remainTime / 1000);
-			this.doAction();
-			this.scheduleOnce(function() {
-				// cc.log("Start schedule");
-				this.schedule(this.doAction, 4.0);
-			}.bind(this), Math.round(Math.random() * 100) % 40 / 10);
-		} else {
-			this.harvest();
+			if (this.isHungry) {
+				this.play(CowSprite.Hungry);
+				return;
+			}
+
+			if (this.remainTime > 0) {
+				// cc.log("Set scheduleOnce after", this.remainTime / 1000);
+				this.scheduleOnce(this.harvest, this.remainTime / 1000);
+				this.doAction();
+				this.scheduleOnce(function () {
+					// cc.log("Start schedule");
+					this.schedule(this.doAction, 4.0);
+				}.bind(this), Math.round(Math.random() * 100) % 40 / 10);
+			} else {
+				this.harvest();
+			}
 		}
 
 		// var rand = Math.round(Math.random() * 10) % 3;
@@ -63,6 +66,11 @@ var CowSprite = AnimalSprite.extend({
 	},
 
 	walk: function() {
+		if (!this.maxX) {
+			this.maxX = this.getParent().blockSizeX;
+			this.maxY = this.getParent().blockSizeY;
+		}
+
 		this.play(CowSprite.Walk);
 		this.direction.x = 2 * (Math.random() - 0.5);
 		this.direction.y = Math.sqrt(1 - Math.pow(this.direction.x, 2)) * (Math.random() > 0.5 ? 1 : -1);
@@ -125,7 +133,12 @@ var CowSprite = AnimalSprite.extend({
 	},
 
 	setOnHarvestTime: function(time) {
+		// cc.log("Harvest after", time);
 		this._setOnHarvestTime(time, AnimalConfig.cow.time * 1000);
+	},
+
+	demo: function() {
+		this.play(CowSprite.Idle1);
 	}
 });
 

@@ -7,10 +7,13 @@ var Asset = cc.Class.extend({
     machineList: null,
     natureThingList: null,
     myShop: null,
+    orderList: [],
+    orderNPCList: [],
+    car: null,
     animalLodgeList: null,
     // map: [],
 
-    ctor: function (foodStorage, warehouse, fieldList, animalLodgeList, machineList, natureThingList, myShop) {
+    ctor: function (foodStorage, warehouse, fieldList, animalLodgeList, machineList, natureThingList, myShop, orderList, orderNPCList, car) {
         //
         //this._super();
 
@@ -27,6 +30,9 @@ var Asset = cc.Class.extend({
         this.machineList = machineList || [];
         this.natureThingList = natureThingList || [];
         this.myShop = myShop;
+        this.orderList = (orderList == null) ? [] : orderList;
+        this.orderNPCList = (orderNPCList == null) ? [] : orderNPCList;
+        this.car = car;
         // this.fieldList = [];
     },
 
@@ -68,7 +74,7 @@ var Asset = cc.Class.extend({
         //bug   // ? where??
         this.fieldList.push(field);
         field.setFieldId(this.fieldList.length);
-        // this.fieldList[this.fieldList.length - 1].setFieldId(this.fieldList.length - 1);    //autoincrement id
+         //this.fieldList[this.fieldList.length - 1].setFieldId(this.fieldList.length - 1);    //autoincrement id
 
     },
 
@@ -91,20 +97,111 @@ var Asset = cc.Class.extend({
 
     addMachine: function (machine) {
         this.machineList.push(machine);
-    },
-
-    getLodgeById: function(id) {
-        return this.animalLodgeList.find(function(lodge) {
-            return lodge.id === id;
-        });
-        if (machine.id == 0) {
+        if (machine.id === 0) {
             machine.id = this.machineList.length;
         }
     },
 
+    addAnimalLodge: function (animalLodge) {
+        this.animalLodgeList.push(animalLodge);
+        if (animalLodge.id === 0) {
+            animalLodge.id = this.animalLodgeList.length;
+        }
+    },
+
+    getLodgeById: function(id) {
+        var lodge =  this.animalLodgeList.find(function(lodge) {
+            return lodge.id === id;
+        });
+        return lodge;
+    },
+
+//    //
+    getCar: function () {
+        return this.car;
+    },
+
+    getOrderList: function() {
+        return this.orderList;
+    },
+    //
+    getOrderNPCList: function() {
+        return this.orderNPCList;
+    },
+
+    addOrder: function(/*level, */order){
+
+        // if (this.orderList.size() < OrderUtil.getNumberOfOrderByLevel(level)){
+            this.orderList.add(order);
+            this.orderList.get(this.orderList.size() - 1).setOrderId(this.orderList.size() - 1);
+
+            return true;
+        // }
+        /*
+         * inprogress
+         */
+        // return false;
+    },
+    getOrderById: function (orderId) {
+        for (var i = 0; i < this.orderList.length; i++){
+            if (this.orderList[i].getOrderId() == orderId){
+                return this.orderList[i];
+
+            }
+        }
+        return null;
+    },
+
+    getOrderNPCById: function (orderId) {
+        for (var i = 0; i < this.orderNPCList.length; i++){
+            if (this.orderNPCList[i].getOrderId() == orderId){
+                return this.orderNPCList[i];
+
+            }
+        }
+        return null;
+    },
+
+    getQuantityOfTwoStorageByProductId: function (productId) {
+        var qFoodStorage = this.getFoodStorage().getQuantity(productId);
+        var qWarehouse = this.getWarehouse().getQuantity(productId);
+
+        return (qFoodStorage > qWarehouse) ? qFoodStorage : qWarehouse;
+    },
+
+    addItemToStorageById: function (productId, quantity) {
+        if (productId.indexOf("crop_") >= 0){
+            return this.getFoodStorage().addItem(productId, quantity);
+        } else {
+            return this.getWarehouse().addItem(productId, quantity);
+        }
+    },
+
+    //
+    getWaittingOrderList: function () {
+        var list = [];
+        for (var i = 0; i < this.getOrderList().length; i++){
+            if (this.getOrderList()[i].checkStatus() == OrderStatusTypes.WAITTING){
+                list.push(this.getOrderList()[i]);
+            }
+        }
+        return list;
+
+    },
+//
+    getWaittingOrderNPCList: function () {
+        var list = [];
+        for (var i = 0; i < this.getOrderNPCList().length; i++) {
+            if (this.getOrderNPCList()[i].checkStatus() == OrderStatusTypes.WAITTING) {
+                list.push(this.getOrderNPCList()[i]);
+            }
+        }
+        return list;
+    },
+
     getMachineById: function (id) {
         var machine = this.machineList.find(function (f) {
-            return f.id = id;
+            return f.id === id;
         });
         return machine;
     },
@@ -135,5 +232,17 @@ var Asset = cc.Class.extend({
             }
         }
         return null;
+    },
+
+    getNatureThingById: function(natureId) {
+        return this.natureThingList.find(function(nature) {
+            return nature.id === natureId;
+        });
+    },
+
+    removeNatureThing: function(natureId) {
+        this.natureThingList = this.natureThingList.filter(function(nature) {
+            return nature.id !== natureId;
+        });
     }
 });

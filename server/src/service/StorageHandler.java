@@ -15,6 +15,9 @@ import cmd.receive.storage.RequestUpgradeStorage;
 
 import cmd.send.demo.ResponseErrorCode;
 
+import cmd.send.storage.ResponseBuyToolUpgrade;
+import cmd.send.storage.ResponseUpgradeStorage;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -95,17 +98,17 @@ public class StorageHandler extends BaseClientRequestHandler{
                 if (userInfo.getAsset().getWarehouse().addItem(req.productType, req.number)) {
                     System.out.println("Buy Tool Success!" + req.productType + " " + req.number);
                     System.out.println("User ruby " + userInfo.getRuby());
-                    send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
+                    send(new ResponseBuyToolUpgrade(ErrorLog.SUCCESS.getValue()), user);
                 } else {
-                    send(new ResponseErrorCode(ErrorLog.ERROR_CANT_ADD_TOOL.getValue()), user);
+                    send(new ResponseBuyToolUpgrade(ErrorLog.ERROR_CANT_ADD_TOOL.getValue()), user);
                     return;
                 }
             } else {
-                send(new ResponseErrorCode(ErrorLog.ERROR_BUY_TOOL_RUBY_NOT_REDUCE.getValue()), user);
+                send(new ResponseBuyToolUpgrade(ErrorLog.ERROR_RUBY_NOT_REDUCE.getValue()), user);
                 return;
             }
         } else {
-            send(new ResponseErrorCode(ErrorLog.ERROR_BUY_TOOL_RUBY_NOT_ENOUGH.getValue()), user);
+            send(new ResponseBuyToolUpgrade(ErrorLog.ERROR_RUBY_NOT_ENOUGH.getValue()), user);
             return;
         }
         
@@ -177,10 +180,10 @@ public class StorageHandler extends BaseClientRequestHandler{
             //set New Capacity
             storage.setCapacity(obj.get(level).getAsJsonObject().get("capacity").getAsInt());
             
-            send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
+            send(new ResponseUpgradeStorage(ErrorLog.SUCCESS.getValue()), user);
             System.out.println("Level new " + storage.getStoragetype() + " " + storage.getLevel());
         } else {
-            send(new ResponseErrorCode(ErrorLog.ERROR_UPGRADE_FAIL.getValue()), user);
+            send(new ResponseUpgradeStorage(ErrorLog.ERROR_UPGRADE_FAIL.getValue()), user);
             return;
         }
         

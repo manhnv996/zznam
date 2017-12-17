@@ -68,7 +68,7 @@ cc.log = function() {
 }
 
 var user = null;
-
+var home = true;
 cc.game.onStart = function () {
     if (!cc.sys.isNative && document.getElementById("cocosLoading")) //If referenced loading.js, please remove it
         document.body.removeChild(document.getElementById("cocosLoading"));
@@ -98,15 +98,16 @@ cc.game.onStart = function () {
         fr.clientConfig.updateResourceSearchPath();
         gv.gameClient = new GameClient();
         gv.poolObjects = new PoolObject();
-        user = new User();
+
+        // user = new User();
         testnetwork.connector = new testnetwork.Connector(gv.gameClient);
 
 		//cc.director.runScene(new MainScene());
         fr.Localization.getInstance().setCurrentLanguage('vi');
 
-        cc.log("Preload some animations");
-        fr.preloadAnimation(['SILO', 'Barn', 'Carot', 'DauHL', 'Cayrung',
-                'Dato', 'Vungnuoc1', 'Danho']);
+        // cc.log("Preload some animations");
+        // fr.preloadAnimation(['SILO', 'Barn', 'Carot', 'DauHL', 'Cayrung',
+        //         'Dato', 'Vungnuoc1', 'Danho']);
         PreloaderScene.instance = new PreloaderScene();
         cc.director.runScene(PreloaderScene.instance);
 

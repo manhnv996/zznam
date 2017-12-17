@@ -52,29 +52,30 @@ var User = cc.Class.extend({
      */
 
     addGold: function (number) {
-        this.gold += number;
+        this.gold += parseInt(number);
 
         //
         MainGuiLayer.instance.labelGold.setString(this.gold);
     },
     addRuby: function (number) {
-        this.ruby += number;
+        this.ruby += parseInt(number);
 
         //
         MainGuiLayer.instance.labelRuby.setString(this.ruby);
     },
     addExp: function (number) {
-        this.exp += number;
+        this.exp += parseInt(number);
         //bug
         /*
         NOT YET STARTED
         if level up
          */
+        MainGuiLayer.instance.labelExp.setString(this.exp);
     },
 
     reduceGold: function (number) {
-        if (this.getGold() >= number){
-            this.gold -= number;
+        if (this.getGold() >= parseInt(number)){
+            this.gold -= parseInt(number);
 
             //
             MainGuiLayer.instance.labelGold.setString(this.gold);
@@ -84,8 +85,8 @@ var User = cc.Class.extend({
 
     },
     reduceRuby: function (number) {
-        if (this.getRuby() >= number){
-            this.ruby -= number;
+        if (this.getRuby() >= parseInt(number)){
+            this.ruby -= parseInt(number);
 
             //
             MainGuiLayer.instance.labelRuby.setString(this.ruby);

@@ -22,40 +22,46 @@ import cmd.receive.authen.RequestLogin;
 import config.enums.ProductType;
 import config.enums.StorageType;
 
+import config.jsonobject.ProductConfig;
+
 import config.utils.ConfigContainer;
+
+import config.utils.OrderUtil;
 
 import eventhandler.LoginSuccessHandler;
 import eventhandler.LogoutHandler;
 
 import java.util.List;
 
-import model.Asset;
-import model.Field;
-import model.Storage;
+import model.GameInfo;
+
+import model.Users;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import service.ConstructedHandler;
 import service.DemoHandler;
 import service.AnimalHandler;
 
+import service.FriendHandler;
 import service.GameShopHandler;
 import service.MapHandler;
+import service.OrderHandler;
 import service.PlantHandler;
 import service.StorageHandler;
 import service.UserHandler;
+import service.NatureHandler;
 
 import util.GuestLogin;
 
 import util.metric.LogObject;
-
 import util.metric.MetricLog;
 
 import util.server.ServerConstant;
 import util.server.ServerLoop;
+
 
 
 /*
@@ -110,7 +116,8 @@ public class FresherExtension extends BZExtension {
         ConfigHandle.instance().get("servers_key") == null ? "servers" : ConfigHandle.instance().get("servers_key");
 
     private ServerLoop svrLoop;
-
+    private Users users;
+    
     public FresherExtension() {
         super();
         setName("Fresher");
@@ -119,6 +126,7 @@ public class FresherExtension extends BZExtension {
 		
 		//
 //        setupUserInfo();
+        
     }
 
     public void init() {
@@ -129,6 +137,7 @@ public class FresherExtension extends BZExtension {
 		
         //  
         addRequestHandler(PlantHandler.PLANT_MULTI_IDS, PlantHandler.class);
+        addRequestHandler(OrderHandler.ORDER_MULTI_IDS, OrderHandler.class);
         //
         addRequestHandler(MapHandler.MAP_MULTI_IDS, MapHandler.class);
         
@@ -136,7 +145,9 @@ public class FresherExtension extends BZExtension {
         addRequestHandler(StorageHandler.STORAGE_MULTI_IDS, StorageHandler.class);
         addRequestHandler(ConstructedHandler.CONSTRUCTED_MULTI_IDS, ConstructedHandler.class);
         addRequestHandler(AnimalHandler.ANIMAL_MULTI_IDS, AnimalHandler.class);
-
+        addRequestHandler(NatureHandler.NATURE_MULTI_IDS, NatureHandler.class);
+        addRequestHandler(FriendHandler.FRIEND_MULTI_IDS, FriendHandler.class);
+        
         trace(" Event Handler ");
         addEventHandler(BZEventType.USER_LOGIN, LoginSuccessHandler.class);
         addEventHandler(BZEventType.USER_LOGOUT, LogoutHandler.class);
@@ -144,9 +155,33 @@ public class FresherExtension extends BZExtension {
         ConfigContainer.init();
         // System.out.println("[+] Value " + ConfigContainer.mapConfig.Init.height);
 //        doTest();
+        // Init usersInfo
+        this.users = Users.getUsers();
+        
+        if (this.users == null) {
+            this.users = new Users();
+            this.users.save();
+        }
     }
 	
 	
+	
+//    public static void setupUserInfo(){
+//        Storage foodStorage = new Storage(StorageType.FOOD_STORAGE, 50, 10, 10);
+//        Storage warehouse = new Storage(StorageType.WAREHOUSE, 50, 8, 8);
+//        foodStorage.addItem(ProductType.CROP_CARROT, 5);
+//        foodStorage.addItem(ProductType.CROP_SOYBEAN, 10);
+//        
+//        Asset asset = new Asset(foodStorage, warehouse, null, null);        
+//        for (int i = 0; i < 6; i++){
+//            Field field = new Field(0, 18, 10 + i);
+//            asset.addField(field);
+//        }
+//        asset.getFieldById(1).setPlantType("crop_corn");
+//
+////        user = new ZPUserInfo(asset);
+//        System.out.println("Setup!!!!!!!!!");
+//    }
 //	
 //	public static void setupUserInfo(){
 //        Storage foodStorage = new Storage(StorageType.FOOD_STORAGE, 50, 10, 10);
@@ -297,7 +332,9 @@ public class FresherExtension extends BZExtension {
             UserInfo uInfo = getUserInfo(reqGet.sessionKey, reqGet.userId, session.getAddress());
             User u = ExtensionUtility.instance().canLogin(uInfo, "", session);
             if (u!=null)
-                u.setProperty("userId", uInfo.getUserId());            
+                u.setProperty("userId", uInfo.getUserId());
+            users.findAndAdd(u.getId());
+            users.save();
         } catch (Exception e) {
             Debug.warn("DO LOGIN EXCEPTION " + e.getMessage());
             Debug.warn(ExceptionUtils.getStackTrace(e));
