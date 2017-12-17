@@ -8,6 +8,12 @@ var FriendCtrl = cc.Class.extend({
 		// cc.eventManager.setEnabled(false);
 		cc.director.runScene(new LoadingScene());
 		testnetwork.connector.sendFriendGetList();
-		// testnetwork.connector.sendGetUser();
+	},
+
+	goHome: function() {
+		cc.eventManager.removeAllListeners();
+		// cc.eventManager.setEnabled(false);
+		cc.director.runScene(new LoadingScene());
+		testnetwork.connector.sendGetUser();
 	}
 });

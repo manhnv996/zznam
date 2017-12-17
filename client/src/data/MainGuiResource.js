@@ -18,7 +18,8 @@ var _ = (function() {
         PRELOADER_CHRISTMAS_PNG: 			"Art/preloader.png",
         PRELOADER_LOADING_4_PNG: 			"Art/loading4.png",
         PRELOADER_SUMMER_PNG: 		"Art/loading he copy.png",
-        PRETTY_BG_DIALOG_PNG: 		"Art/Truck Order/Gui-oders/BG.png"
+        PRETTY_BG_DIALOG_PNG: 		"Art/Truck Order/Gui-oders/BG.png",
+        HOME_BTN: r("home.png")
     };
 
     var g_MainGuiResource = [];

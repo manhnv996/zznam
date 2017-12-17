@@ -60,6 +60,10 @@ var MainScene = cc.Scene.extend({
 
 		OrderBGLayer.instance = new OrderBGLayer();
 		// this.addChild(OrderBGLayer.instance);
+		if (!home) {
+			FriendHomeLayer.instance = new FriendHomeLayer();
+			this.addChild(FriendHomeLayer.instance);
+		}
 
         //BaseGUILayer.instance.notifyFullStorage(StorageTypes.FOOD_STORAGE);
 		//BaseGUILayer.instance.notifyMissGold(50);
