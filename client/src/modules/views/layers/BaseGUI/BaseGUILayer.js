@@ -98,6 +98,10 @@ var BaseGUILayer = cc.Layer.extend({
         this.blockLayout();
     },
 
+    showMyShop: function () {
+
+    },
+
     showOrderLayer: function () {
         if (CarSprite.instance.isStatus == DeliveryStatus.RECEIVABLE){
             CarSprite.instance.onClick();

@@ -11,10 +11,10 @@ var FriendListBtn = ccui.Layout.extend({
         this.btnFriends.setZoomScale(-0.1);
         this.btnFriends.addTouchEventListener(this.onclickBtnFriend, this);
         this.btnFriends.setScale(1.17);
-        this.btnFriends.setAnchorPoint(1, 0);
+        this.btnFriends.setAnchorPoint(0.95, 0.05);
 
-        this.x = cc.winSize.width - this.btnFriends.getBoundingBox().width + 5;
-        this.y = - 5;
+        this.x = cc.winSize.width - this.btnFriends.getBoundingBox().width;
+        this.y = 0;
 
         this.addChild(this.btnFriends);
     },
@@ -22,6 +22,7 @@ var FriendListBtn = ccui.Layout.extend({
     onclickBtnFriend: function (sender, type) {
         switch (type) {
             case ccui.Widget.TOUCH_BEGAN:
+                GameShopLayout.instance.hide();
                 audioEngine.playEffect(res.func_click_button_mp3, false);
                 break;
             case ccui.Widget.TOUCH_ENDED:

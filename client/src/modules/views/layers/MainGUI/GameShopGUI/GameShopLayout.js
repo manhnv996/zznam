@@ -7,14 +7,13 @@ var GameShopLayout = ccui.Layout.extend({
     _gameShop: null,
     _isHide: true,
     _layoutBlockListener: null,
-    _debug: false,
-    //_debug: true,
+    //_debug: false,
+    _debug: true,
 
     ctor: function () {
         this._super();
 
         this._btnGameShop = new GSBtnLayout();
-
         this._gameShop = new GSDetailLayout();
 
         this.setContentSize(this._gameShop._bg.getBoundingBox().width, cc.winSize.height);
@@ -28,10 +27,6 @@ var GameShopLayout = ccui.Layout.extend({
             this.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
             this.setBackGroundColor(cc.color.RED);
         }
-        this.addComponent();
-    },
-
-    addComponent: function () {
         this.addChild(this._layoutBlockListener);
         this.addChild(this._btnGameShop);
         this.addChild(this._gameShop);
@@ -71,6 +66,7 @@ var GameShopLayout = ccui.Layout.extend({
 
             this._gameShop.stopAllActions();
             this._gameShop.runAction(moveAction.clone());
+
             this.blockListener();
             this._isHide = false;
         }

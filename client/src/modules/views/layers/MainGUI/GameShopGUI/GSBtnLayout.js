@@ -21,6 +21,7 @@ var GSBtnLayout = ccui.Layout.extend({
     onclickBtnGS: function (sender, type) {
         switch (type) {
             case ccui.Widget.TOUCH_BEGAN:
+                FriendUI.instance.hide();
                 audioEngine.playEffect(res.func_click_button_mp3, false);
                 break;
             case ccui.Widget.TOUCH_ENDED:

@@ -177,6 +177,7 @@
         "src/modules/views/layers/MainGUI/Friends/FriendListBtn.js",
         "src/modules/views/layers/MainGUI/Friends/FriendList.js",
         "src/modules/views/layers/MainGUI/Friends/FriendUI.js",
+        "src/modules/views/layers/MainGUI/Friends/Friend.js",
         "src/modules/views/layers/MainGUI/MainGuiLayer.js",
 
         "src/modules/views/layers/BaseGUI/ToolTipLayout.js",

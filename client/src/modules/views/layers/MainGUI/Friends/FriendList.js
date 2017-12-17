@@ -14,7 +14,7 @@ var FriendList = ccui.Layout.extend({
         this.addChild(this._bg);
 
         this.x = this._bg.getBoundingBox().width;
-        this.y = 0;
+        this.y = -cc.winSize.height / 3;
         this.setAnchorPoint(1, 0);
         this.setContentSize(cc.size(this._bg.getBoundingBox().width, this._bg.getBoundingBox().height));
         //this.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
@@ -58,39 +58,16 @@ var FriendList = ccui.Layout.extend({
         //if (!cell) {
         cell = new cc.TableViewCell();
 
-        //var cellSize = cc.size(this._bg.getBoundingBox().width / 500 * 78, this._bg.getBoundingBox().height / 25 * 19);
-
-        var friend = new ccui.Layout();
+        var friend = new Friend(0, res.henry, "Henry", 50);
         friend.x = this._bg.getBoundingBox().width / 1000 * 77;
         friend.y = this._bg.getBoundingBox().height / 50 * 19;
-        friend.setContentSize(cc.size(this._bg.getBoundingBox().width / 500 * 78, this._bg.getBoundingBox().height / 25 * 19));
-        friend.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
-        friend.setBackGroundColor(cc.color.RED);
         friend.setAnchorPoint(0.5, 0.5);
-
-        var frame = new cc.Sprite(res.friend_avatar);
-        frame.setScale(0.7);
-        frame.x = friend.width / 2;
-        frame.y = friend.height / 3 * 2;
-        var avatar = new cc.Sprite(res.henry);
-        frame.addChild(avatar);
-
-
-        var name = new cc.LabelBMFont("", res.FONT_OUTLINE_20);
-        var level = new cc.Sprite(res.STAR_1_PNG);
-        var levelLabel = new cc.LabelBMFont("", res.FONT_OUTLINE_20);
-        level.addChild(levelLabel);
-
-        friend.addChild(frame);
-        friend.addChild(level);
-        friend.addChild(name);
-
         cell.addChild(friend);
 
         return cell;
     },
 
     numberOfCellsInTableView: function (table) {
-        return 5;
+        return 10;
     }
 });
