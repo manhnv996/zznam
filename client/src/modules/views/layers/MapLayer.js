@@ -535,7 +535,7 @@ var MapLayer = cc.Layer.extend({
 	            				break;
 	            			}
 	            		}
-	            		cc.log(this.touchesMap);
+	            		// cc.log(this.touchesMap);
 	            		this.lstDistance = caculateDistance(p1, p2);
 	            	}
             	}

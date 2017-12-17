@@ -87,7 +87,7 @@ public class ProductUtil {
     public static ProductConfig[] toProductConfigArray(/*String jsonFile*/){
         
         Gson gson = new Gson();
-        ProductConfig[] cps = gson.fromJson(readFile("src\\config\\json\\productconfig.json"), ProductConfig[].class);
+        ProductConfig[] cps = gson.fromJson(readFile("src/config/json/productconfig.json"), ProductConfig[].class);
         
         return cps;
     }
