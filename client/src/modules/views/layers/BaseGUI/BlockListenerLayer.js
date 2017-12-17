@@ -102,11 +102,8 @@ var BlockListenerLayer = cc.LayerColor.extend({
     update: function (dt) {
         if (this._isClose) {
             this.unscheduleUpdate();
-            //MainGuiLayer.instance.unlockButton();
             BaseGUILayer.instance.removeBlockListener();
-            //BaseGUILayer.instance.removeAllChildren();
             this._isClose = false;
-
         }
     }
 });

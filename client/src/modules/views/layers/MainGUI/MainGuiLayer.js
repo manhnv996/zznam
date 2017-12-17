@@ -35,13 +35,13 @@ var MainGuiLayer = cc.Layer.extend({
 
 
         // 5. create a friends button and set it's position at the bottom right of screensize
-        this.btnFriends = new ccui.Button(res.BUTTON_FIEND_2_PNG);
-        var btnFriendsSize = this.btnFriends.getSize();
-        //cc.log("btnFriends " + btnFriendsSize.width + "  " + btnFriendsSize.height);
-        this.btnFriends.setPosition(size.width - btnFriendsSize.width/2, btnFriendsSize.height/2);
-        this.btnFriends.addClickEventListener(this.onSelectFriends.bind(this));
-
-        this.addChild(this.btnFriends);
+        //this.btnFriends = new ccui.Button(res.BUTTON_FIEND_2_PNG);
+        //var btnFriendsSize = this.btnFriends.getSize();
+        ////cc.log("btnFriends " + btnFriendsSize.width + "  " + btnFriendsSize.height);
+        //this.btnFriends.setPosition(size.width - btnFriendsSize.width/2, btnFriendsSize.height/2);
+        //this.btnFriends.addClickEventListener(this.onSelectFriends.bind(this));
+        //
+        //this.addChild(this.btnFriends);
 
 
 
@@ -124,12 +124,15 @@ var MainGuiLayer = cc.Layer.extend({
 
         GameShopLayout.instance = new GameShopLayout();
         this.addChild(GameShopLayout.instance);
+
+        FriendUI.instance = new FriendUI();
+        this.addChild(FriendUI.instance);
     },
 
     lockButton: function () {
         GameShopLayout.instance._btnGameShop.btnGS.setTouchEnabled(false);
         this.btnSettings.setTouchEnabled(false);
-        this.btnFriends.setTouchEnabled(false);
+        //this.btnFriends.setTouchEnabled(false);
         this.btnBuyGold.setTouchEnabled(false);
         this.btnBuyRuby.setTouchEnabled(false);
         this.btnSearch.setTouchEnabled(false);
@@ -140,7 +143,7 @@ var MainGuiLayer = cc.Layer.extend({
     unlockButton: function () {
         GameShopLayout.instance._btnGameShop.btnGS.setTouchEnabled(true);
         this.btnSettings.setTouchEnabled(true);
-        this.btnFriends.setTouchEnabled(true);
+        //this.btnFriends.setTouchEnabled(true);
         this.btnBuyGold.setTouchEnabled(true);
         this.btnBuyRuby.setTouchEnabled(true);
         this.btnSearch.setTouchEnabled(true);

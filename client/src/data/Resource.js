@@ -151,6 +151,10 @@ for (var k in SoundResource) {
     res[k] = SoundResource[k];
 }
 
+for (var k in FriendResource) {
+    res[k] = FriendResource[k];
+}
+
 for (var k in ToolResource) {
     res[k] = ToolResource[k];
 }
