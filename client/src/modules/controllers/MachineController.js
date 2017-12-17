@@ -5,12 +5,30 @@
 var MachineController = cc.Class.extend({
     onMachineSelected:function(machineId){
         cc.log(MA_LOG_TAG + "7 " + machineId);
-        TablePopupLayer.instance.showMachineTablePopup(machineId);
+        var now = new Date().getTime();
+        var machine  = user.asset.getMachineById(machineId);
+        var currFinishedProducts = machine.getNumberOfCompletedProducts(now);
+        if (currFinishedProducts > 0) {
+            this.collectFinishedProduct(machineId);
+        } else {
+            TablePopupLayer.instance.showMachineTablePopup(machineId);
+        }
     },
     initMachineSpriteList: function () {
         MapLayer.instance.machineSpriteList = [];
 
 
+    },
+    collectFinishedProduct:function(machineId){
+        cc.log("23" +"on collectFinishedProduct")
+        var i = this.getIndexMachineInListById(machineId);
+        var now = new Date().getTime();
+        var product = user.asset.machineList[i].takeCompletedProduct(now);
+        if (product!= null){
+
+            user.asset.warehouse.addItem(product, 1);
+            //todo logic full storage and send to server
+        }
     },
     // lấy ra chỉ số của máy trong mảng các máy có trên bản đồ theo machineId
     getIndexInMachineSpriteList: function (machineId) {
@@ -41,6 +59,7 @@ var MachineController = cc.Class.extend({
         })
         return null;
     },
+
     getMachineConfigByType: function(machineType){
         //var machineConfig = MACHINE_LIST.find(function(f) {
         //    return f.machineType === machineType;
@@ -66,20 +85,6 @@ var MachineController = cc.Class.extend({
         }
         return -1;
     },
-    //lay ra thoi gian san xuat cua san pham theo productType
-    getProductTime:function(machineType, productType){
-        cc.log("70 " + machineType +" == "+ productType);
-        var indexMachine  = this.getIndexMachineInConfigByType(machineType);
-        cc.log("72" + indexMachine);
-        if (indexMachine == -1){
-            cc.log("getIndexMachineByType ERROR");
-            return null;
-        }
-        for (var i = 0; i < MACHINE_LIST[indexMachine].productList.length; i++){
-            if (productType === MACHINE_LIST[indexMachine].productList[i].productType ){
-                return MACHINE_LIST[indexMachine].productList[i].time  * 60 * 1000;
-            }
-        }
-        return null;
-    }
+
+
 })

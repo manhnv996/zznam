@@ -23,6 +23,13 @@ var Machine = ConstructedObject.extend({
     setStartTime:function(startTime){
         this.startTime = startTime;
     },
+    addProductInQueue:function(product){
+        if (this.productQueue.length == 0){
+            var now = new Date().getTime();
+            this.setStartTime(now);
+        }
+        this.productQueue.push(product);
+    },
 
     setStartTimeByCurrentTime:function(){
         var now = new Date().getTime();
@@ -37,8 +44,8 @@ var Machine = ConstructedObject.extend({
         return totalTime;
     },
 
-    getProductResPath:function (machineType, productType) {
-        var indexMachine  = MachineController.instance.getIndexMachineInConfigByType(machineType);
+    getProductResPath:function (productType) {
+        var indexMachine  = MachineController.instance.getIndexMachineInConfigByType(this.machineType);
         if (indexMachine == -1){
             cc.log("getIndexMachineByType ERROR");
             return null;
@@ -47,18 +54,18 @@ var Machine = ConstructedObject.extend({
             if (productType == MACHINE_LIST[indexMachine].productList[i].productType ){
                 return MACHINE_LIST[indexMachine].productList[i].res_path;
             }
-            return null;
         }
+        return null;
 
     },
 
     createProduct: function (productType) {
-        //boolean
-        if (this.productQueue.length >= this.slot){
-            return false;
-        } else if (this.checkRawMaterial(productType) == "last_seed"){
-            //todo
-        }
+        ////boolean
+        //if (this.productQueue.length >= this.slot){
+        //    return false;
+        //} else if (this.checkRawMaterial(productType) == "last_seed"){
+        //    //todo
+        //}
     },
     getRemainSlotCount: function () {
         //int
@@ -78,8 +85,10 @@ var Machine = ConstructedObject.extend({
         //productType
 
     },
-    boost: function () {
+    boostCurrentProduct: function () {
         //boolean
+        var now = new Date().getTime();
+        var newStartTime = this.startTime - this.getRemainingTimeToFinishCurrentProduct(now);
 
     },
     //// var now = new Date().getTime();
@@ -113,9 +122,12 @@ var Machine = ConstructedObject.extend({
     takeCompletedProduct: function (now) {
         //productType enum
 
-        if (now > this.startTime + MachineController.instance.getProductTime(this.machineType, this.productQueue[0])){
+        var nextStartTime = this.startTime + this.getProductTime( this.productQueue[0]);
+        if (now > nextStartTime ){
             //check kho day show
+            this.setStartTime(nextStartTime);
             //todo check server,  update storage
+            cc.log("z120 ", this.startTime);
             return this.productQueue.shift();
         } else {
             return null;
@@ -125,15 +137,46 @@ var Machine = ConstructedObject.extend({
         var index = 0;
         var numberOfProducts = 0;
         var tempStartTime = this.startTime;
-        cc.log("125" + tempStartTime);
+        //cc.log("125" + tempStartTime);
         while (now > tempStartTime && index < this.productQueue.length){
-            cc.log("127" +MachineController.instance.getProductTime((this.machineType, this.productQueue[index])) );
-            tempStartTime += MachineController.instance.getProductTime((this.machineType, this.productQueue[index]));
-            if (now >tempStartTime){
+            //cc.log("130 " + this.machineType +'==' + this.productQueue[index]);
+            //cc.log("127" +this.getProductTime(this.productQueue[index]));
+            tempStartTime += this.getProductTime( this.productQueue[index]);
+            if (now >= tempStartTime){
                 numberOfProducts++;
             }
             index++;
         }
         return numberOfProducts;
+    },
+    //lay ra thoi gian san xuat cua san pham theo productType
+    getProductTime:function( productType){
+        //cc.log("71@15 " + machineType +" == "+ productType);
+        var indexMachine  = MachineController.instance.getIndexMachineInConfigByType(this.machineType);
+        //cc.log("72 " + indexMachine);
+        if (indexMachine == -1){
+            cc.log("getIndexMachineByType ERROR");
+            return null;
+        }
+        for (var i = 0; i < MACHINE_LIST[indexMachine].productList.length; i++){
+            if (productType == MACHINE_LIST[indexMachine].productList[i].productType ){
+
+                //cc.log("getProductTime " + MACHINE_LIST[indexMachine].productList[i].time  * 60 * 1000);
+                return MACHINE_LIST[indexMachine].productList[i].time  * 60 * 1000;
+            }
+        }
+        cc.log("getProductTime ERROR");
+        return null;
+    },
+    getRemainingTimeToFinishCurrentProduct:function(now){
+        var numberOfCompletedProducts = this.getNumberOfCompletedProducts(now);
+        var futureTime = this.startTime;
+        if (numberOfCompletedProducts < this.productQueue.length){
+            for (var i = 0; i < numberOfCompletedProducts+1; i++){
+                futureTime += this.getProductTime(this.productQueue[i]);
+            }
+            return futureTime - now;
+        }
+        return 0;
     }
 });

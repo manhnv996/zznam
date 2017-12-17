@@ -8,6 +8,7 @@ var MachineTablePopup = TablePopup.extend({
     _machineConfig: null,
     _popUpItemSpriteList: [],
     _FirstSlotSprite: null,
+    _imgProductFirstSlot: null,
     _queueSpriteList:null,
     _unlockSlotSprite: null,
     _labelRubyToUnlockSlot: null,
@@ -19,7 +20,10 @@ var MachineTablePopup = TablePopup.extend({
     _currPage: null,
     _btnBoost: null,
     _labelRubyToBoost: null,
-    _currCompletedProduct: 0,
+    _currCompletedProduct: -1,
+    _currQueueLength: -1,
+    _hasTempProduct: false,
+
 
     ctor: function (machineId){
 
@@ -84,6 +88,15 @@ var MachineTablePopup = TablePopup.extend({
         this.initSlotlist(this._machineId);
         this.setPositionSlotList(this._machineId);
         this.renderUnlockButton(this._machineId);
+        this.updateProductQueue(this._machineId);
+
+        var now = new Date().getTime();
+        var machine  = user.asset.getMachineById(machineId);
+        var temp = machine.getNumberOfCompletedProducts(now);
+        var numOfProductsInQueue = machine.productQueue.length;
+        if (temp < numOfProductsInQueue){
+            this.schedule(this.updateRemainingTime,1);
+        }
     },
     renderItemList: function(productList){
 
@@ -256,32 +269,34 @@ var MachineTablePopup = TablePopup.extend({
     },
     renderFirstSlot: function(machineId, spriteCalled){
         var screenPosition = this._screenPosition;
-        var machine = user.getAsset().getMachineById(machineId);
 
-        this._FirstSlotSprite = new SquareSprite(res.o_trong_1_1);
+        this._FirstSlotSprite = new SquareSprite(res.o_trong_1);
         this._FirstSlotSprite.setPosition(screenPosition.x + spriteCalled.width * 1 / 3,
             screenPosition.y );
         this._FirstSlotSprite.setScale(1.1);
         this.addChild(this._FirstSlotSprite);
-        this._btnBoost = ccui.Button(res.button_energy_2);
-        this._btnBoost.setPosition(screenPosition.x + spriteCalled.width * 1 / 3  , screenPosition.y - this._FirstSlotSprite.height/2);
-        this.addChild(this._btnBoost);
-
+        this._btnBoost = cc.Sprite(res.button_energy_2);
+        this._btnBoost.setScale(0.8);
+        this._btnBoost.setPosition(this._FirstSlotSprite.width/2  , 0);
 
         var rubiImage = new ccui.ImageView(res.rubi);
         rubiImage.setPosition(cc.p(this._btnBoost.width * 3 / 4, this._btnBoost.height / 2));
         this._btnBoost.addChild(rubiImage);
 
-        this._labelRubyToBoost = new cc.LabelBMFont("4", res.FONT_OUTLINE_30);
+        this._labelRubyToBoost = new cc.LabelBMFont("", res.FONT_OUTLINE_30);
         this._labelRubyToBoost.setPosition(cc.p(this._btnBoost.width   / 2, this._btnBoost.height /2));
         this._btnBoost.addChild(this._labelRubyToBoost);
+        //this._btnBoost.addClickEventListener(this.onBoostEvent());
+        this._btnBoost.setVisible(false);
+        this._FirstSlotSprite.addChild(this._btnBoost);
 
+        this._labelTime = cc.LabelBMFont("",res.FONT_NORMAL_30);
+        this._labelTime.setPosition(this._FirstSlotSprite.width/2  ,this._FirstSlotSprite.height * 1.1);
+        this._FirstSlotSprite.addChild(this._labelTime);
 
-        this._labelTime = cc.LabelBMFont("15:34",res.FONT_NORMAL_30);
-        this._labelTime.setPosition(screenPosition.x + spriteCalled.width * 1 / 3  , screenPosition.y + this._FirstSlotSprite.height * 0.7);
-        this._btnBoost.addChild(this._labelTime);
+        this._imgProductFirstSlot = new cc.Sprite();
+        this._FirstSlotSprite.addChild(this._imgProductFirstSlot);
 
-        this._btnBoost.addClickEventListener(this.onBoostEvent());
     },
     initSlotlist: function(machineId){
         var machine = user.getAsset().getMachineById(machineId);
@@ -289,7 +304,7 @@ var MachineTablePopup = TablePopup.extend({
         this._queueSpriteList = [];
         for (var i = 0 ; i < slot - 1; i++){
 
-            var squareSprite = new SquareSprite(res.o_trong_2_2);
+            var squareSprite = new SquareSprite(res.o_trong_2);
             this._queueSpriteList.push(squareSprite);
             this.addChild(this._queueSpriteList[i]);
         }
@@ -359,8 +374,160 @@ var MachineTablePopup = TablePopup.extend({
        }
     },
 
-    updateProductQueue:function(){
+    updateProductQueue:function(machineId){
+        var now = new Date().getTime();
+        var machine  = user.asset.getMachineById(machineId);
+        var temp = machine.getNumberOfCompletedProducts(now);
+        var numOfProductsInQueue = machine.productQueue.length;
+        if (temp < numOfProductsInQueue){
+            if (this._currCompletedProduct != temp  || this._currQueueLength != numOfProductsInQueue  ){
+                this._currCompletedProduct = temp;
 
+
+                // số lượng sản phẩm hoàn thành thay đổi, update sản phẩm ở các  slot
+                if (machine.productQueue[temp] != null){
+                    var productConfig  = this.getConfigProduct(machine.productQueue[temp], this._machineConfig.productList);
+                    this.updateProducingFirstSlot(productConfig);
+                    temp++;
+                    var indexSlot= 0;
+                    for (var i = temp; i < machine.productQueue.length; i++){
+                        var res_path  = this.getConfigProduct(machine.productQueue[i], this._machineConfig.productList).res_path;
+                        this.updateProductForSlot(indexSlot,res_path );
+                        indexSlot++;
+                    }
+                    //this.updateNullSlot(indexSlot)
+                    for (var j = indexSlot ; j < this._queueSpriteList.length ;j++){
+                        this.updateNullSlot(j);
+                    }
+                }
+                else {
+                    this.updateNullAllSlot();
+                }
+                //if (this._hasTempProduct == true){
+                //    this._tempProductSprite.removeFromParent();
+                //    this.addTempProductInFirstNullSlot();
+                //}
+            }
+        }
+
+    },
+    updateNullAllSlot: function () {
+        for (var i = 0; i < this._queueSpriteList.length; i++){
+            this._queueSpriteList[i].removeAllChildren();
+            this._queueSpriteList[i].setTexture(res.o_trong_2);
+        }
+        this.updateNullFirstSlotSprite();
+    },
+
+    updateNullSlot:function(index){
+
+            this._queueSpriteList[index].removeAllChildren();
+            this._queueSpriteList[index].setTexture(res.o_trong_2);
+
+    }
+    ,
+    updateProductForSlot:function(index, res_path){
+        this._queueSpriteList[index].removeAllChildren();
+        this._queueSpriteList[index].setTexture(res.o_trong_2_2);
+        var imgProduct = new ccui.ImageView(res_path);
+        imgProduct.setPosition( this._queueSpriteList[index].width/2,  this._queueSpriteList[index].height/2);
+        this._queueSpriteList[index].addChild(imgProduct);
+    },
+
+    updateProducingFirstSlot: function(productConfig){
+        if (!this._btnBoost.isVisible()){
+            this._btnBoost.setVisible(true);
+        }
+        this._labelTime.setVisible(true);
+        this._FirstSlotSprite.setTexture(res.o_trong_1_1);
+        //this._FirstSlotSprite.removeChild(this._imgProductFirstSlot);
+        this._imgProductFirstSlot.setTexture(productConfig.res_path);
+        this._imgProductFirstSlot.setPosition(this._FirstSlotSprite.width/2, this._FirstSlotSprite.height/2);
+        this._imgProductFirstSlot.setVisible(true);
+
+
+        this._labelRubyToBoost.setString(productConfig.rubyToBuy);
+
+
+
+
+    },
+    getConfigProduct:function(productType, productList){
+
+        for (var i = 0; i < productList.length; i++){
+            if (productList[i].productType == productType){
+                return productList[i];
+            }
+        }
+        return null;
+    },
+    updateRemainingTime: function(){
+        var now = new Date().getTime();
+        var machine  = user.asset.getMachineById(this._machineId);
+        var temp = machine.getNumberOfCompletedProducts(now);
+        var numOfProductsInQueue = machine.productQueue.length;
+        if (temp < numOfProductsInQueue){
+            this.updateProductQueue(this._machineId);
+            var remainingTime = Math.floor(machine.getRemainingTimeToFinishCurrentProduct(now) /1000);
+            var remainingMinute = Math.floor(remainingTime / 60);
+            var remainingSecond = remainingTime % 60;
+            if ( remainingMinute != 'undefined' && remainingSecond!= 'undefined'){
+                //cc.log(this._labelTime!=null)
+                //this._labelTime.setString( remainingMinute+":"+remainingSecond);
+                //todo why _labeltime error
+            }
+
+        } else {
+            this.unschedule(this.updateRemainingTime);
+            this.updateNullAllSlot(this._machineId);
+
+
+        }
+    },
+    updateNullFirstSlotSprite: function () {
+        this._labelTime.setString("");
+        this._FirstSlotSprite.setTexture(res.o_trong_1);
+        this._imgProductFirstSlot.setVisible(false);
+        this._btnBoost.setVisible(false);
+        //this._labelTime.setVisible(false);
+    },
+    addTempProductInFirstNullSlot:function(resPath){
+        var now = new Date().getTime();
+        var machine  = user.asset.getMachineById(this._machineId);
+        var temp = machine.getNumberOfCompletedProducts(now);
+        var numOfProductsInQueue = machine.productQueue.length;
+        this._tempProductSprite = new cc.Sprite(resPath);
+
+        if (numOfProductsInQueue - temp < machine.slot){
+            if (temp < numOfProductsInQueue){
+                this._queueSpriteList[numOfProductsInQueue - temp - 1].setTexture(res.o_trong_2_2)
+                this._queueSpriteList[numOfProductsInQueue - temp - 1].addChild(this._tempProductSprite);
+                this._tempProductSprite.setPosition(this._queueSpriteList[numOfProductsInQueue - temp - 1].width/2, this._queueSpriteList[numOfProductsInQueue - temp - 1].height/2);
+            } else {
+                this._FirstSlotSprite.setTexture(res.o_trong_1_1);
+                this._FirstSlotSprite.addChild(this._tempProductSprite);
+                this._tempProductSprite.setPosition(this._FirstSlotSprite.width/2, this._FirstSlotSprite.height/2);
+            }
+            this._hasTempProduct = true;
+        } else {
+            //todo nothing when full slot
+        }
+
+    },
+    removeTempProductSprite:function(){
+        var now = new Date().getTime();
+        var machine  = user.asset.getMachineById(this._machineId);
+        var temp = machine.getNumberOfCompletedProducts(now);
+        var numOfProductsInQueue = machine.productQueue.length;
+
+        if (temp < numOfProductsInQueue){
+            this._queueSpriteList[numOfProductsInQueue - temp - 1].setTexture(res.o_trong_2);
+            this._queueSpriteList[numOfProductsInQueue - temp - 1].removeChild(this._tempProductSprite);
+        } else {
+            this._FirstSlotSprite.setTexture(res.o_trong_1);
+            this._FirstSlotSprite.removeChild(this._tempProductSprite);
+        }
+        this._hasTempProduct = false;
     }
 });
 

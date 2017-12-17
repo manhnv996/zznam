@@ -9,45 +9,73 @@ var MachineSprite = AnimationSprite.extend({
 
     _machineId: null,
     _curAniState: "idle",
-    _machine: null,
+    _finishedProductSpriteList: [],
     ctor: function (machineId) {
         this._machineId = machineId;
         //this._super(aniId, blockSizeX, blockSizeY, lx, ly, mapAliasType)
-        this._machine = user.getAsset().getMachineList().find(function (f) {
+        var machine = user.getAsset().getMachineList().find(function (f) {
             return f.machineId === machineId;
         })
 
-
-        cc.log(MA_LOG_TAG + this._machine.machineType + " ===== " );
-        if (this._machine != null) {
-            var i = MachineController.instance.getIndexMachineInConfigByType(this._machine.machineType);
+        //constructor
+        if (machine != null) {
+            var i = MachineController.instance.getIndexMachineInConfigByType(machine.machineType);
             if (i != -1){
-                this._super(MACHINE_LIST[i].aniId, MACHINE_LIST[i].size.width, MACHINE_LIST[i].size.width, this._machine.coordinate.x, this._machine.coordinate.y, MACHINE_LIST[i].mapItemEnum);
+                this._super(MACHINE_LIST[i].aniId, MACHINE_LIST[i].size.width, MACHINE_LIST[i].size.width, machine.coordinate.x, machine.coordinate.y, MACHINE_LIST[i].mapItemEnum);
 
             } else {
                 cc.log(MA_LOG_TAG + "getIndexMachineByType ERROR" );
             };
-            this.updateAnimation();
-        } else {
-            this._super(resAniId.bakery, MapConfigs.Bakery.size.width, MapConfigs.Bakery.size.width, 30, 30, MapConfigs.DuongRay);
-
         }
-        this.play(this._curAniState);
+        this.renderFinishedProducts(machineId);
         this.registerTouchEvents();
 
         //todo
-        //this.schedule(this.updateMachineState, 0.5);
+        this.schedule(this.updateAnimation, 1);
+    },
+    renderFinishedProducts:function(machineId){
+        var machine = user.getAsset().getMachineList().find(function (f) {
+            return f.machineId === machineId;
+        })
+
+        var now = new Date().getTime();
+        var num = machine.getNumberOfCompletedProducts(now);
+        if ( machine.machineType == "bakery_machine"){
+            for (var i = 0; i < num; i++){
+                var productType = machine.productQueue[i];
+                var resPath = machine.getProductResPath(productType);
+                cc.log("z38 " + resPath);
+                var finishedProductSprite = new cc.Sprite(resPath);
+                this._finishedProductSpriteList.push(finishedProductSprite);
+                var screenPosition = MapValues.logicToScreenPosition( machine.coordinate.x, machine.coordinate.y);
+                finishedProductSprite.setPosition(screenPosition.x, screenPosition.y);
+                MapLayer.instance.addChild(finishedProductSprite);
+            }
+        }
     },
     updateAnimation: function (){
-        if (this._machine.productQueue.length > 0){
-            this._curAniState = "loop";
+        //cc.log("zz schedule updateAnimation:" + this._machineId);
+        var now = new Date().getTime();
+        var machine  = user.asset.getMachineById(this._machineId);
+        var currFinishedProducts = machine.getNumberOfCompletedProducts(now);
+        var currProductQueueLength = machine.productQueue.length;
+        if (currFinishedProducts < currProductQueueLength){
+            if (this._curAniState != "loop"){
+                this._curAniState = "loop";
+                this.play(this._curAniState);
+            }
         } else {
-            this._curAniState = "idle";
+           if (this._curAniState != "idle"){
+               this._curAniState = "idle";
+               this.play(this._curAniState);
+               this.unschedule(this.updateAnimation);
+           }
         }
     },
 
     onClick: function () {
         cc.log(this._machineId + " on click");
+
         MachineController.instance.onMachineSelected(this._machineId);
 
     },

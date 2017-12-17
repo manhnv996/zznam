@@ -257,7 +257,6 @@ testnetwork.Connector = cc.Class.extend({
     },
 
     sendLoginRequest: function (username, password) {
-        cc.log("sendLoginRequest");
         cc.log("sendingLoginRequest with: " + username + "===" + password);
         //this.getSessionKeyAndUserId();
         var xhr = cc.loader.getXMLHttpRequest();
@@ -275,12 +274,11 @@ testnetwork.Connector = cc.Class.extend({
 
                 if (error == "0") {
                     var url2 = "https://zplogin.g6.zing.vn/?service_name=getSessionKey&gameId=100&distribution=&clientInfo=&social=zingme&accessToken=";
-                    cc.log("HTTP Response : error : " + error);
                     var xhr2 = cc.loader.getXMLHttpRequest();
                     xhr2.open("GET", url2 + accessToken);
                     xhr2.setRequestHeader("Content-Type", "text/plain");
                     xhr2.onreadystatechange = function () {
-                        cc.log("Networking away");
+                        cc.log("Networking away xhr2");
 
                         if (xhr2.readyState == 4 && ( xhr2.status >= 200 && xhr2.status <= 207 )) {
                             var httpStatus = xhr2.statusText;
@@ -295,8 +293,8 @@ testnetwork.Connector = cc.Class.extend({
                             var sessionKey2 = jsonData["sessionKey"];
                             var openId = jsonData["openId"];
                             var expired_time = jsonData["expired_time"];
-                            cc.log("HTTP Response : error2 : " + error2);
-                            cc.log("HTTP Response : sessionKey2 : " + sessionKey2);
+                            //cc.log("HTTP Response : error2 : " + error2);
+                            //cc.log("HTTP Response : sessionKey2 : " + sessionKey2);
                             //cc.log("HTTP Response : openId : " + openId);
                             //cc.log("HTTP Response : expired_time : " + expired_time);
                             var pk = this.gameClient.getOutPacket(CmdSendLogin);

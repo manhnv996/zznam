@@ -78,7 +78,7 @@ MACHINE_LIST.push({
             res_path: res.BREAD_PNG,
         speedUp: 1,
         rubyToBuy: 4, // truong hop thieu nguyen lieu user muon mua lun
-        time: 5,
+        time:.2,
         exp: 3,
         price: 21,
         levelUnlock: 2,
@@ -90,7 +90,7 @@ MACHINE_LIST.push({
             res_path: res.BREAD_CORN_PNG,
             speedUp: 1,
             rubyToBuy: 4, // truong hop thieu nguyen lieu user muon mua lun
-            time: 5,
+            time:.2,
             exp: 3,
             price: 21,
             levelUnlock: 2,
@@ -102,7 +102,7 @@ MACHINE_LIST.push({
             res_path: res.COOKIE_PNG,
             speedUp: 1,
             rubyToBuy: 4, // truong hop thieu nguyen lieu user muon mua lun
-            time: 5,
+            time:.2,
             exp: 3,
             price: 21,
             levelUnlock: 2,
@@ -127,35 +127,35 @@ MACHINE_LIST.push({
             res_path: res.BREAD_PNG,
             speedUp: 1,
             rubyToBuy: 4, // truong hop thieu nguyen lieu user muon mua lun
-            time: 5,
+            time:.2,
             exp: 3,
             price: 21,
             levelUnlock: 2,
-            rawMaterialList: [{rawMaterialId: "crop_wheat", quantity: 3}]
+            rawMaterialList: [{rawMaterialId: "crop_wheat", quantity: 3, res_raw: res.crops}]
         },
         {
-            productType: "product_bread",
+            productType: "product_corn_bread",
             name: "Bánh Mì",
-            res_path: res.BREAD_PNG,
+            res_path: res.BREAD_CORN_PNG,
             speedUp: 1,
             rubyToBuy: 4, // truong hop thieu nguyen lieu user muon mua lun
-            time: 5,
+            time:.2,
             exp: 3,
             price: 21,
             levelUnlock: 2,
-            rawMaterialList: [{rawMaterialId: "crop_wheat", quantity: 3}]
+            rawMaterialList: [{rawMaterialId: "good_egg", quantity: 2, res_raw: res.iconGoodEgg}, {rawMaterialId: "crop_corn", quantity: 2, res_raw: res.corn} ]
         },
         {
-            productType: "product_bread",
+            productType: "product_cookie",
             name: "Bánh Mì",
-            res_path: res.BREAD_PNG,
+            res_path: res.COOKIE_PNG,
             speedUp: 1,
             rubyToBuy: 4, // truong hop thieu nguyen lieu user muon mua lun
-            time: 5,
+            time:.2,
             exp: 3,
             price: 21,
             levelUnlock: 2,
-            rawMaterialList: [{rawMaterialId: "crop_wheat", quantity: 3}]
+            rawMaterialList: [{rawMaterialId: "crop_wheat", quantity: 2, res_raw: res.crops}, {rawMaterialId: "good_egg", quantity: 2, res_raw: res.iconGoodEgg}, {rawMaterialId: "product_brown_sugar", quantity: 1, res_raw: res.BROWN_SUGAR_PNG}]
         }
     ]
 });
@@ -176,11 +176,35 @@ MACHINE_LIST.push({
             res_path: res.BREAD_PNG,
             speedUp: 1,
             rubyToBuy: 4, // truong hop thieu nguyen lieu user muon mua lun
-            time: 5,
+            time:.2,
             exp: 3,
             price: 21,
             levelUnlock: 2,
-            rawMaterialList: [{rawMaterialId: "crop_wheat", quantity: 3}]
+            rawMaterialList: [{rawMaterialId: "crop_wheat", quantity: 3, res_raw: res.crops}]
+        },
+        {
+            productType: "product_corn_bread",
+            name: "Bánh Mì",
+            res_path: res.BREAD_CORN_PNG,
+            speedUp: 1,
+            rubyToBuy: 4, // truong hop thieu nguyen lieu user muon mua lun
+            time:.2,
+            exp: 3,
+            price: 21,
+            levelUnlock: 2,
+            rawMaterialList: [{rawMaterialId: "good_egg", quantity: 2, res_raw: res.iconGoodEgg}, {rawMaterialId: "crop_corn", quantity: 2, res_raw: res.corn} ]
+        },
+        {
+            productType: "product_cookie",
+            name: "Bánh Mì",
+            res_path: res.COOKIE_PNG,
+            speedUp: 1,
+            rubyToBuy: 4, // truong hop thieu nguyen lieu user muon mua lun
+            time:.2,
+            exp: 3,
+            price: 21,
+            levelUnlock: 2,
+            rawMaterialList: [{rawMaterialId: "crop_wheat", quantity: 2, res_raw: res.crops}, {rawMaterialId: "good_egg", quantity: 2, res_raw: res.iconGoodEgg}, {rawMaterialId: "product_brown_sugar", quantity: 1, res_raw: res.BROWN_SUGAR_PNG}]
         }
     ]
 

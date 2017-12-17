@@ -4,6 +4,15 @@
 var MachineProductSprite = ProductSprite.extend({
     _productConfig: null,
     _toolTip: null,
+    _parent: null,
+    _xMachine: null,
+    _yMachine: null,
+    _widthMachine: null,
+    _heightMachine: null,
+    _canProduce:true,
+    _lastSeed: false,
+    _touchInProduceZone: false,
+    _tempProductSprite: null,
     ctor:function(productConfig){
         this._super(productConfig.res_path);
         this._productConfig = productConfig;
@@ -13,6 +22,9 @@ var MachineProductSprite = ProductSprite.extend({
         if (user.getLevel() < this._productConfig.levelUnlock){
             this.runAction(cc.TintBy(0, 96, 102, 114));
         }
+
+
+
     },
     addDragEventListener:function(){
         this.dragListener = cc.EventListener.create({
@@ -34,7 +46,7 @@ var MachineProductSprite = ProductSprite.extend({
             }.bind(this),
             onTouchEnded:function (touch, event){
                 var target = this;
-                this.onTouchEndedJobs();
+                this.onTouchEndedJobs(touch);
 
             }.bind(this)
         });
@@ -43,6 +55,8 @@ var MachineProductSprite = ProductSprite.extend({
 
 
     onTouchBeganJobs: function (target) {
+        //cc.log("z16 "+ TablePopupLayer.instance._layout);
+        //cc.log("z47 "+ this.getParent());
         this._toolTip = new cc.Sprite(res.tooltip_png);
         this._toolTip.setPosition(this._toolTip.width / 2 + this.width , this.height/2  );
         this.addChild(this._toolTip);
@@ -72,7 +86,14 @@ var MachineProductSprite = ProductSprite.extend({
                     rawMaterialIcon.setScale(.5);
                     rawMaterialIcon.x = this._toolTip.width / 4 ;
                     rawMaterialIcon.y = this._toolTip.height/2;
-                    var rawMaterialInfo = new cc.LabelBMFont(user.getAsset().getQuantityOfTwoStorageByProductId(rawMaterialList[0].rawMaterialId)+"/"+rawMaterialList[0].quantity,res.FONT_OUTLINE_20);
+                    var currQuantity = user.getAsset().getQuantityOfTwoStorageByProductId(rawMaterialList[0].rawMaterialId);
+                    var rawMaterialInfo = new cc.LabelBMFont( currQuantity+"/"+rawMaterialList[0].quantity,res.FONT_OUTLINE_20);
+                    if (currQuantity < rawMaterialList[0].quantity){
+                        this._canProduce = false;
+                        rawMaterialInfo.setColor(cc.color(244, 66, 66));
+                    } else if (currQuantity == rawMaterialList[0].quantity){
+                        this._lastSeed = true;
+                    }
                     rawMaterialInfo.x = this._toolTip.width /4;
                     rawMaterialInfo.y = this._toolTip.height/2;
                     this._toolTip.addChild(rawMaterialIcon);
@@ -84,7 +105,14 @@ var MachineProductSprite = ProductSprite.extend({
                     rawMaterialIcon.setScale(.5);
                     rawMaterialIcon.x = this._toolTip.width / 4 ;
                     rawMaterialIcon.y = this._toolTip.height/2;
-                    var rawMaterialInfo = new cc.LabelBMFont(user.getAsset().getQuantityOfTwoStorageByProductId(rawMaterialList[1].rawMaterialId)+"/"+rawMaterialList[1].quantity,res.FONT_OUTLINE_20);
+                    var currQuantity = user.getAsset().getQuantityOfTwoStorageByProductId(rawMaterialList[1].rawMaterialId);
+                    var rawMaterialInfo = new cc.LabelBMFont( currQuantity+"/"+rawMaterialList[1].quantity,res.FONT_OUTLINE_20);
+                    if (currQuantity < rawMaterialList[1].quantity){
+                        this._canProduce = false;
+                        rawMaterialInfo.setColor(cc.color(244, 66, 66));
+                    } else if (currQuantity == rawMaterialList[1].quantity){
+                        this._lastSeed = true;
+                    }
                     rawMaterialInfo.x = this._toolTip.width /4;
                     rawMaterialInfo.y = this._toolTip.height/2;
                     this._toolTip.addChild(rawMaterialIcon);
@@ -95,7 +123,14 @@ var MachineProductSprite = ProductSprite.extend({
                     rawMaterialIcon2.setScale(.5);
                     rawMaterialIcon2.x = this._toolTip.width *3/5;
                     rawMaterialIcon2.y = this._toolTip.height/2;
-                    var rawMaterialInfo2 = new cc.LabelBMFont(user.getAsset().getQuantityOfTwoStorageByProductId(rawMaterialList[0].rawMaterialId)+"/"+rawMaterialList[0].quantity,res.FONT_OUTLINE_20);
+                    var currQuantity2 = user.getAsset().getQuantityOfTwoStorageByProductId(rawMaterialList[0].rawMaterialId);
+                    var rawMaterialInfo2 = new cc.LabelBMFont( currQuantity2+"/"+rawMaterialList[0].quantity,res.FONT_OUTLINE_20);
+                    if (currQuantity < rawMaterialList[0].quantity){
+                        this._canProduce = false;
+                        rawMaterialInfo2.setColor(cc.color(244, 66, 66));
+                    } else if (currQuantity2 == rawMaterialList[0].quantity){
+                        this._lastSeed = true;
+                    }
                     rawMaterialInfo2.x = this._toolTip.width *3/5;
                     rawMaterialInfo2.y = this._toolTip.height/2;
                     this._toolTip.addChild(rawMaterialIcon2);
@@ -109,7 +144,15 @@ var MachineProductSprite = ProductSprite.extend({
                     rawMaterialIcon2.setScale(.5);
                     rawMaterialIcon2.x = this._toolTip.width *3/5;
                     rawMaterialIcon2.y = this._toolTip.height*3/5;
-                    var rawMaterialInfo2 = new cc.LabelBMFont(user.getAsset().getQuantityOfTwoStorageByProductId(rawMaterialList[0].rawMaterialId)+"/"+rawMaterialList[0].quantity,res.FONT_OUTLINE_20);
+
+                    var currQuantity = user.getAsset().getQuantityOfTwoStorageByProductId(rawMaterialList[0].rawMaterialId);
+                    var rawMaterialInfo2 = new cc.LabelBMFont( currQuantity+"/"+rawMaterialList[0].quantity,res.FONT_OUTLINE_20);
+                    if (currQuantity < rawMaterialList[0].quantity){
+                        this._canProduce = false;
+                        rawMaterialInfo2.setColor(cc.color(244, 66, 66));
+                    } else if (currQuantity == rawMaterialList[0].quantity){
+                        this._lastSeed = true;
+                    }
                     rawMaterialInfo2.x = this._toolTip.width *3/5;
                     rawMaterialInfo2.y = this._toolTip.height *3/5;
                     this._toolTip.addChild(rawMaterialIcon2);
@@ -120,7 +163,14 @@ var MachineProductSprite = ProductSprite.extend({
                     rawMaterialIcon.setScale(.5);
                     rawMaterialIcon.x = this._toolTip.width / 4 ;
                     rawMaterialIcon.y = this._toolTip.height*.3;
-                    var rawMaterialInfo = new cc.LabelBMFont(user.getAsset().getQuantityOfTwoStorageByProductId(rawMaterialList[1].rawMaterialId)+"/"+rawMaterialList[1].quantity,res.FONT_OUTLINE_20);
+                    var currQuantity = user.getAsset().getQuantityOfTwoStorageByProductId(rawMaterialList[1].rawMaterialId);
+                    var rawMaterialInfo= new cc.LabelBMFont( currQuantity+"/"+rawMaterialList[1].quantity,res.FONT_OUTLINE_20);
+                    if (currQuantity < rawMaterialList[1].quantity){
+                        this._canProduce = false;
+                        rawMaterialInfo.setColor(cc.color(244, 66, 66));
+                    } else if (currQuantity == rawMaterialList[1].quantity){
+                        this._lastSeed = true;
+                    }
                     rawMaterialInfo.x = this._toolTip.width /4;
                     rawMaterialInfo.y = this._toolTip.height*.3;
                     this._toolTip.addChild(rawMaterialIcon);
@@ -132,7 +182,14 @@ var MachineProductSprite = ProductSprite.extend({
                     rawMaterialIcon3.setScale(.5);
                     rawMaterialIcon3.x = this._toolTip.width / 4 ;
                     rawMaterialIcon3.y = this._toolTip.height*3/5;
-                    var rawMaterialInfo3 = new cc.LabelBMFont(user.getAsset().getQuantityOfTwoStorageByProductId(rawMaterialList[2].rawMaterialId)+"/"+rawMaterialList[2].quantity,res.FONT_OUTLINE_20);
+                    var currQuantity = user.getAsset().getQuantityOfTwoStorageByProductId(rawMaterialList[2].rawMaterialId);
+                    var rawMaterialInfo3 = new cc.LabelBMFont( currQuantity+"/"+rawMaterialList[2].quantity,res.FONT_OUTLINE_20);
+                    if (currQuantity < rawMaterialList[0].quantity){
+                        this._canProduce = false;
+                        rawMaterialInfo3.setColor(cc.color(244, 66, 66));
+                    } else if (currQuantity == rawMaterialList[2].quantity){
+                        this._lastSeed = true;
+                    }
                     rawMaterialInfo3.x = this._toolTip.width /4;
                     rawMaterialInfo3.y = this._toolTip.height*3/5;
                     this._toolTip.addChild(rawMaterialIcon3);
@@ -145,7 +202,14 @@ var MachineProductSprite = ProductSprite.extend({
                     rawMaterialIcon2.setScale(.5);
                     rawMaterialIcon2.x = this._toolTip.width *3/5;
                     rawMaterialIcon2.y = this._toolTip.height*3/5;
-                    var rawMaterialInfo2 = new cc.LabelBMFont(user.getAsset().getQuantityOfTwoStorageByProductId(rawMaterialList[0].rawMaterialId)+"/"+rawMaterialList[0].quantity,res.FONT_OUTLINE_20);
+                    var currQuantity = user.getAsset().getQuantityOfTwoStorageByProductId(rawMaterialList[0].rawMaterialId);
+                    var rawMaterialInfo2 = new cc.LabelBMFont( currQuantity+"/"+rawMaterialList[0].quantity,res.FONT_OUTLINE_20);
+                    if (currQuantity < rawMaterialList[0].quantity){
+                        this._canProduce = false;
+                        rawMaterialInfo2.setColor(cc.color(244, 66, 66));
+                    } else if (currQuantity == rawMaterialList[0].quantity){
+                        this._lastSeed = true;
+                    }
                     rawMaterialInfo2.x = this._toolTip.width *3/5;
                     rawMaterialInfo2.y = this._toolTip.height *3/5;
                     this._toolTip.addChild(rawMaterialIcon2);
@@ -156,7 +220,14 @@ var MachineProductSprite = ProductSprite.extend({
                     rawMaterialIcon.setScale(.5);
                     rawMaterialIcon.x = this._toolTip.width / 4 ;
                     rawMaterialIcon.y = this._toolTip.height*.3;
-                    var rawMaterialInfo = new cc.LabelBMFont(user.getAsset().getQuantityOfTwoStorageByProductId(rawMaterialList[1].rawMaterialId)+"/"+rawMaterialList[1].quantity,res.FONT_OUTLINE_20);
+                    var currQuantity = user.getAsset().getQuantityOfTwoStorageByProductId(rawMaterialList[1].rawMaterialId);
+                    var rawMaterialInfo = new cc.LabelBMFont( currQuantity+"/"+rawMaterialList[1].quantity,res.FONT_OUTLINE_20);
+                    if (currQuantity < rawMaterialList[1].quantity){
+                        this._canProduce = false;
+                        rawMaterialInfo.setColor(cc.color(244, 66, 66));
+                    } else if (currQuantity == rawMaterialList[1].quantity){
+                        this._lastSeed = true;
+                    }
                     rawMaterialInfo.x = this._toolTip.width /4;
                     rawMaterialInfo.y = this._toolTip.height*.3;
                     this._toolTip.addChild(rawMaterialIcon);
@@ -168,7 +239,14 @@ var MachineProductSprite = ProductSprite.extend({
                     rawMaterialIcon3.setScale(.5);
                     rawMaterialIcon3.x = this._toolTip.width / 4 ;
                     rawMaterialIcon3.y = this._toolTip.height*3/5;
-                    var rawMaterialInfo3 = new cc.LabelBMFont(user.getAsset().getQuantityOfTwoStorageByProductId(rawMaterialList[2].rawMaterialId)+"/"+rawMaterialList[2].quantity,res.FONT_OUTLINE_20);
+                    var currQuantity = user.getAsset().getQuantityOfTwoStorageByProductId(rawMaterialList[2].rawMaterialId);
+                    var rawMaterialInfo3 = new cc.LabelBMFont( currQuantity+"/"+rawMaterialList[2].quantity,res.FONT_OUTLINE_20);
+                    if (currQuantity < rawMaterialList[2].quantity){
+                        this._canProduce = false;
+                        rawMaterialInfo3.setColor(cc.color(244, 66, 66));
+                    } else if (currQuantity == rawMaterialList[2].quantity){
+                        this._lastSeed = true;
+                    }
                     rawMaterialInfo3.x = this._toolTip.width /4;
                     rawMaterialInfo3.y = this._toolTip.height*3/5;
                     this._toolTip.addChild(rawMaterialIcon3);
@@ -179,7 +257,14 @@ var MachineProductSprite = ProductSprite.extend({
                     rawMaterialIcon4.setScale(.5);
                     rawMaterialIcon4.x = this._toolTip.width  *3/5;
                     rawMaterialIcon4.y = this._toolTip.height * .3;
-                    var rawMaterialInfo4 = new cc.LabelBMFont(user.getAsset().getQuantityOfTwoStorageByProductId(rawMaterialList[3].rawMaterialId)+"/"+rawMaterialList[3].quantity,res.FONT_OUTLINE_20);
+                    var currQuantity = user.getAsset().getQuantityOfTwoStorageByProductId(rawMaterialList[3].rawMaterialId);
+                    var rawMaterialInfo4 = new cc.LabelBMFont( currQuantity+"/"+rawMaterialList[3].quantity,res.FONT_OUTLINE_20);
+                    if (currQuantity < rawMaterialList[3].quantity){
+                        this._canProduce = false;
+                        rawMaterialInfo4.setColor(cc.color(244, 66, 66));
+                    } else if (currQuantity == rawMaterialList[3].quantity){
+                        this._lastSeed = true;
+                    }
                     rawMaterialInfo4.x = this._toolTip.width *3/5;
                     rawMaterialInfo4.y = this._toolTip.height * .3;
                     this._toolTip.addChild(rawMaterialIcon4);
@@ -189,6 +274,16 @@ var MachineProductSprite = ProductSprite.extend({
 
 
             };
+
+
+            this._parent = this.getParent();
+            var machine  = user.asset.getMachineById(this._parent._machineId);
+            var machineConfig = MachineController.instance.getMachineConfigByType(machine.machineType);
+            this._widthMachine = machineConfig.size.width;
+            this._heightMachine = machineConfig.size.height;
+            this._xMachine = machine.coordinate.x;
+            this._yMachine  = machine.coordinate.y;
+
 
         } else {
             //show tooltip, level not enough
@@ -215,8 +310,23 @@ var MachineProductSprite = ProductSprite.extend({
            //todo check level before can move product
            this.x += delta.x;
            this.y += delta.y;
-       } else {
 
+            if (this.checkDragIntheMachine() || this.checkDragInTheQueueSlot(touch)){
+                cc.log("in produce zone!!!");
+                if (this._touchInProduceZone == false){
+                    this._touchInProduceZone = true;
+                    this._parent.addTempProductInFirstNullSlot(this._productConfig.res_path);
+                }
+            } else {
+                if (this._touchInProduceZone == true) {
+                    cc.log("not in produce zone!!!");
+                    this._touchInProduceZone = false;
+                    this._parent.removeTempProductSprite();
+                }
+            }
+
+
+       } else {
        }
 
         //call controller
@@ -225,8 +335,44 @@ var MachineProductSprite = ProductSprite.extend({
         //MachineController.instance.onProductMove(productConfig, mouse.x, mouse.y);
 
     },
+    checkDragIntheMachine:function(){
+        var ret = false;
+        var currLogicPosition =  MapValues.screenPositionToLogic(this.x, this.y);
+        //cc.log("Prepare for producing!" + currLogicPosition.x + "===" +currLogicPosition.y);
+        if (currLogicPosition.x>=this._xMachine
+            && currLogicPosition.x <= (this._xMachine + this._widthMachine)
+            && currLogicPosition.y >= this._yMachine
+            && currLogicPosition.y <= this._yMachine + this._heightMachine){
+            ret = true;
+        }
+        return ret;
+    },
+    checkDragInTheQueueSlot:function(touch){
+        var locationInNode = this._parent._FirstSlotSprite.convertToNodeSpace(touch.getLocation());
+        var s = this._parent._FirstSlotSprite.getContentSize();
+        var rect = cc.rect(0, 0, s.width, s.height);
+        if (cc.rectContainsPoint(rect, locationInNode)){
+            return true;
+        };
+        //var locationInNode = this._parent._unlockSlotSprite.convertToNodeSpace(touch.getLocation());
+        //var s = this._parent._unlockSlotSprite.getContentSize();
+        //var rect = cc.rect(0, 0, s.width, s.height);
+        //if (cc.rectContainsPoint(rect, locationInNode)){
+        //    return true;
+        //};
 
-    onTouchEndedJobs: function () {
+        for (var i = 0 ; i< this._parent._queueSpriteList.length; i ++){
+            var locationInNode = this._parent._queueSpriteList[i].convertToNodeSpace(touch.getLocation());
+            var s = this._parent._queueSpriteList[i].getContentSize();
+            var rect = cc.rect(0, 0, s.width, s.height);
+            if (cc.rectContainsPoint(rect, locationInNode)){
+                return true;
+            };
+        }
+       return false;
+    },
+
+    onTouchEndedJobs: function (touch) {
         if (user.getLevel() >= this._productConfig.levelUnlock) {
             var action1 = new cc.moveTo(0.05,0, this._defaultPosition.y);
             var action2 = new cc.moveTo(0.3,this._defaultPosition.x, this._defaultPosition.y);
@@ -234,8 +380,49 @@ var MachineProductSprite = ProductSprite.extend({
             this.runAction(seq);
             this._muiten.setVisible(true);
             this.setScale(1);
+
+            if (this.checkDragIntheMachine() || this.checkDragInTheQueueSlot(touch)){
+                cc.log("producing!!!");
+                this._touchInProduceZone = false;
+                this._parent.removeTempProductSprite();
+                this.addProductToMachineQueue();
+            } else {
+                if (this._touchInProduceZone == true) {
+                    cc.log("backup!!!");
+                    this._touchInProduceZone = false;
+                    this._parent.removeTempProductSprite();
+                }
+            }
         }
+
         this._toolTip.removeFromParent(true);
+    },
+    addProductToMachineQueue:function(){
+        if (this._canProduce == false){
+            cc.log("Thiếu nguyên liệu, show popup bạn có mún mua lun");
+            return false;
+        } else {
+            if (this._lastSeed == true){
+                cc.log("Show!!! Hạt giống cuối cùng, bạn có muốn sản xuất không?");
+            } else {
+                cc.log("Trừ nguyên liệu, thêm sản phẩm vào queue, show animation san pham bay vô máy");
+                var rawMaterialList = this._productConfig.rawMaterialList;
+                for (var i = 0; i< rawMaterialList.length; i++){
+                    var rawMaterialId = rawMaterialList[i].rawMaterialId;
+                    var quantity = rawMaterialList[i].quantity;
+                    if (rawMaterialId.indexOf("crop_") >= 0){
+                        user.asset.foodStorage.takeItem(rawMaterialId, quantity);
+                    } else {
+                        user.asset.warehouse.takeItem(rawMaterialId, quantity);
+                    }
+                    var machineId = this._parent._machineId;
+                    var i = MachineController.instance.getIndexMachineInListById(machineId);
+                    user.asset.machineList[i].addProductInQueue(this._productConfig.productType);
+                    TablePopupLayer.instance._layout.updateProductQueue(machineId);
+                    //todo check server
+                }
+            }
+        }
     },
     renderMuiTen: function () {
         this._muiten = new cc.Sprite(res.ten);

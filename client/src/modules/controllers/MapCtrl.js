@@ -454,13 +454,13 @@ var MapCtrl = cc.Class.extend({
         user.asset.machineList = [];
         //cc.log(MA_LOG_TAG + "450" + user.asset.machineList);
         //ctor: function (machineId, machineType, slot, startTime,  productQueue, boostBuild, completed, startBuildTime, remainBuildTime, coordinate) {        user.asset.addMachine(new Machine(coordinate, startBuildTime,startBuildTime,boostBuild , completed, machineId, machineType, productQueue,startTime));
-        user.asset.addMachine(new Machine(machineId, machineType, slot, startTime, productQueue, boostBuild, completed, startBuildTime, remainBuildTime,  {x:21, y: 24}));
-        user.asset.addMachine(new Machine("food_machine", "food_machine", slot, startTime, productQueue, boostBuild, completed, startBuildTime, remainBuildTime,  {x:18, y: 24}));
+        user.asset.addMachine(new Machine(machineId, machineType, slot, now -.2* 60 * 1000 * 3, productQueue, boostBuild, completed, startBuildTime, remainBuildTime,  {x:21, y: 24}));
+        user.asset.addMachine(new Machine("food_machine", "food_machine", slot, startTime, [], boostBuild, completed, startBuildTime, remainBuildTime,  {x:18, y: 24}));
         user.asset.addMachine(new Machine("popcorn_machine", "popcorn_machine", slot, startTime, productQueue, boostBuild, completed, startBuildTime, remainBuildTime,  {x:24, y: 24}));
 
+        //cc.log(MA_LOG_TAG + "462 " + user.asset.getMachineById("bakery_machine").machineType);
         //cc.log(MA_LOG_TAG + "462 " + user.asset.getMachineById("bakery_machine").productQueue);
         //cc.log(MA_LOG_TAG + "462" + user.asset.getMachineById("bakery_machine").getNumberOfCompletedProducts(now));
-
 
         //Machine.instance = new Machine();
         //Machine.instance.productQueue.push("product_bread");
