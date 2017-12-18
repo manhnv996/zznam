@@ -76,19 +76,19 @@ var User = cc.Class.extend({
             this.level ++;
             var expCurr = this.exp;
             this.exp = 0;
+
+            MainGuiLayer.instance.labelExp.setString(this.exp + " / " + getLevelupObjById(this.level + 1).exp);
+
             this.addExp(expCurr + number - getLevelupObjById(user.level).exp);
             MainGuiLayer.instance.labelLevel.setString(this.level);
 
             if (this.getAsset().getOrderList().length < getNumberOfOrderByLevel(this.level)){
                 testnetwork.connector.sendCreateNewOrder(this.getAsset().getOrderList().length);
             }
+
         } else {
-            if (number !== 0) {
-                this.exp += number;
-                MainGuiLayer.instance.increaseExp(number);
-            } else {
-                MainGuiLayer.instance.labelExp.setString(this.exp + " / " + getLevelupObjById(this.level + 1).exp);
-            }
+            this.exp += number;
+            MainGuiLayer.instance.increaseExp(number);
         }
 
         MainGuiLayer.instance.setExpPecent();
