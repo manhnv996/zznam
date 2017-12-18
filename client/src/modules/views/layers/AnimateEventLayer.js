@@ -23,7 +23,7 @@ var AnimateEventLayer = cc.Layer.extend({
 				fr.Localization.text(storageType === StorageTypes.FOOD_STORAGE ? 
 					"NAME_SILO" : "NAME_WARE_HOUSE") + "113/250", res.FONT_OUTLINE_30);
 			this.text.setPosition(this.textPosition);
-			this.text.setAnchorPoint(cc.p(0, 0.5));
+		this.text.setAnchorPoint(cc.p(0, 0.5));
 			this.addChild(this.text);
 		},
 
@@ -54,12 +54,14 @@ var AnimateEventLayer = cc.Layer.extend({
 		if (count) {
 			var countSprite = new cc.LabelBMFont("+" + count, res.FONT_OUTLINE_30);
 			countSprite.setAnchorPoint(0, 0.5);
-			countSprite.setPosition(cc.p(20, 0));
+			countSprite.setPosition(cc.p(22, 0));
 			groupSprite.addChild(countSprite);
 		}
 		var move = cc.moveTo(1.5, this.iconPosition).easing(cc.easeIn(3));
 		groupSprite.runAction(cc.sequence(move, cc.callFunc(function() {
 			groupSprite.removeFromParent(true);
+			var action = cc.sequence(cc.scaleTo(0.15, 0.2), cc.scaleTo(0.15, 0.15));
+			this.storage.runAction(action);
 			this.callerCount--;
 			if (this.callerCount === 0) {
 				this.scheduleOnce(this.scheduleRemoveIconAndText, 1);
@@ -80,7 +82,7 @@ var AnimateEventLayer = cc.Layer.extend({
 
 		var countSprite = new cc.LabelBMFont("+" + exp, res.FONT_OUTLINE_30);
 		countSprite.setAnchorPoint(0, 0.5);
-		countSprite.setPosition(cc.p(20, 0));
+		countSprite.setPosition(cc.p(22, 0));
 		groupSprite.addChild(countSprite);
 
 		groupSprite.setPosition(x, y);
@@ -88,9 +90,33 @@ var AnimateEventLayer = cc.Layer.extend({
 		var move = cc.moveTo(1.5, starPosition).easing(cc.easeIn(3));
 		groupSprite.runAction(cc.sequence(move, cc.callFunc(function() {
 			groupSprite.removeFromParent(true);
+			var action = cc.sequence(cc.scaleTo(0.15, 1.3), cc.scaleTo(0.15, 1.0));
+			MainGuiLayer.instance.imageLevel.runAction(action);
 		})));
 
 		groupSprite.setPosition(x, y);
+		this.addChild(groupSprite);
+	},
+
+	animateGold: function(x, y, gold) {
+		var groupSprite = new cc.Sprite();
+		var goldSprite = new cc.Sprite(res.gold_png);
+		var countSprite = new cc.LabelBMFont("+" + gold, res.FONT_OUTLINE_30);
+		countSprite.setAnchorPoint(0, 0.5);
+		countSprite.setPosition(cc.p(22, 0));
+		groupSprite.addChild(countSprite);
+		groupSprite.addChild(goldSprite);
+		groupSprite.setPosition(x, y);
+
+		var goldPosition = MainGuiLayer.instance.imageGold.getPosition();
+
+		var move = cc.moveTo(1.5, goldPosition).easing(cc.easeIn(3));
+		groupSprite.runAction(cc.sequence(move, cc.callFunc(function() {
+			groupSprite.removeFromParent();
+			var action = cc.sequence(cc.scaleTo(0.15, 1.3), cc.scaleTo(0.15, 1.0));
+			MainGuiLayer.instance.imageGold.runAction(action);
+		})));
+
 		this.addChild(groupSprite);
 	},
 

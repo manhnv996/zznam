@@ -9,7 +9,10 @@ var RoadShopSprite = MapBlockSprite.extend({
 	},
 
 	onClick: function(lx, ly) {
-		cc.log("Roadshop clicked", lx, ly);
+		// cc.log("Roadshop clicked", lx, ly);
+		var gold = Math.floor(Math.random() * 100);
+		cc.log("Gold ADD ", gold);
+		user.addGold(gold);
 	},
 
 	onBeginClick: function() {

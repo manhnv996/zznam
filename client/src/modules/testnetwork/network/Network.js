@@ -442,7 +442,7 @@ testnetwork.Connector = cc.Class.extend({
         this.gameClient.sendPacket(pk);
     },
     sendReceiceDeliveryCar: function (price, exp) {
-        cc.log("sendReceiceDeliveryCar: ");
+        cc.log("sendReceiceDeliveryCar: ", price, exp);
         var pk = this.gameClient.getOutPacket(CmdSendReceiceDeliveryCar);
         pk.pack(price, exp);
         this.gameClient.sendPacket(pk);

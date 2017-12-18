@@ -43,6 +43,13 @@ public class ResponseUser extends BaseMsg {
     }
     
     @Override
+    protected ByteBuffer makeBuffer() {
+        ByteBuffer localByteBuffer = ByteBuffer.allocate(2 * 1024 * 1024);
+        localByteBuffer.put(this.Error.byteValue());
+        return localByteBuffer;
+    }
+    
+    @Override
     public byte[] createData() {
         
         this.packBasicInfo();

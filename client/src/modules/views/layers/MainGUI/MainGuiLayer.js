@@ -51,11 +51,11 @@ var MainGuiLayer = cc.Layer.extend({
         this.btnBuyGold.addClickEventListener(this.onSelectBuyGold.bind(this));
         this.addChild(this.btnBuyGold);
 
-        var imageGold = new ccui.ImageView(res.gold);
-        var imageGoldSize = imageGold.getSize();
+        this.imageGold = new ccui.ImageView(res.gold);
+        var imageGoldSize = this.imageGold.getSize();
         //cc.log("imageGold " + imageGoldSize.width + "  " + imageGoldSize.height);
-        imageGold.setPosition(size.width - (btnBuyGoldSize.width + imageGoldSize.width), size.height - btnBuyGoldSize.height/2);
-        this.addChild(imageGold);
+        this.imageGold.setPosition(size.width - (btnBuyGoldSize.width + imageGoldSize.width), size.height - btnBuyGoldSize.height/2);
+        this.addChild(this.imageGold);
 
         this.labelGold = new cc.LabelBMFont(user.getGold(), res.FONT_OUTLINE_30);
         this.labelGold.setPosition(size.width - (btnBuyGoldSize.width + imageGoldSize.width + this.labelGold.width),size.height - btnBuyGoldSize.height/2 );
@@ -185,7 +185,54 @@ var MainGuiLayer = cc.Layer.extend({
     },
     setIsShowPopup:function(bool){
         this.isShowPopup = bool;
+    },
+
+    increaseExp: function(exp) {
+        var currentExp = parseInt(this.labelExp.getString());
+        var dstExp = currentExp + exp;
+        var time = 1.0;
+        var velocity = exp / time;
+        // cc.log("[VELOCITY]", velocity);
+        var that = this;
+        var schedule = function(dt) {
+            currentExp += velocity * dt;
+            that.labelExp.setString(Math.floor(currentExp));
+            // cc.log(currentExp, dstExp);
+            if (currentExp >= dstExp) {
+                that.labelExp.setString(dstExp);
+                this.unschedule(schedule);
+            }
+        }
+        this.schedule(schedule);
+    },
+
+
+    goldQueue: 0,
+    currentGold: 0,
+    isUpdatingGold: false,
+    increaseGold: function(gold) {
+        // cc.log("add", gold);
+        this.goldQueue += gold;
+        // this.dstGold = this.currentGold + gold;
+        this.currentGold = parseInt(this.labelGold.getString());
+        if (!this.isUpdatingGold) {
+            this.isUpdatingGold = true;
+            this.schedule(this.updateGold);
+        }
+    },
+
+    updateGold: function(dt) {
+        var deltaGold = (50 + this.goldQueue) * dt;
+        // cc.log("DeltaGold", deltaGold);
+        this.currentGold += deltaGold;
+        this.goldQueue -= deltaGold;
+        this.labelGold.setString(Math.floor(this.currentGold));
+        if (this.goldQueue <= 0) {
+            this.isUpdatingGold = false;
+            this.goldQueue = 0;
+            this.unschedule(this.updateGold);
+            // this.labelGold.setString(user.gold); // re-update
+            cc.log("Stop gold");
+        }
     }
 });
-
-
