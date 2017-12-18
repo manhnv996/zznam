@@ -55,6 +55,7 @@ var TruckOrderSprite = MapBlockSprite.extend({
 		//
 		OrderCtrl.instance.onShowOrderBG();
         TruckOrderSprite.instance.initTruckOrder();
+		audioEngine.playEffect(res.func_click_button_mp3, false);
     },
 	
 	onBeginClick: function() {
@@ -63,6 +64,5 @@ var TruckOrderSprite = MapBlockSprite.extend({
 
 	onEndClick: function() {
 		this.setColor(cc.color(255, 255, 255));
-		audioEngine.playEffect(res.func_click_button_mp3, false);
 	}
 });

@@ -436,10 +436,10 @@ function onReceiveUser(userInfo) {
     MainScene.instance.onGettedData();
 
 
-    /*
-     */
-    cc.log("MYSHOP: " + userInfo.asset.myShop);
-    cc.log(userInfo.asset.myShop.maxSlot);
-    cc.log(userInfo.asset.myShop.productList);
-    cc.log(userInfo.asset.myShop.lastTimeNpcCome);
+    // /*
+    //  */
+    // cc.log("MYSHOP: " + userInfo.asset.myShop);
+    // cc.log(userInfo.asset.myShop.maxSlot);
+    // cc.log(userInfo.asset.myShop.productList);
+    // cc.log(userInfo.asset.myShop.lastTimeNpcCome);
 }

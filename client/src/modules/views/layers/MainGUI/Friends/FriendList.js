@@ -24,8 +24,8 @@ var FriendList = ccui.Layout.extend({
         this.layoutFList.setContentSize(cc.size(this._bg.getBoundingBox().width / 100 * 78, this._bg.getBoundingBox().height / 25 * 19));
         this.layoutFList.x = this._bg.getBoundingBox().width / 100 * 21;
         this.layoutFList.y = this._bg.getBoundingBox().height / 25;
-        this.layoutFList.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
-        this.layoutFList.setBackGroundColor(cc.color.GREEN);
+        // this.layoutFList.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
+        // this.layoutFList.setBackGroundColor(cc.color.GREEN);
         this.addChild(this.layoutFList);
 
         this._listFriend = new cc.TableView(this, cc.size(this._bg.getBoundingBox().width / 100 * 78, this._bg.getBoundingBox().height / 25 * 19));

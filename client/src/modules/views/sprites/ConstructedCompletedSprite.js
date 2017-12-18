@@ -32,7 +32,7 @@ var ConstructedCompletedSprite = AnimationSprite.extend({
         this.registerTouchEvents();
     },
 
-    onEndClick: function () {
+    onClick: function () {
         audioEngine.playEffect(res.func_click_button_mp3, false);
         ConstructedCtrl.instance.completedBuild(this.id, this.typeBuilding);
         this.removeFromParent(true);
