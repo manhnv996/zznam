@@ -76,6 +76,9 @@ var User = cc.Class.extend({
             this.level ++;
             var expCurr = this.exp;
             this.exp = 0;
+
+            MainGuiLayer.instance.labelExp.setString(this.exp + " / " + getLevelupObjById(this.level + 1).exp);
+
             this.addExp(expCurr + number - getLevelupObjById(user.level).exp);
             MainGuiLayer.instance.labelLevel.setString(this.level);
 
@@ -85,12 +88,10 @@ var User = cc.Class.extend({
 
         } else {
             this.exp += number;
+            MainGuiLayer.instance.increaseExp(number);
         }
 
-        //MainGuiLayer.instance.labelExp.setString(this.exp + " / " + getLevelupObjById(this.level + 1).exp);
         MainGuiLayer.instance.setExpPecent();
-        // bug
-        // MainGuiLayer.instance.increaseExp(number);
     },
 
     reduceGold: function (number) {

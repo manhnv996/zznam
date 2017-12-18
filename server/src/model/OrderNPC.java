@@ -75,7 +75,7 @@ public class OrderNPC {
         }
         
         ProductConfig product = ProductUtil.getProductConfObjByType(this.orderItem.getTypeItem());
-        this.orderPrice = (int) this.orderItem.getQuantity() * product.maxPrice / 2;
+        this.orderPrice = (int) Math.ceil(this.orderItem.getQuantity() * product.maxPrice / 2.0);
         
         return this.orderPrice;
     }

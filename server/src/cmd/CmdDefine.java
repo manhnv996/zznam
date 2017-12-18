@@ -111,7 +111,7 @@ public class CmdDefine {
     public static final short ANIMAL_BOOST = 12003;
 
     // Nature
-    public static final short NATURE_COLLECT = 13001;
+    public static final short NATURE_COLLECT = 15001;
     
     // Friend
     public static final short FRIEND_GET_LIST = 14001;
