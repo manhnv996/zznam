@@ -5,15 +5,14 @@ var GameInfo = null;
 
 
 function getProductObjByType(productId) {
-    var productTypeObj = null;
-    cc.loader.loadJson(res.cropconfig, function (error, data) {
-        productTypeObj = data;
-        //ProductType = data;
-    });
-
-    for (var i = 0; i < productTypeObj.length; i++) {
-        if (productTypeObj[i].id == productId) {
-            return productTypeObj[i];
+    if (ProductType == null){
+        cc.loader.loadJson(res.cropconfig, function (error, data) {
+            ProductType = data;
+        });
+    }
+    for (var i = 0; i < ProductType.length; i++) {
+        if (ProductType[i].id == productId) {
+            return ProductType[i];
         }
     }
 
@@ -21,23 +20,16 @@ function getProductObjByType(productId) {
 }
 
 function getSeedLevel(level) {
-
-    var productTypeObj = null;
-    /*
-    Read from json file
-     */
-    cc.loader.loadJson(res.cropconfig, function (error, data) {
-        productTypeObj = data;
-        ProductType = data;
-        //cc.log("data " + str);// data is the json object
-    });
-
+    if (ProductType == null){
+        cc.loader.loadJson(res.cropconfig, function (error, data) {
+            ProductType = data;
+        });
+    }
     var seedLevelList = [];
-    for (var i = 0; i < productTypeObj.length; i++) {
+    for (var i = 0; i < ProductType.length; i++) {
 
-        if (productTypeObj[i].level <= (level + 2)) {
-            //seedLevelList.push(productTypeObj[i].id);
-            seedLevelList.unshift(productTypeObj[i].id);
+        if (ProductType[i].level <= (level + 2)) {
+            seedLevelList.unshift(ProductType[i].id);
         }
     }
 
@@ -51,7 +43,6 @@ function getSeedShow(level) {
 
     var seedShow = [];
     for (var i = 0; i < seedLevel.length; i++){
-        //cc.log("abc " + getProductObjByType(seedLevel[i]));
         if (user.getAsset().getFoodStorage().getQuantity(seedLevel[i]) == 0){
             if (getProductObjByType(seedLevel[i]).level <= user.getLevel()){
                 seedShow.push(new StorageItem(seedLevel[i], 0));
@@ -388,8 +379,6 @@ function onReceiveUser(userInfo) {
         machineList.push(machine);
     }
 
-    var myShop = null;
-
     //Order List
     var orderList = [];
     for (var i = 0; i < userInfo.asset.orderList.length; i++) {
@@ -420,6 +409,9 @@ function onReceiveUser(userInfo) {
     var car = new Car(userInfo.asset.car.deliveryPrice, userInfo.asset.car.deliveryExp);
     //
 
+    var myShop = new MyShop(userInfo.asset.myShop.maxSlot, userInfo.asset.myShop.productList, userInfo.asset.myShop.lastTimeNpcCome);
+
+
     var asset = new Asset(
         foodStorage, warehouse, fieldList, animalLodgeList,
         machineList, natureThingList, myShop,
@@ -443,4 +435,11 @@ function onReceiveUser(userInfo) {
     cc.director.runScene(MainScene.instance);
     MainScene.instance.onGettedData();
 
+
+    /*
+     */
+    cc.log("MYSHOP: " + userInfo.asset.myShop);
+    cc.log(userInfo.asset.myShop.maxSlot);
+    cc.log(userInfo.asset.myShop.productList);
+    cc.log(userInfo.asset.myShop.lastTimeNpcCome);
 }

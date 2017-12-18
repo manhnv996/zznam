@@ -87,16 +87,13 @@ public class PlantHandler extends BaseClientRequestHandler {
 
     }
     
-//    /////////////
+//    ////
     public void processPlant(User user, RequestPlant plant){
         try {
             ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
-//            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(1, ZPUserInfo.class);
             if (userInfo == null){
-//                send(new ResponseFieldStatus(ErrorLog.ERROR_USER_NOT_FOUND.getValue(), null), user);
                 return;
             }
-            
             
             /*
              * DONE
@@ -109,7 +106,6 @@ public class PlantHandler extends BaseClientRequestHandler {
                 send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
 
                 userInfo.saveModel(user.getId());
-//                userInfo.saveModel(1);
             } else {
                 send(new ResponseSyncFieldStatus(errorCode, userInfo.getAsset().getFieldById(plant.fieldId)), user);
                 
@@ -120,7 +116,6 @@ public class PlantHandler extends BaseClientRequestHandler {
                 }
             }
             
-            
         } catch (Exception e) {
         }
     }
@@ -128,9 +123,7 @@ public class PlantHandler extends BaseClientRequestHandler {
     public void processCrop(User user, RequestCrop crop){
         try {
             ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
-//            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(1, ZPUserInfo.class);
             if (userInfo == null){
-//                send(new ResponseFieldStatus(ErrorLog.ERROR_USER_NOT_FOUND.getValue(), null), user);
                 return;
             }
             
@@ -142,7 +135,6 @@ public class PlantHandler extends BaseClientRequestHandler {
                 send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
 
                 userInfo.saveModel(user.getId());
-//                userInfo.saveModel(1);
             } else {
                 send(new ResponseSyncFieldStatus(errorCode, userInfo.getAsset().getFieldById(crop.fieldId)), user);
                 
@@ -162,9 +154,7 @@ public class PlantHandler extends BaseClientRequestHandler {
     public void processPlantBoost(User user, RequestPlantBoost boost){
         try {
             ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
-//            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(1, ZPUserInfo.class);
             if (userInfo == null){
-//                send(new ResponseFieldStatus(ErrorLog.ERROR_USER_NOT_FOUND.getValue(), null), user);   
                 return;
             }
             
@@ -176,7 +166,6 @@ public class PlantHandler extends BaseClientRequestHandler {
                 send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
 
                 userInfo.saveModel(user.getId());
-//                userInfo.saveModel(1);
             } else {
                 send(new ResponseSyncFieldStatus(errorCode, userInfo.getAsset().getFieldById(boost.fieldId)), user);
                 
@@ -193,61 +182,39 @@ public class PlantHandler extends BaseClientRequestHandler {
     public void processBuyItemByRubi(User user, RequestBuyItemByRubi buyItem){
         try {
             ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
-//            ZPUserInfo userInfo = (ZPUserInfo) ZPUserInfo.getModel(1, ZPUserInfo.class);
             if (userInfo == null){
-//                send(new ResponseBuyItemByRubi(ErrorLog.ERROR_USER_NOT_FOUND.getValue(), buyItem.productType), user);
                 return;
             }
             
             
-//            int rubi = ProductUtil.getProductObjByType(buyItem.productType).rPrice;
             int rubi = ProductUtil.getProductConfObjByType(buyItem.productType).rubiMuaNgay * buyItem.quantity;
             
             if (userInfo.reduceRuby(rubi)){
-//                if (userInfo.getAsset().getFoodStorage().addItem(buyItem.productType, buyItem.quantity)){
                 if (userInfo.getAsset().addItemToStorageById(buyItem.productType, buyItem.quantity)){                
 
                     userInfo.saveModel(user.getId());
-//                    userInfo.saveModel(1);
                     
                     send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
                     return;
                 } else {
                     
                     userInfo.addRuby(rubi);     //recovery
-                    
-////                    send(new ResponseBuyItemByRubi(ErrorLog.ERROR_STORAGE_NOT_ADD.getValue(), buyItem.productType), user);
-//                    send(new ResponseSyncUserInfo(ErrorLog.ERROR_RUBY_NOT_REDUCE.getValue(), userInfo), user);
-//                    
-//                    StorageItem storageItem = userInfo.getAsset().getFoodStorage().getItemList().get(userInfo.getAsset().getFoodStorage().getStorageItem(buyItem.productType));
-//                    send(new ResponseSyncFoodStorageItem(ErrorLog.ERROR_STORAGE_NOT_ADD.getValue(), storageItem), user);
                 }
-            } 
-//            else {
-                
-                System.out.println("before send");
-                send(new ResponseSyncUserInfo(ErrorLog.ERROR_RUBY_NOT_REDUCE.getValue(), userInfo), user);
-                System.out.println("after send");
-////                StorageItem storageItem = userInfo.getAsset().getFoodStorage().getItemList().get(userInfo.getAsset().getFoodStorage().getStorageItem(buyItem.productType));
-////                send(new ResponseSyncFoodStorageItem(ErrorLog.ERROR_STORAGE_NOT_ADD.getValue(), new StorageItem(buyItem.productType, -1)), user);
-//                send(new ResponseSyncFoodStorageItem(ErrorLog.ERROR_STORAGE_NOT_ADD.getValue(), new StorageItem(buyItem.productType, - buyItem.quantity)), user);
+            }
             
-            
-                if (buyItem.productType.contains("crop_")){
-                    Storage foodStorage = userInfo.getAsset().getFoodStorage();
-                    send(new ResponseSyncStorage(ErrorLog.ERROR_STORAGE_NOT_ADD.getValue(), foodStorage), user);
-                } else {
-                    
-                    Storage warehouse = userInfo.getAsset().getWarehouse();
-                    send(new ResponseSyncStorage(ErrorLog.ERROR_STORAGE_NOT_ADD.getValue(), warehouse), user);
-                }
-            
-//            }
+            send(new ResponseSyncUserInfo(ErrorLog.ERROR_RUBY_NOT_REDUCE.getValue(), userInfo), user);
+            if (buyItem.productType.contains("crop_")){
+                Storage foodStorage = userInfo.getAsset().getFoodStorage();
+                send(new ResponseSyncStorage(ErrorLog.ERROR_STORAGE_NOT_ADD.getValue(), foodStorage), user);
+            } else {
+                Storage warehouse = userInfo.getAsset().getWarehouse();
+                send(new ResponseSyncStorage(ErrorLog.ERROR_STORAGE_NOT_ADD.getValue(), warehouse), user);
+            }
             
         } catch (Exception e) {
         }
     }
-//    /////////
+//    ////
     
     
     

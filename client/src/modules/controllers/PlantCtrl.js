@@ -5,22 +5,13 @@
 var PlantCtrl = cc.Class.extend({
 
     onFieldSelected: function(fieldId) {
-        /*
-         DONE
-         */
         var fieldSelected = user.getAsset().getFieldById(fieldId);
-
         if (fieldSelected != null){
-
             var status = fieldSelected.checkStatus();
-
             if (status == FieldStatusTypes.EMPTY){
 
                 var seedShow = getSeedShow(user.getLevel());
-
-                //PopupLayer.instance.showSeedPopup(fieldId, seedShow);
                 TablePopupLayer.instance.showSeedTablePopup(fieldId, seedShow);
-
 
                 //
                 this.firstDragEmptyField = true;
@@ -30,29 +21,16 @@ var PlantCtrl = cc.Class.extend({
                 this.lastBlockSelected = null;
 
             } else if (status == FieldStatusTypes.DONE){
-                /*
-                Show croptool
-                 */
-                //PopupLayer.instance.showToolPopup(fieldId);
                 TablePopupLayer.instance.showCropToolPopup(fieldId);
 
                 this.firstShowNotice = false;
-
                 //
                 this.lastBlockSelected = null;
             } else {
-                /*
-                Show status
-                 */
-                // PopupLayer.instance.showProgressBarInprogress(fieldId);
                 TablePopupLayer.instance.showTimeRemainProgressBar(fieldId);
-
             }
 
-
         }
-
-
     },
 
     isFieldAndChangeBlock: function(x, y) {
@@ -67,7 +45,6 @@ var PlantCtrl = cc.Class.extend({
                 this.lastBlockSelected.pointLogic.x == objectLogic.pointLogic.x &&
                 this.lastBlockSelected.pointLogic.y == objectLogic.pointLogic.y) {
 
-                //return false;
                 return null;
             }
         }
@@ -78,27 +55,10 @@ var PlantCtrl = cc.Class.extend({
 
             return user.getAsset().getFieldByLogicPosition(objectLogic.pointLogic.x, objectLogic.pointLogic.y);
         }
-        //return false;
         return null;
     },
 
     onDragCropTool: function(x, y) {
-        //
-        //var fieldSelected = MapCtrl.instance.getField(x, y);
-        //
-        //if (fieldSelected != null){
-        //    if (this.firstDragField) {
-        //        this.lastFieldSelected = null;
-        //    }
-        //    if (this.lastFieldSelected != null){
-        //        if (this.lastFieldSelected.getFieldId() == fieldSelected.getFieldId()){
-        //
-        //            return false;
-        //        }
-        //    }
-        //    this.lastFieldSelected = fieldSelected;
-        //    this.firstDragField = false;
-
         var fieldSelected = this.isFieldAndChangeBlock(x, y);
         if (fieldSelected != null){
 //            //
@@ -106,29 +66,16 @@ var PlantCtrl = cc.Class.extend({
             if (status == FieldStatusTypes.DONE){
                 //
                 var seedType = fieldSelected.getPlantType();
-                if (fieldSelected.crop() == null){  //crop and check crop fail
-
-                    //full foodStorage
-                    /*
-                     done
-                     FLOW UpgradeStorage
-                     Show Popup
-                     */
+                if (fieldSelected.crop() == null){
                     if (this.firstShowNotice == false){
 
-                        // PopupLayer.instance.showNoticeFullFoodStorageBG();
                         BaseGUILayer.instance.notifyFullStorage(StorageTypes.FOOD_STORAGE);
                         this.firstShowNotice = true;
                     }
-
-                    //
-                    cc.log("FLOW UpgradeStorage!!!!!!!!!!!!!!!!!!!");
                 } else {
                     audioEngine.playEffect(res.farm_harvest_01_mp3, false);
                     //send pk to server {packet{fieldId}}
                     testnetwork.connector.sendCrop(fieldSelected.getFieldId());
-/////
-
                     //animation
                     MapLayer.instance.runAnimationCrop(fieldSelected.getFieldId(), seedType, function() {
                         var position = MapValues.logicToScreenPosition(
@@ -152,39 +99,26 @@ var PlantCtrl = cc.Class.extend({
     onDragSeed: function(seedType, x, y) {
         var fieldSelected = this.isFieldAndChangeBlock(x, y);
         if (fieldSelected != null){
-//            //
-            var status = fieldSelected.checkStatus();
 
+            var status = fieldSelected.checkStatus();
             if (status == FieldStatusTypes.EMPTY){
                 //
                 if (fieldSelected.plant(seedType)){     //plant and if success
 //
                     audioEngine.playEffect(res.farm_plant_01_mp3, false);
                     //send pk to server {packet{fieldId, productType}}
-                    testnetwork.connector.sendPlant(fieldSelected.getFieldId(), fieldSelected.getPlantType());
-/////
 
-                    //animation
+                    testnetwork.connector.sendPlant(fieldSelected.getFieldId(), fieldSelected.getPlantType());
+                    //
                     MapLayer.instance.runAnimationPlantting(fieldSelected.getFieldId(), seedType);
 
                 } else {
                     if (this.firstDragEmptyField){
-                        cc.log("FLOW BUY SEEDDDDDDDDDDD!!!!!!!!!!!!!!!!!!!");
-
-                        // PopupLayer.instance.showSuggestBuyingSeedBG(seedType);
                         BaseGUILayer.instance.showSuggestBuyMissionItem([new StorageItem(seedType, 1)], null, null);
-                        /*
-                        done
-                        FLOW BUY SEED
-                        Show Popup
-                         */
+
                     }
                 }
                 this.firstDragEmptyField = false;
-                /*
-                 DONE
-                 */
-
             } else {
                 /*
                  DO NOTHING
@@ -199,12 +133,9 @@ var PlantCtrl = cc.Class.extend({
 
         if (fieldSelected != null) {
             if (fieldSelected.boost()){
-//
-                //send pk to server {packet{fieldId}}
                 testnetwork.connector.sendPlantBoost(fieldSelected.getFieldId());
                 return true;
             } else {
-                cc.log("Not enough ruby");
                 return false;
             }
 

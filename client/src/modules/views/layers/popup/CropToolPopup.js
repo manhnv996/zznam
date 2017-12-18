@@ -33,7 +33,6 @@ var CropToolPopup = TablePopup.extend({
 
     disablePopup: function(seedId){
         this.disablePopupBackground();
-        //this.disableItemOfPopup(seedId);
     },
 
     //

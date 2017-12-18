@@ -29,7 +29,6 @@ var SeedSprite = ProductSprite.extend({
 
 
 
-
     //
     onBeginClick: function (touch) {
         audioEngine.playEffect(res.func_click_icon_mp3, false);
@@ -38,12 +37,8 @@ var SeedSprite = ProductSprite.extend({
         //
         this.touchListener._isFirstMove = false;
         if (this.quantity == null){
-            /*
-            DONE
-            SHOW LEVEL UNLOCK
-             */
-            this.showInfo();
 
+            this.showInfo();
         } else {
             this.slot.runAction(new cc.MoveBy(0.1, this.width / 4, this.height / 4));
         }
@@ -129,7 +124,6 @@ var SeedSprite = ProductSprite.extend({
 
     showSuggest: function () {
         //
-        //var muiten = new cc.Sprite(res.ten);
         var muiten = new ccui.ImageView(res.ten);
         muiten.setPosition(new cc.p(this.width * 3 / 4, this.height / 4));
         this.addChild(muiten);

@@ -7,7 +7,7 @@ package config.jsonobject;
 
 /**
  *
- * @author nguyenvanmanh
+ * @author 
  */
 public class CropProduct {
     public String id;

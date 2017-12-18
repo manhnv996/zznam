@@ -92,19 +92,15 @@ var MainGuiLayer = cc.Layer.extend({
 
         var imageExp_111 = new ccui.ImageView(res.EXP_111_PNG);
         var imageExp_111Size = imageExp_111.getSize();
-        //cc.log("imageExp_111 " + imageExp_111Size.width + "  " + imageExp_111Size.height);
         imageExp_111.setPosition(center_top_pos);
         this.addChild(imageExp_111);
 
         this.loadingBar = new ccui.LoadingBar();
         this.loadingBar.setName("ExpBar");
-        this.loadingBar.loadTexture(res.EXP_221_PNG);
-        this.loadingBar.setPosition(center_top_pos.width, center_top_pos.height);
-        this.loadingBar.setPercent(Math.floor(user.exp * 100 / this.max_exp));
-        this.addChild( this.loadingBar);
+        this.loadingBar.loadTexture(res.progress);
+        this.loadingBar.setPosition(center_top_pos.x + 28, center_top_pos.y);
+        this.addChild(this.loadingBar);
 
-
-        // this.labelExp = new cc.LabelBMFont(user.getExp() + "/" + this.max_exp, res.FONT_OUTLINE_30);
         this.labelExp = new cc.LabelBMFont(user.getExp(), res.FONT_OUTLINE_30);
         this.labelExp.setPosition(center_top_pos);
         this.addChild(this.labelExp);
@@ -119,12 +115,23 @@ var MainGuiLayer = cc.Layer.extend({
         this.labelLevel.setPosition(center_top_pos.x - imageExp_111Size.width/2,center_top_pos.y);
         this.addChild(this.labelLevel);
 
+
+        //
+        this.setExpPecent();
+
         GameShopLayout.instance = new GameShopLayout();
         this.addChild(GameShopLayout.instance);
 
         FriendUI.instance = new FriendUI();
         this.addChild(FriendUI.instance);
     },
+
+    //
+    setExpPecent: function () {
+        this.labelExp.setString(user.getExp() + " / " + getLevelupObjById(user.getLevel() + 1).exp);
+        this.loadingBar.setPercent(user.getExp() * 100.0 / getLevelupObjById(user.getLevel() + 1).exp);
+    },
+
 
     lockButton: function () {
         GameShopLayout.instance._btnGameShop.btnGS.setTouchEnabled(false);

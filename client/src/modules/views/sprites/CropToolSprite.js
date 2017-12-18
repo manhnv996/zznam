@@ -2,11 +2,9 @@
  * Created by CPU60133_LOCAL on 11/9/2017.
  */
 
-// var CropToolSprite = cc.Sprite.extend({
 var CropToolSprite = ProductSprite.extend({
 
     ctor: function(parent, tool_img) {
-        // this._super(tool_img);
         this._super(tool_img, "tool_crop");
 
         this.popupParent = parent;
@@ -66,7 +64,6 @@ var CropToolSprite = ProductSprite.extend({
     //
 
     showSuggest: function () {
-        //var muiten = new cc.Sprite(res.ten);
         var muiten = new ccui.ImageView(res.ten);
         muiten.setPosition(new cc.p(this.width * 3 / 4, this.height / 4));
         this.addChild(muiten);

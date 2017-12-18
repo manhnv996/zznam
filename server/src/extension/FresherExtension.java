@@ -48,6 +48,7 @@ import service.AnimalHandler;
 import service.FriendHandler;
 import service.GameShopHandler;
 import service.MapHandler;
+import service.MyShopHandler;
 import service.OrderHandler;
 import service.PlantHandler;
 import service.StorageHandler;
@@ -138,6 +139,7 @@ public class FresherExtension extends BZExtension {
         //  
         addRequestHandler(PlantHandler.PLANT_MULTI_IDS, PlantHandler.class);
         addRequestHandler(OrderHandler.ORDER_MULTI_IDS, OrderHandler.class);
+        addRequestHandler(MyShopHandler.MYSHOP_MULTI_IDS, MyShopHandler.class);
         //
         addRequestHandler(MapHandler.MAP_MULTI_IDS, MapHandler.class);
         

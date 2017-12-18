@@ -180,11 +180,26 @@ testnetwork.Connector = cc.Class.extend({
                  */
                 var orderSelected = user.getAsset().getOrderById(packet.order.orderId);
 
-                orderSelected.itemList = packet.order.itemList;
-                orderSelected.orderPrice = packet.order.orderPrice;
-                orderSelected.orderExp = packet.order.orderExp;
-                orderSelected.waittingTime = new Date(parseInt(packet.order.waittingTime));
-                
+                if (orderSelected != null){
+
+                    orderSelected.itemList = packet.order.itemList;
+                    orderSelected.orderPrice = packet.order.orderPrice;
+                    orderSelected.orderExp = packet.order.orderExp;
+                    orderSelected.waittingTime = new Date(parseInt(packet.order.waittingTime));
+
+                }
+                else {
+                    var order = new Order(
+                        packet.order.orderId,
+                        packet.order.itemList,
+                        packet.order.orderPrice,
+                        packet.order.orderExp
+                    );
+                    order.waittingTime = new Date(parseInt(packet.order.waittingTime));
+
+                    user.getAsset().addOrder(order);
+                }
+
                 ////
                 TruckOrderSprite.instance.initTruckOrder();
                 // OrderCtrl.instance.onShowOrderBG();
@@ -245,6 +260,20 @@ testnetwork.Connector = cc.Class.extend({
                     //
                     // //
                 }
+
+                break;
+            //
+            case gv.CMD.RESPONSE_SYNC_PRODUCT_SALE:
+                cc.log("RESPONSE_SYNC_PRODUCT_SALE: ", packet.productSale);
+
+                /*
+                inprogress
+                 */
+                var productSaleSelected = user.getAsset().getMyShop().getProductBySlot(packet.productSale.slot);
+                productSaleSelected.updateProductSale(new StorageItem(packet.productSale.typeItem, packet.productSale.quantity),
+                    packet.productSale.price);
+                productSaleSelected.isSold = packet.productSale.isSold;
+
 
                 break;
             ////
@@ -522,6 +551,37 @@ testnetwork.Connector = cc.Class.extend({
         cc.log("sendCreateNewOrderNpc: " + orderId);
         var pk = this.gameClient.getOutPacket(CmdSendCreateNewOrderNpc);
         pk.pack(orderId);
+        this.gameClient.sendPacket(pk);
+    },
+    //
+    sendSellProduct: function (intSlot, productType, quantity, price) {
+        cc.log("sendSellProduct: " + intSlot);
+        var pk = this.gameClient.getOutPacket(CmdSendSellProduct);
+        pk.pack(intSlot, productType, quantity, price);
+        this.gameClient.sendPacket(pk);
+    },
+    sendBuyProduct: function (userId, intSlot) {
+        cc.log("sendBuyProduct: ", intSlot, userId);
+        var pk = this.gameClient.getOutPacket(CmdSendBuyProduct);
+        pk.pack(userId, intSlot);
+        this.gameClient.sendPacket(pk);
+    },
+    sendReceiveMoneyFromProduct: function (intSlot) {
+        cc.log("sendReceiveMoneyFromProduct: " + intSlot);
+        var pk = this.gameClient.getOutPacket(CmdSendReceiveMoneyFromProduct);
+        pk.pack(intSlot);
+        this.gameClient.sendPacket(pk);
+    },
+    sendCancelSellProduct: function (intSlot) {
+        cc.log("sendCancelSellProduct: " + intSlot);
+        var pk = this.gameClient.getOutPacket(CmdSendCancelSellProduct);
+        pk.pack(intSlot);
+        this.gameClient.sendPacket(pk);
+    },
+    sendUnlockSlotMyShop: function () {
+        cc.log("sendUnlockSlotMyShop: ");
+        var pk = this.gameClient.getOutPacket(CmdSendUnlockSlotMyShop);
+        pk.pack();
         this.gameClient.sendPacket(pk);
     },
     ///

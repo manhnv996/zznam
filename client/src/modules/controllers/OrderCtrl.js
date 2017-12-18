@@ -2,13 +2,6 @@
 var OrderCtrl = cc.Class.extend({
 
     onShowOrderBG: function () {
-        // var orderList = user.getAsset().getOrderList();
-
-        // MainGuiLayer.instance.addChild(OrderBGLayer.instance);
-        //OrderBGLayer.instance.showBG();
-        // if (BaseGUILayer.instance._blockLayout != null){
-        //     BaseGUILayer.instance.removeBlockListener();
-        // }
         if (BaseGUILayer.instance._layout != null){
             BaseGUILayer.instance.removeBlockListener();
         }
@@ -23,7 +16,6 @@ var OrderCtrl = cc.Class.extend({
                 /*
                  runAction
                  */
-                //CarSprite.instance.updateOrder(orderSelected.orderPrice, orderSelected.orderExp);
                 CarSprite.instance.delivery(orderSelected.itemList);
                 //
                 BaseGUILayer.instance.removeBlockListener();
@@ -33,12 +25,10 @@ var OrderCtrl = cc.Class.extend({
             } else {
                 var missionItem = orderSelected.checkCondition();
                 /*
-                INPROGRESS
+                done
                  */
-
                 BaseGUILayer.instance.removeBlockListener();
                 BaseGUILayer.instance.showSuggestBuyMissionItem(missionItem, BuyItemTargetType.MAKE_ORDER, orderId);
-
             }
         }
     },
@@ -55,7 +45,6 @@ var OrderCtrl = cc.Class.extend({
                 /*
                  runAction
                  */
-                //CarSprite.instance.updateOrder(orderSelected.orderPrice, orderSelected.orderExp);
                 CarSprite.instance.delivery(orderSelected.itemList);
                 //
                 BaseGUILayer.instance.removeBlockListener();
@@ -64,27 +53,22 @@ var OrderCtrl = cc.Class.extend({
 
             } else {
                 //
-
             }
         }
-
-        ////
-        //OrderCtrl.instance.onShowOrderBG();
 
     },
 
     onReceiveDelivery: function () {
-        if (user.getAsset().getCar().receive()){
+        if (user.getAsset().getCar().getStatus() == DeliveryStatus.RECEIVABLE){
             audioEngine.playEffect(res.order_collect_money_from_car_mp3, false);
             testnetwork.connector.sendReceiceDeliveryCar(user.getAsset().getCar().deliveryPrice, user.getAsset().getCar().deliveryExp);
-
+            user.getAsset().getCar().receive();
         }
     },
 
     onCancelOrder: function (orderId) {
         //
         var orderSelected = user.getAsset().getOrderById(orderId);
-
         if (orderSelected != null){
             if (orderSelected.cancelOrder() == true){
 
@@ -95,7 +79,6 @@ var OrderCtrl = cc.Class.extend({
 
     onBoostWait: function (orderId) {
         var orderSelected = user.getAsset().getOrderById(orderId);
-
         if (orderSelected != null){
             if (orderSelected.boostWait() == true){
 
@@ -115,7 +98,7 @@ var OrderCtrl = cc.Class.extend({
                 testnetwork.connector.sendBuyItemByRubi(storageMissingItem.typeItem, storageMissingItem.quantity);
                 return true;
             } else {
-                user.addRuby(rubiBuy);  //recovery
+                user.addRuby(rubiBuy);  //
                 return false;
             }
         }
@@ -133,7 +116,6 @@ var OrderCtrl = cc.Class.extend({
 
                 testnetwork.connector.sendMakeOrderNpc(orderId, 0);
                 /*
-                 Inprogress
                  Run animation
                  */
                 BaseGUILayer.instance.removeBlockListener();
@@ -150,11 +132,12 @@ var OrderCtrl = cc.Class.extend({
                     var p = MapValues.logicToScreenPosition(npcSprite.lx, npcSprite.ly);
                     AnimateEventLayer.instance.animateGold(p.x, p.y, orderNPCSelected.orderPrice);
                     AnimateEventLayer.instance.animateExp(p.x, p.y, orderNPCSelected.orderExp);
+
                 }
             } else {
                 var missionItem = orderNPCSelected.checkCondition();
                 /*
-                 INPROGRESS
+                 done
                  */
                 BaseGUILayer.instance.removeBlockListener();
                 BaseGUILayer.instance.showSuggestBuyMissionItem(missionItem, BuyItemTargetType.MAKE_ORDER_NPC, orderId);
@@ -175,7 +158,7 @@ var OrderCtrl = cc.Class.extend({
 
                 testnetwork.connector.sendMakeOrderNpc(orderId, rubiBuy);
                 /*
-                INPROGRESS
+                done
                  */
                 // //
                 // MapLayer.instance.getNPCByOrderNPCId(orderId).setPause();
@@ -188,6 +171,7 @@ var OrderCtrl = cc.Class.extend({
                     var p = MapValues.logicToScreenPosition(npcSprite.lx, npcSprite.ly);
                     AnimateEventLayer.instance.animateGold(p.x, p.y, orderNPCSelected.orderPrice);
                     AnimateEventLayer.instance.animateExp(p.x, p.y, orderNPCSelected.orderExp);
+
                 }
 
                 BaseGUILayer.instance.removeBlockListener();
@@ -207,9 +191,6 @@ var OrderCtrl = cc.Class.extend({
 
                 testnetwork.connector.sendCancelOrderNpc(orderId);
 
-                // // //
-                // MapLayer.instance.getNPCByOrderNPCId(orderId).setPause();
-                // MapLayer.instance.getNPCByOrderNPCId(orderId).actionGetOut1();
                 // //
                 if (MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId) != null){
                     MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).runScheduleWalkingOut(false);
@@ -217,10 +198,6 @@ var OrderCtrl = cc.Class.extend({
                 }
             }
         }
-        /*
-        Inprogress
-        Run animation
-         */
     },
 
 

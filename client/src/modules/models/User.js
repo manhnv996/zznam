@@ -69,14 +69,28 @@ var User = cc.Class.extend({
     },
     addExp: function (number) {
         number = parseInt(number);
-        this.exp += number;
+        //this.exp += number;
         //bug
-        /*
-        NOT YET STARTED
-        if level up
-         */
-        // MainGuiLayer.instance.labelExp.setString(this.exp);
-        MainGuiLayer.instance.increaseExp(number);
+
+        if (this.exp + number >= getLevelupObjById(this.level + 1).exp){
+            this.level ++;
+            var expCurr = this.exp;
+            this.exp = 0;
+            this.addExp(expCurr + number - getLevelupObjById(user.level).exp);
+            MainGuiLayer.instance.labelLevel.setString(this.level);
+
+            if (this.getAsset().getOrderList().length < getNumberOfOrderByLevel(this.level)){
+                testnetwork.connector.sendCreateNewOrder(this.getAsset().getOrderList().length);
+            }
+
+        } else {
+            this.exp += number;
+        }
+
+        //MainGuiLayer.instance.labelExp.setString(this.exp + " / " + getLevelupObjById(this.level + 1).exp);
+        MainGuiLayer.instance.setExpPecent();
+        // bug
+        // MainGuiLayer.instance.increaseExp(number);
     },
 
     reduceGold: function (number) {

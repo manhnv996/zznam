@@ -16,8 +16,6 @@ var NPCSprite = AnimationSprite.extend({
             MapItemEnum.NPC
         );
 
-        this.play("2");
-        // this.addEventListener();
         this.registerTouchEvents({ lockMove: true });
         this.updateEventPriority(55);
         // this._showBoundingPoints();
@@ -318,51 +316,6 @@ var NPCSprite = AnimationSprite.extend({
         }
         this.setLogicPosition(newX, newY);
     },
-
-
-///////
-//    addEventListener: function () {
-//        //
-//        this.caculateBoundingPoints();
-//        this.clickListener = cc.EventListener.create({
-//            event: cc.EventListener.TOUCH_ONE_BY_ONE,
-//            swallowTouches: true,
-//            onTouchBegan: function (touch, event) {
-//                // // Disable all popup
-//                // PopupLayer.instance.disableAllPopup();
-//
-//                var touchLocation = touch.getLocation();
-//                var location = MapValues.screenPositionToMapPosition(touchLocation.x, touchLocation.y);
-//
-//                // Check if is click inside sprite
-//                if (rayCasting(location, this.boundingPoints)) {
-//                    this.onBeginClick();
-//
-//                    return true;
-//                }
-//                return false;
-//            }.bind(this),
-//            onTouchMoved: function (touch, event) {
-//                var delta = touch.getDelta();
-//                MapLayer.instance.move(delta.x, delta.y);
-//
-//            }.bind(this),
-//
-//            onTouchEnded: function (touch, event) {
-//                //
-//                this.onClick();
-//                this.onEndClick();
-//
-//            }.bind(this)
-//        });
-//        cc.eventManager.addListener(this.clickListener, this);
-//    },
-//
-//    clearListener: function() {
-//        cc.eventManager.removeListener(this.clickListener);
-//    },
-
-
 
 
     updateOrderNPCWaittingTime: function () {

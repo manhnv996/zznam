@@ -19,9 +19,11 @@ import model.AnimalLodge;
 import model.Car;
 import model.Field;
 import model.Machine;
+import model.MyShop;
 import model.NatureThing;
 import model.Order;
 import model.OrderNPC;
+import model.ProductSale;
 import model.Storage;
 import model.StorageItem;
 import model.ZPUserInfo;
@@ -63,6 +65,8 @@ public class ResponseUser extends BaseMsg {
         
         this.packAnimalLodges();
         this.packMachines();
+        
+        this.packMyShop();
 
         return packBuffer(this.bf);
     }
@@ -332,4 +336,31 @@ public class ResponseUser extends BaseMsg {
             putStr(bf, productQueue.get(i));
         }
     }
+    
+    
+    //
+    private void packMyShop(){
+        MyShop myShop = user.getAsset().getMyShop();
+        
+        bf.putInt(myShop.getMaxSlot());
+        
+        bf.putInt(myShop.getProductList().size());  //
+        for (int i = 0; i < myShop.getProductList().size(); i++){
+            this.packProductSale(myShop.getProductList().get(i));
+        }
+        bf.putLong(myShop.getLastTimeNpcCome());
+    }
+    
+    private void packProductSale(ProductSale product){
+        bf.putInt(product.getSlot());
+        if (product.getProduct() == null){
+            bf.putInt(0);
+        } else {
+            bf.putInt(1);
+            this.packStorageItem(product.getProduct());
+        }
+        bf.putInt(product.getPrice());
+        putBoolean(bf, product.isIsSold());
+    }
+    
 }

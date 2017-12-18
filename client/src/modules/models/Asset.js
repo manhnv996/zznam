@@ -132,8 +132,8 @@ var Asset = cc.Class.extend({
     addOrder: function(/*level, */order){
 
         // if (this.orderList.size() < OrderUtil.getNumberOfOrderByLevel(level)){
-            this.orderList.add(order);
-            this.orderList.get(this.orderList.size() - 1).setOrderId(this.orderList.size() - 1);
+            this.orderList.push(order);
+            //this.orderList.get(this.orderList.size() - 1).setOrderId(this.orderList.size() - 1);
 
             return true;
         // }
@@ -174,6 +174,14 @@ var Asset = cc.Class.extend({
             return this.getFoodStorage().addItem(productId, quantity);
         } else {
             return this.getWarehouse().addItem(productId, quantity);
+        }
+    },
+
+    takeItemToStorageById: function (productId, quantity) {
+        if (productId.indexOf("crop_") >= 0){
+            return this.getFoodStorage().takeItem(productId, quantity);
+        } else {
+            return this.getWarehouse().takeItem(productId, quantity);
         }
     },
 

@@ -17,7 +17,6 @@ public class Car {
     }
 
 
-    
     public void setDeliveryPrice(int deliveryPrice) {
         this.deliveryPrice = deliveryPrice;
     }
@@ -55,13 +54,11 @@ public class Car {
         }
     }
 
-
     //
     public short receive(ZPUserInfo user){
         if (this.getStatus() == DeliveryStatus.RECEIVABLE.getValue()){
             user.addGold(this.deliveryPrice);
             user.addExp(this.deliveryExp);
-            
             //
             this.updateDelivery(0, 0);
             

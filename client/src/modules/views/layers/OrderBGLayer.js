@@ -5,15 +5,9 @@ var OrderBGLayer = BaseLayout.extend({
     lastIndexItemClick: null,   //
 
     ctor:function(){
-        //this._super();
         this._super(res.bgTruckOrder, "text_title_order_neighbor", true, true, true);
 
-        //this._title.setFntFile(res.FONT_OUTLINE_30);
-        //this._title.x = this.width / 2;
-        //this._title.y = this.height / 8 * 7;
-
         this.lastIndexItemClick = LastPageUtil.instance.lastIndexOfOrderClick;
-
 //
         this.initInfo();
     },
@@ -87,8 +81,6 @@ var OrderBGLayer = BaseLayout.extend({
         audioEngine.playEffect(res.func_click_button_mp3, false);
         if (this.lastIndexItemClick != null){
             this.stopAllRepeatAction();
-
-            // OrderCtrl.instance.onCancelOrder(this.lastIndexItemClick);
 
             BaseGUILayer.instance.removeBlockListener();
             BaseGUILayer.instance.showNoticeSureCancelOrder(this.lastIndexItemClick);
