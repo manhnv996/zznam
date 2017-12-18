@@ -78,6 +78,7 @@ var User = cc.Class.extend({
             this.exp = 0;
 
             MainGuiLayer.instance.labelExp.setString(this.exp + " / " + getLevelupObjById(this.level + 1).exp);
+            GameShopLayout.instance._gameShop.reloadShopData();
 
             this.addExp(expCurr + number - getLevelupObjById(user.level).exp);
             MainGuiLayer.instance.labelLevel.setString(this.level);
