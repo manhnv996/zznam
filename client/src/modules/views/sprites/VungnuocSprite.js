@@ -17,7 +17,7 @@ var VungnuocSprite = AnimationSprite.extend({
 
 	onClick: function () {
 		this.play("swamp_idle");
-		audioEngine.playEffect(res.touch_water_pool_mp3, false);
+		cc.audioEngine.playEffect(res.touch_water_pool_mp3, false);
 		TablePopupLayer.instance.showNatureToolPopup(this.lx, this.ly, NaturalThingEnum.VUNG_NUOC, this.natureId);
 	},
 

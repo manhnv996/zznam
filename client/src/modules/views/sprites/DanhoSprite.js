@@ -14,7 +14,7 @@ var DanhoSprite = AnimationSprite.extend({
 	onClick: function() {
 		this.play("2");
 		// NatureCtrl.instance.cutDown(this.natureId);
-		audioEngine.playEffect(res.touch_small_rock_mp3, false);
+		cc.audioEngine.playEffect(res.touch_small_rock_mp3, false);
 		TablePopupLayer.instance.showNatureToolPopup(this.lx, this.ly, NaturalThingEnum.ROCK_SMALL, this.natureId);
 	},
 

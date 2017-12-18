@@ -60,7 +60,7 @@ var OrderCtrl = cc.Class.extend({
 
     onReceiveDelivery: function () {
         if (user.getAsset().getCar().getStatus() == DeliveryStatus.RECEIVABLE){
-            audioEngine.playEffect(res.order_collect_money_from_car_mp3, false);
+            cc.audioEngine.playEffect(res.order_collect_money_from_car_mp3, false);
             testnetwork.connector.sendReceiceDeliveryCar(user.getAsset().getCar().deliveryPrice, user.getAsset().getCar().deliveryExp);
             user.getAsset().getCar().receive();
         }

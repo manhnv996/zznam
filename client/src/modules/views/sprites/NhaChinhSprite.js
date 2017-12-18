@@ -20,6 +20,6 @@ var NhaChinhSprite = MapBlockSprite.extend({
 	onEndClick: function() {
 		// this.setOpacity(255);
 		this.setColor(cc.color(255, 255, 255));
-		audioEngine.playEffect(res.func_click_button_mp3, false);
+		cc.audioEngine.playEffect(res.func_click_button_mp3, false);
 	}
 });

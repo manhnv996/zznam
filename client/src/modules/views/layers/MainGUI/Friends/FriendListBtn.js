@@ -23,7 +23,7 @@ var FriendListBtn = ccui.Layout.extend({
         switch (type) {
             case ccui.Widget.TOUCH_BEGAN:
                 GameShopLayout.instance.hide();
-                audioEngine.playEffect(res.func_click_button_mp3, false);
+                cc.audioEngine.playEffect(res.func_click_button_mp3, false);
                 break;
             case ccui.Widget.TOUCH_ENDED:
             case ccui.Widget.TOUCH_CANCELED:

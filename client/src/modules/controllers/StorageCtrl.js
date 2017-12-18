@@ -10,7 +10,7 @@ var StorageCtrl = cc.Class.extend({
                 ProductTypes.TOOL_SCREW, res.upgradeSilo[level + 1].tool_screw,
                 ProductTypes.TOOL_WOODPANEL, res.upgradeSilo[level + 1].tool_woodPanel)) {
 
-            audioEngine.playEffect(res.func_upgrade_storage_mp3, false);
+            cc.audioEngine.playEffect(res.func_upgrade_storage_mp3, false);
             user.getAsset().getFoodStorage().setCapacity(res.upgradeSilo[level + 1].capacity);
 
             BaseGUILayer.instance.removeBlockListener();
@@ -26,7 +26,7 @@ var StorageCtrl = cc.Class.extend({
                 ProductTypes.TOOL_DUCTTAPE, res.upgradeWarehouse[level + 1].tool_ductTape,
                 ProductTypes.TOOL_PLANK, res.upgradeWarehouse[level + 1].tool_plank)) {
 
-            audioEngine.playEffect(res.func_upgrade_storage_mp3, false);
+            cc.audioEngine.playEffect(res.func_upgrade_storage_mp3, false);
             user.getAsset().getWarehouse().setCapacity(res.upgradeWarehouse[level + 1].capacity);
             //StorageLayer.instance._layoutStorage.removeFromParent(true);
             BaseGUILayer.instance.removeBlockListener();

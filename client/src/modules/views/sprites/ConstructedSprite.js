@@ -49,7 +49,7 @@ var ConstructedSprite = AnimationSprite.extend({
     onClick: function () {
         cc.log("Click nha dang xay " + this.id);
         ConstructedCtrl.instance.selectConstructedObject(this);
-        audioEngine.playEffect(res.func_click_button_mp3, false);
+        cc.audioEngine.playEffect(res.func_click_button_mp3, false);
     },
 
     _offset: function() {

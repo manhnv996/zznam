@@ -25,7 +25,7 @@ var PopcornMachineSprite = AnimationSprite.extend({
     onClick: function() {
         cc.log("feed mill is clicked " + this.id);
         this.play("selected");
-        audioEngine.playEffect(res.tools_corn_machine_mp3, false);
+        cc.audioEngine.playEffect(res.tools_corn_machine_mp3, false);
     },
 
     onFinishMove: function (lx, ly) {

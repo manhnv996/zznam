@@ -345,7 +345,7 @@ var UpgradeWareLayer = cc.Layer.extend({
     touchBackBtn: function (sender, type){
         switch (type) {
             case ccui.Widget.TOUCH_BEGAN:
-                audioEngine.playEffect(res.func_click_button_mp3, false);
+                cc.audioEngine.playEffect(res.func_click_button_mp3, false);
                 var scaleByBtn = cc.scaleTo(0.1, 0.9);
                 sender.runAction(scaleByBtn);
                 break;

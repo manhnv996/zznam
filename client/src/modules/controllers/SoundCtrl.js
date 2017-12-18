@@ -20,34 +20,32 @@ var SoundCtrl = cc.Class.extend({
 
     setMusic: function (btn, resOn, resOff) {
         if(this.isOnMusic()) {
-            audioEngine.playEffect(res.func_click_button_mp3, false);
+            cc.audioEngine.playEffect(res.func_click_button_mp3, false);
             //audioEngine.setMusicVolume(0);
-            audioEngine.pauseMusic();
+            cc.audioEngine.pauseMusic();
             cc.sys.localStorage.setItem("music", "false");
             btn.loadTextureNormal(resOff);
         } else {
             //audioEngine.setMusicVolume(1);
-            audioEngine.resumeMusic();
+            cc.audioEngine.resumeMusic();
             cc.sys.localStorage.setItem("music", "true");
             btn.loadTextureNormal(resOn);
         }
         cc.log("music", cc.sys.localStorage.getItem("music"));
-        cc.log("audioEngine.getMusicVolume", audioEngine.getMusicVolume());
     },
 
     setEffect: function (btn, resOn, resOff) {
         if(this.isOnEffect()) {
-            audioEngine.playEffect(res.func_click_button_mp3, false);
-            audioEngine.setEffectsVolume(0);
+            cc.audioEngine.playEffect(res.func_click_button_mp3, false);
+            cc.audioEngine.setEffectsVolume(0);
             cc.sys.localStorage.setItem("effect", "false");
             btn.loadTextureNormal(resOff);
         } else {
-            audioEngine.setEffectsVolume(1);
+            cc.audioEngine.setEffectsVolume(1);
             cc.sys.localStorage.setItem("effect", "true");
             btn.loadTextureNormal(resOn);
         }
         cc.log("effect", cc.sys.localStorage.getItem("effect"));
-        cc.log("audioEngine.getEffectsVolume", audioEngine.getEffectsVolume());
     },
 
     getKeySoundAnimalSelect: function (animalSprite) {

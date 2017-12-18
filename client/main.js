@@ -68,8 +68,6 @@ cc.log = function() {
 }
 
 var user = null;
-var audioEngine = null;
-
 var home = true;
 cc.game.onStart = function () {
     if (!cc.sys.isNative && document.getElementById("cocosLoading")) //If referenced loading.js, please remove it
@@ -107,22 +105,24 @@ cc.game.onStart = function () {
 		//cc.director.runScene(new MainScene());
         fr.Localization.getInstance().setCurrentLanguage('vi');
 
-        audioEngine = cc.AudioEngine.getInstance();
         //Preload Sound and Music
-        audioEngine.preloadMusic(res.bg_luamoi_mp3);
-        audioEngine.playMusic(res.bg_luamoi_mp3, true);
+        cc.audioEngine.preloadMusic(res.bg_luamoi_mp3);
+        cc.audioEngine.playMusic(res.bg_luamoi_mp3, true);
         //for(var k in SoundResource) {
         //    audioEngine.preloadEffect(SoundResource[k]);
         //}
 
         if (cc.sys.localStorage.getItem("music") === "false") {
+            cc.log("cc.sys.localStorage.getItem('music')", cc.audioEngine.isMusicPlaying());
             //Cant set Volume
             //audioEngine.setMusicVolume(0);
-            audioEngine.pauseMusic();
+            cc.audioEngine.pauseMusic();
+            cc.log("cc.audioEngine.isMusicPlaying()", cc.audioEngine.isMusicPlaying());
+
         }
         if (cc.sys.localStorage.getItem("effect") === "false") {
             //Cant set Volume
-            audioEngine.setEffectsVolume(0);
+            cc.audioEngine.setEffectsVolume(0);
         }
 
         PreloaderScene.instance = new PreloaderScene();

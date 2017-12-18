@@ -11,7 +11,7 @@ var SiloSprite = AnimationSprite.extend({
 
 	onClick: function() {
 		this.play("selected");
-		audioEngine.playEffect(res.tools_silo_mp3, false);
+		cc.audioEngine.playEffect(res.tools_silo_mp3, false);
 		BaseGUILayer.instance.showStorage(user.getAsset().getFoodStorage());
 		// cc.log("Silo", this.getLocalZOrder(), this.lx, this.ly, this.blockSizeX, this.blockSizeY);
 	},
