@@ -114,6 +114,10 @@ var ConstructedCtrl = cc.Class.extend({
                 }
                 break;
         }
+        var p = MapValues.logicToScreenPosition(machineModel.coordinate.x, machineModel.coordinate.y);
+
+        AnimateEventLayer.instance.animateExp(p.x, p.y, getMachineConfigByType(machineModel.type).buildExp);
+        user.addExp(getMachineConfigByType(machineModel.type).buildExp);
         machineModel.completed = true;
         MapLayer.instance.addChild(machineSprite);
         MapCtrl.instance.addSpriteAlias(machineSprite);
@@ -135,7 +139,7 @@ var ConstructedCtrl = cc.Class.extend({
                 var machineConfig = getMachineConfigByType(machineModel.type);
                 _loadingBarConstructed = new LoadingBarLayout(machineConfig.time,
                                                             machineModel.startBuildTime,
-                                                            fr.Localization.text(machineConfig.name),
+                                                            machineConfig.name,
                                                             sprite.buildExpress.toString(),
                                                             machineModel.remainBuildTime);
                 var py = machineModel.coordinate.y;

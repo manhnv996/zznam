@@ -29,7 +29,7 @@ var ConstructedCompletedSprite = AnimationSprite.extend({
         this.typeBuilding = typeBuilding;
         this.play("1");
 
-        this.registerTouchEvents();
+        this.registerTouchEvents({ lockMove: true });
     },
 
     onEndClick: function () {

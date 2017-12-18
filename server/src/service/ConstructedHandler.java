@@ -87,6 +87,7 @@ public class ConstructedHandler extends BaseClientRequestHandler{
                 
                 if ((curTime - startBuildTime) >= totalTime || machineModel.isBoostBuild()) {
                     machineModel.setCompleted();
+                    userInfo.addExp(machineConfig.buildExp);
                     System.out.println("Build Completed");
                     send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
                 } else {
