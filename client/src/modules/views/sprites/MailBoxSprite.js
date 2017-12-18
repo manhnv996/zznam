@@ -9,7 +9,8 @@ var MailBoxSprite = MapBlockSprite.extend({
 	},
 
 	onClick: function() {
-		cc.log("Mailbox clicked");
+		cc.log("Gold REDUCE ", 100);
+		user.reduceRuby(100);
 	},
 	
 	onBeginClick: function() {

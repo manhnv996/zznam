@@ -206,7 +206,6 @@ var MainGuiLayer = cc.Layer.extend({
         this.schedule(schedule);
     },
 
-
     goldQueue: 0,
     currentGold: 0,
     isUpdatingGold: false,
@@ -214,7 +213,16 @@ var MainGuiLayer = cc.Layer.extend({
         // cc.log("add", gold);
         this.goldQueue += gold;
         // this.dstGold = this.currentGold + gold;
-        this.currentGold = parseInt(this.labelGold.getString());
+        this.currentGold = parseInt(this.labelGold.getString() || "0");
+        if (!this.isUpdatingGold) {
+            this.isUpdatingGold = true;
+            this.schedule(this.updateGold);
+        }
+    },
+
+    decreaseGold: function(gold) {
+        this.goldQueue -= gold;
+        this.currentGold = parseInt(this.labelGold.getString() || "0");
         if (!this.isUpdatingGold) {
             this.isUpdatingGold = true;
             this.schedule(this.updateGold);
@@ -222,17 +230,69 @@ var MainGuiLayer = cc.Layer.extend({
     },
 
     updateGold: function(dt) {
-        var deltaGold = (50 + this.goldQueue) * dt;
-        // cc.log("DeltaGold", deltaGold);
+        var deltaGold = 0;
+        var sign = 1;
+        if (this.goldQueue > 0) {
+            deltaGold = (50 + this.goldQueue) * dt;
+            sign = 1;
+            // cc.log("DeltaGold", deltaGold);
+        } else {
+            deltaGold = (-50 + this.goldQueue) * dt;
+            sign = -1;
+        }
         this.currentGold += deltaGold;
         this.goldQueue -= deltaGold;
         this.labelGold.setString(Math.floor(this.currentGold));
-        if (this.goldQueue <= 0) {
+        if (sign * this.goldQueue <= 0) {
             this.isUpdatingGold = false;
             this.goldQueue = 0;
             this.unschedule(this.updateGold);
-            // this.labelGold.setString(user.gold); // re-update
-            cc.log("Stop gold");
+            this.labelGold.setString(user.gold); // re-update
+            // cc.log("Stop gold");
+        }
+    },
+
+    // For ruby
+    rubyQueue: 0,
+    currentRuby: 0,
+    isUpdatingRuby: false,
+    increaseRuby: function(ruby) {
+        this.rubyQueue += ruby;
+        this.currentRuby = parseInt(this.labelRuby.getString() || "0");
+        if (!this.isUpdatingRuby) {
+            this.isUpdatingRuby = true;
+            this.schedule(this.updateRuby);
+        }
+    },
+
+    decreaseRuby: function(ruby) {
+        this.rubyQueue -= ruby;
+        this.currentRuby = parseInt(this.labelRuby.getString() || "0");
+        if (!this.isUpdatingRuby) {
+            this.isUpdatingRuby = true;
+            this.schedule(this.updateRuby);
+        }
+    },
+
+    updateRuby: function(dt) {
+        var deltaRuby = 0;
+        var sign = 1;
+        if (this.rubyQueue > 0) {
+            deltaRuby = (50 + this.rubyQueue) * dt;
+            sign = 1;
+        } else {
+            deltaRuby = (-50 + this.rubyQueue) * dt;
+            sign = -1;
+        }
+        this.currentRuby += deltaRuby;
+        this.rubyQueue -= deltaRuby;
+        this.labelRuby.setString(Math.floor(this.currentRuby));
+        if (sign * this.rubyQueue <= 0) {
+            this.isUpdatingRuby = false;
+            this.rubyQueue = 0;
+            this.unschedule(this.updateRuby);
+            this.labelRuby.setString(user.ruby); // re-update
+            // cc.log("Stop ruby");
         }
     }
 });

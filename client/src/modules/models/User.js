@@ -64,7 +64,8 @@ var User = cc.Class.extend({
         this.ruby += parseInt(number);
 
         //
-        MainGuiLayer.instance.labelRuby.setString(this.ruby);
+        // MainGuiLayer.instance.labelRuby.setString(this.ruby);
+        MainGuiLayer.instance.increaseRuby(number);
     },
     addExp: function (number) {
         number = parseInt(number);
@@ -84,7 +85,8 @@ var User = cc.Class.extend({
             this.gold -= number;
 
             //
-            MainGuiLayer.instance.labelGold.setString(this.gold);
+            // MainGuiLayer.instance.labelGold.setString(this.gold);
+            MainGuiLayer.instance.decreaseGold(number);
             return true;
         }
         return false;
@@ -96,7 +98,8 @@ var User = cc.Class.extend({
             this.ruby -= number;
 
             //
-            MainGuiLayer.instance.labelRuby.setString(this.ruby);
+            // MainGuiLayer.instance.labelRuby.setString(this.ruby);
+            MainGuiLayer.instance.decreaseRuby(number);
             return true;
         }
         return false;

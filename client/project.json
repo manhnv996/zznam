@@ -57,6 +57,7 @@
         "src/modules/utils/rayCasting.js",
         "src/modules/utils/inertiaEngine.js",
         "src/modules/utils/caculateDistance.js",
+        "src/modules/utils/request.js",
         "src/modules/configs/MapItemEnum.js",
         "src/modules/utils/LastPageUtil.js",
         "src/modules/utils/ScheduleLoop.js",
