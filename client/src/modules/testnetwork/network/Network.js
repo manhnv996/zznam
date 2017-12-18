@@ -261,6 +261,20 @@ testnetwork.Connector = cc.Class.extend({
                 }
 
                 break;
+            //
+            case gv.CMD.RESPONSE_SYNC_PRODUCT_SALE:
+                cc.log("RESPONSE_SYNC_PRODUCT_SALE: ", packet.productSale);
+
+                /*
+                inprogress
+                 */
+                var productSaleSelected = user.getAsset().getMyShop().getProductBySlot(packet.productSale.slot);
+                productSaleSelected.updateProductSale(new StorageItem(packet.productSale.typeItem, packet.productSale.quantity),
+                    packet.productSale.price);
+                productSaleSelected.isSold = packet.productSale.isSold;
+
+
+                break;
             ////
 
             case gv.CMD.RESPONSE_MOVE:
@@ -469,10 +483,28 @@ testnetwork.Connector = cc.Class.extend({
         pk.pack(intSlot, productType, quantity, price);
         this.gameClient.sendPacket(pk);
     },
-    sendBuyProduct: function (intSlot) {
-        cc.log("sendBuyProduct: " + intSlot);
+    sendBuyProduct: function (userId, intSlot) {
+        cc.log("sendBuyProduct: ", intSlot, userId);
         var pk = this.gameClient.getOutPacket(CmdSendBuyProduct);
+        pk.pack(userId, intSlot);
+        this.gameClient.sendPacket(pk);
+    },
+    sendReceiveMoneyFromProduct: function (intSlot) {
+        cc.log("sendReceiveMoneyFromProduct: " + intSlot);
+        var pk = this.gameClient.getOutPacket(CmdSendReceiveMoneyFromProduct);
         pk.pack(intSlot);
+        this.gameClient.sendPacket(pk);
+    },
+    sendCancelSellProduct: function (intSlot) {
+        cc.log("sendCancelSellProduct: " + intSlot);
+        var pk = this.gameClient.getOutPacket(CmdSendCancelSellProduct);
+        pk.pack(intSlot);
+        this.gameClient.sendPacket(pk);
+    },
+    sendUnlockSlotMyShop: function () {
+        cc.log("sendUnlockSlotMyShop: ");
+        var pk = this.gameClient.getOutPacket(CmdSendUnlockSlotMyShop);
+        pk.pack();
         this.gameClient.sendPacket(pk);
     },
     ///

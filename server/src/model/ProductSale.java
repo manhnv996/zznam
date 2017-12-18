@@ -7,14 +7,31 @@ public class ProductSale {
     private int price;
     private boolean isSold;
     
-    public ProductSale(StorageItem product, int price) {
+    
+    public ProductSale(){
         super();
         
+        this.slot = 0;
+        this.product = null;
+        this.price = 0;
+        this.isSold = false;
+    }
+    
+    public ProductSale(int slot, StorageItem product, int price) {
+        super();
+        
+        this.slot = slot;
         this.product = product;
-        this.price = price;
+        this.price = price < 0 ? 0 : price;
         this.isSold = false;
     }
 
+
+    public void updateProductSale(StorageItem product, int price) {
+        this.product = product;
+        this.price = price < 0 ? 0 : price;
+        this.isSold = false;
+    }
 
     public void setSlot(int slot) {
         this.slot = slot;

@@ -139,7 +139,8 @@ var OrderSprite = cc.Sprite.extend({
         this.itemListModel = this.order.itemList;
 
         for (var i = 0; i < this.itemListModel.length; i++){
-            var productSprite = new ProductSprite(getProductIconById(this.itemListModel[i].typeItem), this.itemListModel[i].typeItem);
+            // var productSprite = new ProductSprite(getProductIconById(this.itemListModel[i].typeItem), this.itemListModel[i].typeItem);
+            var productSprite = new ItemBtn(getProductIconById(this.itemListModel[i].typeItem), this.itemListModel[i].typeItem);
             parent.orderInfo.addChild(productSprite);
 
             this.itemList.push(productSprite);

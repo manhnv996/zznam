@@ -31,8 +31,6 @@ public class OrderNPC {
     public OrderNPC(ZPUserInfo user) {
         super();
         
-//        this.orderItem = null;
-//        super.setWaittingTime(new Date().getTime());        
         this.waittingTime = 0;
         this.createOrder(user);
     }
@@ -99,28 +97,6 @@ public class OrderNPC {
     }
 
 
-//    public List<String> getNpcResAniRemain(ZPUserInfo user) {
-//        List<String> resRemain = new ArrayList<>();
-//        for (int i = 0; i < NPCresAni.getListNPCresAni().length; i++){
-//            resRemain.add(NPCresAni.getListNPCresAni()[i]);
-//        }
-//        Collections.sort(resRemain);
-//        for (int j = 0; j < resRemain.size(); j++){
-//            
-//        }
-//        List<String> resCurr = new ArrayList<>();
-//        for (int i = 0; i < user.getAsset().getOrderNPCList().size(); i++){
-//            resCurr.add(user.getAsset().getOrderNPCList().get(i).getNpcResAni());
-//        }
-//        Collections.sort(resRemain);
-//        
-//        for (int i = 0; i < resRemain.size(); i++){
-//            for (int j = 0; j < resCurr.size(); j++){
-//                if (resRemain.get(i).co)
-//            }
-//        }
-//    }
-
     public void setNpcResAni(ZPUserInfo user) {
         List<String> filter = new ArrayList<>();
         List<OrderNPC> npcList = user.getAsset().getOrderNPCList();
@@ -152,11 +128,9 @@ public class OrderNPC {
 
             this.waittingTime = 0;
             this.setOrderItem(user);
-            
             this.setOrderPrice();
             
             this.setNpcResAni(user);
-//            return true;
             return ErrorLog.SUCCESS.getValue();
         }
         

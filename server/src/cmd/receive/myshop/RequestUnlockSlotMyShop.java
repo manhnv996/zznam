@@ -4,12 +4,9 @@ import bitzero.server.extensions.data.BaseCmd;
 import bitzero.server.extensions.data.DataCmd;
 
 
-public class RequestBuyProduct extends BaseCmd {
+public class RequestUnlockSlotMyShop extends BaseCmd {
 
-    public long userId;
-    public int slot;
-
-    public RequestBuyProduct(DataCmd dataCmd) {
+    public RequestUnlockSlotMyShop(DataCmd dataCmd) {
         super(dataCmd);
         unpackData();
     }

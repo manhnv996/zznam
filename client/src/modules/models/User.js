@@ -68,7 +68,7 @@ var User = cc.Class.extend({
         DONE
          */
 
-        if (this.exp + parseInt(number)> getLevelupObjById(this.level + 1).exp){
+        if (this.exp + parseInt(number) >= getLevelupObjById(this.level + 1).exp){
             this.level ++;
             var expCurr = this.exp;
             this.exp = 0;

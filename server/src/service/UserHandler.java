@@ -130,8 +130,8 @@ public class UserHandler extends BaseClientRequestHandler {
                 userInfo = createUser(user.getId());
                 
                 //
-                userInfo.getAsset().getMyShop().sell(userInfo, 0, new ProductSale(new StorageItem(ProductType.CROP_WHEAT, 5), 10));
-                userInfo.getAsset().getMyShop().sell(userInfo, 3, new ProductSale(new StorageItem(ProductType.GOOD_MILK, 3), 27));
+                userInfo.getAsset().getMyShop().sell(userInfo, 0, new StorageItem(ProductType.CROP_WHEAT, 5), 10);
+                userInfo.getAsset().getMyShop().sell(userInfo, 3, new StorageItem(ProductType.GOOD_MILK, 3), 27);
                 //
                 
                 userInfo.saveModel(user.getId());
@@ -215,8 +215,6 @@ public class UserHandler extends BaseClientRequestHandler {
         }
         
         MyShop myShop = new MyShop(6);
-//        myShop.sell(user, 0, new ProductSale(new StorageItem(ProductType.CROP_WHEAT, 5), 10));
-//        myShop.sell(user, 0, new ProductSale(new StorageItem(ProductType.GOOD_MILK, 3), 27));
         
         
         Asset asset = new Asset(foodStorage, warehouse, null, natureThingList, null, null, myShop);

@@ -181,9 +181,6 @@ public class Order extends DataModel{
         
         //
         user.getAsset().getCar().updateDelivery(this.getOrderPrice(), this.getOrderExp());
-//        //
-//        user.addGold(this.getOrderPrice());
-//        user.addExp(this.getOrderExp());
         //        
         this.waittingTime = 0;
 //        this.createOrder(user.getLevel());
@@ -195,7 +192,6 @@ public class Order extends DataModel{
     
     
     public short cancelOrder(){
-//        this.itemList = null;
         this.itemList = new ArrayList<>();
         this.orderPrice = 0;
         this.orderExp = 0;

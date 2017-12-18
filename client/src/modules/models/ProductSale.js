@@ -9,8 +9,9 @@ var ProductSale = StorageItem.extend({
     price: 0,
     isSold: false,
 
-    ctor: function (storageItem, price) {
+    ctor: function (intSlot, storageItem, price) {
 
+        this.slot = intSlot;
         this.product = storageItem;
         this.price = price;
 
@@ -19,6 +20,13 @@ var ProductSale = StorageItem.extend({
 
     setIntSlot: function (intSlot) {
         this.slot = intSlot;
+    },
+
+
+    updateProductSale: function (storageItem, price) {
+        this.product = storageItem;
+        this.price = price < 0 ? 0 : price;
+        this.isSold = false;
     }
 
 });

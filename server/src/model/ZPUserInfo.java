@@ -45,11 +45,11 @@ public class ZPUserInfo extends DataModel {
         
         id = _id;
         
-        this.level = 1;
+        this.level = 8;
         this.gold = 50000;
         this.ruby = 20000;
 
-        this.exp = 0L;
+        this.exp = 600L;
         this.name = "";
         
         this.asset = asset;
@@ -185,12 +185,11 @@ public class ZPUserInfo extends DataModel {
          * DONE
          */
 
-        if (this.exp + value > LevelupUtil.getLevelupConfObjByLevel(this.level + 1).exp){
+        if (this.exp + value >= LevelupUtil.getLevelupConfObjByLevel(this.level + 1).exp){
             this.level ++;
             int expCurr = (int) this.exp;
             this.exp = 0;
             this.addExp(expCurr + value - LevelupUtil.getLevelupConfObjByLevel(this.level).exp);
-            
             //
         } else {
             this.exp += value;

@@ -44,7 +44,7 @@ public class OrderUtil {
     }
     
     public static int getNumberOfOrderByLevel(int level){
-        if (level < 2){
+        if (level < 9){
             return 3;
         } else if (level < 12){
             return 4;

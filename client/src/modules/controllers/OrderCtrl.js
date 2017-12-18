@@ -67,9 +67,13 @@ var OrderCtrl = cc.Class.extend({
     },
 
     onReceiveDelivery: function () {
-        if (user.getAsset().getCar().receive()){
+        // if (user.getAsset().getCar().receive()){
+        //     testnetwork.connector.sendReceiceDeliveryCar(user.getAsset().getCar().deliveryPrice, user.getAsset().getCar().deliveryExp);
+        //
+        // }
+        if (user.getAsset().getCar().getStatus() == DeliveryStatus.RECEIVABLE){
             testnetwork.connector.sendReceiceDeliveryCar(user.getAsset().getCar().deliveryPrice, user.getAsset().getCar().deliveryExp);
-
+            user.getAsset().getCar().receive();
         }
     },
 

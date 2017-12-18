@@ -51,9 +51,13 @@ public class CmdDefine {
     public static final short RESPONSE_SYNC_ORDER_NPC = 10091;
     
     //
-    public static final short SELL_PRODUCT = 12001;
-    public static final short BUY_PRODUCT = 12002;
-    public static final short RECEIVE_MONEY_FROM_SOLD_PRODUCT = 12003;
+    public static final short SELL_PRODUCT = 13001;
+    public static final short BUY_PRODUCT = 13002;
+    public static final short RECEIVE_MONEY_FROM_SOLD_PRODUCT = 13003;
+    public static final short CANCEL_SELL_PRODUCT = 13004;
+    public static final short UNLOCK_SLOT_MY_SHOP = 13005;
+    
+    public static final short RESPONSE_SYNC_PRODUCT_SALE = 13081;
     //
     
     

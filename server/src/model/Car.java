@@ -17,7 +17,6 @@ public class Car {
     }
 
 
-    
     public void setDeliveryPrice(int deliveryPrice) {
         this.deliveryPrice = deliveryPrice;
     }
@@ -54,7 +53,6 @@ public class Car {
             this.status = DeliveryStatus.EMPTY.getValue();
         }
     }
-
 
     //
     public short receive(ZPUserInfo user){
