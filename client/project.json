@@ -196,6 +196,7 @@
         "src/modules/views/layers/BaseGUI/StorageUI/StorageLayout.js",
         "src/modules/views/layers/BaseGUI/NotifyNotEnoughG.js",
         "src/modules/views/layers/BaseGUI/NotifyFullStorage.js",
+        "src/modules/views/layers/BaseGUI/SettingGame.js",
         "src/modules/views/layers/BaseGUI/BaseGUILayer.js",
 
         "src/modules/views/layers/MapLayer.js",

@@ -109,11 +109,21 @@ cc.game.onStart = function () {
 
         audioEngine = cc.AudioEngine.getInstance();
         //Preload Sound and Music
-        audioEngine.preloadMusic(res.bg_luamoi_mp3);
-        //audioEngine.playMusic(res.bg_luamoi_mp3, true);
+        //audioEngine.preloadMusic(res.bg_luamoi_mp3);
+        audioEngine.playMusic(res.bg_luamoi_mp3, true);
         //for(var k in SoundResource) {
         //    audioEngine.preloadEffect(SoundResource[k]);
         //}
+
+
+        if (cc.sys.localStorage.getItem("music") === "false") {
+            //Cant set Volume
+            audioEngine.setMusicVolume(0);
+        }
+        if (cc.sys.localStorage.getItem("effect") === "false") {
+            //Cant set Volume
+            audioEngine.setEffectsVolume(0);
+        }
 
         PreloaderScene.instance = new PreloaderScene();
         cc.director.runScene(PreloaderScene.instance);

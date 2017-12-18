@@ -40,7 +40,8 @@ var AnimalTable = cc.Layer.extend({
     },
 
     tableCellSizeForIndex: function (table, idx) {
-        return cc.size((cc.winSize.width / 3), 142 * ((cc.winSize.width / 3) / 316));
+        //return cc.size((cc.winSize.width / 3), 142 * ((cc.winSize.width / 3) / 316));
+        return cc.size(363, 142 * (363 / 316));
     },
 
     tableCellAtIndex: function (table, idx) {

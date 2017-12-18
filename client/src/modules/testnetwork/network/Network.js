@@ -639,10 +639,18 @@ testnetwork.Connector = cc.Class.extend({
         pk.pack();
         this.gameClient.sendPacket(pk);
     },
+
     sendFriendGetInfo: function(id) {
         cc.log("Send Friend get info", id);
         var pk = this.gameClient.getOutPacket(CmdSendFriendGetInfo);
         pk.pack(id);
+        this.gameClient.sendPacket(pk);
+    },
+
+    sendAddMoney: function (number, type) {
+        cc.log("Send add money");
+        var pk = this.gameClient.getOutPacket(CmdSendAddMoney);
+        pk.pack(number, type);
         this.gameClient.sendPacket(pk);
     }
 });

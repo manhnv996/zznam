@@ -48,7 +48,7 @@ var MainGuiLayer = cc.Layer.extend({
         var btnBuyGoldSize = this.btnBuyGold.getSize();
         //cc.log("btnBuyGold " + btnBuyGoldSize.width + "  " + btnBuyGoldSize.height);
         this.btnBuyGold.setPosition(size.width - btnBuyGoldSize.width/2, size.height - btnBuyGoldSize.height/2);
-        this.btnBuyGold.addClickEventListener(this.onSelectBuyGold.bind(this));
+        this.btnBuyGold.addTouchEventListener(this.onSelectBuyGold, this);
         this.addChild(this.btnBuyGold);
 
         this.imageGold = new ccui.ImageView(res.gold);
@@ -67,7 +67,7 @@ var MainGuiLayer = cc.Layer.extend({
         var btnBuyRubySize = this.btnBuyRuby.getSize();
         //cc.log("btnBuyRuby " + btnBuyRubySize.width + "  " + btnBuyRubySize.height);
         this.btnBuyRuby.setPosition(size.width - btnBuyRubySize.width/2, size.height - this.btnBuyRuby.height - btnBuyRubySize.height/2);
-        this.btnBuyRuby.addClickEventListener(this.onSelectBuyRuby.bind(this));
+        this.btnBuyRuby.addTouchEventListener(this.onSelectBuyRuby, this);
         this.addChild(this.btnBuyRuby);
 
         var imageRuby = new ccui.ImageView(res.rubi);
@@ -129,18 +129,17 @@ var MainGuiLayer = cc.Layer.extend({
     lockButton: function () {
         GameShopLayout.instance._btnGameShop.btnGS.setTouchEnabled(false);
         this.btnSettings.setTouchEnabled(false);
-        //this.btnFriends.setTouchEnabled(false);
+        FriendUI.instance._btnOpenFriendList.btnFriends.setTouchEnabled(false);
         this.btnBuyGold.setTouchEnabled(false);
         this.btnBuyRuby.setTouchEnabled(false);
         this.btnSearch.setTouchEnabled(false);
-        //cc.log("Lock main gui button" + GSLayer.instance._btnGameShop.btnGS.isTouchEnabled());
 
     },
 
     unlockButton: function () {
         GameShopLayout.instance._btnGameShop.btnGS.setTouchEnabled(true);
         this.btnSettings.setTouchEnabled(true);
-        //this.btnFriends.setTouchEnabled(true);
+        FriendUI.instance._btnOpenFriendList.btnFriends.setTouchEnabled(true);
         this.btnBuyGold.setTouchEnabled(true);
         this.btnBuyRuby.setTouchEnabled(true);
         this.btnSearch.setTouchEnabled(true);
@@ -155,31 +154,45 @@ var MainGuiLayer = cc.Layer.extend({
     },
     onSelectSettings:function(sender)
     {
-       if (this.isShowPopup == false){
-           SettingsLayer.instance  = new SettingsLayer();
-           var action1 = new cc.ScaleTo(0.1, 1.35);
-           var action2 = new cc.ScaleTo(0.1, 1.15);
-           this.addChild(SettingsLayer.instance);
-           SettingsLayer.instance.runAction(cc.sequence(action1, cc.delayTime(0.01), action2));
-
-           this.isShowPopup = true;
-       }
-
+       //if (this.isShowPopup == false){
+           //SettingsLayer.instance  = new SettingsLayer();
+           //var action1 = new cc.ScaleTo(0.1, 1.35);
+           //var action2 = new cc.ScaleTo(0.1, 1.15);
+           //this.addChild(SettingsLayer.instance);
+           //SettingsLayer.instance.runAction(cc.sequence(action1, cc.delayTime(0.01), action2));
+           //
+           //this.isShowPopup = true;
+       //}
+        audioEngine.playEffect(res.func_click_button_mp3, false);
+        BaseGUILayer.instance.showSettingGame();
     },
-    onSelectBuyGold:function(sender){
+    onSelectBuyGold:function(sender, type){
         //cc.log("==onSelectBuyGold clicked");
-        if (this.isShowPopup == false){
-            CommonPopup.instance  = new CommonPopup("Cấu Hình", res.BG_2_PNG, true);
+        //if (this.isShowPopup == false){
+        //    CommonPopup.instance  = new CommonPopup("Cấu Hình", res.BG_2_PNG, true);
+        //
+        //    this.addChild(CommonPopup.instance);
+        //
+        //
+        //    this.isShowPopup = true;
+        //}
+        switch (type) {
+            case ccui.Widget.TOUCH_BEGAN:
+                user.addGold(20);
 
-            this.addChild(CommonPopup.instance);
-
-
-            this.isShowPopup = true;
+                testnetwork.connector.sendAddMoney(20, 1101);
+                break;
         }
-
     },
-    onSelectBuyRuby:function(sender){
+    onSelectBuyRuby:function(sender, type){
         //cc.log("==onSelectBuyRuby clicked");
+        switch (type) {
+            case ccui.Widget.TOUCH_BEGAN:
+                user.addRuby(10);
+
+                testnetwork.connector.sendAddMoney(10, 1102);
+                break;
+        }
     },
     onSelectFriends:function(sender){
         // cc.log("==onSelectFriends clicked");
