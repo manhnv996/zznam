@@ -82,15 +82,16 @@ var User = cc.Class.extend({
             if (this.getAsset().getOrderList().length < getNumberOfOrderByLevel(this.level)){
                 testnetwork.connector.sendCreateNewOrder(this.getAsset().getOrderList().length);
             }
-
         } else {
-            this.exp += number;
+            if (number !== 0) {
+                this.exp += number;
+                MainGuiLayer.instance.increaseExp(number);
+            } else {
+                MainGuiLayer.instance.labelExp.setString(this.exp + " / " + getLevelupObjById(this.level + 1).exp);
+            }
         }
 
-        //MainGuiLayer.instance.labelExp.setString(this.exp + " / " + getLevelupObjById(this.level + 1).exp);
         MainGuiLayer.instance.setExpPecent();
-        // bug
-        // MainGuiLayer.instance.increaseExp(number);
     },
 
     reduceGold: function (number) {

@@ -83,7 +83,7 @@ gv.CMD.ANIMAL_FEED = 12002;
 gv.CMD.ANIMAL_BOOST = 12003;
 
 // Nature
-gv.CMD.NATURE_COLLECT = 13001;
+gv.CMD.NATURE_COLLECT = 15001;
 
 testnetwork = testnetwork||{};
 testnetwork.packetMap = {};

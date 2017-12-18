@@ -101,7 +101,7 @@ var MainGuiLayer = cc.Layer.extend({
         this.loadingBar.setPosition(center_top_pos.x + 28, center_top_pos.y);
         this.addChild(this.loadingBar);
 
-        this.labelExp = new cc.LabelBMFont(user.getExp(), res.FONT_OUTLINE_30);
+        this.labelExp = new cc.LabelBMFont(user.getExp() + " / " + getLevelupObjById(user.getLevel() + 1).exp, res.FONT_OUTLINE_30);
         this.labelExp.setPosition(center_top_pos);
         this.addChild(this.labelExp);
 
@@ -128,7 +128,7 @@ var MainGuiLayer = cc.Layer.extend({
 
     //
     setExpPecent: function () {
-        this.labelExp.setString(user.getExp() + " / " + getLevelupObjById(user.getLevel() + 1).exp);
+        // this.labelExp.setString(user.getExp() + " / " + getLevelupObjById(user.getLevel() + 1).exp);
         this.loadingBar.setPercent(user.getExp() * 100.0 / getLevelupObjById(user.getLevel() + 1).exp);
     },
 
@@ -211,7 +211,7 @@ var MainGuiLayer = cc.Layer.extend({
     },
 
     increaseExp: function(exp) {
-        var currentExp = parseInt(this.labelExp.getString());
+        var currentExp = parseInt(this.labelExp.getString().split('/')[0]);
         var dstExp = currentExp + exp;
         var time = 1.0;
         var velocity = exp / time;
@@ -219,10 +219,10 @@ var MainGuiLayer = cc.Layer.extend({
         var that = this;
         var schedule = function(dt) {
             currentExp += velocity * dt;
-            that.labelExp.setString(Math.floor(currentExp));
+            that.labelExp.setString(Math.floor(currentExp) + " / " + getLevelupObjById(user.getLevel() + 1).exp);
             // cc.log(currentExp, dstExp);
             if (currentExp >= dstExp) {
-                that.labelExp.setString(dstExp);
+                that.labelExp.setString(dstExp + " / " + getLevelupObjById(user.getLevel() + 1).exp);
                 this.unschedule(schedule);
             }
         }
