@@ -7,8 +7,8 @@ var GameShopLayout = ccui.Layout.extend({
     _gameShop: null,
     _isHide: true,
     _layoutBlockListener: null,
-    //_debug: false,
-    _debug: true,
+    _debug: false,
+    //_debug: true,
 
     ctor: function () {
         this._super();

@@ -82,6 +82,7 @@ var StorageItemListLayer = cc.Layer.extend({
             cell.addChild(keyItem);
 
             var label = new cc.LabelBMFont(20, res.FONT_OUTLINE_20);
+            label.setScale(1.3);
             label.x = (cc.winSize.width / 6) * i + cc.winSize.width / 12;
             label.y = button.y - button.height / 2 - label.height / 3;
             label.tag = 10 + i;
@@ -102,10 +103,6 @@ var StorageItemListLayer = cc.Layer.extend({
                 var productConfig = getProductConfigById(typeItem);
                 //cc.log("itemResource " + keyItem.getString());
                 button.loadTextureNormal(productConfig.nameIcon);
-                var sprite = new cc.Sprite(res.debug_png);
-                sprite.x = 0;
-                sprite.y = 0;
-                button.addChild(sprite);
                 button.addTouchEventListener(this.touchItem, this);
                 label.setString(this._listItems[idx * 3 + i].getQuantityItem());
             } else {

@@ -86,6 +86,7 @@ public class UserHandler extends BaseClientRequestHandler {
                 getUserInfo(user);
                 break;
             case CmdDefine.GET_USER: // New get user
+                System.out.println("[INFO] User request information " + user.getId());
                 returnUser(user);
                 break;
             }
@@ -131,7 +132,7 @@ public class UserHandler extends BaseClientRequestHandler {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+        send(new ResponseUser(userInfo), user);
         
         
         /*
@@ -158,9 +159,6 @@ public class UserHandler extends BaseClientRequestHandler {
         
 //        this.orderItem = OrderNPCUtil.randomProductConfByCategory(user, OrderNPCUtil.randomCategoryNPC());
         
-        System.out.println("here is log");
-        //
-        send(new ResponseUser(userInfo), user);
     }
 
     private void userDisconnect(User user) {
@@ -237,6 +235,26 @@ public class UserHandler extends BaseClientRequestHandler {
         animal2.setFeededTime(animal2.getFeededTime());
         animal2.setFeeded(false);
         chickenLodge.addAnimal(animal2);
+
+        Animal animal21 = new Animal(AnimalEnum.chicken);
+        animal2.setFeededTime(animal2.getFeededTime());
+        animal2.setFeeded(false);
+        chickenLodge.addAnimal(animal21);
+
+        Animal animal22 = new Animal(AnimalEnum.chicken);
+        animal2.setFeededTime(animal2.getFeededTime());
+        animal2.setFeeded(false);
+        chickenLodge.addAnimal(animal22);
+
+        Animal animal23 = new Animal(AnimalEnum.chicken);
+        animal2.setFeededTime(animal2.getFeededTime());
+        animal2.setFeeded(false);
+        chickenLodge.addAnimal(animal23);
+
+        Animal animal24 = new Animal(AnimalEnum.chicken);
+        animal2.setFeededTime(animal2.getFeededTime());
+        animal2.setFeeded(false);
+        chickenLodge.addAnimal(animal24);
         
         Animal animal3 = new Animal(AnimalEnum.cow);
         animal3.setFeededTime(animal3.getFeededTime() - 1000 * 3600);

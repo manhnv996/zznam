@@ -57,6 +57,8 @@ var AnimalSprite = cc.Sprite.extend({
 	hungry: function() {},
 	harvest: function() {},
 	feed: function() {},
+
+    // Deprecated
 	setOnHarvestTime: function(time) {},
 	_setOnHarvestTime: function(time, totalTime) {
 		cc.log("Set On harvest time", time);
@@ -72,7 +74,24 @@ var AnimalSprite = cc.Sprite.extend({
 		}
 	},
 
+    // [New]
+    setRemainTime: function(remainTime) {
+        this.remainTime = remainTime;
+        // cc.log("Set remain time", this.remainTime);
+        if (this.entered) {
+            if (remainTime > 0) {
+                cc.log("[RemainTime]", remainTime);
+                this.schedule(this.harvest, remainTime / 1000);
+            } else {
+                this.harvest();
+            }
+        }
+    },
+
     initEvent: function () {
+        if (!home) { // Disable on friend
+            return;
+        }
         // var dot = new cc.Sprite(res.DOT2_PNG);
         // this.addChild(dot);
         this.touchListener = cc.EventListener.create({

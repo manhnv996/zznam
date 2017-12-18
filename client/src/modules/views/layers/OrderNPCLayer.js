@@ -115,7 +115,7 @@ var OrderNPCLayer = BaseLayout.extend({
         var button = new ccui.Button(res.answerNpc);
         button.setPosition(cc.p(x, y - button.height * i * 1.1));
 
-        var msg = this.initText(button.width / 2, button.height / 2, text, res.FONT_OUTLINE_20);
+        var msg = this.initText(button.width / 2, button.height / 2, text, res.FONT_OUTLINE_30);
         button.addChild(msg);
 
         return button;

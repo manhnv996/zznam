@@ -95,7 +95,7 @@ var ChickenSprite = AnimalSprite.extend({
 	},
 
 	hungry: function() {
-		cc.log("Set hungry");
+		// cc.log("Set hungry");
 		this.isHungry = true; // firstTime only
 		if (this.entered) {
 			this.play(ChickenSprite.Hungry);

@@ -71,6 +71,9 @@ var MapCtrl = cc.Class.extend({
     },
 
     renderUserInfo: function() {
+        if (!home) {
+            return;
+        }
         MainGuiLayer.instance.labelLevel.setString(user.getLevel());
         MainGuiLayer.instance.labelGold.setString(user.getGold());
         MainGuiLayer.instance.labelRuby.setString(user.getRuby());
@@ -190,16 +193,19 @@ var MapCtrl = cc.Class.extend({
         // cc.log("Render", animalLodgeList);
         for (var i = 0; i < animalLodgeList.length; i++) {
             var lodge = animalLodgeList[i];
+            // Schedule reduce remain time
             var lodgeSprite = null;
             if (lodge.type === AnimalLodgeType.cow_habitat) {
                 lodgeSprite = new CowLodgeSprite(lodge.coordinate.x, lodge.coordinate.y);
                 for (var j = 0; j < lodge.animalList.length; j++) {
+                    var cow = lodge.animalList[j];
                     var cowSprite = new CowSprite();
                     cowSprite.setId(lodge.animalList[j].id);
                     lodgeSprite.addAnimalSprite(cowSprite);
-                    
-                    if (lodge.animalList[j].feeded) {
-                        cowSprite.setOnHarvestTime(lodge.animalList[j].feededTime);
+                
+                    if (cow.feeded) {
+                        // cowSprite.setOnHarvestTime(lodge.animalList[j].feededTime);
+                        cowSprite.setRemainTime(cow.remainTime);
                     } else {
                         cowSprite.hungry();
                     }
@@ -207,13 +213,15 @@ var MapCtrl = cc.Class.extend({
             } else if (lodge.type === AnimalLodgeType.chicken_habitat) {
                 lodgeSprite = new ChickenLodgeSprite(lodge.coordinate.x, lodge.coordinate.y);
                 for (var j = 0; j < lodge.animalList.length; j++) {
+                    var chicken = lodge.animalList[j];
                     var chickenSprite = new ChickenSprite();
-                    chickenSprite.setId(lodge.animalList[j].id);
+                    chickenSprite.setId(chicken.id);
                     // cc.log(lodge.animalList[j]);
                     lodgeSprite.addAnimalSprite(chickenSprite);
 
-                    if (lodge.animalList[j].feeded) {
-                        chickenSprite.setOnHarvestTime(lodge.animalList[j].feededTime);
+                    if (chicken.feeded) {
+                        // chickenSprite.setOnHarvestTime(lodge.animalList[j].feededTime);
+                        chickenSprite.setRemainTime(chicken.remainTime);
                     } else {
                         // cc.log("hungry");
                         chickenSprite.hungry();
@@ -303,6 +311,7 @@ var MapCtrl = cc.Class.extend({
     },
 
     _showDebugMap: function() {
+        cc.log("Map", user.map.length, user.map[0].length);
         for (var i = 0; i < user.map.length; i++) {
             var str = '';
             for (var j = 0; j < user.map[i].length; j++) {

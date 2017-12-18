@@ -10,7 +10,8 @@ var MainScene = cc.Scene.extend({
 		AnimalCtrl.instance = new AnimalCtrl();
 		NatureCtrl.instance = new NatureCtrl();
 		SoundCtrl.instance = new SoundCtrl();
-
+		FriendCtrl.instance = new FriendCtrl();
+		
 		// Init layers
 		MapLayer.instance = new MapLayer();
 		this.addChild(MapLayer.instance);
@@ -21,6 +22,9 @@ var MainScene = cc.Scene.extend({
 		TablePopupLayer.instance = new TablePopupLayer();
 		this.addChild(TablePopupLayer.instance);
 
+		AnimateEventLayer.instance = new AnimateEventLayer();
+		this.addChild(AnimateEventLayer.instance);
+
 		//var mainGuiLayer = new MainG+uiLayer();
 		//this.addChild(mainGuiLayer);
 		//MainGuiLayer.instance = new MainGuiLayer();
@@ -30,6 +34,9 @@ var MainScene = cc.Scene.extend({
 
         OrderCtrl.instance = new OrderCtrl();
 
+        // Add ScheduleLoop
+        // ScheduleLoop.instance = new ScheduleLoop();
+        this.addChild(ScheduleLoop.instance); // Instance created in ScheduleLoop.js
 		cc.log("Start Scene");
 	},
 
@@ -39,7 +46,7 @@ var MainScene = cc.Scene.extend({
 	},
 
 	onGettedData: function() {
-
+		cc.log("Welcome", user.id, user.name);
 		MainGuiLayer.instance = new MainGuiLayer();
 		this.addChild(MainGuiLayer.instance);
 
@@ -61,6 +68,10 @@ var MainScene = cc.Scene.extend({
 			this.schedule(this.scheduleSoundCowIdle, 15);
 		}
 		// this.addChild(OrderBGLayer.instance);
+		if (!home) {
+			FriendHomeLayer.instance = new FriendHomeLayer();
+			this.addChild(FriendHomeLayer.instance);
+		}
 
         //BaseGUILayer.instance.notifyFullStorage(StorageTypes.FOOD_STORAGE);
 		//BaseGUILayer.instance.notifyMissGold(50);

@@ -68,11 +68,14 @@ var NatureCtrl = cc.Class.extend({
 				}
 
 				testnetwork.connector.sendNatureCollect(this.nature.id);
-				this.natureSprite.collect();
+				this.natureSprite.collect(function() {
+					var p = MapValues.logicToScreenPosition(this.nature.coordinate.x, this.nature.coordinate.y);
+					AnimateEventLayer.instance.animateExp(p.x, p.y, 5);
+				}.bind(this));
 			} else {
 				this.lock = true;
-				BaseGUILayer.instance.showSuggestBuyMissionItem([new StorageItem(this.tool, 1)]);
 				// Show popup
+				BaseGUILayer.instance.showSuggestBuyMissionItem([new StorageItem(this.tool, 1)]);
 			}
 		}
 	},

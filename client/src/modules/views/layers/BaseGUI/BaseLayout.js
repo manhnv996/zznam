@@ -69,7 +69,7 @@ var BaseLayout = ccui.Layout.extend({
     actionShow: function () {
         var scale = (cc.winSize.height - cc.winSize.height / 80 * 3) / this.height;
         //cc.log("scale " + scale);
-        var scaleUp = cc.scaleTo(0.25, scale + 0.15);
+        var scaleUp = cc.scaleTo(0.2, scale + 0.15);
         var scaleDown = cc.scaleTo(0.2, scale);
         this.runAction(cc.sequence(scaleUp, cc.delayTime(0.05), scaleDown));
     },

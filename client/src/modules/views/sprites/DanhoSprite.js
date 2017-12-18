@@ -22,10 +22,11 @@ var DanhoSprite = AnimationSprite.extend({
 		return cc.p(0, - MapValues.jLength / 2);
 	},
 
-	collect: function() {
+	collect: function(callback) {
 		this.removeTouchEvents();
 		this.play("3", function() {
 			this.removeFromParent(true);
+			callback && callback();
 		}.bind(this));
 	}
 });

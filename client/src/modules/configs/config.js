@@ -65,7 +65,7 @@ function getSeedShow(level) {
     }
 
     seedShow.sort(function(a, b) {
-        cc.log("getProductObjByType" + getProductObjByType(a.getTypeItem()).id);
+        // cc.log("getProductObjByType" + getProductObjByType(a.getTypeItem()).id);
         if (getProductObjByType(a.getTypeItem()).level <= user.getLevel() || a.getQuantityItem() != null){
             return getProductObjByType(a.getTypeItem()).level - getProductObjByType(b.getTypeItem()).level;
         }
@@ -281,6 +281,7 @@ function updateGameInfo(gameInfoJson){
 
 // New
 function onReceiveUser(userInfo) {
+    user = new User();
     // Add FoodStorage
     var foodStorage = new Storages(
         new Coordinate(userInfo.asset.foodStorage.x,
@@ -346,12 +347,15 @@ function onReceiveUser(userInfo) {
         
         for (var j = 0; j < animalLodgeInfo.animalList.length; j++) {
             var animalInfo = animalLodgeInfo.animalList[j];
+            var remainTime = AnimalConfig[animalInfo.type].time * 1000 - animalInfo.passedTime;
             var animal = new Animal(
                 animalInfo.type,
                 animalInfo.id,
                 animalInfo.feeded,
-                animalInfo.feededTime
+                animalInfo.feededTime,
+                remainTime
             );
+            // cc.log("[R]", animal.remainTime);
             animalList.push(animal);
         }
 
@@ -426,10 +430,13 @@ function onReceiveUser(userInfo) {
 
     // Create user
     user = new User(asset, userInfo.map);
+    // cc.log("user.map", userInfo.map.length);
     user.level = userInfo.level;
     user.gold = userInfo.gold;
     user.ruby = userInfo.ruby;
     user.exp = userInfo.exp;
+    user.id = userInfo.id;
+    user.name = userInfo.name;
 
     // cc.log("AnimalLodge", user.asset.animalLodgeList);
     MainScene.instance = new MainScene();

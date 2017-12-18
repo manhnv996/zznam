@@ -85,7 +85,7 @@ var FieldSprite = MapBlockSprite.extend({
     // When click
     onClick: function() {
         PlantCtrl.instance.onFieldSelected(this.fieldId);
-        cc.log('Field clicked', this.fieldId);
+        // cc.log('Field clicked', this.fieldId);
     },
 
     // When begin click
@@ -147,14 +147,14 @@ var FieldSprite = MapBlockSprite.extend({
             this.isPlant = true;
         }
     },
-    cropAnimation: function (seedType) {
+    cropAnimation: function (seedType, callback) {
         if (this.fieldId != null){
             var plantTypeObj = getProductObjByType(seedType);
             // this.plantSprite.getAnimation().setTimeScale(1);
 
             this.plantSprite.setCompleteListener(function () {
                 this.plantSprite.setVisible(false);
-
+                callback && callback();
             }.bind(this));
             this.plantSprite.getAnimation().gotoAndPlay(plantTypeObj.cropAni,-1, -1, 1);
         }

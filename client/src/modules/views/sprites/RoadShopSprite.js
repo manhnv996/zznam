@@ -5,12 +5,11 @@ var RoadShopSprite = MapBlockSprite.extend({
 			MapConfigs.RoadShop.size.height,
 			x, y, MapItemEnum.ROAD_SHOP
 		);
-		this.registerTouchEvents({ lockMove: true });
+		this.registerTouchEvents({ lockMove: true, force: true });
 	},
 
 	onClick: function(lx, ly) {
-		cc.log("Roadshop clicked", lx, ly);
-		BaseGUILayer.instance.showMyShop();
+		// cc.log("Roadshop clicked", lx, ly);
 	},
 
 	onBeginClick: function() {

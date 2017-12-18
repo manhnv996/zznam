@@ -104,4 +104,8 @@ public class CmdDefine {
 
     // Nature
     public static final short NATURE_COLLECT = 13001;
+    
+    // Friend
+    public static final short FRIEND_GET_LIST = 14001;
+    public static final short FRIEND_GET_INFO = 14002;
 }

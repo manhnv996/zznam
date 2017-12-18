@@ -76,10 +76,13 @@ public class NatureHandler extends BaseClientRequestHandler {
         
         int width = 1;
         int height = 1;
-        if (nt.getType() == NaturalThingEnum.ROCK_BIG || nt.getType() == NaturalThingEnum.VUNG_NUOC) {
+        if (nt.getType().equals(NaturalThingEnum.ROCK_BIG) 
+                || nt.getType().equals(NaturalThingEnum.VUNG_NUOC)) {
             width = 2;
             height = 2;
         }
+
+        // System.out.println(nt.getType() + " " + NaturalThingEnum.VUNG_NUOC + " width " + width + "height " + height);
         
         userInfo.getMap().removeMapAlias(nt.getX(), nt.getY(), width, height);
         userInfo.getAsset().getNatureThingList().remove(nt);

@@ -34,12 +34,13 @@ var ChickenLodgeSprite = AnimalLodgeSprite.extend({
 		if (!animal.feeded) {
 			return;
 		}
-		var startTime = animal.feededTime;
-		var remain = AnimalConfig.chicken.time * 1000 - (new Date().getTime() - startTime);
+		// var startTime = animal.feededTime;
+		// var remain = AnimalConfig.chicken.time * 1000 - (new Date().getTime() - startTime);
+		var remain = animal.remainTime;
 		if (remain > 0) {
 			this.loadingBar = new LoadingBarLayout(
-				AnimalConfig.chicken.time, startTime,
-				"NAME_TAB_CHICKEN", 1);
+				AnimalConfig.chicken.time, null,
+				"NAME_TAB_CHICKEN", 1, remain / 1000);
 			var p = MapValues.logicToScreenPosition(this.lx + lp.x, this.ly + lp.y);
 			this.loadingBar.setPosition(p.x + 50, p.y - 25);
 			BaseGUILayer.instance.addChild(this.loadingBar);

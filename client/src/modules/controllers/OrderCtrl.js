@@ -143,9 +143,13 @@ var OrderCtrl = cc.Class.extend({
                 // MapLayer.instance.getNPCByOrderNPCId(orderId).actionGetOut1();
                 // // //
                 // //
-                if (MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId) != null){
-                    MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).runScheduleWalkingOut(true);
-                    MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).runScheduleUpdateOrderNPC();
+                var npcSprite = MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId);
+                if (npcSprite != null){
+                    npcSprite.runScheduleWalkingOut(true);
+                    npcSprite.runScheduleUpdateOrderNPC();
+                    var p = MapValues.logicToScreenPosition(npcSprite.lx, npcSprite.ly);
+                    AnimateEventLayer.instance.animateGold(p.x, p.y, orderNPCSelected.orderPrice);
+                    AnimateEventLayer.instance.animateExp(p.x, p.y, orderNPCSelected.orderExp);
                 }
             } else {
                 var missionItem = orderNPCSelected.checkCondition();
@@ -177,9 +181,13 @@ var OrderCtrl = cc.Class.extend({
                 // MapLayer.instance.getNPCByOrderNPCId(orderId).setPause();
                 // MapLayer.instance.getNPCByOrderNPCId(orderId).actionGetOut1();
                 // //
-                if (MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId) != null){
-                    MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).runScheduleWalkingOut(true);
-                    MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).runScheduleUpdateOrderNPC();
+                var npcSprite = MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId);
+                if (npcSprite != null){
+                    npcSprite.runScheduleWalkingOut(true);
+                    npcSprite.runScheduleUpdateOrderNPC();
+                    var p = MapValues.logicToScreenPosition(npcSprite.lx, npcSprite.ly);
+                    AnimateEventLayer.instance.animateGold(p.x, p.y, orderNPCSelected.orderPrice);
+                    AnimateEventLayer.instance.animateExp(p.x, p.y, orderNPCSelected.orderExp);
                 }
 
                 BaseGUILayer.instance.removeBlockListener();

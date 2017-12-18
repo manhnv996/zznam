@@ -77,6 +77,11 @@ gv.CMD.NATURE_COLLECT = 13001;
 testnetwork = testnetwork||{};
 testnetwork.packetMap = {};
 
+
+// Friend
+gv.CMD.FRIEND_GET_LIST = 14001;
+gv.CMD.FRIEND_GET_INFO = 14002;
+
 /** Outpacket */
 
 //Handshake
@@ -610,6 +615,31 @@ CmdSendCollectNatureThing = fr.OutPacket.extend({
     }
 });
 
+CmdSendFriendGetList = fr.OutPacket.extend({
+    ctor: function() {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.FRIEND_GET_LIST);
+    },
+    pack: function() {
+        this.packHeader();
+        this.updateSize();
+    }
+});
+
+CmdSendFriendGetInfo = fr.OutPacket.extend({
+    ctor: function() {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.FRIEND_GET_INFO);
+    },
+    pack: function(id) {
+        this.packHeader();
+        this.putInt(id);
+        this.updateSize();
+    }
+})
+
 /**
  * InPacket
  */
@@ -1012,7 +1042,8 @@ testnetwork.packetMap[gv.CMD.RESPONSE_MOVE] = fr.InPacket.extend({
 testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
     ctor: function() {
         this._super();
-        this.user = { asset: {}, map: [] };
+        this.user = {};
+        this.user.asset = {};
     },
 
     readData: function() {
@@ -1039,6 +1070,7 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
     },
 
     unpackMap: function() {
+        this.user.map = [];
         for (var i = 0; i < MapConfigs.Init.width; i++) {
             this.user.map.push([]);
             for (var j = 0; j < MapConfigs.Init.height; j++) {
@@ -1208,7 +1240,7 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         animal.id = this.getInt();
         animal.feeded = this.getInt() ? true : false;
         animal.feededTime = parseInt(this.getLong());
-
+        animal.passedTime = parseInt(this.getLong());
         return animal;
     },
 
@@ -1280,3 +1312,19 @@ testnetwork.packetMap[gv.CMD.NATURE_COLLECT] = fr.InPacket.extend({
         this.error = this.getInt();
     }
 });
+
+testnetwork.packetMap[gv.CMD.FRIEND_GET_LIST] = fr.InPacket.extend({
+    ctor: function() {
+        this._super();
+    },
+    readData: function() {
+        this.idList = [];
+        var size = this.getInt();
+        for (var i = 0; i < size; i++) {
+            this.idList.push(this.getInt());
+        }
+    }
+});
+
+testnetwork.packetMap[gv.CMD.FRIEND_GET_INFO] 
+        = testnetwork.packetMap[gv.CMD.GET_USER]; // Same

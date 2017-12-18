@@ -74,6 +74,7 @@ testnetwork.Connector = cc.Class.extend({
             case gv.CMD.GET_USER: // New
                 cc.log("[N] RECEIVE GET_USER");
                 // process packet.user here
+                home = true;
                 onReceiveUser(packet.user);
                 break;
 
@@ -297,6 +298,18 @@ testnetwork.Connector = cc.Class.extend({
                     cc.log('[E] Error occurs');
                 }
                 break;
+            case gv.CMD.FRIEND_GET_LIST:
+                cc.log("FRIEND_GET_LIST");
+                cc.log(packet.idList);
+                var id = packet.idList[0] || user.id; // or last id
+                cc.log("[F] Choose", id);
+                this.sendFriendGetInfo(id);
+                break;
+            case gv.CMD.FRIEND_GET_INFO:
+                cc.log("FRIEND_GET_INFO");
+                home = false;
+                onReceiveUser(packet.user);
+                break;
         }
     },
     sendGetUserInfo:function() // Old
@@ -314,7 +327,65 @@ testnetwork.Connector = cc.Class.extend({
         this.gameClient.sendPacket(pk);
     },
 
-    sendLoginRequest: function (username, password) {
+    sendLoginRequest: function(username, password) {
+        cc.log("Send login request", username, password);
+        var ATTEMP_TO_TRY = 5;
+        var failedToConnect = function() {
+            return cc.log("Check your network connection");
+        }
+
+        var invalidUsernamePassword = function() {
+            return cc.log("Invalid username or password");
+        }
+
+        // Not modify after here
+        var that = this;
+        var sendLoginPacket = function(sessionKey, userid) {
+            var pk = that.gameClient.getOutPacket(CmdSendLogin);
+            pk.pack(sessionKey, userid);
+            that.gameClient.sendPacket(pk);
+        }
+
+        var getSessionProcess = function(userid, sessionKey, attemp) {
+            var url = "https://zplogin.g6.zing.vn/?service_name=getSessionKey" 
+                + "&gameId=100&distribution=&clientInfo=" 
+                + "&social=zingme&accessToken=" + sessionKey;
+            request.get(url, function(err, response) {
+                if (err) {
+                    if (attemp === ATTEMP_TO_TRY) {
+                        return failedToConnect();
+                    }
+                    cc.log("Retry attemp", attemp + 1);
+                    return getSessionProcess(userid, sessionKey, attemp + 1);
+                }
+                return sendLoginPacket(response.sessionKey, userid);
+            });
+        }
+
+        var loginProcess = function(user, pass, attemp) {
+            var url = "https://myplay.apps.zing.vn/sso3/login.php?username=" 
+                    + username + "&password=" + password;
+            request.get(url, function(err, response) {
+                if (err) {
+                    if (attemp === ATTEMP_TO_TRY) {
+                        return failedToConnect();
+                    }
+                    cc.log("Retry attemp", attemp + 1);
+                    return loginProcess(user, pass, attemp + 1);
+                }
+                if (parseInt(response.error) !== 0) {
+                    return invalidUsernamePassword();
+                }
+                var sessionKey = response.sessionKey;
+                var userid = response.userid;
+                return getSessionProcess(userid, sessionKey, 0);
+            });
+        }
+
+        return loginProcess(username, password, 0);
+    },
+
+    _sendLoginRequest: function (username, password) {
         cc.log("sendLoginRequest");
         cc.log("sendingLoginRequest with: " + username + "===" + password);
         //this.getSessionKeyAndUserId();
@@ -429,7 +500,7 @@ testnetwork.Connector = cc.Class.extend({
         this.gameClient.sendPacket(pk);
     },
     sendReceiceDeliveryCar: function (price, exp) {
-        cc.log("sendReceiceDeliveryCar: ");
+        cc.log("sendReceiceDeliveryCar: ", price, exp);
         var pk = this.gameClient.getOutPacket(CmdSendReceiceDeliveryCar);
         pk.pack(price, exp);
         this.gameClient.sendPacket(pk);
@@ -557,6 +628,20 @@ testnetwork.Connector = cc.Class.extend({
     sendNatureCollect: function(id) {
         cc.log("Send Nature collect");
         var pk = this.gameClient.getOutPacket(CmdSendCollectNatureThing);
+        pk.pack(id);
+        this.gameClient.sendPacket(pk);
+    },
+
+    // Friend
+    sendFriendGetList: function() {
+        cc.log("Send Friend get list");
+        var pk = this.gameClient.getOutPacket(CmdSendFriendGetList);
+        pk.pack();
+        this.gameClient.sendPacket(pk);
+    },
+    sendFriendGetInfo: function(id) {
+        cc.log("Send Friend get info", id);
+        var pk = this.gameClient.getOutPacket(CmdSendFriendGetInfo);
         pk.pack(id);
         this.gameClient.sendPacket(pk);
     }

@@ -64,7 +64,7 @@ public class ProductUtil {
     public static CropProduct[] toCropProductArray(/*String jsonFile*/){
         
         Gson gson = new Gson();
-        CropProduct[] cps = gson.fromJson(readFile("src\\config\\json\\cropconfig.json"), CropProduct[].class);
+        CropProduct[] cps = gson.fromJson(readFile("src/config/json/cropconfig.json"), CropProduct[].class);
         
         return cps;
     }
@@ -87,7 +87,7 @@ public class ProductUtil {
     public static ProductConfig[] toProductConfigArray(/*String jsonFile*/){
         
         Gson gson = new Gson();
-        ProductConfig[] cps = gson.fromJson(readFile("src\\config\\json\\productconfig.json"), ProductConfig[].class);
+        ProductConfig[] cps = gson.fromJson(readFile("src/config/json/productconfig.json"), ProductConfig[].class);
         
         return cps;
     }

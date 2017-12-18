@@ -45,6 +45,12 @@ productIconMap[ProductTypes.TOOL_BOLT] = res.iconProductBread;
 productIconMap[ProductTypes.TOOL_PLANK] = res.iconProductCornBread;
 productIconMap[ProductTypes.TOOL_DUCTTAPE] = res.iconProductCookie;
 
+productIconMap[ProductTypes.TOOL_AXE] = res.RIU;
+productIconMap[ProductTypes.TOOl_SAW] = res.CUA;
+productIconMap[ProductTypes.TOOL_DYNOMITE] = res.BOMB;
+productIconMap[ProductTypes.TOOL_DEMOLITION_CHARGE] = res.BOMB_TNT;
+productIconMap[ProductTypes.TOOL_SHOVEL] = res.XENG;
+
 function getProductIconById(productId){
     return productIconMap[productId];
 

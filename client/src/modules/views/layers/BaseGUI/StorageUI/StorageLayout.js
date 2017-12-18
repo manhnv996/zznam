@@ -3,8 +3,8 @@
  */
 
 var StorageLayout = BaseLayout.extend({
-    //_debug: false,
-    _debug: true,
+    _debug: false,
+    //_debug: true,
 
     ctor: function (storage) {
         this._super(res.storage_bg_png, "", false, true, true);

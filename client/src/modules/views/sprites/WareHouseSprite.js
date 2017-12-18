@@ -18,7 +18,7 @@ var WareHouseSprite = AnimationSprite.extend({
 	onFinishMove: function(lx, ly) {
 		user.asset.warehouse.coordinate.x = lx;
 		user.asset.warehouse.coordinate.y = ly;
-		cc.log(user.asset.warehouse);
+		// cc.log(user.asset.warehouse);
 		testnetwork.connector.sendMoveMapBlock(MapItemEnum.WAREHOUSE, 0, lx, ly);
 	}
 });
