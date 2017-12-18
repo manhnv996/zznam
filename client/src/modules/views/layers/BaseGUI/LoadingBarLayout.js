@@ -66,6 +66,7 @@ var LoadingBarLayout = ccui.Layout.extend({
        this.addChild(this.timeRemain);
        this.addChild(this.boostBtn);
 
+       // this.setScale(0.4);
        this.setScale(0.4);
        //
        //this.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
@@ -102,8 +103,8 @@ var LoadingBarLayout = ccui.Layout.extend({
     },
 
     actionShow: function () {
-        var scaleUp = cc.scaleTo(0.2, 0.9);
-        var scaleDown = cc.scaleTo(0.15, 0.8);
+        var scaleUp = cc.scaleTo(0.2, 1.3);
+        var scaleDown = cc.scaleTo(0.2, 1.0);
         this.runAction(cc.sequence(scaleUp, scaleDown));
     },
 

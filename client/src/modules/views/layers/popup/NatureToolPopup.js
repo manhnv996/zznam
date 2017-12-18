@@ -10,7 +10,7 @@ var NatureToolPopup = TablePopup.extend({
 				height = 80;
 				break;
 		}
-		this._super(res.popup1, lx, ly, { width: 150, height: height });
+		this._super(res.popup2, lx, ly, { width: 150, height: height });
 		NatureCtrl.instance.initNature(natureId);
 		NatureCtrl.instance.unlock();
 		switch (type) {

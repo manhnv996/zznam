@@ -64,7 +64,7 @@ public class ProductUtil {
     public static CropProduct[] toCropProductArray(/*String jsonFile*/){
         
         Gson gson = new Gson();
-        CropProduct[] cps = gson.fromJson(readFile("src\\config\\json\\cropconfig.json"), CropProduct[].class);
+        CropProduct[] cps = gson.fromJson(readFile("src/config/json/cropconfig.json"), CropProduct[].class);
         
         return cps;
     }
