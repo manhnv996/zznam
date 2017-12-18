@@ -6,8 +6,8 @@ var _ = (function() {
         return "Art/Main Gui/setting/" + _res;
     }
     var SettingsResource = {
-        AM_THANH_PNG: 	r("amthanh.png"),
-        AMTHANH_TURN_ON_PNG: 		r("amthanh- turn on.png"),
+        MUSIC_OFF_PNG: 	r("amthanh.png"),
+        MUSIC_ON_PNG: 		r("amthanh- turn on.png"),
         BG_SETTING_PNG: 	r("bg_setting.png"),
         BG_2_PNG: 	"Art/Storage/BG2.png",
         BTN_CHANGE_NAME_PNG: 	r("btn_change_name.png"),

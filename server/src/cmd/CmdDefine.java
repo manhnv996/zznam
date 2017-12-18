@@ -15,6 +15,7 @@ public class CmdDefine {
 
     public static final short GET_USER_INFO = 1001;
     public static final short GET_USER = 1002; // New get user
+    public static final short ADD_MONEY = 1101;
    
     //Log cmd
     public static final short MOVE = 2001;

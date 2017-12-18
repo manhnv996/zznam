@@ -9,6 +9,8 @@ gv.CMD.USER_LOGIN = 1;
 gv.CMD.USER_INFO = 1001;
 gv.CMD.GET_USER = 1002; // New
 
+gv.CMD.ADD_USER_MONEY = 1101;
+
 gv.CMD.MOVE = 2001;
 
 
@@ -606,6 +608,20 @@ CmdSendCollectNatureThing = fr.OutPacket.extend({
     pack: function(id) {
         this.packHeader();
         this.putInt(id);
+        this.updateSize();
+    }
+});
+
+CmdSendAddMoney = fr.OutPacket.extend({
+    ctor: function() {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.ADD_USER_MONEY);
+    },
+    pack: function(number, type) {
+        this.packHeader();
+        this.putInt(number);
+        this.putInt(type);
         this.updateSize();
     }
 });

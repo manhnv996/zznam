@@ -55,13 +55,13 @@ var User = cc.Class.extend({
         this.gold += parseInt(number);
 
         //
-        MainGuiLayer.instance.labelGold.setString(this.gold);
+        MainGuiLayer.instance.labelGold.setString(this.gold.toString());
     },
     addRuby: function (number) {
         this.ruby += parseInt(number);
 
         //
-        MainGuiLayer.instance.labelRuby.setString(this.ruby);
+        MainGuiLayer.instance.labelRuby.setString(this.ruby.toString());
     },
     addExp: function (number) {
         this.exp += parseInt(number);

@@ -102,6 +102,14 @@ var BaseGUILayer = cc.Layer.extend({
 
     },
 
+    showSettingGame: function () {
+        this._layout = new SettingGame();
+        if (this._layout._hasCloseButton) {
+            this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);
+        }
+        this.blockLayout();
+    },
+
     showOrderLayer: function () {
         if (CarSprite.instance.isStatus == DeliveryStatus.RECEIVABLE){
             CarSprite.instance.onClick();

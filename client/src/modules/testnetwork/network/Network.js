@@ -559,5 +559,12 @@ testnetwork.Connector = cc.Class.extend({
         var pk = this.gameClient.getOutPacket(CmdSendCollectNatureThing);
         pk.pack(id);
         this.gameClient.sendPacket(pk);
+    },
+
+    sendAddMoney: function (number, type) {
+        cc.log("Send add money");
+        var pk = this.gameClient.getOutPacket(CmdSendAddMoney);
+        pk.pack(number, type);
+        this.gameClient.sendPacket(pk);
     }
 });
