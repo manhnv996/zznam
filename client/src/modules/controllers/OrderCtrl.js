@@ -16,7 +16,6 @@ var OrderCtrl = cc.Class.extend({
                 /*
                  runAction
                  */
-                //CarSprite.instance.updateOrder(orderSelected.orderPrice, orderSelected.orderExp);
                 CarSprite.instance.delivery(orderSelected.itemList);
                 //
                 BaseGUILayer.instance.removeBlockListener();
@@ -28,10 +27,8 @@ var OrderCtrl = cc.Class.extend({
                 /*
                 done
                  */
-
                 BaseGUILayer.instance.removeBlockListener();
                 BaseGUILayer.instance.showSuggestBuyMissionItem(missionItem, BuyItemTargetType.MAKE_ORDER, orderId);
-
             }
         }
     },
@@ -48,7 +45,6 @@ var OrderCtrl = cc.Class.extend({
                 /*
                  runAction
                  */
-                //CarSprite.instance.updateOrder(orderSelected.orderPrice, orderSelected.orderExp);
                 CarSprite.instance.delivery(orderSelected.itemList);
                 //
                 BaseGUILayer.instance.removeBlockListener();
@@ -57,20 +53,12 @@ var OrderCtrl = cc.Class.extend({
 
             } else {
                 //
-
             }
         }
-
-        ////
-        //OrderCtrl.instance.onShowOrderBG();
 
     },
 
     onReceiveDelivery: function () {
-        // if (user.getAsset().getCar().receive()){
-        //     testnetwork.connector.sendReceiceDeliveryCar(user.getAsset().getCar().deliveryPrice, user.getAsset().getCar().deliveryExp);
-        //
-        // }
         if (user.getAsset().getCar().getStatus() == DeliveryStatus.RECEIVABLE){
             testnetwork.connector.sendReceiceDeliveryCar(user.getAsset().getCar().deliveryPrice, user.getAsset().getCar().deliveryExp);
             user.getAsset().getCar().receive();
@@ -80,7 +68,6 @@ var OrderCtrl = cc.Class.extend({
     onCancelOrder: function (orderId) {
         //
         var orderSelected = user.getAsset().getOrderById(orderId);
-
         if (orderSelected != null){
             if (orderSelected.cancelOrder() == true){
 
@@ -91,7 +78,6 @@ var OrderCtrl = cc.Class.extend({
 
     onBoostWait: function (orderId) {
         var orderSelected = user.getAsset().getOrderById(orderId);
-
         if (orderSelected != null){
             if (orderSelected.boostWait() == true){
 
@@ -111,7 +97,7 @@ var OrderCtrl = cc.Class.extend({
                 testnetwork.connector.sendBuyItemByRubi(storageMissingItem.typeItem, storageMissingItem.quantity);
                 return true;
             } else {
-                user.addRuby(rubiBuy);  //recovery
+                user.addRuby(rubiBuy);  //
                 return false;
             }
         }

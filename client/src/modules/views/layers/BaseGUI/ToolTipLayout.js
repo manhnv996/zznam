@@ -25,7 +25,7 @@ var ToolTipLayout = ccui.Layout.extend({
             var hour = Math.floor(time / 60);
             var min = time - hour * 60;
             var timeLable;
-            cc.log("hour" + hour);
+            //cc.log("hour" + hour);
             if(hour) {
                 if (min) {
                     timeLable = new cc.LabelBMFont(hour + fr.Localization.text("Text_time_hour") +

@@ -5,10 +5,8 @@ var GameInfo = null;
 
 
 function getProductObjByType(productId) {
-    //var productTypeObj = null;
     if (ProductType == null){
         cc.loader.loadJson(res.cropconfig, function (error, data) {
-            //productTypeObj = data;
             ProductType = data;
         });
     }
@@ -17,44 +15,23 @@ function getProductObjByType(productId) {
             return ProductType[i];
         }
     }
-    //for (var i = 0; i < productTypeObj.length; i++) {
-    //    if (productTypeObj[i].id == productId) {
-    //        return productTypeObj[i];
-    //    }
-    //}
 
     return null;
 }
 
 function getSeedLevel(level) {
-
-    //var productTypeObj = null;
-    /*
-    Read from json file
-     */
     if (ProductType == null){
         cc.loader.loadJson(res.cropconfig, function (error, data) {
-            //productTypeObj = data;
             ProductType = data;
-            //cc.log("data " + str);// data is the json object
         });
     }
-
     var seedLevelList = [];
     for (var i = 0; i < ProductType.length; i++) {
 
         if (ProductType[i].level <= (level + 2)) {
-            //seedLevelList.push(productTypeObj[i].id);
             seedLevelList.unshift(ProductType[i].id);
         }
     }
-    //for (var i = 0; i < productTypeObj.length; i++) {
-    //
-    //    if (productTypeObj[i].level <= (level + 2)) {
-    //        //seedLevelList.push(productTypeObj[i].id);
-    //        seedLevelList.unshift(productTypeObj[i].id);
-    //    }
-    //}
 
     return seedLevelList;
 }
@@ -66,7 +43,6 @@ function getSeedShow(level) {
 
     var seedShow = [];
     for (var i = 0; i < seedLevel.length; i++){
-        //cc.log("abc " + getProductObjByType(seedLevel[i]));
         if (user.getAsset().getFoodStorage().getQuantity(seedLevel[i]) == 0){
             if (getProductObjByType(seedLevel[i]).level <= user.getLevel()){
                 seedShow.push(new StorageItem(seedLevel[i], 0));

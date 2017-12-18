@@ -59,7 +59,6 @@ public class Car {
         if (this.getStatus() == DeliveryStatus.RECEIVABLE.getValue()){
             user.addGold(this.deliveryPrice);
             user.addExp(this.deliveryExp);
-            
             //
             this.updateDelivery(0, 0);
             

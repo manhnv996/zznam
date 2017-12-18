@@ -25,7 +25,6 @@ public class LevelupUtil {
     public static LevelupConfig getLevelupConfObjByLevel(int level){
         
         List<LevelupConfig> list = toLevelupList();
-        
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).Level == level) {
                 return list.get(i);

@@ -7,8 +7,7 @@ var TruckOrderSprite = MapBlockSprite.extend({
 		);
 		this.registerTouchEvents({ lockMove: true });
 
-		// //
-		// this.initTruckOrder();
+		//
 	},
 
 	initTruckOrder: function () {
@@ -16,7 +15,6 @@ var TruckOrderSprite = MapBlockSprite.extend({
 
 		this.stickList = [];
 		for (var i = 0; i < user.getAsset().getOrderList().length; i++){
-			//var icon = new cc.Sprite(res.stickIcon);
 			var icon = new ccui.ImageView(res.stickIcon);
 			this.stickList.push(icon);
 
@@ -29,15 +27,13 @@ var TruckOrderSprite = MapBlockSprite.extend({
 	initStickListPosition: function () {
         for (var i = 0; i < this.stickList.length; i++){
             this.stickList[i].setPosition(cc.p(this.width * 0.2625 + this.stickList[i].width  * 3 / 4 + Math.abs(i % 3) * this.stickList[i].width,
-                this.height * 0.775/* - this.stickList[i].height * 1 / 3*/ - (Math.floor(i / 3) + 1) * this.stickList[i].height * 0.75 + Math.abs(i % 3) * this.stickList[i].height * 0.4));
-
+                this.height * 0.775 - (Math.floor(i / 3) + 1) * this.stickList[i].height * 0.75 + Math.abs(i % 3) * this.stickList[i].height * 0.4));
 
 ////            ////
 			var order = user.getAsset().getOrderById(user.getAsset().getOrderList()[i].orderId);
 			if (order.checkStatus() == OrderStatusTypes.REALIZABLE){
 				if (order.checkCondition() == true){
 
-                    //var check = new cc.Sprite(res.checkIcon);
                     var check = new ccui.ImageView(res.checkIcon);
                     check.setPosition(this.stickList[i].width * 0.625, this.stickList[i].height / 2);
                     this.stickList[i].addChild(check);
@@ -45,7 +41,6 @@ var TruckOrderSprite = MapBlockSprite.extend({
 			} else {
 				this.stickList[i].setOpacity(0);
 			}
-
         }
     },
 
@@ -57,21 +52,16 @@ var TruckOrderSprite = MapBlockSprite.extend({
 	onClick: function() {
 		cc.log("TruckOrder clicked", this.getLocalZOrder(), this.lx, this.ly, this.blockSizeX, this.blockSizeY);
 
-		/*
-		show bg orderlist
-		 */
-		OrderCtrl.instance.onShowOrderBG();
 		//
+		OrderCtrl.instance.onShowOrderBG();
         TruckOrderSprite.instance.initTruckOrder();
     },
 	
 	onBeginClick: function() {
-		// this.setOpacity(210);
 		this.setColor(cc.color(200, 200, 200));
 	},
 
 	onEndClick: function() {
-		// this.setOpacity(255);
 		this.setColor(cc.color(255, 255, 255));
 	}
 });

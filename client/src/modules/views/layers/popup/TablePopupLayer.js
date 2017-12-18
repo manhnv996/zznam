@@ -25,9 +25,6 @@ var TablePopupLayer = cc.Layer.extend({
     },
 
     showTimeRemainProgressBar: function (fieldId) {
-        //this.removeUpdateDisableListener();
-        //this._layout = new TimeRemainProgressBar(fieldId);
-        //this.addChild(this._layout);
         var field = user.asset.getFieldById(fieldId);
         this.loadingBar = new LoadingBarLayout(
             getProductConfigById(field.plantType).timeMin * 60, field.plantedTime,
@@ -44,7 +41,7 @@ var TablePopupLayer = cc.Layer.extend({
         }.bind(this));
     },
 
-    ////TablePopupLayer.instance.removeUpdateDisableListener();
+
     showAnimalToolPopup: function(lx, ly, type, mode, caller) {
         this.removeUpdateDisableListener();
         this._layout = new AnimalToolPopup(lx, ly, type, mode, caller);

@@ -58,20 +58,17 @@ public class Field extends CoordinateObject {
 
     //
     public short plant(ZPUserInfo user, String productType){
-        //return error code
         if (checkStatus() == FieldStatusType.EMPTY) {
             if (user.getAsset().getFoodStorage().takeItem(productType, 1)){
                 this.setPlantType(productType);
                 this.setPlantedTime(new Date().getTime());
 
-//                return true;
                 return ErrorLog.SUCCESS.getValue();
             } else {
                 return ErrorLog.ERROR_STORAGE_NOT_REDUCE.getValue();
             }
         }
         return ErrorLog.ERROR_FIELD_STATUS_NOT_EMPTY.getValue();
-//        return false;
     }
     
     public short crop(ZPUserInfo user){
@@ -79,17 +76,14 @@ public class Field extends CoordinateObject {
             if (user.getAsset().getFoodStorage().addItem(this.plantType, 2)){
 
                 user.addExp(getProductObjByType((this.plantType)).harvestExp);
-//                String productCrop = this.plantType;
                 this.init();
 
-//                return true;
                 return ErrorLog.SUCCESS.getValue();
             } else {
                 return ErrorLog.ERROR_STORAGE_NOT_ADD.getValue();
             }
         }
         return ErrorLog.ERROR_FIELD_STATUS_NOT_DONE.getValue();
-//        return false;
     }
     
     public long getCropTime(){
@@ -117,7 +111,6 @@ public class Field extends CoordinateObject {
     
     public short boost(ZPUserInfo user){
         if (this.checkStatus() == FieldStatusType.GROWING){
-            
             if (user.reduceRuby(1)){
                 Date date = new Date();
                 long intDate = date.getTime();  
@@ -125,14 +118,14 @@ public class Field extends CoordinateObject {
                 this.plantedTime = intDate - getProductObjByType(this.plantType).time * 1000;
 //                this.plantedTime = intDate - 6000;   //HERE IS TEST
 
-//                return true;
                 return ErrorLog.SUCCESS.getValue();
             } else {
                 return ErrorLog.ERROR_RUBY_NOT_REDUCE.getValue();
             }
         }
         return ErrorLog.ERROR_FIELD_STATUS_NOT_GROWING.getValue();
-//        return false;
     }
-
+    
+    
+    
 }

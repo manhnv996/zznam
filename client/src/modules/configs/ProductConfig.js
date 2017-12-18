@@ -54,11 +54,6 @@ function getProductIconById(productId){
 
 
 function getProductObjById(productId) {
-    //var productTypeObj = null;
-    //cc.loader.loadJson(res.productconfig, function (error, data) {
-    //    productTypeObj = data;
-    //    //ProductType = data;
-    //});
     if (ProductConfig == null){
         cc.loader.loadJson(res.productconfig, function (error, data) {
             ProductConfig = data;
@@ -69,11 +64,6 @@ function getProductObjById(productId) {
             return ProductConfig[i];
         }
     }
-    //for (var i = 0; i < productTypeObj.length; i++) {
-    //    if (productTypeObj[i].id == productId) {
-    //        return productTypeObj[i];
-    //    }
-    //}
 
     return null;
 }

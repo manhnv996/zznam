@@ -8,7 +8,6 @@ var OrderNPCLayer = BaseLayout.extend({
         this.orderNPC = orderNPC;
         this.orderId = orderNPC.getOrderId();
 
-        //this._super();
         this._super(res.bgTruckOrder, "", false, false, true);
 
         this._bg.setVisible(false);
@@ -82,7 +81,6 @@ var OrderNPCLayer = BaseLayout.extend({
         msgCurr.addChild(quantityCurr);
 
         //
-        //var itemCurr = new cc.Sprite(getProductIconById(orderNPC.orderItem.typeItem));
         var itemCurr = new ccui.ImageView(getProductIconById(orderNPC.orderItem.typeItem));
         itemCurr.setPosition(cc.p(msgCurr.width * 1.65, msgCurr.height * 0.6));
         itemCurr.setScale(0.5);

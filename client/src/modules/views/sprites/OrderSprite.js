@@ -57,7 +57,6 @@ var OrderSprite = cc.Sprite.extend({
 //
         if (this.order != null){
             if (this.order.checkCondition() == true){
-                //var tickSprite = new cc.Sprite(res.tickOrder);
                 var tickSprite = new ccui.ImageView(res.tickOrder);
                 tickSprite.setPosition(cc.p(this.width * 3 / 4, this.height / 4));
                 this.addChild(tickSprite);
@@ -139,7 +138,6 @@ var OrderSprite = cc.Sprite.extend({
         this.itemListModel = this.order.itemList;
 
         for (var i = 0; i < this.itemListModel.length; i++){
-            // var productSprite = new ProductSprite(getProductIconById(this.itemListModel[i].typeItem), this.itemListModel[i].typeItem);
             var productSprite = new ItemBtn(getProductIconById(this.itemListModel[i].typeItem), this.itemListModel[i].typeItem);
             parent.orderInfo.addChild(productSprite);
 
@@ -164,6 +162,7 @@ var OrderSprite = cc.Sprite.extend({
             parent.repeatSuggestMakeOrder();    //scale button makeOrder
         }
     },
+
     setupItemListPosition: function(parent) {
         var icon = new ccui.ImageView(res.iconGoodMilk); //template
 
@@ -188,9 +187,7 @@ var OrderSprite = cc.Sprite.extend({
         //
         var exp = new cc.LabelBMFont(this.order.orderExp, res.FONT_OUTLINE_30);
         exp.setPosition(parent.orderInfo.width  * 2.5 / 5, parent.orderInfo.height * 1.05);
-        //var star = new cc.Sprite(res.expOrder);
         var star = new ccui.ImageView(res.expOrder);
-        // star.setPosition(this.width  * 3.5 / 5 / 2.5, this.height * 3.5 / 5 / 2.5);
         star.setPosition(exp.width + star.width / 5, exp.height / 2);
         star.setScale(0.25);
 
@@ -217,7 +214,6 @@ var OrderSprite = cc.Sprite.extend({
         btBoost.setScale(0.625);
         btBoost.setZoomScale(0.625);
 
-        //var rubi = new cc.Sprite(res.rubi);
         var rubi = new ccui.ImageView(res.rubi);
         rubi.setPosition(cc.p(btBoost.width * 4 / 5, btBoost.height / 2));
         btBoost.addChild(rubi);
