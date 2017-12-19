@@ -22,21 +22,24 @@ var ConstructedCtrl = cc.Class.extend({
                 var machineModel = user.asset.getMachineById(sprite.id);
                 var machineConfig = getMachineConfigByType(machineModel.type);
                 machineModel.reduceRemainBuildTime(dt);
+
+                if (machineModel.remainBuildTime <= 0) {
+                    sprite.progressBar = null;
+                    sprite.unschedule(sprite.updateTime);
+                    sprite.removeFromParent(true);
+                    this.addCompletedBuildSprite(machineModel, sprite.typeBuilding, sprite.blockSizeX);
+                    return;
+                }
+
                 var buildTime = machineConfig.time - machineModel.remainBuildTime;
                 if (!(buildTime % machineConfig.reduceRubyTime)) {
                     if (sprite.buildExpress > 0) {
                         sprite.buildExpress--;
                     }
+
                     if (sprite.progressBar) {
                         sprite.progressBar.rubyNumber.setString(sprite.buildExpress.toString());
                     }
-                }
-                if (machineModel.remainBuildTime === 0) {
-                    sprite.unschedule(sprite.updateTime);
-                    this.addCompletedBuildSprite(machineModel, sprite.typeBuilding, sprite.blockSizeX);
-                    return true;
-                } else {
-                    return false;
                 }
         }
     },

@@ -8,7 +8,7 @@ var LoadingBarLayout = ccui.Layout.extend({
     startTime: 0,
     _isClose: false,
 
-   ctor: function (x, y, totalTime, startTime, name, ruby, remainTime) {
+   ctor: function (x, y, totalTime, startTime, name, ruby, remainTime, checkMove) {
        this._super();
 
        this.totalTime = totalTime * 1000;
@@ -55,7 +55,7 @@ var LoadingBarLayout = ccui.Layout.extend({
        this.boostBtn.addChild(this.rubyImg);
 
        this.setContentSize(this.progressBar.getContentSize().width + this.boostBtn.width,
-                            this.progressBar.getContentSize().height);
+                            this.progressBar.getContentSize().height + this.nameProgess.height / 2);
        //this.setPosition(cc.p(cc.winSize.width / 2, cc.winSize.height / 2));
        this.setAnchorPoint(0.5, 0.5);
 
@@ -71,7 +71,11 @@ var LoadingBarLayout = ccui.Layout.extend({
        //
        //this.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
        //this.setBackGroundColor(cc.color.BLACK);
-
+       //
+       //var sprite = new cc.Sprite(res.debug_png);
+       //sprite.x = 0;
+       //sprite.y = 0;
+       //this.addChild(sprite);
        //cc.log("total time", this.totalTime);
        //cc.log("start time", this.startTime);
        // cc.log("Remain time", this.remainTime);
@@ -94,9 +98,16 @@ var LoadingBarLayout = ccui.Layout.extend({
            this.remainTime = this.totalTime - (new Date().getTime() - this.startTime) + 1000;
            this.scheduleUpdate();
        }
+       this.checkAutoMove(checkMove);
        //this.scheduleUpdate();
        this.disableLoadingBar();
    },
+
+    checkAutoMove: function (checkMove) {
+        if (checkMove) {
+            this.autoMove();
+        }
+    },
 
     setOnClick: function (callback) {
         this.boostBtn.addClickEventListener(callback);
@@ -242,10 +253,37 @@ var LoadingBarLayout = ccui.Layout.extend({
         cc.eventManager.removeListener(this.listener);
     },
 
-    //autoMove: function () {
-    //    var lP = MapValues.screenPositionToLogic(this.x, this.y);
-    //
-    //    var delta = cc.p(0, 0);
-    //
-    //}
+    autoMove: function () {
+        //var lP = MapValues.screenPositionToLogic(this.x, this.y);
+        var delta = cc.p(0, 0);
+
+        var pointX = this.x - this.width / 2;
+        var pointY = this.y + this.height / 2;
+        //var pointX = this.x;
+        //var pointY = this.y + this.getBoundingBox().height;
+        //cc.log("loadingbar size", this.getBoundingBox().width, " ", this.getBoundingBox().height);
+        cc.log("loadingbar size", this.width, " ", this.height);
+        cc.log("lodaing bar position", this.x, " ", this.y);
+        cc.log("begin point", pointX, " ", pointY);
+        if (pointX < 0) {
+            //if (lP.x < 0) {
+            //    delta.x = -pointX;
+            //} else {
+                delta.x = -pointX;
+            //}
+        }
+
+        if (pointY > cc.winSize.height) {
+            delta.y = -(pointY - cc.winSize.height);
+        }
+
+        cc.log("delta", delta.x, " ", delta.y);
+        var actionMap = new cc.MoveBy(1, delta).easing(cc.easeExponentialOut());
+        MapLayer.instance.runAction(actionMap);
+
+        //delta.x = -delta.x;
+        //delta.y = -delta.y;
+        //var action = new cc.MoveBy(1, delta).easing(cc.easeExponentialOut());
+        this.runAction(actionMap.clone());
+    }
 });

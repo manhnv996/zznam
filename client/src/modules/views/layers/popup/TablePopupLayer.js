@@ -33,7 +33,7 @@ var TablePopupLayer = cc.Layer.extend({
         var p = MapValues.logicToScreenPosition(field.coordinate.x, field.coordinate.y);
         this.loadingBar = new LoadingBarLayout(p.x, p.y,
             getProductConfigById(field.plantType).timeMin * 60, field.plantedTime,
-            getProductConfigById(field.plantType).name, 1);
+            getProductConfigById(field.plantType).name, 1, null, true);
         //this.loadingBar.setPosition(p.x, p.y);
         BaseGUILayer.instance.addChild(this.loadingBar);
 
@@ -127,9 +127,9 @@ var TablePopupLayer = cc.Layer.extend({
         if (ly_2 <= -56 || ly_2 >= -6) {
             delta.y = 0;
         }
-        var action = new cc.MoveBy(1, delta).easing(cc.easeExponentialOut());
-        MapLayer.instance.runAction(action);
-        this.layerRunAction(action.clone());
+        this.actionAutoMove = new cc.MoveBy(1, delta).easing(cc.easeExponentialOut());
+        MapLayer.instance.runAction(this.actionAutoMove);
+        this.layerRunAction(this.actionAutoMove.clone());
     }
 
 });

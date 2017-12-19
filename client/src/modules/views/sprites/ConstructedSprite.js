@@ -53,13 +53,14 @@ var ConstructedSprite = AnimationSprite.extend({
             this.machine.startBuildTime,
             this.machineConfig.name,
             this.buildExpress.toString(),
-            this.machine.remainBuildTime);
+            this.machine.remainBuildTime, true);
 
         BaseGUILayer.instance.addChild(this.progressBar);
 
         this.progressBar.setOnClick(function () {
             ConstructedCtrl.instance.boostBuild(this);
             this.progressBar.closeLoadingBar();
+            this.progressBar = null;
         }.bind(this));
     },
 
@@ -76,9 +77,11 @@ var ConstructedSprite = AnimationSprite.extend({
     },
 
     updateTime: function (dt) {
-        if (ConstructedCtrl.instance.checkBuildTime(this, dt)) {
-            this.removeFromParent(true);
-        }
+        //if (ConstructedCtrl.instance.checkBuildTime(this, dt)) {
+            //this.progressBar = null;
+        //    this.removeFromParent(true);
+        //}
+        ConstructedCtrl.instance.checkBuildTime(this, dt);
     },
 
     onFinishMove: function (lx, ly) {

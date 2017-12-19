@@ -169,7 +169,7 @@ var AnimateEventLayer = cc.Layer.extend({
 		this.currentCapacity++;
 		if (this.currentCapacity <= this.nextCapacity) {
 			this.capacityUp.setString(this.currentCapacity.toString());
-		} else if (this.currentCapacity === this.nextCapacity + 30){
+		} else if (this.currentCapacity === this.nextCapacity + 35){
 			this.unschedule(this.upStorageCapacity);
 			this.bgUpgradeStorage.stopAllActions();
 			this.upgradeSuccess.removeFromParent(true);

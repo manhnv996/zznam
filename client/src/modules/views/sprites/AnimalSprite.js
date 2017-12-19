@@ -136,7 +136,7 @@ var AnimalSprite = cc.Sprite.extend({
     onClick: function () {
         var key = SoundCtrl.instance.getKeySoundAnimalSelect(this);
         SoundCtrl.instance.playSoundEffect(key, false);
-        this.getParent().showAnimalRemain(this.id);
         this.getParent().showAnimalTool();
+        this.getParent().showAnimalRemain(this.id);
     }
 });
