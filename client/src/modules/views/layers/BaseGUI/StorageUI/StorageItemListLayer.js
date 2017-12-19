@@ -176,7 +176,7 @@ var StorageItemListLayer = cc.Layer.extend({
                 break;
             case ccui.Widget.TOUCH_ENDED:
             case ccui.Widget.TOUCH_CANCELED:
-                cc.audioEngine.playEffect(res.func_click_button_mp3, false);
+                SoundCtrl.instance.playSoundEffect(res.func_click_button_mp3, false);
                 var scaleUp = cc.scaleTo(0.1, 1.1);
                 var scaleDown = cc.scaleTo(0.05, 1.0);
                 sender.runAction(cc.sequence(scaleUp, cc.delayTime(0.02), scaleDown));
@@ -188,7 +188,7 @@ var StorageItemListLayer = cc.Layer.extend({
     touchUpgrade: function (sender, type) {
         switch (type) {
             case ccui.Widget.TOUCH_BEGAN:
-                cc.audioEngine.playEffect(res.func_click_button_mp3, false);
+                SoundCtrl.instance.playSoundEffect(res.func_click_button_mp3, false);
                 var scaleBy = cc.scaleTo(0.1, 0.9);
                 sender.runAction(scaleBy);
                 break;

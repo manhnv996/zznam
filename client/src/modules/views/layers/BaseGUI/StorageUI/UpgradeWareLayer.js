@@ -280,6 +280,9 @@ var UpgradeWareLayer = cc.Layer.extend({
 
     touchBuyTool: function (sender, type) {
         switch (type) {
+            case ccui.Widget.TOUCH_BEGAN:
+                SoundCtrl.instance.playSoundEffect(res.func_click_button_mp3, false);
+                break;
             case ccui.Widget.TOUCH_ENDED:
             case ccui.Widget.TOUCH_CANCELED:
                 cc.log("Touch Buy Item");
@@ -345,7 +348,7 @@ var UpgradeWareLayer = cc.Layer.extend({
     touchBackBtn: function (sender, type){
         switch (type) {
             case ccui.Widget.TOUCH_BEGAN:
-                cc.audioEngine.playEffect(res.func_click_button_mp3, false);
+                SoundCtrl.instance.playSoundEffect(res.func_click_button_mp3, false);
                 var scaleByBtn = cc.scaleTo(0.1, 0.9);
                 sender.runAction(scaleByBtn);
                 break;

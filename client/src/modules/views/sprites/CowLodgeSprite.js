@@ -31,11 +31,11 @@ var CowLodgeSprite = AnimalLodgeSprite.extend({
 			return;
 		}
 		if (remain > 0) {
-			this.loadingBar = new LoadingBarLayout(
+			var p = MapValues.logicToScreenPosition(this.lx + lp.x, this.ly + lp.y);
+			this.loadingBar = new LoadingBarLayout(p.x + 75, p.y - 25,
 				AnimalConfig.cow.time, null,
 				"NAME_TAB_COW", 1, remain / 1000);
-			var p = MapValues.logicToScreenPosition(this.lx + lp.x, this.ly + lp.y);
-			this.loadingBar.setPosition(p.x + 75, p.y - 25);
+			//this.loadingBar.setPosition(p.x + 75, p.y - 25);
 			BaseGUILayer.instance.addChild(this.loadingBar);
 			this.loadingBar.setOnClick(function() {
 				AnimalCtrl.instance.boost(this.id, animal.id);
@@ -66,7 +66,7 @@ var CowLodgeSprite = AnimalLodgeSprite.extend({
 			GameShopLayout.instance._gameShop.openAnimalTable();
 			cc.log("Open store to buy animal");
 		}
-		cc.audioEngine.playEffect(res.func_click_button_mp3, false);
+		SoundCtrl.instance.playSoundEffect(res.func_click_button_mp3, false);
 	},
 
 	setLogicPosition: function(lx, ly, notUpdatePriority) {

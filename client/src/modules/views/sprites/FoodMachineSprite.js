@@ -17,7 +17,7 @@ var FoodMachineSprite = AnimationSprite.extend({
     onClick: function() {
         cc.log("feed mill is clicked " + this.id);
         this.play("selected");
-        cc.audioEngine.playEffect(res.tools_food_produce, false);
+        SoundCtrl.instance.playSoundEffect(res.tools_food_produce, false);
     },
 
     onFinishMove: function (lx, ly) {

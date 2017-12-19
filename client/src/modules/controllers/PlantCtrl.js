@@ -73,7 +73,7 @@ var PlantCtrl = cc.Class.extend({
                         this.firstShowNotice = true;
                     }
                 } else {
-                    cc.audioEngine.playEffect(res.farm_harvest_01_mp3, false);
+                    SoundCtrl.instance.playSoundEffect(res.farm_harvest_01_mp3, false);
                     //send pk to server {packet{fieldId}}
                     testnetwork.connector.sendCrop(fieldSelected.getFieldId());
                     //animation
@@ -105,7 +105,7 @@ var PlantCtrl = cc.Class.extend({
                 //
                 if (fieldSelected.plant(seedType)){     //plant and if success
 //
-                    cc.audioEngine.playEffect(res.farm_plant_01_mp3, false);
+                    SoundCtrl.instance.playSoundEffect(res.farm_plant_01_mp3, false);
                     //send pk to server {packet{fieldId, productType}}
 
                     testnetwork.connector.sendPlant(fieldSelected.getFieldId(), fieldSelected.getPlantType());

@@ -92,7 +92,7 @@ var GSDetailLayout = ccui.Layout.extend({
     touchEvent: function (sender, type) {
         switch (type) {
             case ccui.Widget.TOUCH_BEGAN:
-                cc.audioEngine.playEffect(res.func_click_button_mp3, false);
+                SoundCtrl.instance.playSoundEffect(res.func_click_button_mp3, false);
                 sender.runAction(cc.scaleTo(0.1, 0.9));
                 break;
             case ccui.Widget.TOUCH_ENDED:

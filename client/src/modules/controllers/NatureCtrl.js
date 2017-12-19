@@ -51,19 +51,19 @@ var NatureCtrl = cc.Class.extend({
 					case NaturalThingEnum.TREE_BIG:
 					case NaturalThingEnum.PINE_SMALL:
 					case NaturalThingEnum.TREE_SMALL:
-						cc.audioEngine.playEffect(res.obj_small_tree_crack_mp3, false);
+						SoundCtrl.instance.playSoundEffect(res.obj_small_tree_crack_mp3, false);
 						break;
 					case NaturalThingEnum.PINE_BIG:
-						cc.audioEngine.playEffect(res.obj_big_tree_saw_mp3, false);
+						SoundCtrl.instance.playSoundEffect(res.obj_big_tree_saw_mp3, false);
 						break;
 					case NaturalThingEnum.VUNG_NUOC:
-						cc.audioEngine.playEffect(res.obj_clear_pool_mp3, false);
+						SoundCtrl.instance.playSoundEffect(res.obj_clear_pool_mp3, false);
 						break;
 					case NaturalThingEnum.ROCK_BIG:
-						cc.audioEngine.playEffect(res.obj_big_rock_explosion01_mp3, false);
+						SoundCtrl.instance.playSoundEffect(res.obj_big_rock_explosion01_mp3, false);
 						break;
 					case NaturalThingEnum.ROCK_SMALL:
-						cc.audioEngine.playEffect(res.obj_small_rock_explosion_mp3, false);
+						SoundCtrl.instance.playSoundEffect(res.obj_small_rock_explosion_mp3, false);
 						break;
 				}
 

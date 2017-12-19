@@ -35,6 +35,7 @@ var NotifyFullStorage = BaseLayout.extend({
             case ccui.Widget.TOUCH_ENDED:
             case ccui.Widget.TOUCH_CANCELED:
                 // this.removeFromParent(true);
+                SoundCtrl.instance.playSoundEffect(res.func_click_button_mp3, false);
                 BaseGUILayer.instance.removeBlockListener();
                 if (this._storageType === StorageTypes.FOOD_STORAGE) {
                     BaseGUILayer.instance.showStorage(user.getAsset().getFoodStorage());

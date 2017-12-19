@@ -9,7 +9,6 @@ var MainScene = cc.Scene.extend({
 		ConstructedCtrl.instance = new ConstructedCtrl();
 		AnimalCtrl.instance = new AnimalCtrl();
 		NatureCtrl.instance = new NatureCtrl();
-		SoundCtrl.instance = new SoundCtrl();
 		FriendCtrl.instance = new FriendCtrl();
 		
 		// Init layers
@@ -64,7 +63,7 @@ var MainScene = cc.Scene.extend({
 			this.schedule(this.scheduleSoundChickenIdle02, 11);
 		}
 		if (user.asset.countAnimalByType(AnimalType.cow) > 0) {
-			cc.audioEngine.playEffect(res.ani_cow_idle_mp3, false);
+			SoundCtrl.instance.playSoundEffect(res.ani_cow_idle_mp3, false);
 			this.schedule(this.scheduleSoundCowIdle, 15);
 		}
 		// this.addChild(OrderBGLayer.instance);
@@ -92,14 +91,14 @@ var MainScene = cc.Scene.extend({
 	},
 
 	scheduleSoundChickenIdle01: function () {
-		cc.audioEngine.playEffect(res.ani_chicken_idle01_mp3, false);
+		SoundCtrl.instance.playSoundEffect(res.ani_chicken_idle01_mp3, false);
 	},
 
 	scheduleSoundChickenIdle02: function () {
-		cc.audioEngine.playEffect(res.ani_chicken_idle02_mp3, false);
+		SoundCtrl.instance.playSoundEffect(res.ani_chicken_idle02_mp3, false);
 	},
 
 	scheduleSoundCowIdle: function () {
-		cc.audioEngine.playEffect(res.ani_cow_idle_mp3, false);
+		SoundCtrl.instance.playSoundEffect(res.ani_cow_idle_mp3, false);
 	}
 });

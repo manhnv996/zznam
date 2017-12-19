@@ -93,7 +93,7 @@ var OrderSprite = cc.Sprite.extend({
             }.bind(this),
 
             onTouchEnded: function (touch, event) {
-                cc.audioEngine.playEffect(res.func_click_button_mp3, false);
+                SoundCtrl.instance.playSoundEffect(res.func_click_button_mp3, false);
                 var target = event.getCurrentTarget();
 
                 //

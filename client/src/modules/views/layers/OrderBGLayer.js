@@ -78,7 +78,7 @@ var OrderBGLayer = BaseLayout.extend({
 
     cancelOrderEvent: function () {
         //
-        cc.audioEngine.playEffect(res.func_click_button_mp3, false);
+        SoundCtrl.instance.playSoundEffect(res.func_click_button_mp3, false);
         if (this.lastIndexItemClick != null){
             this.stopAllRepeatAction();
 
@@ -90,7 +90,7 @@ var OrderBGLayer = BaseLayout.extend({
         //
         if (this.lastIndexItemClick != null){
             this.stopAllRepeatAction();
-            cc.audioEngine.playEffect(res.func_click_button_mp3, false);
+            SoundCtrl.instance.playSoundEffect(res.func_click_button_mp3, false);
 
             OrderCtrl.instance.onMakeOrder(this.lastIndexItemClick);
         }

@@ -30,11 +30,11 @@ var TablePopupLayer = cc.Layer.extend({
 
     showTimeRemainProgressBar: function (fieldId) {
         var field = user.asset.getFieldById(fieldId);
-        this.loadingBar = new LoadingBarLayout(
+        var p = MapValues.logicToScreenPosition(field.coordinate.x, field.coordinate.y);
+        this.loadingBar = new LoadingBarLayout(p.x, p.y,
             getProductConfigById(field.plantType).timeMin * 60, field.plantedTime,
             getProductConfigById(field.plantType).name, 1);
-        var p = MapValues.logicToScreenPosition(field.coordinate.x, field.coordinate.y);
-        this.loadingBar.setPosition(p.x, p.y);
+        //this.loadingBar.setPosition(p.x, p.y);
         BaseGUILayer.instance.addChild(this.loadingBar);
 
         //

@@ -22,7 +22,7 @@ var BakerySprite = AnimationSprite.extend({
 	onClick: function() {
 		cc.log("bakery is clicked " + this.id);
 		this.play("selected");
-		cc.audioEngine.playEffect(res.tools_bread_oven_mp3, false);
+		SoundCtrl.instance.playSoundEffect(res.tools_bread_oven_mp3, false);
 	},
 
 	onFinishMove: function (lx, ly) {

@@ -37,7 +37,7 @@ var AnimalCtrl = cc.Class.extend({
 				animalSprite.hungry();
 				animal.harvest();
 
-				cc.audioEngine.playEffect(res.ani_harvest_product_mp3, false);
+				SoundCtrl.instance.playSoundEffect(res.ani_harvest_product_mp3, false);
 				var exp = AnimalConfig[animal.type].harvestExp;
 				user.addExp(exp);
 				var p = MapValues.logicToScreenPosition(lodgeSprite.lx + animalSprite.lx, lodgeSprite.ly + animalSprite.ly);
@@ -100,7 +100,7 @@ var AnimalCtrl = cc.Class.extend({
 				MapLayer.instance.addChild(productSprite);
 				productSprite.setLocalZOrder(1000);
 				productSprite.fadeOutProduct();
-				cc.audioEngine.playEffect(res.ani_feed_mp3, false);
+				SoundCtrl.instance.playSoundEffect(res.ani_feed_mp3, false);
 
 				// Send to server
 				testnetwork.connector.sendAnimalFeed(lodge.id, animal.id);

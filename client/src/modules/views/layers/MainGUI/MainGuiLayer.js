@@ -176,7 +176,7 @@ var MainGuiLayer = cc.Layer.extend({
            //
            //this.isShowPopup = true;
        //}
-        cc.audioEngine.playEffect(res.func_click_button_mp3, false);
+        SoundCtrl.instance.playSoundEffect(res.func_click_button_mp3, false);
         BaseGUILayer.instance.showSettingGame();
     },
     onSelectBuyGold:function(sender, type){

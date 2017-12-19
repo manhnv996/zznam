@@ -18,7 +18,7 @@ var CropToolSprite = ProductSprite.extend({
 
     //
     onBeginClick: function (touch) {
-        cc.audioEngine.playEffect(res.func_click_icon_mp3, false);
+        SoundCtrl.instance.playSoundEffect(res.func_click_icon_mp3, false);
         //
         this.runAction(new cc.ScaleTo(0.1, 1.5, 1.5));
         //

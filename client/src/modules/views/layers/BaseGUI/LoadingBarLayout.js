@@ -8,7 +8,7 @@ var LoadingBarLayout = ccui.Layout.extend({
     startTime: 0,
     _isClose: false,
 
-   ctor: function (totalTime, startTime, name, ruby, remainTime) {
+   ctor: function (x, y, totalTime, startTime, name, ruby, remainTime) {
        this._super();
 
        this.totalTime = totalTime * 1000;
@@ -78,6 +78,9 @@ var LoadingBarLayout = ccui.Layout.extend({
        //this.remainTime = this.totalTime - (new Date().getTime() - this.startTime) + 1000;
        //cc.log("Remain time", this.remainTime);
 
+       this.x = x;
+       this.y = y;
+
        this.actionShow();
 
        if (remainTime) {
@@ -86,19 +89,16 @@ var LoadingBarLayout = ccui.Layout.extend({
            //this.setTimeString(this.remainTime);
            this.progress.setPercent((this.totalTime - (this.remainTime * 1000)) / this.totalTime * 100);
            this.schedule(this.updateRemainTime ,0.1);
-           cc.log("this.remainTime progress bar", this.remainTime);
+           //cc.log("this.remainTime progress bar", this.remainTime);
        } else {
            this.remainTime = this.totalTime - (new Date().getTime() - this.startTime) + 1000;
            this.scheduleUpdate();
        }
        //this.scheduleUpdate();
-
-
-
        this.disableLoadingBar();
    },
 
-    setOnClick: function(callback) {
+    setOnClick: function (callback) {
         this.boostBtn.addClickEventListener(callback);
     },
 
@@ -208,10 +208,6 @@ var LoadingBarLayout = ccui.Layout.extend({
         if ((hour === 0 && min === 0 && sec === 0) || this._isClose) {
             this.closeProgressBar();
         }
-        //
-        //if(this._isClose) {
-        //    this.closeProgressBar();
-        //}
     },
 
     setTimeString: function (hour, min, sec) {
@@ -232,11 +228,8 @@ var LoadingBarLayout = ccui.Layout.extend({
         this.unschedule(this.updateRemainTime);
         if (this.parent) {
             this.removeFromParent(true);
-            // cc.log("removeFromParent");
         }
         this._isClose = false;
-        //_loadingBarConstructed.removeFromParent(true);
-        _loadingBarConstructed = null;
         cc.eventManager.removeListener(this.listener);
     },
 
@@ -244,11 +237,15 @@ var LoadingBarLayout = ccui.Layout.extend({
         this.unscheduleUpdate();
         if (this.parent) {
             this.removeFromParent(true);
-            // cc.log("removeFromParent");
         }
         this._isClose = false;
-        //_loadingBarConstructed.removeFromParent(true);
-        _loadingBarConstructed = null;
         cc.eventManager.removeListener(this.listener);
-    }
+    },
+
+    //autoMove: function () {
+    //    var lP = MapValues.screenPositionToLogic(this.x, this.y);
+    //
+    //    var delta = cc.p(0, 0);
+    //
+    //}
 });

@@ -105,25 +105,9 @@ cc.game.onStart = function () {
 		//cc.director.runScene(new MainScene());
         fr.Localization.getInstance().setCurrentLanguage('vi');
 
-        //Preload Sound and Music
-        cc.audioEngine.preloadMusic(res.bg_luamoi_mp3);
-        cc.audioEngine.playMusic(res.bg_luamoi_mp3, true);
-        //for(var k in SoundResource) {
-        //    audioEngine.preloadEffect(SoundResource[k]);
-        //}
-
-        if (cc.sys.localStorage.getItem("music") === "false") {
-            cc.log("cc.sys.localStorage.getItem('music')", cc.audioEngine.isMusicPlaying());
-            //Cant set Volume
-            //audioEngine.setMusicVolume(0);
-            cc.audioEngine.pauseMusic();
-            cc.log("cc.audioEngine.isMusicPlaying()", cc.audioEngine.isMusicPlaying());
-
-        }
-        if (cc.sys.localStorage.getItem("effect") === "false") {
-            //Cant set Volume
-            cc.audioEngine.setEffectsVolume(0);
-        }
+        SoundCtrl.instance = new SoundCtrl();
+        SoundCtrl.instance.loadSetting();
+        SoundCtrl.instance.playMusic(res.bg_luamoi_mp3, true);
 
         PreloaderScene.instance = new PreloaderScene();
         cc.director.runScene(PreloaderScene.instance);
