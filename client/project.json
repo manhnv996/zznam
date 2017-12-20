@@ -153,6 +153,7 @@
         "src/modules/controllers/StorageCtrl.js",
         "src/modules/controllers/MachineController.js",
         "src/modules/controllers/OrderCtrl.js",
+        "src/modules/controllers/MyShopCtrl.js",
         "src/modules/controllers/ConstructedCtrl.js",
         "src/modules/controllers/AnimalCtrl.js",
         "src/modules/controllers/NatureCtrl.js",
