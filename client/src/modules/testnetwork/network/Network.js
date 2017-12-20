@@ -368,7 +368,7 @@ testnetwork.Connector = cc.Class.extend({
         this.gameClient.sendPacket(pk);
     },
 
-    sendLoginRequest: function(username, password) {
+    _sendLoginRequest: function(username, password) {
         cc.log("Send login request", username, password);
         var ATTEMP_TO_TRY = 5;
         var failedToConnect = function() {
@@ -436,60 +436,60 @@ testnetwork.Connector = cc.Class.extend({
         cc.log("ss", sessionKey);
     },
 
-    // _sendLoginRequest: function (username, password) {
-    //     cc.log("sendLoginRequest");
-    //     cc.log("sendingLoginRequest with: " + username + "===" + password);
-    //     //this.getSessionKeyAndUserId();
-    //     var xhr = cc.loader.getXMLHttpRequest();
-    //     var url = "https://myplay.apps.zing.vn/sso3/login.php?username=" + username + "&password=" + password;
-    //     xhr.open("GET", url);
-    //     xhr.setRequestHeader("Content-Type", "text/plain");
-    //     xhr.onreadystatechange = function () {
-    //         if (xhr.readyState == 4 && ( xhr.status >= 200 && xhr.status <= 207 )) {
-    //             var httpStatus = xhr.statusText;
-    //             var response = xhr.responseText;
-    //             var jsonData = JSON.parse(response);
-    //             var error = jsonData["error"];
-    //             var accessToken = jsonData["sessionKey"];
-    //             var userid = jsonData["userid"];
+    sendLoginRequest: function (username, password) {
+        cc.log("sendLoginRequest");
+        cc.log("sendingLoginRequest with: " + username + "===" + password);
+        //this.getSessionKeyAndUserId();
+        var xhr = cc.loader.getXMLHttpRequest();
+        var url = "https://myplay.apps.zing.vn/sso3/login.php?username=" + username + "&password=" + password;
+        xhr.open("GET", url);
+        xhr.setRequestHeader("Content-Type", "text/plain");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && ( xhr.status >= 200 && xhr.status <= 207 )) {
+                var httpStatus = xhr.statusText;
+                var response = xhr.responseText;
+                var jsonData = JSON.parse(response);
+                var error = jsonData["error"];
+                var accessToken = jsonData["sessionKey"];
+                var userid = jsonData["userid"];
 
-    //             if (error == "0") {
-    //                 var url2 = "https://zplogin.g6.zing.vn/?service_name=getSessionKey&gameId=100&distribution=&clientInfo=&social=zingme&accessToken=";
-    //                 cc.log("HTTP Response : error : " + error);
-    //                 var xhr2 = cc.loader.getXMLHttpRequest();
-    //                 xhr2.open("GET", url2 + accessToken);
-    //                 xhr2.setRequestHeader("Content-Type", "text/plain");
-    //                 xhr2.onreadystatechange = function () {
-    //                     cc.log("Networking away");
+                if (error == "0") {
+                    var url2 = "https://zplogin.g6.zing.vn/?service_name=getSessionKey&gameId=100&distribution=&clientInfo=&social=zingme&accessToken=";
+                    cc.log("HTTP Response : error : " + error);
+                    var xhr2 = cc.loader.getXMLHttpRequest();
+                    xhr2.open("GET", url2 + accessToken);
+                    xhr2.setRequestHeader("Content-Type", "text/plain");
+                    xhr2.onreadystatechange = function () {
+                        cc.log("Networking away");
 
-    //                     if (xhr2.readyState == 4 && ( xhr2.status >= 200 && xhr2.status <= 207 )) {
-    //                         var httpStatus = xhr2.statusText;
-    //                         cc.log(httpStatus);
+                        if (xhr2.readyState == 4 && ( xhr2.status >= 200 && xhr2.status <= 207 )) {
+                            var httpStatus = xhr2.statusText;
+                            cc.log(httpStatus);
 
-    //                         var response = xhr2.responseText;
-    //                         //cc.log(response);
+                            var response = xhr2.responseText;
+                            //cc.log(response);
 
-    //                         //parse to json object;
-    //                         var jsonData = JSON.parse(response);
-    //                         var error2 = jsonData["error"];
-    //                         var sessionKey2 = jsonData["sessionKey"];
-    //                         var openId = jsonData["openId"];
-    //                         var expired_time = jsonData["expired_time"];
-    //                         cc.log("HTTP Response : error2 : " + error2);
-    //                         cc.log("HTTP Response : sessionKey2 : " + sessionKey2);
-    //                         //cc.log("HTTP Response : openId : " + openId);
-    //                         //cc.log("HTTP Response : expired_time : " + expired_time);
-    //                         var pk = this.gameClient.getOutPacket(CmdSendLogin);
-    //                         pk.pack(sessionKey2, userid);
-    //                         this.gameClient.sendPacket(pk);
-    //                     }
-    //                 }.bind(this, userid);
-    //                 xhr2.send();
-    //             }
-    //         }
-    //     }.bind(this);
-    //     xhr.send();
-    // },
+                            //parse to json object;
+                            var jsonData = JSON.parse(response);
+                            var error2 = jsonData["error"];
+                            var sessionKey2 = jsonData["sessionKey"];
+                            var openId = jsonData["openId"];
+                            var expired_time = jsonData["expired_time"];
+                            cc.log("HTTP Response : error2 : " + error2);
+                            cc.log("HTTP Response : sessionKey2 : " + sessionKey2);
+                            //cc.log("HTTP Response : openId : " + openId);
+                            //cc.log("HTTP Response : expired_time : " + expired_time);
+                            var pk = this.gameClient.getOutPacket(CmdSendLogin);
+                            pk.pack(sessionKey2, userid);
+                            this.gameClient.sendPacket(pk);
+                        }
+                    }.bind(this, userid);
+                    xhr2.send();
+                }
+            }
+        }.bind(this);
+        xhr.send();
+    },
     
     sendMove:function(direction){
         cc.log("SendMove:" + direction);
