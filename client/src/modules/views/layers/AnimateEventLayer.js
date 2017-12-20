@@ -128,5 +128,51 @@ var AnimateEventLayer = cc.Layer.extend({
 	removeIconAndText: function() {
 		this.storage.removeFromParent();
 		this.text.removeFromParent();
+	},
+
+	upgradeStorageSuccess: function (currentCapacity, nextCapacity) {
+		this.currentCapacity = currentCapacity;
+		this.nextCapacity = nextCapacity;
+
+		this.upgradeSuccess = new ccui.Layout();
+		this.upgradeSuccess.setPosition(cc.p(cc.winSize.width / 2, cc.winSize.height / 2));
+		this.upgradeSuccess.setAnchorPoint(cc.p(0.5, 0.5));
+		this.upgradeSuccess.setContentSize(cc.size(cc.winSize.width, cc.winSize.height / 5 * 3));
+
+		this.bgUpgradeStorage = new cc.Sprite(res.circle_png);
+		this.bgUpgradeStorage.x = this.upgradeSuccess.width / 2;
+		this.bgUpgradeStorage.y = this.upgradeSuccess.height / 2;
+		var scale = this.upgradeSuccess.height / this.bgUpgradeStorage.getContentSize().height;
+		this.bgUpgradeStorage.setScale(scale);
+		this.bgUpgradeStorage.opacity = 200;
+		//this.bgUpgradeStorage.setColor(cc.color(255, 0, 0));
+		this.upgradeSuccess.addChild(this.bgUpgradeStorage);
+
+		var label = new cc.LabelBMFont(fr.Localization.text("text_upgrade_success"), res.FONT_OUTLINE_50);
+		label.x = this.upgradeSuccess.width / 2;
+		label.y = this.upgradeSuccess.height;
+		this.upgradeSuccess.addChild(label);
+
+		this.capacityUp = new cc.LabelBMFont(currentCapacity.toString(), res.FONT_OUTLINE_80);
+		this.capacityUp.x = this.upgradeSuccess.width / 2;
+		this.capacityUp.y = this.upgradeSuccess.height / 2;
+		this.upgradeSuccess.addChild(this.capacityUp);
+		this.addChild(this.upgradeSuccess);
+
+		var action = new cc.RepeatForever(new cc.Sequence(cc.scaleTo(0.2, scale + 2), cc.delayTime(0.1), cc.scaleTo(0.2, scale)));
+		this.bgUpgradeStorage.runAction(action);
+
+		this.schedule(this.upStorageCapacity, 0.05);
+	},
+
+	upStorageCapacity: function (dt) {
+		this.currentCapacity++;
+		if (this.currentCapacity <= this.nextCapacity) {
+			this.capacityUp.setString(this.currentCapacity.toString());
+		} else if (this.currentCapacity === this.nextCapacity + 35){
+			this.unschedule(this.upStorageCapacity);
+			this.bgUpgradeStorage.stopAllActions();
+			this.upgradeSuccess.removeFromParent(true);
+		}
 	}
 });
