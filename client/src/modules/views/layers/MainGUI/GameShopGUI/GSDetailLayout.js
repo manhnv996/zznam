@@ -144,7 +144,7 @@ var GSDetailLayout = ccui.Layout.extend({
         this._lodgeTable._tableView.reloadData();
         this._animalTable._tableView.reloadData();
         this._machineTable._tableView.reloadData();
-        this._treeTable._tableView.reloadData();
+        // this._treeTable._tableView.reloadData();
 
     }
 });

@@ -38,7 +38,7 @@ var PopupLayer = cc.Layer.extend({
             });
             var parsePlantTime = field.getPlantedTime().getTime();
             var parseCropTime = field.getCropTime().getTime();
-            var currTime = new Date().getTime();
+            var currTime = getTime();
 
             var duration = parseCropTime - parsePlantTime;
             var curr = currTime - parsePlantTime;
@@ -54,7 +54,7 @@ var PopupLayer = cc.Layer.extend({
 
 
             //
-            var remain = new Date();
+            var remain = getDate();
             remain.setTime(duration - curr);
             var timeRemainShow = "";
             if (duration - curr > 60 * 60 * 1000){

@@ -115,7 +115,7 @@ var CowSprite = AnimalSprite.extend({
 	},
 
 	feed: function() {
-		cc.log("Feed");
+		// cc.log("Feed");
 		this.doAction();
 		this.schedule(this.doAction, 4.0);
 	},

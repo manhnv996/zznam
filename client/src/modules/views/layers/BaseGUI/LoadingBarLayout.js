@@ -16,7 +16,7 @@ var LoadingBarLayout = ccui.Layout.extend({
        //this._isClose = false;
 
        //this.totalTime = 9000 * 1000;
-       //this.startTime = new Date().getTime() - 5000 * 1000;
+       //this.startTime = getTime() - 5000 * 1000;
 
        this.progressBar = new cc.Sprite(res.progressbar);
        this.progressBar.x = 0;
@@ -75,7 +75,7 @@ var LoadingBarLayout = ccui.Layout.extend({
        //cc.log("total time", this.totalTime);
        //cc.log("start time", this.startTime);
        // cc.log("Remain time", this.remainTime);
-       //this.remainTime = this.totalTime - (new Date().getTime() - this.startTime) + 1000;
+       //this.remainTime = this.totalTime - (getTime() - this.startTime) + 1000;
        //cc.log("Remain time", this.remainTime);
 
        this.actionShow();
@@ -88,7 +88,7 @@ var LoadingBarLayout = ccui.Layout.extend({
            this.schedule(this.updateRemainTime ,0.1);
            cc.log("this.remainTime progress bar", this.remainTime);
        } else {
-           this.remainTime = this.totalTime - (new Date().getTime() - this.startTime) + 1000;
+           this.remainTime = this.totalTime - (getTime() - this.startTime) + 1000;
            this.scheduleUpdate();
        }
        //this.scheduleUpdate();
@@ -138,7 +138,7 @@ var LoadingBarLayout = ccui.Layout.extend({
         //cc.log("remainTime " + dt);
         this.remainTime -= dt * 1000;
 
-        //var curTime = new Date().getTime();
+        //var curTime = getTime();
         //var cur = curTime - this.startTime;
         //
         //cc.log("curTime " + curTime + " " + cur);
@@ -147,7 +147,7 @@ var LoadingBarLayout = ccui.Layout.extend({
         //this.progress.setPercent(50);
 
 
-        //var remain = new Date();
+        //var remain = getDate();
         //remain.setTime(this.totalTime - cur);
         //var timeRemainShow = "";
         var time = this.remainTime / 1000;

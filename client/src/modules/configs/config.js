@@ -255,7 +255,7 @@ function updateGameInfo(gameInfoJson){
                 field.setPlantType(plantType);
                 //
                 var intTime = gameInfo.asset.fieldList[i].plantedTime;
-                var plantedTime = new Date();
+                var plantedTime = getDate();
                 plantedTime.setTime(intTime);
 
                 field.setPlantedTime(plantedTime);

@@ -50,7 +50,7 @@ var Order = cc.Class.extend({
         }
 
         var parseTime = this.waittingTime.getTime();
-        var finishTime = new Date();
+        var finishTime = getDate();
         finishTime.setTime(parseTime + this.getRemainTime(user.getLevel()) * 60 * 1000);
         //finishTime.setTime(parseTime + 6000);     //HERE IS TEST
 
@@ -155,7 +155,7 @@ var Order = cc.Class.extend({
             this.orderPrice = 0;
             this.orderExp = 0;
 
-            this.waittingTime = new Date();
+            this.waittingTime = getDate();
 
             //
             return true;

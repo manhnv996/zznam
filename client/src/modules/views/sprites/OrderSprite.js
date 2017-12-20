@@ -252,7 +252,7 @@ var OrderSprite = cc.Sprite.extend({
 
         var parseWaittingTime = this.order.waittingTime.getTime();
         var parseFinishTime = this.order.getFinishWaittingTime().getTime();
-        var currTime = new Date().getTime();
+        var currTime = getTime();
 
         var duration = parseFinishTime - parseWaittingTime;
         var curr = currTime - parseWaittingTime;
@@ -265,7 +265,7 @@ var OrderSprite = cc.Sprite.extend({
         }
 
         //
-        var remain = new Date();
+        var remain = getDate();
         remain.setTime(duration - curr);
         var timeRemainShow = "";
         if (duration - curr > 60 * 60 * 1000){

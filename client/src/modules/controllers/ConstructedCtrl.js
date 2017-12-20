@@ -9,7 +9,7 @@ var ConstructedCtrl = cc.Class.extend({
     //    var machineModel = user.asset.getMachineById(id);
     //    var machineConfig = getMachineConfigByType(machineModel.type);
     //    //var startTime = machineModel.startBuildTime;
-    //    //var curTime = new Date().getTime();
+    //    //var curTime = getTime();
     //    var buildTime = machineConfig.time - machineModel.remainBuildTime;
     //    return buildTime;
     //},

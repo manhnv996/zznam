@@ -62,7 +62,7 @@ var AnimalSprite = cc.Sprite.extend({
 	setOnHarvestTime: function(time) {},
 	_setOnHarvestTime: function(time, totalTime) {
 		cc.log("Set On harvest time", time);
-		var current = new Date().getTime();
+		var current = getTime();
 		var deltaTime = current - time;
 		this.remainTime = totalTime - deltaTime;
 		if (this.entered) {

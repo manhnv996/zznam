@@ -320,7 +320,7 @@ var NPCSprite = AnimationSprite.extend({
 
     updateOrderNPCWaittingTime: function () {
         if (this.orderNPC != null){
-            var parseCurrTime = new Date().getTime();
+            var parseCurrTime = getTime();
             var finishWaittingTime = this.orderNPC.getFinishWaittingTime();
             if (finishWaittingTime != null){
                 if (parseCurrTime > finishWaittingTime.getTime()){

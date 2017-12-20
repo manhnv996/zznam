@@ -254,7 +254,7 @@ var MachineTable = cc.Layer.extend({
                             // Success
                             var machineConfig = getMachineConfigByType(this.typeObject);
                             var machineModel = new Machine(0, this.typeObject, machineConfig.slot, 0, null, false,
-                                false, new Date().getTime(), machineConfig.time, new Coordinate(endPl.x, endPl.y));
+                                false, getTime(), machineConfig.time, new Coordinate(endPl.x, endPl.y));
                             user.getAsset().addMachine(machineModel);
 
                             //Sprite

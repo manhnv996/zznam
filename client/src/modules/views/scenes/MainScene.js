@@ -82,7 +82,7 @@ var MainScene = cc.Scene.extend({
 
 		//BaseGUILayer.instance.loadingBar();
 
-        //var model = new Machine(0, "bakery_machine", 3, 0, null, false, new Date().getTime(), new Coordinate(20, 20));
+        //var model = new Machine(0, "bakery_machine", 3, 0, null, false, getTime(), new Coordinate(20, 20));
         //user.asset.addMachine(model);
         ////cc.log("model " + model.coordinate.x + " " + model.coordinate.y + " id " + model.id + " slot " + model.slot);
         ////var machine = user.asset.getMachineById(model.id);
