@@ -116,4 +116,7 @@ public class CmdDefine {
     // Friend
     public static final short FRIEND_GET_LIST = 14001;
     public static final short FRIEND_GET_INFO = 14002;
+    
+    // Time
+    public static final short GET_SERVER_TIME = 20001;
 }

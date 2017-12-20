@@ -22,15 +22,26 @@ testnetwork.Connector = cc.Class.extend({
                 //this.sendLoginRequest();
                 cc.log(gv.username +"====" + gv.password);
                 this.sendLoginRequest(gv.username, gv.password);
-
                 break;
+            
             case gv.CMD.USER_LOGIN:
                 // this.sendGetUserInfo(); // Old. Do not use
-                this.sendGetUser();
-
+                this.sendGetServerTime();
                 // MainScene.instance = new MainScene();
                 // cc.director.runScene(MainScene.instance);
 
+                break;
+            // Time
+            case gv.CMD.GET_SERVER_TIME:
+                cc.log("GET_SERVER_TIME");
+                var serverStartTime = packet.time;
+                var clientStartTime = new Date().getTime();
+                gv.deltaTime = clientStartTime - serverStartTime;
+                cc.log("[TIME] Client time", clientStartTime);
+                cc.log("[TIME] Server time", serverStartTime);
+                cc.log("[TIME] Delta", gv.deltaTime);
+                cc.log("[TIME] Test, current time:", getTime());
+                this.sendGetUser();
                 break;
             case gv.CMD.USER_INFO:
                 //fr.getCurrentScreen().onUserInfo(packet.name, packet.x, packet.y);
@@ -711,6 +722,13 @@ testnetwork.Connector = cc.Class.extend({
         cc.log("Send add money");
         var pk = this.gameClient.getOutPacket(CmdSendAddMoney);
         pk.pack(number, type);
+        this.gameClient.sendPacket(pk);
+    },
+
+    sendGetServerTime: function() {
+        cc.log("Send get server time");
+        var pk = this.gameClient.getOutPacket(CmdSendGetServerTime);
+        pk.pack();
         this.gameClient.sendPacket(pk);
     }
 });

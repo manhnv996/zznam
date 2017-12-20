@@ -80,8 +80,8 @@ var AnimalSprite = cc.Sprite.extend({
         // cc.log("Set remain time", this.remainTime);
         if (this.entered) {
             if (remainTime > 0) {
-                cc.log("[RemainTime]", remainTime);
-                this.schedule(this.harvest, remainTime / 1000);
+                // cc.log("[RemainTime]", remainTime);
+                this.scheduleOnce(this.harvest, remainTime / 1000);
             } else {
                 this.harvest();
             }

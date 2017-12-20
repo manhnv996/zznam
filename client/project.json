@@ -56,6 +56,7 @@
         "src/modules/testnetwork/network/Packet.js",
         "src/modules/testnetwork/ScreenNetwork.js",
 
+        "src/modules/utils/getTime.js",
         "src/modules/utils/rayCasting.js",
         "src/modules/utils/inertiaEngine.js",
         "src/modules/utils/caculateDistance.js",

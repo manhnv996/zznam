@@ -91,7 +91,7 @@ public class UserHandler extends BaseClientRequestHandler {
                 getUserInfo(user);
                 break;
             case CmdDefine.GET_USER: // New get user
-                System.out.println("[INFO] User request information " + user.getId());
+                //System.out.println("[INFO] User request information " + user.getId());
                 returnUser(user);
                 break;
             case CmdDefine.ADD_MONEY:

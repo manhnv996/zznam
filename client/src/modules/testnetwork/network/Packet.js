@@ -93,6 +93,9 @@ testnetwork.packetMap = {};
 gv.CMD.FRIEND_GET_LIST = 14001;
 gv.CMD.FRIEND_GET_INFO = 14002;
 
+// Time
+gv.CMD.GET_SERVER_TIME = 20001;
+
 /** Outpacket */
 
 //Handshake
@@ -758,6 +761,17 @@ CmdSendAddMoney = fr.OutPacket.extend({
     }
 });
 
+CmdSendGetServerTime = fr.OutPacket.extend({
+    ctor: function() {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.GET_SERVER_TIME);
+    },
+    pack: function() {
+        this.packHeader();
+        this.updateSize();
+    }
+});
 
 /**
  * InPacket
@@ -1520,3 +1534,12 @@ testnetwork.packetMap[gv.CMD.FRIEND_GET_LIST] = fr.InPacket.extend({
 
 testnetwork.packetMap[gv.CMD.FRIEND_GET_INFO] 
         = testnetwork.packetMap[gv.CMD.GET_USER]; // Same
+
+testnetwork.packetMap[gv.CMD.GET_SERVER_TIME] = fr.InPacket.extend({
+    ctor: function() {
+        this._super();
+    },
+    readData: function() {
+        this.time = parseInt(this.getLong());
+    }
+});
