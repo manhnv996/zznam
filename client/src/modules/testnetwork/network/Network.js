@@ -27,6 +27,7 @@ testnetwork.Connector = cc.Class.extend({
             case gv.CMD.USER_LOGIN:
                 cc.log(packet);
                 // this.sendGetUserInfo(); // Old. Do not use
+                cc.log("Get server time");
                 this.sendGetServerTime();
                 // MainScene.instance = new MainScene();
                 // cc.director.runScene(MainScene.instance);

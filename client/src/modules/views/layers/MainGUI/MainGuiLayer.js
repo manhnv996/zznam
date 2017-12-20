@@ -83,11 +83,11 @@ var MainGuiLayer = cc.Layer.extend({
 
 
         // 8. create a search button and set it's position below btnBuyCoin
-        this.btnSearch = new ccui.Button(res.STAR_1_PNG);
-        var btnSearchSize = this.btnSearch.getSize();
-        //cc.log("btnSearch " + btnSearchSize.width + "  " + btnSearchSize.height);
-        this.btnSearch.setPosition(size.width - btnSearchSize.width/2, size.height - 5*btnBuyRubySize.height/2);
-        this.addChild(this.btnSearch);
+        // this.btnSearch = new ccui.Button(res.STAR_1_PNG);
+        // var btnSearchSize = this.btnSearch.getSize();
+        // //cc.log("btnSearch " + btnSearchSize.width + "  " + btnSearchSize.height);
+        // this.btnSearch.setPosition(size.width - btnSearchSize.width/2, size.height - 5*btnBuyRubySize.height/2);
+        // this.addChild(this.btnSearch);
 
 
         var imageExp_111 = new ccui.ImageView(res.EXP_111_PNG);
