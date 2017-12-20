@@ -222,12 +222,12 @@ var NPCSprite = AnimationSprite.extend({
                 cc.delayTime(3),
                 cc.callFunc(function() {
                     this.play("1");
-                    this.schedule(this.updateWalkingOut, 0.05);
+                    this.schedule(this.updateWalkingOut);
                 }.bind(this))
             ));
         } else {
             this.play("1");
-            this.schedule(this.updateWalkingOut, 0.05);
+            this.schedule(this.updateWalkingOut);
         }
         this.isStatus = OrderStatusTypes.WAITTING;
     },
@@ -235,7 +235,7 @@ var NPCSprite = AnimationSprite.extend({
         this.unscheduleUpdate();
         this.unschedule(this.doAction);
         this.play("1");
-        this.schedule(this.updateWalkingBack, 0.05);
+        this.schedule(this.updateWalkingBack);
         this.isStatus = OrderStatusTypes.WAITTING;
 
         this.setVisible(true);
