@@ -15,7 +15,7 @@ var MapBlockSprite = cc.Sprite.extend({
 
     // Last touch location
     lstMouse: null,
-    eventOption: { lockMove: false },
+    eventOption: null,
 
     // On moving sprite mode. Logic position
     originalPosition: null,
@@ -26,11 +26,12 @@ var MapBlockSprite = cc.Sprite.extend({
         this.blockSizeX = blockSizeX;
         this.blockSizeY = blockSizeY;
         this.mapAliasType = mapAliasType;
+        this.eventOption = { lockMove: false };
         this.setLogicPosition(x, y);
     },
 
     // Override there methods in inherited class
-    onClick: function() {},
+    onClick: function(lx, ly) {},
     onBeginClick: function() {},
     onEndClick: function() {},
     onFinishMove: function(lx, ly) {},
@@ -38,7 +39,9 @@ var MapBlockSprite = cc.Sprite.extend({
     // Register touch event, call this in constructor
     registerTouchEvents: function(option) {
         this.eventOption = option || this.eventOption;
-
+        if (!this.eventOption.force && !home) {
+            return;
+        }
         this.caculateBoundingPoints();
         this.touchListener = cc.EventListener.create({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -60,9 +63,11 @@ var MapBlockSprite = cc.Sprite.extend({
         this.autoMoveHor = 0;
 
         // Disable all popup
-        PopupLayer.instance.disableAllPopup();
+        //PopupLayer.instance.disableAllPopup();
+        TablePopupLayer.instance.removeUpdateDisableListener();
 
-        var location = MapValues.screenPositionToMapPosition(touchLocation.x, touchLocation.y);
+        var location = MapValues.screenPositionToMapPosition(
+            touchLocation.x, touchLocation.y);
         // Check if is click inside sprite
         if (rayCasting(location, this.boundingPoints)) {
             // Inside sprite
@@ -75,8 +80,8 @@ var MapBlockSprite = cc.Sprite.extend({
                 return true;
             }
             // Stop Map inertia and capture velocity
-            MapLayer.instance.uninertia();
-            InertiaEngine.instance.init(touchLocation);
+            // MapLayer.instance.uninertia();
+            // InertiaEngine.instance.init(touchLocation);
             if (!this.eventOption.lockMove) {
                 // When sprite is normal
                 // cc.log("Start schedule outOfHoldTimeCallback");
@@ -90,6 +95,8 @@ var MapBlockSprite = cc.Sprite.extend({
             if (this.moveSpriteMode) {
                 // On click outside
                 this.moveSpriteMode = false;
+                MapLayer.instance.lockMap(false);
+                this.unschedule(this.movingUpdate); // unschedule if represent
                 // Finish move
                 var newLocation = this.lstLocation;
                 var originalPosition = this.originalPosition;
@@ -111,20 +118,20 @@ var MapBlockSprite = cc.Sprite.extend({
                 MapCtrl.instance.addSpriteAlias(this);
                 // Reupdate event priority and zOrder
                 this.updateEventPriority();
-                // this.setLocalZOrder(Math.max(this.lx + this.blockSizeX, this.ly + this.blockSizeY));
                 // Disable tint action and set default color
                 this.stopAllActions();
+                this.runningTint = false;
                 this.setColor(cc.color(255, 255, 255));
             }
+            return false;
         }
-        return false;
     },
 
     onTouchMoved: function(touch) {
         var location = touch.getLocation();
         var lstMouse = this.lstMouse;
         // Add new move position to InertialEngine
-        InertiaEngine.instance.setPoint(location);
+        // InertiaEngine.instance.setPoint(location);
 
         // Move map and disable onclick
         if (!this.touchMoved) {
@@ -149,6 +156,7 @@ var MapBlockSprite = cc.Sprite.extend({
                 PopupLayer.instance.removeArrow();
             }
         }
+
         this.lstMouse = location;
 
         if (this.moveSpriteMode) {
@@ -173,8 +181,8 @@ var MapBlockSprite = cc.Sprite.extend({
             }
         } else {
             // Move map
-            var delta = touch.getDelta();
-            MapLayer.instance.move(delta.x, delta.y);
+            // var delta = touch.getDelta();
+            // MapLayer.instance.move(delta.x, delta.y);
         }
     },
 
@@ -196,17 +204,25 @@ var MapBlockSprite = cc.Sprite.extend({
                 // Restore to original position
                 MapLayer.instance.moveToLogic(this.originalPosition, 2);
                 // Show notification
-                BaseGUILayer.instance.notifyCantPut(touch.getLocation());
+                BaseGUILayer.instance.notifyCantPut(fr.Localization.text("Text_can_not_place"), touch.getLocation());
+                this.runningTint = true;
+                this.setColor(cc.color(255, 255, 255));
+                var action = new cc.Sequence([
+                    new cc.TintBy(0.8, -100, -100, -100),
+                    new cc.TintBy(0.8, 100, 100, 100)]);
+                this.runAction(new cc.RepeatForever(action));
             }
             // cc.log('Unschedule update');
             this.unschedule(this.movingUpdate);
         } else {
             // Push last location and get velocity
-            var velocity = InertiaEngine.instance.stopAndGetVelocity(touch.getLocation());
-            MapLayer.instance.inertia(velocity);
+            // var velocity = InertiaEngine.instance.stopAndGetVelocity(touch.getLocation());
+            // MapLayer.instance.inertia(velocity);
         }
         if (!this.touchMoved && !this.moveSpriteMode) {
-            this.onClick();
+            // caculate logic position and pass to onClick
+            var lp = MapValues.screenPositionToLogic(this.lstMouse.x, this.lstMouse.y);
+            this.onClick(lp.x, lp.y);
         }
     },
 
@@ -217,23 +233,25 @@ var MapBlockSprite = cc.Sprite.extend({
         // disable onClick event after long click
         this.touchMoved = true;
         this.arrowShowed = true;
-        PopupLayer.instance.showArrow(this.lstMouse.x, this.lstMouse.y,
+        PopupLayer.instance.showArrow(this.lstMouse.x, this.lstMouse.y + 50,
             this.startMovingSpriteMode.bind(this));
     },
 
     startMovingSpriteMode: function() {
         InertiaEngine.instance.stopAndGetVelocity();
-
+        MapLayer.instance.lockMap(true);
         this.moveSpriteMode = true;
         // this.lstMouse = touchLocation;
         // Enable highest priority for this listener and zOrder
-        this.updateEventPriority(1);
-        this.setLocalZOrder(10000);
+        this.updateEventPriority(40);
+        this.setLocalZOrder(1000);
+
         // Enable Tint action
         var action = new cc.Sequence([
             new cc.TintBy(0.8, -100, -100, -100),
             new cc.TintBy(0.8, 100, 100, 100)]);
         this.runAction(new cc.RepeatForever(action));
+        this.runningTint = true;
 
         // Save original position
         this.originalPosition = this.getLogicPosition();
@@ -354,7 +372,7 @@ var MapBlockSprite = cc.Sprite.extend({
             MapLayer.instance.addChild(dot);
         }
 
-        var dot6 = new cc.Sprite(res.DOT2_PNG);
+        var dot6 = new cc.Sprite(res.DOT_PNG);
         dot6.setPosition(MapValues.logicToPosition(this.lx, this.ly));
         dot6.setLocalZOrder(1000);
         MapLayer.instance.addChild(dot6);
@@ -371,7 +389,25 @@ var MapBlockSprite = cc.Sprite.extend({
             // cc.log("move to", logic, MapCtrl.instance.checkValidBlock(logic.x, logic.y, this.blockSizeX, this.blockSizeY, this.mapAliasType));
             this.lstLocation = logic;
             this.setLogicPosition(logic, true);
+            if (MapCtrl.instance.checkValidBlock(logic.x, logic.y, this.blockSizeX, this.blockSizeY)) {
+                if (!this.runningTint) {
+                    this.runningTint = true;
+                    this.setColor(cc.color(255, 255, 255));
+                    var action = new cc.Sequence([
+                        new cc.TintBy(0.8, -100, -100, -100),
+                        new cc.TintBy(0.8, 100, 100, 100)]);
+                    this.runAction(new cc.RepeatForever(action));
+                }
+            } else {
+                if (this.runningTint) {
+                    this.stopAllActions();
+                    this.runningTint = false;
+                    this.setColor(cc.color(255, 100, 100));
+                }
+            }
+
         }
+        //MapCtrl.instance.changeColor(this);
         if (this.autoMoveHor || this.autoMoveVer) {
             var dx = this.autoMoveHor * dt * 250;
             var dy = this.autoMoveVer * dt * 250;
@@ -381,15 +417,29 @@ var MapBlockSprite = cc.Sprite.extend({
 
     removeFromParent: function(flag) {
         this._super(flag);
-        cc.log("Remove", this.touchListener);
-        cc.eventManager.removeListener(this.touchListener);
+        //cc.log("Remove", this.touchListener);
+        if (this.touchListener) {
+            cc.eventManager.removeListener(this.touchListener);
+            this.touchListener = null;
+        }
     },
 
-    setLogicPosition: function(lx, ly, notUpdatePriority) {
+    removeTouchEvents: function() {
+        if (this.touchListener) {
+            cc.eventManager.removeListener(this.touchListener);
+            this.touchListener = null;
+        }
+    },
+
+    // updatePriorityMode:
+    // 1: ZOrder only
+    // undefined: all
+    // true: not update
+    setLogicPosition: function(lx, ly, updatePriorityMode) {
         lx = lx || 0;
         ly = ly || 0;
         if (typeof lx === 'object') {
-            notUpdatePriority = ly;
+            updatePriorityMode = ly;
             ly = lx.y;
             lx = lx.x;
         }
@@ -401,11 +451,15 @@ var MapBlockSprite = cc.Sprite.extend({
             // Recaculate. if not exists boundingPoints, do not caculate
             this.caculateBoundingPoints();
         }
-        if (!notUpdatePriority) {
+        if (!updatePriorityMode) {
             this.updateEventPriority();
             this.updateZOrder();
             // Math.max(this.lx + this.blockSizeX, this.ly + this.blockSizeY));
             // this.setLocalZOrder(this.lx + this.blockSizeX +this.ly + this.blockSizeY);
+        }
+
+        if (updatePriorityMode === 1) {
+            this.updateZOrder();
         }
 
         if (this.__isAnimation) {

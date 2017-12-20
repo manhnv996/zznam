@@ -194,7 +194,7 @@ var UpgradeSiloLayer = cc.Layer.extend({
             numberItem = user.getAsset().getWarehouse().getItem(ProductTypes.TOOL_WOODPANEL).quantity;
         }
 
-        label = new cc.LabelBMFont(numberItem + "/" + numberNeed, res.FONT_OUTLINE_20);
+        label = new cc.LabelBMFont(numberItem.toString() + "/" + numberNeed.toString(), res.FONT_OUTLINE_20);
         label.tag = 23;
         label.x = layout.width / 2;
         //label.y = sprite.y - sprite.height / 2 - label.height / 2;
@@ -268,24 +268,30 @@ var UpgradeSiloLayer = cc.Layer.extend({
         //buttonV.setTouchEnabled(false);
         layoutT.addChild(this._buttonV);
 
-        //cc.log("this._check_nail && this._check_screw && this._check_woodpanel " + (this._check_nail && this._check_screw && this._check_woodpanel));
         this.checkButtonV();
     },
 
     checkButtonV: function () {
         if (this._check_nail && this._check_screw && this._check_woodpanel) {
+            this._buttonV.setTouchEnabled(true);
             this._buttonV.addTouchEventListener(this.touchUpgradeSilo, this);
+        } else {
+            this._buttonV.setTouchEnabled(false);
         }
     },
 
     touchBuyTool: function (sender, type) {
         switch (type) {
+            case ccui.Widget.TOUCH_BEGAN:
+                audioEngine.playEffect(res.func_click_button_mp3, false);
+                break;
             case ccui.Widget.TOUCH_ENDED:
             case ccui.Widget.TOUCH_CANCELED:
                 cc.log("Touch Buy Item");
                 var ruby = parseInt(sender.parent.getChildByTag(sender.tag + 10).getString());
-                if (ruby > user.getRuby()) {
-                    //Notify
+                if (ruby > user.ruby) {
+                    BaseGUILayer.instance.removeBlockListener();
+                    BaseGUILayer.instance.notifyNotEnoughRuby((ruby - user.ruby), true);
                 } else {
                     user.reduceRuby(ruby);
                     sender.parent.setVisible(false);
@@ -333,19 +339,12 @@ var UpgradeSiloLayer = cc.Layer.extend({
     touchUpgradeSilo: function (sender, type) {
         cc.log("touchUpgradeSilo");
         switch (type) {
+            case ccui.Widget.TOUCH_BEGAN:
+                audioEngine.playEffect(res.func_click_button_mp3, false);
+                break;
             case ccui.Widget.TOUCH_ENDED:
             case ccui.Widget.TOUCH_CANCELED:
-                //upgrade storage ---> sendserver
-                if (user.getAsset().getFoodStorage().upgrade(ProductTypes.TOOL_NAIL, res.upgradeSilo[this._level + 1].tool_nail,
-                        ProductTypes.TOOL_SCREW, res.upgradeSilo[this._level + 1].tool_screw,
-                        ProductTypes.TOOL_WOODPANEL, res.upgradeSilo[this._level + 1].tool_woodPanel)) {
-                    user.getAsset().getFoodStorage().setCapacity(res.upgradeSilo[this._level + 1].capacity);
-                    //StorageLayer.instance._layoutStorage.removeFromParent(true);
-
-                    BaseGUILayer.instance.removeBlockListener();
-                    //send server
-                    testnetwork.connector.sendUpgradeStorage(StorageTypes.FOOD_STORAGE, (this._level + 1));
-                }
+                StorageCtrl.instance.upgrageSilo(this._level);
                 break;
         }
     },
@@ -353,6 +352,7 @@ var UpgradeSiloLayer = cc.Layer.extend({
     touchBackBtn: function (sender, type){
         switch (type) {
             case ccui.Widget.TOUCH_BEGAN:
+                audioEngine.playEffect(res.func_click_button_mp3, false);
                 var scaleByBtn = cc.scaleTo(0.1, 0.9);
                 sender.runAction(scaleByBtn);
                 break;

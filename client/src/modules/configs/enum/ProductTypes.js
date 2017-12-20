@@ -7,7 +7,7 @@ var ProductTypes = {
 
     //
     GOOD_EGG: "good_egg",
-    GOOF_MILK: "good_milk",
+    GOOD_MILK: "good_milk",
 
     PRODUCT_BREAD: "product_bread",
     PRODUCT_CORN_BREAD: "product_corn_bread",
@@ -41,12 +41,12 @@ var ProductTypes = {
     TOOL_PLANK : "tool_plank",
     TOOL_DUCTTAPE : "tool_ductTape",
 
-    //CUT_AXE: 30,
-    //CUT_SAW: 31,
-    //CUT_DYNOMITE: 32,
-    //CUT_BIG_BYNOMITE: 33,
-    //CUT_SHOVEL: 34
-
+    //
+    TOOL_AXE: "tool_axe",
+    TOOl_SAW: "tool_saw",
+    TOOL_DYNOMITE: "tool_dynamite",
+    TOOL_DEMOLITION_CHARGE: "tool_demolition_charge",
+    TOOL_SHOVEL: "tool_shovel"
 };
 
 function getKeyByValue(value) {

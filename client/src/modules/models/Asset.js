@@ -4,15 +4,16 @@ var Asset = cc.Class.extend({
     foodStorage: Storages,
     warehouse: Storages,
     fieldList: null,
-    machineList: [],
+    machineList: null,
     natureThingList: null,
     myShop: null,
     orderList: [],
     orderNPCList: [],
+    car: null,
     animalLodgeList: null,
     // map: [],
 
-    ctor: function (foodStorage, warehouse, fieldList, animalLodgeList, machineList, natureThingList, myShop, orderList, orderNPCList) {
+    ctor: function (foodStorage, warehouse, fieldList, animalLodgeList, machineList, natureThingList, myShop, orderList, orderNPCList, car) {
         //
         //this._super();
 
@@ -31,6 +32,7 @@ var Asset = cc.Class.extend({
         this.myShop = myShop;
         this.orderList = (orderList == null) ? [] : orderList;
         this.orderNPCList = (orderNPCList == null) ? [] : orderNPCList;
+        this.car = car;
         // this.fieldList = [];
     },
 
@@ -102,18 +104,30 @@ var Asset = cc.Class.extend({
 
     addMachine: function (machine) {
         this.machineList.push(machine);
-        if (machine.id == 0) {
+        if (machine.id === 0) {
             machine.id = this.machineList.length;
         }
     },
 
+    addAnimalLodge: function (animalLodge) {
+        this.animalLodgeList.push(animalLodge);
+        if (animalLodge.id === 0) {
+            animalLodge.id = this.animalLodgeList.length;
+        }
+    },
+
     getLodgeById: function(id) {
-        return this.animalLodgeList.find(function(lodge) {
+        var lodge =  this.animalLodgeList.find(function(lodge) {
             return lodge.id === id;
         });
+        return lodge;
     },
 
 //    //
+    getCar: function () {
+        return this.car;
+    },
+
     getOrderList: function() {
         return this.orderList;
     },
@@ -125,8 +139,8 @@ var Asset = cc.Class.extend({
     addOrder: function(/*level, */order){
 
         // if (this.orderList.size() < OrderUtil.getNumberOfOrderByLevel(level)){
-            this.orderList.add(order);
-            this.orderList.get(this.orderList.size() - 1).setOrderId(this.orderList.size() - 1);
+            this.orderList.push(order);
+            //this.orderList.get(this.orderList.size() - 1).setOrderId(this.orderList.size() - 1);
 
             return true;
         // }
@@ -170,6 +184,14 @@ var Asset = cc.Class.extend({
         }
     },
 
+    takeItemToStorageById: function (productId, quantity) {
+        if (productId.indexOf("crop_") >= 0){
+            return this.getFoodStorage().takeItem(productId, quantity);
+        } else {
+            return this.getWarehouse().takeItem(productId, quantity);
+        }
+    },
+
     //
     getWaittingOrderList: function () {
         var list = [];
@@ -190,14 +212,58 @@ var Asset = cc.Class.extend({
             }
         }
         return list;
+    },
+
+
+    //
+    getLodgeByPosition: function(lx, ly) {
+        for (var i = 0; i < this.animalLodgeList.length; i++) {
+            var lodge = this.animalLodgeList[i];
+            var blx = lodge.coordinate.x;
+            var bly = lodge.coordinate.y;
+            var type = lodge.type;
+            var width = 0;
+            var height = 0;
+            switch (type) {
+                case 'chicken_habitat':
+                    width = MapConfigs.ChickenLodge.size.width;
+                    height = MapConfigs.ChickenLodge.size.height;
+                    break;
+                case 'cow_habitat':
+                    width = MapConfigs.CowLodge.size.width;
+                    height = MapConfigs.CowLodge.size.height;
+                    break;
+                default:
+                    cc.log("Unhandled", type);
+                    return null;
+            }
+            if (MapValues.positionInsideBlock(lx, ly, blx, bly, width, height)) {
+                return lodge;
+            }
+        }
+        return null;
+    },
+
+
+    getNatureThingById: function(natureId) {
+        return this.natureThingList.find(function(nature) {
+            return nature.id === natureId;
+        });
+    },
+
+    removeNatureThing: function(natureId) {
+        this.natureThingList = this.natureThingList.filter(function(nature) {
+            return nature.id !== natureId;
+        });
+    },
+
+    countAnimalByType: function (animalType) {
+        var number = 0;
+        for(var i = 0; i < this.animalLodgeList.length; i++) {
+            if (this.animalLodgeList[i].type === (animalType + "_habitat")) {
+                number += this.animalLodgeList[i].animalList.length;
+            }
+        }
+        return number;
     }
-
-    //getMachineById: function (id) {
-    //    var machine = this.machineList.find(function (f) {
-    //        return f.id === id;
-    //    });
-    //    return machine;
-    //}
-
-
 });

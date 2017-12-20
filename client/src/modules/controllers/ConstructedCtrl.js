@@ -65,7 +65,7 @@ var ConstructedCtrl = cc.Class.extend({
                     //MapLayer.instance.addChild(completedSprite);
                     //MapCtrl.instance.addSpriteAlias(completedSprite);
                     //completedSprite.setLogicPosition(machineModel.coordinate.x, machineModel.coordinate.y, true);
-                    this.addCompletedBuildSprite(machineModel, sprite.typeBuilding, sprite.typeMapObject);
+                    this.addCompletedBuildSprite(machineModel, sprite.typeBuilding, sprite.blockSizeX);
                     return true;
                 } else {
                     return false;
@@ -73,10 +73,11 @@ var ConstructedCtrl = cc.Class.extend({
         }
     },
 
-    addCompletedBuildSprite: function (model, typeBuilding, typeMapObject) {
+    addCompletedBuildSprite: function (model, typeBuilding, blockSize) {
         var completedSprite = new ConstructedCompletedSprite(model.id, model.coordinate.x,
-            model.coordinate.y, typeBuilding, typeMapObject);
+            model.coordinate.y, typeBuilding, blockSize);
         MapLayer.instance.addChild(completedSprite);
+        //completedSprite = MapLayer.instance.debugSprite;
         MapCtrl.instance.addSpriteAlias(completedSprite);
         completedSprite.setLogicPosition(model.coordinate.x, model.coordinate.y, true);
     },
@@ -180,7 +181,7 @@ var ConstructedCtrl = cc.Class.extend({
                     var machineModel = user.asset.getMachineById(_loadingBarConstructed.sprite.id);
                     machineModel.setBoostBuild();
                     this.addCompletedBuildSprite(machineModel, _loadingBarConstructed.sprite.typeBuilding,
-                        _loadingBarConstructed.sprite.typeMapObject);
+                         _loadingBarConstructed.sprite.blockSizeX);
 
                     _loadingBarConstructed.sprite.removeFromParent(true);
                     //this.completedBuild(_loadingBarConstructed.id,

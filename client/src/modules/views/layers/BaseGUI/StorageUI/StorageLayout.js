@@ -53,6 +53,7 @@ var StorageLayout = BaseLayout.extend({
         this._multiLayer.switchTo(0);
 
         this._layoutContent.addChild(this._multiLayer);
+        //cc.log("this.y", this.y - this.getBoundingBox().height);
 
         /**
          *

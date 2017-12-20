@@ -7,7 +7,7 @@ var PopcornMachineSprite = AnimationSprite.extend({
     id: null,
 
     ctor: function(popcornMachineId, x, y) {
-        this._super(resAniId.popcorn_pot, 3, 3, x, y, MapItemEnum.POPCORN_MAKER);
+        this._super(resAniId.popcorn_pot, 3, 3, x, y, MapItemEnum.MACHINE);
         //this._super(resAniId.popcorn_pot, 3, 3, x, y, MapItemEnum.BAKERY);
 
         // this.content = fr.createAnimationById(resAniId.bakery, this);
@@ -22,12 +22,10 @@ var PopcornMachineSprite = AnimationSprite.extend({
         this.registerTouchEvents();
     },
 
-    onBeginClick: function() {
-        this.play("selected");
-    },
-
     onClick: function() {
         cc.log("feed mill is clicked " + this.id);
+        this.play("selected");
+        audioEngine.playEffect(res.tools_corn_machine_mp3, false);
     },
 
     onFinishMove: function (lx, ly) {

@@ -13,6 +13,7 @@ var MachineTable = cc.Layer.extend({
 
     ctor: function () {
         this._super();
+        //cc.log("Machine Table");
         this.init();
     },
 
@@ -43,7 +44,7 @@ var MachineTable = cc.Layer.extend({
     },
 
     tableCellSizeForIndex:function (table, idx) {
-        return cc.size((cc.winSize.width / 3), 142 * ((cc.winSize.width / 3) / 316));
+        return cc.size(363, 142 * (363 / 316));
     },
 
     tableCellAtIndex:function (table, idx) {
@@ -60,7 +61,6 @@ var MachineTable = cc.Layer.extend({
         var maxslot = 0;
         var price;
 
-        //if (!cell) {
             cell = new cc.TableViewCell();
             var imgBg = new cc.Sprite(res.shop_slot_png);
             imgBg.x = 0;
@@ -92,13 +92,13 @@ var MachineTable = cc.Layer.extend({
             image.setScale(scaleImg);
             image.tag = 1;
 
-            title = new cc.LabelBMFont(fr.Localization.text(res.infoMachineItem[idx].name), "fonts/outline/30.fnt");
+            title = new cc.LabelBMFont(fr.Localization.text(res.infoMachineItem[idx].name), res.FONT_OUTLINE_30);
             title.x = box.width / 10 - 10;
             title.y = box.height - 10;
             title.setAnchorPoint(0, 1);
             title.tag = 2;
 
-            detail = new cc.LabelBMFont(fr.Localization.text(res.infoMachineItem[idx].detail), "fonts/normal/30.fnt");
+            detail = new cc.LabelBMFont(fr.Localization.text(res.infoMachineItem[idx].detail), res.FONT_NORMAL_30);
             detail.x = box.width / 3;
             detail.y = box.height / 2;
             detail.color = cc.color(77, 41, 1);
@@ -117,12 +117,13 @@ var MachineTable = cc.Layer.extend({
                 }
             }
 
-            slot = new cc.LabelBMFont(curslot + "/" + maxslot, "fonts/outline/30.fnt");
+            slot = new cc.LabelBMFont(curslot.toString() + "/" + maxslot.toString(), res.FONT_OUTLINE_30);
             slot.x = box.width / 3 * 2;
             slot.y = box.height / 5 * 4;
             slot.tag = 4;
 
-            price = new cc.LabelBMFont(res.infoMachineItem[idx].price, "fonts/outline/30.fnt");
+            price = new cc.LabelBMFont(fr.toMoney(res.infoMachineItem[idx].price), res.FONT_OUTLINE_30);
+            //price = new cc.LabelBMFont(res.infoMachineItem[idx].price, res.FONT_OUTLINE_30);
             price.x = box.width / 5 * 2;
             price.y = 0;
             price.setAnchorPoint(1, -0.5);
@@ -133,29 +134,6 @@ var MachineTable = cc.Layer.extend({
             cell.addChild(detail);
             cell.addChild(price);
             cell.addChild(slot);
-
-            // cc.log("create cell container " + idx);
-        //} else {
-        //    // cc.log("abc" + idx);
-        //    image = cell.getChildByTag(1);
-        //    image.setTexture(res.infoMachineItem[idx].nameIconShop);
-        //
-        //    title = cell.getChildByTag(2);
-        //    title.setString(res.infoMachineItem[idx].name);
-        //
-        //    detail = cell.getChildByTag(3);
-        //    detail.setString(res.infoMachineItem[idx].detail);
-        //
-        //    curslot = GameShopController.instance.getNumberMachine(res.infoMachineItem[idx].id);
-        //    maxslot = res.infoMachineItem[idx].number;
-        //
-        //    slot = cell.getChildByTag(4);
-        //    slot.setString(curslot + "/" + maxslot);
-        //
-        //    price = cell.getChildByTag(5);
-        //    price.setString(res.infoMachineItem[idx].price);
-        //}
-
         return cell;
     },
 
@@ -226,8 +204,8 @@ var MachineTable = cc.Layer.extend({
                                 createP.x, createP.y);
                             break;
                     }
-                    this._sprite.setLocalZOrder(10000);
                     if (this._sprite) {
+                        this._sprite.setLocalZOrder(10000);
                         MapLayer.instance.addChild(this._sprite);
                     }
                 }
@@ -242,43 +220,38 @@ var MachineTable = cc.Layer.extend({
                 // cc.log("Touch Moved");
                 break;
             case ccui.Widget.TOUCH_ENDED:
+                if(this._sprite){
+                    this._sprite.setVisible(false);
+                    this._sprite.removeFromParent(true);
+                    this._sprite = null;
+                    if (GameShopLayout.instance._isHide) {
+                        GameShopLayout.instance.show();
+                    }
+                }
                 // cc.log("Touch Ended");
                 break;
             case ccui.Widget.TOUCH_CANCELED:
                 this.unscheduleUpdate();
-                //if (GameShopLayout.instance._isHide) {
-                //    GameShopLayout.instance.show();
-                //}
                 if (this._sprite) {
                     var endP = sender.getTouchEndPosition();
                     var endPl = MapValues.screenPositionToLogic(endP.x, endP.y);
                     endPl.x = Math.floor(endPl.x);
                     endPl.y = Math.floor(endPl.y);
-                    // cc.log(endPl.x + " " + endPl.y);
-                    //var typeObject = sender.parent.getChildByTag(0).getString();
                     this._check = MapCtrl.instance.checkValidBlockSprite(this._sprite);
-                    // cc.log("this._check " + this._check);
                     this._sprite.removeFromParent(true);
                     if (!this._check) {
-                        //this._sprite.removeFromParent(true);
-                        BaseGUILayer.instance.notifyCantPut(endP.x, endP.y);
+                        BaseGUILayer.instance.notifyCantPut(fr.Localization.text("Text_can_not_place"), endP.x, endP.y);
                         if (GameShopLayout.instance._isHide) {
-                            //cc.log("GameShopLayout.instance._isHide " + GameShopLayout.instance._isHide);
                             GameShopLayout.instance.show();
                         }
                     } else {
                         var missGold = GameShopController.instance.checkGold(sender.parent.getChildByTag(5).getString());
                         cc.log(missGold);
                         if (missGold) {
-                            //this._sprite.removeFromParent(true);
                             BaseGUILayer.instance.notifyShopNotEnoughGold(missGold, this.typeObject,
-                                this._sprite.lx, this._sprite.ly);
+                                endPl.x, endPl.y);
                         } else {
                             // Success
-                            //MapCtrl.instance.addSpriteAlias(this._sprite);
-                            //this._sprite.setLogicPosition(this._sprite.lx, this._sprite.ly, false);
-                            //var machineModel;
-                            //Create Model
                             var machineConfig = getMachineConfigByType(this.typeObject);
                             var machineModel = new Machine(0, this.typeObject, machineConfig.slot, 0, null, false,
                                 false, new Date().getTime(), machineConfig.time, new Coordinate(endPl.x, endPl.y));
@@ -291,53 +264,48 @@ var MachineTable = cc.Layer.extend({
                                     this._sprite = new ConstructedSprite(machineModel.id,
                                         MapConfigs.BakeryMachine.size.width, MapConfigs.BakeryMachine.size.height,
                                         machineModel.coordinate.x, machineModel.coordinate.y,
-                                        MapItemEnum.MACHINE, MapItemEnum.BAKERY);
+                                        MapItemEnum.MACHINE);
                                     break;
                                 case "food_machine":
                                     this._sprite = new ConstructedSprite(machineModel.id,
                                         MapConfigs.FoodMachine.size.width, MapConfigs.FoodMachine.size.height,
                                         machineModel.coordinate.x, machineModel.coordinate.y,
-                                        MapItemEnum.MACHINE, MapItemEnum.FOOD_GRINDER);
+                                        MapItemEnum.MACHINE);
                                     break;
                                 case "butter_machine":
                                     this._sprite = new ConstructedSprite(machineModel.id,
                                         MapConfigs.ButterMachine.size.width, MapConfigs.ButterMachine.size.height,
                                         machineModel.coordinate.x, machineModel.coordinate.y,
-                                        MapItemEnum.MACHINE, MapItemEnum.BUTTER);
+                                        MapItemEnum.MACHINE);
                                     break;
                                 case "sugar_machine":
                                     this._sprite = new ConstructedSprite(machineModel.id,
                                         MapConfigs.SugarMachine.size.width, MapConfigs.SugarMachine.size.height,
                                         machineModel.coordinate.x, machineModel.coordinate.y,
-                                        MapItemEnum.MACHINE, MapItemEnum.SUGAR_MAKER);
+                                        MapItemEnum.MACHINE);
                                     break;
                                 case "popcorn_machine":
                                     this._sprite = new ConstructedSprite(machineModel.id,
                                         MapConfigs.PopcornMachine.size.width, MapConfigs.PopcornMachine.size.height,
                                         machineModel.coordinate.x, machineModel.coordinate.y,
-                                        MapItemEnum.MACHINE, MapItemEnum.POPCORN_MAKER);
+                                        MapItemEnum.MACHINE);
                                     break;
 
                             }
                             MapLayer.instance.addChild(this._sprite);
                             MapCtrl.instance.addSpriteAlias(this._sprite);
                             this._sprite.setLogicPosition(this._sprite.lx, this._sprite.ly, true);
-                            //cc.log("Gold User" + user.getGold());
                             user.reduceGold(sender.parent.getChildByTag(5).getString());
                             //Send Server
-                            testnetwork.connector.sendBuyMapObjectRequest(this._sprite.id,
-                                this.typeObject, this._sprite.lx, this._sprite.ly);
-
+                            testnetwork.connector.sendBuyMapObjectRequest(machineModel.id,
+                                machineModel.type, endPl.x, endPl.y);
 
                             GameShopLayout.instance.show();
                         }
                     }
                 }
                 this._sprite = null;
-                //GameShopLayout.instance.show();
-                //this._tableView.reloadData();
                 this._tableView.updateCellAtIndex(sender.parent.getIdx());
-                //this._isHide = false;
                 // cc.log("Touch Canceled");
                 break;
         }
@@ -355,6 +323,7 @@ var MachineTable = cc.Layer.extend({
             this.lstLocation = logic;
             if (this._sprite) {
                 this._sprite.setLogicPosition(logic, true);
+                MapCtrl.instance.changeColor(this._sprite);
             }
         }
         if (this.autoMoveHor || this.autoMoveVer) {

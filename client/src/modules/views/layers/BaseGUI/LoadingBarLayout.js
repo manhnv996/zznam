@@ -29,7 +29,7 @@ var LoadingBarLayout = ccui.Layout.extend({
        this.progress.y = this.progressBar.height / 10 * 3;
        this.progress.setAnchorPoint(0, 0);
 
-       this.nameProgess = new cc.LabelBMFont(name, res.FONT_OUTLINE_30);
+       this.nameProgess = new cc.LabelBMFont(fr.Localization.text(name), res.FONT_OUTLINE_30);
        this.nameProgess.x = this.progressBar.width / 2;
        this.nameProgess.y = this.progressBar.height / 16 * 11;
        this.nameProgess.setAnchorPoint(0.5, 0);
@@ -66,6 +66,7 @@ var LoadingBarLayout = ccui.Layout.extend({
        this.addChild(this.timeRemain);
        this.addChild(this.boostBtn);
 
+       // this.setScale(0.4);
        this.setScale(0.4);
        //
        //this.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
@@ -73,6 +74,7 @@ var LoadingBarLayout = ccui.Layout.extend({
 
        //cc.log("total time", this.totalTime);
        //cc.log("start time", this.startTime);
+       // cc.log("Remain time", this.remainTime);
        //this.remainTime = this.totalTime - (new Date().getTime() - this.startTime) + 1000;
        //cc.log("Remain time", this.remainTime);
 
@@ -96,9 +98,13 @@ var LoadingBarLayout = ccui.Layout.extend({
        this.disableLoadingBar();
    },
 
+    setOnClick: function(callback) {
+        this.boostBtn.addClickEventListener(callback);
+    },
+
     actionShow: function () {
-        var scaleUp = cc.scaleTo(0.2, 0.9);
-        var scaleDown = cc.scaleTo(0.15, 0.8);
+        var scaleUp = cc.scaleTo(0.2, 1.3);
+        var scaleDown = cc.scaleTo(0.2, 1.0);
         this.runAction(cc.sequence(scaleUp, scaleDown));
     },
 
@@ -226,7 +232,7 @@ var LoadingBarLayout = ccui.Layout.extend({
         this.unschedule(this.updateRemainTime);
         if (this.parent) {
             this.removeFromParent(true);
-            cc.log("removeFromParent");
+            // cc.log("removeFromParent");
         }
         this._isClose = false;
         //_loadingBarConstructed.removeFromParent(true);
@@ -238,7 +244,7 @@ var LoadingBarLayout = ccui.Layout.extend({
         this.unscheduleUpdate();
         if (this.parent) {
             this.removeFromParent(true);
-            cc.log("removeFromParent");
+            // cc.log("removeFromParent");
         }
         this._isClose = false;
         //_loadingBarConstructed.removeFromParent(true);

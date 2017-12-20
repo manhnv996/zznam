@@ -5,11 +5,11 @@ public class MapItemEnum {
     public static final int WAREHOUSE = 2;
     public static final int FIELD = 3;
     
-    public static final int BUTTER = 4;
-    public static final int BAKERY = 5;
-    public static final int SUGAR_MAKER = 6;
-    public static final int FOOD_GRINDER = 7;
-    public static final int POPCORN_MAKER = 8;
+    public static final int BUTTER = 4; // Unused
+    public static final int BAKERY = 5; // Unused
+    public static final int SUGAR_MAKER = 6; // Unused
+    public static final int FOOD_GRINDER = 7; // Unused
+    public static final int POPCORN_MAKER = 8; // Unused
     
     public static final int COW_LODGE = 10; // Unused
     public static final int CHICKEN_LODGE = 11; // Unused

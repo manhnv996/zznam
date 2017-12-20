@@ -7,34 +7,74 @@ var ProductSprite = cc.Sprite.extend({
 
     item: null,
 
-    ctor: function(product_img) {
+    ctor: function(product_img, product_id, lx, ly) {
+
+        this.item = product_id;
         this._super(product_img);
 
         //
-    },
-
-    showQuantityCurr: function (curr, need) {
-        var quantityCurr = new cc.LabelBMFont(curr, res.FONT_OUTLINE_30);
-        if (curr <= 0){
-            quantityCurr.setString("0");
+        this.registerTouchEvents();
+        if (!isNaN(lx) && !isNaN(ly)) {
+            var position = MapValues.logicToPosition(lx, ly);
+            this.setPosition(position);
         }
-        var quantityNeed = new cc.LabelBMFont(need, res.FONT_OUTLINE_30);
-        var s = new cc.LabelBMFont(" / ", res.FONT_OUTLINE_30);
-
-
-        quantityCurr.setPosition(this.width  * 1.5 / 5, - quantityCurr.height / 2);
-        quantityNeed.setPosition(this.width  * 3.5 / 5, - quantityNeed.height / 2);
-        s.setPosition(this.width  * 2.5 / 5, - s.height / 2);
-
-        if (curr < need) {
-            quantityCurr.setColor(cc.color(255, 0, 0));
-        }
-
-        this.addChild(quantityCurr);
-        this.addChild(quantityNeed);
-        this.addChild(s);
     },
 
 
+    // 
+    registerTouchEvents: function() {
+        this.touchListener = cc.EventListener.create({
+            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            swallowTouches: true,
+            onTouchBegan: this.onTouchBegan.bind(this),
+            onTouchMoved: this.onTouchMoved.bind(this),
+            onTouchEnded: this.onTouchEnded.bind(this)
+        });
+        cc.eventManager.addListener(this.touchListener, this);
+    },
+    clearListener: function() {
+        cc.eventManager.removeListener(this.touchListener);
+    },
+
+
+    onTouchBegan: function (touch) {
+        audioEngine.playEffect(res.func_click_button_mp3, false);
+        var target = this;
+        var locationInNode = target.convertToNodeSpace(touch.getLocation());
+        var s = target.getContentSize();
+        var rect = cc.rect(0, 0, s.width, s.height);
+
+        if (cc.rectContainsPoint(rect, locationInNode)) {
+            this.onBeginClick(touch);
+            return true;
+        }
+        return false;
+
+    },
+    onTouchMoved: function (touch) {
+        this.onMoveClick(touch);
+    },
+    onTouchEnded: function (touch) {
+        // this.onClick();
+        this.onEndClick(touch);
+    },
+
+
+    //
+    onBeginClick: function (touch) {},
+    onMoveClick: function (touch) {},
+    onEndClick: function (touch) {},
+    //
+
+    fadeOutProduct: function () {
+        this.clearListener();
+
+        var fadeIn = cc.fadeIn(0.2);
+        var move = cc.moveBy(0.5, cc.p(0, - 150));
+        var fadeOut = cc.fadeOut(0.2);
+        this.runAction(cc.sequence(fadeIn, move, fadeOut, cc.callFunc(function() {
+            this.removeFromParent(true);
+        }.bind(this))));
+    }
 
 });

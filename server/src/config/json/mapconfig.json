@@ -17,7 +17,7 @@
   "TruckOrder": {
     "position": {
       "x": 14,
-      "y": 19
+      "y": 20
     },
     "size": {
       "width": 1,
@@ -115,8 +115,8 @@
       },
       "Food_Machine": {
           "size": {
-              "width": 2,
-              "height": 2
+              "width": 3,
+              "height": 3
           }
       },
       "Butter_Machine": {
@@ -127,8 +127,8 @@
       },
       "Sugar_Machine": {
           "size": {
-              "width": 3,
-              "height": 3
+              "width": 2,
+              "height": 2
           }
       },
       "Popcorn_Machine": {

@@ -8,17 +8,22 @@ var MapLayer = cc.Layer.extend({
 	RIGHT_LIMIT: null,
 	TOP_LIMIT: null,
 	BOTTOM_LIMIT: null,
+	touchCount: 0,
 
+	touchesMap: null,
+	lstDistance: 0,
 
-//		  flow plant and crop
-	fieldList: [],
+// //		  flow plant and crop
+// 	fieldList: [],
 
 
 	ctor: function() {
 		this._super();
+		this.touchesMap = { length: 0 };
+
 		// Init limit points of map
 		this.initBorder();
-		
+
 		this.renderGrassBlock();
 		this.renderSong();
 		this.renderRoad();
@@ -29,7 +34,7 @@ var MapLayer = cc.Layer.extend({
 		this.renderDuongRay();
 
 		// Move to MapCtrl
-		// this.renderDefaultConstruct(); 
+		// this.renderDefaultConstruct();
 		// this.renderSample();
 		this.setScale(0.4);
 		// Set map to center of screen, Note that setting scale before setting position.
@@ -39,9 +44,6 @@ var MapLayer = cc.Layer.extend({
 		// cc.log("Move to", center);
 		// this.setPosition(cc.p((this.width / 2 - center.x) * this.scale, (this.height / 2 - center.y) * this.scale));
 		this.initEvent();
-
-		this.initFieldList();
-        //
 
 	},
 
@@ -191,13 +193,13 @@ var MapLayer = cc.Layer.extend({
 				MapConfigs.Song.endX,
 				i * riverSide2BlockSizeY
 			));
-			
+
 			this.addChild(sprite);
 		}
 
 		// Render harbor
 		var harborConfig = MapConfigs.Song.harbor;
-		var harbor = new MapBlockSprite(res.HABOR, 
+		var harbor = new MapBlockSprite(res.HABOR,
 				harborConfig.blockSizeX, harborConfig.blockSizeY);
 		harbor.setLogicPosition(harborConfig.position);
 		this.addChild(harbor);
@@ -254,7 +256,7 @@ var MapLayer = cc.Layer.extend({
 
 			var sprite = new cc.Sprite(res.NHOM_CAY_1);
 			var contentSize = sprite.getContentSize();
-			
+
 			var startX = this.LEFT_LIMIT.x; // because of anchor 1,0
 			var startY = MapValues.yLinearByXl(lineXl, startX);
 			while (startY <= this.TOP_LIMIT.y) {
@@ -290,7 +292,7 @@ var MapLayer = cc.Layer.extend({
 				for (var i = countX; i >= 0; i--) {
 					var sprite = new cc.Sprite(res.NHOM_CAY_1);
 					sprite.setPosition(
-						startX, 
+						startX,
 						startY + i * (contentSize.height - overlapY)
 					);
 					sprite.setAnchorPoint(cc.p(0.5, 0));
@@ -301,7 +303,7 @@ var MapLayer = cc.Layer.extend({
 				startY = MapValues.yLinearByYl(lineYl, startX);
 			}
 		}.bind(this))();
-		
+
 		// Render bottom-left forest
 		(function() {
 			var config = MapConfigs.Forest.bottomLeft;
@@ -347,7 +349,7 @@ var MapLayer = cc.Layer.extend({
 				for (var i = 0; i <= countX; i++) {
 					var sprite = new cc.Sprite(res.NHOM_CAY_2);
 					sprite.setPosition(
-						startX, 
+						startX,
 						startY - i * (contentSize.height - overlapY)
 					);
 					sprite.setAnchorPoint(0.5, 1);
@@ -365,7 +367,7 @@ var MapLayer = cc.Layer.extend({
 		for (var i = 0; i < MapConfigs.Init.width; i++) {
 			_res.push(Math.round(Math.random() * 10 ) % 3);
 		}
-		var resArr = [res.STONE_13, res.HOA_2, res.HOA_1];
+		var resArr = [res.STONE_12, res.STONE_13, res.HOA_2, res.HOA_1];
 		for (var i = 0; i < 32; i++) {
 			var sprite = new cc.Sprite(resArr[_res[i]]);
 			sprite.setPosition(MapValues.logicToPosition(i, -1));
@@ -388,9 +390,9 @@ var MapLayer = cc.Layer.extend({
 		// 	sprite.setLocalZOrder(2);
 		// }
 		// var _resHoa2 = [
-		// 	cc.p(10, 38), cc.p(15, 37), cc.p(15, 38), 
-		// 	cc.p(42, 10), cc.p(41, 14), cc.p(41, 18), 
-		// 	cc.p(42, 19), cc.p(42, 23), cc.p(4, -4), 
+		// 	cc.p(10, 38), cc.p(15, 37), cc.p(15, 38),
+		// 	cc.p(42, 10), cc.p(41, 14), cc.p(41, 18),
+		// 	cc.p(42, 19), cc.p(42, 23), cc.p(4, -4),
 		// 	cc.p(20, -4), cc.p(21, -3)
 		// ];
 		// for (var i = 0; i < _resHoa2.length; i++) {
@@ -452,8 +454,8 @@ var MapLayer = cc.Layer.extend({
 		// ];
 		// for (var i = 0; i < _res_tree_outside.length; i++) {
 		// 	var sprite = new cc.Sprite(
-		// 		_res_tree_outside[i].v === 0 
-		// 		? res.CAY_02_OUT 
+		// 		_res_tree_outside[i].v === 0
+		// 		? res.CAY_02_OUT
 		// 		: res.CAY_01_OUT
 		// 	);
 		// 	sprite.setPosition(MapValues.logicToPosition(
@@ -502,7 +504,7 @@ var MapLayer = cc.Layer.extend({
 	initEvent: function() {
 		this.touchListener = cc.EventListener.create({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
-            swallowTouches: true,
+            swallowTouches: false,
             onTouchBegan: function (touch, event) {
 				var mousePos = touch.getLocation();
 				var position = MapValues.screenPositionToLogic(mousePos.x, mousePos.y);
@@ -511,62 +513,113 @@ var MapLayer = cc.Layer.extend({
 				if (__DEBUG) {
 					cc.log('Map Clicked', position);
 				}
-            	
+
             	// Stop inertia and capture velocity
+            	// cc.log("Map Begin");
             	this.uninertia();
 				InertiaEngine.instance.init(mousePos);
 
-				// Disable planting popup
-				PopupLayer.instance.disableAllPopup();
+				// // Disable planting popup
+				// PopupLayer.instance.disableAllPopup();
+                TablePopupLayer.instance.removeUpdateDisableListener();
+            	if (!this.lock) {
+            		if (this.touchesMap.length < 2) {
+		            	// cc.log("Began", touch.getID());
+		            	this.touchesMap[touch.getID()] = touch.getLocation();
+						this.touchesMap.length++;
+						//cc.log(this.touchesMap);
+	            	}
+	            	if (this.touchesMap.length === 1) {
+	            		InertiaEngine.instance.init(touch.getLocation());
+						PopupLayer.instance.disableAllPopup();
+	            		// this.uninertia();
+	            	} else if (this.touchesMap.length === 2) { // === 2
+	            		InertiaEngine.instance.stop();
+	            		var p1 = touch.getLocation();
+
+	            		var p2 = null;
+	            		for (var k in this.touchesMap) {
+	            			if (k != touch.getID() && !isNaN(k)) {
+	            				p2 = this.touchesMap[k];
+	            				break;
+	            			}
+	            		}
+	            		// cc.log(this.touchesMap);
+	            		this.lstDistance = caculateDistance(p1, p2);
+	            	}
+            	}
+            	if (__DEBUG) {
+            		var lp = MapValues.screenPositionToLogic(touch.getLocation().x, touch.getLocation().y);
+            		cc.log("Map Clicked", lp, user.getModelObjectAtMap(lp.x, lp.y));
+            	}
 				return true;
             }.bind(this),
             onTouchMoved: function(touch, event) {
+            	// cc.log("Update");
+            	if (!this.lock) {
+            		// Not lock moving
+            		this.touchesMap[touch.getID()] = touch.getLocation();
+	            	if (this.touchesMap.length === 1) {
+						InertiaEngine.instance.setPoint(touch.getLocation());
+	            		var delta = touch.getDelta();
+	       				this.move(delta.x, delta.y);
+	            	} else { // this.touchMap.lenght === 2
+	            		// Zoom
+	            		// caculate distance
+	            		var p1 = touch.getLocation();
+	            		var p2 = null;
+	            		for (var k in this.touchesMap) {
+	            			if (k != touch.getID() && !isNaN(k)) {
+	            				p2 = this.touchesMap[k];
+	            				break;
+	            			}
+	            		}
+	            		var distance = caculateDistance(p1, p2);
+	            		var deltaDistance = distance - this.lstDistance;
+	            		this.lstDistance = distance;
+	            		// cc.log(deltaDistance);
+	            		this.zoomBy(deltaDistance / 40, cc.p((p1.x + p2.x) / 2, (p1.y + p2.y) / 2));
+	            	}
+            	}
             	// Add new move position to InertialEngine
-				InertiaEngine.instance.setPoint(touch.getLocation());
-            	var delta = touch.getDelta();
-       			this.move(delta.x, delta.y);
-
+    			// var t = this.touchesList.find(function(_) { return _.getID() === touch.getID()});
+    			// cc.log("Ref", t.getLocation());
+    			// cc.log("Ori", touch.getLocation());
             }.bind(this),
             onTouchEnded: function (touch, event) {
             	// Caculate velocity and add ineria
-				var velocity = InertiaEngine.instance.stopAndGetVelocity(touch.getLocation());
-				// cc.log("v =", this.velocity);
-				this.inertia(velocity);
+				// var velocity = InertiaEngine.instance.stopAndGetVelocity(touch.getLocation());
+				// // cc.log("v =", this.velocity);
+				// this.inertia(velocity);
+
 				// PopupLayer.instance.disablePopup();
 				// PopupLayer.instance.disableProgressBarInprogress();
+            	if (!this.lock) {
+            		if (this.touchesMap[touch.getID()]) {
+	            		delete this.touchesMap[touch.getID()];
+		            	this.touchesMap.length--;
+		            	// cc.log(this.touchesMap);
+
+	            	}
+	            	if (InertiaEngine.instance.isRecording()) {
+						var velocity = InertiaEngine.instance.stopAndGetVelocity(touch.getLocation());
+						this.inertia(velocity);
+	            	}
+            	}
 			}.bind(this)
         });
-        cc.eventManager.addListener(this.touchListener, 100 * Math.max(MapConfigs.Init.width + 5, MapConfigs.Init.height + 5));
-        
-        cc.log("Register map touch event with priority", MapConfigs.Init.width + MapConfigs.Init.height);
+        // cc.eventManager.addListener(this.touchListener, 10 * Math.max(MapConfigs.Init.width + 5, MapConfigs.Init.height + 5));
+        cc.eventManager.addListener(this.touchListener, 50);
+
+        cc.log("Register map touch event with priority", 50);
         var mouseListener = cc.EventListener.create({
 			event: cc.EventListener.MOUSE,
 			onMouseScroll: function(e) {
-				this.zoom(-e.getScrollY(), e.getLocation());
+				this.zoomBy(-e.getScrollY(), e.getLocation());
 			}.bind(this)
 		});
 		cc.eventManager.addListener(mouseListener, this);
 
-        var multiTouchListener = cc.EventListener.create({
-        	event: cc.EventListener.TOUCH_ALL_AT_ONCE,
-        	onTouchesBegan: function(touch, event) {
-        		cc.log("[T] onTouchesBegan");
-        	},
-        	
-        	onTouchesCancelled: function(touch, event) {
-        		cc.log("[T] onTouchesCancelled");
-        	},
-        	
-        	onTouchesEnded: function(touch, event) {
-        		cc.log("[T] onTouchesEnded");
-        	},
-        	
-        	onTouchesMoved: function(touch, event) {
-        		cc.log("[T] onTouchesMoved");
-        	}
-        });
-		// cc.eventManager.addListener(multiTouchListener, 1);
-		
 		this.centerPoint = cc.p(
 			this.getContentSize().width / 2,
 			this.getContentSize().height / 2
@@ -579,6 +632,17 @@ var MapLayer = cc.Layer.extend({
 		cc.eventManager.addListener(keyboardListener, this);
 		this.__dX = 0;
 		this.__dY = 0;
+	},
+
+	lock: false,
+	lockMap: function(lock) {
+		if (lock) {
+			// Remove all touches in map
+			this.touchesMap = {
+				length: 0
+			};
+		}
+		this.lock = lock;
 	},
 
 	move: function(dx, dy) {
@@ -625,7 +689,24 @@ var MapLayer = cc.Layer.extend({
 		}
 	},
 
-	zoom: function(sign, cursor) {
+	moveBy: function(x, y, time) {
+		if (x.x) {
+			time = y;
+			y = x.y;
+			x = x.x;
+		}
+		if (time) {
+			cc.log("Time", time);
+			var action = new cc.MoveBy(time, cc.p(x, y)).easing(cc.easeExponentialOut());
+			this.runAction(action);
+			// cc.log("Run action");
+		} else {
+			this.setPosition(cc.p(x, y));
+		}
+	},
+
+	zoomBy: function(sign, cursor) {
+		var standartSign = sign * this.scale;
 		var deltaScale = Math.round(SCALE_RATIO * sign * 1000) / 1000;
 		var currentScale = Math.round(this.scale * 1000) / 1000;
 		var newScale = Math.round((currentScale + deltaScale) * 1000) / 1000;
@@ -648,11 +729,11 @@ var MapLayer = cc.Layer.extend({
 			this.move(dx, dy);
 		}
 
-		PopupLayer.instance.disablePopup();
-		PopupLayer.instance.disableProgressBarInprogress();
 
-		//
-		MachineLayer.instance.disablePopup();
+		////
+		//MachineLayer.instance.disablePopup();
+
+        TablePopupLayer.instance.removeUpdateDisableListener();
 	},
 
 	handleKeyboard: function(keycode, event) {
@@ -689,13 +770,7 @@ var MapLayer = cc.Layer.extend({
 
 
 
-//		////
-	initFieldList: function () {
-		this.fieldList = [];
-
-	},
-
-
+// //		////
     getIndexOfFieldList: function (fieldId) {
         if (fieldId == null){
             return null;
@@ -709,7 +784,6 @@ var MapLayer = cc.Layer.extend({
     },
 	// //
 
-
 	runAnimationPlantting: function(fieldId, seedType){
 		// var index = this.getIndexOfFieldList(fieldId);
 		var field = this.fieldList.find(function(f) {
@@ -721,11 +795,11 @@ var MapLayer = cc.Layer.extend({
 
 	},
 
-	runAnimationCrop: function (fieldId, seedType) {
+	runAnimationCrop: function (fieldId, seedType, callback) {
 		cc.log("Run animation crop");
 		var index = this.getIndexOfFieldList(fieldId);
 		if (index != null){
-			this.fieldList[index].cropAnimation(seedType);
+			this.fieldList[index].cropAnimation(seedType, callback);
 
 			this.fieldList[index].changeTexture(res.field);
 		}
@@ -734,17 +808,29 @@ var MapLayer = cc.Layer.extend({
 
 	// //
 	getNPCByOrderNPCId: function (orderNPCId) {
-        if (orderNPCId == null){
-            return null;
-        }
-        for (var i = 0; i < this.npcList.length; i++){
-            if (this.npcList[i].orderId == orderNPCId){
-                return this.npcList[i];
-            }
-        }
-        return null;
-    },
+		if (orderNPCId == null){
+			return null;
+		}
+		for (var i = 0; i < this.npcList.length; i++){
+			if (this.npcList[i].orderId == orderNPCId){
+				return this.npcList[i];
+			}
+		}
+		return null;
+	},
 
+	getIndexByOrderNPCId: function (orderNPCId) {
+		if (orderNPCId == null){
+			return null;
+		}
+		for (var i = 0; i < this.npcList.length; i++){
+			if (this.npcList[i].orderId == orderNPCId){
+				return i;
+			}
+		}
+		return null;
+	},
+//	  //
 
 
 	inertia: function(velocity) {
@@ -761,18 +847,23 @@ var MapLayer = cc.Layer.extend({
 			this.unscheduleUpdate();
 			this.scheduling = false;
 		}
+		// cc.log("Stop action");
+		this.stopAllActions();
 	},
 
 	update: function(dt) {
 		var dx = this.velocity.x * dt;
 		var dy = this.velocity.y * dt;
-		var reduce = Math.pow(0.9, dt * 60);
+		if (dx * dx + dy * dy < 0.5) {
+			// return this.uninertia();
+			this.unscheduleUpdate();
+			this.scheduling = false;
+			return;
+		}
+		var reduce = Math.pow(0.93, dt * 60);
 		// cc.log("Reduce", reduce);
 		this.velocity.x *= reduce;
 		this.velocity.y *= reduce;
-		if (dx * dx + dy * dy < 0.5) {
-			return this.uninertia();
-		}
 		this.move(dx, dy);
 	}
 });

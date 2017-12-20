@@ -33,19 +33,27 @@ import eventhandler.LogoutHandler;
 
 import java.util.List;
 
+import model.GameInfo;
+
+import model.Users;
+
 import org.apache.commons.lang.exception.ExceptionUtils;
 
 import org.json.JSONObject;
 
 import service.ConstructedHandler;
 import service.DemoHandler;
+import service.AnimalHandler;
 
+import service.FriendHandler;
 import service.GameShopHandler;
 import service.MapHandler;
+import service.MyShopHandler;
 import service.OrderHandler;
 import service.PlantHandler;
 import service.StorageHandler;
 import service.UserHandler;
+import service.NatureHandler;
 
 import util.GuestLogin;
 
@@ -109,7 +117,8 @@ public class FresherExtension extends BZExtension {
         ConfigHandle.instance().get("servers_key") == null ? "servers" : ConfigHandle.instance().get("servers_key");
 
     private ServerLoop svrLoop;
-
+    private Users users;
+    
     public FresherExtension() {
         super();
         setName("Fresher");
@@ -130,12 +139,16 @@ public class FresherExtension extends BZExtension {
         //  
         addRequestHandler(PlantHandler.PLANT_MULTI_IDS, PlantHandler.class);
         addRequestHandler(OrderHandler.ORDER_MULTI_IDS, OrderHandler.class);
+        addRequestHandler(MyShopHandler.MYSHOP_MULTI_IDS, MyShopHandler.class);
         //
         addRequestHandler(MapHandler.MAP_MULTI_IDS, MapHandler.class);
         
         addRequestHandler(GameShopHandler.GAMESHOP_MULTI_IDS, GameShopHandler.class);
         addRequestHandler(StorageHandler.STORAGE_MULTI_IDS, StorageHandler.class);
         addRequestHandler(ConstructedHandler.CONSTRUCTED_MULTI_IDS, ConstructedHandler.class);
+        addRequestHandler(AnimalHandler.ANIMAL_MULTI_IDS, AnimalHandler.class);
+        addRequestHandler(NatureHandler.NATURE_MULTI_IDS, NatureHandler.class);
+        addRequestHandler(FriendHandler.FRIEND_MULTI_IDS, FriendHandler.class);
         
         trace(" Event Handler ");
         addEventHandler(BZEventType.USER_LOGIN, LoginSuccessHandler.class);
@@ -144,8 +157,17 @@ public class FresherExtension extends BZExtension {
         ConfigContainer.init();
         // System.out.println("[+] Value " + ConfigContainer.mapConfig.Init.height);
 //        doTest();
-        System.out.println(ConfigContainer.getRawMaterialList("food_machine", "food_pig").get(0).rawMaterialId);
-        System.out.println(ConfigContainer.getRawMaterialList("bakery_machine", "product_corn_bread").get(0).rawMaterialId);
+        
+//        System.out.println(ConfigContainer.getRawMaterialList("food_machine", "food_pig").get(0).rawMaterialId);
+//        System.out.println(ConfigContainer.getRawMaterialList("bakery_machine", "product_corn_bread").get(0).rawMaterialId);
+        
+        // Init usersInfo
+        this.users = Users.getUsers();
+        
+        if (this.users == null) {
+            this.users = new Users();
+            this.users.save();
+        }
     }
 	
 	
@@ -316,7 +338,9 @@ public class FresherExtension extends BZExtension {
             UserInfo uInfo = getUserInfo(reqGet.sessionKey, reqGet.userId, session.getAddress());
             User u = ExtensionUtility.instance().canLogin(uInfo, "", session);
             if (u!=null)
-                u.setProperty("userId", uInfo.getUserId());            
+                u.setProperty("userId", uInfo.getUserId());
+            users.findAndAdd(u.getId());
+            users.save();
         } catch (Exception e) {
             Debug.warn("DO LOGIN EXCEPTION " + e.getMessage());
             Debug.warn(ExceptionUtils.getStackTrace(e));

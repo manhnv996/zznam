@@ -1,0 +1,58 @@
+[
+  {
+    "type": "field",
+    "capacity": 1,
+    "price": 1
+  },
+  {
+    "type": "chicken_habitat",
+    "capacity": 6,
+    "price": 5
+  },
+  {
+    "type": "cow_habitat",
+    "capacity": 5,
+    "price": 20
+  },
+  {
+    "type": "pig_habitat",
+    "capacity": 5,
+    "price": 150
+  },
+  {
+    "type": "sheep_habitat",
+    "capacity": 5,
+    "price": 300
+  },
+  {
+    "type": "goat_habitat",
+    "capacity": 5,
+    "price": 1000
+  },
+  
+  
+  {
+    "type": "bakery_machine",
+    "capacity": 0,
+    "price": 20
+  },
+  {
+    "type": "food_machine",
+    "capacity": 0,
+    "price": 3795
+  },
+  {
+    "type": "butter_machine",
+    "capacity": 0,
+    "price": 50
+  },
+  {
+    "type": "sugar_machine",
+    "capacity": 0,
+    "price": 350
+  },
+  {
+    "type": "popcorn_machine",
+    "price": 1180
+  }
+]

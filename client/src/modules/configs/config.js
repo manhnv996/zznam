@@ -5,15 +5,14 @@ var GameInfo = null;
 
 
 function getProductObjByType(productId) {
-    var productTypeObj = null;
-    cc.loader.loadJson(res.cropconfig, function (error, data) {
-        productTypeObj = data;
-        //ProductType = data;
-    });
-
-    for (var i = 0; i < productTypeObj.length; i++) {
-        if (productTypeObj[i].id == productId) {
-            return productTypeObj[i];
+    if (ProductType == null){
+        cc.loader.loadJson(res.cropconfig, function (error, data) {
+            ProductType = data;
+        });
+    }
+    for (var i = 0; i < ProductType.length; i++) {
+        if (ProductType[i].id == productId) {
+            return ProductType[i];
         }
     }
 
@@ -21,23 +20,16 @@ function getProductObjByType(productId) {
 }
 
 function getSeedLevel(level) {
-
-    var productTypeObj = null;
-    /*
-    Read from json file
-     */
-    cc.loader.loadJson(res.cropconfig, function (error, data) {
-        productTypeObj = data;
-        ProductType = data;
-        //cc.log("data " + str);// data is the json object
-    });
-
+    if (ProductType == null){
+        cc.loader.loadJson(res.cropconfig, function (error, data) {
+            ProductType = data;
+        });
+    }
     var seedLevelList = [];
-    for (var i = 0; i < productTypeObj.length; i++) {
+    for (var i = 0; i < ProductType.length; i++) {
 
-        if (productTypeObj[i].level <= (level + 2)) {
-            //seedLevelList.push(productTypeObj[i].id);
-            seedLevelList.unshift(productTypeObj[i].id);
+        if (ProductType[i].level <= (level + 2)) {
+            seedLevelList.unshift(ProductType[i].id);
         }
     }
 
@@ -51,7 +43,6 @@ function getSeedShow(level) {
 
     var seedShow = [];
     for (var i = 0; i < seedLevel.length; i++){
-        //cc.log("abc " + getProductObjByType(seedLevel[i]));
         if (user.getAsset().getFoodStorage().getQuantity(seedLevel[i]) == 0){
             if (getProductObjByType(seedLevel[i]).level <= user.getLevel()){
                 seedShow.push(new StorageItem(seedLevel[i], 0));
@@ -65,7 +56,7 @@ function getSeedShow(level) {
     }
 
     seedShow.sort(function(a, b) {
-        cc.log("getProductObjByType" + getProductObjByType(a.getTypeItem()).id);
+        // cc.log("getProductObjByType" + getProductObjByType(a.getTypeItem()).id);
         if (getProductObjByType(a.getTypeItem()).level <= user.getLevel() || a.getQuantityItem() != null){
             return getProductObjByType(a.getTypeItem()).level - getProductObjByType(b.getTypeItem()).level;
         }
@@ -85,12 +76,28 @@ function getMachineConfigByType (type) {
 }
 
 function getProductConfigById (id) {
-    for (var i = 0; res.storageItemResource.length; i++) {
+    for (var i = 0; i < res.storageItemResource.length; i++) {
         if (res.storageItemResource[i].id === id) {
             return res.storageItemResource[i];
         }
     }
     return null;
+}
+
+function getLodgeConfigById (id) {
+    for (var i = 0; i < res.infoCoopItem.length; i++) {
+        if (res.infoCoopItem[i].id === id) {
+            return res.infoCoopItem[i];
+        }
+    }
+    return null;
+}
+
+function fromGoldToRuby(gold) {
+    var ruby = gold / 15;
+    if(gold % 15) ruby++;
+    ruby = Math.floor(ruby);
+    return ruby;
 }
 
 function getResAniIdBySeedType(seedType) {
@@ -265,6 +272,7 @@ function updateGameInfo(gameInfoJson){
 
 // New
 function onReceiveUser(userInfo) {
+    user = new User();
     // Add FoodStorage
     var foodStorage = new Storages(
         new Coordinate(userInfo.asset.foodStorage.x,
@@ -330,12 +338,15 @@ function onReceiveUser(userInfo) {
         
         for (var j = 0; j < animalLodgeInfo.animalList.length; j++) {
             var animalInfo = animalLodgeInfo.animalList[j];
+            var remainTime = AnimalConfig[animalInfo.type].time * 1000 - animalInfo.passedTime;
             var animal = new Animal(
                 animalInfo.type,
                 animalInfo.id,
                 animalInfo.feeded,
-                animalInfo.feededTime
+                animalInfo.feededTime,
+                remainTime
             );
+            // cc.log("[R]", animal.remainTime);
             animalList.push(animal);
         }
 
@@ -350,7 +361,7 @@ function onReceiveUser(userInfo) {
 
     var machineList = [];
     for (var i = 0; i < userInfo.asset.machineList.length; i++) {
-        cc.log("userInfo.asset.machineList[i] " + userInfo.asset.machineList.length);
+        // cc.log("userInfo.asset.machineList[i] " + userInfo.asset.machineList.length);
         var machineInfo = userInfo.asset.machineList[i];
         cc.log(machineInfo.toString());
         var machine = new Machine(
@@ -368,8 +379,6 @@ function onReceiveUser(userInfo) {
         //var machine = new Machine(machineId, machineType, slot, startTime,  productQueue, boostBuild, completed, startBuildTime, remainBuildTime, coordinate);
         machineList.push(machine);
     }
-
-    var myShop = null;
 
     //Order List
     var orderList = [];
@@ -394,40 +403,44 @@ function onReceiveUser(userInfo) {
             userInfo.asset.orderNPCList[i].orderExp,
             userInfo.asset.orderNPCList[i].npc_res
         );
-        orderNPCList.waittingTime = new Date(parseInt(userInfo.asset.orderNPCList[i].waittingTime));
+        orderNPC.waittingTime = new Date(parseInt(userInfo.asset.orderNPCList[i].waittingTime));
         orderNPCList.push(orderNPC);
     }
+    //
+    var car = new Car(userInfo.asset.car.deliveryPrice, userInfo.asset.car.deliveryExp);
+    //
+
+    var myShop = new MyShop(userInfo.asset.myShop.maxSlot, userInfo.asset.myShop.productList, userInfo.asset.myShop.lastTimeNpcCome);
+
 
     var asset = new Asset(
         foodStorage, warehouse, fieldList, animalLodgeList,
         machineList, natureThingList, myShop,
-        orderList, orderNPCList
+        orderList, orderNPCList, car
     );
 
     // cc.log("Asset", asset);
 
     // Create user
     user = new User(asset, userInfo.map);
+    // cc.log("user.map", userInfo.map.length);
     user.level = userInfo.level;
     user.gold = userInfo.gold;
     user.ruby = userInfo.ruby;
     user.exp = userInfo.exp;
+    user.id = userInfo.id;
+    user.name = userInfo.name;
 
     // cc.log("AnimalLodge", user.asset.animalLodgeList);
+    MainScene.instance = new MainScene();
+    cc.director.runScene(MainScene.instance);
     MainScene.instance.onGettedData();
 
 
-//
-    var orderNPCList = user.asset.getOrderNPCList();
-    for (var i = 0; i < orderNPCList.length; i++){
-        // cc.log(orderList.getItemList()[i].getTypeItem() + ", " + orderList.getItemList()[i].getQuantityItem());
-
-        cc.log(orderNPCList[i].orderId);
-        cc.log(orderNPCList[i].orderItem);
-        cc.log(orderNPCList[i].orderPrice);
-        cc.log(orderNPCList[i].orderExp);
-        cc.log(orderNPCList[i].waittingTime);
-        cc.log(orderNPCList[i].npc_res);
-    }
-
+    // /*
+    //  */
+    // cc.log("MYSHOP: " + userInfo.asset.myShop);
+    // cc.log(userInfo.asset.myShop.maxSlot);
+    // cc.log(userInfo.asset.myShop.productList);
+    // cc.log(userInfo.asset.myShop.lastTimeNpcCome);
 }

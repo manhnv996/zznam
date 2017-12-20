@@ -600,7 +600,7 @@ var PopupLayer = cc.Layer.extend({
         this.arrow = fr.createAnimationById(resAniId.Arrow1, this);
         this.arrow.gotoAndPlay('1', -1, 1.0);
         this.arrow.setCompleteListener(callback);
-        this.arrow.setScale(0.5);
+        this.arrow.setScale(0.8);
         // Recaculate position
         var boundingbox = this.arrow.getBoundingBox();
         var position = cc.p(x - boundingbox.width / 2, y + boundingbox.height);

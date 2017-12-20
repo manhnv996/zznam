@@ -2,6 +2,8 @@
  * Created by CPU60133_LOCAL on 11/30/2017.
  */
 
+var ProductConfig = null;
+
 var productIconMap = {};
 
 productIconMap[ProductTypes.CROP_WHEAT] = res.iconCropWheat;
@@ -11,7 +13,7 @@ productIconMap[ProductTypes.CROP_SOYBEAN] = res.iconCropSoybean;
 productIconMap[ProductTypes.CROP_SUGARCANE] = res.iconCropSugarcane;
 
 productIconMap[ProductTypes.GOOD_EGG] = res.iconGoodEgg;
-productIconMap[ProductTypes.GOOF_MILK] = res.iconGoodMilk;
+productIconMap[ProductTypes.GOOD_MILK] = res.iconGoodMilk;
 
 productIconMap[ProductTypes.PRODUCT_BREAD] = res.iconProductBread;
 productIconMap[ProductTypes.PRODUCT_CORN_BREAD] = res.iconProductCornBread;
@@ -45,23 +47,27 @@ productIconMap[ProductTypes.TOOL_BOLT] = res.iconProductBread;
 productIconMap[ProductTypes.TOOL_PLANK] = res.iconProductCornBread;
 productIconMap[ProductTypes.TOOL_DUCTTAPE] = res.iconProductCookie;
 
+productIconMap[ProductTypes.TOOL_AXE] = res.RIU;
+productIconMap[ProductTypes.TOOl_SAW] = res.CUA;
+productIconMap[ProductTypes.TOOL_DYNOMITE] = res.BOMB;
+productIconMap[ProductTypes.TOOL_DEMOLITION_CHARGE] = res.BOMB_TNT;
+productIconMap[ProductTypes.TOOL_SHOVEL] = res.XENG;
+
 function getProductIconById(productId){
     return productIconMap[productId];
 
 }
 
 
-// function removeBlockListener(productId) {
 function getProductObjById(productId) {
-    var productTypeObj = null;
-    cc.loader.loadJson(res.productconfig, function (error, data) {
-        productTypeObj = data;
-        //ProductType = data;
-    });
-
-    for (var i = 0; i < productTypeObj.length; i++) {
-        if (productTypeObj[i].id == productId) {
-            return productTypeObj[i];
+    if (ProductConfig == null){
+        cc.loader.loadJson(res.productconfig, function (error, data) {
+            ProductConfig = data;
+        });
+    }
+    for (var i = 0; i < ProductConfig.length; i++) {
+        if (ProductConfig[i].id == productId) {
+            return ProductConfig[i];
         }
     }
 

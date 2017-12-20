@@ -29,7 +29,7 @@ import model.ZPUserInfo;
 
 /**
  *
- * @author nguyenvanmanh
+ * @author 
  */
 public class ProductUtil {
     
@@ -64,7 +64,7 @@ public class ProductUtil {
     public static CropProduct[] toCropProductArray(/*String jsonFile*/){
         
         Gson gson = new Gson();
-        CropProduct[] cps = gson.fromJson(readFile("src\\config\\json\\cropconfig.json"), CropProduct[].class);
+        CropProduct[] cps = gson.fromJson(readFile("src/config/json/cropconfig.json"), CropProduct[].class);
         
         return cps;
     }
@@ -87,7 +87,7 @@ public class ProductUtil {
     public static ProductConfig[] toProductConfigArray(/*String jsonFile*/){
         
         Gson gson = new Gson();
-        ProductConfig[] cps = gson.fromJson(readFile("src\\config\\json\\productconfig.json"), ProductConfig[].class);
+        ProductConfig[] cps = gson.fromJson(readFile("src/config/json/productconfig.json"), ProductConfig[].class);
         
         return cps;
     }
@@ -145,7 +145,6 @@ public class ProductUtil {
                 }
                 break;
         
-        
             //
             case TOOL_PRODUCT:
                 for (int i = 0; i < products.length; i++) {
@@ -154,17 +153,14 @@ public class ProductUtil {
                     }
                 }
                 break;
-            
-            
+        
             default:
-                
         }
-
         return list;
     }
     
     
-    public static List<ProductConfig> randomSortProductConfByCategory(ProductCategory category){
+    public static List<ProductConfig> randomSortProductConfByCategory(ZPUserInfo user, ProductCategory category){
         
         List<ProductConfig> productCategory = ProductUtil.getProductConfObjByCategory(category);
         
@@ -178,11 +174,16 @@ public class ProductUtil {
             productCategory = ProductUtil.sortProductListByLevelUnlock(productCategory);
             
         } else {
-            //orderby itemStorage (quantity)
-            productCategory = ProductUtil.sortProductListByRandomProduct(productCategory);
+//            productCategory = ProductUtil.sortProductListByRandomProduct(productCategory);
             /*
-             * not yet started
+             * done
              */
+            List<StorageItem> storageItemList = OrderNPCUtil.getItemListInStockByCategory(user, category);
+            storageItemList = sortProductListByQuantityOfStorageItem(storageItemList);
+            productCategory = new ArrayList<>();
+            for (int i = 0; i < storageItemList.size(); i++){
+                productCategory.add(getProductConfObjByType(storageItemList.get(i).getTypeItem()));
+            }
             
         }
         
@@ -218,13 +219,13 @@ public class ProductUtil {
         return productList;
     }
     
-    public static List<ProductConfig> sortProductListByQuantityOfStorageItem(List<ProductConfig> productList){
+    public static List<StorageItem> sortProductListByQuantityOfStorageItem(List<StorageItem> storageItemList){
 
-        Collections.sort(productList, new Comparator<ProductConfig>() {
+        Collections.sort(storageItemList, new Comparator<StorageItem>() {
             @Override
-            public int compare(ProductConfig a, ProductConfig b) {
+            public int compare(StorageItem a, StorageItem b) {
                 // -1 - less than, 1 - greater than, 0 - equal, all inversed for descending
-                return b.levelUnlock > a.levelUnlock ? -1 : (b.levelUnlock < a.levelUnlock) ? 1 : 0;    //level inc
+                return b.getQuantity() > a.getQuantity() ? -1 : (b.getQuantity() < a.getQuantity()) ? 1 : 0;    //quantity inc
                 
                 /*
                  * NOT YET STARTED
@@ -233,9 +234,8 @@ public class ProductUtil {
             }
         });
         
-        return productList;
+        return storageItemList;
     }
-    
     
     
     
@@ -251,27 +251,5 @@ public class ProductUtil {
         return jsonstring;
     }
     
-    
-    
-    
-    public static void response(short errorCode){
-        
-        if (errorCode == ErrorLog.SUCCESS.getValue()){     //Success
-            
-        } 
-        else {
-            if (errorCode >= 10 && errorCode < 20){     //Error about field status
-                //
-                
-            }
-            if (errorCode >= 20 && errorCode < 30){       //Error about storage
-                //
-            }
-            if (errorCode >= 30 && errorCode < 40){       //Error about rubi, gold..
-                //
-                
-            }
-        }
-    }
     
 }

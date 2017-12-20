@@ -12,16 +12,15 @@ fr.toMoneyString = function(num)
     num = Math.abs(num);
     var hau_to;
     if(num >= 1000000000){
-        hau_to = 'G';
+        hau_to = '.';
         formattedNumber = (num/1000000000).toFixed(3);
     } else if (num >= 1000000){
-        hau_to = 'M';
+        hau_to = '.';
         formattedNumber = (num/1000000).toFixed(3);
     } else if (num >= 1000){
         hau_to = 'K';
         formattedNumber = (num/1000).toFixed(3);
-    }else
-    {
+    } else {
         formattedNumber = num.toString();
     }
 
@@ -45,3 +44,12 @@ fr.toMoneyString = function(num)
     }
     return formattedNumber;
 };
+
+fr.toMoney = function (str) {
+    var rStr = str.toString().split("").reverse().join("");
+    var result = [];
+    for (var i = 0; i < rStr.length; i+= 3) {
+        result.push(rStr.substr(i, 3).split("").reverse().join(""));
+    }
+    return result.reverse().join('.');
+}

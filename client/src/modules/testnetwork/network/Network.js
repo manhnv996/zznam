@@ -28,8 +28,8 @@ testnetwork.Connector = cc.Class.extend({
                 // this.sendGetUserInfo(); // Old. Do not use
                 this.sendGetUser();
 
-                MainScene.instance = new MainScene();
-                cc.director.runScene(MainScene.instance);
+                // MainScene.instance = new MainScene();
+                // cc.director.runScene(MainScene.instance);
 
                 break;
             case gv.CMD.USER_INFO:
@@ -74,6 +74,7 @@ testnetwork.Connector = cc.Class.extend({
             case gv.CMD.GET_USER: // New
                 cc.log("[N] RECEIVE GET_USER");
                 // process packet.user here
+                home = true;
                 onReceiveUser(packet.user);
                 break;
 
@@ -179,12 +180,25 @@ testnetwork.Connector = cc.Class.extend({
                  */
                 var orderSelected = user.getAsset().getOrderById(packet.order.orderId);
 
-                orderSelected.itemList = packet.order.itemList;
-                orderSelected.orderPrice = packet.order.orderPrice;
-                orderSelected.orderExp = packet.order.orderExp;
-                //orderSelected.waittingTime = packet.order.waittingTime;
-                orderSelected.waittingTime = new Date(parseInt(packet.order.waittingTime));
+                if (orderSelected != null){
 
+                    orderSelected.itemList = packet.order.itemList;
+                    orderSelected.orderPrice = packet.order.orderPrice;
+                    orderSelected.orderExp = packet.order.orderExp;
+                    orderSelected.waittingTime = new Date(parseInt(packet.order.waittingTime));
+
+                }
+                else {
+                    var order = new Order(
+                        packet.order.orderId,
+                        packet.order.itemList,
+                        packet.order.orderPrice,
+                        packet.order.orderExp
+                    );
+                    order.waittingTime = new Date(parseInt(packet.order.waittingTime));
+
+                    user.getAsset().addOrder(order);
+                }
 
                 ////
                 TruckOrderSprite.instance.initTruckOrder();
@@ -192,6 +206,20 @@ testnetwork.Connector = cc.Class.extend({
                 if (BaseGUILayer.instance._layout != null){
                     BaseGUILayer.instance._layout.initInfo();
                 }
+
+                TablePopupLayer.instance.runUpdateOrderWaittingTime();
+                break;
+
+            case gv.CMD.RESPONSE_SYNC_CAR:
+                cc.log("RECEIVE RESPONSE_SYNC_CAR: ");
+                /*
+                 done
+                 */
+
+                var car = user.getAsset().getCar();
+                car.updateDelivery(packet.deliveryPrice, packet.deliveryExp);
+
+                CarSprite.instance.updateCarStatus(car);
 
                 break;
 
@@ -213,22 +241,39 @@ testnetwork.Connector = cc.Class.extend({
                 orderNPCSelected.npc_res = packet.orderNPC.npc_res;
 
 
-                //////
-                //TruckOrderSprite.instance.initTruckOrder();
-                //// OrderCtrl.instance.onShowOrderBG();
-                //if (BaseGUILayer.instance._layout != null){
-                //    BaseGUILayer.instance._layout.initInfo();
-                //}
-
                 if (orderNPCSelected.checkStatus() == OrderStatusTypes.REALIZABLE){
                     //
-                    MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).setResume();
+                    //MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).setResume();
+                    var index = MapLayer.instance.getIndexByOrderNPCId(orderNPCSelected.orderId);
+                    if (index != null){
+                        MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).changeTexture(orderNPCSelected);
+                        MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).runScheduleWalkingBack();
+                        MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).stopScheduleUpdateOrderNPC();
+                    }
                     //
                 } else {
+                    // //
+                    // // MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).setPause();
+                    // if (MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId) != null){
+                    //     MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).setPause();
+                    // }
                     //
-                    MapLayer.instance.getNPCByOrderNPCId(orderNPCSelected.orderId).setPause();
-                    //
+                    // //
                 }
+
+                break;
+            //
+            case gv.CMD.RESPONSE_SYNC_PRODUCT_SALE:
+                cc.log("RESPONSE_SYNC_PRODUCT_SALE: ", packet.productSale);
+
+                /*
+                inprogress
+                 */
+                var productSaleSelected = user.getAsset().getMyShop().getProductBySlot(packet.productSale.slot);
+                productSaleSelected.updateProductSale(new StorageItem(packet.productSale.typeItem, packet.productSale.quantity),
+                    packet.productSale.price);
+                productSaleSelected.isSold = packet.productSale.isSold;
+
 
                 break;
             ////
@@ -236,8 +281,63 @@ testnetwork.Connector = cc.Class.extend({
             case gv.CMD.RESPONSE_MOVE:
                 cc.log("RESPONSE_MOVE Error: ", packet.error);
                 if (packet.error !== 0) {
-                    cc.log("[E] Error occurs");
+                    cc.log("[E] Error occurs!");
                 }
+                break;
+            case gv.CMD.ANIMAL_HARVEST:
+                cc.log("ANIMAL_HARVEST Error:", packet.error);
+                if (packet.error !== 0) {
+                    cc.log('[E] Error occurs!');
+                }
+                break;
+            case gv.CMD.ANIMAL_FEED:
+                cc.log("ANIMAL_FEED Error:", packet.error);
+                if (packet.error !== 0) {
+                    cc.log('[E] Error occurs!');
+                }
+                break;
+            case gv.CMD.ANIMAL_BOOST:
+                cc.log("ANIMAL_BOOST Error:", packet.error);
+                if (packet.error !== 0) {
+                    cc.log('[E] Error occurs!');
+                }
+
+            case gv.CMD.RESPONSE_BUY_OBJECT:
+                cc.log("BUY_OBJECT Error:", packet.error);
+                if (packet.error !== 0) {
+                    cc.log('[E] Error occurs!');
+                }
+                break;
+
+            case gv.CMD.RESPONSE_UPGRADE_STORAGE:
+                cc.log("UPGRADE_STORAGE Error:", packet.error);
+                if (packet.error !== 0) {
+                    cc.log('[E] Error occurs!');
+                }
+                break;
+            case gv.CMD.RESPONSE_BUY_TOOL_UPGRADE:
+                cc.log("BUY_TOOL_UPGRADE Error:", packet.error);
+                if (packet.error !== 0) {
+                    cc.log('[E] Error occurs!');
+                }
+                break;
+            case gv.CMD.NATURE_COLLECT:
+                cc.log("NATURE_COLLECT Error:", packet.error);
+                if (packet.error !== 0) {
+                    cc.log('[E] Error occurs');
+                }
+                break;
+            case gv.CMD.FRIEND_GET_LIST:
+                cc.log("FRIEND_GET_LIST");
+                cc.log(packet.idList);
+                var id = packet.idList[0] || user.id; // or last id
+                cc.log("[F] Choose", id);
+                this.sendFriendGetInfo(id);
+                break;
+            case gv.CMD.FRIEND_GET_INFO:
+                cc.log("FRIEND_GET_INFO");
+                home = false;
+                onReceiveUser(packet.user);
                 break;
         }
     },
@@ -256,7 +356,66 @@ testnetwork.Connector = cc.Class.extend({
         this.gameClient.sendPacket(pk);
     },
 
-    sendLoginRequest: function (username, password) {
+    sendLoginRequest: function(username, password) {
+        cc.log("Send login request", username, password);
+        var ATTEMP_TO_TRY = 5;
+        var failedToConnect = function() {
+            return cc.log("Check your network connection");
+        }
+
+        var invalidUsernamePassword = function() {
+            return cc.log("Invalid username or password");
+        }
+
+        // Not modify after here
+        var that = this;
+        var sendLoginPacket = function(sessionKey, userid) {
+            var pk = that.gameClient.getOutPacket(CmdSendLogin);
+            pk.pack(sessionKey, userid);
+            that.gameClient.sendPacket(pk);
+        }
+
+        var getSessionProcess = function(userid, sessionKey, attemp) {
+            var url = "https://zplogin.g6.zing.vn/?service_name=getSessionKey" 
+                + "&gameId=100&distribution=&clientInfo=" 
+                + "&social=zingme&accessToken=" + sessionKey;
+            request.get(url, function(err, response) {
+                if (err) {
+                    if (attemp === ATTEMP_TO_TRY) {
+                        return failedToConnect();
+                    }
+                    cc.log("Retry attemp", attemp + 1);
+                    return getSessionProcess(userid, sessionKey, attemp + 1);
+                }
+                return sendLoginPacket(response.sessionKey, userid);
+            });
+        }
+
+        var loginProcess = function(user, pass, attemp) {
+            var url = "https://myplay.apps.zing.vn/sso3/login.php?username=" 
+                    + username + "&password=" + password;
+            request.get(url, function(err, response) {
+                if (err) {
+                    if (attemp === ATTEMP_TO_TRY) {
+                        return failedToConnect();
+                    }
+                    cc.log("Retry attemp", attemp + 1);
+                    return loginProcess(user, pass, attemp + 1);
+                }
+                if (parseInt(response.error) !== 0) {
+                    return invalidUsernamePassword();
+                }
+                var sessionKey = response.sessionKey;
+                var userid = response.userid;
+                return getSessionProcess(userid, sessionKey, 0);
+            });
+        }
+
+        return loginProcess(username, password, 0);
+    },
+
+    _sendLoginRequest: function (username, password) {
+        cc.log("sendLoginRequest");
         cc.log("sendingLoginRequest with: " + username + "===" + password);
         //this.getSessionKeyAndUserId();
         var xhr = cc.loader.getXMLHttpRequest();
@@ -414,6 +573,12 @@ testnetwork.Connector = cc.Class.extend({
         pk.pack(orderId);
         this.gameClient.sendPacket(pk);
     },
+    sendReceiceDeliveryCar: function (price, exp) {
+        cc.log("sendReceiceDeliveryCar: ", price, exp);
+        var pk = this.gameClient.getOutPacket(CmdSendReceiceDeliveryCar);
+        pk.pack(price, exp);
+        this.gameClient.sendPacket(pk);
+    },
     //
     sendMakeOrderNpc: function (orderId, rubyBuy) {
         cc.log("sendMakeOrderNpc: " + orderId);
@@ -431,6 +596,37 @@ testnetwork.Connector = cc.Class.extend({
         cc.log("sendCreateNewOrderNpc: " + orderId);
         var pk = this.gameClient.getOutPacket(CmdSendCreateNewOrderNpc);
         pk.pack(orderId);
+        this.gameClient.sendPacket(pk);
+    },
+    //
+    sendSellProduct: function (intSlot, productType, quantity, price) {
+        cc.log("sendSellProduct: " + intSlot);
+        var pk = this.gameClient.getOutPacket(CmdSendSellProduct);
+        pk.pack(intSlot, productType, quantity, price);
+        this.gameClient.sendPacket(pk);
+    },
+    sendBuyProduct: function (userId, intSlot) {
+        cc.log("sendBuyProduct: ", intSlot, userId);
+        var pk = this.gameClient.getOutPacket(CmdSendBuyProduct);
+        pk.pack(userId, intSlot);
+        this.gameClient.sendPacket(pk);
+    },
+    sendReceiveMoneyFromProduct: function (intSlot) {
+        cc.log("sendReceiveMoneyFromProduct: " + intSlot);
+        var pk = this.gameClient.getOutPacket(CmdSendReceiveMoneyFromProduct);
+        pk.pack(intSlot);
+        this.gameClient.sendPacket(pk);
+    },
+    sendCancelSellProduct: function (intSlot) {
+        cc.log("sendCancelSellProduct: " + intSlot);
+        var pk = this.gameClient.getOutPacket(CmdSendCancelSellProduct);
+        pk.pack(intSlot);
+        this.gameClient.sendPacket(pk);
+    },
+    sendUnlockSlotMyShop: function () {
+        cc.log("sendUnlockSlotMyShop: ");
+        var pk = this.gameClient.getOutPacket(CmdSendUnlockSlotMyShop);
+        pk.pack();
         this.gameClient.sendPacket(pk);
     },
     ///
@@ -492,10 +688,74 @@ testnetwork.Connector = cc.Class.extend({
         this.gameClient.sendPacket(pk);
     },
 
+    sendAnimalHarvest: function(lodgeId, animalId) {
+        cc.log("Send Animal Harvest");
+        var pk = this.gameClient.getOutPacket(CmdSendAnimalHarvest);
+        pk.pack(lodgeId, animalId);
+        this.gameClient.sendPacket(pk);
+    },
+
+    sendAnimalFeed: function(lodgeId, animalId) {
+        cc.log("Send Animal Feed", lodgeId, animalId);
+        var pk = this.gameClient.getOutPacket(CmdSendAnimalFeed);
+        pk.pack(lodgeId, animalId);
+        this.gameClient.sendPacket(pk);
+    },
+
+    sendAnimalBoost: function(lodgeId, animalId) {
+        cc.log("Send Animal Boost", lodgeId, animalId);
+        var pk = this.gameClient.getOutPacket(CmdSendAnimalBoost);
+        pk.pack(lodgeId, animalId);
+        this.gameClient.sendPacket(pk);
+    },
+    
     sendBoostBuild: function (id, typeBuilding) {
         cc.log("Send Boost Build");
         var pk = this.gameClient.getOutPacket(CmdSendBoostBuild);
         pk.pack(id, typeBuilding);
+        this.gameClient.sendPacket(pk);
+    },
+
+    sendBuyAnimal: function (lodgeId, animalId, animalType, lx, ly) {
+        cc.log("Send Buy Animal", + animalType);
+        var pk = this.gameClient.getOutPacket(CmdSendBuyAnimal);
+        pk.pack(lodgeId, animalId, animalType, lx, ly);
+        this.gameClient.sendPacket(pk);
+    },
+
+    sendBuyAnimalByRuby: function (lodgeId, animalId, animalType, lx, ly) {
+        cc.log("Send Buy Animal", +animalType);
+        var pk = this.gameClient.getOutPacket(CmdSendBuyAnimalByRuby);
+        pk.pack(lodgeId, animalId, animalType, lx, ly);
+        this.gameClient.sendPacket(pk);
+    },
+
+    sendNatureCollect: function(id) {
+        cc.log("Send Nature collect");
+        var pk = this.gameClient.getOutPacket(CmdSendCollectNatureThing);
+        pk.pack(id);
+        this.gameClient.sendPacket(pk);
+    },
+
+    // Friend
+    sendFriendGetList: function() {
+        cc.log("Send Friend get list");
+        var pk = this.gameClient.getOutPacket(CmdSendFriendGetList);
+        pk.pack();
+        this.gameClient.sendPacket(pk);
+    },
+
+    sendFriendGetInfo: function(id) {
+        cc.log("Send Friend get info", id);
+        var pk = this.gameClient.getOutPacket(CmdSendFriendGetInfo);
+        pk.pack(id);
+        this.gameClient.sendPacket(pk);
+    },
+
+    sendAddMoney: function (number, type) {
+        cc.log("Send add money");
+        var pk = this.gameClient.getOutPacket(CmdSendAddMoney);
+        pk.pack(number, type);
         this.gameClient.sendPacket(pk);
     }
 });

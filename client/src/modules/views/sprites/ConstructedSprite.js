@@ -5,9 +5,10 @@
 var ConstructedSprite = AnimationSprite.extend({
     typeBuilding: null,
     id: null,
-    buildTime: 0,
+    //blockSize: null,
+    //buildTime: 0,
 
-    ctor: function (id, w, h, x, y, typeBuilding, typeMapObject) {
+    ctor: function (id, w, h, x, y, typeBuilding) {
         var aniId;
         var nameAni;
         if (w === 2 && h === 2){
@@ -20,11 +21,11 @@ var ConstructedSprite = AnimationSprite.extend({
             aniId = resAniId.Nhdangxay4x4;
             nameAni = "4";
         }
-        this._super(aniId, w, h, x, y ,typeMapObject);
+        this._super(aniId, w, h, x, y ,typeBuilding);
 
         this.id = id;
         this.typeBuilding = typeBuilding;
-        this.typeMapObject = typeMapObject;
+        //this.blockSize = w;
         //cc.log("Constructed sprite id", this.id);
 
         //this.buildTime = ConstructedCtrl.instance.getBuildTime(id);
@@ -37,9 +38,7 @@ var ConstructedSprite = AnimationSprite.extend({
     },
 
     onBeginClick: function () {
-        //ConstructedCtrl.instance.selectConstructedObject(this.id, this.typeBuilding, this.buildExpress);
         if (_loadingBarConstructed) {
-            //cc.log("!_loadingBarConstructed.parent" + !_loadingBarConstructed.parent);
             if (_loadingBarConstructed.parent) {
                 _loadingBarConstructed.removeFromParent();
             }
@@ -50,6 +49,7 @@ var ConstructedSprite = AnimationSprite.extend({
     onClick: function () {
         cc.log("Click nha dang xay " + this.id);
         ConstructedCtrl.instance.selectConstructedObject(this);
+        audioEngine.playEffect(res.func_click_button_mp3, false);
     },
 
     _offset: function() {
@@ -65,10 +65,14 @@ var ConstructedSprite = AnimationSprite.extend({
     },
 
     updateTime: function (dt) {
-        //cc.log("dt " + dt);
-        //if (ConstructedCtrl.instance.checkBuildTime(this.id, this.typeBuilding, this.typeObject, dt)) {
         if (ConstructedCtrl.instance.checkBuildTime(this, dt)) {
             this.removeFromParent(true);
         }
+    },
+
+    onFinishMove: function (lx, ly) {
+        user.asset.getMachineById(this.id).coordinate.x = lx;
+        user.asset.getMachineById(this.id).coordinate.y = ly;
+        testnetwork.connector.sendMoveMapBlock(MapItemEnum.MACHINE, this.id, lx, ly);
     }
 });

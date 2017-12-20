@@ -9,14 +9,17 @@ import bitzero.server.extensions.data.DataCmd;
 
 import cmd.CmdDefine;
 
+import cmd.receive.user.RequestAddMoney;
 import cmd.receive.user.RequestUserInfo;
 
+import cmd.send.demo.ResponseErrorCode;
 import cmd.send.demo.ResponseGameInfo;
 
 import cmd.send.user.ResponseUser;
 
 import config.enums.AnimalEnum;
 import config.enums.AnimalLodgeEnum;
+import config.enums.ErrorLog;
 import config.enums.MachineTypeEnum;
 import config.enums.ProductType;
 import config.enums.StorageType;
@@ -43,9 +46,11 @@ import model.AnimalLodge;
 import model.Asset;
 import model.Field;
 import model.Machine;
+import model.MyShop;
 import model.NatureThing;
 import model.Order;
 import model.OrderNPC;
+import model.ProductSale;
 import model.Storage;
 import model.StorageItem;
 import model.ZPUserInfo;
@@ -86,7 +91,12 @@ public class UserHandler extends BaseClientRequestHandler {
                 getUserInfo(user);
                 break;
             case CmdDefine.GET_USER: // New get user
+                System.out.println("[INFO] User request information " + user.getId());
                 returnUser(user);
+                break;
+            case CmdDefine.ADD_MONEY:
+                RequestAddMoney reqAdd = new RequestAddMoney (dataCmd);
+                processAddMoney(user, reqAdd);
                 break;
             }
             
@@ -126,12 +136,18 @@ public class UserHandler extends BaseClientRequestHandler {
             userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
             if (userInfo == null) {
                 userInfo = createUser(user.getId());
+                
+                //
+                userInfo.getAsset().getMyShop().sell(userInfo, 0, new StorageItem(ProductType.CROP_WHEAT, 5), 10);
+                userInfo.getAsset().getMyShop().sell(userInfo, 3, new StorageItem(ProductType.GOOD_MILK, 3), 27);
+                //
+                
                 userInfo.saveModel(user.getId());
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+        send(new ResponseUser(userInfo), user);
         
         
         /*
@@ -158,9 +174,6 @@ public class UserHandler extends BaseClientRequestHandler {
         
 //        this.orderItem = OrderNPCUtil.randomProductConfByCategory(user, OrderNPCUtil.randomCategoryNPC());
         
-        System.out.println("here is log");
-        //
-        send(new ResponseUser(userInfo), user);
     }
 
     private void userDisconnect(User user) {
@@ -185,8 +198,13 @@ public class UserHandler extends BaseClientRequestHandler {
         foodStorage.addItem(ProductType.CROP_SOYBEAN, 2);
         foodStorage.addItem(ProductType.CROP_CORN, 10);
         
-        warehouse.addItem(ProductType.GOOD_EGG, 2);        
-        warehouse.addItem(ProductType.GOOD_MILK, 10);
+        warehouse.addItem(ProductType.GOOD_EGG, 1);        
+        warehouse.addItem(ProductType.GOOD_MILK, 1);
+        warehouse.addItem(ProductType.TOOL_AXE, 1);
+        warehouse.addItem(ProductType.TOOL_SAW, 2);
+        warehouse.addItem(ProductType.TOOL_DYNOMITE, 1);
+        warehouse.addItem(ProductType.TOOL_DEMOLITION_CHARGE, 2);
+        warehouse.addItem(ProductType.TOOL_SHOVEL, 3);
         //
         
 //        warehouse.addItem(ProductType.TOOL_NAIL, 5);
@@ -196,7 +214,8 @@ public class UserHandler extends BaseClientRequestHandler {
 //        warehouse.addItem(ProductType.TOOL_BOLT, 1);
         warehouse.addItem(ProductType.TOOL_PLANK, 4);
         warehouse.addItem(ProductType.TOOL_DUCTTAPE, 2);
-        
+        warehouse.addItem(ProductType.FOOD_CHICKEN, 1);
+        warehouse.addItem(ProductType.FOOD_COW, 6);
         
         // Load natural thingList
         List<NatureThing> natureThingList = new ArrayList<>();
@@ -207,7 +226,10 @@ public class UserHandler extends BaseClientRequestHandler {
 //            System.out.println("id" + nObj.id + " type" + nObj.type);
         }
         
-        Asset asset = new Asset(foodStorage, warehouse, null, natureThingList, null, null);
+        MyShop myShop = new MyShop(6);
+        
+        
+        Asset asset = new Asset(foodStorage, warehouse, null, natureThingList, null, null, myShop);
         
         // Add some fields
         for (int i = 1; i < 5; i++){
@@ -225,9 +247,45 @@ public class UserHandler extends BaseClientRequestHandler {
         asset.addAnimalLodge(cowLodge);
         
         Animal animal = new Animal(AnimalEnum.chicken);
+        animal.setFeededTime(animal.getFeededTime() - 1000 * 60 * 19 - 1000 * 40);
+        animal.setFeeded(false);
         chickenLodge.addAnimal(animal);
         
+        Animal animal2 = new Animal(AnimalEnum.chicken);
+        animal2.setFeededTime(animal2.getFeededTime());
+        animal2.setFeeded(false);
+        chickenLodge.addAnimal(animal2);
+
+        Animal animal21 = new Animal(AnimalEnum.chicken);
+        animal2.setFeededTime(animal2.getFeededTime());
+        animal2.setFeeded(false);
+        chickenLodge.addAnimal(animal21);
+
+        Animal animal22 = new Animal(AnimalEnum.chicken);
+        animal2.setFeededTime(animal2.getFeededTime());
+        animal2.setFeeded(false);
+        chickenLodge.addAnimal(animal22);
+
+        Animal animal23 = new Animal(AnimalEnum.chicken);
+        animal2.setFeededTime(animal2.getFeededTime());
+        animal2.setFeeded(false);
+        chickenLodge.addAnimal(animal23);
+
+        Animal animal24 = new Animal(AnimalEnum.chicken);
+        animal2.setFeededTime(animal2.getFeededTime());
+        animal2.setFeeded(false);
+        chickenLodge.addAnimal(animal24);
         
+        Animal animal3 = new Animal(AnimalEnum.cow);
+        animal3.setFeededTime(animal3.getFeededTime() - 1000 * 3600);
+        animal3.setFeeded(true);
+        cowLodge.addAnimal(animal3);
+        
+        Animal animal4 = new Animal(AnimalEnum.cow);
+        animal4.setFeededTime(animal4.getFeededTime());
+        animal4.setFeeded(true);
+        cowLodge.addAnimal(animal4);
+
         // Add Food Machine
         Machine machine = new Machine(1, MachineTypeEnum.food_machine, 
                         ConfigContainer.getMachineSlot(MachineTypeEnum.food_machine.toString()),
@@ -253,15 +311,15 @@ public class UserHandler extends BaseClientRequestHandler {
         
         //
         for (int i = 0; i < OrderUtil.getNumberOfOrderByLevel(userInfo.getLevel()); i++){
-            asset.addOrder(userInfo.getLevel(), new Order(userInfo.getLevel()));
+//            asset.addOrder(userInfo.getLevel(), new Order(userInfo.getLevel()));
+            asset.addOrder(userInfo.getLevel(), new Order(userInfo, userInfo.getLevel()));
         }
         
         //
-        for (int i = 0; i < 2; i++){
+        for (int i = 0; i < 1; i++){
             asset.addOrderNPC(new OrderNPC(userInfo));
         }
         
-        System.out.println("here is log2222");
         for (int i = 0; i < asset.getOrderNPCList().size(); i++){
             System.out.println(asset.getOrderNPCList().get(i).getOrderItem().getTypeItem() + ", " + 
                                asset.getOrderNPCList().get(i).getOrderItem().getQuantity() + ", " + 
@@ -272,6 +330,31 @@ public class UserHandler extends BaseClientRequestHandler {
         
         
         return userInfo;
+    }
+    
+    private void processAddMoney (User user, RequestAddMoney reqAdd) {
+        ZPUserInfo userInfo = null;
+        try {
+            userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
+        } catch (Exception e) {
+            e.printStackTrace();  
+        }
+        if (userInfo == null) {
+            return;    
+        }
+        
+        if (reqAdd.type == 1101) {
+            userInfo.addGold(reqAdd.number);
+        } else if (reqAdd.type == 1102) {
+            userInfo.addRuby(reqAdd.number);
+        }
+        send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
+        
+        try {
+            userInfo.saveModel(user.getId());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     
 }

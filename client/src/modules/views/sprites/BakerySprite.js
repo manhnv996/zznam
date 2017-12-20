@@ -4,7 +4,7 @@ var BakerySprite = AnimationSprite.extend({
 	id: null,
 
 	ctor: function(bakeryId, x, y) {
-		this._super(resAniId.bakery, 3, 3, x, y, MapItemEnum.BAKERY);
+		this._super(resAniId.bakery, 3, 3, x, y, MapItemEnum.MACHINE);
 		//this._super(resAniId.popcorn_pot, 3, 3, x, y, MapItemEnum.BAKERY);
 
 		// this.content = fr.createAnimationById(resAniId.bakery, this);
@@ -19,12 +19,10 @@ var BakerySprite = AnimationSprite.extend({
 		this.registerTouchEvents();
 	},
 
-	onBeginClick: function() {
-		this.play("selected");
-	},
-
 	onClick: function() {
 		cc.log("bakery is clicked " + this.id);
+		this.play("selected");
+		audioEngine.playEffect(res.tools_bread_oven_mp3, false);
 	},
 
 	onFinishMove: function (lx, ly) {
@@ -32,5 +30,4 @@ var BakerySprite = AnimationSprite.extend({
 		user.asset.getMachineById(this.id).coordinate.y = ly;
 		testnetwork.connector.sendMoveMapBlock(MapItemEnum.MACHINE, this.id, lx, ly);
 	}
-
 });

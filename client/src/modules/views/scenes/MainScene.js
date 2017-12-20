@@ -8,7 +8,11 @@ var MainScene = cc.Scene.extend({
 		StorageCtrl.instance = new StorageCtrl();
 		MachineController.instance = new MachineController();
 		ConstructedCtrl.instance = new ConstructedCtrl();
-
+		AnimalCtrl.instance = new AnimalCtrl();
+		NatureCtrl.instance = new NatureCtrl();
+		SoundCtrl.instance = new SoundCtrl();
+		FriendCtrl.instance = new FriendCtrl();
+		
 		// Init layers
 		MapLayer.instance = new MapLayer();
 		this.addChild(MapLayer.instance);
@@ -25,6 +29,10 @@ var MainScene = cc.Scene.extend({
 		this.addChild(MachineLayer.instance);
 
 		//var mainGuiLayer = new MainGuiLayer();
+		AnimateEventLayer.instance = new AnimateEventLayer();
+		this.addChild(AnimateEventLayer.instance);
+
+		//var mainGuiLayer = new MainG+uiLayer();
 		//this.addChild(mainGuiLayer);
 		//MainGuiLayer.instance = new MainGuiLayer();
 		//this.addChild(MainGuiLayer.instance);
@@ -33,11 +41,10 @@ var MainScene = cc.Scene.extend({
 
         OrderCtrl.instance = new OrderCtrl();
 
+        // Add ScheduleLoop
+        // ScheduleLoop.instance = new ScheduleLoop();
+        this.addChild(ScheduleLoop.instance); // Instance created in ScheduleLoop.js
 		cc.log("Start Scene");
-
-		////
-        this.schedule(this.updateOrderWaittingTime, 1);
-        this.schedule(this.updateOrderNPCWaittingTime, 1);
 	},
 
 	onEnter: function() {
@@ -46,7 +53,7 @@ var MainScene = cc.Scene.extend({
 	},
 
 	onGettedData: function() {
-
+		cc.log("Welcome", user.id, user.name);
 		MainGuiLayer.instance = new MainGuiLayer();
 		this.addChild(MainGuiLayer.instance);
 
@@ -56,10 +63,22 @@ var MainScene = cc.Scene.extend({
 		MapCtrl.instance.init();
 		MapCtrl.instance._showDebugMap();
 
-		//NotifyLayer.instance.notifyFullSilo();
-
 		OrderBGLayer.instance = new OrderBGLayer();
+
+
+		if (user.asset.countAnimalByType(AnimalType.chicken) > 0) {
+			this.schedule(this.scheduleSoundChickenIdle01, 29);
+			this.schedule(this.scheduleSoundChickenIdle02, 11);
+		}
+		if (user.asset.countAnimalByType(AnimalType.cow) > 0) {
+			audioEngine.playEffect(res.ani_cow_idle_mp3, false);
+			this.schedule(this.scheduleSoundCowIdle, 15);
+		}
 		// this.addChild(OrderBGLayer.instance);
+		if (!home) {
+			FriendHomeLayer.instance = new FriendHomeLayer();
+			this.addChild(FriendHomeLayer.instance);
+		}
 
         //BaseGUILayer.instance.notifyFullStorage(StorageTypes.FOOD_STORAGE);
 		//BaseGUILayer.instance.notifyMissGold(50);
@@ -79,97 +98,15 @@ var MainScene = cc.Scene.extend({
         //MapLayer.instance.addChild(bakery);
 	},
 
-    //
-    updateOrderWaittingTime: function () {
-        var list = user.getAsset().getWaittingOrderList();
-        for (var i = 0; i < list.length; i++){
+	scheduleSoundChickenIdle01: function () {
+		audioEngine.playEffect(res.ani_chicken_idle01_mp3, false);
+	},
 
-            var parseCurrTime = new Date().getTime();
-            var finishWaittingTime = list[i].getFinishWaittingTime();
-            if (finishWaittingTime != null){
-                if (parseCurrTime > finishWaittingTime.getTime()){
+	scheduleSoundChickenIdle02: function () {
+		audioEngine.playEffect(res.ani_chicken_idle02_mp3, false);
+	},
 
-                    testnetwork.connector.sendCreateNewOrder(list[i].orderId);
-                }
-            }
-        }
-
-    },
-//
-    updateOrderNPCWaittingTime: function () {
-        var list = user.getAsset().getWaittingOrderNPCList();
-        for (var i = 0; i < list.length; i++){
-cc.log("vaof vaof vaof")
-            var parseCurrTime = new Date().getTime();
-            var finishWaittingTime = list[i].getFinishWaittingTime();
-            if (finishWaittingTime != null){
-cc.log("not null not null")
-                if (parseCurrTime > finishWaittingTime.getTime()){
-cc.log("send send send")
-                    testnetwork.connector.sendCreateNewOrderNpc(list[i].orderId);
-                }
-            }
-        }
-
-    },
-
-
-    init: function() {
-
-		//gv.gameClient.connect();
-		//testnetwork.connector.sendLoginRequest();
-
-		//gv.username = "fresher001";
-		//gv.password = "fresher";
-        //
-        //
-		//gv.gameClient.connect();
-
-
-//		////    TEST//
-//		////     var field = new Field();
-//		var foodStorage = new Storages(new Coordinate(10, 10), "foodStorage", 30);
-//		//var warehouse = new Storages(new Coordinate(15, 10), initt.warehouse.storageId, initt.warehouse.capacity);
-//
-//		// foodStorage.addItem(ProductTypes.CROP_CORN, 10);
-//		foodStorage.addItem(ProductTypes.CROP_CARROT, 5);
-//		//foodStorage.addItem(ProductTypes.CROP_WHEAT, 10);
-//		foodStorage.addItem(ProductTypes.CROP_SOYBEAN, 10);
-//		// foodStorage.addItem(ProductTypes.CROP_SUGARCANE, 5);
-//
-//
-//
-//		var asset = new Asset(foodStorage, null, null, null, null, null, null);
-//		user = new User(asset);
-//
-//		var currentdate = new Date();
-//		currentdate.setHours(3, 50, 40);
-//		for (var i = 0; i < 3; i++){
-//			var field = new Field(new Coordinate(18, 10 + i), i);
-//			// var field = new Field(18, 10 + i, i);
-//			asset.addField(field);
-//////
-//			var fieldSprite = new FieldSprite(MapLayer.instance, field.getFieldId(), field.getCoordinate().getCurrX(), field.getCoordinate().getCurrY());
-//			// var fieldSprite = new FieldSprite(MapLayer.instance, field.getFieldId(), field.getCurrX(), field.getCurrY());
-//			MapLayer.instance.addChild(fieldSprite);
-//			MapLayer.instance.fieldList.push(fieldSprite);
-//		}
-//		for (var i = 0; i < 3; i++){
-//			var field = new Field(new Coordinate(17, 10 + i), i);
-//			// var field = new Field(17, 10 + i, i);
-//			asset.addField(field);
-//////
-//			var fieldSprite = new FieldSprite(MapLayer.instance, field.getFieldId(), field.getCoordinate().getCurrX(), field.getCoordinate().getCurrY());
-//			// var fieldSprite = new FieldSprite(MapLayer.instance, field.getFieldId(), field.getCurrX(), field.getCurrY());
-//			MapLayer.instance.addChild(fieldSprite);
-//			MapLayer.instance.fieldList.push(fieldSprite);
-//		}
-//		cc.log(user.getAsset().getFieldList().length + "ddd");
-//
-//		var fieldList = user.getAsset().getFieldList();
-//		for (var i = 0; i < fieldList.length; i++){
-//			cc.log("Field_" + fieldList[i].getFieldId() + ": " + fieldList[i].getCoordinate().getCurrX() + ", " + fieldList[i].getCoordinate().getCurrY());
-//			// cc.log("Field_" + fieldList[i].getFieldId() + ": " + fieldList[i].getCurrX() + ", " + fieldList[i].getCurrY());
-//		}
+	scheduleSoundCowIdle: function () {
+		audioEngine.playEffect(res.ani_cow_idle_mp3, false);
 	}
 });

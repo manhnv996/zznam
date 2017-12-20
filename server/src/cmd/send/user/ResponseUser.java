@@ -16,11 +16,14 @@ import java.util.List;
 
 import model.Animal;
 import model.AnimalLodge;
+import model.Car;
 import model.Field;
 import model.Machine;
+import model.MyShop;
 import model.NatureThing;
 import model.Order;
 import model.OrderNPC;
+import model.ProductSale;
 import model.Storage;
 import model.StorageItem;
 import model.ZPUserInfo;
@@ -34,6 +37,19 @@ public class ResponseUser extends BaseMsg {
         this.user = user;
         this.bf = this.makeBuffer();
     }
+
+    public ResponseUser(ZPUserInfo user, short cmd) {
+        super(cmd);
+        this.user = user;
+        this.bf = this.makeBuffer();
+    }
+    
+    @Override
+    protected ByteBuffer makeBuffer() {
+        ByteBuffer localByteBuffer = ByteBuffer.allocate(2 * 1024 * 1024);
+        localByteBuffer.put(this.Error.byteValue());
+        return localByteBuffer;
+    }
     
     @Override
     public byte[] createData() {
@@ -45,9 +61,12 @@ public class ResponseUser extends BaseMsg {
         this.packStorages();
         this.packOrderList();
         this.packOrderNPCList();
+        this.packCar();
         
         this.packAnimalLodges();
         this.packMachines();
+        
+        this.packMyShop();
 
         return packBuffer(this.bf);
     }
@@ -187,16 +206,18 @@ public class ResponseUser extends BaseMsg {
         List<Animal> animalList = lodge.getAnimalList();
         int size = animalList.size();
         bf.putInt(size);
+        long crtTme = System.currentTimeMillis();
         for (int i = 0; i < size; i++) {
-            this.packAnimal(animalList.get(i));    
+            this.packAnimal(animalList.get(i), crtTme);    
         }
     }
     
-    private void packAnimal(Animal animal) {
+    private void packAnimal(Animal animal, long currentTime) {
         putStr(bf, animal.getType().toString());    
         bf.putInt(animal.getId());
         bf.putInt(animal.isFeeded() ? 1 : 0);
         bf.putLong(animal.getFeededTime());
+        bf.putLong(currentTime - animal.getFeededTime());
     }
     
     /**
@@ -265,6 +286,14 @@ public class ResponseUser extends BaseMsg {
         putStr(bf, order.getNpcResAni());
     }
     
+    /**
+     * Car
+     */
+    private void packCar(){
+        bf.putInt(user.getAsset().getCar().getDeliveryPrice());
+        bf.putInt(user.getAsset().getCar().getDeliveryExp());
+    }
+    
     
     /**        
      * Pack ALL machine
@@ -307,4 +336,31 @@ public class ResponseUser extends BaseMsg {
             putStr(bf, productQueue.get(i));
         }
     }
+    
+    
+    //
+    private void packMyShop(){
+        MyShop myShop = user.getAsset().getMyShop();
+        
+        bf.putInt(myShop.getMaxSlot());
+        
+        bf.putInt(myShop.getProductList().size());  //
+        for (int i = 0; i < myShop.getProductList().size(); i++){
+            this.packProductSale(myShop.getProductList().get(i));
+        }
+        bf.putLong(myShop.getLastTimeNpcCome());
+    }
+    
+    private void packProductSale(ProductSale product){
+        bf.putInt(product.getSlot());
+        if (product.getProduct() == null){
+            bf.putInt(0);
+        } else {
+            bf.putInt(1);
+            this.packStorageItem(product.getProduct());
+        }
+        bf.putInt(product.getPrice());
+        putBoolean(bf, product.isIsSold());
+    }
+    
 }

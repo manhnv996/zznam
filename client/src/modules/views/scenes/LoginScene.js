@@ -63,11 +63,20 @@ var LoginLayer = cc.Layer.extend({
         //if (this.flag == 0) { todo
         if (true) {
             this.flag = 1;
-            cc.log("==onplay clicked");
-            var username = this.userNameBox.getString();
-            var password = this.passwordBox.getString();
-            cc.log("==onplay clicked, username : " + username);
-            cc.log("==onplay clicked, password : " + password);
+        cc.log("==onplay clicked");
+        audioEngine.playEffect(res.func_click_button_mp3, false);
+        var username = this.userNameBox.getString();
+        var password = this.passwordBox.getString();
+        cc.log("==onplay clicked, username : " + username);
+        cc.log("==onplay clicked, password : " + password);
+
+        if (username == "" ||password == ""){
+            this.lblLog.setString("Tên tài khoản hoặc mật khẩu không đúng!");
+        } else{
+            gv.username = username;
+            gv.password = password;
+        }
+        cc.log("this.lblLog.setString("+"Start Connect!);" + gv.username + "  " + gv.password);
 
             if (username == "" ||password == ""){
                 this.flag = 0;

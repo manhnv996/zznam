@@ -15,7 +15,6 @@ import cmd.receive.constructed.RequestBuyRawMaterial;
 import cmd.receive.constructed.RequestCollectProduct;
 import cmd.receive.constructed.RequestUnlockSlot;
 import cmd.receive.gameshop.RequestBuyMapObject;
-import cmd.receive.gameshop.RequestBuyMapObjectByRuby;
 
 import cmd.send.demo.ResponseErrorCode;
 

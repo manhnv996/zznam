@@ -11,7 +11,7 @@ var OrderNPC = Order.extend({
     // orderExp: 0,
     // waittingTime: null,
 
-    npc_res: null,  // NOT YET STARTED
+    npc_res: null,  //
 
     ctor: function (orderId, orderItem, orderPrice, orderExp, npc_res) {
         //
@@ -53,9 +53,6 @@ var OrderNPC = Order.extend({
 
     //
     getFinishWaittingTime: function () {
-        // if (this.orderItem == null){
-        //     return null;
-        // }
         if (this.waittingTime == null){
             return null;
         }
@@ -63,17 +60,14 @@ var OrderNPC = Order.extend({
         var parseTime = this.waittingTime.getTime();
         var finishTime = new Date();
         finishTime.setTime(parseTime + this.getRemainTime(user.getLevel()) * 60 * 1000);
+        // finishTime.setTime(parseTime + this.getRemainTime(user.getLevel()) * 5 * 1000);
         //finishTime.setTime(parseTime + 6000);     //HERE IS TEST
 
-        /*
-        INPROGRESS
-         */
         return finishTime;
     },
 
     getRemainTime: function (level) {
         /*
-        NOT YET STARTED
          */
         if (level < 11){
             return 2;

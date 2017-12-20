@@ -9,6 +9,8 @@ gv.CMD.USER_LOGIN = 1;
 gv.CMD.USER_INFO = 1001;
 gv.CMD.GET_USER = 1002; // New
 
+gv.CMD.ADD_USER_MONEY = 1101;
+
 gv.CMD.MOVE = 2001;
 gv.CMD.BUY_GOLD  = 2002;
 gv.CMD.BUY_RUBY  = 2003;
@@ -33,13 +35,24 @@ gv.CMD.MAKE_ORDER = 10001;
 gv.CMD.CANCEL_ORDER = 10002;
 gv.CMD.CREATE_NEW_ORDER = 10003;
 gv.CMD.BOOST_WAIT_ORDER = 10004;
+gv.CMD.RECEIVE_DELIVERY_CAR = 10009;
 
 gv.CMD.MAKE_ORDER_NPC = 10011;
 gv.CMD.CANCEL_ORDER_NPC = 10012;
 gv.CMD.CREATE_NEW_ORDER_NPC = 10013;
 
 gv.CMD.RESPONSE_SYNC_ORDER = 10081;
+gv.CMD.RESPONSE_SYNC_CAR = 10089;
 gv.CMD.RESPONSE_SYNC_ORDER_NPC = 10091;
+
+//
+gv.CMD.SELL_PRODUCT = 13001;
+gv.CMD.BUY_PRODUCT = 13002;
+gv.CMD.RECEIVE_MONEY_FROM_SOLD_PRODUCT = 13003;
+gv.CMD.CANCEL_SELL_PRODUCT = 13004;
+gv.CMD.UNLOCK_SLOT_MY_SHOP = 13005;
+
+gv.CMD.RESPONSE_SYNC_PRODUCT_SALE = 13081;
 
 
 // Map
@@ -51,10 +64,15 @@ gv.CMD.RESPONSE_MOVE = 6100;
 //Shop
 gv.CMD.BUY_MAP_OBJECT_REQUEST = 7001;
 gv.CMD.BUY_MAP_OBJECT_BY_RUBY = 7002;
+gv.CMD.BUY_ANIMAL = 7003;
+gv.CMD.BUY_ANIMAL_BY_RUBY = 7004;
+gv.CMD.RESPONSE_BUY_OBJECT = 7100;
 
 //Storage
 gv.CMD.BUY_TOOL_REQUEST = 8001;
 gv.CMD.UPGRADE_STORAGE_REQUEST = 8002;
+gv.CMD.RESPONSE_UPGRADE_STORAGE = 8100;
+gv.CMD.RESPONSE_BUY_TOOL_UPGRADE = 8101;
 
 //Constructed
 gv.CMD.BUID_COMPLETED = 9001;
@@ -66,9 +84,21 @@ gv.CMD.COLLECT_PRODUCT = 9103; //lay san pham tu may da co san pham hoan thanh
 gv.CMD.ADD_PRODUCT = 9104; // them san pham vao productQueue send(machineId, productType,
 //gv.CMD.BUY_MACHINE_PRODUCT = 9105; // mua luon san pham bang ruby send (machineId, productType, ruby)
 gv.CMD.BUY_RAW_MATERIAL = 9106; // Truong hop thieu nguyen lieu, dung ruby de bat dau san xuat, send (machineId, productType, ruby)
+// Animal
+gv.CMD.ANIMAL_HARVEST = 12001;
+gv.CMD.ANIMAL_FEED = 12002;
+gv.CMD.ANIMAL_BOOST = 12003;
+
+// Nature
+gv.CMD.NATURE_COLLECT = 15001;
 
 testnetwork = testnetwork||{};
 testnetwork.packetMap = {};
+
+
+// Friend
+gv.CMD.FRIEND_GET_LIST = 14001;
+gv.CMD.FRIEND_GET_INFO = 14002;
 
 /** Outpacket */
 
@@ -426,6 +456,25 @@ CmdSendBoostWaitOrder = fr.OutPacket.extend(
     }
 );
 
+CmdSendReceiceDeliveryCar = fr.OutPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+            this.initData(100);
+            this.setCmdId(gv.CMD.RECEIVE_DELIVERY_CAR);
+        },
+        pack:function(price, exp){
+            this.packHeader();
+
+            this.putInt(price);
+            this.putInt(exp);
+
+            this.updateSize();
+        }
+    }
+);
+
 //
 CmdSendMakeOrderNpc = fr.OutPacket.extend(
     {
@@ -476,6 +525,99 @@ CmdSendCreateNewOrderNpc = fr.OutPacket.extend(
             this.packHeader();
 
             this.putInt(orderId);
+
+            this.updateSize();
+        }
+    }
+);
+////
+
+CmdSendSellProduct = fr.OutPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+            this.initData(100);
+            this.setCmdId(gv.CMD.SELL_PRODUCT);
+        },
+        pack:function(intSlot, productType, quantity, price){
+            this.packHeader();
+
+            this.putInt(intSlot);
+            this.putString(productType);
+            this.putInt(quantity);
+            this.putInt(price);
+
+            this.updateSize();
+        }
+    }
+);
+
+CmdSendBuyProduct = fr.OutPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+            this.initData(100);
+            this.setCmdId(gv.CMD.BUY_PRODUCT);
+        },
+        pack:function(userId, intSlot){
+            this.packHeader();
+
+            this.putLong(userId);
+            this.putInt(intSlot);
+
+            this.updateSize();
+        }
+    }
+);
+
+CmdSendReceiveMoneyFromProduct = fr.OutPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+            this.initData(100);
+            this.setCmdId(gv.CMD.RECEIVE_MONEY_FROM_SOLD_PRODUCT);
+        },
+        pack:function(intSlot){
+            this.packHeader();
+
+            this.putInt(intSlot);
+
+            this.updateSize();
+        }
+    }
+);
+
+CmdSendCancelSellProduct = fr.OutPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+            this.initData(100);
+            this.setCmdId(gv.CMD.CANCEL_SELL_PRODUCT);
+        },
+        pack:function(intSlot){
+            this.packHeader();
+
+            this.putInt(intSlot);
+
+            this.updateSize();
+        }
+    }
+);
+
+CmdSendUnlockSlotMyShop = fr.OutPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+            this.initData(100);
+            this.setCmdId(gv.CMD.UNLOCK_SLOT_MY_SHOP);
+        },
+        pack:function(){
+            this.packHeader();
 
             this.updateSize();
         }
@@ -616,6 +758,49 @@ CmdSendBuildCompleted = fr.OutPacket.extend({
     }
 });
 
+// Animal
+CmdSendAnimalHarvest = fr.OutPacket.extend({
+    ctor: function() {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.ANIMAL_HARVEST);
+    },
+    pack: function(lodgeId, animalId) {
+        this.packHeader();
+        this.putInt(lodgeId);
+        this.putInt(animalId);
+        this.updateSize();
+    }
+});
+
+CmdSendAnimalFeed = fr.OutPacket.extend({
+    ctor: function() {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.ANIMAL_FEED);
+    },
+    pack: function(lodgeId, animalId) {
+        this.packHeader();
+        this.putInt(lodgeId);
+        this.putInt(animalId);
+        this.updateSize();
+    }
+});
+
+CmdSendAnimalBoost = fr.OutPacket.extend({
+    ctor: function() {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.ANIMAL_BOOST);
+    },
+    pack: function(lodgeId, animalId) {
+        this.packHeader();
+        this.putInt(lodgeId);
+        this.putInt(animalId);
+        this.updateSize();
+    }
+});
+
 CmdSendBoostBuild = fr.OutPacket.extend({
     ctor: function () {
         this._super();
@@ -629,6 +814,93 @@ CmdSendBoostBuild = fr.OutPacket.extend({
         this.updateSize();
     }
 });
+
+CmdSendBuyAnimal = fr.OutPacket.extend({
+    ctor: function () {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.BUY_ANIMAL);
+    },
+    pack: function (lodgeId, animalId, animalType, lx, ly) {
+        this.packHeader();
+        this.putInt(lodgeId);
+        this.putInt(animalId);
+        this.putString(animalType);
+        this.putInt(lx);
+        this.putInt(ly);
+        this.updateSize();
+    }
+});
+
+CmdSendBuyAnimalByRuby = fr.OutPacket.extend({
+    ctor: function () {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.BUY_ANIMAL_BY_RUBY);
+    },
+    pack: function (lodgeId, animalId, animalType, lx, ly) {
+        this.packHeader();
+        this.putInt(lodgeId);
+        this.putInt(animalId);
+        this.putString(animalType);
+        this.putInt(lx);
+        this.putInt(ly);
+        this.updateSize();
+    }
+});
+
+CmdSendCollectNatureThing = fr.OutPacket.extend({
+    ctor: function() {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.NATURE_COLLECT);
+    },
+    pack: function(id) {
+        this.packHeader();
+        this.putInt(id);
+        this.updateSize();
+    }
+});
+
+CmdSendFriendGetList = fr.OutPacket.extend({
+    ctor: function () {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.FRIEND_GET_LIST);
+    },
+    pack: function () {
+        this.packHeader();
+        this.updateSize();
+    }
+});
+
+CmdSendFriendGetInfo = fr.OutPacket.extend({
+    ctor: function() {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.FRIEND_GET_INFO);
+    },
+    pack: function(id) {
+        this.packHeader();
+        this.putInt(id);
+        this.updateSize();
+    }
+});
+
+CmdSendAddMoney = fr.OutPacket.extend({
+    ctor: function() {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.ADD_USER_MONEY);
+    },
+    pack: function(number, type) {
+        this.packHeader();
+        this.putInt(number);
+        this.putInt(type);
+        this.updateSize();
+    }
+});
+
 
 /**
  * InPacket
@@ -926,7 +1198,7 @@ testnetwork.packetMap[gv.CMD.RESPONSE_SYNC_ORDER] = fr.InPacket.extend(
     }
 );
 
-testnetwork.packetMap[gv.CMD.RESPONSE_SYNC_ORDER_NPC] = fr.InPacket.extend(
+testnetwork.packetMap[gv.CMD.RESPONSE_SYNC_CAR] = fr.InPacket.extend(
     {
         ctor:function()
         {
@@ -935,10 +1207,25 @@ testnetwork.packetMap[gv.CMD.RESPONSE_SYNC_ORDER_NPC] = fr.InPacket.extend(
         readData:function(){
 
             /*
-             NOT YET STARTED
+             INPROGRESS
              */
-            this.orderNPC = this.unpackOrderNPC();
+            this.deliveryPrice = this.getInt();
+            this.deliveryExp = this.getInt();
 
+        }
+
+    }
+);
+
+testnetwork.packetMap[gv.CMD.RESPONSE_SYNC_ORDER_NPC] = fr.InPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+        },
+        readData:function(){
+
+            this.orderNPC = this.unpackOrderNPC();
         },
 
         unpackOrderNPC: function () {
@@ -970,8 +1257,77 @@ testnetwork.packetMap[gv.CMD.RESPONSE_SYNC_ORDER_NPC] = fr.InPacket.extend(
 
     }
 );
+///
+
+testnetwork.packetMap[gv.CMD.RESPONSE_SYNC_PRODUCT_SALE] = fr.InPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+        },
+        readData:function(){
+
+            /*
+             done
+             */
+            this.productSale = this.unpackProductSale();
+
+        },
+
+        unpackProductSale: function () {
+            var product = {};
+
+            product.slot = this.getInt();
+
+            var itemIsNull = this.getInt();
+            if (itemIsNull == 0){
+                product.product = null;
+            } else {
+                product.product = this.unpackStorageItem();
+            }
+            product.price = this.getInt();
+            product.isSold = this.getBool();
+
+            return product;
+        },
+
+        unpackStorageItem: function() {
+            var item = {};
+            item.typeItem = this.getString();
+            item.quantity = this.getInt();
+            return item;
+        },
+
+    }
+);
 ////
 
+testnetwork.packetMap[gv.CMD.RESPONSE_BUY_OBJECT] = fr.InPacket.extend({
+    ctor: function () {
+        this._super();
+    },
+    readData: function () {
+        this.error = this.getShort();
+    }
+});
+
+testnetwork.packetMap[gv.CMD.RESPONSE_UPGRADE_STORAGE] = fr.InPacket.extend({
+    ctor: function () {
+        this._super();
+    },
+    readData: function () {
+        this.error = this.getShort();
+    }
+});
+
+testnetwork.packetMap[gv.CMD.RESPONSE_BUY_TOOL_UPGRADE] = fr.InPacket.extend({
+    ctor: function () {
+        this._super();
+    },
+    readData: function () {
+        this.error = this.getShort();
+    }
+});
 
 // Map
 testnetwork.packetMap[gv.CMD.RESPONSE_MOVE] = fr.InPacket.extend({
@@ -987,7 +1343,8 @@ testnetwork.packetMap[gv.CMD.RESPONSE_MOVE] = fr.InPacket.extend({
 testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
     ctor: function() {
         this._super();
-        this.user = { asset: {}, map: [] };
+        this.user = {};
+        this.user.asset = {};
     },
 
     readData: function() {
@@ -999,8 +1356,10 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         this.unpackStorages();
         this.unpackOrderList();
         this.unpackOrderNPCList();
+        this.unpackCar();
         this.unpackAnimalLodges();
         this.unpackMachines();
+        this.unpackMyShop();
     },
 
     unpackBasicInfo: function() {
@@ -1013,6 +1372,7 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
     },
 
     unpackMap: function() {
+        this.user.map = [];
         for (var i = 0; i < MapConfigs.Init.width; i++) {
             this.user.map.push([]);
             for (var j = 0; j < MapConfigs.Init.height; j++) {
@@ -1113,6 +1473,11 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
 
         return order;
     },
+    unpackCar: function () {
+        this.user.asset.car = {};
+        this.user.asset.car.deliveryPrice = this.getInt();
+        this.user.asset.car.deliveryExp = this.getInt();
+    },
     //
     unpackOrderNPCList: function() {
         this.user.asset.orderNPCList = [];
@@ -1177,7 +1542,7 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         animal.id = this.getInt();
         animal.feeded = this.getInt() ? true : false;
         animal.feededTime = parseInt(this.getLong());
-
+        animal.passedTime = parseInt(this.getLong());
         return animal;
     },
 
@@ -1216,6 +1581,91 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         }
 
         return machine;
+    },
+
+    //
+    unpackMyShop: function () {
+        var myShop = {};
+
+        myShop.maxSlot = this.getInt();
+
+        myShop.productList = [];
+        var size = this.getInt();
+        for (var i = 0; i < size; i++){
+            myShop.productList.push(this.unpackProductSale());  //
+        }
+        myShop.lastTimeNpcCome = this.getLong();
+
+        this.user.asset.myShop = myShop;
+    },
+
+    unpackProductSale: function () {
+        var product = {};
+
+        product.slot = this.getInt();
+
+        var itemIsNull = this.getInt();
+        if (itemIsNull == 0){
+            product.product = null;
+        } else {
+            product.product = this.unpackStorageItem();
+        }
+        product.price = this.getInt();
+        product.isSold = this.getBool();
+
+        return product;
     }
 
 });
+
+testnetwork.packetMap[gv.CMD.ANIMAL_HARVEST] = fr.InPacket.extend({
+    ctor: function() {
+        this._super();
+    },
+    readData: function() {
+        this.error = this.getInt();
+    }
+});
+
+testnetwork.packetMap[gv.CMD.ANIMAL_FEED] = fr.InPacket.extend({
+    ctor: function() {
+        this._super();
+    },
+    readData: function() {
+        this.error = this.getInt();
+    }
+});
+
+testnetwork.packetMap[gv.CMD.ANIMAL_BOOST] = fr.InPacket.extend({
+    ctor: function() {
+        this._super();
+    },
+    readData: function() {
+        this.error = this.getInt();
+    }
+});
+
+testnetwork.packetMap[gv.CMD.NATURE_COLLECT] = fr.InPacket.extend({
+    ctor: function() {
+        this._super();
+    },
+    readData: function() {
+        this.error = this.getInt();
+    }
+});
+
+testnetwork.packetMap[gv.CMD.FRIEND_GET_LIST] = fr.InPacket.extend({
+    ctor: function() {
+        this._super();
+    },
+    readData: function() {
+        this.idList = [];
+        var size = this.getInt();
+        for (var i = 0; i < size; i++) {
+            this.idList.push(this.getInt());
+        }
+    }
+});
+
+testnetwork.packetMap[gv.CMD.FRIEND_GET_INFO] 
+        = testnetwork.packetMap[gv.CMD.GET_USER]; // Same

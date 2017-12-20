@@ -32,12 +32,16 @@ public enum ErrorLog {
     ERROR_GOLD_NOT_ENOUGH((short) 72),
     ERROR_CANT_ADD_FIELD((short) 73),
     ERROR_GOLD_NOT_REDUCE((short) 74),
+    ERROR_BUY_ANIMAL_FAIL((short) 75),
     
     ERROR_CANT_ADD_TOOL((short) 82),
     
     ERROR_UPGRADE_FAIL((short)  83),
     
-    ERROR_COMPLETED_BUIDING_FAIL((short) 90);
+    ERROR_COMPLETED_BUIDING_FAIL((short) 90),
+    
+    ERROR_OVER_MAX_SLOT((short) 97),
+    ERROR_NOT_EXIST_SLOT((short) 98);
                                     
 
 

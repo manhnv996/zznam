@@ -6,25 +6,17 @@ var GameShopLayout = ccui.Layout.extend({
     _btnGameShop: null,
     _gameShop: null,
     _isHide: true,
-    //_listener: null,
     _layoutBlockListener: null,
     _debug: false,
-    _isClose: true,
     //_debug: true,
 
     ctor: function () {
         this._super();
 
         this._btnGameShop = new GSBtnLayout();
-        //this._btnGameShop.setTouchEnabled(false);
-        //this.addChild(this._btnGameShop);
-
         this._gameShop = new GSDetailLayout();
-        //this.addChild(this._gameShop);
-
 
         this.setContentSize(this._gameShop._bg.getBoundingBox().width, cc.winSize.height);
-        //cc.log("Width Shop " + this.width);
         this.setPosition(cc.p(-(cc.winSize.width / 3 + cc.winSize.width / 7), 0));
 
         this._layoutBlockListener = new ccui.Layout();
@@ -35,49 +27,49 @@ var GameShopLayout = ccui.Layout.extend({
             this.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
             this.setBackGroundColor(cc.color.RED);
         }
-        this.addComponent();
-
-        //this.scheduleUpdate();
-    },
-
-    addComponent: function () {
-        //this.blockListener();
         this.addChild(this._layoutBlockListener);
         this.addChild(this._btnGameShop);
         this.addChild(this._gameShop);
     },
 
     hide: function () {
-        this._isHide = true;
-        MainGuiLayer.instance.btnSettings.setTouchEnabled(true);
-        var moveActionBtn = cc.moveTo(0.05, cc.p(0, 0));
-        this._btnGameShop.runAction(moveActionBtn);
-        //var moveAction = cc.moveTo(0.1, cc.p(-(cc.winSize.width / 3 + cc.winSize.width / 7), 0));
-        var moveAction = cc.moveTo(0.1, cc.p(0, 0));
-        this._layoutBlockListener.runAction(moveAction);
-        this._gameShop.runAction(moveAction.clone());
-        //cc.log("this.listener" + this.listener);
-        if (this.listener) {
-            cc.eventManager.removeListener(this.listener);
-            //cc.log("remove listener");
+        if (!this._isHide) {
+            MainGuiLayer.instance.btnSettings.setTouchEnabled(true);
+            var moveActionBtn = cc.moveTo(0.2, cc.p(0, 0));
+            this._btnGameShop.stopAllActions();
+            this._btnGameShop.runAction(moveActionBtn);
+
+            var moveAction = cc.moveTo(0.25, cc.p(0, 0));
+            this._layoutBlockListener.stopAllActions();
+            this._layoutBlockListener.runAction(moveAction);
+
+            this._gameShop.stopAllActions();
+            this._gameShop.runAction(moveAction.clone());
+
+            if (this.listener) {
+                cc.eventManager.removeListener(this.listener);
+            }
+            this._isHide = true;
         }
-        //cc.log("this._isHide hide " + this._isHide);
     },
 
     show: function () {
-        //this.scheduleUpdate();
-        this._isHide = false;
-        MainGuiLayer.instance.btnSettings.setTouchEnabled(false);
-        var moveActionBtn = cc.moveTo(0.1, cc.p(cc.winSize.width / 3 - 10, 0));
-        this._btnGameShop.runAction(moveActionBtn);
-        //var moveAction = cc.moveTo(0.1, cc.p(0, 0));
-        var moveAction = cc.moveTo(0.1, cc.p((cc.winSize.width / 3 + cc.winSize.width / 7), 0));
-        this._layoutBlockListener.runAction(moveAction);
-        this._gameShop.runAction(moveAction.clone());
-        this.blockListener();
-        //cc.log("this.listener2" + this.listener);
+        if(this._isHide) {
+            MainGuiLayer.instance.btnSettings.setTouchEnabled(false);
+            var moveActionBtn = cc.moveTo(0.3, cc.p(cc.winSize.width / 3 - 10, 0));
+            this._btnGameShop.stopAllActions();
+            this._btnGameShop.runAction(moveActionBtn);
 
-        //cc.log("this._isHide show " + this._isHide);
+            var moveAction = cc.moveTo(0.3, cc.p((cc.winSize.width / 3 + cc.winSize.width / 7), 0));
+            this._layoutBlockListener.stopAllActions();
+            this._layoutBlockListener.runAction(moveAction);
+
+            this._gameShop.stopAllActions();
+            this._gameShop.runAction(moveAction.clone());
+
+            this.blockListener();
+            this._isHide = false;
+        }
     },
 
     blockListener: function () {
@@ -91,51 +83,18 @@ var GameShopLayout = ccui.Layout.extend({
                 var locationInNode = target.convertToNodeSpace(touch.getLocation());
                 var s = target.getContentSize();
                 var rect = cc.rect(0, 0, s.width, s.height);
-                //cc.log("Block began");
                 if (cc.rectContainsPoint(rect, locationInNode)) {
-                    //cc.log("Touch Block Event Shop");
-                    //cc.log("sprite began... x = " + locationInNode.x + ", y = " + locationInNode.y);
-                    //target.opacity = 180;
-                    //MainGuiLayer.instance.btnSettings.setTouchEnabled(false);
                     return true;
                 }
-                //MainGuiLayer.instance.btnSettings.setTouchEnabled(true);
-                //if (!this._isHide) {
-                //    this.hide();
-                //}
-                //this._isClose = true;
                 this.hide();
                 return false;
-                //return true;
             }.bind(this)
-
-            //onTouchMoved: function(touch) {
-            //    this._isClose = false;
-            //    var delta = touch.getDelta();
-            //    //MapLayer.instance.move(delta.x, delta.y);
-            //}.bind(this),
-            //
-            //onTouchEnded: function() {
-            //    if (this._isClose) {
-            //        this.hide();
-            //    }
-            //}.bind(this)
         });
-        //cc.log("add listener");
         cc.eventManager.addListener(this.listener, 3);
-        //cc.eventManager.setPriority(listener, 0);
 
         if (this._debug) {
             this._layoutBlockListener.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
             this._layoutBlockListener.setBackGroundColor(cc.color.YELLOW);
         }
     }
-
-    //update: function (dt) {
-    //    if (!this._isClose) {
-    //        this.unscheduleUpdate();
-    //        this.hide();
-    //        this._isClose = true;
-    //    }
-    //}
 });

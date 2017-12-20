@@ -5,11 +5,10 @@ var MailBoxSprite = MapBlockSprite.extend({
 			MapConfigs.MailBox.size.height,
 			x, y, MapItemEnum.MAIL_BOX
 		);
-		this.registerTouchEvents({ lockMove: true });
+		this.registerTouchEvents({ lockMove: true, force: true });
 	},
 
 	onClick: function() {
-		cc.log("Mailbox clicked");
 	},
 	
 	onBeginClick: function() {

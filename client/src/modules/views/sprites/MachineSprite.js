@@ -22,6 +22,8 @@ var MachineSprite = AnimationSprite.extend({
         if (machine != null) {
             var i = MachineController.instance.getIndexMachineInConfigByType(machine.machineType);
             if (i != -1){
+                cc.log("25" + "getIndexMachineByType ERROR");
+                cc.log(MACHINE_LIST[i].aniId +"===="+ MACHINE_LIST[i].size.width +"===="+ MACHINE_LIST[i].size.width+"===="+ machine.coordinate.x+"===="+  machine.coordinate.y+"===="+ MACHINE_LIST[i].mapItemEnum);
                 this._super(MACHINE_LIST[i].aniId, MACHINE_LIST[i].size.width, MACHINE_LIST[i].size.width, machine.coordinate.x, machine.coordinate.y, MACHINE_LIST[i].mapItemEnum);
             } else {
                 cc.log(MA_LOG_TAG + "getIndexMachineByType ERROR" );
@@ -30,9 +32,16 @@ var MachineSprite = AnimationSprite.extend({
         this.renderFinishedProducts(machineId);
         this.registerTouchEvents();
 
-        //todo
+        //todo.
+        this.updateAnimation();
         this.scheduleAnimation();
     },
+
+    onEnter: function() {
+        this._super();
+        this.play("idle");
+    },
+
     scheduleAnimation:function(){
         this.schedule(this.updateAnimation, 2);
     },

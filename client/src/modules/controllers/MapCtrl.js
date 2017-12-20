@@ -75,6 +75,9 @@ var MapCtrl = cc.Class.extend({
     },
 
     renderUserInfo: function() {
+        if (!home) {
+            return;
+        }
         MainGuiLayer.instance.labelLevel.setString(user.getLevel());
         MainGuiLayer.instance.labelGold.setString(user.getGold());
         MainGuiLayer.instance.labelRuby.setString(user.getRuby());
@@ -126,6 +129,8 @@ var MapCtrl = cc.Class.extend({
     },
 
     renderPlants: function() {
+        MapLayer.instance.fieldList = [];
+
         var fieldList = user.asset.fieldList;
         for (var i = 0; i < fieldList.length; i++) {
             var field = fieldList[i];
@@ -146,52 +151,91 @@ var MapCtrl = cc.Class.extend({
     },
 
     renderNPC: function () {
-
-        CarSprite.instance = new CarSprite(16, 23);
-        MapLayer.instance.addChild(CarSprite.instance);
-
         MapLayer.instance.npcList = [];
+
         var orderNPCList = user.asset.orderNPCList;
         for (var i = 0; i < orderNPCList.length; i++){
-            var npcSprite = new NPCSprite(16 + i, 20 - i, orderNPCList[i]);
-            MapLayer.instance.addChild(npcSprite);
+            var npcSprite = null;
 
-            // //
-            MapLayer.instance.npcList.push(npcSprite);
-
-            if (orderNPCList[i].checkStatus() == OrderStatusTypes.WAITTING){
-                //
-                MapLayer.instance.getNPCByOrderNPCId(orderNPCList[i].orderId).setPause();
-                //
+            if (orderNPCList[i].getOrderItem() != null){
+                npcSprite = new NPCSprite(NPCSprite.startPoint.x - 0.5 * i, NPCSprite.startPoint.y - 0.25 * i, orderNPCList[i]);
+                // npcSprite.setResume();
             }
+            else {
+                npcSprite = new NPCSprite(NPCSprite.finishPoint.x, NPCSprite.finishPoint.y, orderNPCList[i]);
+                npcSprite.setVisible(false);
+                // npcSprite.setPause();
+            }
+
+            if (npcSprite != null){
+                MapLayer.instance.addChild(npcSprite);
+                // //
+                MapLayer.instance.npcList.push(npcSprite);
+
+               //
+                if (orderNPCList[i].checkStatus() == OrderStatusTypes.WAITTING){
+                    // //
+                    // MapLayer.instance.getNPCByOrderNPCId(orderNPCList[i].orderId).runScheduleUpdateOrderNPC();
+                    // // MapLayer.instance.getNPCByOrderNPCId(orderNPCList[i].orderId).setPause();
+                    // //
+                    npcSprite.runScheduleUpdateOrderNPC();
+                }
+            }
+
         }
+
+
+
+//      //
+        CarSprite.instance = new CarSprite(MapConfigs.Car.position.x, MapConfigs.Car.position.y, user.getAsset().getCar());
+        MapLayer.instance.addChild(CarSprite.instance);
 
     },
 
     renderAnimalLodges: function() {
         var animalLodgeList = user.asset.animalLodgeList;
-        cc.log("Render", animalLodgeList);
+        // cc.log("Render", animalLodgeList);
         for (var i = 0; i < animalLodgeList.length; i++) {
             var lodge = animalLodgeList[i];
+            // Schedule reduce remain time
             var lodgeSprite = null;
             if (lodge.type === AnimalLodgeType.cow_habitat) {
                 lodgeSprite = new CowLodgeSprite(lodge.coordinate.x, lodge.coordinate.y);
                 for (var j = 0; j < lodge.animalList.length; j++) {
+                    var cow = lodge.animalList[j];
                     var cowSprite = new CowSprite();
-                    cowSprite.setId(lodge.animalList[i].id);
-                    lodgeSprite.addCowSprite(cowSprite);
+                    cowSprite.setId(lodge.animalList[j].id);
+                    lodgeSprite.addAnimalSprite(cowSprite);
+                
+                    if (cow.feeded) {
+                        // cowSprite.setOnHarvestTime(lodge.animalList[j].feededTime);
+                        cowSprite.setRemainTime(cow.remainTime);
+                    } else {
+                        cowSprite.hungry();
+                    }
                 }
             } else if (lodge.type === AnimalLodgeType.chicken_habitat) {
                 lodgeSprite = new ChickenLodgeSprite(lodge.coordinate.x, lodge.coordinate.y);
                 for (var j = 0; j < lodge.animalList.length; j++) {
+                    var chicken = lodge.animalList[j];
                     var chickenSprite = new ChickenSprite();
-                    chickenSprite.setId(lodge.animalList[i].id);
-                    lodgeSprite.addChickenSprite(chickenSprite);
+                    chickenSprite.setId(chicken.id);
+                    // cc.log(lodge.animalList[j]);
+                    lodgeSprite.addAnimalSprite(chickenSprite);
+
+                    if (chicken.feeded) {
+                        // chickenSprite.setOnHarvestTime(lodge.animalList[j].feededTime);
+                        chickenSprite.setRemainTime(chicken.remainTime);
+                    } else {
+                        // cc.log("hungry");
+                        chickenSprite.hungry();
+                    }
                 }
             } else {
                 cc.log("[E] Unhandled Animal lodge type", lodge.type);
             }
             lodgeSprite.setId(lodge.id);
+            lodgeSprite.setTag(TagClusters.Lodge + lodge.id);
             MapLayer.instance.addChild(lodgeSprite);
         }
     },
@@ -263,7 +307,7 @@ var MapCtrl = cc.Class.extend({
     addConstructedSprite: function (boostBuild, remainBuildTime, id, width, height, x, y) {
         var machineSprite;
         if (boostBuild || !remainBuildTime) {
-            machineSprite = new ConstructedCompletedSprite(id, x, y, MapItemEnum.MACHINE);
+            machineSprite = new ConstructedCompletedSprite(id, x, y, MapItemEnum.MACHINE, width);
         } else {
             machineSprite = new ConstructedSprite(id, width, height, x, y, MapItemEnum.MACHINE);
         }
@@ -271,6 +315,7 @@ var MapCtrl = cc.Class.extend({
     },
 
     _showDebugMap: function() {
+        cc.log("Map", user.map.length, user.map[0].length);
         for (var i = 0; i < user.map.length; i++) {
             var str = '';
             for (var j = 0; j < user.map[i].length; j++) {
@@ -331,6 +376,14 @@ var MapCtrl = cc.Class.extend({
         return this.checkValidBlock(sprite.lx, sprite.ly, sprite.blockSizeX, sprite.blockSizeY);
     },
 
+    changeColor: function (sprite) {
+        if(!this.checkValidBlockSprite(sprite)) {
+            sprite.setColor(cc.color(150, 50, 150));
+        } else {
+            sprite.setColor(cc.color(255, 255, 255));
+        }
+    },
+
     removeMapAlias: function(x, y, width, height) {
         for (var i = 0; i < width; i++) {
             for (var j = 0; j < height; j++) {
@@ -383,12 +436,15 @@ var MapCtrl = cc.Class.extend({
             if (typeName === 'forest_swamp') {
                 var sprite = new VungnuocSprite(x, y, id);
                 MapLayer.instance.addChild(sprite);
+                sprite.setTag(TagClusters.Nature + id);
             } else if (typeName === 'forest_big_stone_1') {
                 var sprite = new DatoSprite(x, y, id);
                 MapLayer.instance.addChild(sprite);
+                sprite.setTag(TagClusters.Nature + id);
             } else if (typeName === 'forest_small_stone_1' ) {
                 var sprite = new DanhoSprite(x, y, id);
                 MapLayer.instance.addChild(sprite);
+                sprite.setTag(TagClusters.Nature + id);
             } else {
                 // Trees
                 var types = {
@@ -401,6 +457,7 @@ var MapCtrl = cc.Class.extend({
                 if (type) {
                     var sprite = new CayRungSprite(x, y, type, id);
                     MapLayer.instance.addChild(sprite);
+                    sprite.setTag(TagClusters.Nature + id);
                 } else {
                     cc.log("missing", user.asset.natureThingList[i].type);
                 }

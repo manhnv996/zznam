@@ -68,7 +68,9 @@ cc.log = function() {
 }
 
 var user = null;
+var audioEngine = null;
 
+var home = true;
 cc.game.onStart = function () {
     if (!cc.sys.isNative && document.getElementById("cocosLoading")) //If referenced loading.js, please remove it
         document.body.removeChild(document.getElementById("cocosLoading"));
@@ -98,20 +100,38 @@ cc.game.onStart = function () {
         fr.clientConfig.updateResourceSearchPath();
         gv.gameClient = new GameClient();
         gv.poolObjects = new PoolObject();
-        user = new User();
+
+        // user = new User();
         testnetwork.connector = new testnetwork.Connector(gv.gameClient);
 
 		//cc.director.runScene(new MainScene());
         fr.Localization.getInstance().setCurrentLanguage('vi');
 
-        cc.log("Preload some animations");
-        fr.preloadAnimation(['SILO', 'Barn', 'Carot', 'DauHL', 'Cayrung',
-                'Dato', 'Vungnuoc1', 'Danho']);
+        audioEngine = cc.AudioEngine.getInstance();
+        //Preload Sound and Music
+        //audioEngine.preloadMusic(res.bg_luamoi_mp3);
+        audioEngine.playMusic(res.bg_luamoi_mp3, true);
+        //for(var k in SoundResource) {
+        //    audioEngine.preloadEffect(SoundResource[k]);
+        //}
+
+
+        if (cc.sys.localStorage.getItem("music") === "false") {
+            //Cant set Volume
+            audioEngine.setMusicVolume(0);
+        }
+        if (cc.sys.localStorage.getItem("effect") === "false") {
+            //Cant set Volume
+            audioEngine.setEffectsVolume(0);
+        }
+
         PreloaderScene.instance = new PreloaderScene();
         cc.director.runScene(PreloaderScene.instance);
 
-        //MainScene.instance = new MainScene();
-		//cc.director.runScene(MainScene.instance);
+  //       InertiaEngine.instance = new InertiaEngine();
+  //       MainScene.instance = new MainScene();
+  //       MainScene.instance.addChild(InertiaEngine.instance);
+		// cc.director.runScene(MainScene.instance);
     }, this);
 };
 cc.game.run();
