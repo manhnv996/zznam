@@ -96,7 +96,7 @@ var SettingGame = BaseLayout.extend({
         cc.sys.localStorage.removeItem("session");
         cc.eventManager.removeAllListeners();
         ScheduleLoop.instance.clearAllSchedule(); // Flush cached
-        
+
         cc.director.runScene(new LoginScene());
     }
 });
