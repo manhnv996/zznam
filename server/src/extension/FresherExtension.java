@@ -347,11 +347,15 @@ public class FresherExtension extends BZExtension {
         reqGet.unpackData();
        
         try {
-            
+            System.out.println("Session key: " + reqGet.sessionKey);
             UserInfo uInfo = getUserInfo(reqGet.sessionKey, reqGet.userId, session.getAddress());
+            System.out.println(uInfo.getUserId());
             User u = ExtensionUtility.instance().canLogin(uInfo, "", session);
-            if (u!=null)
+            if (u!=null) {
                 u.setProperty("userId", uInfo.getUserId());
+            } else {
+                System.out.println("User null");    
+            }
             users.findAndAdd(u.getId());
             users.save();
         } catch (Exception e) {
