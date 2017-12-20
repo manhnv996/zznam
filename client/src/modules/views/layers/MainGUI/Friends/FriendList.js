@@ -67,8 +67,8 @@ var FriendList = ccui.Layout.extend({
         //var level = user.getLevel();
         //if (!cell) {
         cell = new cc.TableViewCell();
-
-        var friend = new FriendWithLevel(0, res.henry, "Henry", 50);
+        cc.log("Friend", gv.friendIds[idx]);
+        var friend = new FriendWithLevel(gv.friendIds[idx], res.henry, gv.friendIds[idx], 50);
         friend.x = this._bg.getBoundingBox().width / 1000 * 77;
         friend.y = this._bg.getBoundingBox().height / 50 * 19;
         friend.setAnchorPoint(0.5, 0.5);
@@ -80,7 +80,7 @@ var FriendList = ccui.Layout.extend({
     },
 
     numberOfCellsInTableView: function (table) {
-        return 10;
+        return gv.friendIds.length;
     }
 
 

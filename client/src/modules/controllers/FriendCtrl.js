@@ -8,7 +8,7 @@ var FriendCtrl = cc.Class.extend({
 		// cc.eventManager.setEnabled(false);
         ScheduleLoop.instance.clearAllSchedule(); // Flush cached
 		cc.director.runScene(new LoadingScene());
-		testnetwork.connector.sendFriendGetList();
+		testnetwork.connector.sendFriendGetInfo(id);
 	},
 
 	goHome: function() {

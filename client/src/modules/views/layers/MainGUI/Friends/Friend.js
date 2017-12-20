@@ -23,7 +23,7 @@ var FriendWithLevel = ccui.Layout.extend({
         this.avatar.setScale(77/122);
         this.addChild(this.avatar);
 
-        var name = new cc.LabelBMFont(name, res.FONT_OUTLINE_30);
+        var name = new cc.LabelBMFont(name.toString(), res.FONT_OUTLINE_30);
         name.x = this.width / 2;
         name.y = this.height / 6;
 
@@ -39,6 +39,7 @@ var FriendWithLevel = ccui.Layout.extend({
         this.addChild(this.frame);
         this.addChild(level);
         this.addChild(name);
+        this.id = id;
     },
 
     setOnClick: function (sender, type) {
@@ -48,6 +49,8 @@ var FriendWithLevel = ccui.Layout.extend({
                 this.avatar.runAction(new cc.ScaleTo(0.1, 77/122 - 0.05));
                 break;
             case ccui.Widget.TOUCH_ENDED:
+                FriendCtrl.instance.viewFriendHome(this.id);
+                break;
             case ccui.Widget.TOUCH_CANCELED:
                 this.frame.runAction(new cc.ScaleTo(0.1, 1.0));
                 this.avatar.runAction(new cc.ScaleTo(0.1, 77/122));

@@ -32,6 +32,9 @@ var MainGuiLayer = cc.Layer.extend({
         //
         //this.addChild(this.btnFriends);
 
+        FriendUI.instance = new FriendUI();
+        this.addChild(FriendUI.instance);
+
         if (!home) {
             return;
         }
@@ -128,8 +131,7 @@ var MainGuiLayer = cc.Layer.extend({
         GameShopLayout.instance = new GameShopLayout();
         this.addChild(GameShopLayout.instance);
 
-        FriendUI.instance = new FriendUI();
-        this.addChild(FriendUI.instance);
+        
     },
 
     //
@@ -145,7 +147,7 @@ var MainGuiLayer = cc.Layer.extend({
         FriendUI.instance._btnOpenFriendList.btnFriends.setTouchEnabled(false);
         this.btnBuyGold.setTouchEnabled(false);
         this.btnBuyRuby.setTouchEnabled(false);
-        this.btnSearch.setTouchEnabled(false);
+        // this.btnSearch.setTouchEnabled(false);
 
     },
 
@@ -155,7 +157,7 @@ var MainGuiLayer = cc.Layer.extend({
         FriendUI.instance._btnOpenFriendList.btnFriends.setTouchEnabled(true);
         this.btnBuyGold.setTouchEnabled(true);
         this.btnBuyRuby.setTouchEnabled(true);
-        this.btnSearch.setTouchEnabled(true);
+        // this.btnSearch.setTouchEnabled(true);
     },
 
     onEnter:function(){
