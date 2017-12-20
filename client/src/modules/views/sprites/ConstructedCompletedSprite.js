@@ -33,7 +33,7 @@ var ConstructedCompletedSprite = AnimationSprite.extend({
     },
 
     onClick: function () {
-        audioEngine.playEffect(res.func_click_button_mp3, false);
+        SoundCtrl.instance.playSoundEffect(res.func_click_button_mp3, false);
         ConstructedCtrl.instance.completedBuild(this.id, this.typeBuilding);
         this.removeFromParent(true);
     },

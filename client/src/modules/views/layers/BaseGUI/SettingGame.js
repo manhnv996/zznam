@@ -6,9 +6,10 @@ var SettingGame = BaseLayout.extend({
     ctor: function () {
         this._super(res.BG_2_PNG, "text_title_setting_game", true, true, true);
 
-        var idLabel = new cc.LabelBMFont("ID: " + 0, res.FONT_OUTLINE_30);
-        idLabel.x = this.width / 9;
-        idLabel.y = this.height / 10 * 7;
+        var idLabel = new cc.LabelBMFont("ID: " + user.id, res.FONT_OUTLINE_30);
+        idLabel.x = this.width / 12;
+        idLabel.y = this.height / 10 * 7 + 5;
+        idLabel.setAnchorPoint(0, 0.5);
         this.addChild(idLabel);
 
         var btnLogout = new ccui.Button(res.BUTTON_ZINGME_PNG);
@@ -30,33 +31,23 @@ var SettingGame = BaseLayout.extend({
         btnChangeName.setZoomScale(-0.1);
         this.addChild(btnChangeName);
 
-        var btnMusic = new ccui.Button();
-        btnMusic.x = this.width / 10 * 6.5;
-        btnMusic.y = this.height / 5 * 3;
-        btnMusic.setZoomScale(-0.1);
-        btnMusic.tag = 101;
-        btnMusic.addTouchEventListener(this.touchSettingBtn, this);
-        this.addChild(btnMusic);
+        this.btnMusic = new ccui.Button();
+        this.btnMusic.x = this.width / 10 * 6.5;
+        this.btnMusic.y = this.height / 5 * 3;
+        this.btnMusic.setZoomScale(-0.1);
+        this.btnMusic.tag = 101;
+        this.btnMusic.addTouchEventListener(this.touchSettingBtn, this);
+        this.setResMusicBtn();
+        this.addChild( this.btnMusic);
 
-        if(SoundCtrl.instance.isOnMusic()) {
-            btnMusic.loadTextureNormal(res.MUSIC_ON_PNG);
-        } else {
-            btnMusic.loadTextureNormal(res.MUSIC_OFF_PNG);
-        }
-
-        var btnEffect = new ccui.Button();
-        btnEffect.x = this.width / 10 * 8.5;
-        btnEffect.y = this.height / 2;
-        btnEffect.setZoomScale(-0.1);
-        btnEffect.tag = 102;
-        btnEffect.addTouchEventListener(this.touchSettingBtn, this);
-        this.addChild(btnEffect);
-
-        if(SoundCtrl.instance.isOnEffect()) {
-            btnEffect.loadTextureNormal(res.BTN_EFFECT_ON_PNG);
-        } else {
-            btnEffect.loadTextureNormal(res.BTN_EFFECT_OFF_PNG);
-        }
+        this.btnEffect = new ccui.Button();
+        this.btnEffect.x = this.width / 10 * 8.5;
+        this.btnEffect.y = this.height / 2;
+        this.btnEffect.setZoomScale(-0.1);
+        this.btnEffect.tag = 102;
+        this.btnEffect.addTouchEventListener(this.touchSettingBtn, this);
+        this.setResEffectBtn();
+        this.addChild(this.btnEffect);
 
         var btnQuestion = new ccui.Button(res.BUTTON_HOI_PNG);
         btnQuestion.x = this.width / 10 * 7;
@@ -73,13 +64,31 @@ var SettingGame = BaseLayout.extend({
             case ccui.Widget.TOUCH_CANCELED:
                 switch (sender.tag) {
                     case 101:
-                        SoundCtrl.instance.setMusic(sender, res.MUSIC_ON_PNG, res.MUSIC_OFF_PNG);
+                        SoundCtrl.instance.setMusic();
+                        this.setResMusicBtn();
                         break;
                     case 102:
-                        SoundCtrl.instance.setEffect(sender, res.BTN_EFFECT_ON_PNG, res.BTN_EFFECT_OFF_PNG);
+                        SoundCtrl.instance.setEffect();
+                        this.setResEffectBtn();
                         break;
                 }
                 break;
+        }
+    },
+
+    setResMusicBtn: function () {
+        if(SoundCtrl.instance._isOnMusic) {
+            this.btnMusic.loadTextureNormal(res.MUSIC_ON_PNG);
+        } else {
+            this.btnMusic.loadTextureNormal(res.MUSIC_OFF_PNG);
+        }
+    },
+
+    setResEffectBtn: function () {
+        if (SoundCtrl.instance._isOnEffect) {
+            this.btnEffect.loadTextureNormal(res.BTN_EFFECT_ON_PNG);
+        } else {
+            this.btnEffect.loadTextureNormal(res.BTN_EFFECT_OFF_PNG);
         }
     },
 
@@ -87,7 +96,7 @@ var SettingGame = BaseLayout.extend({
         cc.sys.localStorage.removeItem("session");
         cc.eventManager.removeAllListeners();
         ScheduleLoop.instance.clearAllSchedule(); // Flush cached
-        
+
         cc.director.runScene(new LoginScene());
     }
 });

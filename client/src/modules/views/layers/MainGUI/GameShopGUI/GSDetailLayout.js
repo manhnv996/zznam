@@ -1,4 +1,5 @@
 /**
+/**
  * Created by CPU60075_LOCAL on 20/11/2017.
  */
 
@@ -91,7 +92,7 @@ var GSDetailLayout = ccui.Layout.extend({
     touchEvent: function (sender, type) {
         switch (type) {
             case ccui.Widget.TOUCH_BEGAN:
-                audioEngine.playEffect(res.func_click_button_mp3, false);
+                SoundCtrl.instance.playSoundEffect(res.func_click_button_mp3, false);
                 sender.runAction(cc.scaleTo(0.1, 0.9));
                 break;
             case ccui.Widget.TOUCH_ENDED:
@@ -144,7 +145,6 @@ var GSDetailLayout = ccui.Layout.extend({
         this._lodgeTable._tableView.reloadData();
         this._animalTable._tableView.reloadData();
         this._machineTable._tableView.reloadData();
-        // this._treeTable._tableView.reloadData();
-
+        //this._treeTable._tableView.reloadData();
     }
 });

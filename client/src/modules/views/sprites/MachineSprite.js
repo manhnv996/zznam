@@ -1,9 +1,6 @@
 /**
  * Created by CPU60135_LOCAL on 11/29/2017.
  */
-/**
- * Created by CPU60135_LOCAL on 11/28/2017.
- */
 
 var MachineSprite = AnimationSprite.extend({
 

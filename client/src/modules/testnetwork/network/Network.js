@@ -25,8 +25,11 @@ testnetwork.Connector = cc.Class.extend({
                 break;
             
             case gv.CMD.USER_LOGIN:
-                cc.log(packet);
+                // Get friend list
+                this.sendFriendGetList();
+                // cc.log(packet);
                 // this.sendGetUserInfo(); // Old. Do not use
+                cc.log("Get server time");
                 this.sendGetServerTime();
                 // MainScene.instance = new MainScene();
                 // cc.director.runScene(MainScene.instance);
@@ -342,9 +345,8 @@ testnetwork.Connector = cc.Class.extend({
             case gv.CMD.FRIEND_GET_LIST:
                 cc.log("FRIEND_GET_LIST");
                 cc.log(packet.idList);
-                var id = packet.idList[0] || user.id; // or last id
-                cc.log("[F] Choose", id);
-                this.sendFriendGetInfo(id);
+                gv.friendIds = packet.idList;
+                // this.sendFriendGetInfo(id);
                 break;
             case gv.CMD.FRIEND_GET_INFO:
                 cc.log("FRIEND_GET_INFO");

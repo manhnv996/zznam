@@ -19,10 +19,6 @@ var ConstructedObject = CoordinatedObject.extend({
 		}
 	},
 
-	setCompleted: function () {
-		this.completed = true;
-	},
-
 	setBoostBuild: function () {
 		this.boostBuild = true;
 	}

@@ -6,7 +6,7 @@ var AnimalTable = cc.Layer.extend({
     _sprite: null,
     _check: null,
     _tableView: null,
-    lstP : {x: 0, y : 0},
+    lstP: {x: 0, y: 0},
     autoMoveHor: 0,
     autoMoveVer: 0,
 
@@ -63,7 +63,7 @@ var AnimalTable = cc.Layer.extend({
         imgBg.y = 0;
         imgBg.anchorX = 0;
         imgBg.anchorY = 0;
-        var scale = (cc.winSize.width / 3) / imgBg.getContentSize().width;
+        var scale = 363/316;
         imgBg.setScale(scale);
         cell.addChild(imgBg);
 
@@ -141,7 +141,7 @@ var AnimalTable = cc.Layer.extend({
         return cell;
     },
 
-    numberOfCellsInTableView:function (table) {
+    numberOfCellsInTableView: function (table) {
         return res.infoAnimalItem.length;
     },
 
@@ -179,13 +179,9 @@ var AnimalTable = cc.Layer.extend({
                 }
 
                 if (!GameShopLayout.instance._isHide) {
+                    this.typeObject = sender.parent.getChildByTag(0).getString();
                     this.scheduleUpdate();
                     GameShopLayout.instance.hide();
-                    var beganP = sender.getTouchBeganPosition();
-                    var createP = MapValues.screenPositionToLogic(beganP.x, beganP.y);
-                    createP.x = Math.floor(createP.x);
-                    createP.y = Math.floor(createP.y);
-                    this.typeObject = sender.parent.getChildByTag(0).getString();
                     switch (this.typeObject) {
                         case "chicken":
                             this._sprite = new ChickenSprite();
@@ -204,10 +200,10 @@ var AnimalTable = cc.Layer.extend({
                 //cc.log("Touch Moved");
                 break;
             case ccui.Widget.TOUCH_ENDED:
-                if(this._sprite){
+                if (this._sprite) {
                     this.buyAnimalFail();
                 }
-                 //cc.log("Touch Ended");
+                //cc.log("Touch Ended");
                 break;
             case ccui.Widget.TOUCH_CANCELED:
                 this.unscheduleUpdate();
@@ -219,49 +215,55 @@ var AnimalTable = cc.Layer.extend({
                     this._sprite.retain();
                     this._sprite.removeFromParent(true);
                     var lodgeModel = user.asset.getLodgeByPosition(endPl.x, endPl.y);
-                    if (!lodgeModel ||
-                        (lodgeModel.animalList.length >= GameShopController.instance.getLodgeSlotByType(lodgeModel.type))) {
+                    if (!lodgeModel) {
                         BaseGUILayer.instance.notifyCantPut(fr.Localization.text("Text_can_not_place"), endP.x, endP.y);
                         this.buyAnimalFail();
-                    } else {
-                        if (lodgeModel.type != (this.typeObject + "_habitat")) {
-                            BaseGUILayer.instance.notifyCantPut(fr.Localization.text("Text_place_pet"), endP.x, endP.y);
-                            this.buyAnimalFail();
-                        } else {
-                            cc.log("lodgeModel", lodgeModel.type);
-                            //Check gold
-                            var missGold = GameShopController.instance.checkGold(fr.moneyToNumber(sender.parent.getChildByTag(5).getString()));
-                            if (missGold) {
-                                cc.eventManager.removeListener(this._sprite.touchListener);
-                                BaseGUILayer.instance.notifyShopNotEnoughGold(missGold, this.typeObject,
-                                    endPl.x, endPl.y, lodgeModel.id);
-                            } else {
-                                //model
-                                var animalModel = new Animal(this.typeObject, 0, false, 0);
-                                lodgeModel.addAnimal(animalModel);
-
-                                //add to lodge sprite
-                                var lodgeSprite = MapLayer.instance.getChildByTag(TagClusters.Lodge + lodgeModel.id);
-                                this._sprite.setId(animalModel.id);
-                                lodgeSprite.addAnimalSprite(this._sprite);
-                                this._sprite.hungry();
-                                user.reduceGold(sender.parent.getChildByTag(5).getString());
-                                //Send Server
-                                testnetwork.connector.sendBuyAnimal(lodgeModel.id, animalModel.id,
-                                    animalModel.type, endPl.x, endPl.y);
-
-                                //GameShopLayout.instance.show();
-                                if (GameShopLayout.instance._isHide) {
-                                    GameShopLayout.instance.show();
-                                }
-                            }
-                        }
+                        return;
                     }
+                    //} else {
+                    if (lodgeModel.type != (this.typeObject + "_habitat")) {
+                        BaseGUILayer.instance.notifyCantPut(fr.Localization.text("Text_place_pet"), endP.x, endP.y);
+                        this.buyAnimalFail();
+                        return;
+                    }
+                    if (lodgeModel.animalList.length >= GameShopController.instance.getLodgeSlotByType(lodgeModel.type)) {
+                        BaseGUILayer.instance.notifyCantPut(fr.Localization.text("Text_can_not_place"), endP.x, endP.y);
+                        this.buyAnimalFail();
+                        return;
+                    }
+                    //} else {
+                    //cc.log("lodgeModel", lodgeModel.type);
+                    //Check gold
+                    var missGold = GameShopController.instance.checkGold(fr.moneyToNumber(sender.parent.getChildByTag(5).getString()));
+                    if (missGold) {
+                        cc.eventManager.removeListener(this._sprite.touchListener);
+                        BaseGUILayer.instance.notifyShopNotEnoughGold(missGold, this.typeObject,
+                            endPl.x, endPl.y, lodgeModel.id);
+                    } else {
+                        //model
+                        var animalModel = new Animal(this.typeObject, 0, false, 0);
+                        lodgeModel.addAnimal(animalModel);
+
+                        //add to lodge sprite
+                        var lodgeSprite = MapLayer.instance.getChildByTag(TagClusters.Lodge + lodgeModel.id);
+                        this._sprite.setId(animalModel.id);
+                        lodgeSprite.addAnimalSprite(this._sprite);
+                        this._sprite.hungry();
+                        user.reduceGold(sender.parent.getChildByTag(5).getString());
+                        //Send Server
+                        testnetwork.connector.sendBuyAnimal(lodgeModel.id, animalModel.id,
+                            animalModel.type, endPl.x, endPl.y);
+
+                        //GameShopLayout.instance.show();
+                        if (GameShopLayout.instance._isHide) {
+                            GameShopLayout.instance.show();
+                        }
+                        this._tableView.updateCellAtIndex(sender.parent.getIdx());
+                    }
+
                 }
-                //this.endTouch();
-                //this._sprite = null;
-                this._tableView.updateCellAtIndex(sender.parent.getIdx());
                 break;
+
         }
     },
 
@@ -271,6 +273,7 @@ var AnimalTable = cc.Layer.extend({
         if (this.smoothMove) {
             if (this._sprite) {
                 this._sprite.setLogicPosition(logic, true);
+                this.setColorDrag();
             }
         } else {
             logic.x = Math.floor(logic.x);
@@ -297,8 +300,20 @@ var AnimalTable = cc.Layer.extend({
         cc.eventManager.removeListener(this._sprite.touchListener);
         this._sprite.removeFromParent(true);
         this._sprite = null;
-        if (GameShopLayout.instance._isHide) {
-            GameShopLayout.instance.show();
+        GameShopLayout.instance.show();
+    },
+
+    setColorDrag: function () {
+        var logic = MapValues.screenPositionToLogic(this.movedP.x, this.movedP.y);
+        logic.x = Math.floor(logic.x);
+        logic.y = Math.floor(logic.y);
+        var lodgeModel = user.asset.getLodgeByPosition(logic.x, logic.y);
+        if (!lodgeModel || lodgeModel.type != (this.typeObject + "_habitat") ||
+            lodgeModel.animalList.length >= GameShopController.instance.getLodgeSlotByType(lodgeModel.type)) {
+            this._sprite.setColor(cc.color(150, 50, 150));
+        } else {
+            //cc.log("setColorDrag false");
+            this._sprite.setColor(cc.color(255, 255, 255));
         }
     }
 

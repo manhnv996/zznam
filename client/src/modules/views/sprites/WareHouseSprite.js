@@ -11,7 +11,7 @@ var WareHouseSprite = AnimationSprite.extend({
 
 	onClick: function() {
 		this.play("selected");
-		audioEngine.playEffect(res.tools_barn_mp3, false);
+		SoundCtrl.instance.playSoundEffect(res.tools_barn_mp3, false);
 		BaseGUILayer.instance.showStorage(user.getAsset().getWarehouse());
 	},
 

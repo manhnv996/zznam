@@ -10,6 +10,10 @@ var AnimalSprite = cc.Sprite.extend({
         this.initEvent();
     },
 
+    setColor: function (color) {
+        this._sprite.setColor(color);
+    },
+
 	onEnter: function() {
 		this._super();
 		// cc.log("On Enter")
@@ -131,8 +135,8 @@ var AnimalSprite = cc.Sprite.extend({
 
     onClick: function () {
         var key = SoundCtrl.instance.getKeySoundAnimalSelect(this);
-        audioEngine.playEffect(key, false);
-        this.getParent().showAnimalRemain(this.id);
+        SoundCtrl.instance.playSoundEffect(key, false);
         this.getParent().showAnimalTool();
+        this.getParent().showAnimalRemain(this.id);
     }
 });

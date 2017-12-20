@@ -32,6 +32,9 @@ var MainGuiLayer = cc.Layer.extend({
         //
         //this.addChild(this.btnFriends);
 
+        FriendUI.instance = new FriendUI();
+        this.addChild(FriendUI.instance);
+
         if (!home) {
             return;
         }
@@ -54,11 +57,14 @@ var MainGuiLayer = cc.Layer.extend({
         this.imageGold = new ccui.ImageView(res.gold);
         var imageGoldSize = this.imageGold.getSize();
         //cc.log("imageGold " + imageGoldSize.width + "  " + imageGoldSize.height);
-        this.imageGold.setPosition(size.width - (btnBuyGoldSize.width + imageGoldSize.width), size.height - btnBuyGoldSize.height/2);
+        //this.imageGold.setPosition(size.width - (btnBuyGoldSize.width + imageGoldSize.width), size.height - btnBuyGoldSize.height/2);
+        this.imageGold.setPosition(cc.winSize.width / 10 * 9, size.height - btnBuyGoldSize.height/2);
         this.addChild(this.imageGold);
 
         this.labelGold = new cc.LabelBMFont(user.getGold(), res.FONT_OUTLINE_30);
-        this.labelGold.setPosition(size.width - (btnBuyGoldSize.width + imageGoldSize.width + this.labelGold.width ),size.height - btnBuyGoldSize.height/2 );
+        //this.labelGold.setPosition(size.width - (btnBuyGoldSize.width + imageGoldSize.width + this.labelGold.width),size.height - btnBuyGoldSize.height/2 );
+        this.labelGold.setPosition(cc.p(cc.winSize.width / 10 * 8.75, size.height - btnBuyGoldSize.height/2));
+        this.labelGold.setAnchorPoint(cc.p(1, 0.5));
         this.addChild(this.labelGold);
 
 
@@ -73,21 +79,24 @@ var MainGuiLayer = cc.Layer.extend({
         var imageRuby = new ccui.ImageView(res.rubi);
         var imageRubySize = imageRuby.getSize();
         //cc.log("imageRuby " + imageRubySize.width + "  " + imageRubySize.height);
-        imageRuby.setPosition(size.width - (btnBuyGoldSize.width + imageGoldSize.width), size.height - btnBuyGoldSize.height - btnBuyRubySize.height/2);
+        //imageRuby.setPosition(size.width - (btnBuyRubySize.width + imageRubySize.width), size.height - btnBuyGoldSize.height - btnBuyRubySize.height/2);
+        imageRuby.setPosition(cc.winSize.width / 10 * 9, size.height - btnBuyGoldSize.height - btnBuyRubySize.height/2);
         this.addChild(imageRuby);
 
         this.labelRuby = new cc.LabelBMFont(user.getRuby(), res.FONT_OUTLINE_30);
-        this.labelRuby.setPosition(size.width - (btnBuyGoldSize.width + imageGoldSize.width + this.labelGold.width), size.height - 3*btnBuyRubySize.height/2);
+        //this.labelRuby.setPosition(size.width - ( btnBuyRubySize.width + imageRubySize.width + this.labelRuby.width), size.height - 3*btnBuyRubySize.height/2);
+        this.labelRuby.setPosition(cc.p(cc.winSize.width / 10 * 8.75, size.height - 3*btnBuyRubySize.height/2));
+        this.labelRuby.setAnchorPoint(cc.p(1, 0.5));
         this.addChild(this.labelRuby);
 
 
 
         // 8. create a search button and set it's position below btnBuyCoin
-        this.btnSearch = new ccui.Button(res.STAR_1_PNG);
-        var btnSearchSize = this.btnSearch.getSize();
-        //cc.log("btnSearch " + btnSearchSize.width + "  " + btnSearchSize.height);
-        this.btnSearch.setPosition(size.width - btnSearchSize.width/2, size.height - 5*btnBuyRubySize.height/2);
-        this.addChild(this.btnSearch);
+        // this.btnSearch = new ccui.Button(res.STAR_1_PNG);
+        // var btnSearchSize = this.btnSearch.getSize();
+        // //cc.log("btnSearch " + btnSearchSize.width + "  " + btnSearchSize.height);
+        // this.btnSearch.setPosition(size.width - btnSearchSize.width/2, size.height - 5*btnBuyRubySize.height/2);
+        // this.addChild(this.btnSearch);
 
 
         var imageExp_111 = new ccui.ImageView(res.EXP_111_PNG);
@@ -122,8 +131,7 @@ var MainGuiLayer = cc.Layer.extend({
         GameShopLayout.instance = new GameShopLayout();
         this.addChild(GameShopLayout.instance);
 
-        FriendUI.instance = new FriendUI();
-        this.addChild(FriendUI.instance);
+        
     },
 
     //
@@ -139,7 +147,7 @@ var MainGuiLayer = cc.Layer.extend({
         FriendUI.instance._btnOpenFriendList.btnFriends.setTouchEnabled(false);
         this.btnBuyGold.setTouchEnabled(false);
         this.btnBuyRuby.setTouchEnabled(false);
-        this.btnSearch.setTouchEnabled(false);
+        // this.btnSearch.setTouchEnabled(false);
 
     },
 
@@ -149,7 +157,7 @@ var MainGuiLayer = cc.Layer.extend({
         FriendUI.instance._btnOpenFriendList.btnFriends.setTouchEnabled(true);
         this.btnBuyGold.setTouchEnabled(true);
         this.btnBuyRuby.setTouchEnabled(true);
-        this.btnSearch.setTouchEnabled(true);
+        // this.btnSearch.setTouchEnabled(true);
     },
 
     onEnter:function(){
@@ -170,7 +178,7 @@ var MainGuiLayer = cc.Layer.extend({
            //
            //this.isShowPopup = true;
        //}
-        audioEngine.playEffect(res.func_click_button_mp3, false);
+        SoundCtrl.instance.playSoundEffect(res.func_click_button_mp3, false);
         BaseGUILayer.instance.showSettingGame();
     },
     onSelectBuyGold:function(sender, type){

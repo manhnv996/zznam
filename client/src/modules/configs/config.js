@@ -431,6 +431,12 @@ function onReceiveUser(userInfo) {
     user.id = userInfo.id;
     user.name = userInfo.name;
 
+    if (home) {
+        gv.friendIds = gv.friendIds.filter(function(id) {
+            return id != user.id;
+        });
+    }
+
     // cc.log("AnimalLodge", user.asset.animalLodgeList);
     MainScene.instance = new MainScene();
     cc.director.runScene(MainScene.instance);

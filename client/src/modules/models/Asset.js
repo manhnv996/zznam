@@ -58,12 +58,12 @@ var Asset = cc.Class.extend({
         return this.myShop;
     },
     getMachineById: function (machineId) {
-        for (var i = 0; i < this.machineList.length; i++){
-            if (this.machineList[i].machineId == machineId){
-                return this.machineList[i];
-            }
-        }
-        return null;
+
+        var machine = this.machineList.find(function(f) {
+            return f.machineId === machineId;
+        });
+
+        return machine;
     },
     getFieldById: function(fieldId) {
         // for (var i = 0; i < this.fieldList.length; i++){

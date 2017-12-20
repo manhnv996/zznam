@@ -49,7 +49,7 @@ public class ZPUserInfo extends DataModel {
         this.gold = 5000;
         this.ruby = 200;
 
-        this.exp = 600L;
+        this.exp = 10;
         this.name = "";
         
         this.asset = asset;

@@ -283,7 +283,7 @@ var UpgradeSiloLayer = cc.Layer.extend({
     touchBuyTool: function (sender, type) {
         switch (type) {
             case ccui.Widget.TOUCH_BEGAN:
-                audioEngine.playEffect(res.func_click_button_mp3, false);
+                SoundCtrl.instance.playSoundEffect(res.func_click_button_mp3, false);
                 break;
             case ccui.Widget.TOUCH_ENDED:
             case ccui.Widget.TOUCH_CANCELED:
@@ -340,7 +340,7 @@ var UpgradeSiloLayer = cc.Layer.extend({
         cc.log("touchUpgradeSilo");
         switch (type) {
             case ccui.Widget.TOUCH_BEGAN:
-                audioEngine.playEffect(res.func_click_button_mp3, false);
+                SoundCtrl.instance.playSoundEffect(res.func_click_button_mp3, false);
                 break;
             case ccui.Widget.TOUCH_ENDED:
             case ccui.Widget.TOUCH_CANCELED:
