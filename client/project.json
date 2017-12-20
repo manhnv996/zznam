@@ -143,6 +143,7 @@
         "src/modules/configs/enum/BuyItemTargetType.js",
         "src/modules/configs/enum/AnimalType.js",
         "src/modules/configs/enum/AnimalLodgeType.js",
+        "src/modules/configs/enum/MachineType.js",
         "src/modules/configs/config.js",
         "src/modules/configs/LevelupConfig.js",
         "src/modules/configs/ProductConfig.js",

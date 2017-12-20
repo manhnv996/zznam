@@ -325,6 +325,20 @@ testnetwork.Connector = cc.Class.extend({
                 }
                 break;
 
+            case gv.CMD.RESPONSE_BUILD_COMPLETED:
+                cc.log("BUILD_COMPLETED Error:", packet.error);
+                if (packet.error !== 0) {
+                    cc.log('[E] Error occurs!');
+                }
+                break;
+
+            case gv.CMD.RESPONSE_BOOST_BUILD:
+                cc.log("BOOST_BUILD Error:", packet.error);
+                if (packet.error !== 0) {
+                    cc.log('[E] Error occurs!');
+                }
+                break;
+
             case gv.CMD.RESPONSE_UPGRADE_STORAGE:
                 cc.log("UPGRADE_STORAGE Error:", packet.error);
                 if (packet.error !== 0) {

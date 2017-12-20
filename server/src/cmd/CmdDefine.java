@@ -77,7 +77,6 @@ public class CmdDefine {
     public static final short BUY_ANIMAL_BY_RUBY = 7004;
     public static final short RESPONSE_BUY_OBJECT = 7100;
     
-    
     public static final short BUY_TOOL_REQUEST = 8001;
     public static final short UPGRADE_STORAGE_REQUEST = 8002;
     public static final short RESPONSE_UPGRADE_STORAGE = 8100;
@@ -85,6 +84,8 @@ public class CmdDefine {
     
     public static final short BUILD_COMPLETED_REQUEST = 9001;
     public static final short BOOST_BUILD_REQUEST = 9002;
+    public static final short RESPONSE_BUILD_COMPLETE = 9011;
+    public static final short RESPONSE_BOOST_BUILD = 9012;
     //cmd machine
     public static final short BOOST_PRODUCT = 9101; //machine product
     public static final short UNLOCK_SLOT = 9102;
