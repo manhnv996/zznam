@@ -317,6 +317,38 @@ testnetwork.Connector = cc.Class.extend({
     },
 
     //
+    sendBoostProduct: function (machineId) {
+        cc.log("sendBoostProduct: " + machineId + ", type: " );
+        var pk = this.gameClient.getOutPacket(CmdSendBoostProduct);
+        //pk.pack(machineId, productType);
+        pk.pack(machineId);
+        this.gameClient.sendPacket(pk);
+    },
+    sendUnlockSlot: function (machineId) {
+        cc.log("sendUnlockSlot: " + machineId );
+        var pk = this.gameClient.getOutPacket(CmdSendUnlockSlot);
+        pk.pack(machineId);
+        this.gameClient.sendPacket(pk);
+    },
+    sendCollectProduct: function (machineId) {
+        cc.log("sendCollectProduct: " + machineId );
+        var pk = this.gameClient.getOutPacket(CmdSendCollectProduct);
+        pk.pack(machineId);
+        this.gameClient.sendPacket(pk);
+    },
+    sendAddProduct: function (machineId, productType) {
+        cc.log("sendAddProduct: " + machineId + "type " + productType);
+        var pk = this.gameClient.getOutPacket(CmdSendAddProduct);
+        pk.pack(machineId, productType);
+        this.gameClient.sendPacket(pk);
+    },
+    sendBuyRawMaterial: function (machineId, productType) {
+        cc.log("sendBuyRawMaterial: " + machineId + " type " + productType);
+        var pk = this.gameClient.getOutPacket(CmdSendBuyRawMaterial);
+        pk.pack(machineId, productType);
+        this.gameClient.sendPacket(pk);
+    },
+
     //
     sendPlant: function (fieldId, productType) {
         cc.log("sendPlant: " + fieldId + ", type: " + productType);

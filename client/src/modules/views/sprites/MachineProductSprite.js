@@ -59,7 +59,8 @@ var MachineProductSprite = ProductSprite.extend({
         //cc.log("z47 "+ this.getParent());
         this._toolTip = new cc.Sprite(res.tooltip_png);
         this._toolTip.setPosition(this._toolTip.width / 2 + this.width , this.height/2  );
-        this.addChild(this._toolTip);
+        this.addChild(this._toolTip,3);
+        this.setZOrder(2);
         if (user.getLevel() >= this._productConfig.levelUnlock){
             this._defaultPosition = new cc.p(this.x, this.y);
             target.runAction(new cc.ScaleTo(0.1, 1.5, 1.5));
@@ -91,7 +92,7 @@ var MachineProductSprite = ProductSprite.extend({
                     if (currQuantity < rawMaterialList[0].quantity){
                         this._canProduce = false;
                         rawMaterialInfo.setColor(cc.color(244, 66, 66));
-                    } else if (currQuantity == rawMaterialList[0].quantity){
+                    } else if (currQuantity == rawMaterialList[0].quantity && rawMaterialList[0].rawMaterialId.indexOf("crop_") >= 0){
                         this._lastSeed = true;
                     }
                     rawMaterialInfo.x = this._toolTip.width /4;
@@ -110,7 +111,7 @@ var MachineProductSprite = ProductSprite.extend({
                     if (currQuantity < rawMaterialList[1].quantity){
                         this._canProduce = false;
                         rawMaterialInfo.setColor(cc.color(244, 66, 66));
-                    } else if (currQuantity == rawMaterialList[1].quantity){
+                    } else if (currQuantity == rawMaterialList[1].quantity && rawMaterialList[1].rawMaterialId.indexOf("crop_") >= 0){
                         this._lastSeed = true;
                     }
                     rawMaterialInfo.x = this._toolTip.width /4;
@@ -125,10 +126,10 @@ var MachineProductSprite = ProductSprite.extend({
                     rawMaterialIcon2.y = this._toolTip.height/2;
                     var currQuantity2 = user.getAsset().getQuantityOfTwoStorageByProductId(rawMaterialList[0].rawMaterialId);
                     var rawMaterialInfo2 = new cc.LabelBMFont( currQuantity2+"/"+rawMaterialList[0].quantity,res.FONT_OUTLINE_20);
-                    if (currQuantity < rawMaterialList[0].quantity){
+                    if (currQuantity2 < rawMaterialList[0].quantity){
                         this._canProduce = false;
                         rawMaterialInfo2.setColor(cc.color(244, 66, 66));
-                    } else if (currQuantity2 == rawMaterialList[0].quantity){
+                    } else if (currQuantity2 == rawMaterialList[0].quantity && rawMaterialList[0].rawMaterialId.indexOf("crop_") >= 0){
                         this._lastSeed = true;
                     }
                     rawMaterialInfo2.x = this._toolTip.width *3/5;
@@ -150,7 +151,7 @@ var MachineProductSprite = ProductSprite.extend({
                     if (currQuantity < rawMaterialList[0].quantity){
                         this._canProduce = false;
                         rawMaterialInfo2.setColor(cc.color(244, 66, 66));
-                    } else if (currQuantity == rawMaterialList[0].quantity){
+                    } else if (currQuantity == rawMaterialList[0].quantity && rawMaterialList[0].rawMaterialId.indexOf("crop_") >= 0){
                         this._lastSeed = true;
                     }
                     rawMaterialInfo2.x = this._toolTip.width *3/5;
@@ -168,7 +169,7 @@ var MachineProductSprite = ProductSprite.extend({
                     if (currQuantity < rawMaterialList[1].quantity){
                         this._canProduce = false;
                         rawMaterialInfo.setColor(cc.color(244, 66, 66));
-                    } else if (currQuantity == rawMaterialList[1].quantity){
+                    } else if (currQuantity == rawMaterialList[1].quantity && rawMaterialList[1].rawMaterialId.indexOf("crop_") >= 0){
                         this._lastSeed = true;
                     }
                     rawMaterialInfo.x = this._toolTip.width /4;
@@ -187,7 +188,7 @@ var MachineProductSprite = ProductSprite.extend({
                     if (currQuantity < rawMaterialList[0].quantity){
                         this._canProduce = false;
                         rawMaterialInfo3.setColor(cc.color(244, 66, 66));
-                    } else if (currQuantity == rawMaterialList[2].quantity){
+                    } else if (currQuantity == rawMaterialList[2].quantity && rawMaterialList[2].rawMaterialId.indexOf("crop_") >= 0){
                         this._lastSeed = true;
                     }
                     rawMaterialInfo3.x = this._toolTip.width /4;
@@ -207,7 +208,7 @@ var MachineProductSprite = ProductSprite.extend({
                     if (currQuantity < rawMaterialList[0].quantity){
                         this._canProduce = false;
                         rawMaterialInfo2.setColor(cc.color(244, 66, 66));
-                    } else if (currQuantity == rawMaterialList[0].quantity){
+                    } else if (currQuantity == rawMaterialList[0].quantity && rawMaterialList[0].rawMaterialId.indexOf("crop_") >= 0){
                         this._lastSeed = true;
                     }
                     rawMaterialInfo2.x = this._toolTip.width *3/5;
@@ -225,7 +226,7 @@ var MachineProductSprite = ProductSprite.extend({
                     if (currQuantity < rawMaterialList[1].quantity){
                         this._canProduce = false;
                         rawMaterialInfo.setColor(cc.color(244, 66, 66));
-                    } else if (currQuantity == rawMaterialList[1].quantity){
+                    } else if (currQuantity == rawMaterialList[1].quantity && rawMaterialList[1].rawMaterialId.indexOf("crop_") >= 0){
                         this._lastSeed = true;
                     }
                     rawMaterialInfo.x = this._toolTip.width /4;
@@ -244,7 +245,7 @@ var MachineProductSprite = ProductSprite.extend({
                     if (currQuantity < rawMaterialList[2].quantity){
                         this._canProduce = false;
                         rawMaterialInfo3.setColor(cc.color(244, 66, 66));
-                    } else if (currQuantity == rawMaterialList[2].quantity){
+                    } else if (currQuantity == rawMaterialList[2].quantity && rawMaterialList[2].rawMaterialId.indexOf("crop_") >= 0){
                         this._lastSeed = true;
                     }
                     rawMaterialInfo3.x = this._toolTip.width /4;
@@ -262,7 +263,7 @@ var MachineProductSprite = ProductSprite.extend({
                     if (currQuantity < rawMaterialList[3].quantity){
                         this._canProduce = false;
                         rawMaterialInfo4.setColor(cc.color(244, 66, 66));
-                    } else if (currQuantity == rawMaterialList[3].quantity){
+                    } else if (currQuantity == rawMaterialList[3].quantity && rawMaterialList[3].rawMaterialId.indexOf("crop_") >= 0){
                         this._lastSeed = true;
                     }
                     rawMaterialInfo4.x = this._toolTip.width *3/5;
@@ -305,6 +306,7 @@ var MachineProductSprite = ProductSprite.extend({
 
     onTouchMovedJobs: function (touch, event) {
        if (user.getLevel() >= this._productConfig.levelUnlock){
+           this.setLocalZOrder(2);
            var delta = touch.getDelta();
            //var target = this;
            //todo check level before can move product
@@ -382,13 +384,13 @@ var MachineProductSprite = ProductSprite.extend({
             this.setScale(1);
 
             if (this.checkDragIntheMachine() || this.checkDragInTheQueueSlot(touch)){
-                cc.log("producing!!!");
+                cc.log("producinggggggggggggggggggggggggggg!!!");
                 this._touchInProduceZone = false;
                 this._parent.removeTempProductSprite();
                 this.addProductToMachineQueue();
             } else {
                 if (this._touchInProduceZone == true) {
-                    cc.log("backup!!!");
+                    cc.log("backuppppppppppppppppppppppp!!!");
                     this._touchInProduceZone = false;
                     this._parent.removeTempProductSprite();
                 }
@@ -400,10 +402,56 @@ var MachineProductSprite = ProductSprite.extend({
     addProductToMachineQueue:function(){
         if (this._canProduce == false){
             cc.log("Thiếu nguyên liệu, show popup bạn có mún mua lun");
+            //todo notify buyMaterial First
+            var rawMaterialList = this._productConfig.rawMaterialList;
+            for (var i = 0; i< rawMaterialList.length; i++){
+                var rawMaterialId = rawMaterialList[i].rawMaterialId;
+                var quantity = rawMaterialList[i].quantity;
+                if (rawMaterialId.indexOf("crop_") >= 0){
+                    user.asset.foodStorage.takeItem(rawMaterialId, quantity);
+                } else {
+                    user.asset.warehouse.takeItem(rawMaterialId, quantity);
+                }
+
+            }
+            var machineId = this._parent._machineId;
+
+            var i = MachineController.instance.getIndexMachineInListById(machineId);
+            user.asset.machineList[i].addProductInQueue(this._productConfig.productType);
+            testnetwork.connector.sendAddProduct(machineId, this._productConfig.productType);
+
+            this._parent.updatePopup();
+
+            var j = MachineController.instance.getIndexInMachineSpriteList(machineId);
+            MapLayer.instance.machineSpriteList[j].updateAnimation();
+            MapLayer.instance.machineSpriteList[j].scheduleAnimation();
             return false;
         } else {
             if (this._lastSeed == true){
                 cc.log("Show!!! Hạt giống cuối cùng, bạn có muốn sản xuất không?");
+                //todo notify lastSeed First
+                var rawMaterialList = this._productConfig.rawMaterialList;
+                for (var i = 0; i< rawMaterialList.length; i++){
+                    var rawMaterialId = rawMaterialList[i].rawMaterialId;
+                    var quantity = rawMaterialList[i].quantity;
+                    if (rawMaterialId.indexOf("crop_") >= 0){
+                        user.asset.foodStorage.takeItem(rawMaterialId, quantity);
+                    } else {
+                        user.asset.warehouse.takeItem(rawMaterialId, quantity);
+                    }
+
+                }
+                var machineId = this._parent._machineId;
+
+                var i = MachineController.instance.getIndexMachineInListById(machineId);
+                user.asset.machineList[i].addProductInQueue(this._productConfig.productType);
+                testnetwork.connector.sendBuyRawMaterial(machineId, this._productConfig.productType);
+
+                this._parent.updatePopup();
+
+                var j = MachineController.instance.getIndexInMachineSpriteList(machineId);
+                MapLayer.instance.machineSpriteList[j].updateAnimation();
+                MapLayer.instance.machineSpriteList[j].scheduleAnimation();
             } else {
                 cc.log("Trừ nguyên liệu, thêm sản phẩm vào queue, show animation san pham bay vô máy");
                 var rawMaterialList = this._productConfig.rawMaterialList;
@@ -415,18 +463,27 @@ var MachineProductSprite = ProductSprite.extend({
                     } else {
                         user.asset.warehouse.takeItem(rawMaterialId, quantity);
                     }
-                    var machineId = this._parent._machineId;
-                    var i = MachineController.instance.getIndexMachineInListById(machineId);
-                    user.asset.machineList[i].addProductInQueue(this._productConfig.productType);
-                    TablePopupLayer.instance._layout.updateProductQueue(machineId);
-                    //todo check server
+
                 }
+                var machineId = this._parent._machineId;
+
+                var i = MachineController.instance.getIndexMachineInListById(machineId);
+                user.asset.machineList[i].addProductInQueue(this._productConfig.productType);
+                testnetwork.connector.sendAddProduct(machineId, this._productConfig.productType);
+
+                this._parent.updatePopup();
+
+                var j = MachineController.instance.getIndexInMachineSpriteList(machineId);
+                MapLayer.instance.machineSpriteList[j].updateAnimation();
+                MapLayer.instance.machineSpriteList[j].scheduleAnimation();
+
+                //todo check server
             }
         }
     },
     renderMuiTen: function () {
         this._muiten = new cc.Sprite(res.ten);
         this._muiten.setPosition(new cc.p(this.width * 4 / 5, this.height / 5));
-        this.addChild(this._muiten);
+        this.addChild(this._muiten, -1);
     }
 })

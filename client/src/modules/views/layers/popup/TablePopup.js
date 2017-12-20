@@ -75,6 +75,7 @@ var TablePopup = ccui.Layout.extend({
 
         if (this._isClose) {
             this.unscheduleUpdate();
+            this.onPopupClose();
 
             if (this.disableListener) {
                 cc.eventManager.removeListener(this.disableListener);
@@ -85,5 +86,5 @@ var TablePopup = ccui.Layout.extend({
         }
     },
 
-
+    onPopupClose: function() {}
 });

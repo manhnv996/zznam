@@ -25,8 +25,8 @@ var Machine = ConstructedObject.extend({
     },
     addProductInQueue:function(product){
         if (this.productQueue.length == 0){
-            var now = new Date().getTime();
-            this.setStartTime(now);
+           this.setStartTimeByCurrentTime();
+            cc.log("29 +  this.setStartTimeByCurrentTime();")
         }
         this.productQueue.push(product);
     },
@@ -88,7 +88,13 @@ var Machine = ConstructedObject.extend({
     boostCurrentProduct: function () {
         //boolean
         var now = new Date().getTime();
-        var newStartTime = this.startTime - this.getRemainingTimeToFinishCurrentProduct(now);
+        var remainingTime = this.getRemainingTimeToFinishCurrentProduct(now);
+        if (remainingTime > 0 ){
+            var newStartTime = this.startTime - remainingTime;
+            this.setStartTime(newStartTime);
+            return true;
+        }
+        return false;
 
     },
     //// var now = new Date().getTime();

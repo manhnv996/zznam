@@ -80,8 +80,8 @@ var MachineTablePopup = TablePopup.extend({
             };
         }
         this._screenPosition = MapValues.logicToScreenPosition( this._machine.coordinate.x, this._machine.coordinate.y);
-        this._bg.setPosition(this._screenPosition.x - this._machineWidth * 1 / 3,
-            this._screenPosition.y + this._machineHeight * 1 / 3);
+        this._bg.setPosition(this._screenPosition.x - this._machineWidth * 1 / 4,
+            this._screenPosition.y + this._machineHeight * 1 / 4);
 
         this.renderItemList(this._machineConfig.productList);
         this.renderFirstSlot(this._machineId, spriteCalled);
@@ -147,18 +147,29 @@ var MachineTablePopup = TablePopup.extend({
         if (index == -1){
             cc.log("ERROR, cant find machine by id");
         } else {
-            if (user.asset.machineList[index].slot == 2) {
-                this._labelRubyToUnlockSlot.setString(MACHINE_CONFIG.NEXT_PRICE_BUY_SLOT);
+            var currentSlot  = user.asset.machineList[index].slot;
+            var ruby;
+            if (currentSlot == 2){
+                ruby = MACHINE_CONFIG.FIRST_PRICE_BUY_SLOT;
+            } else {
+                ruby = MACHINE_CONFIG.NEXT_PRICE_BUY_SLOT;
             }
-            user.asset.machineList[index].slot += 1;
-            //add new slot square to queue
-            var squareSprite = new SquareSprite(res.o_trong_2_2);
-            this._queueSpriteList.push(squareSprite);
-            this.addChild(this._queueSpriteList[this._queueSpriteList.length -1]);
+            if (user.getRuby() >= ruby){
 
-            //set position to queue square list again...
-            this.setPositionSlotList(this._machineId);
-            this.setPositionForUnlockButton(this._machineId);
+                user.asset.machineList[index].slot += 1;
+                testnetwork.connector.sendUnlockSlot(this._machineId);
+                //add new slot square to queue
+                var squareSprite = new SquareSprite(res.o_trong_2);
+                this._queueSpriteList.push(squareSprite);
+                this.addChild(this._queueSpriteList[this._queueSpriteList.length - 1]);
+
+                //set position to queue square list again...
+                this.setPosititonSlotAtIndex(this._queueSpriteList.length - 1);
+                this.setPositionForUnlockButton(this._machineId);
+                if (currentSlot == 2) {
+                    this._labelRubyToUnlockSlot.setString(MACHINE_CONFIG.NEXT_PRICE_BUY_SLOT);
+                }
+            }
         }
 
     },
@@ -166,6 +177,19 @@ var MachineTablePopup = TablePopup.extend({
         //todo boost by ruby, do logic in controller
         cc.log("Boost button is clicked");
         var index = MachineController.instance.getIndexMachineInListById(this._machineId);
+
+        if (user.getRuby() > MACHINE_CONFIG.SPEED_UP){
+            if (user.asset.machineList[index].boostCurrentProduct()){
+                user.reduceRuby(MACHINE_CONFIG.SPEED_UP);
+                this.updateProductQueue(this._machineId);
+                testnetwork.connector.sendBoostProduct(this._machineId);
+
+            } else {
+                cc.log("174 SPEED_UP_ERROR");
+            }
+        } else {
+            cc.log("177 NOT ENOUGH RUBY<BYEEEEEEEEEEEEEEEEEEEEEEE");
+        }
     },
     turnPageEvent: function(){
 
@@ -271,13 +295,15 @@ var MachineTablePopup = TablePopup.extend({
         var screenPosition = this._screenPosition;
 
         this._FirstSlotSprite = new SquareSprite(res.o_trong_1);
-        this._FirstSlotSprite.setPosition(screenPosition.x + spriteCalled.width * 1 / 3,
+        this._FirstSlotSprite.setPosition(screenPosition.x + spriteCalled.width * 1 / 5,
             screenPosition.y );
         this._FirstSlotSprite.setScale(1.1);
         this.addChild(this._FirstSlotSprite);
-        this._btnBoost = cc.Sprite(res.button_energy_2);
+        this._btnBoost = ccui.Button(res.button_energy_2);
         this._btnBoost.setScale(0.8);
-        this._btnBoost.setPosition(this._FirstSlotSprite.width/2  , 0);
+        //this._btnBoost.setPosition(this._FirstSlotSprite.width/2  , 0);
+        this._btnBoost.setPosition(screenPosition.x + spriteCalled.width * 1 / 5,
+            screenPosition.y);
 
         var rubiImage = new ccui.ImageView(res.rubi);
         rubiImage.setPosition(cc.p(this._btnBoost.width * 3 / 4, this._btnBoost.height / 2));
@@ -286,9 +312,11 @@ var MachineTablePopup = TablePopup.extend({
         this._labelRubyToBoost = new cc.LabelBMFont("", res.FONT_OUTLINE_30);
         this._labelRubyToBoost.setPosition(cc.p(this._btnBoost.width   / 2, this._btnBoost.height /2));
         this._btnBoost.addChild(this._labelRubyToBoost);
-        //this._btnBoost.addClickEventListener(this.onBoostEvent());
+        this._btnBoost.addClickEventListener(this.onBoostEvent.bind(this));
+        //this.addClickListener();
         this._btnBoost.setVisible(false);
-        this._FirstSlotSprite.addChild(this._btnBoost);
+        this.addChild(this._btnBoost);
+        this._btnBoost.runAction(new cc.moveBy(0.1, 0,- this._FirstSlotSprite.height *.6));
 
         this._labelTime = cc.LabelBMFont("",res.FONT_NORMAL_30);
         this._labelTime.setPosition(this._FirstSlotSprite.width/2  ,this._FirstSlotSprite.height * 1.1);
@@ -296,6 +324,7 @@ var MachineTablePopup = TablePopup.extend({
 
         this._imgProductFirstSlot = new cc.Sprite();
         this._FirstSlotSprite.addChild(this._imgProductFirstSlot);
+
 
     },
     initSlotlist: function(machineId){
@@ -334,6 +363,25 @@ var MachineTablePopup = TablePopup.extend({
         }
 
 
+    },
+    setPosititonSlotAtIndex:function(i){
+        this._queueSpriteList[i].setPosition(cc.p(this._FirstSlotSprite.x, this._FirstSlotSprite.y));
+
+        if (i < 4){
+            if (i == 0) {
+                this._queueSpriteList[i].runAction(new cc.moveBy(0.1, (i +1)*this._FirstSlotSprite.width * 1.1, 0));
+            } else {
+                this._queueSpriteList[i].runAction(new cc.moveBy(0.1, (i +1)*this._FirstSlotSprite.width * 1.05, 0));
+            }
+        } else {
+            switch (i){
+                case 4: this._queueSpriteList[i].runAction(new cc.moveBy(0.1, this._FirstSlotSprite.width * 1.1, - this._FirstSlotSprite.height * 1.1)); break;
+                case 5: this._queueSpriteList[i].runAction(new cc.moveBy(0.1, 2*this._FirstSlotSprite.width * 1.05, - this._FirstSlotSprite.height * 1.1)); break;
+                case 6: this._queueSpriteList[i].runAction(new cc.moveBy(0.1, 3*this._FirstSlotSprite.width * 1.05, - this._FirstSlotSprite.height * 1.1)); break;
+                case 7: this._queueSpriteList[i].runAction(new cc.moveBy(0.1, 4*this._FirstSlotSprite.width * 1.05, - this._FirstSlotSprite.height * 1.1)); break;
+            }
+
+        }
     },
     renderUnlockButton:function(machineId){
         var machine = user.getAsset().getMachineById(machineId);
@@ -391,13 +439,17 @@ var MachineTablePopup = TablePopup.extend({
                     temp++;
                     var indexSlot= 0;
                     for (var i = temp; i < machine.productQueue.length; i++){
-                        var res_path  = this.getConfigProduct(machine.productQueue[i], this._machineConfig.productList).res_path;
-                        this.updateProductForSlot(indexSlot,res_path );
-                        indexSlot++;
+                       if (indexSlot < machine.slot - 1){
+                           var res_path  = this.getConfigProduct(machine.productQueue[i], this._machineConfig.productList).res_path;
+                           this.updateProductForSlot(indexSlot,res_path );
+                           indexSlot++;
+                       }
                     }
-                    //this.updateNullSlot(indexSlot)
+
                     for (var j = indexSlot ; j < this._queueSpriteList.length ;j++){
-                        this.updateNullSlot(j);
+                        if (indexSlot < machine.slot - 1){
+                            this.updateNullSlot(indexSlot);
+                        }
                     }
                 }
                 else {
@@ -435,22 +487,14 @@ var MachineTablePopup = TablePopup.extend({
     },
 
     updateProducingFirstSlot: function(productConfig){
-        if (!this._btnBoost.isVisible()){
-            this._btnBoost.setVisible(true);
-        }
-        this._labelTime.setVisible(true);
-        this._FirstSlotSprite.setTexture(res.o_trong_1_1);
-        //this._FirstSlotSprite.removeChild(this._imgProductFirstSlot);
-        this._imgProductFirstSlot.setTexture(productConfig.res_path);
-        this._imgProductFirstSlot.setPosition(this._FirstSlotSprite.width/2, this._FirstSlotSprite.height/2);
-        this._imgProductFirstSlot.setVisible(true);
-
-
-        this._labelRubyToBoost.setString(productConfig.rubyToBuy);
-
-
-
-
+           this._btnBoost.setVisible(true);
+           this._labelTime.setVisible(true);
+           this._FirstSlotSprite.setTexture(res.o_trong_1_1);
+           //this._FirstSlotSprite.removeChild(this._imgProductFirstSlot);
+           this._imgProductFirstSlot.setTexture(productConfig.res_path);
+           this._imgProductFirstSlot.setPosition(this._FirstSlotSprite.width/2, this._FirstSlotSprite.height/2);
+           this._imgProductFirstSlot.setVisible(true);
+           this._labelRubyToBoost.setString(MACHINE_CONFIG.SPEED_UP);
     },
     getConfigProduct:function(productType, productList){
 
@@ -462,34 +506,42 @@ var MachineTablePopup = TablePopup.extend({
         return null;
     },
     updateRemainingTime: function(){
-        var now = new Date().getTime();
-        var machine  = user.asset.getMachineById(this._machineId);
-        var temp = machine.getNumberOfCompletedProducts(now);
-        var numOfProductsInQueue = machine.productQueue.length;
-        if (temp < numOfProductsInQueue){
-            this.updateProductQueue(this._machineId);
-            var remainingTime = Math.floor(machine.getRemainingTimeToFinishCurrentProduct(now) /1000);
-            var remainingMinute = Math.floor(remainingTime / 60);
-            var remainingSecond = remainingTime % 60;
-            if ( remainingMinute != 'undefined' && remainingSecond!= 'undefined'){
-                //cc.log(this._labelTime!=null)
-                //this._labelTime.setString( remainingMinute+":"+remainingSecond);
-                //todo why _labeltime error
+
+            var now = new Date().getTime();
+            var machine  = user.asset.getMachineById(this._machineId);
+            var temp = machine.getNumberOfCompletedProducts(now);
+            var numOfProductsInQueue = machine.productQueue.length;
+            if (temp < numOfProductsInQueue){
+                this.updateProductQueue(this._machineId);
+                var remainingTime = Math.floor(machine.getRemainingTimeToFinishCurrentProduct(now) /1000);
+                var remainingMinute = Math.floor(remainingTime / 60);
+                var remainingSecond = remainingTime % 60;
+                if ( remainingMinute != 'undefined' && remainingSecond!= 'undefined'){
+                    //cc.log(this._labelTime!=null)
+                    this._labelTime.setString( remainingMinute+":"+remainingSecond);
+                    //todo why _labeltime error
+                }
+
+            } else {
+                this.unschedule(this.updateRemainingTime);
+                this.updateNullAllSlot(this._machineId);
             }
 
-        } else {
-            this.unschedule(this.updateRemainingTime);
-            this.updateNullAllSlot(this._machineId);
 
+    },
+    onPopupClose:function(){
 
-        }
+        this.unschedule(this.updateRemainingTime);
+        //cc.log("closinggggggggggggggggggggggggggggggg");
+
     },
     updateNullFirstSlotSprite: function () {
         this._labelTime.setString("");
         this._FirstSlotSprite.setTexture(res.o_trong_1);
         this._imgProductFirstSlot.setVisible(false);
         this._btnBoost.setVisible(false);
-        //this._labelTime.setVisible(false);
+
+        this._labelTime.setVisible(false);
     },
     addTempProductInFirstNullSlot:function(resPath){
         var now = new Date().getTime();
@@ -498,7 +550,7 @@ var MachineTablePopup = TablePopup.extend({
         var numOfProductsInQueue = machine.productQueue.length;
         this._tempProductSprite = new cc.Sprite(resPath);
 
-        if (numOfProductsInQueue - temp < machine.slot){
+        if (numOfProductsInQueue - temp < machine.slot ){
             if (temp < numOfProductsInQueue){
                 this._queueSpriteList[numOfProductsInQueue - temp - 1].setTexture(res.o_trong_2_2)
                 this._queueSpriteList[numOfProductsInQueue - temp - 1].addChild(this._tempProductSprite);
@@ -520,15 +572,56 @@ var MachineTablePopup = TablePopup.extend({
         var temp = machine.getNumberOfCompletedProducts(now);
         var numOfProductsInQueue = machine.productQueue.length;
 
-        if (temp < numOfProductsInQueue){
-            this._queueSpriteList[numOfProductsInQueue - temp - 1].setTexture(res.o_trong_2);
-            this._queueSpriteList[numOfProductsInQueue - temp - 1].removeChild(this._tempProductSprite);
-        } else {
-            this._FirstSlotSprite.setTexture(res.o_trong_1);
-            this._FirstSlotSprite.removeChild(this._tempProductSprite);
+        if (numOfProductsInQueue - temp < machine.slot){
+            if (temp < numOfProductsInQueue  ){
+                this._queueSpriteList[numOfProductsInQueue - temp - 1].setTexture(res.o_trong_2);
+                this._queueSpriteList[numOfProductsInQueue - temp - 1].removeAllChildren();
+            } else {
+                this._FirstSlotSprite.setTexture(res.o_trong_1);
+                this._FirstSlotSprite.removeChild(this._tempProductSprite);
+                cc.log("backuppppppppppppppppppppppppp");
+
+            }
         }
+
         this._hasTempProduct = false;
+    },
+    updatePopup:function(){
+        this.updateProductQueue(this._machineId);
+        this.schedule(this.updateRemainingTime,1);
     }
+    //addClickListener: function () {
+    //    this.btnBoostClickListener = cc.EventListener.create({
+    //        event: cc.EventListener.TOUCH_ONE_BY_ONE,
+    //        swallowTouches: true,
+    //        onTouchBegan: function (touch, event) {
+    //            return true;
+    //        }.bind(this),
+    //
+    //        onTouchMoved: function (touch, event) {
+    //            /*
+    //             DONE
+    //             */
+    //        }.bind(this),
+    //
+    //        onTouchEnded: function (touch, event) {
+    //            //
+    //            var target = this._btnBoost;
+    //
+    //            var locationInNode = target.convertToNodeSpace(touch.getLocation());
+    //            var s = target.getContentSize();
+    //            var rect = cc.rect(0, 0, s.width, s.height);
+    //
+    //            if (cc.rectContainsPoint(rect, locationInNode)) {
+    //                cc.log("TouchEned btnBoost ");
+    //                //todo boost by ruby, do logic in controller
+    //
+    //            }
+    //
+    //        }.bind(this)
+    //    });
+    //    cc.eventManager.addListener(this.btnBoostClickListener, this);
+    //}
 });
 
 var SquareSprite = cc.Sprite.extend({

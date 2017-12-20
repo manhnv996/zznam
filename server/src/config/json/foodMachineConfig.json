@@ -1,0 +1,6 @@
+[
+  {"id": "food_chicken" , "rawMaterialList": [ {"rawMaterialId": "crop_wheat", "quantity": 2},{ "rawMaterialId": "crop_corn", "quantity": 1}]},
+  {"id": "food_cow" , "rawMaterialList": [ {"rawMaterialId": "crop_soybean", "quantity": 2},{ "rawMaterialId": "crop_corn", "quantity": 1}]},
+  {"id": "food_pig" , "rawMaterialList": [ {"rawMaterialId": "crop_soybean", "quantity": 1},{ "rawMaterialId": "crop_carrot", "quantity": 2}]}
+]
+ 

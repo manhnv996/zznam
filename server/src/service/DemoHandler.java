@@ -125,7 +125,7 @@ public class DemoHandler extends BaseClientRequestHandler {
             }
             
             /*
-             * DONE
+             * Process here babe
              */
             int ruby = buy_ruby.ruby;
             

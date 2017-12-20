@@ -4,7 +4,7 @@
 
 var MACHINE_CONFIG = {};
 
-var MA_LOG_TAG = "MAHCHINE_LOG_TAG: ";
+var MA_LOG_TAG = "MACHINE_LOG_TAG: ";
 MACHINE_CONFIG.FIRST_PRICE_BUY_SLOT = 6;
 MACHINE_CONFIG.NEXT_PRICE_BUY_SLOT = 3;
 MACHINE_CONFIG.SPEED_UP = 1;
@@ -57,7 +57,7 @@ MACHINE_LIST.push({
             levelUnlock: 15,
             rawMaterialList: [{rawMaterialId: "crop_soybean", quantity: 1, res_raw: res.sausages},{rawMaterialId: "crop_carrot", quantity: 2,res_raw: res.caroot}]
         }
-    ]
+        ]
 
 });
 
@@ -86,7 +86,7 @@ MACHINE_LIST.push({
          },
         {
             productType: "product_corn_bread",
-            name: "Bánh Mì",
+            name: "Bánh Bắp",
             res_path: res.BREAD_CORN_PNG,
             speedUp: 1,
             rubyToBuy: 4, // truong hop thieu nguyen lieu user muon mua lun
@@ -98,7 +98,7 @@ MACHINE_LIST.push({
         },
         {
             productType: "product_cookie",
-            name: "Bánh Mì",
+            name: "Bánh Quy",
             res_path: res.COOKIE_PNG,
             speedUp: 1,
             rubyToBuy: 4, // truong hop thieu nguyen lieu user muon mua lun

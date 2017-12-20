@@ -14,6 +14,8 @@ import config.enums.MapItemEnum;
 
 import config.jsonobject.MachineConfig;
 import config.jsonobject.ShopCoopConfig;
+import config.jsonobject.machine.MachineProductConfig;
+import config.jsonobject.machine.RawMaterial;
 import config.jsonobject.map.NaturalObject;
 
 import java.util.ArrayList;
@@ -30,7 +32,8 @@ public class ConfigContainer {
     
     public static ShopCoopConfig[] shopCoopConfig;
     public static MachineConfig[] machineConfig;
-    
+    public static MachineProductConfig[] bakeryProductConfig;
+    public static MachineProductConfig[] foodProductConfig;
     
     public static void init() {
         // Load map config
@@ -123,11 +126,15 @@ public class ConfigContainer {
         try {
             shopCoopConfig = gson.fromJson(new FileReader("src/config/json/shopCoopconfig.json"), ShopCoopConfig[].class);
             machineConfig =  gson.fromJson(new FileReader("src/config/json/machineConfig.json"), MachineConfig[].class);
-//            System.out.println(shopCoopConfig[0].type);
+            bakeryProductConfig = gson.fromJson(new FileReader("src/config/json/bakeryMachineConfig.json"), MachineProductConfig[].class);
+            foodProductConfig = gson.fromJson(new FileReader("src/config/json/foodMachineConfig.json"), MachineProductConfig[].class);
+            
+//            System.out.println("128" + foodProductConfig[0].rawMaterialList.get(0).quantity +"===="+ foodProductConfig[1].rawMaterialList.get(1).rawMaterialId);
         } catch (FileNotFoundException e) {
             e.printStackTrace();    
         }
     }
+    
     
     public static int getCoopPrice (String type) {
         for (int i = 0; i < shopCoopConfig.length; i++) {
@@ -154,6 +161,31 @@ public class ConfigContainer {
             }
         }
         return null;
+    }
+    public static ArrayList<RawMaterial> getRawMaterialList(String machineType, String productType){
+        switch (machineType){
+        
+            case "bakery_machine":
+            for (MachineProductConfig product : bakeryProductConfig) {
+//                System.out.println("170" + product.id);
+//                System.out.println("171" + productType);
+                if (product.id.equalsIgnoreCase(productType)){
+                    return product.rawMaterialList;
+                }
+            }
+            break;
+            case "food_machine":
+            for (MachineProductConfig product : foodProductConfig) {
+//                System.out.println("178" + product.id);
+//                System.out.println("179" + productType);
+                if (product.id.equalsIgnoreCase(productType)){
+//                    System.out.println("RETURNNNN");
+                    return product.rawMaterialList;
+                }
+            }
+            break;
+        }
+        return new ArrayList<RawMaterial>();
     }
     
     public static String toJSON(Object obj) {

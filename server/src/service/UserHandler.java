@@ -182,7 +182,7 @@ public class UserHandler extends BaseClientRequestHandler {
         foodStorage.addItem(ProductType.CROP_CARROT, 5);
         foodStorage.addItem(ProductType.CROP_WHEAT, 8);
 
-        foodStorage.addItem(ProductType.CROP_SOYBEAN, 5);
+        foodStorage.addItem(ProductType.CROP_SOYBEAN, 2);
         foodStorage.addItem(ProductType.CROP_CORN, 10);
         
         warehouse.addItem(ProductType.GOOD_EGG, 2);        
@@ -229,10 +229,18 @@ public class UserHandler extends BaseClientRequestHandler {
         
         
         // Add Food Machine
-        Machine machine = new Machine(0, MachineTypeEnum.food_machine, 
+        Machine machine = new Machine(1, MachineTypeEnum.food_machine, 
                         ConfigContainer.getMachineSlot(MachineTypeEnum.food_machine.toString()),
-                        0, false, true, 9, 17);
+                        0, false, true, 21, 24);
+        // Add Bakery Machine
+        Machine machine2 = new Machine(2, MachineTypeEnum.bakery_machine, 
+                        ConfigContainer.getMachineSlot(MachineTypeEnum.food_machine.toString()),
+                        0, false, true, 18, 24);
+        
         asset.addMachine(machine);
+        asset.addMachine(machine2);
+        
+        
         
         // Last
         ZPUserInfo userInfo = new ZPUserInfo(userId, asset); // ...Update map alias

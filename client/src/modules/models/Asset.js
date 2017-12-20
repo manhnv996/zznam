@@ -58,7 +58,6 @@ var Asset = cc.Class.extend({
     getMachineById: function (machineId) {
         for (var i = 0; i < this.machineList.length; i++){
             if (this.machineList[i].machineId == machineId){
-
                 return this.machineList[i];
             }
         }

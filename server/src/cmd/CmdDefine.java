@@ -62,12 +62,20 @@ public class CmdDefine {
     
     public static final short BUY_MAP_OBJECT_REQUEST = 7001;
     public static final short BUY_MAP_OBJECT_BY_RUBY = 7002;
+  
     
     public static final short BUY_TOOL_REQUEST = 8001;
     public static final short UPGRADE_STORAGE_REQUEST = 8002;
     
     public static final short BUILD_COMPLETED_REQUEST = 9001;
     public static final short BOOST_BUILD_REQUEST = 9002;
+    //cmd machine
+    public static final short BOOST_PRODUCT = 9101; //machine product
+    public static final short UNLOCK_SLOT = 9102;
+    public static final short COLLECT_PRODUCT = 9103; //lay san pham tu may da co san pham hoan thanh
+    public static final short ADD_PRODUCT = 9104; // them san pham vao productQueue send(machineId, productType,
+    //    gv.CMD.BUY_MACHINE_PRODUCT = 9105 // mua luon san pham bang ruby send (machineId, productType, ruby)
+    public static final short BUY_RAW_MATERIAL = 9106; // Truong hop thieu nguyen lieu, dung ruby de bat dau san xuat, send (machineId, productType, ruby)
     
     public static final short GET_FRIENDS = 3001;
     public static final short FRIEND_SEND_MESSAGE = 3002;
