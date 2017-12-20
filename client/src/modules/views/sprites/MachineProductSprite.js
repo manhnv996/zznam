@@ -381,7 +381,7 @@ var MachineProductSprite = ProductSprite.extend({
             var seq = new  cc.Sequence(action1, action2);
             this.runAction(seq);
             this._muiten.setVisible(true);
-            this.setScale(1);
+            this.runAction(new cc.ScaleTo(0.1, 1, 1));
 
             if (this.checkDragIntheMachine() || this.checkDragInTheQueueSlot(touch)){
                 cc.log("producinggggggggggggggggggggggggggg!!!");
