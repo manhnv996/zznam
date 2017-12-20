@@ -6,6 +6,7 @@ var MainScene = cc.Scene.extend({
 		PlantCtrl.instance = new PlantCtrl();
 		GameShopController.instance = new GameShopController();
 		StorageCtrl.instance = new StorageCtrl();
+		MachineController.instance = new MachineController();
 		ConstructedCtrl.instance = new ConstructedCtrl();
 		AnimalCtrl.instance = new AnimalCtrl();
 		NatureCtrl.instance = new NatureCtrl();
@@ -15,12 +16,18 @@ var MainScene = cc.Scene.extend({
 		MapLayer.instance = new MapLayer();
 		this.addChild(MapLayer.instance);
 
-        PopupLayer.instance = new PopupLayer();
-        this.addChild(PopupLayer.instance);
+		//
+		PopupLayer.instance = new PopupLayer();
+		this.addChild(PopupLayer.instance);
+
 
 		TablePopupLayer.instance = new TablePopupLayer();
 		this.addChild(TablePopupLayer.instance);
 
+		MachineLayer.instance = new MachineLayer();
+		this.addChild(MachineLayer.instance);
+
+		//var mainGuiLayer = new MainGuiLayer();
 		AnimateEventLayer.instance = new AnimateEventLayer();
 		this.addChild(AnimateEventLayer.instance);
 
@@ -81,7 +88,7 @@ var MainScene = cc.Scene.extend({
 
 		//BaseGUILayer.instance.loadingBar();
 
-        //var model = new Machine(0, "bakery_machine", 3, 0, null, false, new Date().getTime(), new Coordinate(20, 20));
+        //var model = new Machine(0, "bakery_machine", 3, 0, null, false, getTime(), new Coordinate(20, 20));
         //user.asset.addMachine(model);
         ////cc.log("model " + model.coordinate.x + " " + model.coordinate.y + " id " + model.id + " slot " + model.slot);
         ////var machine = user.asset.getMachineById(model.id);

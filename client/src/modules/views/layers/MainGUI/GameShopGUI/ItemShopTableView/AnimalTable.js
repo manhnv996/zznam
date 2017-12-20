@@ -232,7 +232,7 @@ var AnimalTable = cc.Layer.extend({
                         return;
                     }
                     //} else {
-                    cc.log("lodgeModel", lodgeModel.type);
+                    //cc.log("lodgeModel", lodgeModel.type);
                     //Check gold
                     var missGold = GameShopController.instance.checkGold(fr.moneyToNumber(sender.parent.getChildByTag(5).getString()));
                     if (missGold) {
@@ -312,7 +312,7 @@ var AnimalTable = cc.Layer.extend({
             lodgeModel.animalList.length >= GameShopController.instance.getLodgeSlotByType(lodgeModel.type)) {
             this._sprite.setColor(cc.color(150, 50, 150));
         } else {
-            cc.log("setColorDrag false");
+            //cc.log("setColorDrag false");
             this._sprite.setColor(cc.color(255, 255, 255));
         }
     }

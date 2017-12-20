@@ -38,7 +38,7 @@ var PopupLayer = cc.Layer.extend({
             });
             var parsePlantTime = field.getPlantedTime().getTime();
             var parseCropTime = field.getCropTime().getTime();
-            var currTime = new Date().getTime();
+            var currTime = getTime();
 
             var duration = parseCropTime - parsePlantTime;
             var curr = currTime - parsePlantTime;
@@ -54,7 +54,7 @@ var PopupLayer = cc.Layer.extend({
 
 
             //
-            var remain = new Date();
+            var remain = getDate();
             remain.setTime(duration - curr);
             var timeRemainShow = "";
             if (duration - curr > 60 * 60 * 1000){
@@ -569,6 +569,20 @@ var PopupLayer = cc.Layer.extend({
 
     },
 
+    showSuggestBuyRawMaterial:function(productConfig){
+        this.addCloseBGEvent();
+        //this.setPauseBackground(MapLayer.instance.fieldList, true);
+        var rawMaterialList = productConfig.rawMaterialList;
+        var count; // đếm số nguyên liệu còn thiếu
+        for (var i = 0; i < rawMaterialList.length; i++){
+            var currQuantity = user.getAsset().getQuantityOfTwoStorageByProductId(rawMaterialList[i].rawMaterialId);
+            var quantityNeedToProduce = rawMaterialList[i].quantity;
+            if (currQuantity < quantityNeedToProduce){
+                count ++;
+            }
+        }
+
+    },
 
     setPauseBackground: function(listSprite, isPause){
         if (isPause){

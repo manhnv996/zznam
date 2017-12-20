@@ -57,7 +57,14 @@ var Asset = cc.Class.extend({
     getMyShop: function () {
         return this.myShop;
     },
+    getMachineById: function (machineId) {
 
+        var machine = this.machineList.find(function(f) {
+            return f.machineId === machineId;
+        });
+
+        return machine;
+    },
     getFieldById: function(fieldId) {
         // for (var i = 0; i < this.fieldList.length; i++){
         //     if (this.fieldList[i].getFieldId() == fieldId){
@@ -207,13 +214,8 @@ var Asset = cc.Class.extend({
         return list;
     },
 
-    getMachineById: function (id) {
-        var machine = this.machineList.find(function (f) {
-            return f.id === id;
-        });
-        return machine;
-    },
 
+    //
     getLodgeByPosition: function(lx, ly) {
         for (var i = 0; i < this.animalLodgeList.length; i++) {
             var lodge = this.animalLodgeList[i];
@@ -241,6 +243,7 @@ var Asset = cc.Class.extend({
         }
         return null;
     },
+
 
     getNatureThingById: function(natureId) {
         return this.natureThingList.find(function(nature) {

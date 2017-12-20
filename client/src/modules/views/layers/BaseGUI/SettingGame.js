@@ -15,6 +15,7 @@ var SettingGame = BaseLayout.extend({
         btnLogout.x = this.width / 10 * 3;
         btnLogout.y = this.height / 5 * 3;
         btnLogout.setZoomScale(-0.1);
+        btnLogout.addTouchEventListener(this.onBtnLogoutClick, this);
         this.addChild(btnLogout);
 
         var btnError = new ccui.Button(res.BTN_FEEDBACK_PNG);
@@ -83,10 +84,18 @@ var SettingGame = BaseLayout.extend({
     },
 
     setResEffectBtn: function () {
-        if(SoundCtrl.instance._isOnEffect) {
+        if (SoundCtrl.instance._isOnEffect) {
             this.btnEffect.loadTextureNormal(res.BTN_EFFECT_ON_PNG);
         } else {
             this.btnEffect.loadTextureNormal(res.BTN_EFFECT_OFF_PNG);
         }
+    },
+
+    onBtnLogoutClick: function(sender, type) {
+        cc.sys.localStorage.removeItem("session");
+        cc.eventManager.removeAllListeners();
+        ScheduleLoop.instance.clearAllSchedule(); // Flush cached
+        
+        cc.director.runScene(new LoginScene());
     }
 });

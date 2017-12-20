@@ -138,6 +138,10 @@ for (var k in FontResource) {
     res[k] = FontResource[k];
 }
 
+//add resources in /machines/item
+for (var k in MachineItemResource) {
+    res[k] = MachineItemResource[k];
+}
 //
 for (var k in OrderResource) {
     res[k] = OrderResource[k];

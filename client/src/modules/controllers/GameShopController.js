@@ -129,7 +129,7 @@ var GameShopController = cc.Class.extend({
         //Model
         var machineConfig = getMachineConfigByType(typeObject);
         var machineModel = new Machine(0, typeObject, machineConfig.slot, 0, null, false,
-            false, new Date().getTime(), machineConfig.time, new Coordinate(lx, ly));
+            false, getTime(), machineConfig.time, new Coordinate(lx, ly));
         user.asset.addMachine(machineModel);
 
         //Sprite

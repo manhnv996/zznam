@@ -25,7 +25,7 @@ var CowLodgeSprite = AnimalLodgeSprite.extend({
 		var animalSprite = this.getChildByTag(TagClusters.Animal + animal.id);
 		var lp = cc.p(animalSprite.lx, animalSprite.ly);
 		// var startTime = animal.feededTime;
-		// var remain = AnimalConfig.cow.time * 1000 - (new Date().getTime() - startTime);
+		// var remain = AnimalConfig.cow.time * 1000 - (getTime() - startTime);
 		var remain = animal.remainTime;
 		if (!animal.feeded) {
 			return;

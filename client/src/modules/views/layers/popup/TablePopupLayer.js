@@ -60,6 +60,13 @@ var TablePopupLayer = cc.Layer.extend({
         this.autoMove(lx, ly, 180, 200);
     },
 
+    showMachineTablePopup: function (machineId) {
+        cc.log(MA_LOG_TAG + "showMachineTablePopup");
+        this._layout = new MachineTablePopup(machineId);
+        this.addChild(this._layout);
+    },
+
+    ////TablePopupLayer.instance.removeUpdateDisableListener();
     //
     runUpdateOrderWaittingTime: function () {
         this.schedule(this.updateOrderWaittingTime, 1);
@@ -70,7 +77,7 @@ var TablePopupLayer = cc.Layer.extend({
             this.unschedule(this.updateOrderWaittingTime);
         }
         for (var i = 0; i < list.length; i++){
-            var parseCurrTime = new Date().getTime();
+            var parseCurrTime = getTime();
             var finishWaittingTime = list[i].getFinishWaittingTime();
             if (finishWaittingTime != null){
                 if (parseCurrTime > finishWaittingTime.getTime()){
@@ -78,7 +85,6 @@ var TablePopupLayer = cc.Layer.extend({
                 }
             }
         }
-
     },
 //
 

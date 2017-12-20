@@ -255,7 +255,7 @@ function updateGameInfo(gameInfoJson){
                 field.setPlantType(plantType);
                 //
                 var intTime = gameInfo.asset.fieldList[i].plantedTime;
-                var plantedTime = new Date();
+                var plantedTime = getDate();
                 plantedTime.setTime(intTime);
 
                 field.setPlantedTime(plantedTime);
@@ -363,10 +363,10 @@ function onReceiveUser(userInfo) {
     for (var i = 0; i < userInfo.asset.machineList.length; i++) {
         // cc.log("userInfo.asset.machineList[i] " + userInfo.asset.machineList.length);
         var machineInfo = userInfo.asset.machineList[i];
-
+        cc.log(machineInfo.toString());
         var machine = new Machine(
-            machineInfo.id,
-            machineInfo.type,
+            machineInfo.machineId,
+            machineInfo.machineType,
             machineInfo.slot,
             machineInfo.startTime,
             machineInfo.productQueue,
@@ -376,6 +376,7 @@ function onReceiveUser(userInfo) {
             machineInfo.remainBuildTime,
             new Coordinate(machineInfo.x, machineInfo.y)
         );
+        //var machine = new Machine(machineId, machineType, slot, startTime,  productQueue, boostBuild, completed, startBuildTime, remainBuildTime, coordinate);
         machineList.push(machine);
     }
 

@@ -35,7 +35,7 @@ var ChickenLodgeSprite = AnimalLodgeSprite.extend({
 			return;
 		}
 		// var startTime = animal.feededTime;
-		// var remain = AnimalConfig.chicken.time * 1000 - (new Date().getTime() - startTime);
+		// var remain = AnimalConfig.chicken.time * 1000 - (getTime() - startTime);
 		var remain = animal.remainTime;
 		if (remain > 0) {
 			var p = MapValues.logicToScreenPosition(this.lx + lp.x, this.ly + lp.y);

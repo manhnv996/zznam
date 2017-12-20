@@ -42,15 +42,6 @@ var ProductTypes = {
     TOOL_DUCTTAPE : "tool_ductTape",
 
     //
-    //PRODUCT_BREAD: 20,
-    //PRODUCT_CORN_BREAD: 21,
-    //PRODUCT_COOKIE: 22,
-    //PRODUCT_CREAM: 25,
-    //PRODUCT_BUTTER: 26,
-    //PRODUCT_BROWN_SUGAR: 27,
-    //PRODUCT_POPCORN: 28,
-    //PRODUCT_PANCAKE: 29,
-    //
     TOOL_AXE: "tool_axe",
     TOOl_SAW: "tool_saw",
     TOOL_DYNOMITE: "tool_dynamite",

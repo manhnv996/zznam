@@ -12,6 +12,7 @@ var ConstructedObject = CoordinatedObject.extend({
 		this.completed = completed;
 	},
 
+
 	reduceRemainBuildTime: function (dt) {
 		if (this.remainBuildTime > 0) {
 			this.remainBuildTime -= dt;

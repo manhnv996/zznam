@@ -31,6 +31,11 @@ import config.utils.OrderUtil;
 import eventhandler.LoginSuccessHandler;
 import eventhandler.LogoutHandler;
 
+import java.text.DateFormat;
+
+import java.text.SimpleDateFormat;
+
+import java.util.Date;
 import java.util.List;
 
 import model.GameInfo;
@@ -54,6 +59,8 @@ import service.PlantHandler;
 import service.StorageHandler;
 import service.UserHandler;
 import service.NatureHandler;
+
+import service.TimeHandler;
 
 import util.GuestLogin;
 
@@ -131,6 +138,11 @@ public class FresherExtension extends BZExtension {
     }
 
     public void init() {
+        
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        System.out.println("Server date: " + dateFormat.format(date));
+        
         trace("  Register Handler ");
         addRequestHandler(UserHandler.USER_MULTI_IDS, UserHandler.class);
         addRequestHandler(DemoHandler.DEMO_MULTI_IDS, DemoHandler.class);
@@ -149,6 +161,7 @@ public class FresherExtension extends BZExtension {
         addRequestHandler(AnimalHandler.ANIMAL_MULTI_IDS, AnimalHandler.class);
         addRequestHandler(NatureHandler.NATURE_MULTI_IDS, NatureHandler.class);
         addRequestHandler(FriendHandler.FRIEND_MULTI_IDS, FriendHandler.class);
+        addRequestHandler(TimeHandler.TIME_MULTI_IDS, TimeHandler.class);
         
         trace(" Event Handler ");
         addEventHandler(BZEventType.USER_LOGIN, LoginSuccessHandler.class);
@@ -157,6 +170,10 @@ public class FresherExtension extends BZExtension {
         ConfigContainer.init();
         // System.out.println("[+] Value " + ConfigContainer.mapConfig.Init.height);
 //        doTest();
+        
+//        System.out.println(ConfigContainer.getRawMaterialList("food_machine", "food_pig").get(0).rawMaterialId);
+//        System.out.println(ConfigContainer.getRawMaterialList("bakery_machine", "product_corn_bread").get(0).rawMaterialId);
+        
         // Init usersInfo
         this.users = Users.getUsers();
         
@@ -330,11 +347,15 @@ public class FresherExtension extends BZExtension {
         reqGet.unpackData();
        
         try {
-            
+            System.out.println("Session key: " + reqGet.sessionKey);
             UserInfo uInfo = getUserInfo(reqGet.sessionKey, reqGet.userId, session.getAddress());
+            System.out.println(uInfo.getUserId());
             User u = ExtensionUtility.instance().canLogin(uInfo, "", session);
-            if (u!=null)
+            if (u!=null) {
                 u.setProperty("userId", uInfo.getUserId());
+            } else {
+                System.out.println("User null");    
+            }
             users.findAndAdd(u.getId());
             users.save();
         } catch (Exception e) {

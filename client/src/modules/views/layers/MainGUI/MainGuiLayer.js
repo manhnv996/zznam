@@ -189,6 +189,13 @@ var MainGuiLayer = cc.Layer.extend({
         //
         //    this.isShowPopup = true;
         //}
+
+
+        //var gold = Math.floor((Math.random() * 1000) - 500);
+        //user.addGold(gold);
+        //MainGuiLayer.instance.labelGold.setString(user.getGold());
+        //testnetwork.connector.sendBuyGold(gold);
+
         switch (type) {
             case ccui.Widget.TOUCH_BEGAN:
                 user.addGold(20);
@@ -199,6 +206,13 @@ var MainGuiLayer = cc.Layer.extend({
     },
     onSelectBuyRuby:function(sender, type){
         //cc.log("==onSelectBuyRuby clicked");
+
+        //var ruby = Math.floor((Math.random() * 1000) - 500);
+        //user.addRuby(ruby);
+        //MainGuiLayer.instance.labelRuby.setString(user.getRuby());
+        ////send pk to server {packet{fieldId}}
+        //testnetwork.connector.sendBuyRuby(ruby);
+
         switch (type) {
             case ccui.Widget.TOUCH_BEGAN:
                 user.addRuby(10);

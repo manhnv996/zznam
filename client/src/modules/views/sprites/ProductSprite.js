@@ -1,4 +1,5 @@
 /**
+
  * Created by CPU60133_LOCAL on 11/30/2017.
  */
 
@@ -64,7 +65,6 @@ var ProductSprite = cc.Sprite.extend({
     onMoveClick: function (touch) {},
     onEndClick: function (touch) {},
     //
-
 
     fadeOutProduct: function () {
         this.clearListener();

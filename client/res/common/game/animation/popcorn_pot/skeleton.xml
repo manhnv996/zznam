@@ -48,11 +48,11 @@
      <transform x="-97" y="-114" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
-   <slot name="product_bone" parent="product_bone" z="8">
-    <display name="vatpham" type="image">
-     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="43" pY="28.5"/>
-    </display>
-   </slot>
+   <!--<slot name="product_bone" parent="product_bone" z="8">-->
+    <!--<display name="vatpham" type="image">-->
+     <!--<transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="43" pY="28.5"/>-->
+    <!--</display>-->
+   <!--</slot>-->
    <slot name="Layer 2" parent="Layer 2" z="3">
     <display name="bongngo" type="image">
      <transform x="0" y="88" skX="0" skY="0" scX="1" scY="1" pX="89.5" pY="176"/>
