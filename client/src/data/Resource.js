@@ -160,6 +160,10 @@ for (var k in ToolResource) {
     res[k] = ToolResource[k];
 }
 
+for (var k in RoadsideShopResource) {
+    res[k] = RoadsideShopResource[k];
+}
+
 for (var k in AnimateEventResource) {
     res[k] = AnimateEventResource[k];
 }

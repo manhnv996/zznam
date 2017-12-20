@@ -145,7 +145,7 @@ var AnimateEventLayer = cc.Layer.extend({
 		var scale = this.upgradeSuccess.height / this.bgUpgradeStorage.getContentSize().height;
 		this.bgUpgradeStorage.setScale(scale);
 		this.bgUpgradeStorage.opacity = 200;
-		this.bgUpgradeStorage.setColor(cc.color(255, 0, 0));
+		//this.bgUpgradeStorage.setColor(cc.color(255, 0, 0));
 		this.upgradeSuccess.addChild(this.bgUpgradeStorage);
 
 		var label = new cc.LabelBMFont(fr.Localization.text("text_upgrade_success"), res.FONT_OUTLINE_50);

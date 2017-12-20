@@ -27,6 +27,7 @@
         "src/data/SoundResource.js",
         "src/data/StorageResource.js",
         "src/data/HavestResource.js",
+        "src/data/RoadsideShopResource.js",
         "src/data/FriendResource.js",
         "src/data/OrderResource.js",
         "src/data/AnimalLodgeResource.js",
