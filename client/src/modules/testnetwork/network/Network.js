@@ -743,5 +743,36 @@ testnetwork.Connector = cc.Class.extend({
         var pk = this.gameClient.getOutPacket(CmdSendGetServerTime);
         pk.pack();
         this.gameClient.sendPacket(pk);
-    }
+    },
+    //
+    sendBoostProduct: function(machineId) {
+        cc.log("sendBoostProduct");
+        var pk = this.gameClient.getOutPacket(CmdSendBoostProduct);
+        pk.pack(machineId);
+        this.gameClient.sendPacket(pk);
+    },
+    sendUnlockSlot: function(machineId) {
+        cc.log("sendUnlockSlot");
+        var pk = this.gameClient.getOutPacket(CmdSendUnlockSlot);
+        pk.pack(machineId);
+        this.gameClient.sendPacket(pk);
+    },
+    sendCollectProduct: function(machineId) {
+        cc.log("sendCollectProduct");
+        var pk = this.gameClient.getOutPacket(CmdSendCollectProduct);
+        pk.pack(machineId);
+        this.gameClient.sendPacket(pk);
+    },
+    sendAddProduct: function(machineId, productType) {
+        cc.log("sendAddProduct");
+        var pk = this.gameClient.getOutPacket(CmdSendAddProduct);
+        pk.pack(machineId, productType);
+        this.gameClient.sendPacket(pk);
+    },
+    sendBuyRawMaterial: function(machineId, productType) {
+        cc.log("sendBuyRawMaterial");
+        var pk = this.gameClient.getOutPacket(CmdSendBuyRawMaterial);
+        pk.pack(machineId, productType);
+        this.gameClient.sendPacket(pk);
+    },
 });

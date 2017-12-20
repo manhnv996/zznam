@@ -78,7 +78,7 @@ MACHINE_LIST.push({
             res_path: res.BREAD_PNG,
         speedUp: 1,
         rubyToBuy: 4, // truong hop thieu nguyen lieu user muon mua lun
-        time:.2,
+        time: 5,
         exp: 3,
         price: 21,
         levelUnlock: 2,
@@ -90,7 +90,7 @@ MACHINE_LIST.push({
             res_path: res.BREAD_CORN_PNG,
             speedUp: 1,
             rubyToBuy: 4, // truong hop thieu nguyen lieu user muon mua lun
-            time:.2,
+            time:5,
             exp: 3,
             price: 21,
             levelUnlock: 2,
@@ -102,7 +102,7 @@ MACHINE_LIST.push({
             res_path: res.COOKIE_PNG,
             speedUp: 1,
             rubyToBuy: 4, // truong hop thieu nguyen lieu user muon mua lun
-            time:.2,
+            time:5,
             exp: 3,
             price: 21,
             levelUnlock: 2,
@@ -127,7 +127,7 @@ MACHINE_LIST.push({
             res_path: res.BREAD_PNG,
             speedUp: 1,
             rubyToBuy: 4, // truong hop thieu nguyen lieu user muon mua lun
-            time:.2,
+            time: 5,
             exp: 3,
             price: 21,
             levelUnlock: 2,
@@ -139,7 +139,7 @@ MACHINE_LIST.push({
             res_path: res.BREAD_CORN_PNG,
             speedUp: 1,
             rubyToBuy: 4, // truong hop thieu nguyen lieu user muon mua lun
-            time:.2,
+            time: 5,
             exp: 3,
             price: 21,
             levelUnlock: 2,
@@ -151,7 +151,7 @@ MACHINE_LIST.push({
             res_path: res.COOKIE_PNG,
             speedUp: 1,
             rubyToBuy: 4, // truong hop thieu nguyen lieu user muon mua lun
-            time:.2,
+            time: 5,
             exp: 3,
             price: 21,
             levelUnlock: 2,
@@ -176,7 +176,7 @@ MACHINE_LIST.push({
             res_path: res.BREAD_PNG,
             speedUp: 1,
             rubyToBuy: 4, // truong hop thieu nguyen lieu user muon mua lun
-            time:.2,
+            time: 5,
             exp: 3,
             price: 21,
             levelUnlock: 2,
@@ -188,7 +188,7 @@ MACHINE_LIST.push({
             res_path: res.BREAD_CORN_PNG,
             speedUp: 1,
             rubyToBuy: 4, // truong hop thieu nguyen lieu user muon mua lun
-            time:.2,
+            time: 5,
             exp: 3,
             price: 21,
             levelUnlock: 2,
@@ -200,7 +200,7 @@ MACHINE_LIST.push({
             res_path: res.COOKIE_PNG,
             speedUp: 1,
             rubyToBuy: 4, // truong hop thieu nguyen lieu user muon mua lun
-            time:.2,
+            time: 5,
             exp: 3,
             price: 21,
             levelUnlock: 2,

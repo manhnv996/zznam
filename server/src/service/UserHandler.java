@@ -137,10 +137,10 @@ public class UserHandler extends BaseClientRequestHandler {
             if (userInfo == null) {
                 userInfo = createUser(user.getId());
                 
-                //
-                userInfo.getAsset().getMyShop().sell(userInfo, 0, new StorageItem(ProductType.CROP_WHEAT, 5), 10);
-                userInfo.getAsset().getMyShop().sell(userInfo, 3, new StorageItem(ProductType.GOOD_MILK, 3), 27);
-                //
+//                //
+//                userInfo.getAsset().getMyShop().sell(userInfo, 0, new StorageItem(ProductType.CROP_WHEAT, 5), 10);
+//                userInfo.getAsset().getMyShop().sell(userInfo, 3, new StorageItem(ProductType.GOOD_MILK, 3), 27);
+//                //
                 
                 userInfo.saveModel(user.getId());
             }
@@ -188,18 +188,15 @@ public class UserHandler extends BaseClientRequestHandler {
         Storage foodStorage = new Storage(StorageType.FOOD_STORAGE, 50, 
                 ConfigContainer.mapConfig.Silo.position.x,
                 ConfigContainer.mapConfig.Silo.position.y);
-        Storage warehouse = new Storage(StorageType.WAREHOUSE, 50, 
+        Storage warehouse = new Storage(StorageType.WAREHOUSE, 100, 
                 ConfigContainer.mapConfig.Warehouse.position.x,
                 ConfigContainer.mapConfig.Warehouse.position.y);
 
-        foodStorage.addItem(ProductType.CROP_CARROT, 5);
-        foodStorage.addItem(ProductType.CROP_WHEAT, 8);
-
-        foodStorage.addItem(ProductType.CROP_SOYBEAN, 2);
-        foodStorage.addItem(ProductType.CROP_CORN, 10);
+        foodStorage.addItem(ProductType.CROP_CORN, 5);
+        foodStorage.addItem(ProductType.CROP_WHEAT, 5);
         
-        warehouse.addItem(ProductType.GOOD_EGG, 1);        
-        warehouse.addItem(ProductType.GOOD_MILK, 1);
+        warehouse.addItem(ProductType.GOOD_EGG, 7);        
+        warehouse.addItem(ProductType.GOOD_MILK, 7);
         warehouse.addItem(ProductType.TOOL_AXE, 1);
         warehouse.addItem(ProductType.TOOL_SAW, 2);
         warehouse.addItem(ProductType.TOOL_DYNOMITE, 1);
