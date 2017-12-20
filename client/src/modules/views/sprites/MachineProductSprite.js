@@ -60,7 +60,7 @@ var MachineProductSprite = ProductSprite.extend({
         this._toolTip = new cc.Sprite(res.tooltip_png);
         this._toolTip.setPosition(this._toolTip.width / 2 + this.width , this.height/2  );
         this.addChild(this._toolTip,3);
-        this.setZOrder(2);
+        this.setLocalZOrder(2);
         if (user.getLevel() >= this._productConfig.levelUnlock){
             this._defaultPosition = new cc.p(this.x, this.y);
             target.runAction(new cc.ScaleTo(0.1, 1.5, 1.5));
