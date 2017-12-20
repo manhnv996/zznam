@@ -6,7 +6,7 @@ var MyShopCtrl = cc.Class.extend({
 
     onSell: function (slot, product, price) {
         if (user.getAsset().getMyShop().sell(slot, product, price)){
-
+            testnetwork.connector.sendSellProduct(slot, product, price);
         }
     },
 

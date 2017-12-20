@@ -515,10 +515,10 @@ var PopupLayer = cc.Layer.extend({
 
 
 
-        var btCancle = new ccui.Button(res.btCancle);
-        btCancle.setPosition(this.noticeBG.width * 19 / 20, this.noticeBG.height * 7 / 8);
-        this.noticeBG.addChild(btCancle);
-        btCancle.addClickEventListener(this.addCloseBGEvent.bind(this));
+        var btCancel = new ccui.Button(res.btCancel);
+        btCancel.setPosition(this.noticeBG.width * 19 / 20, this.noticeBG.height * 7 / 8);
+        this.noticeBG.addChild(btCancel);
+        btCancel.addClickEventListener(this.addCloseBGEvent.bind(this));
 
         var msgNotice = new cc.LabelBMFont("Thông Báo", res.FONT_OUTLINE_50);
         msgNotice.setPosition(cc.p(this.noticeBG.width / 2, this.noticeBG.height * 7 / 8));
