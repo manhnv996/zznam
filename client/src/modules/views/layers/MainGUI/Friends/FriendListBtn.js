@@ -10,12 +10,13 @@ var FriendListBtn = ccui.Layout.extend({
         //this.btnFriends.setPosition(cc.p(cc.winSize.width + 5,  -5));
         this.btnFriends.setZoomScale(-0.1);
         this.btnFriends.addTouchEventListener(this.onclickBtnFriend, this);
-        this.btnFriends.setScale(1.17);
-        this.btnFriends.setAnchorPoint(0.95, 0.05);
+        this.btnFriends.setScale(1.2);
+        this.btnFriends.setAnchorPoint(1, 0.1);
 
         this.x = cc.winSize.width - this.btnFriends.getBoundingBox().width;
         this.y = 0;
 
+        this.setContentSize(this.btnFriends.getBoundingBox());
         this.addChild(this.btnFriends);
     },
 

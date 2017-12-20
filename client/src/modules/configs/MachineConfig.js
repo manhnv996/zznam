@@ -118,7 +118,7 @@ MACHINE_LIST.push({
         height: 4
     },
     slot: 2,
-    mapItemEnum: MapItemEnum.CREAMERY,
+    mapItemEnum: MapItemEnum.BUTTER,
     aniId: resAniId.Fairy,
     productList: [
         {

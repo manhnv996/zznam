@@ -21,6 +21,7 @@ var ConstructedSprite = AnimationSprite.extend({
         }
         this._super(aniId, w, h, x, y ,typeBuilding);
 
+
         this.id = id;
         this.typeBuilding = typeBuilding;
         this.buildExpress = ConstructedCtrl.instance.getBuildExpress(id);
@@ -42,7 +43,7 @@ var ConstructedSprite = AnimationSprite.extend({
 
     selectConstructedObject: function() {
         this.machine = user.asset.getMachineById(this.id);
-        this.machineConfig = getMachineConfigByType(this.machine.type);
+        this.machineConfig = getMachineConfigByType(this.machine.machineType);
 
         var py = this.machine.coordinate.y;
         var px = this.machine.coordinate.x;

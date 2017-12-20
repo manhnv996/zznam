@@ -5,26 +5,16 @@
 var ConstructedCompletedSprite = AnimationSprite.extend({
     blockSize: null,
 
-    ctor: function (id, x, y, typeBuilding, blockSize) {
-        var w;
-        var h;
-        if (blockSize === 2) {
-            w = 2;
-            h = 2;
-        } else if (blockSize === 3) {
-            w = 3;
-            h = 3;
-        } else {
-            w = 4;
-            h = 4;
-        }
-        this._super(resAniId.Nha_hoanthanh, w, h, x, y,
+    ctor: function (id, x, y, typeBuilding, blockSizeX, blockSizeY) {
+
+        this._super(resAniId.Nha_hoanthanh, blockSizeX, blockSizeY, x, y,
             typeBuilding);
 
-        this.blockSize = blockSize;
+        this.blockSizeX = blockSizeX;
+        this.blockSizeY = blockSizeY;
         //var scale = blockSize / 4;
         //cc.log("scale", scale);
-        this.content.setScale(this.blockSize / 4);
+        this.content.setScale(this.blockSizeX / 4, this.blockSizeY / 4);
         this.id = id;
         this.typeBuilding = typeBuilding;
         this.play("1");
@@ -40,14 +30,14 @@ var ConstructedCompletedSprite = AnimationSprite.extend({
 
     _offset: function () {
         var p;
-        if (this.blockSize === 2) {
-            p = MapValues.logicToPosition(this.blockSize - 5, this.blockSize - 3);
-        } else if (this.blockSize === 3) {
-            p = MapValues.logicToPosition(this.blockSize - 7, this.blockSize - 4);
+        if (this.blockSizeX === 2) {
+            p = MapValues.logicToPosition(this.blockSizeX - 5, this.blockSizeY - 3);
+        } else if (this.blockSizeX === 3) {
+            p = MapValues.logicToPosition(this.blockSizeX - 7, this.blockSizeY - 4);
             p.y += 58;
         }
         else {
-            p = MapValues.logicToPosition(this.blockSize - 10, this.blockSize - 6);
+            p = MapValues.logicToPosition(this.blockSizeX - 10, this.blockSizeY - 6);
         }
         return p;
     }

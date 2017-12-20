@@ -58,7 +58,6 @@ var Asset = cc.Class.extend({
         return this.myShop;
     },
     getMachineById: function (machineId) {
-
         var machine = this.machineList.find(function(f) {
             return f.machineId === machineId;
         });
@@ -104,8 +103,8 @@ var Asset = cc.Class.extend({
 
     addMachine: function (machine) {
         this.machineList.push(machine);
-        if (machine.id === 0) {
-            machine.id = this.machineList.length;
+        if (machine.machineId === 0) {
+            machine.machineId = this.machineList.length;
         }
     },
 
