@@ -25,8 +25,8 @@ var LoginLayer = cc.Layer.extend({
         usernamBoxImage.setPosition(centerpos.x, 5*centerpos.y/4);
         this.addChild(usernamBoxImage);
 
-        this.userNameBox = new ccui.TextBMFont("Username", res.FONT_NORMAL_50, 50);
-        this.userNameBox.setTouchEnabled(true);
+        this.userNameBox = new cc.EditBox(cc.size(350, 70), new cc.Scale9Sprite(res.LAYER_24_PNG));
+        //this.userNameBox.setTouchEnabled(true);
         this.userNameBox.setString("zznamspozz79");
         this.userNameBox.setPosition(centerpos.x, 5*centerpos.y/4);
         //this.userNameBox.addEventListener(this.textFieldEvent, this);
