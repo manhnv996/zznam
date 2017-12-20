@@ -16,7 +16,7 @@ public class LevelupUtil {
     public static List<LevelupConfig> toLevelupList(/*String jsonFile*/){
         
         Gson gson = new Gson();
-        LevelupConfig[] cps = gson.fromJson(ProductUtil.readFile("src\\config\\json\\levelupconfig.json"), LevelupConfig[].class);
+        LevelupConfig[] cps = gson.fromJson(ProductUtil.readFile("src/config/json/levelupconfig.json"), LevelupConfig[].class);
 
         return Arrays.asList(cps);
     }

@@ -155,11 +155,11 @@
      <transform x="-114.5" y="-136" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
-   <slot name="product_bone" parent="product_bone" z="29">
-    <display name="vatpham" type="image">
-     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="43" pY="28.5"/>
-    </display>
-   </slot>
+   <!--<slot name="product_bone" parent="product_bone" z="29">-->
+    <!--<display name="vatpham" type="image">-->
+     <!--<transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="43" pY="28.5"/>-->
+    <!--</display>-->
+   <!--</slot>-->
    <slot name="water" parent="water" z="8">
     <display name="waterdrop2" type="image">
      <transform x="-27" y="-57" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>

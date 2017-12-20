@@ -58,7 +58,7 @@ var MainGuiLayer = cc.Layer.extend({
         this.addChild(this.imageGold);
 
         this.labelGold = new cc.LabelBMFont(user.getGold(), res.FONT_OUTLINE_30);
-        this.labelGold.setPosition(size.width - (btnBuyGoldSize.width + imageGoldSize.width + this.labelGold.width),size.height - btnBuyGoldSize.height/2 );
+        this.labelGold.setPosition(size.width - (btnBuyGoldSize.width + imageGoldSize.width + this.labelGold.width ),size.height - btnBuyGoldSize.height/2 );
         this.addChild(this.labelGold);
 
 
@@ -73,11 +73,11 @@ var MainGuiLayer = cc.Layer.extend({
         var imageRuby = new ccui.ImageView(res.rubi);
         var imageRubySize = imageRuby.getSize();
         //cc.log("imageRuby " + imageRubySize.width + "  " + imageRubySize.height);
-        imageRuby.setPosition(size.width - (btnBuyRubySize.width + imageRubySize.width), size.height - btnBuyGoldSize.height - btnBuyRubySize.height/2);
+        imageRuby.setPosition(size.width - (btnBuyGoldSize.width + imageGoldSize.width), size.height - btnBuyGoldSize.height - btnBuyRubySize.height/2);
         this.addChild(imageRuby);
 
         this.labelRuby = new cc.LabelBMFont(user.getRuby(), res.FONT_OUTLINE_30);
-        this.labelRuby.setPosition(size.width - ( btnBuyRubySize.width + imageRubySize.width + this.labelRuby.width), size.height - 3*btnBuyRubySize.height/2);
+        this.labelRuby.setPosition(size.width - (btnBuyGoldSize.width + imageGoldSize.width + this.labelGold.width), size.height - 3*btnBuyRubySize.height/2);
         this.addChild(this.labelRuby);
 
 
@@ -183,6 +183,13 @@ var MainGuiLayer = cc.Layer.extend({
         //
         //    this.isShowPopup = true;
         //}
+
+
+        //var gold = Math.floor((Math.random() * 1000) - 500);
+        //user.addGold(gold);
+        //MainGuiLayer.instance.labelGold.setString(user.getGold());
+        //testnetwork.connector.sendBuyGold(gold);
+
         switch (type) {
             case ccui.Widget.TOUCH_BEGAN:
                 user.addGold(20);
@@ -193,6 +200,13 @@ var MainGuiLayer = cc.Layer.extend({
     },
     onSelectBuyRuby:function(sender, type){
         //cc.log("==onSelectBuyRuby clicked");
+
+        //var ruby = Math.floor((Math.random() * 1000) - 500);
+        //user.addRuby(ruby);
+        //MainGuiLayer.instance.labelRuby.setString(user.getRuby());
+        ////send pk to server {packet{fieldId}}
+        //testnetwork.connector.sendBuyRuby(ruby);
+
         switch (type) {
             case ccui.Widget.TOUCH_BEGAN:
                 user.addRuby(10);

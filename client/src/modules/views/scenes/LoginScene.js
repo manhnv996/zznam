@@ -7,6 +7,9 @@ gv.password  = null;
 var LoginLayer = cc.Layer.extend({
     userNameBox: null,
     passwordBox: null,
+    userNameText: null,
+    passwordText: null,
+    flag: 0, //flag = 1, loginButton is already clicked login, flag = 0 not
     ctor:function(){
         this._super();
         var size = cc.director.getVisibleSize();
@@ -18,20 +21,24 @@ var LoginLayer = cc.Layer.extend({
         spritebg.setPosition(centerpos);
         this.addChild(spritebg);
         //add username edittext
-        this.userNameBox =  new cc.EditBox(cc.size(400, 70), new cc.Scale9Sprite(res.LAYER_24_PNG));
-        this.userNameBox.setPosition(centerpos.x, 5*centerpos.y/4);
-        this.userNameBox.setFont("Paint Boy", 60);
-        this.userNameBox.setPlaceHolder("username");
+        var usernamBoxImage =  new cc.Scale9Sprite(res.LAYER_24_PNG);
+        usernamBoxImage.setPosition(centerpos.x, 5*centerpos.y/4);
+        this.addChild(usernamBoxImage);
+
+        this.userNameBox = new ccui.TextBMFont("Username", res.FONT_NORMAL_50, 50);
+        this.userNameBox.setTouchEnabled(true);
         this.userNameBox.setString("zznamspozz79");
+        this.userNameBox.setPosition(centerpos.x, 5*centerpos.y/4);
+        //this.userNameBox.addEventListener(this.textFieldEvent, this);
         this.addChild(this.userNameBox);
 
         //add password edittext
-        this.passwordBox=  new cc.EditBox(cc.size(400, 70), new cc.Scale9Sprite(res.LAYER_24_PNG));
+        this.passwordBox=  new cc.EditBox(cc.size(350, 70), new cc.Scale9Sprite(res.LAYER_24_PNG));
         this.passwordBox.setPosition(centerpos.x, 4*centerpos.y/4);
         this.passwordBox.setFont("Paint Boy", 60);
         this.passwordBox.setPlaceHolder("password");
-        this.passwordBox.setString("altkhm979");
         this.passwordBox.setInputFlag(cc.EDITBOX_INPUT_FLAG_PASSWORD);
+        this.passwordBox.setString("altkhm979");
         this.addChild(this.passwordBox);
 
 
@@ -53,6 +60,9 @@ var LoginLayer = cc.Layer.extend({
 
     },
     onClickLogin: function(){
+        //if (this.flag == 0) { todo
+        if (true) {
+            this.flag = 1;
         cc.log("==onplay clicked");
         audioEngine.playEffect(res.func_click_button_mp3, false);
         var username = this.userNameBox.getString();
@@ -68,7 +78,22 @@ var LoginLayer = cc.Layer.extend({
         }
         cc.log("this.lblLog.setString("+"Start Connect!);" + gv.username + "  " + gv.password);
 
-        gv.gameClient.connect();
+            if (username == "" ||password == ""){
+                this.flag = 0;
+                this.lblLog.setString("Tên tài khoản hoặc mật khẩu không đúng!");
+            } else{
+                gv.username = username;
+                gv.password = password;
+
+                cc.log("this.lblLog.setString("+"Start Connect!);" + gv.username + "  " + gv.password);
+
+                gv.gameClient.connect();
+            }
+
+        } else {
+            this.lblLog.setString("Login thread is running!");
+
+        }
     },
     onEnter:function(){
         this._super();
@@ -82,6 +107,7 @@ var LoginLayer = cc.Layer.extend({
     {
         cc.log("this.lblLog.setString("+"Connect fail: );")
         this.lblLog.setString("Connect fail: " + text);
+        this.flag = 0;
     },
     //onFinishLogin:function()
     //{
@@ -91,7 +117,36 @@ var LoginLayer = cc.Layer.extend({
     //    MainScene.instance = new MainScene();
     //    cc.director.runScene(MainScene.instance);
     //}
-});
+
+
+    textFieldEvent: function(sender, type)
+    {
+        switch (type)
+        {
+            case ccui.TextField.EVENT_ATTACH_WITH_IME:
+                cc.log("Activate");
+
+                break;
+
+            case ccui.TextField.EVENT_DETACH_WITH_IME:
+                cc.log("Deactivate");
+
+                break;
+
+            case ccui.TextField.EVENT_INSERT_TEXT:
+                cc.log("Insert character");
+                cc.log(this.userNameBox.string);
+
+                break;
+
+            case ccui.TextField.EVENT_DELETE_BACKWARD:
+                cc.log("Delect character");
+                cc.log(this.userNameBox.string);
+
+                break;
+        }
+    }
+    });
 
 var LoginScene = cc.Scene.extend({
     onEnter: function(){

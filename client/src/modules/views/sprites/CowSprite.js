@@ -51,6 +51,7 @@ var CowSprite = AnimalSprite.extend({
 	},
 
 	doAction: function() {
+		// cc.log("doAction");
 		var value = Math.round(Math.random() * 10) % (this.lstAction === 0 ? 2 : 3) + (this.lstAction === 0 ? 1 : 0);
 		this.lstAction = value;
 		// cc.log("Run", value);
@@ -98,8 +99,10 @@ var CowSprite = AnimalSprite.extend({
 	},
 
 	harvest: function() {
+		// cc.log("Harvest");
 		this.unscheduleUpdate();
 		this.unschedule(this.doAction);
+		this.unschedule(this.harvest);
 		this.play(CowSprite.Harvest);
 	},
 
@@ -112,6 +115,7 @@ var CowSprite = AnimalSprite.extend({
 	},
 
 	feed: function() {
+		// cc.log("Feed");
 		this.doAction();
 		this.schedule(this.doAction, 4.0);
 	},

@@ -170,7 +170,8 @@ var FieldSprite = MapBlockSprite.extend({
             var parsePlantTime = this.field.getPlantedTime().getTime();
             var parseCropTime = this.field.getCropTime().getTime();
             
-            var currTime = new Date().getTime();
+            // var currTime = getTime();
+            var currTime = getTime();
 
             duration = parseCropTime - parsePlantTime;
             curr = currTime - parsePlantTime;

@@ -475,6 +475,9 @@ var MapLayer = cc.Layer.extend({
 		// this.setScale(0.7);
 		// this.addChild(bakery);
 		// cc.log(bakery.getBoundingBox());
+
+
+
 		var bakery = new BakerySprite(20, 20);
 		this.bakery = bakery;
 		// setInterval(function() {
@@ -482,6 +485,12 @@ var MapLayer = cc.Layer.extend({
 		// }, 500);
 
 		this.addChild(this.bakery);
+
+
+		var foodGringer = new FoodGringer(20, 20);
+		//this.foodGringer = foodGringer;
+		this.addChild(foodGringer);
+		cc.log(foodGringer.getContentSize());
 
 		// var Lamb = fr.createAnimationById(resAniId.bakery, this);
 		// this.addChild(Lamb);
@@ -720,8 +729,10 @@ var MapLayer = cc.Layer.extend({
 			this.move(dx, dy);
 		}
 
-		// PopupLayer.instance.disablePopup();
-		// PopupLayer.instance.disableProgressBarInprogress();
+
+		////
+		//MachineLayer.instance.disablePopup();
+
         TablePopupLayer.instance.removeUpdateDisableListener();
 	},
 

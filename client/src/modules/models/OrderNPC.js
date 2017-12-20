@@ -19,7 +19,7 @@ var OrderNPC = Order.extend({
 
         //
         // this.orderItem = null;
-        // this.waittingTime = new Date();
+        // this.waittingTime = getDate();
         this.createOrder(orderItem, orderPrice, orderExp, npc_res)
     },
 
@@ -58,7 +58,7 @@ var OrderNPC = Order.extend({
         }
 
         var parseTime = this.waittingTime.getTime();
-        var finishTime = new Date();
+        var finishTime = getDate();
         finishTime.setTime(parseTime + this.getRemainTime(user.getLevel()) * 60 * 1000);
         // finishTime.setTime(parseTime + this.getRemainTime(user.getLevel()) * 5 * 1000);
         //finishTime.setTime(parseTime + 6000);     //HERE IS TEST
@@ -162,7 +162,7 @@ var OrderNPC = Order.extend({
             this.orderPrice = 0;
             this.orderExp = 0;
 
-            this.waittingTime = new Date();
+            this.waittingTime = getDate();
 
             //
             return true;

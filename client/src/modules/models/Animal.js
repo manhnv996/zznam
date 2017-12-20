@@ -26,7 +26,7 @@ var Animal = cc.Class.extend({
     feed: function () {
         //boolean
         this.feeded = true;
-        this.feededTime = new Date().getTime();
+        this.feededTime = getTime();
         this.remainTime = AnimalConfig[this.type].time * 1000;
     },
 
@@ -57,7 +57,7 @@ var Animal = cc.Class.extend({
         if (!this.feeded) {
             return false;
         }
-        var crtTime = new Date().getTime();
+        var crtTime = getTime();
         var harvestTime = AnimalConfig[this.type].time * 1000;
         var duration = crtTime - this.feededTime;
         return (duration > harvestTime);

@@ -138,5 +138,13 @@ var GSDetailLayout = ccui.Layout.extend({
         this._multiLayer.switchTo(1);
         this.setNormalButton();
         this._btnAnimal.loadTextureNormal(res.shop_btAnimal_s_png);
+    },
+
+    reloadShopData: function () {
+        this._lodgeTable._tableView.reloadData();
+        this._animalTable._tableView.reloadData();
+        this._machineTable._tableView.reloadData();
+        // this._treeTable._tableView.reloadData();
+
     }
 });

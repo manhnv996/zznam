@@ -1,9 +1,9 @@
 [
   {
     "id": "bakery_machine",
-    "time": 1000,
+    "time": 10,
     "buildExp": 10,
-    "buildExpress": 10,
+    "buildExpress": 1,
     "speedUp": 1,
     "reduceRubyTime": 10,
     "slot": 2

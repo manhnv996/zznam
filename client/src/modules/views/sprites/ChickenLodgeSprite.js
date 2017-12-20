@@ -35,7 +35,7 @@ var ChickenLodgeSprite = AnimalLodgeSprite.extend({
 			return;
 		}
 		// var startTime = animal.feededTime;
-		// var remain = AnimalConfig.chicken.time * 1000 - (new Date().getTime() - startTime);
+		// var remain = AnimalConfig.chicken.time * 1000 - (getTime() - startTime);
 		var remain = animal.remainTime;
 		if (remain > 0) {
 			this.loadingBar = new LoadingBarLayout(

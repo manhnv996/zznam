@@ -245,7 +245,7 @@ var MachineTable = cc.Layer.extend({
                             GameShopLayout.instance.show();
                         }
                     } else {
-                        var missGold = GameShopController.instance.checkGold(sender.parent.getChildByTag(5).getString());
+                        var missGold = GameShopController.instance.checkGold(fr.moneyToNumber(sender.parent.getChildByTag(5).getString()));
                         cc.log(missGold);
                         if (missGold) {
                             BaseGUILayer.instance.notifyShopNotEnoughGold(missGold, this.typeObject,
@@ -254,7 +254,7 @@ var MachineTable = cc.Layer.extend({
                             // Success
                             var machineConfig = getMachineConfigByType(this.typeObject);
                             var machineModel = new Machine(0, this.typeObject, machineConfig.slot, 0, null, false,
-                                false, new Date().getTime(), machineConfig.time, new Coordinate(endPl.x, endPl.y));
+                                false, getTime(), machineConfig.time, new Coordinate(endPl.x, endPl.y));
                             user.getAsset().addMachine(machineModel);
 
                             //Sprite

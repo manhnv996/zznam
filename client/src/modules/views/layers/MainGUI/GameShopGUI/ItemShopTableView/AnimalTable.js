@@ -230,7 +230,7 @@ var AnimalTable = cc.Layer.extend({
                         } else {
                             cc.log("lodgeModel", lodgeModel.type);
                             //Check gold
-                            var missGold = GameShopController.instance.checkGold(sender.parent.getChildByTag(5).getString());
+                            var missGold = GameShopController.instance.checkGold(fr.moneyToNumber(sender.parent.getChildByTag(5).getString()));
                             if (missGold) {
                                 cc.eventManager.removeListener(this._sprite.touchListener);
                                 BaseGUILayer.instance.notifyShopNotEnoughGold(missGold, this.typeObject,

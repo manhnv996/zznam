@@ -1,3 +1,3 @@
 var AnimalLodge = CoordinatedObject.extend({
-	
+
 })

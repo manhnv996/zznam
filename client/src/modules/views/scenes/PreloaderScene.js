@@ -36,19 +36,30 @@ var PreloaderLayer = cc.Layer.extend({
         this.loadingBar.setPosition(center_bottom_pos);
         this.addChild(this.loadingBar);
 
-        this.scheduleUpdate();
+
     },
     onEnter:function(){
         this._super();
+        this.scheduleUpdate();
+        this.onPlay();
     },
+    
     onPlay : function(){
-        cc.log("==onplay clicked");
-        cc.director.runScene(new LoginScene());
-    },
-    update:function(dt){
-        this.percent+=10;
-        if (this.percent >=100){
+        // cc.log("==onplay clicked");
+        if (cc.sys.localStorage.getItem("session")) {
+            // cc.log("session exists");
+            gv.gameClient.connect();
+        } else {
+            // cc.log("session not exists");
             cc.director.runScene(new LoginScene());
+        }
+    },
+
+    update:function(dt){
+        this.percent += 100 * dt;
+        cc.log(this.percent);
+        if (this.percent >= 100){
+            this.unscheduleUpdate();
         }
         this.loadingBar.setPercent(this.percent);
     }

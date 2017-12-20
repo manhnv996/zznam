@@ -208,9 +208,25 @@ public class ZPUserInfo extends DataModel {
         return false;
     }
     
+    public boolean increaseGold(int value){
+        if (value >= 0){
+            this.gold += value;
+            return true;
+        }
+        return false;
+    }
+    
     public boolean reduceRuby(int value){
         if (this.ruby >= value){
             this.ruby -= value;
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean increaseRuby(int value){
+        if (value >= 0){
+            this.ruby += value;
             return true;
         }
         return false;

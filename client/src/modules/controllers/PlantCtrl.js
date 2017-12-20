@@ -12,7 +12,6 @@ var PlantCtrl = cc.Class.extend({
 
                 var seedShow = getSeedShow(user.getLevel());
                 TablePopupLayer.instance.showSeedTablePopup(fieldId, seedShow);
-
                 //
                 this.firstDragEmptyField = true;
                 this.firstDragField = true;

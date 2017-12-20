@@ -11,9 +11,9 @@ var VungnuocSprite = AnimationSprite.extend({
 		this.registerTouchEvents({ lockMove: true });
 	},
 
-	onClick: function() {
+	//onClick: function() {
 		// cc.log("Vungnuoc clicked", "lx:", this.lx, "ly:", this.ly, "id:", this.natureId);
-	},
+	//},
 
 	onClick: function () {
 		this.play("swamp_idle");

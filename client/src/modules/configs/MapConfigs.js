@@ -190,6 +190,18 @@ MapConfigs.CowLodge = {
 	}
 }
 
+MapConfigs.FoodGrinder = {
+	size: {
+		width: 4,
+		height: 4
+	}
+}
+MapConfigs.SugarMaker = {
+	size: {
+		width: 2,
+		height: 2
+	}
+}
 MapConfigs.BakeryMachine = {
 	size: {
 		width: 3,
@@ -218,6 +230,12 @@ MapConfigs.SugarMachine = {
 	}
 }
 
+MapConfigs.Bakery = {
+	size: {
+		width: 3,
+		height: 3
+	}
+}
 MapConfigs.PopcornMachine = {
 	size: {
 		width: 2,

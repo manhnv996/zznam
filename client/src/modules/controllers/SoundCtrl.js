@@ -21,11 +21,13 @@ var SoundCtrl = cc.Class.extend({
     setMusic: function (btn, resOn, resOff) {
         if(this.isOnMusic()) {
             audioEngine.playEffect(res.func_click_button_mp3, false);
-            audioEngine.setMusicVolume(0);
+            //audioEngine.setMusicVolume(0);
+            audioEngine.pauseMusic();
             cc.sys.localStorage.setItem("music", "false");
             btn.loadTextureNormal(resOff);
         } else {
-            audioEngine.setMusicVolume(1);
+            //audioEngine.setMusicVolume(1);
+            audioEngine.resumeMusic();
             cc.sys.localStorage.setItem("music", "true");
             btn.loadTextureNormal(resOn);
         }
