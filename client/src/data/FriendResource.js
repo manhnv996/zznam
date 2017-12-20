@@ -8,8 +8,6 @@ var _ = (function() {
     }
 
     var FriendResource = {
-        //friend_arrowLeft: r("arrowLeft.png"),
-        //friend_arrowRight: r("arrowRight.png"),
         friend_bg: r("BG.png"),
         friend_avatar: r("slot11.png"),
         button_friend: r("Button-banbe.png"),
