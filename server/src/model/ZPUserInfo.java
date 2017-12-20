@@ -19,6 +19,10 @@ import service.DemoHandler.MaxPosition;
 import util.database.DataModel;
 import config.utils.ConfigContainer;
 
+import config.utils.LevelupUtil;
+
+import config.utils.OrderUtil;
+
 import java.util.List;
 
 public class ZPUserInfo extends DataModel {
@@ -42,10 +46,10 @@ public class ZPUserInfo extends DataModel {
         id = _id;
         
         this.level = 15;
-        this.gold = 50000;
-        this.ruby = 20000;
+        this.gold = 50;
+        this.ruby = 10;
 
-        this.exp = 0L;
+        this.exp = 3125L;
         this.name = "";
         
         this.asset = asset;
@@ -176,10 +180,20 @@ public class ZPUserInfo extends DataModel {
     }
     
     public void addExp(int value) {
-        this.exp += value;
+//        this.exp += value;
         /*
-         * not yet started
+         * DONE
          */
+
+        if (this.exp + value >= LevelupUtil.getLevelupConfObjByLevel(this.level + 1).exp){
+            this.level ++;
+            int expCurr = (int) this.exp;
+            this.exp = 0;
+            this.addExp(expCurr + value - LevelupUtil.getLevelupConfObjByLevel(this.level).exp);
+            //
+        } else {
+            this.exp += value;
+        }
     }
     
     public void addRuby(int value) {

@@ -9,6 +9,7 @@ var NatureToolSprite = cc.Sprite.extend({
 		}
 		this.renderMuiTen();
 		this.initEvent();
+		this.setScale(1.2);
 	},
 
 	initEvent: function() {

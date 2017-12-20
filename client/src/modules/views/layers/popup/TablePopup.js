@@ -43,9 +43,8 @@ var TablePopup = ccui.Layout.extend({
                 var rect = cc.rect(0, 0, s.width, s.height);
 
                 if (!cc.rectContainsPoint(rect, locationInNode)) {
-                    cc.log("Touch Block Event ");
-                    this._isClose = true;
 
+                    this._isClose = true;
                     this.clearEventListeer();
                 }
 
@@ -62,10 +61,6 @@ var TablePopup = ccui.Layout.extend({
 
                 // var delta = touch.getDelta();
                 // MapLayer.instance.move(delta.x, delta.y);
-                /*
-                 DONE
-                 */
-
             }.bind(this),
 
             onTouchEnded: function (touch, event) {
@@ -77,7 +72,6 @@ var TablePopup = ccui.Layout.extend({
                 var rect = cc.rect(0, 0, s.width, s.height);
 
                 if (!cc.rectContainsPoint(rect, locationInNode)) {
-                    // cc.log("Touch Block Event ");
                     this._isClose = true;
                 }
 

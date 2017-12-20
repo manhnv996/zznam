@@ -22,15 +22,19 @@ var CayRungSprite = AnimationSprite.extend({
 		switch (this.treeType) {
 			case 1:
 				type = NaturalThingEnum.PINE_SMALL;
+				audioEngine.playEffect(res.touch_small_tree_mp3, false);
 				break;
 			case 2:
 				type = NaturalThingEnum.PINE_BIG;
+				audioEngine.playEffect(res.touch_big_tree_mp3, false);
 				break;
 			case 3:
 				type = NaturalThingEnum.TREE_BIG;
+				audioEngine.playEffect(res.touch_big_tree_mp3, false);
 				break;
 			case 4:
 				type = NaturalThingEnum.TREE_SMALL
+				audioEngine.playEffect(res.touch_small_tree_mp3, false);
 				break;
 		}
 		TablePopupLayer.instance.showNatureToolPopup(this.lx, this.ly, type, this.natureId);

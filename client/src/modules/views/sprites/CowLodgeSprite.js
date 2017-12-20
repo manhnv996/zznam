@@ -63,8 +63,10 @@ var CowLodgeSprite = AnimalLodgeSprite.extend({
 			this.showAnimalTool();
 		} else {
 			// Open store to buy animal
+			GameShopLayout.instance._gameShop.openAnimalTable();
 			cc.log("Open store to buy animal");
 		}
+		audioEngine.playEffect(res.func_click_button_mp3, false);
 	},
 
 	setLogicPosition: function(lx, ly, notUpdatePriority) {

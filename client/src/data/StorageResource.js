@@ -45,29 +45,6 @@ var _ = (function() {
     };
 
     var g_StorageResource = [];
-    //g_StorageResource.push("Art/Crops/Field/apple.png");
-    //g_StorageResource.push("Art/Crops/Field/caroot.png");
-    //g_StorageResource.push("Art/Crops/Field/crops.png");
-    //g_StorageResource.push("Art/Crops/Field/vhili pepper.png");
-    //g_StorageResource.push("Art/Crops/Field/indigo.png");
-    //g_StorageResource.push("Art/Crops/Field/tomato.png");
-    //g_StorageResource.push("Art/Crops/Field/strawberry.png");
-    //g_StorageResource.push("Art/Tool/dinh2.png");
-    //g_StorageResource.push("Art/Tool/go1.png");
-    //g_StorageResource.push("Art/Tool/bangdinh.png");
-    //g_StorageResource.push("Art/Tool/dinh3.png");
-    //g_StorageResource.push("Art/Tool/dinh.png");
-    //g_StorageResource.push("Art/Tool/go2.png");
-    //g_StorageResource.push("Art/Crops/Field/corn.png");
-    //g_StorageResource.push("Art/Crops/Field/dau.png");
-    //g_StorageResource.push("Art/Crops/Field/mia.png");
-    //g_StorageResource.push("Art/Tool/dinh2.png");
-    //g_StorageResource.push("Art/Tool/go1.png");
-    //g_StorageResource.push("Art/Tool/bangdinh.png");
-    //g_StorageResource.push("Art/Tool/dinh3.png");
-    //g_StorageResource.push("Art/Tool/dinh.png");
-    //g_StorageResource.push("Art/Tool/go2.png");
-    //
     StorageResource.storageItemResource.forEach(function(content) {
         g_StorageResource.push(content.nameIcon);
     });

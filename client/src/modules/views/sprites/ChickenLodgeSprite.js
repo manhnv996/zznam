@@ -67,10 +67,10 @@ var ChickenLodgeSprite = AnimalLodgeSprite.extend({
 			this.showAnimalRemain();
 			this.showAnimalTool();
 		} else {
-			// Open store to buy animal
+			GameShopLayout.instance._gameShop.openAnimalTable();
 			cc.log("Open store to buy animal");
 		}
-
+		audioEngine.playEffect(res.func_click_button_mp3, false);
 		// AnimalCtrl.instance.onMoveFeedTool(lx, ly, AnimalLodgeType.chicken_habitat);
 	}
 });

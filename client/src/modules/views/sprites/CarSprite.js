@@ -1,9 +1,6 @@
 
 var CarSprite = AnimationSprite.extend({
 
-    // orderId: 0,
-    // order: null,
-
     price: 0,
     exp: 0,
 
@@ -39,12 +36,8 @@ var CarSprite = AnimationSprite.extend({
     onClick: function() {
         cc.log("Car clicked", this.getLocalZOrder(), this.lx, this.ly, this.blockSizeX, this.blockSizeY);
         /*
-        not yet started
+        done
          */
-        //if (!this.isReceivable){
-        //    this.delivery();
-        //
-        //}
         if (this.isStatus == DeliveryStatus.RECEIVABLE) {
             this.actionReceive();
         } else {
@@ -173,7 +166,6 @@ var CarSprite = AnimationSprite.extend({
     },
     delivery8: function () {
         this.play("8");
-        //this.isStatus = DeliveryStatus.RECEIVABLE;
         this.isStatus = DeliveryStatus.RECEIVABLE;
     },
 
@@ -181,97 +173,12 @@ var CarSprite = AnimationSprite.extend({
     actionReceive: function () {
         this.play("1");
         /*
-        Inprogress
+        done
          */
-
-        //user.addGold(this.price);
-        //user.addExp(this.exp);
-        //
-        //this.isStatus = DeliveryStatus.EMPTY;
-        //this.price = 0;
-        //this.exp = 0;
-
-        //if (user.getAsset().getCar().receive()){
-        //    testnetwork.connector.sendReceiceDeliveryCar(this.price, this.exp);
-        //
-        //
-        //    this.isStatus = DeliveryStatus.EMPTY;
-        //    this.price = 0;
-        //    this.exp = 0;
-        //}
         OrderCtrl.instance.onReceiveDelivery();
         this.isStatus = DeliveryStatus.EMPTY;
     },
 
-
-
-    testSequenceEvent: function () {
-
-        // // var callFunc = cc.CallFunc()
-        // var callFunc = function(self){
-        //     var second = cc.ScaleTo(1, 2);
-        //     self.runAction(second);
-        //     // alert("funct run");
-        //     cc.log("ffcccrun")
-        // };
-        // this.runAction(cc.sequence(cc.moveBy(1, -50, 0), cc.ScaleTo(1, 0.5), cc.callFunc(callFunc(this), this)));
-        // // var sequence1 = new cc.Sequence(action1, function () {
-        // //     cc.log("ccccccdd");
-        // // }, null);
-        // // this.runAction(sequence1);
-
-
-
-        // var action2 = cc.sequence(
-        //     cc.moveBy(1, cc.p(0, 50))
-        // );
-        // var onCallback1 = function (nodeExecutingAction) {
-        //     cc.log("tackckckckc");
-        //     this.runAction(action2);
-        // };
-        // var action = cc.sequence(
-        //     cc.moveBy(1, cc.p(50, 0)),
-        //     cc.callFunc(onCallback1.bind(this))  // 'this' is bound to the callback function using "bind"
-        // );
-        // this.runAction(action);
-
-
-
-        // MapValues.logicToScreenPosition(20, 25);
-
-        this.setPosition(MapValues.logicToPosition(16, 23));
-
-        //var action11 = cc.sequence(
-        //    cc.moveTo(2, MapValues.logicToPosition(0, 12)),
-        //    cc.callFunc(function (nodeExecutingAction, value) {
-        //        this.runAction(new cc.moveTo(2, MapValues.logicToPosition(-15, 12)));
-        //        this.control1 = "Value is: " + value;
-        //        cc.log("Object:" + nodeExecutingAction + ". " + this.control1);
-        //    }.bind(this, "Hello world"))
-        //    // }, this, "Hello world")
-        //);
-        //this.runAction(action11);
-
-
-
-        //var array = [
-        //    MapValues.logicToPosition(15, 23),
-        //    MapValues.logicToPosition(15, 33),
-        //    MapValues.logicToPosition(1, 33),
-        //    //cc.p(0, cc.winSize.height - 80),
-        //    //cc.p(0, 0)
-        //];
-        //
-        //var delay = cc.delayTime(0.25);
-        //var action2 = cc.cardinalSplineBy(2, array, 1);
-        //var reverse2 = action2.reverse();
-        //var seq2 = cc.sequence(action2, delay.clone(), reverse2, delay.clone());
-        //
-        //this.x = cc.winSize.width / 2;
-        //this.y = 50;
-        //this.runAction(seq2);
-
-    },
 
     // Make offset
     _offset: function() {

@@ -13,7 +13,11 @@ var VungnuocSprite = AnimationSprite.extend({
 
 	onClick: function() {
 		// cc.log("Vungnuoc clicked", "lx:", this.lx, "ly:", this.ly, "id:", this.natureId);
+	},
+
+	onClick: function () {
 		this.play("swamp_idle");
+		audioEngine.playEffect(res.touch_water_pool_mp3, false);
 		TablePopupLayer.instance.showNatureToolPopup(this.lx, this.ly, NaturalThingEnum.VUNG_NUOC, this.natureId);
 	},
 

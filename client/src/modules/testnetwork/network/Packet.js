@@ -9,6 +9,8 @@ gv.CMD.USER_LOGIN = 1;
 gv.CMD.USER_INFO = 1001;
 gv.CMD.GET_USER = 1002; // New
 
+gv.CMD.ADD_USER_MONEY = 1101;
+
 gv.CMD.MOVE = 2001;
 
 
@@ -42,6 +44,15 @@ gv.CMD.RESPONSE_SYNC_ORDER = 10081;
 gv.CMD.RESPONSE_SYNC_CAR = 10089;
 gv.CMD.RESPONSE_SYNC_ORDER_NPC = 10091;
 
+//
+gv.CMD.SELL_PRODUCT = 13001;
+gv.CMD.BUY_PRODUCT = 13002;
+gv.CMD.RECEIVE_MONEY_FROM_SOLD_PRODUCT = 13003;
+gv.CMD.CANCEL_SELL_PRODUCT = 13004;
+gv.CMD.UNLOCK_SLOT_MY_SHOP = 13005;
+
+gv.CMD.RESPONSE_SYNC_PRODUCT_SALE = 13081;
+
 
 // Map
 gv.CMD.MOVE_FIELD = 6001;
@@ -72,7 +83,7 @@ gv.CMD.ANIMAL_FEED = 12002;
 gv.CMD.ANIMAL_BOOST = 12003;
 
 // Nature
-gv.CMD.NATURE_COLLECT = 13001;
+gv.CMD.NATURE_COLLECT = 15001;
 
 testnetwork = testnetwork||{};
 testnetwork.packetMap = {};
@@ -378,6 +389,99 @@ CmdSendCreateNewOrderNpc = fr.OutPacket.extend(
 );
 ////
 
+CmdSendSellProduct = fr.OutPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+            this.initData(100);
+            this.setCmdId(gv.CMD.SELL_PRODUCT);
+        },
+        pack:function(intSlot, productType, quantity, price){
+            this.packHeader();
+
+            this.putInt(intSlot);
+            this.putString(productType);
+            this.putInt(quantity);
+            this.putInt(price);
+
+            this.updateSize();
+        }
+    }
+);
+
+CmdSendBuyProduct = fr.OutPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+            this.initData(100);
+            this.setCmdId(gv.CMD.BUY_PRODUCT);
+        },
+        pack:function(userId, intSlot){
+            this.packHeader();
+
+            this.putLong(userId);
+            this.putInt(intSlot);
+
+            this.updateSize();
+        }
+    }
+);
+
+CmdSendReceiveMoneyFromProduct = fr.OutPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+            this.initData(100);
+            this.setCmdId(gv.CMD.RECEIVE_MONEY_FROM_SOLD_PRODUCT);
+        },
+        pack:function(intSlot){
+            this.packHeader();
+
+            this.putInt(intSlot);
+
+            this.updateSize();
+        }
+    }
+);
+
+CmdSendCancelSellProduct = fr.OutPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+            this.initData(100);
+            this.setCmdId(gv.CMD.CANCEL_SELL_PRODUCT);
+        },
+        pack:function(intSlot){
+            this.packHeader();
+
+            this.putInt(intSlot);
+
+            this.updateSize();
+        }
+    }
+);
+
+CmdSendUnlockSlotMyShop = fr.OutPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+            this.initData(100);
+            this.setCmdId(gv.CMD.UNLOCK_SLOT_MY_SHOP);
+        },
+        pack:function(){
+            this.packHeader();
+
+            this.updateSize();
+        }
+    }
+);
+////
+
 // Map
 CmdSendMoveStorage = fr.OutPacket.extend({
     ctor: function() {
@@ -616,12 +720,12 @@ CmdSendCollectNatureThing = fr.OutPacket.extend({
 });
 
 CmdSendFriendGetList = fr.OutPacket.extend({
-    ctor: function() {
+    ctor: function () {
         this._super();
         this.initData(100);
         this.setCmdId(gv.CMD.FRIEND_GET_LIST);
     },
-    pack: function() {
+    pack: function () {
         this.packHeader();
         this.updateSize();
     }
@@ -638,7 +742,22 @@ CmdSendFriendGetInfo = fr.OutPacket.extend({
         this.putInt(id);
         this.updateSize();
     }
-})
+});
+
+CmdSendAddMoney = fr.OutPacket.extend({
+    ctor: function() {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.ADD_USER_MONEY);
+    },
+    pack: function(number, type) {
+        this.packHeader();
+        this.putInt(number);
+        this.putInt(type);
+        this.updateSize();
+    }
+});
+
 
 /**
  * InPacket
@@ -963,11 +1082,7 @@ testnetwork.packetMap[gv.CMD.RESPONSE_SYNC_ORDER_NPC] = fr.InPacket.extend(
         },
         readData:function(){
 
-            /*
-             NOT YET STARTED
-             */
             this.orderNPC = this.unpackOrderNPC();
-
         },
 
         unpackOrderNPC: function () {
@@ -988,6 +1103,49 @@ testnetwork.packetMap[gv.CMD.RESPONSE_SYNC_ORDER_NPC] = fr.InPacket.extend(
             order.npc_res = this.getString();
 
             return order;
+        },
+
+        unpackStorageItem: function() {
+            var item = {};
+            item.typeItem = this.getString();
+            item.quantity = this.getInt();
+            return item;
+        },
+
+    }
+);
+///
+
+testnetwork.packetMap[gv.CMD.RESPONSE_SYNC_PRODUCT_SALE] = fr.InPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+        },
+        readData:function(){
+
+            /*
+             done
+             */
+            this.productSale = this.unpackProductSale();
+
+        },
+
+        unpackProductSale: function () {
+            var product = {};
+
+            product.slot = this.getInt();
+
+            var itemIsNull = this.getInt();
+            if (itemIsNull == 0){
+                product.product = null;
+            } else {
+                product.product = this.unpackStorageItem();
+            }
+            product.price = this.getInt();
+            product.isSold = this.getBool();
+
+            return product;
         },
 
         unpackStorageItem: function() {
@@ -1058,6 +1216,7 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         this.unpackCar();
         this.unpackAnimalLodges();
         this.unpackMachines();
+        this.unpackMyShop();
     },
 
     unpackBasicInfo: function() {
@@ -1273,6 +1432,39 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         }
 
         return machine;
+    },
+
+    //
+    unpackMyShop: function () {
+        var myShop = {};
+
+        myShop.maxSlot = this.getInt();
+
+        myShop.productList = [];
+        var size = this.getInt();
+        for (var i = 0; i < size; i++){
+            myShop.productList.push(this.unpackProductSale());  //
+        }
+        myShop.lastTimeNpcCome = this.getLong();
+
+        this.user.asset.myShop = myShop;
+    },
+
+    unpackProductSale: function () {
+        var product = {};
+
+        product.slot = this.getInt();
+
+        var itemIsNull = this.getInt();
+        if (itemIsNull == 0){
+            product.product = null;
+        } else {
+            product.product = this.unpackStorageItem();
+        }
+        product.price = this.getInt();
+        product.isSold = this.getBool();
+
+        return product;
     }
 
 });

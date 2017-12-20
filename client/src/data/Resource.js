@@ -29,8 +29,7 @@ var res = {
     //images
     Slot1_png : "zcsd/slot1.png",
 
-
-
+    bg_luamoi_mp3: "Sound_Music/Music/LuamoiIntroduction80kbps.mp3"
 //////////////////
     ///////////
 
@@ -145,6 +144,15 @@ for (var k in OrderResource) {
 // Add animal lodge resource
 for (var k in AnimalLodgeResource) {
     res[k] = AnimalLodgeResource[k];
+}
+
+// Add sound resource
+for (var k in SoundResource) {
+    res[k] = SoundResource[k];
+}
+
+for (var k in FriendResource) {
+    res[k] = FriendResource[k];
 }
 
 for (var k in ToolResource) {

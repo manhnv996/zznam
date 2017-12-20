@@ -204,7 +204,7 @@ var MapBlockSprite = cc.Sprite.extend({
                 // Restore to original position
                 MapLayer.instance.moveToLogic(this.originalPosition, 2);
                 // Show notification
-                BaseGUILayer.instance.notifyCantPut(touch.getLocation());
+                BaseGUILayer.instance.notifyCantPut(fr.Localization.text("Text_can_not_place"), touch.getLocation());
                 this.runningTint = true;
                 this.setColor(cc.color(255, 255, 255));
                 var action = new cc.Sequence([
@@ -407,6 +407,7 @@ var MapBlockSprite = cc.Sprite.extend({
             }
 
         }
+        //MapCtrl.instance.changeColor(this);
         if (this.autoMoveHor || this.autoMoveVer) {
             var dx = this.autoMoveHor * dt * 250;
             var dy = this.autoMoveVer * dt * 250;

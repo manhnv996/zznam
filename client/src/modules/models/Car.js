@@ -37,6 +37,14 @@ var Car = cc.Class.extend({
             user.addGold(this.deliveryPrice);
             user.addExp(this.deliveryExp);
 
+            var p = MapValues.logicToScreenPosition(
+                MapConfigs.Car.position.x,
+                MapConfigs.Car.position.y
+            );
+
+            AnimateEventLayer.instance.animateExp(p.x, p.y, this.deliveryExp);
+            AnimateEventLayer.instance.animateGold(p.x, p.y, this.deliveryPrice);
+            
             //
             this.updateDelivery(0, 0);
             return true;

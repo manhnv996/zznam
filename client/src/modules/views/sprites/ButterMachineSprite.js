@@ -22,12 +22,10 @@ var ButterMachineSprite = AnimationSprite.extend({
         this.registerTouchEvents();
     },
 
-    onBeginClick: function() {
-        this.play("selected");
-    },
-
     onClick: function() {
         cc.log("feed mill is clicked " + this.id);
+        this.play("selected");
+        audioEngine.playEffect(res.tools_fairy_mp3, false);
     },
 
     onFinishMove: function (lx, ly) {

@@ -20,15 +20,10 @@ var SeedTablePopup = TablePopup.extend({
     },
 
 
-    ///////////////////////
+    ////
     showSeedPopup: function(fieldId, seedList){
-        //cc.log("showPopup");
-
-        // this.disablePopup(null);
-        // this.disableProgressBarInprogress();
 
         this.popupItemList = [];
-
         //
         if (seedList != null){
             //
@@ -47,7 +42,6 @@ var SeedTablePopup = TablePopup.extend({
             for (var i = this.popupItemList.length - 1; i >= 0; i--){
                 this.addChild(this.popupItemList[i]);
             }
-
 
             var pageNumber = Math.ceil(this.popupItemList.length / 5);
             if (pageNumber > 1){
@@ -71,11 +65,9 @@ var SeedTablePopup = TablePopup.extend({
 
                     this.pageListNumber.push(page);
                 }
-
             }
 
             this.setSeedListPosition(this.pageCurr, seedList);
-
         }
     },
 
@@ -164,6 +156,7 @@ var SeedTablePopup = TablePopup.extend({
     },
 
     turnPageEvent: function () {
+        audioEngine.playEffect(res.func_click_button_mp3, false);
         this.pageListNumber[this.pageCurr].setTexture(res.page);
 
         this.pageCurr = (this.pageCurr + 1) % (Math.ceil(this.popupItemList.length / 5));

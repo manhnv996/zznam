@@ -16,7 +16,7 @@ import config.enums.ProductType;
 import config.utils.ConfigContainer;
 
 public class NatureHandler extends BaseClientRequestHandler {
-	public static short NATURE_MULTI_IDS = 13000;
+	public static short NATURE_MULTI_IDS = 15000;
 
 	@Override
 	public void handleClientRequest(User user, DataCmd dataCmd) {

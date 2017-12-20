@@ -22,12 +22,10 @@ var SugarCaneSprite = AnimationSprite.extend({
         this.registerTouchEvents();
     },
 
-    onBeginClick: function() {
-        this.play("selected");
-    },
-
     onClick: function() {
         cc.log("feed mill is clicked " + this.id);
+        this.play("selected");
+        audioEngine.playEffect(res.tools_sugarcane_mp3, false);
     },
 
     onFinishMove: function (lx, ly) {
@@ -35,5 +33,4 @@ var SugarCaneSprite = AnimationSprite.extend({
         user.asset.getMachineById(this.id).coordinate.y = ly;
         testnetwork.connector.sendMoveMapBlock(MapItemEnum.MACHINE, this.id, lx, ly);
     }
-
 });

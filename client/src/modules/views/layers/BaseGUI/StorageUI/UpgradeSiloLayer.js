@@ -268,18 +268,23 @@ var UpgradeSiloLayer = cc.Layer.extend({
         //buttonV.setTouchEnabled(false);
         layoutT.addChild(this._buttonV);
 
-        //cc.log("this._check_nail && this._check_screw && this._check_woodpanel " + (this._check_nail && this._check_screw && this._check_woodpanel));
         this.checkButtonV();
     },
 
     checkButtonV: function () {
         if (this._check_nail && this._check_screw && this._check_woodpanel) {
+            this._buttonV.setTouchEnabled(true);
             this._buttonV.addTouchEventListener(this.touchUpgradeSilo, this);
+        } else {
+            this._buttonV.setTouchEnabled(false);
         }
     },
 
     touchBuyTool: function (sender, type) {
         switch (type) {
+            case ccui.Widget.TOUCH_BEGAN:
+                audioEngine.playEffect(res.func_click_button_mp3, false);
+                break;
             case ccui.Widget.TOUCH_ENDED:
             case ccui.Widget.TOUCH_CANCELED:
                 cc.log("Touch Buy Item");
@@ -334,19 +339,12 @@ var UpgradeSiloLayer = cc.Layer.extend({
     touchUpgradeSilo: function (sender, type) {
         cc.log("touchUpgradeSilo");
         switch (type) {
+            case ccui.Widget.TOUCH_BEGAN:
+                audioEngine.playEffect(res.func_click_button_mp3, false);
+                break;
             case ccui.Widget.TOUCH_ENDED:
             case ccui.Widget.TOUCH_CANCELED:
-                //upgrade storage ---> sendserver
-                if (user.getAsset().getFoodStorage().upgrade(ProductTypes.TOOL_NAIL, res.upgradeSilo[this._level + 1].tool_nail,
-                        ProductTypes.TOOL_SCREW, res.upgradeSilo[this._level + 1].tool_screw,
-                        ProductTypes.TOOL_WOODPANEL, res.upgradeSilo[this._level + 1].tool_woodPanel)) {
-                    user.getAsset().getFoodStorage().setCapacity(res.upgradeSilo[this._level + 1].capacity);
-                    //StorageLayer.instance._layoutStorage.removeFromParent(true);
-
-                    BaseGUILayer.instance.removeBlockListener();
-                    //send server
-                    testnetwork.connector.sendUpgradeStorage(StorageTypes.FOOD_STORAGE, (this._level + 1));
-                }
+                StorageCtrl.instance.upgrageSilo(this._level);
                 break;
         }
     },
@@ -354,6 +352,7 @@ var UpgradeSiloLayer = cc.Layer.extend({
     touchBackBtn: function (sender, type){
         switch (type) {
             case ccui.Widget.TOUCH_BEGAN:
+                audioEngine.playEffect(res.func_click_button_mp3, false);
                 var scaleByBtn = cc.scaleTo(0.1, 0.9);
                 sender.runAction(scaleByBtn);
                 break;

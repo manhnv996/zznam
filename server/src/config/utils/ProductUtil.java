@@ -29,7 +29,7 @@ import model.ZPUserInfo;
 
 /**
  *
- * @author nguyenvanmanh
+ * @author 
  */
 public class ProductUtil {
     
@@ -64,7 +64,7 @@ public class ProductUtil {
     public static CropProduct[] toCropProductArray(/*String jsonFile*/){
         
         Gson gson = new Gson();
-        CropProduct[] cps = gson.fromJson(readFile("src\\config\\json\\cropconfig.json"), CropProduct[].class);
+        CropProduct[] cps = gson.fromJson(readFile("src/config/json/cropconfig.json"), CropProduct[].class);
         
         return cps;
     }
@@ -145,7 +145,6 @@ public class ProductUtil {
                 }
                 break;
         
-        
             //
             case TOOL_PRODUCT:
                 for (int i = 0; i < products.length; i++) {
@@ -154,17 +153,13 @@ public class ProductUtil {
                     }
                 }
                 break;
-            
-            
+        
             default:
-                
         }
-
         return list;
     }
     
     
-//    public static List<ProductConfig> randomSortProductConfByCategory(ProductCategory category){    
     public static List<ProductConfig> randomSortProductConfByCategory(ZPUserInfo user, ProductCategory category){
         
         List<ProductConfig> productCategory = ProductUtil.getProductConfObjByCategory(category);
@@ -181,9 +176,8 @@ public class ProductUtil {
         } else {
 //            productCategory = ProductUtil.sortProductListByRandomProduct(productCategory);
             /*
-             * not yet started
+             * done
              */
-            //orderby itemStorage (quantity)
             List<StorageItem> storageItemList = OrderNPCUtil.getItemListInStockByCategory(user, category);
             storageItemList = sortProductListByQuantityOfStorageItem(storageItemList);
             productCategory = new ArrayList<>();
@@ -248,7 +242,6 @@ public class ProductUtil {
     
     
     
-    
     //
     public static String convertStorageToJsonString(Storage storage){
         
@@ -258,27 +251,5 @@ public class ProductUtil {
         return jsonstring;
     }
     
-    
-    
-    
-    public static void response(short errorCode){
-        
-        if (errorCode == ErrorLog.SUCCESS.getValue()){     //Success
-            
-        } 
-        else {
-            if (errorCode >= 10 && errorCode < 20){     //Error about field status
-                //
-                
-            }
-            if (errorCode >= 20 && errorCode < 30){       //Error about storage
-                //
-            }
-            if (errorCode >= 30 && errorCode < 40){       //Error about rubi, gold..
-                //
-                
-            }
-        }
-    }
     
 }

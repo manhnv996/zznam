@@ -8,7 +8,6 @@ var OrderNPCLayer = BaseLayout.extend({
         this.orderNPC = orderNPC;
         this.orderId = orderNPC.getOrderId();
 
-        //this._super();
         this._super(res.bgTruckOrder, "", false, false, true);
 
         this._bg.setVisible(false);
@@ -25,7 +24,6 @@ var OrderNPCLayer = BaseLayout.extend({
         this.npcSprite.runAction(cc.MoveTo(0.175, cc.p(cc.winSize.width * 0.075, cc.winSize.height * 0.25)));
 
         //
-        //this.slotNpc = new cc.Sprite(res.slotNpc);
         this.slotNpc = new ccui.ImageView(res.slotNpc);
         this.slotNpc.setPosition(cc.p(cc.winSize.width * 0.45, cc.winSize.height * 0.55));
         this.addChild(this.slotNpc);
@@ -36,19 +34,16 @@ var OrderNPCLayer = BaseLayout.extend({
 
     initOrderDetail: function (orderNPC) {
         //
-        //var item = new cc.Sprite(getProductIconById(orderNPC.orderItem.typeItem));
         var item = new ccui.ImageView(getProductIconById(orderNPC.orderItem.typeItem));
         item.setPosition(cc.p(this.slotNpc.width * 0.3, this.slotNpc.height * 0.625));
         item.setScale(0.75);
         this.slotNpc.addChild(item);
 //
-//        var muiten = new cc.Sprite(res.muitenNpc);
         var muiten = new ccui.ImageView(res.muitenNpc);
         muiten.setPosition(cc.p(this.slotNpc.width * 0.5, this.slotNpc.height * 0.625));
         item.setScale(0.75);
         this.slotNpc.addChild(muiten);
 //
-//        var gold = new cc.Sprite(res.goldOrder);
         var gold = new ccui.ImageView(res.goldOrder);
         gold.setPosition(cc.p(this.slotNpc.width * 0.7, this.slotNpc.height * 0.6));
         gold.setScale(1.2);
@@ -86,7 +81,6 @@ var OrderNPCLayer = BaseLayout.extend({
         msgCurr.addChild(quantityCurr);
 
         //
-        //var itemCurr = new cc.Sprite(getProductIconById(orderNPC.orderItem.typeItem));
         var itemCurr = new ccui.ImageView(getProductIconById(orderNPC.orderItem.typeItem));
         itemCurr.setPosition(cc.p(msgCurr.width * 1.65, msgCurr.height * 0.6));
         itemCurr.setScale(0.5);
@@ -115,7 +109,7 @@ var OrderNPCLayer = BaseLayout.extend({
         var button = new ccui.Button(res.answerNpc);
         button.setPosition(cc.p(x, y - button.height * i * 1.1));
 
-        var msg = this.initText(button.width / 2, button.height / 2, text, res.FONT_OUTLINE_20);
+        var msg = this.initText(button.width / 2, button.height / 2, text, res.FONT_OUTLINE_30);
         button.addChild(msg);
 
         return button;

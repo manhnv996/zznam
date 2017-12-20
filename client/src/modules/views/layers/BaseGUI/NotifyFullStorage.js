@@ -6,7 +6,7 @@ var NotifyFullStorage = BaseLayout.extend({
     _storageType: null,
 
     ctor: function (storageType) {
-        this._super(res.bgNotice, "text_notice_title", true, true, true);
+        this._super(res.BG_2_PNG, "text_notice_title", true, true, true);
         this._storageType = storageType;
 
         var fullSilo = new cc.Sprite(res.silo_full);

@@ -64,32 +64,20 @@ var BaseGUILayer = cc.Layer.extend({
             case ccui.Widget.TOUCH_CANCELED:
                 var scaleBy = cc.scaleTo(0.1, 1.0);
                 sender.runAction(scaleBy);
-                //var ruby = user.ruby;
-                //if (ruby < this._layout.rubyNumber) {
-                //    BaseGUILayer.instance.notifyNotEnoughRuby(this._layout.rubyNumber - ruby);
-                //} else {
                 BaseGUILayer.instance.removeBlockListener();
                 GameShopController.instance.buyMapObjectByRuby(this.typeShopObject,
                     this.lx, this.ly, this.rubyNumber, this.lodgeId);
-                //BaseGUILayer.instance.removeBlockListener();
-                //}
                 break;
         }
     },
 
     notifyNotEnoughRuby: function (ruby, hideShop) {
-        //cc.log("this._layout " + this._layout);
         this._layout = new NotifyNotEnoughG(ruby.toString(), hideShop);
         this._layout.gImg.setTexture(res.ruby_small);
-        //cc.log("this._layout.gImg " + this._layout.gImg.getTexture());
         if (this._layout._hasCloseButton) {
-            //cc.log("_btnClose");
             this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);
         }
-        //cc.log("this._layout " + this._layout);
-        //this._layout.gImg.setTexture(res.ruby);
         this.blockLayout();
-        //this.addChild(this._layout);
     },
 
     notifyFullStorage: function (storageType, callback) {
@@ -99,15 +87,24 @@ var BaseGUILayer = cc.Layer.extend({
             this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);
         }
         this.blockLayout();
-        //this.addChild(this._layout);
     },
 
     showStorage: function (storage) {
-        //this._layout = new StorageLayout(storage);
         StorageLayout.instance = new StorageLayout(storage);
         this._layout = StorageLayout.instance;
         if (this._layout._hasCloseButton) {
-            //cc.log("_btnClose");
+            this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);
+        }
+        this.blockLayout();
+    },
+
+    showMyShop: function () {
+
+    },
+
+    showSettingGame: function () {
+        this._layout = new SettingGame();
+        if (this._layout._hasCloseButton) {
             this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);
         }
         this.blockLayout();
@@ -120,13 +117,10 @@ var BaseGUILayer = cc.Layer.extend({
         }
 
         this._layout = new OrderBGLayer();
-        // this._layout = OrderBGLayer.instance;
         if (this._layout._hasCloseButton) {
-            //cc.log("_btnClose");
             this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);
         }
         this.blockLayout();
-        //this.addChild(this._layout);
     },
 
     showSuggestBuyMissionItem: function (storageMissingItemList, targetType, orderId, callback) {
@@ -137,6 +131,7 @@ var BaseGUILayer = cc.Layer.extend({
         this.blockLayout();
         //this.addChild(this._layout);
     },
+
     showNoticeSureCancelOrder: function (orderId) {
         this._layout = new NoticeCancelOrder(orderId);
         if (this._layout._hasCloseButton) {
@@ -174,9 +169,9 @@ var BaseGUILayer = cc.Layer.extend({
 
     touchCloseButton: function (sender, type) {
         switch (type) {
-        //    case ccui.Widget.TOUCH_BEGAN:
-        //        this.removeBlockListener();
-        //        break;
+            case ccui.Widget.TOUCH_BEGAN:
+                audioEngine.playEffect(res.func_click_button_mp3, false);
+                break;
             case ccui.Widget.TOUCH_ENDED:
             case ccui.Widget.TOUCH_CANCELED:
                 this.removeBlockListener();
@@ -188,15 +183,10 @@ var BaseGUILayer = cc.Layer.extend({
         MainGuiLayer.instance.unlockButton();
         if (!this._layout._hideShop) {
             if (GameShopLayout.instance._isHide) {
-                //cc.log("GameShopLayout.instance._isHide " + GameShopLayout.instance._isHide);
                 GameShopLayout.instance.show();
             }
         }
-        //if (!this._layout._hideShop) {
-        //    GameShopLayout.instance._gameShop.unlockGameShop();
-        //}
         if (this._blockLayout._listenerBlockFull) {
-            //cc.log("remove listener");
             cc.eventManager.removeListener(this._blockLayout._listenerBlockFull);
             this.removeAllChildren();
             this._layout = null;
@@ -206,12 +196,12 @@ var BaseGUILayer = cc.Layer.extend({
     /**
      *  Popup Move Position Collison
      */
-    notifyCantPut: function (x, y) {
+    notifyCantPut: function (content, x, y) {
         if (x.x) {
             y = x.y;
             x = x.x;
         }
-        var label = new cc.LabelBMFont(fr.Localization.text("Text_can_not_place"), res.FONT_OUTLINE_20);
+        var label = new cc.LabelBMFont(content, res.FONT_OUTLINE_20);
         label.x = x;
         label.y = y;
         this.addChild(label);
@@ -222,13 +212,4 @@ var BaseGUILayer = cc.Layer.extend({
             label.removeFromParent(true);
         })));
     }
-
-    /**
-     * Popup loanding bar
-     */
-    //
-    //loadingBar: function () {
-    //    var loadingBar = new LoadingBarLayout();
-    //    this.addChild(loadingBar);
-    //}
 });

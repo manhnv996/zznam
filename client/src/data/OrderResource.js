@@ -2,6 +2,7 @@
 var OrderResource = {
     //
     productconfig: "src/modules/configs/json/productconfig.json",
+    levelupconfig: "src/modules/configs/json/levelupconfig.json",
     //
     //
     bgTruckOrder: "res/Art/Truck Order/Gui-oders/BG.png",

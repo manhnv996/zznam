@@ -11,23 +11,16 @@ var FieldSprite = MapBlockSprite.extend({
     seedType: null,
 
     ctor: function(fieldId, x, y) {
-        //this._super();
+
         this._super(res.field,
                 MapConfigs.Field.size.width, 
                 MapConfigs.Field.size.height,
                 x, y, MapItemEnum.FIELD
         );
 
-        //
-        // this.render(fieldId);
-
-        // this.addTouchEventListener(parent, fieldId);
         this.registerTouchEvents();
 
-    // },
-    // render: function (fieldId) {
         this.fieldId = fieldId;
-        // Find field in asset
         this.field = user.asset.getFieldById(this.fieldId);
         // this.showDebugPriorityPoint();
     },
@@ -90,6 +83,7 @@ var FieldSprite = MapBlockSprite.extend({
 
     // When begin click
     onBeginClick: function() {
+        audioEngine.playEffect(res.farm_click_dirt, false);
         this.setOpacity(180);
         if (this.plantSprite){
             this.plantSprite.setOpacity(180);
@@ -122,14 +116,11 @@ var FieldSprite = MapBlockSprite.extend({
     },
 
     plantAnimation: function (seedType) {
-        //this.removeAllChildrenWithCleanup(true);
-
         if (this.fieldId != null){
 
             var plantTypeObj = getProductObjByType(seedType);
 
             this.createAni(seedType);
-            // this.plantSprite.getAnimation().setTimeScale(1);
             this.plantSprite.getAnimation().gotoAndPlay(plantTypeObj.plantAni, -1, -1, 1);
 
 //          ////
@@ -149,7 +140,6 @@ var FieldSprite = MapBlockSprite.extend({
     cropAnimation: function (seedType, callback) {
         if (this.fieldId != null){
             var plantTypeObj = getProductObjByType(seedType);
-            // this.plantSprite.getAnimation().setTimeScale(1);
 
             this.plantSprite.setCompleteListener(function () {
                 this.plantSprite.setVisible(false);
@@ -166,23 +156,17 @@ var FieldSprite = MapBlockSprite.extend({
     },
     //
     updateFieldStatus: function (curr, duration) {
-        // var field = user.getAsset().getFieldList().find(function(f) {
-        //     return f.field === this.fieldId;
-        // });
         if (!this.field) {
             this.unschedule(this.updateFieldStatus);
             return;
         }        
 
         if (this.field.getPlantedTime() == null){
-            //this.changeTexture(res.field);
             this.unschedule(this.updateFieldStatus);
             return false;
         }
 
         if (this.plantSprite != null){
-            // var parsePlantTime = user.getAsset().getFieldList()[this.fieldId].getPlantedTime().getTime();
-            // var parseCropTime = user.getAsset().getFieldList()[this.fieldId].getCropTime().getTime();
             var parsePlantTime = this.field.getPlantedTime().getTime();
             var parseCropTime = this.field.getCropTime().getTime();
             

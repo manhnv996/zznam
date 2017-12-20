@@ -15,6 +15,7 @@ public class CmdDefine {
 
     public static final short GET_USER_INFO = 1001;
     public static final short GET_USER = 1002; // New get user
+    public static final short ADD_MONEY = 1101;
    
     //Log cmd
     public static final short MOVE = 2001;
@@ -35,7 +36,6 @@ public class CmdDefine {
     public static final short RESPONSE_SYNC_STORAGE = 5083;
     public static final short RESPONSE_SYNC_FOOD_STORAGE_ITEM = 5084;
     
-    
     //    
     public static final short MAKE_ORDER = 10001;
     public static final short CANCEL_ORDER = 10002;
@@ -51,7 +51,15 @@ public class CmdDefine {
     public static final short RESPONSE_SYNC_CAR = 10089;
     public static final short RESPONSE_SYNC_ORDER_NPC = 10091;
     
+    //
+    public static final short SELL_PRODUCT = 13001;
+    public static final short BUY_PRODUCT = 13002;
+    public static final short RECEIVE_MONEY_FROM_SOLD_PRODUCT = 13003;
+    public static final short CANCEL_SELL_PRODUCT = 13004;
+    public static final short UNLOCK_SLOT_MY_SHOP = 13005;
     
+    public static final short RESPONSE_SYNC_PRODUCT_SALE = 13081;
+    //
     
     
     public static final short MOVE_FIELD = 6001;
@@ -103,7 +111,7 @@ public class CmdDefine {
     public static final short ANIMAL_BOOST = 12003;
 
     // Nature
-    public static final short NATURE_COLLECT = 13001;
+    public static final short NATURE_COLLECT = 15001;
     
     // Friend
     public static final short FRIEND_GET_LIST = 14001;

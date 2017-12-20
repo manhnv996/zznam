@@ -40,7 +40,8 @@ var AnimalTable = cc.Layer.extend({
     },
 
     tableCellSizeForIndex: function (table, idx) {
-        return cc.size((cc.winSize.width / 3), 142 * ((cc.winSize.width / 3) / 316));
+        //return cc.size((cc.winSize.width / 3), 142 * ((cc.winSize.width / 3) / 316));
+        return cc.size(363, 142 * (363 / 316));
     },
 
     tableCellAtIndex: function (table, idx) {
@@ -125,7 +126,7 @@ var AnimalTable = cc.Layer.extend({
             }
         }
 
-        price = new cc.LabelBMFont(p, res.FONT_OUTLINE_30);
+        price = new cc.LabelBMFont(fr.toMoney(p), res.FONT_OUTLINE_30);
         price.x = box.width / 5 * 2;
         price.y = 0;
         price.setAnchorPoint(1, -0.5);
@@ -204,12 +205,9 @@ var AnimalTable = cc.Layer.extend({
                 break;
             case ccui.Widget.TOUCH_ENDED:
                 if(this._sprite){
-                    this._sprite.setVisible(false);
-                    cc.eventManager.removeListener(this._sprite.touchListener);
-                    this._sprite.removeFromParent(true);
-                    this._sprite = null;
+                    this.buyAnimalFail();
                 }
-                 cc.log("Touch Ended");
+                 //cc.log("Touch Ended");
                 break;
             case ccui.Widget.TOUCH_CANCELED:
                 this.unscheduleUpdate();
@@ -221,41 +219,47 @@ var AnimalTable = cc.Layer.extend({
                     this._sprite.retain();
                     this._sprite.removeFromParent(true);
                     var lodgeModel = user.asset.getLodgeByPosition(endPl.x, endPl.y);
-                    if (!lodgeModel || lodgeModel.type != (this.typeObject + "_habitat") ||
+                    if (!lodgeModel ||
                         (lodgeModel.animalList.length >= GameShopController.instance.getLodgeSlotByType(lodgeModel.type))) {
-                        BaseGUILayer.instance.notifyCantPut(endP.x, endP.y);
-                        cc.eventManager.removeListener(this._sprite.touchListener);
-                        if (GameShopLayout.instance._isHide) {
-                            GameShopLayout.instance.show();
-                        }
+                        BaseGUILayer.instance.notifyCantPut(fr.Localization.text("Text_can_not_place"), endP.x, endP.y);
+                        this.buyAnimalFail();
                     } else {
-                        cc.log("lodgeModel", lodgeModel.type);
-                        //Check gold
-                        var missGold = GameShopController.instance.checkGold(sender.parent.getChildByTag(5).getString());
-                        if (missGold) {
-                            cc.eventManager.removeListener(this._sprite.touchListener);
-                            BaseGUILayer.instance.notifyShopNotEnoughGold(missGold, this.typeObject,
-                                endPl.x, endPl.y, lodgeModel.id);
+                        if (lodgeModel.type != (this.typeObject + "_habitat")) {
+                            BaseGUILayer.instance.notifyCantPut(fr.Localization.text("Text_place_pet"), endP.x, endP.y);
+                            this.buyAnimalFail();
                         } else {
-                            //model
-                            var animalModel = new Animal(this.typeObject, 0, false, 0);
-                            lodgeModel.addAnimal(animalModel);
+                            cc.log("lodgeModel", lodgeModel.type);
+                            //Check gold
+                            var missGold = GameShopController.instance.checkGold(sender.parent.getChildByTag(5).getString());
+                            if (missGold) {
+                                cc.eventManager.removeListener(this._sprite.touchListener);
+                                BaseGUILayer.instance.notifyShopNotEnoughGold(missGold, this.typeObject,
+                                    endPl.x, endPl.y, lodgeModel.id);
+                            } else {
+                                //model
+                                var animalModel = new Animal(this.typeObject, 0, false, 0);
+                                lodgeModel.addAnimal(animalModel);
 
-                            //add to lodge sprite
-                            var lodgeSprite = MapLayer.instance.getChildByTag(TagClusters.Lodge + lodgeModel.id);
-                            this._sprite.setId(animalModel.id);
-                            lodgeSprite.addAnimalSprite(this._sprite);
-                            this._sprite.hungry();
-                            user.reduceGold(sender.parent.getChildByTag(5).getString());
-                            //Send Server
-                            testnetwork.connector.sendBuyAnimal(lodgeModel.id, animalModel.id,
-                                animalModel.type, endPl.x, endPl.y);
+                                //add to lodge sprite
+                                var lodgeSprite = MapLayer.instance.getChildByTag(TagClusters.Lodge + lodgeModel.id);
+                                this._sprite.setId(animalModel.id);
+                                lodgeSprite.addAnimalSprite(this._sprite);
+                                this._sprite.hungry();
+                                user.reduceGold(sender.parent.getChildByTag(5).getString());
+                                //Send Server
+                                testnetwork.connector.sendBuyAnimal(lodgeModel.id, animalModel.id,
+                                    animalModel.type, endPl.x, endPl.y);
 
-                            GameShopLayout.instance.show();
+                                //GameShopLayout.instance.show();
+                                if (GameShopLayout.instance._isHide) {
+                                    GameShopLayout.instance.show();
+                                }
+                            }
                         }
                     }
                 }
-                this._sprite = null;
+                //this.endTouch();
+                //this._sprite = null;
                 this._tableView.updateCellAtIndex(sender.parent.getIdx());
                 break;
         }
@@ -285,6 +289,16 @@ var AnimalTable = cc.Layer.extend({
             var dx = this.autoMoveHor * dt * 250;
             var dy = this.autoMoveVer * dt * 250;
             MapLayer.instance.move(-dx, -dy);
+        }
+    },
+
+    buyAnimalFail: function () {
+        this._sprite.setVisible(false);
+        cc.eventManager.removeListener(this._sprite.touchListener);
+        this._sprite.removeFromParent(true);
+        this._sprite = null;
+        if (GameShopLayout.instance._isHide) {
+            GameShopLayout.instance.show();
         }
     }
 

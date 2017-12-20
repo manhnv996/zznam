@@ -25,7 +25,7 @@ import model.ZPUserInfo;
 
 /**
  *
- * @author nguyenvanmanh
+ * @author 
  */
 public class OrderUtil {
     
@@ -65,13 +65,11 @@ public class OrderUtil {
     public static int randomTypeNumber(int level){
         float random = (float) Math.random();
         if (level < 7){
-//            random *= 2;
             if (random > 0.6){
                 return 2;
             }
             return 1;
         } else if (level < 10){
-//            random *= 3;
             if (random > 0.6){
                 return 3;
             } else if (random > 0.3){
@@ -80,7 +78,6 @@ public class OrderUtil {
                 return 1;
             }
         } else if (level < 16){
-//            random *= 4;
             if (random > 0.7){
                 return 4;
             } else if (random > 0.4){
@@ -91,7 +88,6 @@ public class OrderUtil {
                 return 1;
             }
         } else if (level < 21){
-//            random *= 5;
             if (random > 0.8){
                 return 5;
             } else if (random > 0.5){
@@ -104,7 +100,6 @@ public class OrderUtil {
                 return 1;
             }
         } else if (level < 31){
-//            random *= 6;
             if (random > 0.8){
                 return 6;
             } else if (random > 0.5){
@@ -119,7 +114,6 @@ public class OrderUtil {
                 return 1;
             }
         } if (level < 41){
-//            random *= 6;
             if (random > 0.8){
                 return 6;
             } else if (random > 0.55){
@@ -134,7 +128,6 @@ public class OrderUtil {
                 return 1;
             }
         } else {
-//            random *= 6;
             if (random > 0.75){
                 return 6;
             } else if (random > 0.50){
@@ -150,7 +143,6 @@ public class OrderUtil {
             }
         }
         
-//        return 1;
     }
     
     
@@ -199,7 +191,6 @@ public class OrderUtil {
             }
         }
         
-//        return ProductCategory.CROP_PRODUCT;
     }
     
     
@@ -216,7 +207,7 @@ public class OrderUtil {
     }
     
     
-//    public static List<ProductConfig> randomTypeProduct(int level){    
+      
     public static List<ProductConfig> randomTypeProduct(ZPUserInfo user, int level){
         
         List<ProductConfig> productList = new ArrayList<>();
@@ -225,10 +216,8 @@ public class OrderUtil {
         for (int i = 0; i < typeNumber; i++){
             ProductCategory category = randomCategory(level);
             
-//            List<ProductConfig> productCategory = ProductUtil.getProductConfObjByCategory(category);
-//            productCategory = ProductUtil.sortProductListByRandomProduct(productCategory);
+            //
             List<ProductConfig> productCategory = ProductUtil.randomSortProductConfByCategory(user, category);
-//            List<ProductConfig> productCategory = ProductUtil.randomSortProductConfByCategory(category);
             //
             productCategory = filterProductByLevel(level, productCategory);
             
@@ -244,7 +233,6 @@ public class OrderUtil {
                         break;
                     }
                 }
-                
             }
             
         }
@@ -256,11 +244,8 @@ public class OrderUtil {
     public static List<StorageItem> randomQuantityOfProductList(int level, List<ProductConfig> productList){
         List<StorageItem> itemList = new ArrayList<>();
         
-        /*
-         * Done
-         */
         if (productList == null){
-            return itemList;    //empty
+            return itemList;    //
         }
         
         int typeNumber = productList.size();
@@ -274,12 +259,9 @@ public class OrderUtil {
     }
     
     
-    public static int randomQuantity(int level, int typeNumber /*so loai mat hang trong order*/){
-        //return percent of capacity current
+    public static int randomQuantity(int level, int typeNumber){
         
         float random = (float) Math.random();
-        
-//        switch (productList.size()){
         switch (typeNumber){
             case 1:
             case 2:
@@ -332,7 +314,6 @@ public class OrderUtil {
                         return 10;
                     }
                 }
-//                break;
             case 3:
                 if (random < 0.6){
                     return 1;
@@ -343,7 +324,6 @@ public class OrderUtil {
                 } else {
                     return 4;
                 }
-//                break;
             case 4:
                 if (random < 0.8){
                     return 1;
@@ -352,7 +332,6 @@ public class OrderUtil {
                 } else {
                     return 3;
                 }
-//                break;
             case 5:
             case 6:
             default:
@@ -402,7 +381,6 @@ public class OrderUtil {
             return 4.5f;
         }
         
-//        return 0f;
     }
     
     
@@ -437,7 +415,6 @@ public class OrderUtil {
     public static float randomOrderExpBonus(int level, int typeNumber){
         float random = (float) Math.random();
         
-        //        switch (productList.size()){
         switch (typeNumber){
             case 1:
             case 2:
@@ -470,7 +447,6 @@ public class OrderUtil {
                         return 1f;
                     }
                 }
-        //                break;
             case 3:
             case 4:
             case 5:
@@ -517,11 +493,4 @@ public class OrderUtil {
     
     
     
-    
-//    public static ProductCategory getCategoryByProductType(String productType){
-//        
-//        
-//        
-//        return ProductCategory.CROP_PRODUCT;
-//    }
 }

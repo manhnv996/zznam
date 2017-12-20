@@ -130,7 +130,7 @@ var LodgeTable = cc.Layer.extend({
         slot.y = box.height / 5 * 4;
         slot.tag = 4;
 
-        price = new cc.LabelBMFont(res.infoCoopItem[idx].price, res.FONT_OUTLINE_30);
+        price = new cc.LabelBMFont(fr.toMoney(res.infoCoopItem[idx].price), res.FONT_OUTLINE_30);
         price.x = box.width / 5 * 2;
         price.y = 0;
         price.setAnchorPoint(1, -0.5);
@@ -154,8 +154,6 @@ var LodgeTable = cc.Layer.extend({
     },
 
     touchBuyEvent: function (sender, type) {
-        //var sprite = null;
-        //this.lstP = {x: 0, y : 0};
         switch (type) {
             case ccui.Widget.TOUCH_BEGAN:
                 this.lstLocation = sender.getTouchBeganPosition();
@@ -217,22 +215,15 @@ var LodgeTable = cc.Layer.extend({
                         MapLayer.instance.addChild(this._sprite);
                     }
                 }
-                //cc.log(this._sprite);
-                //if (this._sprite) {
-                //    if (p.x !== this.lstP.x || p.y !== this.lstP.y) {
-                //        this._sprite.setLogicPosition(p.x, p.y, true);
-                //        this.lstP = p;
-                //        //cc.log(Math.floor(psl.x) + " : " + Math.floor(psl.y));
-                //    }
-                //}
-                // cc.log("Touch Moved");
                 break;
             case ccui.Widget.TOUCH_ENDED:
                 if(this._sprite){
-                    //cc.log("this._sprite", this._sprite.parent);
                     this._sprite.setVisible(false);
                     this._sprite.removeFromParent(true);
                     this._sprite = null;
+                    //if (GameShopLayout.instance._isHide) {
+                        GameShopLayout.instance.show();
+                    //}
                 }
                 //cc.log("Touch Ended");
                 break;
@@ -251,11 +242,10 @@ var LodgeTable = cc.Layer.extend({
                     if (!this._check) {
                         this._sprite.setVisible(false);
                         this._sprite.removeFromParent(true);
-                        BaseGUILayer.instance.notifyCantPut(endP.x, endP.y);
-                        if (GameShopLayout.instance._isHide) {
-                            //cc.log("GameShopLayout.instance._isHide " + GameShopLayout.instance._isHide);
+                        BaseGUILayer.instance.notifyCantPut(fr.Localization.text("Text_can_not_place"), endP.x, endP.y);
+                        //if (GameShopLayout.instance._isHide) {
                             GameShopLayout.instance.show();
-                        }
+                        //}
                     } else {
                         var missGold = GameShopController.instance.checkGold(sender.parent.getChildByTag(5).getString());
                         cc.log(missGold);
@@ -306,12 +296,10 @@ var LodgeTable = cc.Layer.extend({
         logic.y = Math.floor(logic.y);
         if (this.lstLocation.x !== logic.x ||
             this.lstLocation.y !== logic.y) {
-            // cc.log("Map Alias", this.mapAliasType);
-            // cc.log("move to", logic, MapCtrl.instance.checkValidBlock(logic.x, logic.y, this.blockSizeX, this.blockSizeY, this.mapAliasType));
             this.lstLocation = logic;
-            //this._sprite.setLogicPosition(logic, true);
             if (this._sprite) {
                 this._sprite.setLogicPosition(logic, true);
+                MapCtrl.instance.changeColor(this._sprite);
             }
         }
         if (this.autoMoveHor || this.autoMoveVer) {

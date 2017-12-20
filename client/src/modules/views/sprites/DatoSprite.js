@@ -13,6 +13,7 @@ var DatoSprite = AnimationSprite.extend({
 
 	onClick: function() {
 		this.play("forest_big_stone_1_select");
+		audioEngine.playEffect(res.touch_big_rock_mp3, false);
 		TablePopupLayer.instance.showNatureToolPopup(this.lx, this.ly, NaturalThingEnum.ROCK_BIG, this.natureId);
 	},
 

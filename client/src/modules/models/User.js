@@ -57,41 +57,64 @@ var User = cc.Class.extend({
         this.gold += parseInt(number);
 
         //
-        MainGuiLayer.instance.labelGold.setString(this.gold);
+        // MainGuiLayer.instance.labelGold.setString(this.gold);
+        MainGuiLayer.instance.increaseGold(number);
     },
     addRuby: function (number) {
         this.ruby += parseInt(number);
 
         //
-        MainGuiLayer.instance.labelRuby.setString(this.ruby);
+        // MainGuiLayer.instance.labelRuby.setString(this.ruby);
+        MainGuiLayer.instance.increaseRuby(number);
     },
     addExp: function (number) {
-        this.exp += parseInt(number);
+        number = parseInt(number);
+        //this.exp += number;
         //bug
-        /*
-        NOT YET STARTED
-        if level up
-         */
-        MainGuiLayer.instance.labelExp.setString(this.exp);
+
+        if (this.exp + number >= getLevelupObjById(this.level + 1).exp){
+            this.level ++;
+            var expCurr = this.exp;
+            this.exp = 0;
+
+            MainGuiLayer.instance.labelExp.setString(this.exp + " / " + getLevelupObjById(this.level + 1).exp);
+
+            this.addExp(expCurr + number - getLevelupObjById(user.level).exp);
+            MainGuiLayer.instance.labelLevel.setString(this.level);
+
+            if (this.getAsset().getOrderList().length < getNumberOfOrderByLevel(this.level)){
+                testnetwork.connector.sendCreateNewOrder(this.getAsset().getOrderList().length);
+            }
+
+        } else {
+            this.exp += number;
+            MainGuiLayer.instance.increaseExp(number);
+        }
+
+        MainGuiLayer.instance.setExpPecent();
     },
 
     reduceGold: function (number) {
-        if (this.getGold() >= parseInt(number)){
-            this.gold -= parseInt(number);
+        number = parseInt(number);
+        if (this.getGold() >= number){
+            this.gold -= number;
 
             //
-            MainGuiLayer.instance.labelGold.setString(this.gold);
+            // MainGuiLayer.instance.labelGold.setString(this.gold);
+            MainGuiLayer.instance.decreaseGold(number);
             return true;
         }
         return false;
 
     },
     reduceRuby: function (number) {
-        if (this.getRuby() >= parseInt(number)){
-            this.ruby -= parseInt(number);
+        number = parseInt(number);
+        if (this.getRuby() >= number){
+            this.ruby -= number;
 
             //
-            MainGuiLayer.instance.labelRuby.setString(this.ruby);
+            // MainGuiLayer.instance.labelRuby.setString(this.ruby);
+            MainGuiLayer.instance.decreaseRuby(number);
             return true;
         }
         return false;
