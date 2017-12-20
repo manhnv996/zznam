@@ -25,6 +25,8 @@ var _ = (function() {
         upgrade_silo_screw: "Art/Tool/dinh.png",
         upgrade_silo_woodPanel: "Art/Tool/go2.png",
 
+        circle_png: "Art/Crops/Gui-act/page1.png",
+
         storage_apple: "Art/Crops/Field/apple.png",
         storage_carot: "Art/Crops/Field/caroot.png",
         storage_corn: "Art/Crops/Field/corn.png",

@@ -25,7 +25,7 @@ var ButterMachineSprite = AnimationSprite.extend({
     onClick: function() {
         cc.log("feed mill is clicked " + this.id);
         this.play("selected");
-        audioEngine.playEffect(res.tools_fairy_mp3, false);
+        SoundCtrl.instance.playSoundEffect(res.tools_fairy_mp3, false);
     },
 
     onFinishMove: function (lx, ly) {

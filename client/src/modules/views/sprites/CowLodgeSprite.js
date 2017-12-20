@@ -31,16 +31,18 @@ var CowLodgeSprite = AnimalLodgeSprite.extend({
 			return;
 		}
 		if (remain > 0) {
-			this.loadingBar = new LoadingBarLayout(
-				AnimalConfig.cow.time, null,
-				"NAME_TAB_COW", 1, remain / 1000);
 			var p = MapValues.logicToScreenPosition(this.lx + lp.x, this.ly + lp.y);
-			this.loadingBar.setPosition(p.x + 75, p.y - 25);
+			this.loadingBar = new LoadingBarLayout(p.x + 75, p.y - 25,
+				AnimalConfig.cow.time, null,
+				"NAME_TAB_COW", 1, remain / 1000, false);
+			//this.loadingBar.setPosition(p.x + 75, p.y - 25);
 			BaseGUILayer.instance.addChild(this.loadingBar);
 			this.loadingBar.setOnClick(function() {
 				AnimalCtrl.instance.boost(this.id, animal.id);
 				this.loadingBar.closeLoadingBar();
 			}.bind(this));
+
+			this.loadingBar.runAction(TablePopupLayer.instance.actionAutoMove.clone());
 		}
 	},
 
@@ -59,14 +61,14 @@ var CowLodgeSprite = AnimalLodgeSprite.extend({
 	onClick: function(lx, ly) {
 		// AnimalCtrl.instance.onMoveHarvestTool(lx, ly, AnimalLodgeType.cow_habitat);
 		if (this.lodge.getAnimalCount() > 0) {
-			this.showAnimalRemain();
 			this.showAnimalTool();
+			this.showAnimalRemain();
 		} else {
 			// Open store to buy animal
 			GameShopLayout.instance._gameShop.openAnimalTable();
 			cc.log("Open store to buy animal");
 		}
-		audioEngine.playEffect(res.func_click_button_mp3, false);
+		SoundCtrl.instance.playSoundEffect(res.func_click_button_mp3, false);
 	},
 
 	setLogicPosition: function(lx, ly, notUpdatePriority) {
