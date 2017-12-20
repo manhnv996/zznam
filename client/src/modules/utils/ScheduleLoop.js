@@ -12,6 +12,7 @@ var ScheduleLoop = cc.Node.extend({
 
 	onEnter: function() {
 		this._super();
+		this.added = true;
 		if (!this.schedulingOneSecond) {
 			this.schedulingOneSecond = true;
 			this.schedule(this.updateOneSecond, 1.0);

@@ -15,8 +15,12 @@ var FriendHomeLayer = cc.Layer.extend({
 	},
 
 	renderUserLabel: function() {
-		this.userLabel = new cc.LabelBMFont(user.id, res.FONT_OUTLINE_30);
-		this.userLabel.setPosition(cc.winSize.width / 2, cc.winSize.height - 30);
+		var position = cc.p(cc.winSize.width / 2, cc.winSize.height - 50);
+		var bangten = new cc.Sprite(res.bangten);
+		bangten.setPosition(position);
+		this.addChild(bangten);
+		this.userLabel = new cc.LabelBMFont(user.id, res.FONT_OUTLINE_50);
+		this.userLabel.setPosition(position);
 		this.addChild(this.userLabel);
 	},
 

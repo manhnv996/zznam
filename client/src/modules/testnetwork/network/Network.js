@@ -25,8 +25,11 @@ testnetwork.Connector = cc.Class.extend({
                 break;
             
             case gv.CMD.USER_LOGIN:
-                cc.log(packet);
+                // Get friend list
+                this.sendFriendGetList();
+                // cc.log(packet);
                 // this.sendGetUserInfo(); // Old. Do not use
+                cc.log("Get server time");
                 this.sendGetServerTime();
                 // MainScene.instance = new MainScene();
                 // cc.director.runScene(MainScene.instance);
@@ -342,9 +345,8 @@ testnetwork.Connector = cc.Class.extend({
             case gv.CMD.FRIEND_GET_LIST:
                 cc.log("FRIEND_GET_LIST");
                 cc.log(packet.idList);
-                var id = packet.idList[0] || user.id; // or last id
-                cc.log("[F] Choose", id);
-                this.sendFriendGetInfo(id);
+                gv.friendIds = packet.idList;
+                // this.sendFriendGetInfo(id);
                 break;
             case gv.CMD.FRIEND_GET_INFO:
                 cc.log("FRIEND_GET_INFO");
@@ -741,5 +743,36 @@ testnetwork.Connector = cc.Class.extend({
         var pk = this.gameClient.getOutPacket(CmdSendGetServerTime);
         pk.pack();
         this.gameClient.sendPacket(pk);
-    }
+    },
+    //
+    sendBoostProduct: function(machineId) {
+        cc.log("sendBoostProduct");
+        var pk = this.gameClient.getOutPacket(CmdSendBoostProduct);
+        pk.pack(machineId);
+        this.gameClient.sendPacket(pk);
+    },
+    sendUnlockSlot: function(machineId) {
+        cc.log("sendUnlockSlot");
+        var pk = this.gameClient.getOutPacket(CmdSendUnlockSlot);
+        pk.pack(machineId);
+        this.gameClient.sendPacket(pk);
+    },
+    sendCollectProduct: function(machineId) {
+        cc.log("sendCollectProduct");
+        var pk = this.gameClient.getOutPacket(CmdSendCollectProduct);
+        pk.pack(machineId);
+        this.gameClient.sendPacket(pk);
+    },
+    sendAddProduct: function(machineId, productType) {
+        cc.log("sendAddProduct");
+        var pk = this.gameClient.getOutPacket(CmdSendAddProduct);
+        pk.pack(machineId, productType);
+        this.gameClient.sendPacket(pk);
+    },
+    sendBuyRawMaterial: function(machineId, productType) {
+        cc.log("sendBuyRawMaterial");
+        var pk = this.gameClient.getOutPacket(CmdSendBuyRawMaterial);
+        pk.pack(machineId, productType);
+        this.gameClient.sendPacket(pk);
+    },
 });

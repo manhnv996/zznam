@@ -32,6 +32,9 @@ var MainGuiLayer = cc.Layer.extend({
         //
         //this.addChild(this.btnFriends);
 
+        FriendUI.instance = new FriendUI();
+        this.addChild(FriendUI.instance);
+
         if (!home) {
             return;
         }
@@ -89,11 +92,11 @@ var MainGuiLayer = cc.Layer.extend({
 
 
         // 8. create a search button and set it's position below btnBuyCoin
-        this.btnSearch = new ccui.Button(res.STAR_1_PNG);
-        var btnSearchSize = this.btnSearch.getSize();
-        //cc.log("btnSearch " + btnSearchSize.width + "  " + btnSearchSize.height);
-        this.btnSearch.setPosition(size.width - btnSearchSize.width/2, size.height - 5*btnBuyRubySize.height/2);
-        this.addChild(this.btnSearch);
+        // this.btnSearch = new ccui.Button(res.STAR_1_PNG);
+        // var btnSearchSize = this.btnSearch.getSize();
+        // //cc.log("btnSearch " + btnSearchSize.width + "  " + btnSearchSize.height);
+        // this.btnSearch.setPosition(size.width - btnSearchSize.width/2, size.height - 5*btnBuyRubySize.height/2);
+        // this.addChild(this.btnSearch);
 
 
         var imageExp_111 = new ccui.ImageView(res.EXP_111_PNG);
@@ -128,8 +131,7 @@ var MainGuiLayer = cc.Layer.extend({
         GameShopLayout.instance = new GameShopLayout();
         this.addChild(GameShopLayout.instance);
 
-        FriendUI.instance = new FriendUI();
-        this.addChild(FriendUI.instance);
+        
     },
 
     //
@@ -145,7 +147,7 @@ var MainGuiLayer = cc.Layer.extend({
         FriendUI.instance._btnOpenFriendList.btnFriends.setTouchEnabled(false);
         this.btnBuyGold.setTouchEnabled(false);
         this.btnBuyRuby.setTouchEnabled(false);
-        this.btnSearch.setTouchEnabled(false);
+        // this.btnSearch.setTouchEnabled(false);
 
     },
 
@@ -155,7 +157,7 @@ var MainGuiLayer = cc.Layer.extend({
         FriendUI.instance._btnOpenFriendList.btnFriends.setTouchEnabled(true);
         this.btnBuyGold.setTouchEnabled(true);
         this.btnBuyRuby.setTouchEnabled(true);
-        this.btnSearch.setTouchEnabled(true);
+        // this.btnSearch.setTouchEnabled(true);
     },
 
     onEnter:function(){

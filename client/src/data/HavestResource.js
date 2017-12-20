@@ -66,7 +66,7 @@ var HavestResource = {
     msgFullFoodStorage: "res/Art/Storage/fullSilo.png",
     btTick:"res/Art/Storage/butoon-V.png",
     bgNotice2:"res/Art/Storage/BG2.png",
-    btCancle:"res/Art/Storage/tuchoi.png",
+    btCancel:"res/Art/Storage/tuchoi.png",
     btSuggest:"res/Art/Storage/Layer 24.png",
 
 

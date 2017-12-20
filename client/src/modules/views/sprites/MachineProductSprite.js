@@ -60,7 +60,7 @@ var MachineProductSprite = ProductSprite.extend({
         this._toolTip = new cc.Sprite(res.tooltip_png);
         this._toolTip.setPosition(this._toolTip.width / 2 + this.width , this.height/2  );
         this.addChild(this._toolTip,3);
-        this.setZOrder(2);
+        this.setLocalZOrder(2);
         if (user.getLevel() >= this._productConfig.levelUnlock){
             this._defaultPosition = new cc.p(this.x, this.y);
             target.runAction(new cc.ScaleTo(0.1, 1.5, 1.5));
@@ -381,7 +381,7 @@ var MachineProductSprite = ProductSprite.extend({
             var seq = new  cc.Sequence(action1, action2);
             this.runAction(seq);
             this._muiten.setVisible(true);
-            this.setScale(1);
+            this.runAction(new cc.ScaleTo(0.1, 1, 1));
 
             if (this.checkDragIntheMachine() || this.checkDragInTheQueueSlot(touch)){
                 cc.log("producinggggggggggggggggggggggggggg!!!");

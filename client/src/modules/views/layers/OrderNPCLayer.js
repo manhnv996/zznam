@@ -94,9 +94,9 @@ var OrderNPCLayer = BaseLayout.extend({
         this.btSell.addClickEventListener(this.sellEvent.bind(this));
 
         //
-        this.btCancle = this.initButton(this.slotNpc.x + this.slotNpc.width * 0.1, cc.winSize.height * 0.35, "text_btn_delete_npc", 1);
-        this.addChild(this.btCancle);
-        this.btCancle.addClickEventListener(this.cancelEvent.bind(this));
+        this.btCancel = this.initButton(this.slotNpc.x + this.slotNpc.width * 0.1, cc.winSize.height * 0.35, "text_btn_delete_npc", 1);
+        this.addChild(this.btCancel);
+        this.btCancel.addClickEventListener(this.cancelEvent.bind(this));
 
         //
         this.btWait = this.initButton(this.slotNpc.x + this.slotNpc.width * 0.1, cc.winSize.height * 0.35, "text_btn_later_npc", 2);

@@ -6,9 +6,10 @@ var SettingGame = BaseLayout.extend({
     ctor: function () {
         this._super(res.BG_2_PNG, "text_title_setting_game", true, true, true);
 
-        var idLabel = new cc.LabelBMFont("ID: " + 0, res.FONT_OUTLINE_30);
-        idLabel.x = this.width / 9;
-        idLabel.y = this.height / 10 * 7;
+        var idLabel = new cc.LabelBMFont("ID: " + user.id, res.FONT_OUTLINE_30);
+        idLabel.x = this.width / 12;
+        idLabel.y = this.height / 10 * 7 + 5;
+        idLabel.setAnchorPoint(0, 0.5);
         this.addChild(idLabel);
 
         var btnLogout = new ccui.Button(res.BUTTON_ZINGME_PNG);
@@ -95,7 +96,7 @@ var SettingGame = BaseLayout.extend({
         cc.sys.localStorage.removeItem("session");
         cc.eventManager.removeAllListeners();
         ScheduleLoop.instance.clearAllSchedule(); // Flush cached
-        
+
         cc.director.runScene(new LoginScene());
     }
 });
