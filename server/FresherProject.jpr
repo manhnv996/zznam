@@ -24,6 +24,9 @@
    <hash n="oracle.ide.model.ResourcePaths">
       <hash n="resourcesContentSet">
          <list n="pattern-filters">
+            <string v="+src/config/json/foodMachine.json"/>
+            <string v="+src/config/json/bakeryConfig.json"/>
+            <string v="+src/config/json/rawMaterialConfig.json"/>
             <string v="+src/config/json/machineConfig.json"/>
             <string v="+src/config/json/upgradeWareConfigs.json"/>
             <string v="+src/config/json/upgradeSiloConfigs.json"/>

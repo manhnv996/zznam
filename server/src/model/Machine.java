@@ -5,6 +5,8 @@ import config.enums.MachineTypeEnum;
 
 import config.jsonobject.MachineConfig;
 
+import config.jsonobject.machine.RawMaterial;
+
 import config.utils.ConfigContainer;
 
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ import java.util.List;
 
 public class Machine extends ConstructedObject {
 
+   
     private int id;
     private MachineTypeEnum type;
     private int slot;
@@ -65,4 +68,91 @@ public class Machine extends ConstructedObject {
         } 
         return 0;
     }
+    public boolean addProduct(String productType){
+          int length = this.getProductQueueLength();
+          int currFinishedProducts = this.getCurrentFinishedProducts();
+          int currNotFinishedProducts = length - currFinishedProducts;
+          if ( currNotFinishedProducts >= this.slot) return false;
+          if (true ){
+              if (productType != null ) {
+                if ( length == 0) {
+                  long timeNow = System.currentTimeMillis();
+                  this.setStartTime(timeNow);
+                }
+                return this.productQueue.add(productType);
+              }
+          }
+          return false;
+        }
+        public boolean unlockSlot(){
+          if (this.slot < 9){
+            this.slot += 1;
+            return true;
+          }
+          return false;
+        }
+        public int getProductQueueLength(){
+          return this.productQueue.size();
+        }
+        public int getCurrentFinishedProducts(){
+          int count = 0;
+          long timeNow = System.currentTimeMillis();
+          long tempTime = this.startTime;
+          int length = this.getProductQueueLength();
+          for (int i = 0; i < length; i++){
+            long currProductTime = 60*1000/5; //Todo function getProductTimeByType(this.productQueue.get(i));
+            tempTime += currProductTime;
+            if (timeNow >= tempTime){
+              count++;
+            } else {
+              break;
+            }
+          }
+          return count;    
+        }
+        public void setStartTime (long startTime) {
+            this.startTime = startTime;
+        }
+        public long getFirstProductRemainingTime(){
+          int length = this.getProductQueueLength();
+          int currFinishedProducts = this.getCurrentFinishedProducts();
+          if (currFinishedProducts < length){
+            long timeNow = System.currentTimeMillis();
+            long tempTime = this.startTime;
+            for (int i = 0 ; i < currFinishedProducts; i++){
+              long currProductTime = 60*1000/5; //Todo function getProductTimeByType(this.productQueue.get(i));
+              tempTime+= this.startTime;
+            }
+            long remainingTime = timeNow - tempTime;
+            if (remainingTime > 0){
+              return remainingTime;
+            } 
+            return 0;
+          } else {
+            return 0;
+          }
+        }
+        public boolean boostProduct(){
+            long remainingTime = this.getFirstProductRemainingTime();
+            if (remainingTime != 0){
+                long newStartTime = this.getStartTime() - remainingTime;
+                this.setStartTime(newStartTime);
+                return true;
+            }
+            return false;
+        }
+        public String collectProduct(){
+            int currFinishedProducts = this.getCurrentFinishedProducts();
+            if (currFinishedProducts > 0){
+                long firstProductTime = 60*1000/5; //Todo function getProductTimeByType(this.productQueue.get(0));
+                long newStartTime = this.getStartTime() + firstProductTime;
+                this.setStartTime(newStartTime);
+                String productType = this.getProductQueue().get(0);
+                this.productQueue.remove(0);
+                return productType;
+            }
+            return null;
+        }
+//    if (user.getAsset().getFoodStorage().addItem(this.plantType, 2)){
+        
 }

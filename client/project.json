@@ -18,6 +18,7 @@
         "src/**/*.js"
     ],
     "jsList": [
+        "src/data/MachineItemResource.js",
         "src/data/FontsResource.js",
         "src/data/OrderResource.js",
         "src/data/SettingsResource.js",
@@ -59,6 +60,7 @@
         "src/modules/utils/getTime.js",
         "src/modules/utils/rayCasting.js",
         "src/modules/utils/inertiaEngine.js",
+        "src/modules/utils/LastPageUtil.js",
         "src/modules/utils/caculateDistance.js",
         "src/modules/utils/request.js",
         "src/modules/configs/MapItemEnum.js",
@@ -67,6 +69,8 @@
         "src/modules/configs/AnimalConfig.js",
         "src/modules/configs/TagClusters.js",
         "src/modules/configs/NaturalThingEnum.js",
+
+        "src/modules/configs/MachineConfig.js",
 
         "src/modules/configs/MapConfigs.js",
         "src/modules/configs/ListenerPriorityConfigs.js",
@@ -85,6 +89,7 @@
         "src/modules/views/sprites/VungnuocSprite.js",
         "src/modules/views/sprites/DatoSprite.js",
         "src/modules/views/sprites/DanhoSprite.js",
+
         "src/modules/views/sprites/AnimalSprite.js",
         "src/modules/views/sprites/CowSprite.js",
         "src/modules/views/sprites/ChickenSprite.js",
@@ -110,6 +115,9 @@
         "src/modules/views/layers/AnimateEventLayer.js",
         "src/modules/views/layers/FriendHomeLayer.js",
 
+        "src/modules/views/layers/popup/MachineTablePopup.js",
+        "src/modules/views/layers/MachineLayer.js",
+
         "src/modules/views/sprites/ProductSprite.js",
         "src/modules/views/sprites/SeedSprite.js",
         "src/modules/views/sprites/CropToolSprite.js",
@@ -120,6 +128,8 @@
         "src/modules/views/sprites/OrderSprite.js",
         "src/modules/views/sprites/CarSprite.js",
         "src/modules/views/sprites/NPCSprite.js",
+        "src/modules/views/sprites/MachineProductSprite.js",
+        "src/modules/views/sprites/MachineSprite.js",
 
         "src/modules/configs/enum/ErrorLog.js",
         "src/modules/configs/enum/ProductTypes.js",
@@ -141,6 +151,7 @@
         "src/modules/controllers/MapCtrl.js",
         "src/modules/controllers/GameShopController.js",
         "src/modules/controllers/StorageCtrl.js",
+        "src/modules/controllers/MachineController.js",
         "src/modules/controllers/OrderCtrl.js",
         "src/modules/controllers/ConstructedCtrl.js",
         "src/modules/controllers/AnimalCtrl.js",

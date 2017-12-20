@@ -170,6 +170,10 @@ public class FresherExtension extends BZExtension {
         ConfigContainer.init();
         // System.out.println("[+] Value " + ConfigContainer.mapConfig.Init.height);
 //        doTest();
+        
+//        System.out.println(ConfigContainer.getRawMaterialList("food_machine", "food_pig").get(0).rawMaterialId);
+//        System.out.println(ConfigContainer.getRawMaterialList("bakery_machine", "product_corn_bread").get(0).rawMaterialId);
+        
         // Init usersInfo
         this.users = Users.getUsers();
         

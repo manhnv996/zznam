@@ -6,6 +6,7 @@ var MainScene = cc.Scene.extend({
 		PlantCtrl.instance = new PlantCtrl();
 		GameShopController.instance = new GameShopController();
 		StorageCtrl.instance = new StorageCtrl();
+		MachineController.instance = new MachineController();
 		ConstructedCtrl.instance = new ConstructedCtrl();
 		AnimalCtrl.instance = new AnimalCtrl();
 		NatureCtrl.instance = new NatureCtrl();
@@ -16,12 +17,18 @@ var MainScene = cc.Scene.extend({
 		MapLayer.instance = new MapLayer();
 		this.addChild(MapLayer.instance);
 
-        PopupLayer.instance = new PopupLayer();
-        this.addChild(PopupLayer.instance);
+		//
+		PopupLayer.instance = new PopupLayer();
+		this.addChild(PopupLayer.instance);
+
 
 		TablePopupLayer.instance = new TablePopupLayer();
 		this.addChild(TablePopupLayer.instance);
 
+		MachineLayer.instance = new MachineLayer();
+		this.addChild(MachineLayer.instance);
+
+		//var mainGuiLayer = new MainGuiLayer();
 		AnimateEventLayer.instance = new AnimateEventLayer();
 		this.addChild(AnimateEventLayer.instance);
 
