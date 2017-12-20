@@ -57,7 +57,7 @@ var PreloaderLayer = cc.Layer.extend({
 
     update:function(dt){
         this.percent += 100 * dt;
-        cc.log(this.percent);
+        // cc.log(this.percent);
         if (this.percent >= 100){
             this.unscheduleUpdate();
         }
