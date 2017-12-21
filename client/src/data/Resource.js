@@ -30,7 +30,8 @@ var res = {
     //images
     Slot1_png : "zcsd/slot1.png",
 
-    bg_luamoi_mp3: "Sound_Music/Music/LuamoiIntroduction80kbps.mp3"
+    // bg_luamoi_mp3: "Sound_Music/Music/LuamoiIntroduction80kbps.mp3"
+    bg_luamoi_mp3: "res/Sound_Music/Music/LuaMoiIntroduction80kbps.mp3"
 //////////////////
     ///////////
 
