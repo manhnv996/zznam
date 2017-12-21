@@ -47,22 +47,17 @@ var SoundCtrl = cc.Class.extend({
     },
 
     isOnMusic: function () {
-        if (!cc.sys.localStorage.getItem("music") || cc.sys.localStorage.getItem("music") === "true") {
-            return true;
-        }
-        return false;
+        return cc.sys.localStorage.getItem("music") === "true";
     },
 
     isOnEffect: function () {
-        if (!cc.sys.localStorage.getItem("effect") || cc.sys.localStorage.getItem("effect") === "true") {
-            return true;
-        }
-        return false;
+        return cc.sys.localStorage.getItem("effect") === "true";
     },
 
     loadSetting : function() {
         this._isOnEffect = this.isOnEffect();
         this._isOnMusic = this.isOnMusic();
+        cc.log(this._isOnEffect, this._isOnMusic);
     },
 
     saveSetting : function() {
