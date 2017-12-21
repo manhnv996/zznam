@@ -1,7 +1,7 @@
 /**
  * Created by CPU60135_LOCAL on 10/27/2017.
  */
-var PreloaderLayer = cc.Layer.extend({
+var PreloaderLayer = BaseScene.extend({
     percent: 0,
     loadingBar: null,
     ctor : function(){
@@ -52,7 +52,8 @@ var PreloaderLayer = cc.Layer.extend({
             gv.gameClient.connect();
         } else {
             // cc.log("session not exists");
-            cc.director.runScene(new LoginScene());
+            LoginScene.instance = new LoginScene();
+            cc.director.runScene(LoginScene.instance);
         }
     },
 
@@ -84,8 +85,17 @@ var PreloaderScene = cc.Scene.extend({
 
     showLoadingText: function() {
         this.layer.showLoadingText();
+    },
+
+    disconnected: function() {
+        LoadingScene.instance = new LoadingScene();
+        LoadingScene.instance.setText(fr.Localization.text("text_disconnect"));
+        cc.director.runScene(LoadingScene.instance);
+    },
+
+    connectFailed: function() {
+        LoadingScene.instance = new LoadingScene();
+        LoadingScene.instance.setText(fr.Localization.text("text_disconnect"));
+        cc.director.runScene(LoadingScene.instance);
     }
 });
-
-//});
-
