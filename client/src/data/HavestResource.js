@@ -5,7 +5,8 @@ var HavestResource = {
     ////////////////
 
     //
-    caroot: "res/Art/Crops/Field/caroot.png",
+    caroot
+        : "res/Art/Crops/Field/caroot.png",
     corn: "res/Art/Crops/Field/corn.png",
     crops: "res/Art/Crops/Field/crops.png",
     sausages: "res/Art/Crops/Field/dau.png",
@@ -33,9 +34,15 @@ var HavestResource = {
 
     popup1: "res/Art/Crops/Gui-act/1.png",
     popup2: "res/Art/Crops/Gui-act/2.png",
+    popup3: "res/Art/Crops/Gui-act/3.png",
     popup4: "res/Art/Crops/Gui-act/4.png",
     popup5: "res/Art/Crops/Gui-act/5.png",
-
+    button_congG_1: "res/Art/Crops/Gui-act/butoon-congG-1.png",
+    button_energy_2: "res/Art/Crops/Gui-act/button-energy2.png",
+    o_trong_1_1: "res/Art/Crops/Gui-act/otrong1-1.png",
+    o_trong_2: "res/Art/Crops/Gui-act/otrong2.png",
+    o_trong_2_2: "res/Art/Crops/Gui-act/otrong2-2.png",
+    o_trong_1: "res/Art/Crops/Gui-act/otrong1.png",
 
     slot: "res/Art/Crops/Gui-act/slot.png",
     tooltip: "res/Art/Crops/Gui-act/tooltip.png",
@@ -58,13 +65,13 @@ var HavestResource = {
     msgFullFoodStorage: "res/Art/Storage/fullSilo.png",
     btTick:"res/Art/Storage/butoon-V.png",
     bgNotice2:"res/Art/Storage/BG2.png",
-    btCancle:"res/Art/Storage/tuchoi.png",
+    btCancel:"res/Art/Storage/tuchoi.png",
     btSuggest:"res/Art/Storage/Layer 24.png",
 
 
     //plant animation
     caroot_plist: "res/Art/Crops/animation/caroot/caroot.plist",
-    caroot_png: "res/Art/Crops/animation/caroot/caroot.png",
+    caroot_png: "res/Art/Crops/animation/caroot/caroot.png"
 };
 
 var g_HavestResource = [];

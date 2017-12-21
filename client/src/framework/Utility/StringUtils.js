@@ -53,3 +53,7 @@ fr.toMoney = function (str) {
     }
     return result.reverse().join('.');
 }
+
+fr.moneyToNumber = function (str) {
+    return parseInt(str.replace(".", ""));
+}

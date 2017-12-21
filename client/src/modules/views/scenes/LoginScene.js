@@ -7,6 +7,11 @@ gv.password  = null;
 var LoginLayer = cc.Layer.extend({
     userNameBox: null,
     passwordBox: null,
+    userNameText: null,
+    passwordText: null,
+    lbStatus: null,
+    flag: 0, //flag = 1, loginButton is already clicked login, flag = 0 not
+
     ctor:function(){
         this._super();
         var size = cc.director.getVisibleSize();
@@ -18,20 +23,24 @@ var LoginLayer = cc.Layer.extend({
         spritebg.setPosition(centerpos);
         this.addChild(spritebg);
         //add username edittext
-        this.userNameBox =  new cc.EditBox(cc.size(400, 70), new cc.Scale9Sprite(res.LAYER_24_PNG));
-        this.userNameBox.setPosition(centerpos.x, 5*centerpos.y/4);
-        this.userNameBox.setFont("Paint Boy", 60);
-        this.userNameBox.setPlaceHolder("username");
+        var usernamBoxImage =  new cc.Scale9Sprite(res.LAYER_24_PNG);
+        usernamBoxImage.setPosition(centerpos.x, 5*centerpos.y/4);
+        this.addChild(usernamBoxImage);
+
+        this.userNameBox = new cc.EditBox(cc.size(350, 70), new cc.Scale9Sprite(res.LAYER_24_PNG));
+        //this.userNameBox.setTouchEnabled(true);
         this.userNameBox.setString("zznamspozz79");
+        this.userNameBox.setPosition(centerpos.x, 5*centerpos.y/4);
+        //this.userNameBox.addEventListener(this.textFieldEvent, this);
         this.addChild(this.userNameBox);
 
         //add password edittext
-        this.passwordBox=  new cc.EditBox(cc.size(400, 70), new cc.Scale9Sprite(res.LAYER_24_PNG));
+        this.passwordBox=  new cc.EditBox(cc.size(350, 70), new cc.Scale9Sprite(res.LAYER_24_PNG));
         this.passwordBox.setPosition(centerpos.x, 4*centerpos.y/4);
         this.passwordBox.setFont("Paint Boy", 60);
         this.passwordBox.setPlaceHolder("password");
-        this.passwordBox.setString("altkhm979");
         this.passwordBox.setInputFlag(cc.EDITBOX_INPUT_FLAG_PASSWORD);
+        this.passwordBox.setString("altkhm979");
         this.addChild(this.passwordBox);
 
 
@@ -47,56 +56,51 @@ var LoginLayer = cc.Layer.extend({
         this.addChild(menu);
 
 
-        this.lblLog = gv.commonText(fr.Localization.text("..."), size.width*0.4, size.height*0.05);
-        this.addChild(this.lblLog);
-
-
+        this.lbStatus = new cc.LabelBMFont("", res.FONT_OUTLINE_50);
+        this.lbStatus.setPosition(cc.winSize.width / 2, 80);
+        this.addChild(this.lbStatus);
     },
-    onClickLogin: function(){
-        cc.log("==onplay clicked");
-        audioEngine.playEffect(res.func_click_button_mp3, false);
+
+    onClickLogin: function() {
+        if (this.flag) {
+            return;
+        }
+        this.flag = true;
+        this.lbStatus.setString(fr.Localization.text("txt_waiting"));
+        SoundCtrl.instance.playSoundEffect(res.func_click_button_mp3, false);
+        
         var username = this.userNameBox.getString();
         var password = this.passwordBox.getString();
-        cc.log("==onplay clicked, username : " + username);
-        cc.log("==onplay clicked, password : " + password);
-
-        if (username == "" ||password == ""){
-            this.lblLog.setString("Tên tài khoản hoặc mật khẩu không đúng!");
-        } else{
-            gv.username = username;
-            gv.password = password;
+        
+        if (username == "" || password == ""){
+            this.invalidUsernamePassword();
         }
-        cc.log("this.lblLog.setString("+"Start Connect!);" + gv.username + "  " + gv.password);
+
+        gv.username = username;
+        gv.password = password;
 
         gv.gameClient.connect();
     },
-    onEnter:function(){
-        this._super();
+
+    connectFailed: function() {
+        this.flag = false;
+        return this.lbStatus.setString(fr.Localization.text("txt_cant_connect_to_server"));
     },
-    onConnectSuccess:function()
-    {
-        cc.log("this.lblLog.setString("+"Connect Success!);")
-        this.lblLog.setString("Connect Success!");
-    },
-    onConnectFail:function(text)
-    {
-        cc.log("this.lblLog.setString("+"Connect fail: );")
-        this.lblLog.setString("Connect fail: " + text);
-    },
-    //onFinishLogin:function()
-    //{
-    //    this.lblLog.setString("Finish login!");
-    //    //cc.director.runScene(new MainScene());
-    //
-    //    MainScene.instance = new MainScene();
-    //    cc.director.runScene(MainScene.instance);
-    //}
+
+    invalidUsernamePassword: function() {
+        this.flag = false;
+        return this.lbStatus.setString(fr.Localization.text("text_can_not_login"));
+    }
 });
 
-var LoginScene = cc.Scene.extend({
-    onEnter: function(){
+var LoginScene = BaseScene.extend({
+    ctor: function() {
         this._super();
-        var layer = new LoginLayer();
-        this.addChild(layer);
+        this.layer = new LoginLayer();
+        this.addChild(this.layer);
+    },
+
+    connectFailed: function() {
+        this.layer.connectFailed();
     }
 });

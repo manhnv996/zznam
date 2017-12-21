@@ -245,7 +245,7 @@ var MachineTable = cc.Layer.extend({
                             GameShopLayout.instance.show();
                         }
                     } else {
-                        var missGold = GameShopController.instance.checkGold(sender.parent.getChildByTag(5).getString());
+                        var missGold = GameShopController.instance.checkGold(fr.moneyToNumber(sender.parent.getChildByTag(5).getString()));
                         cc.log(missGold);
                         if (missGold) {
                             BaseGUILayer.instance.notifyShopNotEnoughGold(missGold, this.typeObject,
@@ -254,38 +254,38 @@ var MachineTable = cc.Layer.extend({
                             // Success
                             var machineConfig = getMachineConfigByType(this.typeObject);
                             var machineModel = new Machine(0, this.typeObject, machineConfig.slot, 0, null, false,
-                                false, new Date().getTime(), machineConfig.time, new Coordinate(endPl.x, endPl.y));
+                                false, getTime(), machineConfig.time, new Coordinate(endPl.x, endPl.y));
                             user.getAsset().addMachine(machineModel);
-
+                            cc.log("machine id", machineModel.machineId);
                             //Sprite
                             switch (this.typeObject) {
                                 case "bakery_machine":
                                     //Constructed Sprite
-                                    this._sprite = new ConstructedSprite(machineModel.id,
+                                    this._sprite = new ConstructedSprite(machineModel.machineId,
                                         MapConfigs.BakeryMachine.size.width, MapConfigs.BakeryMachine.size.height,
                                         machineModel.coordinate.x, machineModel.coordinate.y,
                                         MapItemEnum.MACHINE);
                                     break;
                                 case "food_machine":
-                                    this._sprite = new ConstructedSprite(machineModel.id,
+                                    this._sprite = new ConstructedSprite(machineModel.machineId,
                                         MapConfigs.FoodMachine.size.width, MapConfigs.FoodMachine.size.height,
                                         machineModel.coordinate.x, machineModel.coordinate.y,
                                         MapItemEnum.MACHINE);
                                     break;
                                 case "butter_machine":
-                                    this._sprite = new ConstructedSprite(machineModel.id,
+                                    this._sprite = new ConstructedSprite(machineModel.machineId,
                                         MapConfigs.ButterMachine.size.width, MapConfigs.ButterMachine.size.height,
                                         machineModel.coordinate.x, machineModel.coordinate.y,
                                         MapItemEnum.MACHINE);
                                     break;
                                 case "sugar_machine":
-                                    this._sprite = new ConstructedSprite(machineModel.id,
+                                    this._sprite = new ConstructedSprite(machineModel.machineId,
                                         MapConfigs.SugarMachine.size.width, MapConfigs.SugarMachine.size.height,
                                         machineModel.coordinate.x, machineModel.coordinate.y,
                                         MapItemEnum.MACHINE);
                                     break;
                                 case "popcorn_machine":
-                                    this._sprite = new ConstructedSprite(machineModel.id,
+                                    this._sprite = new ConstructedSprite(machineModel.machineId,
                                         MapConfigs.PopcornMachine.size.width, MapConfigs.PopcornMachine.size.height,
                                         machineModel.coordinate.x, machineModel.coordinate.y,
                                         MapItemEnum.MACHINE);
@@ -297,8 +297,8 @@ var MachineTable = cc.Layer.extend({
                             this._sprite.setLogicPosition(this._sprite.lx, this._sprite.ly, true);
                             user.reduceGold(sender.parent.getChildByTag(5).getString());
                             //Send Server
-                            testnetwork.connector.sendBuyMapObjectRequest(machineModel.id,
-                                machineModel.type, endPl.x, endPl.y);
+                            testnetwork.connector.sendBuyMapObjectRequest(machineModel.machineId,
+                                machineModel.machineType, endPl.x, endPl.y);
 
                             GameShopLayout.instance.show();
                         }

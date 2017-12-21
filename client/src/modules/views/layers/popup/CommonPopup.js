@@ -59,19 +59,7 @@ var CommonPopup = cc.Layer.extend({
             this.btnClose = new ccui.Button(res.TU_CHOI_PNG);
             var btnCloseSize = this.btnClose.getSize();
             cc.log("btnCloseSize " + btnCloseSize.width + "  " + btnCloseSize.height);
-//<<<<<<< HEAD
-//            //btnClose.setPosition(size.width/2 + spritebg.width/2 - btnCloseSize.width/2, size.height/2 + spritebg.height/2 - btnCloseSize.height/2);
-//            btnClose.setPosition(this.background.width - btnCloseSize.width / 2, this.background.height - btnCloseSize.height / 2);
-//            btnClose.addClickEventListener(this.onSelectClose.bind(this));
-//            //this.addChild(btnClose);
-//            this.background.addChild(btnClose);
-//        }
-//
-//        //set animation
-//        var action1 = new cc.ScaleTo(0.13, 1.4);
-//        var action2 = new cc.ScaleTo(0.1, 1.25);
-//        this.runAction(cc.sequence(action1, cc.delayTime(0.01), action2));
-//=======
+
             this.btnClose.setPosition(size.width/2 + this.spritebg.width/2 - btnCloseSize.width/2, size.height/2 + this.spritebg.height/2 - btnCloseSize.height/2);
             this.btnClose.addClickEventListener(this.onSelectClose.bind(this));
             this.addChild(this.btnClose);
@@ -116,25 +104,39 @@ var CommonPopup = cc.Layer.extend({
     }
 });
 
-var CommonButton =  ccui.Scale9Sprite.extend(
-    {
-        title: null,
-        ctor: function (title) {
-            this._super(res.LAYER_24_PNG);
-            this.title = title;
-            this.init();
-        },
-        init: function(){
-            var height = this.getOriginalSize().height;
-            var width = this.getOriginalSize().width;
-            cc.log(height + "===========" + width);
-            var centerpos = cc.p(width / 2, height / 2);
+var CommonButton =  ccui.Scale9Sprite.extend({
+    title: null,
+    ctor: function (title) {
+        this._super(res.LAYER_24_PNG);
+        this.title = title;
+        this.init();
+    },
+    init: function(){
+        var height = this.getOriginalSize().height;
+        var width = this.getOriginalSize().width;
+        cc.log(height + "===========" + width);
+        var centerpos = cc.p(width / 2, height / 2);
 
-            var title = cc.LabelBMFont(this.title, res.FONT_OUTLINE_30);
-            title.setPosition(centerpos);
-            this.addChild(title);
-        }
-
+        var title = cc.LabelBMFont(this.title, res.FONT_OUTLINE_30);
+        title.setPosition(centerpos);
+        this.addChild(title);
     }
-)
 
+})
+
+
+var CommonMachinePopup = cc.Layer.extend({
+    popupBackground: null,
+    popupItemList: [],
+    slotList: [],
+    buySlot: null,
+    ctor: function () {
+        this._super();
+
+        this.popupBackground = new cc.Sprite(res.popup5);
+        this.popupBackground.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
+        this.addChild(this.popupBackground);
+
+
+    },
+})

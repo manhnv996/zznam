@@ -6,7 +6,7 @@ var NoticeMissingItem = BaseLayout.extend({
     orderId: 0,
 
     ctor: function (storageMissingItemList, targetType, orderId) {
-        this._super(res.bgNotice2, "text_notice_title", true, true, true);
+        this._super(res.bgNotice2, fr.Localization.text("text_notice_title"), true, true, true);
 
         //
         if (targetType !== undefined) {
@@ -60,7 +60,7 @@ var NoticeMissingItem = BaseLayout.extend({
         btBuy.setPosition(this._bg.width / 2, this._bg.height / 8);
         this._bg.addChild(btBuy);
         btBuy.addClickEventListener(function () {
-            audioEngine.playEffect(res.func_click_button_mp3, false);
+            SoundCtrl.instance.playSoundEffect(res.func_click_button_mp3, false);
             if (user.getRuby() >= this.rubiBuy){
 
                 if (this.targetType == BuyItemTargetType.MAKE_ORDER){

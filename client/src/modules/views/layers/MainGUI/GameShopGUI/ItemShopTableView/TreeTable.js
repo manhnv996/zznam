@@ -11,14 +11,14 @@ var TreeTable = cc.Layer.extend({
     init:function () {
         var winSize = cc.director.getWinSize();
 
-        var tableView = new cc.TableView(this, cc.size(363, cc.winSize.height / 9 * 8));
-        tableView.setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL);
-        tableView.x = 0;
-        tableView.y = 0;
-        tableView.setDelegate(this);
-        tableView.setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN);
-        this.addChild(tableView);
-        tableView.reloadData();
+        this._tableView = new cc.TableView(this, cc.size(363, cc.winSize.height / 9 * 8));
+        this._tableView.setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL);
+        this._tableView.x = 0;
+        this._tableView.y = 0;
+        this._tableView.setDelegate(this);
+        this._tableView.setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN);
+        this.addChild(this._tableView);
+        this._tableView.reloadData();
 
         cc.log((cc.winSize.width / 3));
 

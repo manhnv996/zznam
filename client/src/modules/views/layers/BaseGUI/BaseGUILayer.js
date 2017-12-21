@@ -131,6 +131,20 @@ var BaseGUILayer = cc.Layer.extend({
         this.blockLayout();
         //this.addChild(this._layout);
     },
+    showSuggestBuyRawMaterial: function (storageMissingItemList) {
+        this._layout = new NoticeMissingItemLayout(storageMissingItemList);
+        if (this._layout._hasCloseButton) {
+            this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);
+        }
+        this.blockLayout();
+    },
+    showSuggestLastSeeds: function (storageLastSeedsItemList) {
+        this._layout = new NoticeLastSeedsLayout(storageLastSeedsItemList);
+        if (this._layout._hasCloseButton) {
+            this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);
+        }
+        this.blockLayout();
+    },
 
     showNoticeSureCancelOrder: function (orderId) {
         this._layout = new NoticeCancelOrder(orderId);
@@ -155,7 +169,14 @@ var BaseGUILayer = cc.Layer.extend({
         //this.addChild(this._layout);
     },
     ////BaseGUILayer.instance.removeBlockListener();
-
+    showMyShop: function () {
+        this._layout = new MyShopLayout(user.id);
+        if (this._layout._hasCloseButton) {
+            //cc.log("_btnClose");
+            this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);
+        }
+        this.blockLayout();
+    },
 
     /**
      * Close GUI
@@ -170,7 +191,7 @@ var BaseGUILayer = cc.Layer.extend({
     touchCloseButton: function (sender, type) {
         switch (type) {
             case ccui.Widget.TOUCH_BEGAN:
-                audioEngine.playEffect(res.func_click_button_mp3, false);
+                SoundCtrl.instance.playSoundEffect(res.func_click_button_mp3, false);
                 break;
             case ccui.Widget.TOUCH_ENDED:
             case ccui.Widget.TOUCH_CANCELED:

@@ -222,12 +222,12 @@ var NPCSprite = AnimationSprite.extend({
                 cc.delayTime(3),
                 cc.callFunc(function() {
                     this.play("1");
-                    this.schedule(this.updateWalkingOut, 0.05);
+                    this.schedule(this.updateWalkingOut);
                 }.bind(this))
             ));
         } else {
             this.play("1");
-            this.schedule(this.updateWalkingOut, 0.05);
+            this.schedule(this.updateWalkingOut);
         }
         this.isStatus = OrderStatusTypes.WAITTING;
     },
@@ -235,7 +235,7 @@ var NPCSprite = AnimationSprite.extend({
         this.unscheduleUpdate();
         this.unschedule(this.doAction);
         this.play("1");
-        this.schedule(this.updateWalkingBack, 0.05);
+        this.schedule(this.updateWalkingBack);
         this.isStatus = OrderStatusTypes.WAITTING;
 
         this.setVisible(true);
@@ -243,9 +243,9 @@ var NPCSprite = AnimationSprite.extend({
     ////
     updateWalkingOut: function (dt) {
 
-        if (Math.round(this.getLogicPosition().x) <= NPCSprite.startPoint.x + 1){
+        if (Math.round(this.getLogicPosition().x + 0.25) <= NPCSprite.startPoint.x + 1){
             this.direction = cc.p(1, 0);
-        } else if (Math.round(this.getLogicPosition().y <= NPCSprite.middlePoint.y)){
+        } else if (Math.round(this.getLogicPosition().y) <= NPCSprite.middlePoint.y){
             this.direction = cc.p(0, 1);
         } else {
             this.direction = cc.p(1, 0);
@@ -276,7 +276,7 @@ var NPCSprite = AnimationSprite.extend({
 
     updateWalkingBack: function (dt) {
 
-        if (Math.round(this.getLogicPosition().x) > NPCSprite.middlePoint.x + 1){
+        if (Math.round(this.getLogicPosition().x + 0.25) > NPCSprite.middlePoint.x + 1){
             this.direction = cc.p(-1, 0);
         } else {
             this.direction = cc.p(0, -1);
@@ -320,7 +320,7 @@ var NPCSprite = AnimationSprite.extend({
 
     updateOrderNPCWaittingTime: function () {
         if (this.orderNPC != null){
-            var parseCurrTime = new Date().getTime();
+            var parseCurrTime = getTime();
             var finishWaittingTime = this.orderNPC.getFinishWaittingTime();
             if (finishWaittingTime != null){
                 if (parseCurrTime > finishWaittingTime.getTime()){
@@ -343,7 +343,7 @@ var NPCSprite = AnimationSprite.extend({
     _offset: function() {
         if (this.orderNPC != null){
             if (this.orderNPC.npc_res == resAniId.Cogai1){
-                return cc.p(0, 100);
+                return cc.p(0, 120);
             } else {
                 return cc.p(0, 0);
             }

@@ -10,9 +10,8 @@ var StorageCtrl = cc.Class.extend({
                 ProductTypes.TOOL_SCREW, res.upgradeSilo[level + 1].tool_screw,
                 ProductTypes.TOOL_WOODPANEL, res.upgradeSilo[level + 1].tool_woodPanel)) {
 
-            audioEngine.playEffect(res.func_upgrade_storage_mp3, false);
             user.getAsset().getFoodStorage().setCapacity(res.upgradeSilo[level + 1].capacity);
-
+            this.effectUpgrade(res.upgradeSilo[level].capacity, res.upgradeSilo[level + 1].capacity);
             BaseGUILayer.instance.removeBlockListener();
             //send server
             testnetwork.connector.sendUpgradeStorage(StorageTypes.FOOD_STORAGE, (level + 1));
@@ -26,13 +25,16 @@ var StorageCtrl = cc.Class.extend({
                 ProductTypes.TOOL_DUCTTAPE, res.upgradeWarehouse[level + 1].tool_ductTape,
                 ProductTypes.TOOL_PLANK, res.upgradeWarehouse[level + 1].tool_plank)) {
 
-            audioEngine.playEffect(res.func_upgrade_storage_mp3, false);
             user.getAsset().getWarehouse().setCapacity(res.upgradeWarehouse[level + 1].capacity);
-            //StorageLayer.instance._layoutStorage.removeFromParent(true);
+            this.effectUpgrade(res.upgradeWarehouse[level].capacity, res.upgradeWarehouse[level + 1].capacity);
             BaseGUILayer.instance.removeBlockListener();
-
             //send server
             testnetwork.connector.sendUpgradeStorage(StorageTypes.WAREHOUSE, (level + 1));
         }
+    },
+
+    effectUpgrade: function (curLevel, nextLevel) {
+        SoundCtrl.instance.playSoundEffect(res.func_upgrade_storage_mp3, false);
+        AnimateEventLayer.instance.upgradeStorageSuccess(curLevel, nextLevel);
     }
 });

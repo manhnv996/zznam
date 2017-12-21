@@ -108,11 +108,11 @@
      <transform x="-31.5" y="-121" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
-   <slot name="product_bone" parent="product_bone" z="19">
-    <display name="vatpham" type="image">
-     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="43" pY="28.5"/>
-    </display>
-   </slot>
+   <!--<slot name="product_bone" parent="product_bone" z="19">-->
+    <!--<display name="vatpham" type="image">-->
+     <!--<transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="43" pY="28.5"/>-->
+    <!--</display>-->
+   <!--</slot>-->
    <slot name="water" parent="water" z="10">
     <display name="water1" type="image">
      <transform x="0" y="48.5" skX="0" skY="0" scX="1" scY="1" pX="26" pY="96.95"/>

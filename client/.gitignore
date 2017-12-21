@@ -4,3 +4,4 @@
 *.pdb
 workspace.xml
 *.apk
+*.sqlite

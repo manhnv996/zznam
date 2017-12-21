@@ -25,6 +25,7 @@ import config.enums.ProductType;
 import config.enums.StorageType;
 
 import config.jsonobject.ProductConfig;
+import config.jsonobject.machine.RawMaterial;
 import config.jsonobject.map.NaturalObject;
 
 import config.utils.ConfigContainer;
@@ -91,7 +92,7 @@ public class UserHandler extends BaseClientRequestHandler {
                 getUserInfo(user);
                 break;
             case CmdDefine.GET_USER: // New get user
-                System.out.println("[INFO] User request information " + user.getId());
+                //System.out.println("[INFO] User request information " + user.getId());
                 returnUser(user);
                 break;
             case CmdDefine.ADD_MONEY:
@@ -137,18 +138,20 @@ public class UserHandler extends BaseClientRequestHandler {
             if (userInfo == null) {
                 userInfo = createUser(user.getId());
                 
-                //
-                userInfo.getAsset().getMyShop().sell(userInfo, 0, new StorageItem(ProductType.CROP_WHEAT, 5), 10);
-                userInfo.getAsset().getMyShop().sell(userInfo, 3, new StorageItem(ProductType.GOOD_MILK, 3), 27);
-                //
+//                //
+//                userInfo.getAsset().getMyShop().sell(userInfo, 0, new StorageItem(ProductType.CROP_WHEAT, 5), 10);
+//                userInfo.getAsset().getMyShop().sell(userInfo, 3, new StorageItem(ProductType.GOOD_MILK, 3), 27);
+//                //
                 
                 userInfo.saveModel(user.getId());
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        send(new ResponseUser(userInfo), user);
-        
+        send(new ResponseUser(userInfo, 1), user);
+        send(new ResponseUser(userInfo, 2), user);
+        send(new ResponseUser(userInfo, 3), user);
+        send(new ResponseUser(userInfo, 4), user);
         
         /*
          * test
@@ -188,16 +191,15 @@ public class UserHandler extends BaseClientRequestHandler {
         Storage foodStorage = new Storage(StorageType.FOOD_STORAGE, 50, 
                 ConfigContainer.mapConfig.Silo.position.x,
                 ConfigContainer.mapConfig.Silo.position.y);
-        Storage warehouse = new Storage(StorageType.WAREHOUSE, 50, 
+        Storage warehouse = new Storage(StorageType.WAREHOUSE, 100, 
                 ConfigContainer.mapConfig.Warehouse.position.x,
                 ConfigContainer.mapConfig.Warehouse.position.y);
 
-        foodStorage.addItem(ProductType.CROP_SOYBEAN, 5);
-        foodStorage.addItem(ProductType.CROP_CORN, 10);
-        foodStorage.addItem(ProductType.CROP_WHEAT, 10);
+        foodStorage.addItem(ProductType.CROP_CORN, 5);
+        foodStorage.addItem(ProductType.CROP_WHEAT, 5);
         
-        warehouse.addItem(ProductType.GOOD_EGG, 1);        
-        warehouse.addItem(ProductType.GOOD_MILK, 1);
+        warehouse.addItem(ProductType.GOOD_EGG, 7);        
+        warehouse.addItem(ProductType.GOOD_MILK, 7);
         warehouse.addItem(ProductType.TOOL_AXE, 1);
         warehouse.addItem(ProductType.TOOL_SAW, 2);
         warehouse.addItem(ProductType.TOOL_DYNOMITE, 1);
@@ -284,11 +286,18 @@ public class UserHandler extends BaseClientRequestHandler {
         animal4.setFeeded(true);
         cowLodge.addAnimal(animal4);
 
-        // Add Food Machine
-        Machine machine = new Machine(0, MachineTypeEnum.food_machine, 
+//        // Add Food Machine
+        Machine machine = new Machine(1, MachineTypeEnum.food_machine, 
                         ConfigContainer.getMachineSlot(MachineTypeEnum.food_machine.toString()),
-                        0, false, true, 9, 17);
+                        0, false, true, 9, 24);
+        // Add Bakery Machine
+        Machine machine2 = new Machine(2, MachineTypeEnum.bakery_machine, 
+                        ConfigContainer.getMachineSlot(MachineTypeEnum.food_machine.toString()),
+                        0, false, true, 20, 24);
+        
         asset.addMachine(machine);
+        asset.addMachine(machine2);
+       
         
         // Last
         ZPUserInfo userInfo = new ZPUserInfo(userId, asset); // ...Update map alias

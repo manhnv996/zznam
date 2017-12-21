@@ -6,7 +6,7 @@ var NotifyFullStorage = BaseLayout.extend({
     _storageType: null,
 
     ctor: function (storageType) {
-        this._super(res.BG_2_PNG, "text_notice_title", true, true, true);
+        this._super(res.BG_2_PNG, fr.Localization.text("text_notice_title"), true, true, true);
         this._storageType = storageType;
 
         var fullSilo = new cc.Sprite(res.silo_full);
@@ -35,6 +35,7 @@ var NotifyFullStorage = BaseLayout.extend({
             case ccui.Widget.TOUCH_ENDED:
             case ccui.Widget.TOUCH_CANCELED:
                 // this.removeFromParent(true);
+                SoundCtrl.instance.playSoundEffect(res.func_click_button_mp3, false);
                 BaseGUILayer.instance.removeBlockListener();
                 if (this._storageType === StorageTypes.FOOD_STORAGE) {
                     BaseGUILayer.instance.showStorage(user.getAsset().getFoodStorage());

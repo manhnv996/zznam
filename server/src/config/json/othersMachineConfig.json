@@ -1,0 +1,7 @@
+[
+  {"id": "product_cream" , "rawMaterialList": [ {"rawMaterialId": "good_milk", "quantity": 1}]},
+  {"id": "product_butter" , "rawMaterialList": [ {"rawMaterialId": "good_milk", "quantity": 2}]},
+  {"id": "product_butter" , "rawMaterialList": [ {"rawMaterialId": "crop_sugarcane", "quantity": 3}]},
+  {"id": "product_popcorn" , "rawMaterialList": [ {"rawMaterialId": "crop_corn", "quantity":1}]},
+]
+ 

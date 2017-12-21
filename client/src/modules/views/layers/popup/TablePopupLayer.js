@@ -30,11 +30,11 @@ var TablePopupLayer = cc.Layer.extend({
 
     showTimeRemainProgressBar: function (fieldId) {
         var field = user.asset.getFieldById(fieldId);
-        this.loadingBar = new LoadingBarLayout(
-            getProductConfigById(field.plantType).timeMin * 60, field.plantedTime,
-            getProductConfigById(field.plantType).name, 1);
         var p = MapValues.logicToScreenPosition(field.coordinate.x, field.coordinate.y);
-        this.loadingBar.setPosition(p.x, p.y);
+        this.loadingBar = new LoadingBarLayout(p.x, p.y,
+            getProductConfigById(field.plantType).timeMin * 60, field.plantedTime,
+            getProductConfigById(field.plantType).name, 1, null, true);
+        //this.loadingBar.setPosition(p.x, p.y);
         BaseGUILayer.instance.addChild(this.loadingBar);
 
         //
@@ -60,6 +60,16 @@ var TablePopupLayer = cc.Layer.extend({
         this.autoMove(lx, ly, 180, 200);
     },
 
+    showMachineTablePopup: function (machineId) {
+        cc.log(MA_LOG_TAG + "showMachineTablePopup " + machineId);
+        this._layout = new MachineTablePopup(machineId);
+        this.addChild(this._layout);
+        var machine = user.asset.getMachineById(machineId);
+        this.autoMove(machine.coordinate.x, machine.coordinate.y,
+            320, 280);
+    },
+
+    ////TablePopupLayer.instance.removeUpdateDisableListener();
     //
     runUpdateOrderWaittingTime: function () {
         this.schedule(this.updateOrderWaittingTime, 1);
@@ -70,7 +80,7 @@ var TablePopupLayer = cc.Layer.extend({
             this.unschedule(this.updateOrderWaittingTime);
         }
         for (var i = 0; i < list.length; i++){
-            var parseCurrTime = new Date().getTime();
+            var parseCurrTime = getTime();
             var finishWaittingTime = list[i].getFinishWaittingTime();
             if (finishWaittingTime != null){
                 if (parseCurrTime > finishWaittingTime.getTime()){
@@ -78,7 +88,6 @@ var TablePopupLayer = cc.Layer.extend({
                 }
             }
         }
-
     },
 //
 
@@ -127,9 +136,9 @@ var TablePopupLayer = cc.Layer.extend({
         if (ly_2 <= -56 || ly_2 >= -6) {
             delta.y = 0;
         }
-        var action = new cc.MoveBy(1, delta).easing(cc.easeExponentialOut());
-        MapLayer.instance.runAction(action);
-        this.layerRunAction(action.clone());
+        this.actionAutoMove = new cc.MoveBy(1, delta).easing(cc.easeExponentialOut());
+        MapLayer.instance.runAction(this.actionAutoMove);
+        this.layerRunAction(this.actionAutoMove.clone());
     }
 
 });

@@ -255,7 +255,7 @@ function updateGameInfo(gameInfoJson){
                 field.setPlantType(plantType);
                 //
                 var intTime = gameInfo.asset.fieldList[i].plantedTime;
-                var plantedTime = new Date();
+                var plantedTime = getDate();
                 plantedTime.setTime(intTime);
 
                 field.setPlantedTime(plantedTime);
@@ -270,9 +270,30 @@ function updateGameInfo(gameInfoJson){
     MainScene.instance.onGettedData();
 }
 
+_.deepObjectExtend = function(target, source) {
+    for (var prop in source)
+        if (prop in target)
+            _.deepObjectExtend(target[prop], source[prop]);
+        else
+            target[prop] = source[prop];
+    return target;
+}
+
 // New
-function onReceiveUser(userInfo) {
-    user = new User();
+var bufUserInfo = {};
+var receivedPacketCount = 0;
+var userInfo = {}; // Blank it after done
+
+function onReceiveUser(partUserInfo) {
+    _.deepObjectExtend(userInfo, partUserInfo);
+    receivedPacketCount++;
+    if (receivedPacketCount < 4) {
+        return; // Not process
+    } else {
+        user = new User();
+        receivedPacketCount = 0;
+    }
+
     // Add FoodStorage
     var foodStorage = new Storages(
         new Coordinate(userInfo.asset.foodStorage.x,
@@ -363,10 +384,10 @@ function onReceiveUser(userInfo) {
     for (var i = 0; i < userInfo.asset.machineList.length; i++) {
         // cc.log("userInfo.asset.machineList[i] " + userInfo.asset.machineList.length);
         var machineInfo = userInfo.asset.machineList[i];
-
+        cc.log(machineInfo.toString());
         var machine = new Machine(
-            machineInfo.id,
-            machineInfo.type,
+            machineInfo.machineId,
+            machineInfo.machineType,
             machineInfo.slot,
             machineInfo.startTime,
             machineInfo.productQueue,
@@ -376,6 +397,7 @@ function onReceiveUser(userInfo) {
             machineInfo.remainBuildTime,
             new Coordinate(machineInfo.x, machineInfo.y)
         );
+        //var machine = new Machine(machineId, machineType, slot, startTime,  productQueue, boostBuild, completed, startBuildTime, remainBuildTime, coordinate);
         machineList.push(machine);
     }
 
@@ -430,6 +452,12 @@ function onReceiveUser(userInfo) {
     user.id = userInfo.id;
     user.name = userInfo.name;
 
+    if (home) {
+        gv.friendIds = gv.friendIds.filter(function(id) {
+            return id != user.id;
+        });
+    }
+
     // cc.log("AnimalLodge", user.asset.animalLodgeList);
     MainScene.instance = new MainScene();
     cc.director.runScene(MainScene.instance);
@@ -442,4 +470,6 @@ function onReceiveUser(userInfo) {
     // cc.log(userInfo.asset.myShop.maxSlot);
     // cc.log(userInfo.asset.myShop.productList);
     // cc.log(userInfo.asset.myShop.lastTimeNpcCome);
+
+    userInfo = {}; // blank it after done
 }

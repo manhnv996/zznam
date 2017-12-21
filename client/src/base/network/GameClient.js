@@ -11,15 +11,19 @@ var GameClient = cc.Class.extend(
         ctor: function () {
             this.loadConfig();
 
-            this._tcpClient = fr.GsnClient.create();
-            this._tcpClient.setFinishConnectListener(this.onFinishConnect.bind(this));
-            this._tcpClient.setDisconnectListener(this.onDisconnected.bind(this));
-            this._tcpClient.setReceiveDataListener(this._onReceived.bind(this));
             this.receivePacketSignal = new signals.Signal();
             this.packetFactory = new InPacketFactory();
 
             return true;
         },
+
+        createTcpClient: function() {
+            this._tcpClient = fr.GsnClient.getInstance();
+            this._tcpClient.setFinishConnectListener(this.onFinishConnect.bind(this));
+            this._tcpClient.setDisconnectListener(this.onDisconnected.bind(this));
+            this._tcpClient.setReceiveDataListener(this._onReceived.bind(this));
+        },
+
         loadConfig: function () {
             var fileName = "ipConfig.json";
             var jsonData = cc.loader.getRes(fileName);
@@ -27,7 +31,7 @@ var GameClient = cc.Class.extend(
                 cc.log("Load ip config errorr");
             }else
             {
-                this._serverName = jsonData.server;
+                this._serverName = jsonData.server[chooseServer];
                 this._port = jsonData.port;
             }
         },
@@ -35,6 +39,7 @@ var GameClient = cc.Class.extend(
             return this._tcpClient;
         },
         connect: function () {
+            this.createTcpClient();
             cc.log("Connect to server: " + this._serverName + ":" + this._port);
             this._tcpClient.connect(this._serverName, this._port);
 
@@ -54,26 +59,30 @@ var GameClient = cc.Class.extend(
 
         onFinishConnect:function(isSuccess)
         {
-            cc.log("onFinishConnect:" + isSuccess);
-            if(isSuccess)
-            {
+            // cc.log("onFinishConnect:" + isSuccess);
+            if (isSuccess) {
                 //fr.getCurrentScreen().onConnectSuccess();
 
                 var pk = gv.gameClient.getOutPacket(CmdSendHandshake);
                 pk.putData();
                 gv.gameClient.getNetwork().send(pk);
                 gv.poolObjects.push(pk);
-            }else{
+            } else {
                 //fr.getCurrentScreen().onConnectFail(gv.gameClient._serverName + ":" + gv.gameClient._port);
+                // this._tcpClient.disconnect();
+                fr.GsnClient.destroyInstance();
+                ConnectCtrl.instance.onConnectFailed();
             }
         },
         onDisconnected:function()
         {
-            cc.log("onDisconnected");
+            // cc.director.runScene(new LoadingScene());
+            // cc.log("onDisconnected");
+            ConnectCtrl.instance.onDisconnected();
         },
         _onReceived:function(cmd, pkg)
         {
-            cc.log("_onReceived:", cmd);
+            // cc.log("_onReceived:", cmd);
             var packet = gv.gameClient.getInPacket(cmd,pkg);
             if(packet == null)
                 return;
