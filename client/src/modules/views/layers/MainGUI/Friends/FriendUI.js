@@ -11,6 +11,7 @@ var FriendUI = ccui.Layout.extend({
         this._btnOpenFriendList = new FriendListBtn();
 
         this._friendList = new FriendList();
+        cc.log("FriendUI");
 
         this.setContentSize(this._friendList._bg.getBoundingBox().width, cc.winSize.height / 3 + this._btnOpenFriendList.height);
         this.x = cc.winSize.width;

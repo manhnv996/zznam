@@ -155,7 +155,14 @@ var BaseGUILayer = cc.Layer.extend({
         //this.addChild(this._layout);
     },
     ////BaseGUILayer.instance.removeBlockListener();
-
+    showMyShop: function () {
+        this._layout = new MyShopLayout(user.id);
+        if (this._layout._hasCloseButton) {
+            //cc.log("_btnClose");
+            this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);
+        }
+        this.blockLayout();
+    },
 
     /**
      * Close GUI

@@ -4,7 +4,7 @@
 
 var SettingGame = BaseLayout.extend({
     ctor: function () {
-        this._super(res.BG_2_PNG, "text_title_setting_game", true, true, true);
+        this._super(res.BG_2_PNG, fr.Localization.text("text_title_setting_game"), true, true, true);
 
         var idLabel = new cc.LabelBMFont("ID: " + user.id, res.FONT_OUTLINE_30);
         idLabel.x = this.width / 12;
