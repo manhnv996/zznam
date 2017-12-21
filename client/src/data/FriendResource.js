@@ -15,6 +15,8 @@ var _ = (function() {
 
         henry: r("Henry.png"),
 
+        arrowLeft: r("arrowLeft.png"),
+        arrowRight: r("arrowRight.png"),
         userShop_cart: r("userShop.png")
     };
 

@@ -30,9 +30,37 @@ var MyShopLayout = BaseLayout.extend({
         this._listCart.setDelegate(this);
         this._listCart.reloadData();
 
+        var arrowLeft = new cc.Sprite(res.arrowLeft);
+        arrowLeft.x = 0;
+        arrowLeft.y = this.height / 9;
+        arrowLeft.setAnchorPoint(0, 0.5);
+        arrowLeft.setScaleX(1.2);
+
+        var friendLeft = new FriendWithLevel(0, res.henry, 0, 50);
+        friendLeft.x = arrowLeft.getBoundingBox().width / 2;
+        friendLeft.y = arrowLeft.getBoundingBox().height / 2;
+        friendLeft.setScale(0.6);
+        friendLeft.setAnchorPoint(0.5 , 0.5);
+        arrowLeft.addChild(friendLeft);
+
+        var arrowRight = new cc.Sprite(res.arrowRight);
+        arrowRight.x = this.width;
+        arrowRight.y = this.height / 9;
+        arrowRight.setAnchorPoint(1.0, 0.5);
+        arrowRight.setScaleX(1.2);
+
+        var friendRight = new FriendWithLevel(0, res.henry, 0, 50);
+        friendRight.x = arrowRight.getBoundingBox().width / 2;
+        friendRight.y = arrowRight.getBoundingBox().height / 2;
+        friendRight.setScale(0.6);
+        friendRight.setAnchorPoint(0.7, 0.5);
+        arrowRight.addChild(friendRight);
+
         this._bg.addChild(this._listCart);
         this._bg.addChild(bg2);
         this._bg.addChild(bangten);
+        this.addChild(arrowLeft);
+        this.addChild(arrowRight);
     },
 
     tableCellTouched: function (table, cell) {
@@ -90,9 +118,10 @@ var MyShopLayout = BaseLayout.extend({
                 goldImg.x = priceImg.getBoundingBox().width / 5 * 4;
                 goldImg.y = priceImg.getBoundingBox().height / 5 * 3;
                 var priceLabel = new cc.LabelBMFont("320", res.FONT_OUTLINE_30);
-                priceLabel.x = priceImg.getBoundingBox().width / 2;
-                priceLabel.y = priceImg.getBoundingBox().height / 2;
-                priceLabel.rotation = 0;
+                priceLabel.x = priceImg.getBoundingBox().width / 5 * 3;
+                priceLabel.y = priceImg.getBoundingBox().height / 5 * 3;
+                priceLabel.setAnchorPoint(1.0, 0.5);
+                priceLabel.rotation = 15;
                 priceImg.addChild(goldImg);
                 priceImg.addChild(priceLabel);
                 cartLayout.addChild(priceImg);
