@@ -147,8 +147,10 @@ public class UserHandler extends BaseClientRequestHandler {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        send(new ResponseUser(userInfo), user);
-        
+        send(new ResponseUser(userInfo, 1), user);
+        send(new ResponseUser(userInfo, 2), user);
+        send(new ResponseUser(userInfo, 3), user);
+        send(new ResponseUser(userInfo, 4), user);
         
         /*
          * test

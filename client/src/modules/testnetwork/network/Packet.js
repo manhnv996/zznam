@@ -1377,23 +1377,36 @@ testnetwork.packetMap[gv.CMD.RESPONSE_MOVE] = fr.InPacket.extend({
 testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
     ctor: function() {
         this._super();
-        this.user = {};
-        this.user.asset = {};
+        
     },
 
     readData: function() {
+        this.user = {};
+        this.user.asset = {};
         // WARNING: DO NOT CHANGE THE ORDERS
-        this.unpackBasicInfo();
-        this.unpackMap();
-        this.unpackFieldList();
-        this.unpackNatureThingList();
-        this.unpackStorages();
-        this.unpackOrderList();
-        this.unpackOrderNPCList();
-        this.unpackCar();
-        this.unpackAnimalLodges();
-        this.unpackMachines();
-        this.unpackMyShop();
+        var mode = this.getInt();
+        cc.log("[USER MODE] received", mode);
+        switch (mode) {
+            case 1:
+                this.unpackBasicInfo();
+                this.unpackMap();
+                this.unpackFieldList();
+                break;
+            case 2:
+                this.unpackNatureThingList();
+                this.unpackStorages();
+                break;
+            case 3:
+                this.unpackOrderList();
+                this.unpackOrderNPCList();
+                this.unpackCar();
+                break;
+            case 4:
+                this.unpackAnimalLodges();
+                this.unpackMachines();
+                this.unpackMyShop();
+                break;
+        }
     },
 
     unpackBasicInfo: function() {
