@@ -24,6 +24,8 @@ import config.enums.StorageType;
 
 import config.jsonobject.ProductConfig;
 
+import config.jsonobject.machine.RawMaterial;
+
 import config.utils.ConfigContainer;
 
 import config.utils.OrderUtil;
@@ -35,6 +37,7 @@ import java.text.DateFormat;
 
 import java.text.SimpleDateFormat;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -173,6 +176,8 @@ public class FresherExtension extends BZExtension {
         
 //        System.out.println(ConfigContainer.getRawMaterialList("food_machine", "food_pig").get(0).rawMaterialId);
 //        System.out.println(ConfigContainer.getRawMaterialList("bakery_machine", "product_corn_bread").get(0).rawMaterialId);
+//        ArrayList<RawMaterial>  rawMaterialList  = ConfigContainer.getRawMaterialList("bakery_machine", "product_bread");
+//        System.out.println("zznam " + rawMaterialList.get(0).rawMaterialId + "====" + rawMaterialList.get(0).quantity);
         
         // Init usersInfo
         this.users = Users.getUsers();

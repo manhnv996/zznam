@@ -29,15 +29,15 @@ var MachineTablePopup = TablePopup.extend({
 
         this._machineId = machineId;
 
-        cc.log(MA_LOG_TAG +"23 " +machineId);
+        //cc.log(MA_LOG_TAG +"23 " +machineId);
         //lay ra may da goi trong Model
         this._machine = user.getAsset().getMachineById(machineId);
+        cc.log("3535 " + this._machine.machineType);
         this._machineConfig = MachineController.instance.getMachineConfigByType(this._machine.machineType);
-        cc.log(this._machineConfig);
+        cc.log("3636" + this._machineConfig.machineType);
 
         //lay ra width height cua machine sprite da goi
         var index =  MachineController.instance.getIndexInMachineSpriteList(machineId);
-        cc.log("12082017" + index);
         var spriteCalled = MapLayer.instance.machineSpriteList[index];
         this._machineWidth = spriteCalled.width;
         this._machineHeight = spriteCalled.height;
@@ -89,14 +89,9 @@ var MachineTablePopup = TablePopup.extend({
         this.setPositionSlotList(this._machineId);
         this.renderUnlockButton(this._machineId);
         this.updateProductQueue(this._machineId);
+        this.updateRemainingTime();
 
-        var now = new Date().getTime();
-        var machine  = user.asset.getMachineById(machineId);
-        var temp = machine.getNumberOfCompletedProducts(now);
-        var numOfProductsInQueue = machine.productQueue.length;
-        if (temp < numOfProductsInQueue){
-            this.schedule(this.updateRemainingTime,1);
-        }
+        this.scheduleUpdateRemainingTime();
     },
     renderItemList: function(productList){
 
@@ -518,7 +513,11 @@ var MachineTablePopup = TablePopup.extend({
                 var remainingSecond = remainingTime % 60;
                 if ( remainingMinute != 'undefined' && remainingSecond!= 'undefined'){
                     //cc.log(this._labelTime!=null)
-                    this._labelTime.setString( remainingMinute+":"+remainingSecond);
+                    if (remainingSecond > 9){
+                        this._labelTime.setString( remainingMinute+":"+remainingSecond);
+                    } else {
+                        this._labelTime.setString( remainingMinute+":0"+remainingSecond);
+                    }
                     //todo why _labeltime error
                 }
 
@@ -540,7 +539,6 @@ var MachineTablePopup = TablePopup.extend({
         this._FirstSlotSprite.setTexture(res.o_trong_1);
         this._imgProductFirstSlot.setVisible(false);
         this._btnBoost.setVisible(false);
-
         this._labelTime.setVisible(false);
     },
     addTempProductInFirstNullSlot:function(resPath){
@@ -586,10 +584,20 @@ var MachineTablePopup = TablePopup.extend({
 
         this._hasTempProduct = false;
     },
-    updatePopup:function(){
+    updatePopup: function(){
         this.updateProductQueue(this._machineId);
+        this.updateRemainingTime();
+        this.schedule(this.updateRemainingTime,1);
+    },
+    scheduleUpdateRemainingTime: function(){
+    var now = new Date().getTime();
+    var machine  = user.asset.getMachineById(this._machineId);
+    var temp = machine.getNumberOfCompletedProducts(now);
+    var numOfProductsInQueue = machine.productQueue.length;
+    if (temp < numOfProductsInQueue){
         this.schedule(this.updateRemainingTime,1);
     }
+}
     //addClickListener: function () {
     //    this.btnBoostClickListener = cc.EventListener.create({
     //        event: cc.EventListener.TOUCH_ONE_BY_ONE,

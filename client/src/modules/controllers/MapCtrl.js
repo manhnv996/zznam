@@ -35,7 +35,7 @@ var MapCtrl = cc.Class.extend({
         this.renderPlants();
         this.renderNaturalThings();
         this.renderAnimalLodges();
-        //this.renderMachines();
+        this.renderMachines();
         // cc.log("Silo", user.asset.foodStorage);
         // MapLayer.instance.addChild(new SiloSprite(20, 20));
         // MapLayer.instance.addChild(new WareHouseSprite(18, 24));
@@ -43,7 +43,7 @@ var MapCtrl = cc.Class.extend({
         MainScene.instance.addChild(InertiaEngine.instance);
         this.renderUserInfo();
 
-        this.renderMachine();
+        //this.renderMachine();
 
         // Add sample
         // var chickenLodge = new ChickenLodgeSprite(18, 19);
@@ -244,17 +244,22 @@ var MapCtrl = cc.Class.extend({
      */
     renderMachines: function () {
         //cc.log("Render machine to Map");
+        MapLayer.instance.machineSpriteList = [];
         var machineList = user.asset.machineList;
         for (var i = 0; i < machineList.length; i++) {
             var machine = machineList[i];
-            var type = machine.type;
+            var type = machine.machineType;
+            var machineId = machine.machineId;
             var machineSprite;
-            cc.log("machine", i, " id", machine.id, " machine.remainBuildTime", machine.remainBuildTime,
+            cc.log("machine", i, " id", machine.machineId, " machine.remainBuildTime", machine.remainBuildTime,
             " machine.boostBuild", machine.boostBuild);
             switch (type) {
                 case "bakery_machine":
                     if (machine.completed) {
-                        machineSprite = new BakerySprite(machine.id, machine.coordinate.x, machine.coordinate.y);
+
+                        var spriteMachine = new MachineSprite(machineId);
+                        MapLayer.instance.machineSpriteList.push(spriteMachine);
+                        MapLayer.instance.addChild(MapLayer.instance.machineSpriteList[i]);
                     } else {
                         machineSprite = this.addConstructedSprite(machine.boostBuild, machine.remainBuildTime,
                             machine.id, MapConfigs.BakeryMachine.size.width, MapConfigs.BakeryMachine.size.height,
@@ -263,7 +268,10 @@ var MapCtrl = cc.Class.extend({
                     break;
                 case "food_machine":
                     if (machine.completed) {
-                        machineSprite = new FoodMachineSprite(machine.id, machine.coordinate.x, machine.coordinate.y);
+                        //machineSprite = new FoodMachineSprite(machine.id, machine.coordinate.x, machine.coordinate.y);
+                        var spriteMachine = new MachineSprite(machineId);
+                        MapLayer.instance.machineSpriteList.push(spriteMachine);
+                        MapLayer.instance.addChild(MapLayer.instance.machineSpriteList[i]);
                     } else {
                         machineSprite = this.addConstructedSprite(machine.boostBuild, machine.remainBuildTime,
                             machine.id, MapConfigs.FoodMachine.size.width, MapConfigs.FoodMachine.size.height,
@@ -272,7 +280,10 @@ var MapCtrl = cc.Class.extend({
                     break;
                 case "butter_machine":
                     if (machine.completed) {
-                        machineSprite = new ButterMachineSprite(machine.id, machine.coordinate.x, machine.coordinate.y);
+                        //machineSprite = new ButterMachineSprite(machine.id, machine.coordinate.x, machine.coordinate.y);
+                        var spriteMachine = new MachineSprite(machineId);
+                        MapLayer.instance.machineSpriteList.push(spriteMachine);
+                        MapLayer.instance.addChild(MapLayer.instance.machineSpriteList[i]);
                     } else {
                         machineSprite = this.addConstructedSprite(machine.boostBuild, machine.remainBuildTime,
                             machine.id, MapConfigs.ButterMachine.size.width, MapConfigs.ButterMachine.size.height,
@@ -281,7 +292,10 @@ var MapCtrl = cc.Class.extend({
                     break;
                 case "sugar_machine":
                     if (machine.completed) {
-                        machineSprite = new SugarCaneSprite(machine.id, machine.coordinate.x, machine.coordinate.y);
+                        //machineSprite = new SugarCaneSprite(machine.id, machine.coordinate.x, machine.coordinate.y);
+                        var spriteMachine = new MachineSprite(machineId);
+                        MapLayer.instance.machineSpriteList.push(spriteMachine);
+                        MapLayer.instance.addChild(MapLayer.instance.machineSpriteList[i]);
                     } else {
                         machineSprite = this.addConstructedSprite(machine.boostBuild, machine.remainBuildTime,
                             machine.id, MapConfigs.SugarMachine.size.width, MapConfigs.SugarMachine.size.height,
@@ -290,7 +304,10 @@ var MapCtrl = cc.Class.extend({
                     break;
                 case "popcorn_machine":
                     if (machine.completed) {
-                        machineSprite = new PopcornMachineSprite(machine.id, machine.coordinate.x, machine.coordinate.y);
+                        //machineSprite = new PopcornMachineSprite(machine.id, machine.coordinate.x, machine.coordinate.y);
+                        var spriteMachine = new MachineSprite(machineId);
+                        MapLayer.instance.machineSpriteList.push(spriteMachine);
+                        MapLayer.instance.addChild(MapLayer.instance.machineSpriteList[i]);
                     } else {
                         machineSprite = this.addConstructedSprite(machine.boostBuild, machine.remainBuildTime,
                             machine.id, MapConfigs.PopcornMachine.size.width, MapConfigs.PopcornMachine.size.height,
@@ -299,8 +316,8 @@ var MapCtrl = cc.Class.extend({
                     break;
             }
 
-            MapLayer.instance.addChild(machineSprite);
-            machineSprite.setLogicPosition(machine.coordinate.x, machine.coordinate.y, true);
+            //MapLayer.instance.addChild(machineSprite);
+            //machineSprite.setLogicPosition(machine.coordinate.x, machine.coordinate.y, true);
         }
     },
 
@@ -496,12 +513,12 @@ var MapCtrl = cc.Class.extend({
 
         MapLayer.instance.machineSpriteList = [];
         for (var i = 0 ; i < user.asset.machineList.length; i++){
-            var machineId = user.asset.machineList[i].machineId;
-            var machineType = user.asset.machineList[i].machineType;
-            cc.log("445 " + machineId + "===" + machineType);
-            var spriteMachine = new MachineSprite(machineId);
-            MapLayer.instance.machineSpriteList.push(spriteMachine);
-            MapLayer.instance.addChild(MapLayer.instance.machineSpriteList[i]);
+            //var machineId = user.asset.machineList[i].machineId;
+            //var machineType = user.asset.machineList[i].machineType;
+            ////cc.log("445 " + machineId + "===" + machineType);
+            //var spriteMachine = new MachineSprite(machineId);
+            //MapLayer.instance.machineSpriteList.push(spriteMachine);
+            //MapLayer.instance.addChild(MapLayer.instance.machineSpriteList[i]);
         }
         //var now = new Date().getTime();
         //

@@ -159,20 +159,22 @@ var Machine = ConstructedObject.extend({
     getProductTime:function( productType){
         //cc.log("71@15 " + machineType +" == "+ productType);
         var indexMachine  = MachineController.instance.getIndexMachineInConfigByType(this.machineType);
-        //cc.log("72 " + indexMachine);
-        if (indexMachine == -1){
-            cc.log("getIndexMachineByType ERROR");
-            return null;
-        }
-        for (var i = 0; i < MACHINE_LIST[indexMachine].productList.length; i++){
-            if (productType == MACHINE_LIST[indexMachine].productList[i].productType ){
+        ////cc.log("72 " + indexMachine);
+        //if (indexMachine == -1){
+        //    cc.log("getIndexMachineByType ERROR");
+        //    return null;
+        //}
+        //for (var i = 0; i < MACHINE_LIST[indexMachine].productList.length; i++){
+        //    if (productType == MACHINE_LIST[indexMachine].productList[i].productType ){
+        //
+        //        //cc.log("getProductTime " + MACHINE_LIST[indexMachine].productList[i].time  * 60 * 1000);
+        //        return MACHINE_LIST[indexMachine].productList[i].time  * 60 * 1000;
+        //    }
+        //}
+        //cc.log("getProductTime ERROR");
+        var productConfig = getProductConfigById(productType);
+        return productConfig.timeMin * 60000;
 
-                //cc.log("getProductTime " + MACHINE_LIST[indexMachine].productList[i].time  * 60 * 1000);
-                return MACHINE_LIST[indexMachine].productList[i].time  * 60 * 1000;
-            }
-        }
-        cc.log("getProductTime ERROR");
-        return null;
     },
     getRemainingTimeToFinishCurrentProduct:function(now){
         var numberOfCompletedProducts = this.getNumberOfCompletedProducts(now);

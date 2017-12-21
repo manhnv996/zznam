@@ -270,9 +270,30 @@ function updateGameInfo(gameInfoJson){
     MainScene.instance.onGettedData();
 }
 
+_.deepObjectExtend = function(target, source) {
+    for (var prop in source)
+        if (prop in target)
+            _.deepObjectExtend(target[prop], source[prop]);
+        else
+            target[prop] = source[prop];
+    return target;
+}
+
 // New
-function onReceiveUser(userInfo) {
-    user = new User();
+var bufUserInfo = {};
+var receivedPacketCount = 0;
+var userInfo = {}; // Blank it after done
+
+function onReceiveUser(partUserInfo) {
+    _.deepObjectExtend(userInfo, partUserInfo);
+    receivedPacketCount++;
+    if (receivedPacketCount < 4) {
+        return; // Not process
+    } else {
+        user = new User();
+        receivedPacketCount = 0;
+    }
+
     // Add FoodStorage
     var foodStorage = new Storages(
         new Coordinate(userInfo.asset.foodStorage.x,
@@ -449,4 +470,6 @@ function onReceiveUser(userInfo) {
     // cc.log(userInfo.asset.myShop.maxSlot);
     // cc.log(userInfo.asset.myShop.productList);
     // cc.log(userInfo.asset.myShop.lastTimeNpcCome);
+
+    userInfo = {}; // blank it after done
 }
