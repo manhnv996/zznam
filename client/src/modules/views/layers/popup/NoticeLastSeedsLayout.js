@@ -7,7 +7,7 @@ var NoticeLastSeedsLayout = BaseLayout.extend({
     _btnYes: null,
     _btnNo:null,
     ctor: function (storageLastSeedsList) {
-        this._super(res.bgNotice2, "text_notice_title", true, true, true);
+        this._super(res.bgNotice2, "Thông báo", true, true, true);
         this.initLastSeedsList(storageLastSeedsList);
     },
 

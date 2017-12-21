@@ -12,7 +12,9 @@ MACHINE_CONFIG.SPEED_UP = 1;
 var MACHINE_LIST = [];
 
 MACHINE_LIST.push({
+
     machineType: "food_machine",
+    name: "Cối Xay Gió Don",
     size: {
         width: 3,
         height: 3
@@ -63,6 +65,7 @@ MACHINE_LIST.push({
 
 MACHINE_LIST.push({
     machineType: "bakery_machine",
+    name: "Lò Bánh Mỳ",
     size: {
         width: 3,
         height: 3
@@ -113,6 +116,7 @@ MACHINE_LIST.push({
 
 MACHINE_LIST.push({
     machineType: "butter_machine",
+    name: "Máy Bơ Vơ",
     size: {
         width: 4,
         height: 4
@@ -131,7 +135,7 @@ MACHINE_LIST.push({
             exp: 6,
             price: 50,
             levelUnlock: 6,
-            rawMaterialList: [{rawMaterialId: "good_milk", quantity: 1, res_raw: res.crops}]
+            rawMaterialList: [{rawMaterialId: "good_milk", quantity: 1, res_raw: res.GOOD_MILK}]
         },
         {
             productType: "product_butter",
@@ -143,7 +147,7 @@ MACHINE_LIST.push({
             exp: 10,
             price: 82,
             levelUnlock: 9,
-            rawMaterialList: [{rawMaterialId: "good_milk", quantity: 2, res_raw: res.crops}]
+            rawMaterialList: [{rawMaterialId: "good_milk", quantity: 2, res_raw: res.GOOD_MILK}]
         }
     ]
 });
@@ -151,6 +155,7 @@ MACHINE_LIST.push({
 
 MACHINE_LIST.push({
     machineType: "sugar_machine",
+    name: "Máy Tuốt Mía",
     size: {
         width: 2,
         height: 2
@@ -176,6 +181,7 @@ MACHINE_LIST.push({
 });
 MACHINE_LIST.push({
     machineType: "popcorn_machine",
+    name: "Quầy Bắp Rang",
     size: {
         width: 2,
         height: 2

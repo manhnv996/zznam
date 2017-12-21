@@ -82,7 +82,6 @@ var MachineTablePopup = TablePopup.extend({
         this._screenPosition = MapValues.logicToScreenPosition( this._machine.coordinate.x, this._machine.coordinate.y);
         this._bg.setPosition(this._screenPosition.x - this._machineWidth * 1 / 4,
             this._screenPosition.y + this._machineHeight * 1 / 4);
-
         this.renderItemList(this._machineConfig.productList);
         this.renderFirstSlot(this._machineId, spriteCalled);
         this.initSlotlist(this._machineId);
@@ -90,8 +89,15 @@ var MachineTablePopup = TablePopup.extend({
         this.renderUnlockButton(this._machineId);
         this.updateProductQueue(this._machineId);
         this.updateRemainingTime();
-
         this.scheduleUpdateRemainingTime();
+    },
+    renderMachineName:function(name){
+        //cc.log("86  " + this._machineConfig.name);
+        this._labelMaChineName = cc.LabelBMFont(this._machineConfig.name,res.FONT_NORMAL_50);
+        this._labelMaChineName.setPosition(-this._FirstSlotSprite.width /2   ,this._FirstSlotSprite.height * 3/2);
+        this._FirstSlotSprite.addChild(this._labelMaChineName);
+        //this._labelMaChineName.setPosition(screenPosition.x + spriteCalled.width * 1 / 5,
+        //    screenPosition.y );
     },
     renderItemList: function(productList){
 
@@ -319,6 +325,8 @@ var MachineTablePopup = TablePopup.extend({
 
         this._imgProductFirstSlot = new cc.Sprite();
         this._FirstSlotSprite.addChild(this._imgProductFirstSlot);
+
+        this.renderMachineName(this._machineConfig.name);
 
 
     },
