@@ -139,8 +139,8 @@ public class ConfigContainer {
 //
             bakeryProductConfig = gson.fromJson(new FileReader("src/config/json/bakeryMachineConfig.json"), MachineProductConfig[].class);
             foodProductConfig = gson.fromJson(new FileReader("src/config/json/foodMachineConfig.json"), MachineProductConfig[].class);
-//            othersProductConfig = gson.fromJson(new FileReader("src/config/json/othersMachineConfig.json"), MachineProductConfig[].class);
-//            System.out.println("128" + foodProductConfig[0].rawMaterialList.get(0).quantity +"===="+ foodProductConfig[1].rawMaterialList.get(1).rawMaterialId);
+            othersProductConfig = gson.fromJson(new FileReader("src/config/json/othersMachineConfig.json"), MachineProductConfig[].class);
+            System.out.println("128" + foodProductConfig[0].rawMaterialList.get(0).quantity +"===="+ foodProductConfig[1].rawMaterialList.get(1).rawMaterialId);
             animalConfig = gson.fromJson(new FileReader("src/config/json/animalConfig.json"), AnimalConfig.class);
 //            System.out.println(shopCoopConfig[0].type);
         } catch (FileNotFoundException e) {
@@ -207,7 +207,7 @@ public class ConfigContainer {
     public static ArrayList<RawMaterial> getRawMaterialList(String machineType, String productType){
         switch (machineType){
         
-            case "bakery_machine":
+         case "bakery_machine":
             for (MachineProductConfig product : bakeryProductConfig) {
 //                System.out.println("170" + product.id);
 //                System.out.println("171" + productType);
@@ -216,7 +216,7 @@ public class ConfigContainer {
                 }
             }
             break;
-            case "food_machine":
+         case "food_machine":
             for (MachineProductConfig product : foodProductConfig) {
 //                System.out.println("178" + product.id);
 //                System.out.println("179" + productType);
@@ -226,7 +226,16 @@ public class ConfigContainer {
                 }
             }
             break;
+        default:
+            for (MachineProductConfig product : othersProductConfig) {
+            //                System.out.println("178" + product.id);
+            //                System.out.println("179" + productType);
+                if (product.id.equalsIgnoreCase(productType)){
+            //                    System.out.println("RETURNNNN");
+                    return product.rawMaterialList;
+                }
         }
+    }
         return new ArrayList<RawMaterial>();
     }
     
