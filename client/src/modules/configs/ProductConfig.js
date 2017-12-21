@@ -24,7 +24,7 @@ productIconMap[ProductTypes.FOOD_COW] = res.iconFoodCow;
 
 productIconMap[ProductTypes.PRODUCT_CREAM] = res.iconProductPopcorn;
 productIconMap[ProductTypes.PRODUCT_BUTTER] = res.iconProductBrownSugar;
-productIconMap[ProductTypes.PRODUCT_BROWN_SUGAR] = res.iconProductButter;
+productIconMap[ProductTypes.PRODUCT_BROWN_SUGAR] = res.iconProductBrownSugar;
 productIconMap[ProductTypes.PRODUCT_POPCORN] = res.iconProductCream;
 productIconMap[ProductTypes.PRODUCT_PANCAKE] = res.iconProductPancake;
 

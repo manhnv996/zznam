@@ -69,6 +69,12 @@ cc.log = function() {
 
 var user = null;
 var home = true;
+
+// chooseServer: 
+// 1: 127.0.0.1
+// 2: 120.138.65.103
+var chooseServer = 2;
+
 cc.game.onStart = function () {
     if (!cc.sys.isNative && document.getElementById("cocosLoading")) //If referenced loading.js, please remove it
         document.body.removeChild(document.getElementById("cocosLoading"));
@@ -108,7 +114,6 @@ cc.game.onStart = function () {
         SoundCtrl.instance = new SoundCtrl();
         SoundCtrl.instance.loadSetting();
         SoundCtrl.instance.playMusic(res.bg_luamoi_mp3, true);
-
         PreloaderScene.instance = new PreloaderScene();
         cc.director.runScene(PreloaderScene.instance);
 

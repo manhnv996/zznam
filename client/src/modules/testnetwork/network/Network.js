@@ -389,11 +389,15 @@ testnetwork.Connector = cc.Class.extend({
         cc.log("Send login request", username, password);
         var ATTEMP_TO_TRY = 5;
         var failedToConnect = function() {
-            return cc.log("Check your network connection");
+            ConnectCtrl.instance.onConnectFailed();
+            // return cc.log("Check your network connection");
+            return;
         }
 
         var invalidUsernamePassword = function() {
-            return cc.log("Invalid username or password");
+            LoginScene.instance.layer.invalidUsernamePassword();
+            // return cc.log("Invalid username or password");
+            return;
         }
 
         // Not modify after here

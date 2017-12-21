@@ -1,4 +1,4 @@
-var MainScene = cc.Scene.extend({
+var MainScene = BaseScene.extend({
 	ctor: function() {
 		this._super();
 
@@ -107,5 +107,11 @@ var MainScene = cc.Scene.extend({
 
 	scheduleSoundCowIdle: function () {
 		SoundCtrl.instance.playSoundEffect(res.ani_cow_idle_mp3, false);
+	},
+
+	disconnected: function() {
+        LoadingScene.instance = new LoadingScene();
+        LoadingScene.instance.setText(fr.Localization.text("text_disconnect"));
+		cc.director.runScene(LoadingScene.instance);
 	}
 });

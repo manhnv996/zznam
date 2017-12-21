@@ -244,6 +244,7 @@ var MapCtrl = cc.Class.extend({
      */
     renderMachines: function () {
         //cc.log("Render machine to Map");
+        MapLayer.instance.machineSpriteList = [];
         var machineList = user.asset.machineList;
         MapLayer.instance.machineSpriteList = [];
         for (var i = 0; i < machineList.length; i++) {
@@ -526,12 +527,12 @@ var MapCtrl = cc.Class.extend({
 
         MapLayer.instance.machineSpriteList = [];
         for (var i = 0 ; i < user.asset.machineList.length; i++){
-            var machineId = user.asset.machineList[i].machineId;
-            var machineType = user.asset.machineList[i].machineType;
-            cc.log("445 " + machineId + "===" + machineType);
-            var spriteMachine = new MachineSprite(machineId);
-            MapLayer.instance.machineSpriteList.push(spriteMachine);
-            MapLayer.instance.addChild(MapLayer.instance.machineSpriteList[i]);
+            //var machineId = user.asset.machineList[i].machineId;
+            //var machineType = user.asset.machineList[i].machineType;
+            ////cc.log("445 " + machineId + "===" + machineType);
+            //var spriteMachine = new MachineSprite(machineId);
+            //MapLayer.instance.machineSpriteList.push(spriteMachine);
+            //MapLayer.instance.addChild(MapLayer.instance.machineSpriteList[i]);
         }
         //var now = new Date().getTime();
         //

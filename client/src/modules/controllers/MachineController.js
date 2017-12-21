@@ -4,37 +4,14 @@
 
 var MachineController = cc.Class.extend({
     onMachineSelected:function(machineId){
-        cc.log(MA_LOG_TAG + "7 " + machineId);
-        var now = new Date().getTime();
-        var machine  = user.asset.getMachineById(machineId);
-        var currFinishedProducts = machine.getNumberOfCompletedProducts(now);
-        if (currFinishedProducts > 0) {
-            if (user.asset.warehouse.getCurrentQuantity() < user.asset.warehouse.capacity){
-                this.collectFinishedProduct(machineId);
-            }else {
-                // todo label nha kho day
-                TablePopupLayer.instance.showMachineTablePopup(machineId);
-            }
-        } else {
-            TablePopupLayer.instance.showMachineTablePopup(machineId);
-        }
+
     },
     initMachineSpriteList: function () {
         MapLayer.instance.machineSpriteList = [];
 
 
     },
-    collectFinishedProduct:function(machineId){
-        cc.log("23 " +"on collectFinishedProduct")
-        var i = this.getIndexMachineInListById(machineId);
-        var now = new Date().getTime();
-        var product = user.asset.machineList[i].takeCompletedProduct(now);
-        if (product!= null){
 
-            user.asset.warehouse.addItem(product, 1);
-            testnetwork.connector.sendCollectProduct(machineId);
-        }
-    },
     // lấy ra chỉ số của máy trong mảng các máy có trên bản đồ theo machineId
     getIndexInMachineSpriteList: function (machineId) {
         if (machineId == null){

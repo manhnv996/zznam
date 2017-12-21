@@ -22,7 +22,7 @@ var _ = (function() {
         LAYER_24_PNG:    r("Layer 24.png"),
         TU_CHOI_PNG:    r("tuchoi.png"),
         //_PNG:    r(".png"),
-        DONG_Y_PNG:    r("Đồng ý.png")
+        //DONG_Y_PNG:    r("Đồng ý.png")
 
     };
 

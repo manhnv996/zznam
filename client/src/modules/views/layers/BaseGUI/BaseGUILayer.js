@@ -131,6 +131,20 @@ var BaseGUILayer = cc.Layer.extend({
         this.blockLayout();
         //this.addChild(this._layout);
     },
+    showSuggestBuyRawMaterial: function (storageMissingItemList) {
+        this._layout = new NoticeMissingItemLayout(storageMissingItemList);
+        if (this._layout._hasCloseButton) {
+            this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);
+        }
+        this.blockLayout();
+    },
+    showSuggestLastSeeds: function (storageLastSeedsItemList) {
+        this._layout = new NoticeLastSeedsLayout(storageLastSeedsItemList);
+        if (this._layout._hasCloseButton) {
+            this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);
+        }
+        this.blockLayout();
+    },
 
     showNoticeSureCancelOrder: function (orderId) {
         this._layout = new NoticeCancelOrder(orderId);
