@@ -50,10 +50,6 @@ var FriendList = ccui.Layout.extend({
         this.addChild(this.btnFriend);
         this.addChild(this._listFriend);
         this.addChild(addFriend);
-        //
-        //
-        //this.x = this._bg.getBoundingBox().width;
-        //this.y = - cc.winSize.height / 3 - btnFriend.height;
     },
 
     scrollViewDidScroll: function (view) {
@@ -65,8 +61,6 @@ var FriendList = ccui.Layout.extend({
 
     tableCellTouched: function (table, cell) {
         cc.log("tableCellTouched", cell.getIdx());
-        //var friend = cell.getChildByTag(10);
-        //friend.setOnClick();
     },
 
     tableCellSizeForIndex: function (table, idx) {
@@ -75,15 +69,8 @@ var FriendList = ccui.Layout.extend({
 
     tableCellAtIndex: function (table, idx) {
         var cell = table.dequeueCell();
-        //var level = user.getLevel();
-        //if (!cell) {
         cell = new cc.TableViewCell();
         var friend = new FriendWithLevel(gv.friendIds[idx], res.henry, gv.friendIds[idx], 50);
-        friend.x = this._bg.getBoundingBox().width / 1000 * 77;
-        friend.y = this._bg.getBoundingBox().height / 50 * 19;
-        friend.setAnchorPoint(0.5, 0.5);
-        //friend.tag = 10;
-        //friend.setOnClick(this._listFriend);
         cell.addChild(friend);
 
         return cell;

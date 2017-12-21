@@ -1380,7 +1380,7 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         
     },
 
-    readData: function() {
+    readData: function () {
         this.user = {};
         this.user.asset = {};
         // WARNING: DO NOT CHANGE THE ORDERS
