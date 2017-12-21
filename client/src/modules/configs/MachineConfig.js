@@ -122,43 +122,32 @@ MACHINE_LIST.push({
     aniId: resAniId.Fairy,
     productList: [
         {
-            productType: "product_bread",
-            name: "Bánh Mì",
-            res_path: res.BREAD_PNG,
+            productType: "product_cream",
+            name: "Kem Xôi",
+            res_path: res.CREAM_PNG,
             speedUp: 1,
-            rubyToBuy: 4, // truong hop thieu nguyen lieu user muon mua lun
-            time: 5,
-            exp: 3,
-            price: 21,
-            levelUnlock: 2,
-            rawMaterialList: [{rawMaterialId: "crop_wheat", quantity: 3, res_raw: res.crops}]
+            rubyToBuy: 8, // truong hop thieu nguyen lieu user muon mua lun
+            time: 20,
+            exp: 6,
+            price: 50,
+            levelUnlock: 6,
+            rawMaterialList: [{rawMaterialId: "good_milk", quantity: 1, res_raw: res.crops}]
         },
         {
-            productType: "product_corn_bread",
-            name: "Bánh Mì",
-            res_path: res.BREAD_CORN_PNG,
+            productType: "product_butter",
+            name: "Bơ vơ",
+            res_path: res.BUTTER_PNG,
             speedUp: 1,
-            rubyToBuy: 4, // truong hop thieu nguyen lieu user muon mua lun
-            time: 5,
-            exp: 3,
-            price: 21,
-            levelUnlock: 2,
-            rawMaterialList: [{rawMaterialId: "good_egg", quantity: 2, res_raw: res.iconGoodEgg}, {rawMaterialId: "crop_corn", quantity: 2, res_raw: res.corn} ]
-        },
-        {
-            productType: "product_cookie",
-            name: "Bánh Mì",
-            res_path: res.COOKIE_PNG,
-            speedUp: 1,
-            rubyToBuy: 4, // truong hop thieu nguyen lieu user muon mua lun
-            time: 5,
-            exp: 3,
-            price: 21,
-            levelUnlock: 2,
-            rawMaterialList: [{rawMaterialId: "crop_wheat", quantity: 2, res_raw: res.crops}, {rawMaterialId: "good_egg", quantity: 2, res_raw: res.iconGoodEgg}, {rawMaterialId: "product_brown_sugar", quantity: 1, res_raw: res.BROWN_SUGAR_PNG}]
+            rubyToBuy: 15, // truong hop thieu nguyen lieu user muon mua lun
+            time: 30,
+            exp: 10,
+            price: 82,
+            levelUnlock: 9,
+            rawMaterialList: [{rawMaterialId: "good_milk", quantity: 2, res_raw: res.crops}]
         }
     ]
 });
+
 
 MACHINE_LIST.push({
     machineType: "sugar_machine",
@@ -167,50 +156,24 @@ MACHINE_LIST.push({
         height: 2
     },
     slot: 2,
+
     mapItemEnum: MapItemEnum.SUGAR_MAKER,
     aniId: resAniId.SugarCan,
-    productlist: [
+    productList: [
         {
-            productType: "product_bread",
-            name: "Bánh Mì",
-            res_path: res.BREAD_PNG,
+            productType: "product_brown_sugar",
+            name: "Đường nâu",
+            res_path: res.BROWN_SUGAR_PNG,
             speedUp: 1,
-            rubyToBuy: 4, // truong hop thieu nguyen lieu user muon mua lun
-            time: 5,
-            exp: 3,
-            price: 21,
-            levelUnlock: 2,
-            rawMaterialList: [{rawMaterialId: "crop_wheat", quantity: 3, res_raw: res.crops}]
-        },
-        {
-            productType: "product_corn_bread",
-            name: "Bánh Mì",
-            res_path: res.BREAD_CORN_PNG,
-            speedUp: 1,
-            rubyToBuy: 4, // truong hop thieu nguyen lieu user muon mua lun
-            time: 5,
-            exp: 3,
-            price: 21,
-            levelUnlock: 2,
-            rawMaterialList: [{rawMaterialId: "good_egg", quantity: 2, res_raw: res.iconGoodEgg}, {rawMaterialId: "crop_corn", quantity: 2, res_raw: res.corn} ]
-        },
-        {
-            productType: "product_cookie",
-            name: "Bánh Mì",
-            res_path: res.COOKIE_PNG,
-            speedUp: 1,
-            rubyToBuy: 4, // truong hop thieu nguyen lieu user muon mua lun
-            time: 5,
-            exp: 3,
-            price: 21,
-            levelUnlock: 2,
-            rawMaterialList: [{rawMaterialId: "crop_wheat", quantity: 2, res_raw: res.crops}, {rawMaterialId: "good_egg", quantity: 2, res_raw: res.iconGoodEgg}, {rawMaterialId: "product_brown_sugar", quantity: 1, res_raw: res.BROWN_SUGAR_PNG}]
+            rubyToBuy: 5, // truong hop thieu nguyen lieu user muon mua lun
+            time: 20,
+            exp: 4,
+            price: 32,
+            levelUnlock: 7,
+            rawMaterialList: [{rawMaterialId: "crop_sugarcane", quantity: 3}]
         }
     ]
-
-
 });
-
 MACHINE_LIST.push({
     machineType: "popcorn_machine",
     size: {
@@ -223,76 +186,16 @@ MACHINE_LIST.push({
     aniId: resAniId.popcorn_pot,
     productList: [
         {
-            productType: "product_bread",
-            name: "Bánh Mì",
-            res_path: res.BREAD_PNG,
+            productType: "product_popcorn",
+            name: "Bắp Giang",
+            res_path: res.POPCORN_PNG,
             speedUp: 1,
-            rubyToBuy: 4, // truong hop thieu nguyen lieu user muon mua lun
-            time: 5,
-            exp: 3,
-            price: 21,
-            levelUnlock: 2,
-            rawMaterialList: [{rawMaterialId: "crop_wheat", quantity: 3}]
-        },
-        {
-            productType: "product_corn_bread",
-            name: "Bánh Mì",
-            res_path: res.BREAD_CORN_PNG,
-            speedUp: 1,
-            rubyToBuy: 4, // truong hop thieu nguyen lieu user muon mua lun
-            time: 5,
-            exp: 3,
-            price: 21,
-            levelUnlock: 2,
-
-        },
-        {
-            productType: "product_bread",
-            name: "Bánh Mì",
-            res_path: res.BREAD_PNG,
-            speedUp: 1,
-            rubyToBuy: 4, // truong hop thieu nguyen lieu user muon mua lun
-            time: 5,
-            exp: 3,
-            price: 21,
-            levelUnlock: 2,
-            rawMaterialList: [{rawMaterialId: "crop_wheat", quantity: 3}]
-        },
-        {
-            productType: "product_corn_bread",
-            name: "Bánh Mì",
-            res_path: res.BREAD_CORN_PNG,
-            speedUp: 1,
-            rubyToBuy: 4, // truong hop thieu nguyen lieu user muon mua lun
-            time: 5,
-            exp: 3,
-            price: 21,
-            levelUnlock: 2,
-
-        },
-        {
-            productType: "product_bread",
-            name: "Bánh Mì",
-            res_path: res.BREAD_PNG,
-            speedUp: 1,
-            rubyToBuy: 4, // truong hop thieu nguyen lieu user muon mua lun
-            time: 5,
-            exp: 3,
-            price: 21,
-            levelUnlock: 2,
-            rawMaterialList: [{rawMaterialId: "crop_wheat", quantity: 3}]
-        },
-        {
-            productType: "product_corn_bread",
-            name: "Bánh Mì",
-            res_path: res.BREAD_CORN_PNG,
-            speedUp: 1,
-            rubyToBuy: 4, // truong hop thieu nguyen lieu user muon mua lun
-            time: 5,
-            exp: 3,
-            price: 21,
-            levelUnlock: 2,
-
+            rubyToBuy: 22, // truong hop thieu nguyen lieu user muon mua lun
+            time: 30,
+            exp: 13,
+            price: 100,
+            levelUnlock: 9,
+            rawMaterialList: [{rawMaterialId: "crop_corn", quantity: 1}]
         }
     ]
 });

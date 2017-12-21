@@ -308,6 +308,7 @@ public class ConstructedHandler extends BaseClientRequestHandler{
                 if (productType != null){
                     System.out.println(productType); 
                     warehouse.addItem(productType, 1); // todo add item per capacity of each product
+                    userInfo.addExp(ProductUtil.getProductConfObjByType(productType).exp);
                     send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
         
                 } else {
@@ -355,24 +356,30 @@ public class ConstructedHandler extends BaseClientRequestHandler{
                 }
               }
             if (flag){
-                for (RawMaterial item : rawMaterialList) {
-                    System.out.println("347" + item.rawMaterialId + "  " + item.quantity);
-                    if (item.rawMaterialId.indexOf("crop_") >= 0){
-                        userInfo.getAsset().getFoodStorage().takeItem(item.rawMaterialId, item.quantity);
-//                        int currQuan = userInfo.getAsset().getQuantityOfTwoStorageByProductId(item.rawMaterialId);
-//                        System.out.println("347" + currQuan + "  " + item.quantity);
-                    } else{
-                        userInfo.getAsset().getWarehouse().takeItem(item.rawMaterialId, item.quantity);
-//                        int currQuan = userInfo.getAsset().getQuantityOfTwoStorageByProductId(item.rawMaterialId);
-//                        System.out.println("347" + currQuan + "  " + item.quantity);
-                    }
-                } 
+              
                 if (machineModel.addProduct(productType)){
                     System.out.println("290 addProductSuccess");
+                    for (RawMaterial item : rawMaterialList) {
+                        if (item.rawMaterialId.indexOf("crop_") >= 0){
+                            userInfo.getAsset().getFoodStorage().takeItem(item.rawMaterialId, item.quantity);
+                    //                        int currQuan = userInfo.getAsset().getQuantityOfTwoStorageByProductId(item.rawMaterialId);
+                    //                        System.out.println("347" + currQuan + "  " + item.quantity);
+                        } else{
+                            userInfo.getAsset().getWarehouse().takeItem(item.rawMaterialId, item.quantity);
+                    //                        int currQuan = userInfo.getAsset().getQuantityOfTwoStorageByProductId(item.rawMaterialId);
+                    //                        System.out.println("347" + currQuan + "  " + item.quantity);
+                        }
+                    } 
+                    
                 } else {
                     System.out.println("290 addProductFailed");
+                    short errorCode = ErrorLog.ERROR_STORAGE_NOT_REDUCE.getValue();
+                    send(new ResponseSyncStorage(errorCode,  userInfo.getAsset().getFoodStorage()), user);
+                    send(new ResponseSyncStorage(errorCode,  userInfo.getAsset().getWarehouse()), user);
                 }
-            }
+                }{
+                    
+                }
             
            
             
@@ -402,6 +409,7 @@ public class ConstructedHandler extends BaseClientRequestHandler{
             String productType  = reqBuyRawMaterial.productType;
             MachineConfig machineConfig = ConfigContainer.getMachineConfigByType(machineModel.getType().toString());
             ArrayList<RawMaterial>  rawMaterialList  = ConfigContainer.getRawMaterialList(machineModel.getType().toString(), productType);
+                    System.out.println("zznam " + rawMaterialList.get(0).rawMaterialId + "====" + rawMaterialList.get(0).quantity);
             boolean flag = true;
             int ruby = 0;
             
@@ -417,25 +425,31 @@ public class ConstructedHandler extends BaseClientRequestHandler{
             if (!flag){
                 int userRuby = userInfo.getRuby();
                 if (userRuby >= ruby) {
-                    for (RawMaterial item : rawMaterialList) {
-                        System.out.println("347" + item.rawMaterialId + "  " + item.quantity + "   "+item.rawMaterialId);
-                        int currQuan = userInfo.getAsset().getQuantityOfTwoStorageByProductId(item.rawMaterialId);
-
-                        if (item.rawMaterialId.indexOf("crop_") >= 0){
-                            userInfo.getAsset().getFoodStorage().takeItem(item.rawMaterialId, (currQuan > item.quantity) ? item.quantity: currQuan);
-                                            int currQuanTest = userInfo.getAsset().getQuantityOfTwoStorageByProductId(item.rawMaterialId);
-                                            System.out.println("447" + currQuanTest + "  " + item.quantity);
-                            
-                        } else{
-                            userInfo.getAsset().getWarehouse().takeItem(item.rawMaterialId, (currQuan > item.quantity) ? item.quantity: currQuan);
-                                            int currQuanTest = userInfo.getAsset().getQuantityOfTwoStorageByProductId(item.rawMaterialId);
-                                            System.out.println("447" + currQuanTest + "  " + item.quantity);
-                        }
-                    } 
+                   
                     if (machineModel.addProduct(productType)){
                         System.out.println("290 addProductSuccess");
+                        userInfo.reduceRuby(ruby);
+                        for (RawMaterial item : rawMaterialList) {
+//                            System.out.println("347" + item.rawMaterialId + "  " + item.quantity + "   "+item.rawMaterialId);
+                            int currQuan = userInfo.getAsset().getQuantityOfTwoStorageByProductId(item.rawMaterialId);
+                            
+                            if (item.rawMaterialId.indexOf("crop_") >= 0){
+                                userInfo.getAsset().getFoodStorage().takeItem(item.rawMaterialId, (currQuan > item.quantity) ? item.quantity: currQuan);
+                        //                                            int currQuanTest = userInfo.getAsset().getQuantityOfTwoStorageByProductId(item.rawMaterialId);
+                        //                                            System.out.println("447" + currQuanTest + "  " + item.quantity);
+                                
+                            } else{
+                                userInfo.getAsset().getWarehouse().takeItem(item.rawMaterialId, (currQuan > item.quantity) ? item.quantity: currQuan);
+                        //                                            int currQuanTest = userInfo.getAsset().getQuantityOfTwoStorageByProductId(item.rawMaterialId);
+                        //                                            System.out.println("447" + currQuanTest + "  " + item.quantity);
+                            }
+                        } 
+                        
                     } else {
                         System.out.println("290 addProductFailed");
+                        short errorCode = ErrorLog.ERROR_STORAGE_NOT_REDUCE.getValue();
+                        send(new ResponseSyncStorage(errorCode,  userInfo.getAsset().getFoodStorage()), user);
+                        send(new ResponseSyncStorage(errorCode,  userInfo.getAsset().getWarehouse()), user);
                     }
                 }
             }

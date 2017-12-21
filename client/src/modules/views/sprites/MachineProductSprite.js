@@ -73,7 +73,7 @@ var MachineProductSprite = ProductSprite.extend({
             name.y = this._toolTip.height;
             name.setAnchorPoint(0.5, 1);
             this._toolTip.addChild(name);
-            var labelTime = new cc.LabelBMFont(this._productConfig.time +" phút", res.FONT_OUTLINE_20);
+            var labelTime = new cc.LabelBMFont(getProductConfigById(this._productConfig.productType).timeMin +" phút", res.FONT_OUTLINE_20);
             labelTime.x = this._toolTip.width /2;
             labelTime.y = 0;
             labelTime.setAnchorPoint(.5,0);
@@ -401,83 +401,59 @@ var MachineProductSprite = ProductSprite.extend({
     },
     addProductToMachineQueue:function(){
         if (this._canProduce == false){
-            cc.log("Thiếu nguyên liệu, show popup bạn có mún mua lun");
-            //todo notify buyMaterial First
+            var neededList = [];
             var rawMaterialList = this._productConfig.rawMaterialList;
+            cc.log("this._canProduce == false");
             for (var i = 0; i< rawMaterialList.length; i++){
                 var rawMaterialId = rawMaterialList[i].rawMaterialId;
                 var quantity = rawMaterialList[i].quantity;
-                if (rawMaterialId.indexOf("crop_") >= 0){
-                    user.asset.foodStorage.takeItem(rawMaterialId, quantity);
-                } else {
-                    user.asset.warehouse.takeItem(rawMaterialId, quantity);
+                var currQuantity = user.getAsset().getQuantityOfTwoStorageByProductId(rawMaterialList[i].rawMaterialId);
+                cc.log("411" + rawMaterialId+"===" + quantity + "====" + currQuantity);
+                if (currQuantity < quantity){
+                    neededList.push(new StorageItem(rawMaterialId, -currQuantity + quantity));
                 }
-
             }
-            var machineId = this._parent._machineId;
-
-            var i = MachineController.instance.getIndexMachineInListById(machineId);
-            user.asset.machineList[i].addProductInQueue(this._productConfig.productType);
-            testnetwork.connector.sendAddProduct(machineId, this._productConfig.productType);
-
-            this._parent.updatePopup();
-
-            var j = MachineController.instance.getIndexInMachineSpriteList(machineId);
-            MapLayer.instance.machineSpriteList[j].updateAnimation();
-            MapLayer.instance.machineSpriteList[j].scheduleAnimation();
-            return false;
+            BaseGUILayer.instance.showSuggestBuyRawMaterial(neededList);
+            BaseGUILayer.instance._layout._btnBuy.addClickEventListener(function () {
+                SoundCtrl.instance.playSoundEffect(res.func_click_button_mp3, false);
+                var neededRuby = BaseGUILayer.instance._layout.rubiBuy;
+                if (user.getRuby() >= BaseGUILayer.instance._layout.rubiBuy){
+                    cc.log("goooooooooooooooooooooooooooo onBuyRawMaterial");
+                    this.onBuyRawMaterial(neededRuby);
+                    BaseGUILayer.instance.removeBlockListener();
+                } else {
+                    BaseGUILayer.instance._layout.msgContent.setString("Mua vật phẩm không thành công");
+                }
+            }.bind(this));
         } else {
             if (this._lastSeed == true){
                 cc.log("Show!!! Hạt giống cuối cùng, bạn có muốn sản xuất không?");
                 //todo notify lastSeed First
+                var lastSeedsList = [];
                 var rawMaterialList = this._productConfig.rawMaterialList;
+                cc.log("this._canProduce == false");
                 for (var i = 0; i< rawMaterialList.length; i++){
                     var rawMaterialId = rawMaterialList[i].rawMaterialId;
                     var quantity = rawMaterialList[i].quantity;
-                    if (rawMaterialId.indexOf("crop_") >= 0){
-                        user.asset.foodStorage.takeItem(rawMaterialId, quantity);
-                    } else {
-                        user.asset.warehouse.takeItem(rawMaterialId, quantity);
+                    var currQuantity = user.getAsset().getQuantityOfTwoStorageByProductId(rawMaterialList[i].rawMaterialId);
+                    cc.log("411" + rawMaterialId+"===" + quantity + "====" + currQuantity);
+                    if (currQuantity == quantity){
+                        lastSeedsList.push(new StorageItem(rawMaterialId, 0));
                     }
-
                 }
-                var machineId = this._parent._machineId;
+                BaseGUILayer.instance.showSuggestLastSeeds(lastSeedsList);
+                BaseGUILayer.instance._layout._btnYes.addClickEventListener(function () {
+                    SoundCtrl.instance.playSoundEffect(res.func_click_button_mp3, false);
+                    this.onAddProduct();
+                    BaseGUILayer.instance.removeBlockListener();
+                }.bind(this));
+                BaseGUILayer.instance._layout._btnNo.addClickEventListener(function () {
+                    SoundCtrl.instance.playSoundEffect(res.func_click_button_mp3, false);
+                    BaseGUILayer.instance.removeBlockListener();
+                }.bind(this));
 
-                var i = MachineController.instance.getIndexMachineInListById(machineId);
-                user.asset.machineList[i].addProductInQueue(this._productConfig.productType);
-                testnetwork.connector.sendBuyRawMaterial(machineId, this._productConfig.productType);
-
-                this._parent.updatePopup();
-
-                var j = MachineController.instance.getIndexInMachineSpriteList(machineId);
-                MapLayer.instance.machineSpriteList[j].updateAnimation();
-                MapLayer.instance.machineSpriteList[j].scheduleAnimation();
             } else {
-                cc.log("Trừ nguyên liệu, thêm sản phẩm vào queue, show animation san pham bay vô máy");
-                var rawMaterialList = this._productConfig.rawMaterialList;
-                for (var i = 0; i< rawMaterialList.length; i++){
-                    var rawMaterialId = rawMaterialList[i].rawMaterialId;
-                    var quantity = rawMaterialList[i].quantity;
-                    if (rawMaterialId.indexOf("crop_") >= 0){
-                        user.asset.foodStorage.takeItem(rawMaterialId, quantity);
-                    } else {
-                        user.asset.warehouse.takeItem(rawMaterialId, quantity);
-                    }
-
-                }
-                var machineId = this._parent._machineId;
-
-                var i = MachineController.instance.getIndexMachineInListById(machineId);
-                user.asset.machineList[i].addProductInQueue(this._productConfig.productType);
-                testnetwork.connector.sendAddProduct(machineId, this._productConfig.productType);
-
-                this._parent.updatePopup();
-
-                var j = MachineController.instance.getIndexInMachineSpriteList(machineId);
-                MapLayer.instance.machineSpriteList[j].updateAnimation();
-                MapLayer.instance.machineSpriteList[j].scheduleAnimation();
-
-                //todo check server
+               this.onAddProduct();
             }
         }
     },
@@ -485,5 +461,56 @@ var MachineProductSprite = ProductSprite.extend({
         this._muiten = new cc.Sprite(res.ten);
         this._muiten.setPosition(new cc.p(this.width * 4 / 5, this.height / 5));
         this.addChild(this._muiten, -1);
+    },
+    onBuyRawMaterial:function(neededRuby){
+        var rawMaterialList = this._productConfig.rawMaterialList;
+        for (var i = 0; i< rawMaterialList.length; i++){
+            var rawMaterialId = rawMaterialList[i].rawMaterialId;
+            var quantity = rawMaterialList[i].quantity;
+            if (rawMaterialId.indexOf("crop_") >= 0){
+                user.asset.foodStorage.takeItem(rawMaterialId, quantity);
+            } else {
+                user.asset.warehouse.takeItem(rawMaterialId, quantity);
+            }
+
+        }
+        var machineId = this._parent._machineId;
+
+        var i = MachineController.instance.getIndexMachineInListById(machineId);
+
+        user.asset.machineList[i].addProductInQueue(this._productConfig.productType);
+        user.reduceRuby(neededRuby);
+
+        testnetwork.connector.sendBuyRawMaterial(machineId, this._productConfig.productType);
+        this._parent.updatePopup();
+
+        var j = MachineController.instance.getIndexInMachineSpriteList(machineId);
+        MapLayer.instance.machineSpriteList[j].scheduleAnimation();
+    },
+    onAddProduct:function(){
+        cc.log("Trừ nguyên liệu, thêm sản phẩm vào queue, show animation san pham bay vô máy");
+        var rawMaterialList = this._productConfig.rawMaterialList;
+        for (var i = 0; i< rawMaterialList.length; i++){
+            var rawMaterialId = rawMaterialList[i].rawMaterialId;
+            var quantity = rawMaterialList[i].quantity;
+            if (rawMaterialId.indexOf("crop_") >= 0){
+                user.asset.foodStorage.takeItem(rawMaterialId, quantity);
+            } else {
+                user.asset.warehouse.takeItem(rawMaterialId, quantity);
+            }
+
+        }
+        var machineId = this._parent._machineId;
+
+        var i = MachineController.instance.getIndexMachineInListById(machineId);
+        user.asset.machineList[i].addProductInQueue(this._productConfig.productType);
+        testnetwork.connector.sendAddProduct(machineId, this._productConfig.productType);
+
+        this._parent.updatePopup();
+
+        var j = MachineController.instance.getIndexInMachineSpriteList(machineId);
+        MapLayer.instance.machineSpriteList[j].updateAnimation();
+        MapLayer.instance.machineSpriteList[j].scheduleAnimation();
+
     }
 })

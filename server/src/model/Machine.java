@@ -5,9 +5,12 @@ import config.enums.MachineTypeEnum;
 
 import config.jsonobject.MachineConfig;
 
+import config.jsonobject.ProductConfig;
 import config.jsonobject.machine.RawMaterial;
 
 import config.utils.ConfigContainer;
+
+import config.utils.ProductUtil;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -100,7 +103,9 @@ public class Machine extends ConstructedObject {
           long tempTime = this.startTime;
           int length = this.getProductQueueLength();
           for (int i = 0; i < length; i++){
-            long currProductTime = 60*1000*5; //Todo function getProductTimeByType(this.productQueue.get(i));
+//            long currProductTime = 60*1000*5; //Todo function getProductTimeByType(this.productQueue.get(i));
+            ProductConfig product = ProductUtil.getProductConfObjByType(this.productQueue.get(i));
+            long currProductTime = 60*1000*  product.timeMin; 
             tempTime += currProductTime;
             if (timeNow >= tempTime){
               count++;
@@ -120,8 +125,10 @@ public class Machine extends ConstructedObject {
             long timeNow = System.currentTimeMillis();
             long tempTime = this.startTime;
             for (int i = 0 ; i < currFinishedProducts; i++){
-              long currProductTime = 60*1000*5; //Todo function getProductTimeByType(this.productQueue.get(i));
-              tempTime+= this.startTime;
+//              long currProductTime = 60*1000*5; //Todo function getProductTimeByType(this.productQueue.get(i));
+              ProductConfig product = ProductUtil.getProductConfObjByType(this.productQueue.get(i));
+              long currProductTime = 60*1000*  product.timeMin; 
+              tempTime+= currProductTime;
             }
             long remainingTime = timeNow - tempTime;
             if (remainingTime > 0){
@@ -144,7 +151,9 @@ public class Machine extends ConstructedObject {
         public String collectProduct(){
             int currFinishedProducts = this.getCurrentFinishedProducts();
             if (currFinishedProducts > 0){
-                long firstProductTime = 60*1000*5; //Todo function getProductTimeByType(this.productQueue.get(0));
+                
+                ProductConfig product = ProductUtil.getProductConfObjByType(this.productQueue.get(0));
+                long firstProductTime = 60*1000*  product.timeMin; 
                 long newStartTime = this.getStartTime() + firstProductTime;
                 this.setStartTime(newStartTime);
                 String productType = this.getProductQueue().get(0);

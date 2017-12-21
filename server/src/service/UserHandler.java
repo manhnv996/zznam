@@ -25,6 +25,7 @@ import config.enums.ProductType;
 import config.enums.StorageType;
 
 import config.jsonobject.ProductConfig;
+import config.jsonobject.machine.RawMaterial;
 import config.jsonobject.map.NaturalObject;
 
 import config.utils.ConfigContainer;
@@ -285,19 +286,18 @@ public class UserHandler extends BaseClientRequestHandler {
         animal4.setFeeded(true);
         cowLodge.addAnimal(animal4);
 
-        // Add Food Machine
+//        // Add Food Machine
         Machine machine = new Machine(1, MachineTypeEnum.food_machine, 
                         ConfigContainer.getMachineSlot(MachineTypeEnum.food_machine.toString()),
-                        0, false, true, 21, 24);
+                        0, false, true, 9, 24);
         // Add Bakery Machine
         Machine machine2 = new Machine(2, MachineTypeEnum.bakery_machine, 
                         ConfigContainer.getMachineSlot(MachineTypeEnum.food_machine.toString()),
-                        0, false, true, 18, 24);
+                        0, false, true, 20, 24);
         
         asset.addMachine(machine);
         asset.addMachine(machine2);
-        
-        
+       
         
         // Last
         ZPUserInfo userInfo = new ZPUserInfo(userId, asset); // ...Update map alias

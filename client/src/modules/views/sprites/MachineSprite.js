@@ -19,8 +19,8 @@ var MachineSprite = AnimationSprite.extend({
         if (machine != null) {
             var i = MachineController.instance.getIndexMachineInConfigByType(machine.machineType);
             if (i != -1){
-                cc.log("25" + "getIndexMachineByType ERROR");
-                cc.log(MACHINE_LIST[i].aniId +"===="+ MACHINE_LIST[i].size.width +"===="+ MACHINE_LIST[i].size.width+"===="+ machine.coordinate.x+"===="+  machine.coordinate.y+"===="+ MACHINE_LIST[i].mapItemEnum);
+                //cc.log("25" + "getIndexMachineByType ERROR");
+                //cc.log(MACHINE_LIST[i].aniId +"===="+ MACHINE_LIST[i].size.width +"===="+ MACHINE_LIST[i].size.width+"===="+ machine.coordinate.x+"===="+  machine.coordinate.y+"===="+ MACHINE_LIST[i].mapItemEnum);
                 this._super(MACHINE_LIST[i].aniId, MACHINE_LIST[i].size.width, MACHINE_LIST[i].size.width, machine.coordinate.x, machine.coordinate.y, MACHINE_LIST[i].mapItemEnum);
             } else {
                 cc.log(MA_LOG_TAG + "getIndexMachineByType ERROR" );
@@ -29,17 +29,16 @@ var MachineSprite = AnimationSprite.extend({
         this.renderFinishedProducts(machineId);
         this.registerTouchEvents();
 
-        //todo.
-        this.updateAnimation();
+        this.play("idle");
         this.scheduleAnimation();
     },
 
     onEnter: function() {
         this._super();
-        this.play("idle");
     },
 
     scheduleAnimation:function(){
+        this.updateAnimation();
         this.schedule(this.updateAnimation, 2);
     },
     renderFinishedProducts:function(machineId){
@@ -87,12 +86,14 @@ var MachineSprite = AnimationSprite.extend({
 
             if (this._curAniState != "loop"){
                 this._curAniState = "loop";
+                cc.log("90 " + "update Animation " + " loop");
                 this.play(this._curAniState);
             }
         } else {
            if (this._curAniState != "idle"){
                this._curAniState = "idle";
                this.play(this._curAniState);
+               cc.log("90 " + "update Animation " + " idle");
                this.unschedule(this.updateAnimation);
            }
         }
@@ -101,8 +102,22 @@ var MachineSprite = AnimationSprite.extend({
 
     onClick: function () {
         cc.log(this._machineId + " on click");
+        var machineId = this._machineId;
+        //cc.log(MA_LOG_TAG + "7 " + machineId);
+        var now = new Date().getTime();
+        var machine  = user.asset.getMachineById(machineId);
+        var currFinishedProducts = machine.getNumberOfCompletedProducts(now);
+        if (currFinishedProducts > 0) {
+            if (user.asset.warehouse.getCurrentQuantity() < user.asset.warehouse.capacity){
+                this.collectFinishedProduct(machineId);
+            }else {
+                // todo label nha kho day
+                TablePopupLayer.instance.showMachineTablePopup(machineId);
+            }
+        } else {
+            TablePopupLayer.instance.showMachineTablePopup(machineId);
+        }
 
-        MachineController.instance.onMachineSelected(this._machineId);
         var now = new Date().getTime();
         var machine  = user.asset.getMachineById(this._machineId);
         var currFinishedProducts = machine.getNumberOfCompletedProducts(now);
@@ -127,15 +142,19 @@ var MachineSprite = AnimationSprite.extend({
         cc.log(this._machineId + " on end click");
         //this.play(this.curAniState);
     },
-    playAnimation:function (aniState) {
-        this._curAniState = aniState;
-        this.play(aniState);
-    },
-    updateMachineState:function(){
-        //todo  if productQueue = null  unschedule,
-        // update state of machine per 0.5s by checking it's running or not
-
+    collectFinishedProduct:function(machineId){
+        cc.log("23 " +"on collectFinishedProduct")
+        var i = MachineController.instance.getIndexMachineInListById(machineId);
+        var now = new Date().getTime();
+        var product = user.asset.machineList[i].takeCompletedProduct(now);
+        if (product!= null){
+            user.asset.warehouse.addItem(product, 1);
+            user.addExp(getProductConfigById(product).exp);
+            testnetwork.connector.sendCollectProduct(machineId);
+        }
     }
+
+
 
 });
 
