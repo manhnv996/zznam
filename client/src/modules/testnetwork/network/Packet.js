@@ -77,6 +77,8 @@ gv.CMD.RESPONSE_BUY_TOOL_UPGRADE = 8101;
 //Constructed
 gv.CMD.BUID_COMPLETED = 9001;
 gv.CMD.BOOST_BUILD = 9002;
+gv.CMD.RESPONSE_BUILD_COMPLETED = 9011;
+gv.CMD.RESPONSE_BOOST_BUILD = 9012;
 
 gv.CMD.BOOST_PRODUCT = 9101; //machine product
 gv.CMD.UNLOCK_SLOT = 9102;
@@ -1325,6 +1327,24 @@ testnetwork.packetMap[gv.CMD.RESPONSE_BUY_OBJECT] = fr.InPacket.extend({
     }
 });
 
+testnetwork.packetMap[gv.CMD.RESPONSE_BUILD_COMPLETED] = fr.InPacket.extend({
+    ctor: function () {
+        this._super();
+    },
+    readData: function () {
+        this.error = this.getShort();
+    }
+});
+
+testnetwork.packetMap[gv.CMD.RESPONSE_BOOST_BUILD] = fr.InPacket.extend({
+    ctor: function () {
+        this._super();
+    },
+    readData: function () {
+        this.error = this.getShort();
+    }
+});
+
 testnetwork.packetMap[gv.CMD.RESPONSE_UPGRADE_STORAGE] = fr.InPacket.extend({
     ctor: function () {
         this._super();
@@ -1360,7 +1380,7 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         
     },
 
-    readData: function() {
+    readData: function () {
         this.user = {};
         this.user.asset = {};
         // WARNING: DO NOT CHANGE THE ORDERS

@@ -9,7 +9,8 @@ var RoadShopSprite = MapBlockSprite.extend({
 	},
 
 	onClick: function(lx, ly) {
-		// cc.log("Roadshop clicked", lx, ly);
+		cc.log("Roadshop clicked", lx, ly);
+		BaseGUILayer.instance.showMyShop();
 	},
 
 	onBeginClick: function() {

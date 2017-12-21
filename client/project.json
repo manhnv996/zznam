@@ -143,6 +143,7 @@
         "src/modules/configs/enum/BuyItemTargetType.js",
         "src/modules/configs/enum/AnimalType.js",
         "src/modules/configs/enum/AnimalLodgeType.js",
+        "src/modules/configs/enum/MachineType.js",
         "src/modules/configs/config.js",
         "src/modules/configs/LevelupConfig.js",
         "src/modules/configs/ProductConfig.js",
@@ -215,6 +216,7 @@
         "src/modules/views/layers/BaseGUI/NotifyNotEnoughG.js",
         "src/modules/views/layers/BaseGUI/NotifyFullStorage.js",
         "src/modules/views/layers/BaseGUI/SettingGame.js",
+        "src/modules/views/layers/BaseGUI/MyShopUI/MyShopLayout.js",
         "src/modules/views/layers/BaseGUI/BaseGUILayer.js",
 
         "src/modules/views/layers/MapLayer.js",

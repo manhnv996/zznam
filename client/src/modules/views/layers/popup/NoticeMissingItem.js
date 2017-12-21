@@ -6,7 +6,7 @@ var NoticeMissingItem = BaseLayout.extend({
     orderId: 0,
 
     ctor: function (storageMissingItemList, targetType, orderId) {
-        this._super(res.bgNotice2, "text_notice_title", true, true, true);
+        this._super(res.bgNotice2, fr.Localization.text("text_notice_title"), true, true, true);
 
         //
         if (targetType !== undefined) {
