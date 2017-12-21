@@ -569,20 +569,20 @@ var PopupLayer = cc.Layer.extend({
 
     },
 
-    showSuggestBuyRawMaterial:function(productConfig){
-        this.addCloseBGEvent();
-        //this.setPauseBackground(MapLayer.instance.fieldList, true);
-        var rawMaterialList = productConfig.rawMaterialList;
-        var count; // đếm số nguyên liệu còn thiếu
-        for (var i = 0; i < rawMaterialList.length; i++){
-            var currQuantity = user.getAsset().getQuantityOfTwoStorageByProductId(rawMaterialList[i].rawMaterialId);
-            var quantityNeedToProduce = rawMaterialList[i].quantity;
-            if (currQuantity < quantityNeedToProduce){
-                count ++;
-            }
-        }
-
-    },
+    //showSuggestBuyRawMaterial:function(productConfig){
+    //    this.addCloseBGEvent();
+    //    //this.setPauseBackground(MapLayer.instance.fieldList, true);
+    //    var rawMaterialList = productConfig.rawMaterialList;
+    //    var count; // đếm số nguyên liệu còn thiếu
+    //    for (var i = 0; i < rawMaterialList.length; i++){
+    //        var currQuantity = user.getAsset().getQuantityOfTwoStorageByProductId(rawMaterialList[i].rawMaterialId);
+    //        var quantityNeedToProduce = rawMaterialList[i].quantity;
+    //        if (currQuantity < quantityNeedToProduce){
+    //            count ++;
+    //        }
+    //    }
+    //
+    //},
 
     setPauseBackground: function(listSprite, isPause){
         if (isPause){

@@ -61,6 +61,7 @@ var ConstructedCtrl = cc.Class.extend({
             case MapItemEnum.MACHINE:
                 machineModel = user.asset.getMachineById(id);
                 machineSprite = new MachineSprite(id);
+                MapLayer.instance.machineSpriteList.push(machineSprite);
             //switch (machineModel.type) {
                 //    case "bakery_machine":
                 //        machineSprite = new BakerySprite(id, machineModel.coordinate.x,
@@ -90,9 +91,9 @@ var ConstructedCtrl = cc.Class.extend({
         user.addExp(getMachineConfigByType(machineModel.machineType).buildExp);
         machineModel.completed = true;
         MapLayer.instance.addChild(machineSprite);
-        MapCtrl.instance.addSpriteAlias(machineSprite);
-
-        machineSprite.setLogicPosition(machineModel.coordinate.x, machineModel.coordinate.y, true);
+        //MapCtrl.instance.addSpriteAlias(machineSprite);
+        //
+        //machineSprite.setLogicPosition(machineModel.coordinate.x, machineModel.coordinate.y, true);
 
         //send server
         testnetwork.connector.sendBuildCompleted(id, typeBuilding);

@@ -41,6 +41,7 @@ public class ConfigContainer {
     public static MachineConfig[] machineConfig;
     public static MachineProductConfig[] bakeryProductConfig;
     public static MachineProductConfig[] foodProductConfig;
+    public static MachineProductConfig[] othersProductConfig;
     public static AnimalConfig animalConfig;
     
     
@@ -138,7 +139,7 @@ public class ConfigContainer {
 //
             bakeryProductConfig = gson.fromJson(new FileReader("src/config/json/bakeryMachineConfig.json"), MachineProductConfig[].class);
             foodProductConfig = gson.fromJson(new FileReader("src/config/json/foodMachineConfig.json"), MachineProductConfig[].class);
-            
+//            othersProductConfig = gson.fromJson(new FileReader("src/config/json/othersMachineConfig.json"), MachineProductConfig[].class);
 //            System.out.println("128" + foodProductConfig[0].rawMaterialList.get(0).quantity +"===="+ foodProductConfig[1].rawMaterialList.get(1).rawMaterialId);
             animalConfig = gson.fromJson(new FileReader("src/config/json/animalConfig.json"), AnimalConfig.class);
 //            System.out.println(shopCoopConfig[0].type);

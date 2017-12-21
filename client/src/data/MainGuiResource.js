@@ -19,6 +19,8 @@ var _ = (function() {
         PRELOADER_LOADING_4_PNG: 			"Art/loading4.png",
         PRELOADER_SUMMER_PNG: 		"Art/loading he copy.png",
         PRETTY_BG_DIALOG_PNG: 		"Art/Truck Order/Gui-oders/BG.png",
+        TU_CHOI_PNG: 		r("tuchoi.png"),
+        DONG_Y_PNG:         r("butoon-V.png"),
         HOME_BTN: r("home.png")
     };
 

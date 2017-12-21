@@ -226,6 +226,8 @@
         "src/modules/views/layers/OrderBGLayer.js",
         "src/modules/views/layers/OrderNPCLayer.js",
         "src/modules/views/layers/popup/NoticeCancelOrder.js",
+        "src/modules/views/layers/popup/NoticeLastSeedsLayout.js",
+        "src/modules/views/layers/popup/NoticeMissingItemLayout.js",
         "src/modules/views/layers/popup/NoticeMissingItem.js"
 
     ]

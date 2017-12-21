@@ -40,10 +40,9 @@ var HavestResource = {
     button_congG_1: "res/Art/Crops/Gui-act/butoon-congG-1.png",
     button_energy_2: "res/Art/Crops/Gui-act/button-energy2.png",
     o_trong_1_1: "res/Art/Crops/Gui-act/otrong1-1.png",
-    o_trong_1_1: "res/Art/Crops/Gui-act/otrong1-1.png",
     o_trong_2: "res/Art/Crops/Gui-act/otrong2.png",
     o_trong_2_2: "res/Art/Crops/Gui-act/otrong2-2.png",
-    o_trong_1: "res/Art/Crops/Gui-act/otrong1.png ",
+    o_trong_1: "res/Art/Crops/Gui-act/otrong1.png",
 
     slot: "res/Art/Crops/Gui-act/slot.png",
     tooltip: "res/Art/Crops/Gui-act/tooltip.png",
@@ -72,7 +71,7 @@ var HavestResource = {
 
     //plant animation
     caroot_plist: "res/Art/Crops/animation/caroot/caroot.plist",
-    caroot_png: "res/Art/Crops/animation/caroot/caroot.png",
+    caroot_png: "res/Art/Crops/animation/caroot/caroot.png"
 };
 
 var g_HavestResource = [];
