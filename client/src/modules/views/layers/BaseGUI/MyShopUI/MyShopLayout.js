@@ -53,7 +53,7 @@ var MyShopLayout = BaseLayout.extend({
         friendRight.x = arrowRight.getBoundingBox().width / 2;
         friendRight.y = arrowRight.getBoundingBox().height / 2;
         friendRight.setScale(0.6);
-        friendRight.setAnchorPoint(0.7, 0.5);
+        friendRight.setAnchorPoint(0.75, 0.5);
         arrowRight.addChild(friendRight);
 
         this._bg.addChild(this._listCart);
