@@ -246,78 +246,92 @@ var MapCtrl = cc.Class.extend({
         //cc.log("Render machine to Map");
         MapLayer.instance.machineSpriteList = [];
         var machineList = user.asset.machineList;
+        MapLayer.instance.machineSpriteList = [];
         for (var i = 0; i < machineList.length; i++) {
             var machine = machineList[i];
             var type = machine.machineType;
-            var machineId = machine.machineId;
             var machineSprite;
-            cc.log("machine", i, " id", machine.machineId, " machine.remainBuildTime", machine.remainBuildTime,
-            " machine.boostBuild", machine.boostBuild);
-            switch (type) {
-                case "bakery_machine":
-                    if (machine.completed) {
-
-                        var spriteMachine = new MachineSprite(machineId);
-                        MapLayer.instance.machineSpriteList.push(spriteMachine);
-                        MapLayer.instance.addChild(MapLayer.instance.machineSpriteList[i]);
-                    } else {
-                        machineSprite = this.addConstructedSprite(machine.boostBuild, machine.remainBuildTime,
-                            machine.id, MapConfigs.BakeryMachine.size.width, MapConfigs.BakeryMachine.size.height,
-                            machine.coordinate.x, machine.coordinate.y);
-                    }
-                    break;
-                case "food_machine":
-                    if (machine.completed) {
-                        //machineSprite = new FoodMachineSprite(machine.id, machine.coordinate.x, machine.coordinate.y);
-                        var spriteMachine = new MachineSprite(machineId);
-                        MapLayer.instance.machineSpriteList.push(spriteMachine);
-                        MapLayer.instance.addChild(MapLayer.instance.machineSpriteList[i]);
-                    } else {
-                        machineSprite = this.addConstructedSprite(machine.boostBuild, machine.remainBuildTime,
-                            machine.id, MapConfigs.FoodMachine.size.width, MapConfigs.FoodMachine.size.height,
-                            machine.coordinate.x, machine.coordinate.y);
-                    }
-                    break;
-                case "butter_machine":
-                    if (machine.completed) {
-                        //machineSprite = new ButterMachineSprite(machine.id, machine.coordinate.x, machine.coordinate.y);
-                        var spriteMachine = new MachineSprite(machineId);
-                        MapLayer.instance.machineSpriteList.push(spriteMachine);
-                        MapLayer.instance.addChild(MapLayer.instance.machineSpriteList[i]);
-                    } else {
-                        machineSprite = this.addConstructedSprite(machine.boostBuild, machine.remainBuildTime,
-                            machine.id, MapConfigs.ButterMachine.size.width, MapConfigs.ButterMachine.size.height,
-                            machine.coordinate.x, machine.coordinate.y);
-                    }
-                    break;
-                case "sugar_machine":
-                    if (machine.completed) {
-                        //machineSprite = new SugarCaneSprite(machine.id, machine.coordinate.x, machine.coordinate.y);
-                        var spriteMachine = new MachineSprite(machineId);
-                        MapLayer.instance.machineSpriteList.push(spriteMachine);
-                        MapLayer.instance.addChild(MapLayer.instance.machineSpriteList[i]);
-                    } else {
-                        machineSprite = this.addConstructedSprite(machine.boostBuild, machine.remainBuildTime,
-                            machine.id, MapConfigs.SugarMachine.size.width, MapConfigs.SugarMachine.size.height,
-                            machine.coordinate.x, machine.coordinate.y);
-                    }
-                    break;
-                case "popcorn_machine":
-                    if (machine.completed) {
-                        //machineSprite = new PopcornMachineSprite(machine.id, machine.coordinate.x, machine.coordinate.y);
-                        var spriteMachine = new MachineSprite(machineId);
-                        MapLayer.instance.machineSpriteList.push(spriteMachine);
-                        MapLayer.instance.addChild(MapLayer.instance.machineSpriteList[i]);
-                    } else {
-                        machineSprite = this.addConstructedSprite(machine.boostBuild, machine.remainBuildTime,
-                            machine.id, MapConfigs.PopcornMachine.size.width, MapConfigs.PopcornMachine.size.height,
-                            machine.coordinate.x, machine.coordinate.y);
-                    }
-                    break;
+            if (machine.completed) {
+                machineSprite = new MachineSprite(machine.machineId);
+                MapLayer.instance.machineSpriteList.push(machineSprite);
+            } else {
+                var width;
+                var height;
+                switch (type) {
+                    case MachineType.bakery_machine:
+                        width = MapConfigs.BakeryMachine.size.width;
+                        height = MapConfigs.BakeryMachine.size.height;
+                        break;
+                    case MachineType.food_machine:
+                        width = MapConfigs.FoodMachine.size.width;
+                        height = MapConfigs.FoodMachine.size.height;
+                        break;
+                    case MachineType.butter_machine:
+                        width = MapConfigs.ButterMachine.size.width;
+                        height = MapConfigs.ButterMachine.size.height;
+                        break;
+                    case MachineType.sugar_machine:
+                        width = MapConfigs.SugarMachine.size.width;
+                        height = MapConfigs.SugarMachine.size.height;
+                        break;
+                    case MachineType.popcorn_machine:
+                        width = MapConfigs.PopcornMachine.size.width;
+                        height = MapConfigs.PopcornMachine.size.height;
+                        break;
+                }
+                machineSprite = this.addConstructedSprite(machine.boostBuild, machine.remainBuildTime,
+                    machine.machineId, width, height, machine.coordinate.x, machine.coordinate.y);
             }
-
-            //MapLayer.instance.addChild(machineSprite);
-            //machineSprite.setLogicPosition(machine.coordinate.x, machine.coordinate.y, true);
+            //switch (type) {
+            //    case "bakery_machine":
+            //        if (machine.completed) {
+            //            this.renderMachine();
+            //            //machineSprite = new BakerySprite(machine.id, machine.coordinate.x, machine.coordinate.y);
+            //        } else {
+            //            machineSprite = this.addConstructedSprite(machine.boostBuild, machine.remainBuildTime,
+            //                machine.id, MapConfigs.BakeryMachine.size.width, MapConfigs.BakeryMachine.size.height,
+            //                machine.coordinate.x, machine.coordinate.y);
+            //        }
+            //        break;
+            //    case "food_machine":
+            //        if (machine.completed) {
+            //            machineSprite = new FoodMachineSprite(machine.id, machine.coordinate.x, machine.coordinate.y);
+            //        } else {
+            //            machineSprite = this.addConstructedSprite(machine.boostBuild, machine.remainBuildTime,
+            //                machine.id, MapConfigs.FoodMachine.size.width, MapConfigs.FoodMachine.size.height,
+            //                machine.coordinate.x, machine.coordinate.y);
+            //        }
+            //        break;
+            //    case "butter_machine":
+            //        if (machine.completed) {
+            //            machineSprite = new ButterMachineSprite(machine.id, machine.coordinate.x, machine.coordinate.y);
+            //        } else {
+            //            machineSprite = this.addConstructedSprite(machine.boostBuild, machine.remainBuildTime,
+            //                machine.id, MapConfigs.ButterMachine.size.width, MapConfigs.ButterMachine.size.height,
+            //                machine.coordinate.x, machine.coordinate.y);
+            //        }
+            //        break;
+            //    case "sugar_machine":
+            //        if (machine.completed) {
+            //            machineSprite = new SugarCaneSprite(machine.id, machine.coordinate.x, machine.coordinate.y);
+            //        } else {
+            //            machineSprite = this.addConstructedSprite(machine.boostBuild, machine.remainBuildTime,
+            //                machine.id, MapConfigs.SugarMachine.size.width, MapConfigs.SugarMachine.size.height,
+            //                machine.coordinate.x, machine.coordinate.y);
+            //        }
+            //        break;
+            //    case "popcorn_machine":
+            //        if (machine.completed) {
+            //            machineSprite = new PopcornMachineSprite(machine.id, machine.coordinate.x, machine.coordinate.y);
+            //        } else {
+            //            machineSprite = this.addConstructedSprite(machine.boostBuild, machine.remainBuildTime,
+            //                machine.id, MapConfigs.PopcornMachine.size.width, MapConfigs.PopcornMachine.size.height,
+            //                machine.coordinate.x, machine.coordinate.y);
+            //        }
+            //        break;
+            //}
+            MapLayer.instance.addChild(machineSprite);
+            machineSprite.setLogicPosition(machine.coordinate.x, machine.coordinate.y, true);
         }
     },
 

@@ -6,7 +6,7 @@ var NotifyNotEnoughG = BaseLayout.extend({
 
    ctor: function (number, hideShop) {
 
-       this._super(res.bg_notify_png, "text_notice_title", true, true, hideShop);
+       this._super(res.bg_notify_png, fr.Localization.text("text_notice_title"), true, true, hideShop);
        //cc.log("Notify Miss Ruby");
 
        this.detail = new cc.LabelBMFont(fr.Localization.text("TEXT_NOT_ENOUGH_RESOURCE"), res.FONT_OUTLINE_30);

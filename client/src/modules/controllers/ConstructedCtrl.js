@@ -50,7 +50,7 @@ var ConstructedCtrl = cc.Class.extend({
             model.coordinate.y, typeBuilding, blockSizeX, blockSizeY);
         MapLayer.instance.addChild(completedSprite);
         //completedSprite = MapLayer.instance.debugSprite;
-        MapCtrl.instance.addSpriteAlias(completedSprite);
+        //MapCtrl.instance.addSpriteAlias(completedSprite);
         completedSprite.setLogicPosition(model.coordinate.x, model.coordinate.y, true);
     },
 
@@ -91,9 +91,10 @@ var ConstructedCtrl = cc.Class.extend({
         user.addExp(getMachineConfigByType(machineModel.machineType).buildExp);
         machineModel.completed = true;
         MapLayer.instance.addChild(machineSprite);
+        MapLayer.instance.machineSpriteList.push(machineSprite);
         //MapCtrl.instance.addSpriteAlias(machineSprite);
-        //
-        //machineSprite.setLogicPosition(machineModel.coordinate.x, machineModel.coordinate.y, true);
+
+        machineSprite.setLogicPosition(machineModel.coordinate.x, machineModel.coordinate.y, true);
 
         //send server
         testnetwork.connector.sendBuildCompleted(id, typeBuilding);

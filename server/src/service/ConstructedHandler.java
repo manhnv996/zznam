@@ -16,6 +16,8 @@ import cmd.receive.constructed.RequestCollectProduct;
 import cmd.receive.constructed.RequestUnlockSlot;
 import cmd.receive.gameshop.RequestBuyMapObject;
 
+import cmd.send.constructed.ResponseBoostBuild;
+import cmd.send.constructed.ResponseBuildComplete;
 import cmd.send.demo.ResponseErrorCode;
 
 import cmd.send.demo.ResponseSyncStorage;
@@ -128,9 +130,9 @@ public class ConstructedHandler extends BaseClientRequestHandler{
                     machineModel.setCompleted();
                     userInfo.addExp(machineConfig.buildExp);
                     System.out.println("Build Completed");
-                    send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
+                    send(new ResponseBuildComplete(ErrorLog.SUCCESS.getValue()), user);
                 } else {
-                    send(new ResponseErrorCode(ErrorLog.ERROR_COMPLETED_BUIDING_FAIL.getValue()), user);
+                    send(new ResponseBuildComplete(ErrorLog.ERROR_COMPLETED_BUIDING_FAIL.getValue()), user);
                     return;
                 }
                 break;
@@ -175,17 +177,17 @@ public class ConstructedHandler extends BaseClientRequestHandler{
                 System.out.println("user Ruby  " + userInfo.getRuby());
 
                 if (ruby > userInfo.getRuby()) {
-                    send(new ResponseErrorCode(ErrorLog.ERROR_RUBY_NOT_ENOUGH.getValue()), user);
+                    send(new ResponseBoostBuild(ErrorLog.ERROR_RUBY_NOT_ENOUGH.getValue()), user);
                     return;
                 } 
                 
                 if (!userInfo.reduceRuby(ruby)) {
-                    send(new ResponseErrorCode(ErrorLog.ERROR_RUBY_NOT_REDUCE.getValue()), user);
+                    send(new ResponseBoostBuild(ErrorLog.ERROR_RUBY_NOT_REDUCE.getValue()), user);
                     return;
                 }
                 System.out.println("user Ruby after  " + userInfo.getRuby());
                 machineModel.setBoostBuild();
-                send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
+                send(new ResponseBoostBuild(ErrorLog.SUCCESS.getValue()), user);
             break;
         }
 
