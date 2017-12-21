@@ -13,19 +13,24 @@ var AnimateEventLayer = cc.Layer.extend({
 	},
 
 	renderStorage: function(storageType) {
+		if (this.storage) {
+			this.storage.removeFromParent();
+		}
 		this.storage = new cc.Sprite(storageType === StorageTypes.FOOD_STORAGE 
-					? res.SILO_ICON : res.WAREHOUSE_ICON);
-			this.storage.setScale(0.15);
-			this.storage.setPosition(this.iconPosition);
-			this.addChild(this.storage);
-
-			this.text = new cc.LabelBMFont(
-				fr.Localization.text(storageType === StorageTypes.FOOD_STORAGE ? 
-					"NAME_SILO" : "NAME_WARE_HOUSE") + "113/250", res.FONT_OUTLINE_30);
-			this.text.setPosition(this.textPosition);
+				? res.SILO_ICON : res.WAREHOUSE_ICON);
+		this.storage.setScale(0.15);
+		this.storage.setPosition(this.iconPosition);
+		this.addChild(this.storage);
+		if (this.text) {
+			this.text.removeFromParent();
+		}
+		this.text = new cc.LabelBMFont(
+			fr.Localization.text(storageType === StorageTypes.FOOD_STORAGE ? 
+				"NAME_SILO" : "NAME_WARE_HOUSE") + "113/250", res.FONT_OUTLINE_30);
+		this.text.setPosition(this.textPosition);
 		this.text.setAnchorPoint(cc.p(0, 0.5));
-			this.addChild(this.text);
-		},
+		this.addChild(this.text);
+	},
 
 	animate: function(x, y, storageType, productType, count, exp) {
 		if (this.scheduling) {
@@ -128,6 +133,8 @@ var AnimateEventLayer = cc.Layer.extend({
 	removeIconAndText: function() {
 		this.storage.removeFromParent();
 		this.text.removeFromParent();
+		this.storage = null;
+		this.text = null;
 	},
 
 	upgradeStorageSuccess: function (currentCapacity, nextCapacity) {
