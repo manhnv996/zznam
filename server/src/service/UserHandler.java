@@ -198,7 +198,7 @@ public class UserHandler extends BaseClientRequestHandler {
         foodStorage.addItem(ProductType.CROP_CORN, 5);
         foodStorage.addItem(ProductType.CROP_WHEAT, 5);
         
-        warehouse.addItem(ProductType.GOOD_EGG, 80);        
+        warehouse.addItem(ProductType.GOOD_EGG, 7);        
         warehouse.addItem(ProductType.GOOD_MILK, 7);
         warehouse.addItem(ProductType.TOOL_AXE, 1);
         warehouse.addItem(ProductType.TOOL_SAW, 2);
