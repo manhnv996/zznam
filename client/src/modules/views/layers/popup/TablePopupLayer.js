@@ -72,7 +72,9 @@ var TablePopupLayer = cc.Layer.extend({
     ////TablePopupLayer.instance.removeUpdateDisableListener();
     //
     runUpdateOrderWaittingTime: function () {
-        this.schedule(this.updateOrderWaittingTime, 1);
+        if (home) { // Check for home
+            this.schedule(this.updateOrderWaittingTime, 1);
+        }
     },
     updateOrderWaittingTime: function () {
         var list = user.getAsset().getWaittingOrderList();
