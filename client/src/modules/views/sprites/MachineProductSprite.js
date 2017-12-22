@@ -64,7 +64,6 @@ var MachineProductSprite = ProductSprite.extend({
         if (user.getLevel() >= this._productConfig.levelUnlock){
             this._defaultPosition = new cc.p(this.x, this.y);
             target.runAction(new cc.ScaleTo(0.1, 1.5, 1.5));
-            this.dragListener._isFirstMove = false;
             this._muiten.setVisible(false);
 
             //add toolTip information product: raw material, current quanlity in storages/

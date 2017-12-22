@@ -48,7 +48,7 @@ var MachineSprite = AnimationSprite.extend({
             this._finishedProductSpriteList[j].removeFromParent();
         }
         this._finishedProductSpriteList = [];
-        var now = new Date().getTime();
+        var now = getTime();
         var num = machine.getNumberOfCompletedProducts(now);
 
             for (var i = 0; i < num; i++){
@@ -72,7 +72,7 @@ var MachineSprite = AnimationSprite.extend({
     },
     updateAnimation: function (){
         //cc.log("zz schedule updateAnimation:" + this._machineId);
-        var now = new Date().getTime();
+        var now = getTime();
         var machine  = user.asset.getMachineById(this._machineId);
         var currFinishedProducts = machine.getNumberOfCompletedProducts(now);
         var currProductQueueLength = machine.productQueue.length;
@@ -81,7 +81,6 @@ var MachineSprite = AnimationSprite.extend({
             this.renderFinishedProducts(this._machineId);
         }
         if (currFinishedProducts < currProductQueueLength ){
-            cc.log("41 " + "update Animation " + machine.machineId);
 
 
             if (this._curAniState != "loop"){
@@ -104,7 +103,7 @@ var MachineSprite = AnimationSprite.extend({
         cc.log(this._machineId + " on click");
         var machineId = this._machineId;
         //cc.log(MA_LOG_TAG + "7 " + machineId);
-        var now = new Date().getTime();
+        var now = getTime();
         var machine  = user.asset.getMachineById(machineId);
         var currFinishedProducts = machine.getNumberOfCompletedProducts(now);
         if (currFinishedProducts > 0) {
@@ -112,13 +111,25 @@ var MachineSprite = AnimationSprite.extend({
                 this.collectFinishedProduct(machineId);
             }else {
                 // todo label nha kho day
+
+                //
+                //var label = new cc.LabelBMFont("Text_full_ware_house", res.FONT_OUTLINE_20);
+                //label.x = MapValues.logicToScreenPosition(machine.coordinate.x);
+                //label.y = MapValues.logicToScreenPosition(machine.coordinate.y);
+                //BaseGUILayer.instance.addChild(label);
+                //var fadeIn = cc.fadeIn(0.2);
+                //var move = cc.moveBy(2, 0, 150);
+                //var fadeOut = cc.fadeOut(0.2);
+                //label.runAction(cc.sequence(fadeIn, move, fadeOut, cc.callFunc(function() {
+                //    label.removeFromParent(true);
+                //})));
                 TablePopupLayer.instance.showMachineTablePopup(machineId);
             }
         } else {
             TablePopupLayer.instance.showMachineTablePopup(machineId);
         }
 
-        var now = new Date().getTime();
+        var now = getTime();
         var machine  = user.asset.getMachineById(this._machineId);
         var currFinishedProducts = machine.getNumberOfCompletedProducts(now);
         var currProductQueueLength = machine.productQueue.length;
@@ -145,7 +156,7 @@ var MachineSprite = AnimationSprite.extend({
     collectFinishedProduct:function(machineId){
         cc.log("23 " +"on collectFinishedProduct")
         var i = MachineController.instance.getIndexMachineInListById(machineId);
-        var now = new Date().getTime();
+        var now = getTime();
         var product = user.asset.machineList[i].takeCompletedProduct(now);
         if (product!= null){
             user.asset.warehouse.addItem(product, 1);

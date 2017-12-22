@@ -80,9 +80,8 @@ var MachineTablePopup = TablePopup.extend({
             };
         }
         this._screenPosition = MapValues.logicToScreenPosition( this._machine.coordinate.x, this._machine.coordinate.y);
-        this._bg.setPosition(this._screenPosition.x - this._machineWidth * 1 / 4,
-            this._screenPosition.y + this._machineHeight * 1 / 4);
-
+        this._bg.setPosition(this._screenPosition.x - this._machineWidth * 1 / 6,
+            this._screenPosition.y + this._machineHeight * 1 / 6);
         this.renderItemList(this._machineConfig.productList);
         this.renderFirstSlot(this._machineId, spriteCalled);
         this.initSlotlist(this._machineId);
@@ -90,8 +89,15 @@ var MachineTablePopup = TablePopup.extend({
         this.renderUnlockButton(this._machineId);
         this.updateProductQueue(this._machineId);
         this.updateRemainingTime();
-
         this.scheduleUpdateRemainingTime();
+    },
+    renderMachineName:function(name){
+        //cc.log("86  " + this._machineConfig.name);
+        this._labelMaChineName = cc.LabelBMFont(this._machineConfig.name,res.FONT_NORMAL_50);
+        this._labelMaChineName.setPosition(this._FirstSlotSprite.width * 2   ,this._FirstSlotSprite.height *3/ 2);
+        this._FirstSlotSprite.addChild(this._labelMaChineName);
+        //this._labelMaChineName.setPosition(screenPosition.x + spriteCalled.width * 1 / 5,
+        //    screenPosition.y );
     },
     renderItemList: function(productList){
 
@@ -290,15 +296,15 @@ var MachineTablePopup = TablePopup.extend({
         var screenPosition = this._screenPosition;
 
         this._FirstSlotSprite = new SquareSprite(res.o_trong_1);
-        this._FirstSlotSprite.setPosition(screenPosition.x + spriteCalled.width * 1 / 5,
-            screenPosition.y );
+        this._FirstSlotSprite.setPosition(screenPosition.x ,
+            screenPosition.y - this._FirstSlotSprite.height *3 /2);
         this._FirstSlotSprite.setScale(1.1);
         this.addChild(this._FirstSlotSprite);
         this._btnBoost = ccui.Button(res.button_energy_2);
-        this._btnBoost.setScale(0.8);
+        //this._btnBoost.setScale(0.8);
         //this._btnBoost.setPosition(this._FirstSlotSprite.width/2  , 0);
-        this._btnBoost.setPosition(screenPosition.x + spriteCalled.width * 1 / 5,
-            screenPosition.y);
+        this._btnBoost.setPosition(screenPosition.x,
+            screenPosition.y - this._FirstSlotSprite.height *1.6);
 
         var rubiImage = new ccui.ImageView(res.rubi);
         rubiImage.setPosition(cc.p(this._btnBoost.width * 3 / 4, this._btnBoost.height / 2));
@@ -319,6 +325,8 @@ var MachineTablePopup = TablePopup.extend({
 
         this._imgProductFirstSlot = new cc.Sprite();
         this._FirstSlotSprite.addChild(this._imgProductFirstSlot);
+
+        this.renderMachineName(this._machineConfig.name);
 
 
     },
@@ -418,7 +426,7 @@ var MachineTablePopup = TablePopup.extend({
     },
 
     updateProductQueue:function(machineId){
-        var now = new Date().getTime();
+        var now = getTime();
         var machine  = user.asset.getMachineById(machineId);
         var temp = machine.getNumberOfCompletedProducts(now);
         var numOfProductsInQueue = machine.productQueue.length;
@@ -502,7 +510,7 @@ var MachineTablePopup = TablePopup.extend({
     },
     updateRemainingTime: function(){
 
-            var now = new Date().getTime();
+            var now = getTime();
             var machine  = user.asset.getMachineById(this._machineId);
             var temp = machine.getNumberOfCompletedProducts(now);
             var numOfProductsInQueue = machine.productQueue.length;
@@ -542,7 +550,7 @@ var MachineTablePopup = TablePopup.extend({
         this._labelTime.setVisible(false);
     },
     addTempProductInFirstNullSlot:function(resPath){
-        var now = new Date().getTime();
+        var now = getTime();
         var machine  = user.asset.getMachineById(this._machineId);
         var temp = machine.getNumberOfCompletedProducts(now);
         var numOfProductsInQueue = machine.productQueue.length;
@@ -565,7 +573,7 @@ var MachineTablePopup = TablePopup.extend({
 
     },
     removeTempProductSprite:function(){
-        var now = new Date().getTime();
+        var now = getTime();
         var machine  = user.asset.getMachineById(this._machineId);
         var temp = machine.getNumberOfCompletedProducts(now);
         var numOfProductsInQueue = machine.productQueue.length;
@@ -590,14 +598,14 @@ var MachineTablePopup = TablePopup.extend({
         this.schedule(this.updateRemainingTime,1);
     },
     scheduleUpdateRemainingTime: function(){
-    var now = new Date().getTime();
-    var machine  = user.asset.getMachineById(this._machineId);
-    var temp = machine.getNumberOfCompletedProducts(now);
-    var numOfProductsInQueue = machine.productQueue.length;
-    if (temp < numOfProductsInQueue){
-        this.schedule(this.updateRemainingTime,1);
+        var now = getTime();
+        var machine  = user.asset.getMachineById(this._machineId);
+        var temp = machine.getNumberOfCompletedProducts(now);
+        var numOfProductsInQueue = machine.productQueue.length;
+        if (temp < numOfProductsInQueue){
+            this.schedule(this.updateRemainingTime,1);
+        }
     }
-}
     //addClickListener: function () {
     //    this.btnBoostClickListener = cc.EventListener.create({
     //        event: cc.EventListener.TOUCH_ONE_BY_ONE,
