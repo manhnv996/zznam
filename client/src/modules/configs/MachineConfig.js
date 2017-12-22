@@ -175,7 +175,7 @@ MACHINE_LIST.push({
             exp: 4,
             price: 32,
             levelUnlock: 7,
-            rawMaterialList: [{rawMaterialId: "crop_sugarcane", quantity: 3}]
+            rawMaterialList: [{rawMaterialId: "crop_sugarcane", quantity: 3, res_raw: res.CROP_SUGARCANE}]
         }
     ]
 });
@@ -201,7 +201,7 @@ MACHINE_LIST.push({
             exp: 13,
             price: 100,
             levelUnlock: 9,
-            rawMaterialList: [{rawMaterialId: "crop_corn", quantity: 1}]
+            rawMaterialList: [{rawMaterialId: "crop_corn", quantity: 1,res_raw: res.CROP_CORN}]
         }
     ]
 });

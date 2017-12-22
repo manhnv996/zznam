@@ -62,12 +62,17 @@ var TablePopupLayer = cc.Layer.extend({
 
     showMachineTablePopup: function (machineId) {
 
+
+
         cc.log(MA_LOG_TAG + "showMachineTablePopup " + machineId);
         this._layout = new MachineTablePopup(machineId);
         this.addChild(this._layout);
+
         var machine = user.asset.getMachineById(machineId);
         this.autoMove(machine.coordinate.x, machine.coordinate.y,
             320, 280);
+
+
     },
 
     ////TablePopupLayer.instance.removeUpdateDisableListener();

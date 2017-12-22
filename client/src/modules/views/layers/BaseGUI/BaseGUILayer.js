@@ -232,5 +232,22 @@ var BaseGUILayer = cc.Layer.extend({
         label.runAction(cc.sequence(fadeIn, move, fadeOut, cc.callFunc(function() {
             label.removeFromParent(true);
         })));
+    },
+    notifyFullStorage: function (content, x, y) {
+        if (x.x) {
+            y = x.y;
+            x = x.x;
+        }
+        var label = new cc.LabelBMFont(content, res.FONT_OUTLINE_20);
+        label.x = x;
+        label.y = y;
+        this.addChild(label);
+        var fadeIn = cc.fadeIn(0.2);
+        var move = cc.moveTo(2, cc.p(x, y + 25));
+        var fadeOut = cc.fadeOut(0.2);
+        label.runAction(cc.sequence(fadeIn, move, fadeOut, cc.callFunc(function() {
+            label.removeFromParent(true);
+        })));
     }
+
 });

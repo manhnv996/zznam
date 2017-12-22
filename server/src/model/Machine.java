@@ -107,7 +107,7 @@ public class Machine extends ConstructedObject {
             ProductConfig product = ProductUtil.getProductConfObjByType(this.productQueue.get(i));
             long currProductTime = 60*1000*  product.timeMin; 
             tempTime += currProductTime;
-            if (timeNow >= tempTime){
+            if (timeNow >= tempTime ){
               count++;
             } else {
               break;
@@ -141,9 +141,11 @@ public class Machine extends ConstructedObject {
         }
         public boolean boostProduct(){
             long remainingTime = this.getFirstProductRemainingTime();
+            System.out.println(this.getCurrentFinishedProducts());
             if (remainingTime != 0){
                 long newStartTime = this.getStartTime() - remainingTime;
                 this.setStartTime(newStartTime);
+                System.out.println(this.getCurrentFinishedProducts());
                 return true;
             }
             return false;

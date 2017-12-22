@@ -213,6 +213,8 @@ public class ConstructedHandler extends BaseClientRequestHandler{
             if (userRuby > SPEED_UP){
                 if (machineModel.boostProduct()){
                     if (userInfo.reduceRuby(SPEED_UP)){
+                        
+                        userInfo.saveModel(user.getId());
                         send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
                     }
                     else {
@@ -223,13 +225,12 @@ public class ConstructedHandler extends BaseClientRequestHandler{
                 }
             }
             System.out.println(" 208 after send");    
-            userInfo.saveModel(user.getId());
             
-            try {
-                userInfo.saveModel(user.getId());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+//            try {
+//                userInfo.saveModel(user.getId());
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
         } 
         catch (Exception e) {
             System.out.println("exception 143");   
