@@ -4,7 +4,7 @@ var Storages = CoordinatedObject.extend({
     storageType: null,
     capacity: Infinity,
     level: 0,
-    itemList: [],
+    itemList: null,
 
     ctor: function (coordinate, storageType, capacity, level) {
         //

@@ -18,10 +18,12 @@ var _ = (function() {
         paper: r("paper.png"),
         bangten: r("bangten.png"),
 
-        sell_bg: r("guiban/BG.png"),
-        sell_button: r("button-banhang.png"),
-        sell_silo: r("button-kho2.png"),
-        sell_ware: r("button-kho1.png")
+        sellGUI_bg: r("guiban/BG.png"),
+        btn_reduce: r("guiban/butoon1.png"),
+        btn_add: r("guiban/butoon2.png"),
+        btn_sell: r("guiban/button-banhang.png"),
+        sell_silo: r("guiban/button-kho2.png"),
+        sell_ware: r("guiban/button-kho1.png")
     };
 
     var g_RoadsideShopResource = [];

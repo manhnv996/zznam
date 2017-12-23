@@ -178,6 +178,11 @@ var BaseGUILayer = cc.Layer.extend({
         this.blockLayout();
     },
 
+    showSellGUI: function () {
+        this._layout = new SellGUI();
+        this.blockLayout();
+    },
+
     /**
      * Close GUI
      */

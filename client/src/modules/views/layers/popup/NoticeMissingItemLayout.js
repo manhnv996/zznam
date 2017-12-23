@@ -6,7 +6,7 @@ var NoticeMissingItemLayout = BaseLayout.extend({
 
     _btnBuy: null,
     ctor: function (storageMissingItemList) {
-        this._super(res.bgNotice2, "text_notice_title", true, true, true);
+        this._super(res.bgNotice2, "text_notice_title", true, true);
         this.initMissingItemList(storageMissingItemList);
     },
 
