@@ -244,8 +244,9 @@ var MyShopLayout = BaseLayout.extend({
                         case 3:
                             break;
                     }
-                }
                     break;
+                }
+                    //break;
             case ccui.Widget.TOUCH_CANCELED:
                 sender.parent.runAction(new cc.ScaleTo(0.1, 1.0));
                 break;

@@ -81,7 +81,7 @@ var StorageItemListLayer = cc.Layer.extend({
             keyItem.tag = 20 + i;
             cell.addChild(keyItem);
 
-            var label = new cc.LabelBMFont(20, res.FONT_OUTLINE_20);
+            var label = new cc.LabelBMFont("0", res.FONT_OUTLINE_20);
             label.setScale(1.3);
             label.x = (cc.winSize.width / 6) * i + cc.winSize.width / 12;
             label.y = button.y - button.height / 2 - label.height / 3;

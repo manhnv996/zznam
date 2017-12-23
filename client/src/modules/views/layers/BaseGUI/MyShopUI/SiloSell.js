@@ -8,7 +8,7 @@ var SiloSell = cc.Layer.extend({
 
         this.listItem = user.asset.foodStorage.itemList;
         this.size = size;
-        this._tableItems = new cc.TableView(this, cc.size(size));
+        this._tableItems = new cc.TableView(this, size);
         this._tableItems.setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL);
         this._tableItems.x = 0;
         this._tableItems.y = 0;
@@ -40,8 +40,9 @@ var SiloSell = cc.Layer.extend({
     },
 
     tableCellSizeForIndex: function (table, idx) {
-        cc.log("cc.size(this.size)", cc.size(this.size));
-        return cc.size(this.size);
+        //cc.log("cc.size(this.size)", cc.size(this.size));
+        return cc.size(this.size.width, this.size.height / 4.5);
+        //return this.size;
     },
 
     tableCellAtIndex: function (table, idx) {
@@ -49,46 +50,47 @@ var SiloSell = cc.Layer.extend({
         cell = new cc.TableViewCell();
 
         for (var i = 0; i < 2; i++) {
-            cc.log("create cell", idx);
-            //var button = new ccui.Button(res.storage_apple);
-            ////button.x = (cc.winSize.width / 6) * i + cc.winSize.width / 12;
-            ////button.y = cc.winSize.height / 10;
-            //button.x = 0;
-            //button.y = 0;
-            //button.setZoomScale(0);
-            //button.tag = i;
-            //cell.addChild(button);
+            //cc.log("create cell", idx);
+            var button = new ccui.Button(res.storage_apple);
+            button.x = this.size.width / 6 + (this.size.width / 2)*i;
+            button.y = this.size.height / 9;
+            button.setScale(0.7);
+            button.setZoomScale(0);
+            button.tag = i;
+            cell.addChild(button);
 
             var keyItem = new cc.LabelTTF("abcxyz");
             keyItem.tag = 20 + i;
+            keyItem.setVisible(false);
             cell.addChild(keyItem);
             //
-            //var label = new cc.LabelBMFont(20, res.FONT_OUTLINE_20);
-            //label.setScale(1.3);
-            ////label.x = (cc.winSize.width / 6) * i + cc.winSize.width / 12;
-            ////label.y = button.y - button.height / 2 - label.height / 3;
-            //label.tag = 10 + i;
-            //cell.addChild(label);
+            var number = new cc.LabelBMFont("20", res.FONT_OUTLINE_50);
+            number.x = this.size.width / 10 * 3 + (this.size.width / 2)*i;
+            number.y = this.size.height / 9;
+            number.setAnchorPoint(0, 0.5);
+            number.setScale(0.8);
+            number.tag = 10 + i;
+            cell.addChild(number);
 
         }
-        //
-        //for (var i = 0; i < 2; i++) {
-        //    var button = cell.getChildByTag(i);
-        //    var label = cell.getChildByTag(10 + i);
-        //    var keyItem = cell.getChildByTag(20 + i);
-        //    if ((idx * 2 + i) < this.listItem.length) {
-        //        var typeItem = this.listItem[idx * 2 + i].getTypeItem();
-        //        keyItem.setString(typeItem);
-        //        keyItem.setVisible(false);
-        //        var productConfig = getProductConfigById(typeItem);
-        //        button.loadTextureNormal(productConfig.nameIcon);
-        //        label.setString(this.listItem[idx * 2 + i].getQuantityItem());
-        //        cc.log("keyItem", productConfig.nameIcon);
-        //    } else {
-        //        button.setVisible(false);
-        //        label.setVisible(false);
-        //    }
-        //}
+
+        for (var i = 0; i < 2; i++) {
+            var button = cell.getChildByTag(i);
+            var number = cell.getChildByTag(10 + i);
+            var keyItem = cell.getChildByTag(20 + i);
+            if ((idx * 2 + i) < this.listItem.length) {
+                var typeItem = this.listItem[idx * 2 + i].getTypeItem();
+                keyItem.setString(typeItem);
+                //keyItem.setVisible(false);
+                var productConfig = getProductConfigById(typeItem);
+                button.loadTextureNormal(productConfig.nameIcon);
+                number.setString(this.listItem[idx * 2 + i].getQuantityItem());
+                //cc.log("keyItem", idx*2 + i, " ", productConfig.nameIcon);
+            } else {
+                button.setVisible(false);
+                number.setVisible(false);
+            }
+        }
 
         return cell;
     },
