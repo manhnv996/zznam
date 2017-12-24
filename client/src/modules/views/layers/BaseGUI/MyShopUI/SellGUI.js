@@ -31,8 +31,22 @@ var SellGUI = BaseLayout.extend({
         this.sell_ware.tag = 102;
         this.sell_ware.addTouchEventListener(this.touchChooseStorage, this);
 
+        this.btnSell = new ccui.Button(res.btn_sell);
+        this.btnSell.x = this.width / 50 * 39;
+        this.btnSell.y = this.height / 100 * 11;
+        this.btnSell.setZoomScale(0);
+        this.btnSell.addTouchEventListener(this.touchSell, this);
+        this.btnSell.setLocalZOrder(this.bgZOrder + 1);
+        this.btnSell.setScale(0.8);
+
+        var labelSell = new cc.LabelBMFont(fr.Localization.text("text_put_on_shop"), res.FONT_OUTLINE_30);
+        labelSell.x = this.btnSell.width / 2;
+        labelSell.y = this.btnSell.height / 5 * 2;
+        this.btnSell.addChild(labelSell);
+
         this.addChild(this.sell_silo);
         this.addChild(this.sell_ware);
+        this.addChild(this.btnSell);
 
         this.sell_silo.setLocalZOrder(this.bgZOrder + 1);
         this.sell_ware.setLocalZOrder(this.bgZOrder - 1);
@@ -69,15 +83,33 @@ var SellGUI = BaseLayout.extend({
         layoutNumberSell.setLocalZOrder(this.bgZOrder + 1);
         this.addChild(layoutNumberSell);
 
-        layoutNumberSell.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
-        layoutNumberSell.setBackGroundColor(cc.color.YELLOW);
+        //layoutNumberSell.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
+        //layoutNumberSell.setBackGroundColor(cc.color.YELLOW);
 
+        var scaleBtn = 0.8;
         var btnAddNumber = new ccui.Button(res.btn_add);
-        btnAddNumber.x = layoutNumberSell.width / 4 * 3;
+        btnAddNumber.x = layoutNumberSell.width / 8 * 7;
         btnAddNumber.y = layoutNumberSell.height / 2;
+        btnAddNumber.setScale(scaleBtn);
         var btnReduceNumber = new ccui.Button(res.btn_reduce);
+        btnReduceNumber.x = layoutNumberSell.width / 8;
+        btnReduceNumber.y = layoutNumberSell.height / 2;
+        btnReduceNumber.setScale(scaleBtn);
+
+        this.numberSell = new cc.LabelBMFont("10x", res.FONT_OUTLINE_50);
+        this.numberSell.x = layoutNumberSell.width / 8 * 3;
+        this.numberSell.y = layoutNumberSell.height / 2;
+        this.numberSell.setScale(scaleBtn);
+
+        this.imgSellItem = new cc.Sprite(res.storage_apple);
+        this.imgSellItem.x = layoutNumberSell.width / 8 * 5;
+        this.imgSellItem.y = layoutNumberSell.height / 2;
+        this.imgSellItem.setScale(scaleBtn);
 
         layoutNumberSell.addChild(btnAddNumber);
+        layoutNumberSell.addChild(btnReduceNumber);
+        layoutNumberSell.addChild(this.numberSell);
+        layoutNumberSell.addChild(this.imgSellItem);
 
         var layoutPriceSell = new ccui.Layout();
         layoutPriceSell.x = this.width / 100 * 59;
@@ -86,11 +118,34 @@ var SellGUI = BaseLayout.extend({
         layoutPriceSell.setLocalZOrder(this.bgZOrder + 1);
         this.addChild(layoutPriceSell);
 
-        layoutPriceSell.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
-        layoutPriceSell.setBackGroundColor(cc.color.BLACK);
+        //layoutPriceSell.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
+        //layoutPriceSell.setBackGroundColor(cc.color.BLACK);
 
         var btnAddPrice = new ccui.Button(res.btn_add);
-        var btnReduceNumber = new ccui.Button(res.btn_reduce);
+        btnAddPrice.x = layoutPriceSell.width / 8 * 7;
+        btnAddPrice.y = layoutPriceSell.height / 2;
+        btnAddPrice.setScale(scaleBtn);
+        var btnReducePrice = new ccui.Button(res.btn_reduce);
+        btnReducePrice.x = layoutPriceSell.width / 8;
+        btnReducePrice.y = layoutPriceSell.height / 2;
+        btnReducePrice.setScale(scaleBtn);
+
+        this.priceSell = new cc.LabelBMFont("60", res.FONT_OUTLINE_50);
+        this.priceSell.x = layoutPriceSell.width / 2;
+        this.priceSell.y = layoutPriceSell.height / 2;
+        this.priceSell.setAnchorPoint(1.0, 0.5);
+        this.priceSell.setScale(scaleBtn);
+
+        this.imgGold = new cc.Sprite(res.gold_png);
+        this.imgGold.x = layoutPriceSell.width / 2;
+        this.imgGold.y = layoutPriceSell.height / 2;
+        this.imgGold.setAnchorPoint(-0.3, 0.5);
+        this.imgGold.setScale(scaleBtn);
+
+        layoutPriceSell.addChild(btnAddPrice);
+        layoutPriceSell.addChild(btnReducePrice);
+        layoutPriceSell.addChild(this.priceSell);
+        layoutPriceSell.addChild(this.imgGold);
     },
 
     initSellDataItem: function () {
@@ -109,8 +164,8 @@ var SellGUI = BaseLayout.extend({
         this.capacity = user.asset.foodStorage.capacity;
         layout.addChild(this.multiLayer);
 
-        layout.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
-        layout.setBackGroundColor(cc.color.GREEN);
+        //layout.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
+        //layout.setBackGroundColor(cc.color.GREEN);
     },
 
     updateArrow: function (dt) {
@@ -159,6 +214,16 @@ var SellGUI = BaseLayout.extend({
                 }
                 this.arrow.x = 0;
                 this.schedule(this.updateArrow, 0.03);
+                break;
+        }
+    },
+
+    touchSell: function (sender, type) {
+        switch (type) {
+            case ccui.Widget.TOUCH_BEGAN:
+                break;
+            case ccui.Widget.TOUCH_ENDED:
+            case ccui.Widget.TOUCH_CANCELED:
                 break;
         }
     }

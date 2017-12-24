@@ -95,6 +95,9 @@ var MainScene = BaseScene.extend({
         ////cc.log("machine " + machine.coordinate.x + " " + machine.coordinate.y + " id " + machine.id + " slot " + machine.slot);
         //var bakery = new BakerySprite(0, 20, 20);
         //MapLayer.instance.addChild(bakery);
+		var appleTree = new AppleTreeSprite();
+		MapLayer.instance.addChild(appleTree);
+		//MapCtrl.instance.addSpriteAlias(appleTree);
 	},
 
 	scheduleSoundChickenIdle01: function () {

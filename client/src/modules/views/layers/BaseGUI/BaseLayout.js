@@ -7,8 +7,8 @@ var BaseLayout = ccui.Layout.extend({
     _bg: null,
     _title: null,
     _btnClose: null,
-    _debug: true,
-    //_debug: false,
+    //_debug: true,
+    _debug: false,
 
     ctor: function (background, title, hasCloseButton, hideShop) {
         //cc.log("Notify Miss Gold");

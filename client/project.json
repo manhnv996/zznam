@@ -105,6 +105,9 @@
         "src/modules/views/sprites/PopcornMachineSprite.js",
 
 
+        "src/modules/views/sprites/AppleTreeSprite.js",
+
+
         "src/modules/views/layers/popup/TablePopup.js",
         "src/modules/views/layers/popup/TablePopupLayer.js",
         "src/modules/views/layers/popup/ItemBtn.js",

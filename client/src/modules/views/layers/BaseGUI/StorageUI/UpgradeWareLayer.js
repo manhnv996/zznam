@@ -338,6 +338,9 @@ var UpgradeWareLayer = cc.Layer.extend({
     touchUpgradeWare: function (sender, type) {
         cc.log("touchUpgradeWare");
         switch (type) {
+            case ccui.Widget.TOUCH_BEGAN:
+                SoundCtrl.instance.playSoundEffect(res.func_click_button_mp3, false);
+                break;
             case ccui.Widget.TOUCH_ENDED:
             case ccui.Widget.TOUCH_CANCELED:
                 StorageCtrl.instance.upgradeWare(this._level);

@@ -186,12 +186,12 @@ var MyShopLayout = BaseLayout.extend({
             btn.addChild(numberRubyLabel);
         }
 
-        cartLayout.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
-        if(idx % 2) {
-            cartLayout.setBackGroundColor(cc.color.GREEN);
-        } else {
-            cartLayout.setBackGroundColor(cc.color.YELLOW);
-        }
+        //cartLayout.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
+        //if(idx % 2) {
+        //    cartLayout.setBackGroundColor(cc.color.GREEN);
+        //} else {
+        //    cartLayout.setBackGroundColor(cc.color.YELLOW);
+        //}
 
         cell.addChild(cartLayout);
 
