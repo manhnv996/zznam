@@ -24,21 +24,25 @@ var Machine = ConstructedObject.extend({
         this.startTime = startTime;
     },
     addProductInQueue:function(product){
-        if (this.productQueue.length == 0){
-           this.setStartTimeByCurrentTime();
-            cc.log("29 +  this.setStartTimeByCurrentTime();")
-        } else {
-            var now = getTime();
-            if (this.productQueue.length == this.getNumberOfCompletedProducts(now)){
-                var newStartTime = now;
-                for (var i = 0; i < this.productQueue.length; i++){
-                    newStartTime -= this.getProductTime(this.productQueue[i]);
+        var now = getTime();
+        var currNotFinishedProducts = this.productQueue.length - this.getNumberOfCompletedProducts(now);
+        if (currNotFinishedProducts < this.slot){
+            if (this.productQueue.length == 0){
+                this.setStartTimeByCurrentTime();
+                cc.log("29 +  this.setStartTimeByCurrentTime();")
+            } else {
+                if (this.productQueue.length == this.getNumberOfCompletedProducts(now)){
+                    var newStartTime = now;
+                    for (var i = 0; i < this.productQueue.length; i++){
+                        newStartTime -= this.getProductTime(this.productQueue[i]);
+                    }
+                    this.setStartTime(newStartTime);
                 }
-                this.setStartTime(newStartTime);
             }
+            this.productQueue.push(product);
+            return true;
         }
-
-        this.productQueue.push(product);
+        return false;
     },
 
     setStartTimeByCurrentTime:function(){
@@ -189,11 +193,17 @@ var Machine = ConstructedObject.extend({
         var numberOfCompletedProducts = this.getNumberOfCompletedProducts(now);
         var futureTime = this.startTime;
         if (numberOfCompletedProducts < this.productQueue.length){
-            for (var i = 0; i < numberOfCompletedProducts+1; i++){
+            for (var i = 0; i < numberOfCompletedProducts + 1; i++){
                 futureTime += this.getProductTime(this.productQueue[i]);
             }
             return futureTime - now;
         }
         return 0;
+    },
+    isFullSlot:function() {
+        var now = getTime();
+        var currNotFinishedProducts = this.productQueue.length - this.getNumberOfCompletedProducts(now);
+        if (currNotFinishedProducts < this.slot) return false;
+        return true;
     }
 });

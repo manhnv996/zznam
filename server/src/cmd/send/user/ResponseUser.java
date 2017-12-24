@@ -11,6 +11,9 @@ import config.utils.ConfigContainer;
 
 import java.nio.ByteBuffer;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
+
 import java.util.Date;
 import java.util.List;
 
@@ -316,6 +319,9 @@ public class ResponseUser extends BaseMsg {
         //Pack each machine
         for (int i = 0; i < size; i++) {
             this.packMachine(machineList.get(i));
+            Date date = new Date(machineList.get(i).getStartTime());
+              Format format = new SimpleDateFormat("yyyy MM dd HH:mm:ss");
+             System.out.println("logByZznam: " + machineList.get(i).getType().toString()+" && startTime " + format.format(date));
         }
     }
     // Pack a machine

@@ -145,6 +145,15 @@ var BaseGUILayer = cc.Layer.extend({
         }
         this.blockLayout();
     },
+    showSuggestUnlockSlot: function (rubyToUnlock) {
+        this._layout = new NoticeFullSlotPopup(rubyToUnlock);
+        //this._layout.msgContent.setString("Máy đã hoạt động hết công suất, không thể thêm sản phẩm!");
+        //this._layout.nextmsgContent.setString("Để tiết kiệm thời gian bạn hãy mở rộng slot nhé?");
+        if (this._layout._hasCloseButton) {
+            this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);
+        }
+        this.blockLayout();
+    },
 
     showNoticeSureCancelOrder: function (orderId) {
         this._layout = new NoticeCancelOrder(orderId);
@@ -233,12 +242,12 @@ var BaseGUILayer = cc.Layer.extend({
             label.removeFromParent(true);
         })));
     },
-    notifyFullStorage: function (content, x, y) {
+    notifyFullStorageForMachine: function (content, x, y) {
         if (x.x) {
             y = x.y;
             x = x.x;
         }
-        var label = new cc.LabelBMFont(content, res.FONT_OUTLINE_20);
+        var label = new cc.LabelBMFont(content, res.FONT_OUTLINE_30);
         label.x = x;
         label.y = y;
         this.addChild(label);

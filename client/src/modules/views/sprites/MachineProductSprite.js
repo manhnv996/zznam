@@ -1,7 +1,7 @@
 /**
  * Created by CPU60135_LOCAL on 12/8/2017.
  */
-var MachineProductSprite = ProductSprite.extend({
+var MachineProductSprite = cc.Sprite.extend({
     _productConfig: null,
     _toolTip: null,
     _parent: null,
@@ -31,6 +31,7 @@ var MachineProductSprite = ProductSprite.extend({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
             onTouchBegan: function (touch, event){
+                //cc.log("onTouchBegan");
                 var target = this;
                 var locationInNode = target.convertToNodeSpace(touch.getLocation());
                 var s = target.getContentSize();
@@ -42,14 +43,18 @@ var MachineProductSprite = ProductSprite.extend({
                 return false;
             }.bind(this),
             onTouchMoved: function (touch, event){
+                //cc.log("onTouchMoved");
                 this.onTouchMovedJobs(touch, event);
             }.bind(this),
             onTouchEnded:function (touch, event){
+                //cc.log("onTouchEnded");
                 var target = this;
                 this.onTouchEndedJobs(touch);
 
             }.bind(this)
         });
+
+        //cc.log("product event: ", this._productConfig.name);
         cc.eventManager.addListener(this.dragListener, this);
     },
 
@@ -82,6 +87,7 @@ var MachineProductSprite = ProductSprite.extend({
 
             switch (rawMaterialList.length){
                 case 1:
+                    //cc.log("rawMaterialList[0].res_raw: " + rawMaterialList[0].res_raw);
                     var rawMaterialIcon = cc.Sprite(rawMaterialList[0].res_raw);
                     rawMaterialIcon.setScale(.5);
                     rawMaterialIcon.x = this._toolTip.width / 4 ;
@@ -375,8 +381,8 @@ var MachineProductSprite = ProductSprite.extend({
 
     onTouchEndedJobs: function (touch) {
         if (user.getLevel() >= this._productConfig.levelUnlock) {
-            var action1 = new cc.moveTo(0.05,0, this._defaultPosition.y);
-            var action2 = new cc.moveTo(0.3,this._defaultPosition.x, this._defaultPosition.y);
+            var action1 = new cc.moveTo(0.01,0, this._defaultPosition.y);
+            var action2 = new cc.moveTo(0.3,this._defaultPosition.x, this._defaultPosition.y).easing(cc.easeBackInOut);
             var seq = new  cc.Sequence(action1, action2);
             this.runAction(seq);
             this._muiten.setVisible(true);
@@ -399,36 +405,34 @@ var MachineProductSprite = ProductSprite.extend({
         this._toolTip.removeFromParent(true);
     },
     addProductToMachineQueue:function(){
-        if (this._canProduce == false){
-            var neededList = [];
-            var rawMaterialList = this._productConfig.rawMaterialList;
-            cc.log("this._canProduce == false");
-            for (var i = 0; i< rawMaterialList.length; i++){
-                var rawMaterialId = rawMaterialList[i].rawMaterialId;
-                var quantity = rawMaterialList[i].quantity;
-                var currQuantity = user.getAsset().getQuantityOfTwoStorageByProductId(rawMaterialList[i].rawMaterialId);
-                cc.log("411" + rawMaterialId+"===" + quantity + "====" + currQuantity);
-                if (currQuantity < quantity){
-                    neededList.push(new StorageItem(rawMaterialId, -currQuantity + quantity));
-                }
+        var machine  = user.asset.getMachineById(this._parent._machineId);
+        if (machine.isFullSlot()){
+            cc.log("full slottttttttttttttttttttttttttttttttttttttttttt");
+            var rubyToUnlock;
+            if (machine.slot == 2){
+                rubyToUnlock = MACHINE_CONFIG.FIRST_PRICE_BUY_SLOT;
+            } else {
+                rubyToUnlock = MACHINE_CONFIG.NEXT_PRICE_BUY_SLOT;
             }
-            BaseGUILayer.instance.showSuggestBuyRawMaterial(neededList);
-            BaseGUILayer.instance._layout._btnBuy.addClickEventListener(function () {
-                SoundCtrl.instance.playSoundEffect(res.func_click_button_mp3, false);
-                var neededRuby = BaseGUILayer.instance._layout.rubiBuy;
-                if (user.getRuby() >= BaseGUILayer.instance._layout.rubiBuy){
-                    cc.log("goooooooooooooooooooooooooooo onBuyRawMaterial");
-                    this.onBuyRawMaterial(neededRuby);
-                    BaseGUILayer.instance.removeBlockListener();
-                } else {
-                    BaseGUILayer.instance._layout.msgContent.setString("Mua vật phẩm không thành công");
-                }
-            }.bind(this));
+           if (machine.slot <9){
+               BaseGUILayer.instance.showSuggestUnlockSlot(rubyToUnlock);
+               BaseGUILayer.instance._layout._btnYes.addClickEventListener(function () {
+                   SoundCtrl.instance.playSoundEffect(res.func_click_button_mp3, false);
+                   this._parent.onUnlockSlotEvent();
+                   //this.addProductToMachineQueue();
+                   BaseGUILayer.instance.removeBlockListener();
+               }.bind(this));
+               BaseGUILayer.instance._layout._btnNo.addClickEventListener(function () {
+                   SoundCtrl.instance.playSoundEffect(res.func_click_button_mp3, false);
+                   BaseGUILayer.instance.removeBlockListener();
+               }.bind(this));
+           } else {
+
+           }
+
         } else {
-            if (this._lastSeed == true){
-                cc.log("Show!!! Hạt giống cuối cùng, bạn có muốn sản xuất không?");
-                //todo notify lastSeed First
-                var lastSeedsList = [];
+            if (this._canProduce == false){
+                var neededList = [];
                 var rawMaterialList = this._productConfig.rawMaterialList;
                 cc.log("this._canProduce == false");
                 for (var i = 0; i< rawMaterialList.length; i++){
@@ -436,25 +440,55 @@ var MachineProductSprite = ProductSprite.extend({
                     var quantity = rawMaterialList[i].quantity;
                     var currQuantity = user.getAsset().getQuantityOfTwoStorageByProductId(rawMaterialList[i].rawMaterialId);
                     cc.log("411" + rawMaterialId+"===" + quantity + "====" + currQuantity);
-                    if (currQuantity == quantity){
-                        lastSeedsList.push(new StorageItem(rawMaterialId, 0));
+                    if (currQuantity < quantity){
+                        neededList.push(new StorageItem(rawMaterialId, -currQuantity + quantity));
                     }
                 }
-                BaseGUILayer.instance.showSuggestLastSeeds(lastSeedsList);
-                BaseGUILayer.instance._layout._btnYes.addClickEventListener(function () {
+                BaseGUILayer.instance.showSuggestBuyRawMaterial(neededList);
+                BaseGUILayer.instance._layout._btnBuy.addClickEventListener(function () {
                     SoundCtrl.instance.playSoundEffect(res.func_click_button_mp3, false);
-                    this.onAddProduct();
-                    BaseGUILayer.instance.removeBlockListener();
+                    var neededRuby = BaseGUILayer.instance._layout.rubiBuy;
+                    if (user.getRuby() >= BaseGUILayer.instance._layout.rubiBuy){
+                        cc.log("goooooooooooooooooooooooooooo onBuyRawMaterial");
+                        this.onBuyRawMaterial(neededRuby);
+                        BaseGUILayer.instance.removeBlockListener();
+                    } else {
+                        BaseGUILayer.instance._layout.msgContent.setString("Mua vật phẩm không thành công");
+                    }
                 }.bind(this));
-                BaseGUILayer.instance._layout._btnNo.addClickEventListener(function () {
-                    SoundCtrl.instance.playSoundEffect(res.func_click_button_mp3, false);
-                    BaseGUILayer.instance.removeBlockListener();
-                }.bind(this));
-
             } else {
-               this.onAddProduct();
+                if (this._lastSeed == true){
+                    //cc.log("Show lastSeedpopUp!!! ?");
+                    //todo notify lastSeed First
+                    var lastSeedsList = [];
+                    var rawMaterialList = this._productConfig.rawMaterialList;
+                    cc.log("this._canProduce == false");
+                    for (var i = 0; i< rawMaterialList.length; i++){
+                        var rawMaterialId = rawMaterialList[i].rawMaterialId;
+                        var quantity = rawMaterialList[i].quantity;
+                        var currQuantity = user.getAsset().getQuantityOfTwoStorageByProductId(rawMaterialList[i].rawMaterialId);
+                        cc.log("411" + rawMaterialId+"===" + quantity + "====" + currQuantity);
+                        if (currQuantity == quantity){
+                            lastSeedsList.push(new StorageItem(rawMaterialId, 0));
+                        }
+                    }
+                    BaseGUILayer.instance.showSuggestLastSeeds(lastSeedsList);
+                    BaseGUILayer.instance._layout._btnYes.addClickEventListener(function () {
+                        SoundCtrl.instance.playSoundEffect(res.func_click_button_mp3, false);
+                        this.onAddProduct();
+                        BaseGUILayer.instance.removeBlockListener();
+                    }.bind(this));
+                    BaseGUILayer.instance._layout._btnNo.addClickEventListener(function () {
+                        SoundCtrl.instance.playSoundEffect(res.func_click_button_mp3, false);
+                        BaseGUILayer.instance.removeBlockListener();
+                    }.bind(this));
+
+                } else {
+                    this.onAddProduct();
+                }
             }
         }
+
     },
     renderMuiTen: function () {
         this._muiten = new cc.Sprite(res.ten);
@@ -462,54 +496,55 @@ var MachineProductSprite = ProductSprite.extend({
         this.addChild(this._muiten, -1);
     },
     onBuyRawMaterial:function(neededRuby){
-        var rawMaterialList = this._productConfig.rawMaterialList;
-        for (var i = 0; i< rawMaterialList.length; i++){
-            var rawMaterialId = rawMaterialList[i].rawMaterialId;
-            var quantity = rawMaterialList[i].quantity;
-            if (rawMaterialId.indexOf("crop_") >= 0){
-                user.asset.foodStorage.takeItem(rawMaterialId, quantity);
-            } else {
-                user.asset.warehouse.takeItem(rawMaterialId, quantity);
-            }
-
-        }
         var machineId = this._parent._machineId;
-
         var i = MachineController.instance.getIndexMachineInListById(machineId);
+        var ret = user.asset.machineList[i].addProductInQueue(this._productConfig.productType);
+        if (ret){
+            var rawMaterialList = this._productConfig.rawMaterialList;
+            for (var i = 0; i< rawMaterialList.length; i++){
+                var rawMaterialId = rawMaterialList[i].rawMaterialId;
+                var quantity = rawMaterialList[i].quantity;
+                if (rawMaterialId.indexOf("crop_") >= 0){
+                    user.asset.foodStorage.takeItem(rawMaterialId, quantity);
+                } else {
+                    user.asset.warehouse.takeItem(rawMaterialId, quantity);
+                }
 
-        user.asset.machineList[i].addProductInQueue(this._productConfig.productType);
-        user.reduceRuby(neededRuby);
+            }
+            user.reduceRuby(neededRuby);
+            testnetwork.connector.sendBuyRawMaterial(machineId, this._productConfig.productType);
+            this._parent.updatePopup();
 
-        testnetwork.connector.sendBuyRawMaterial(machineId, this._productConfig.productType);
-        this._parent.updatePopup();
-
-        var j = MachineController.instance.getIndexInMachineSpriteList(machineId);
-        MapLayer.instance.machineSpriteList[j].scheduleAnimation();
+            var j = MachineController.instance.getIndexInMachineSpriteList(machineId);
+            MapLayer.instance.machineSpriteList[j].scheduleAnimation();
+        }
     },
     onAddProduct:function(){
-        cc.log("Trừ nguyên liệu, thêm sản phẩm vào queue, show animation san pham bay vô máy");
-        var rawMaterialList = this._productConfig.rawMaterialList;
-        for (var i = 0; i< rawMaterialList.length; i++){
-            var rawMaterialId = rawMaterialList[i].rawMaterialId;
-            var quantity = rawMaterialList[i].quantity;
-            if (rawMaterialId.indexOf("crop_") >= 0){
-                user.asset.foodStorage.takeItem(rawMaterialId, quantity);
-            } else {
-                user.asset.warehouse.takeItem(rawMaterialId, quantity);
+        var machineId = this._parent._machineId;
+        var i = MachineController.instance.getIndexMachineInListById(machineId);
+        var ret = user.asset.machineList[i].addProductInQueue(this._productConfig.productType);
+        if (ret){
+            cc.log("on AddProduct " + this._productConfig.name);
+            var rawMaterialList = this._productConfig.rawMaterialList;
+            for (var i = 0; i< rawMaterialList.length; i++){
+                var rawMaterialId = rawMaterialList[i].rawMaterialId;
+                var quantity = rawMaterialList[i].quantity;
+                if (rawMaterialId.indexOf("crop_") >= 0){
+                    user.asset.foodStorage.takeItem(rawMaterialId, quantity);
+                } else {
+                    user.asset.warehouse.takeItem(rawMaterialId, quantity);
+                }
+
             }
 
+
+            testnetwork.connector.sendAddProduct(machineId, this._productConfig.productType);
+
+            this._parent.updatePopup();
+
+            var j = MachineController.instance.getIndexInMachineSpriteList(machineId);
+            MapLayer.instance.machineSpriteList[j].scheduleAnimation();
         }
-        var machineId = this._parent._machineId;
-
-        var i = MachineController.instance.getIndexMachineInListById(machineId);
-        user.asset.machineList[i].addProductInQueue(this._productConfig.productType);
-        testnetwork.connector.sendAddProduct(machineId, this._productConfig.productType);
-
-        this._parent.updatePopup();
-
-        var j = MachineController.instance.getIndexInMachineSpriteList(machineId);
-        MapLayer.instance.machineSpriteList[j].updateAnimation();
-        MapLayer.instance.machineSpriteList[j].scheduleAnimation();
 
     }
 })

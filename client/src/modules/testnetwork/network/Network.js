@@ -151,7 +151,7 @@ testnetwork.Connector = cc.Class.extend({
                 //
                 MainGuiLayer.instance.labelGold.setString(user.gold);
                 MainGuiLayer.instance.labelRuby.setString(user.ruby);
-                MainGuiLayer.instance.labelExp.setString(user.exp);
+                MainGuiLayer.instance.labelExp.setString(user.exp + " / " + getLevelupObjById(user.getLevel() + 1).exp);
 
                 break;
 

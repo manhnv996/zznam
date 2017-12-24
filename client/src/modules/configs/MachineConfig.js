@@ -125,6 +125,7 @@ MACHINE_LIST.push({
     mapItemEnum: MapItemEnum.BUTTER,
     aniId: resAniId.Fairy,
     productList: [
+
         {
             productType: "product_cream",
             name: "Kem Xôi",
@@ -135,7 +136,7 @@ MACHINE_LIST.push({
             exp: 6,
             price: 50,
             levelUnlock: 6,
-            rawMaterialList: [{rawMaterialId: "good_milk", quantity: 1, res_raw: res.GOOD_MILK}]
+            rawMaterialList: [{rawMaterialId: "good_milk", quantity: 1, res_raw: res.iconGoodMilk}]
         },
         {
             productType: "product_butter",
@@ -147,7 +148,7 @@ MACHINE_LIST.push({
             exp: 10,
             price: 82,
             levelUnlock: 9,
-            rawMaterialList: [{rawMaterialId: "good_milk", quantity: 2, res_raw: res.GOOD_MILK}]
+            rawMaterialList: [{rawMaterialId: "good_milk", quantity: 2, res_raw: res.iconGoodMilk}]
         }
     ]
 });
@@ -175,7 +176,7 @@ MACHINE_LIST.push({
             exp: 4,
             price: 32,
             levelUnlock: 7,
-            rawMaterialList: [{rawMaterialId: "crop_sugarcane", quantity: 3, res_raw: res.CROP_SUGARCANE}]
+            rawMaterialList: [{rawMaterialId: "crop_sugarcane", quantity: 3, res_raw: res.iconCropSugarcane}]
         }
     ]
 });
@@ -201,7 +202,7 @@ MACHINE_LIST.push({
             exp: 13,
             price: 100,
             levelUnlock: 9,
-            rawMaterialList: [{rawMaterialId: "crop_corn", quantity: 1,res_raw: res.CROP_CORN}]
+            rawMaterialList: [{rawMaterialId: "crop_corn", quantity: 1, res_raw: res.iconCropCorn}]
         }
     ]
 });
