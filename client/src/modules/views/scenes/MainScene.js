@@ -11,7 +11,7 @@ var MainScene = BaseScene.extend({
 		AnimalCtrl.instance = new AnimalCtrl();
 		NatureCtrl.instance = new NatureCtrl();
 		FriendCtrl.instance = new FriendCtrl();
-		
+
 		// Init layers
 		MapLayer.instance = new MapLayer();
 		this.addChild(MapLayer.instance);
