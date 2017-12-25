@@ -84,7 +84,9 @@ var User = cc.Class.extend({
             MainGuiLayer.instance.labelLevel.setString(this.level);
 
             if (this.getAsset().getOrderList().length < getNumberOfOrderByLevel(this.level)){
+                cc.log("create new order")
                 testnetwork.connector.sendCreateNewOrder(this.getAsset().getOrderList().length);
+
             }
 
         } else {

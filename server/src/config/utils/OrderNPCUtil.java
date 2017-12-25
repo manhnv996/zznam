@@ -75,6 +75,8 @@ public class OrderNPCUtil {
         }
         // 1 - 5 product
         List<ProductConfig> list = ProductUtil.getProductConfObjByCategory(category);
+        //
+        list = OrderUtil.filterProductByLevel(user.getLevel(), list);
         ProductConfig item = list.get((int) Math.floor(Math.random() * 0.99 * list.size()));
         
         return new StorageItem(item.id, (int) (Math.random() * 0.99 * 5) + 1);

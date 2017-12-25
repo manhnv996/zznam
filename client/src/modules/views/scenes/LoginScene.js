@@ -63,12 +63,22 @@ var LoginLayer = cc.Layer.extend({
         var valueAutoSave = JSON.parse( cc.sys.localStorage.getItem( JSON.stringify( "AUTOSAVE" ) ) );
         cc.log( "AUTOSAVE  " +valueAutoSave );
         var valueUsername = JSON.parse( cc.sys.localStorage.getItem( JSON.stringify( "USERNAME" ) ) );
-        this.userNameBox.setString(valueUsername)
+        if (valueUsername != null){
+            this.userNameBox.setString(valueUsername);
+        }
+        //else {
+        //    this.userNameBox.setString("fresher001");
+        //}
 
         if (valueAutoSave == 1){
             cc.log( "AUTOSAVE TRUE" );
             var valuePassword = JSON.parse( cc.sys.localStorage.getItem( JSON.stringify( "PASSWORD" ) ) );
-            this.passwordBox.setString(valuePassword);
+            if (valuePassword != null){
+                this.passwordBox.setString(valuePassword);
+            }
+            //else {
+            //    this.passwordBox.setString("fresher");
+            //}
             checkBox.setSelected(true);
             this._autoSave = true;
         } else {
