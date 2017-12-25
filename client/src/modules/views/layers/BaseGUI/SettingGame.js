@@ -93,10 +93,6 @@ var SettingGame = BaseLayout.extend({
     },
 
     onBtnLogoutClick: function(sender, type) {
-        cc.sys.localStorage.removeItem("session");
-        cc.eventManager.removeAllListeners();
-        ScheduleLoop.instance.clearAllSchedule(); // Flush cached
-        LoginScene.instance = new LoginScene();
-        cc.director.runScene(LoginScene.instance);
+        ConnectCtrl.instance.logout();
     }
 });

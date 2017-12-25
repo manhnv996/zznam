@@ -17,6 +17,15 @@ var ConnectCtrl = cc.Class.extend({
 			cc.log("Reconnect");
 			gv.gameClient.connect();
 		}, 5000);
+	},
+
+	logout: function() {
+		cc.sys.localStorage.removeItem("session");
+        cc.eventManager.removeAllListeners();
+        ScheduleLoop.instance.clearAllSchedule(); // Flush cached
+        LoginScene.instance = new LoginScene();
+        fr.GsnClient.destroyInstance(); // Disconect server
+        cc.director.runScene(LoginScene.instance);
 	}
 });
 
