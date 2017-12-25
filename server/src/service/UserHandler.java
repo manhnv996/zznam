@@ -336,16 +336,16 @@ public class UserHandler extends BaseClientRequestHandler {
         cowLodge.addAnimal(animal4);
 
 //        // Add Food Machine
-        Machine machine = new Machine(1, MachineTypeEnum.food_machine, 
-                        ConfigContainer.getMachineSlot(MachineTypeEnum.food_machine.toString()),
-                        0, false, true, 9, 24);
-        // Add Bakery Machine
-        Machine machine2 = new Machine(2, MachineTypeEnum.bakery_machine, 
-                        ConfigContainer.getMachineSlot(MachineTypeEnum.food_machine.toString()),
-                        0, false, true, 20, 24);
-        
-        asset.addMachine(machine);
-        asset.addMachine(machine2);
+//        Machine machine = new Machine(1, MachineTypeEnum.food_machine, 
+//                        ConfigContainer.getMachineSlot(MachineTypeEnum.food_machine.toString()),
+//                        0, false, true, 9, 24);
+//        // Add Bakery Machine
+//        Machine machine2 = new Machine(2, MachineTypeEnum.bakery_machine, 
+//                        ConfigContainer.getMachineSlot(MachineTypeEnum.food_machine.toString()),
+//                        0, false, true, 20, 24);
+//        
+//        asset.addMachine(machine);
+//        asset.addMachine(machine2);
        
         
         // Last

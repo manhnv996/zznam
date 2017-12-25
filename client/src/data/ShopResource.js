@@ -41,7 +41,6 @@ var _ = (function() {
         infoAnimalItem: JSON.parse(jsb.fileUtils.getStringFromFile("src/modules/configs/json/gameshopconfig/gsAnimalConfig.json")),
         infoMachineItem: JSON.parse(jsb.fileUtils.getStringFromFile("src/modules/configs/json/gameshopconfig/gsMachineConfig.json")),
         infoTreeItem: JSON.parse(jsb.fileUtils.getStringFromFile("src/modules/configs/json/gameshopconfig/gsTreeConfig.json"))
-        //infoShopItem: JSON.parse(jsb.fileUtils.getStringFromFile("res/config/gameshopconfig/shopConfigs.json"))
     };
 
     var g_ShopResource = [];

@@ -7,7 +7,7 @@ var StorageLayout = BaseLayout.extend({
     //_debug: true,
 
     ctor: function (storage) {
-        this._super(res.storage_bg_png, null, false, true, true);
+        this._super(res.storage_bg_png, null, true, true);
 
         //var upgradeLayer;
         var type = storage.getStorageType();

@@ -8,4 +8,6 @@ public class MachineConfig {
     public int speedUp;
     public int reduceRubyTime;
     public int slot;
+    public int[] level;
+    public int[] price;
 }

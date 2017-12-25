@@ -44,7 +44,6 @@ var MapLayer = cc.Layer.extend({
 		// cc.log("Move to", center);
 		// this.setPosition(cc.p((this.width / 2 - center.x) * this.scale, (this.height / 2 - center.y) * this.scale));
 		this.initEvent();
-
 	},
 
 	onEnter: function() {

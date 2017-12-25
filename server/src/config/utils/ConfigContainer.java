@@ -19,7 +19,7 @@ import config.enums.NaturalThingEnum;
 import config.jsonobject.AnimalConfig;
 import config.jsonobject.MachineConfig;
 
-import config.jsonobject.ShopConfig;
+import config.jsonobject.sCoopConfig;
 import config.jsonobject.animal.AnimalObject;
 import config.jsonobject.machine.MachineProductConfig;
 import config.jsonobject.machine.RawMaterial;
@@ -37,7 +37,7 @@ public class ConfigContainer {
     public static int[][] defaultMap;
     public static List<NaturalObject> defaultNatural;
     
-    public static ShopConfig[] shopConfig;
+    public static sCoopConfig[] sCoopConfig;
     public static MachineConfig[] machineConfig;
     public static MachineProductConfig[] bakeryProductConfig;
     public static MachineProductConfig[] foodProductConfig;
@@ -134,7 +134,7 @@ public class ConfigContainer {
 //            System.out.println("[Value] " + jobj.get("id").getAsString());
         }
         try {
-            shopConfig = gson.fromJson(new FileReader("src/config/json/shopConfig.json"), ShopConfig[].class);
+            sCoopConfig = gson.fromJson(new FileReader("src/config/json/sCoopConfig.json"), sCoopConfig[].class);
             machineConfig =  gson.fromJson(new FileReader("src/config/json/machineConfig.json"), MachineConfig[].class);
 //
             bakeryProductConfig = gson.fromJson(new FileReader("src/config/json/bakeryMachineConfig.json"), MachineProductConfig[].class);
@@ -158,10 +158,10 @@ public class ConfigContainer {
 //        return 0;
 //    }
     
-    public static int getPrice (String type) {
-        for (int i = 0; i < shopConfig.length; i++) {
-            if (shopConfig[i].type.equals(type)) {
-                return shopConfig[i].price;
+    public static int getCoopPrice (String type) {
+        for (int i = 0; i < sCoopConfig.length; i++) {
+            if (sCoopConfig[i].type.equals(type)) {
+                return sCoopConfig[i].price;
             }
         }
         return 0;
@@ -178,9 +178,9 @@ public class ConfigContainer {
     }
     
     public static int getLodgeCapacityByType(String type) {
-        for (int i = 0; i < shopConfig.length; i++) {
-            if (shopConfig[i].type.equals(type)) {
-                return shopConfig[i].capacity;
+        for (int i = 0; i < sCoopConfig.length; i++) {
+            if (sCoopConfig[i].type.equals(type)) {
+                return sCoopConfig[i].capacity;
             }
         }
         return 0;

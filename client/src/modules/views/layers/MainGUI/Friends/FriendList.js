@@ -71,6 +71,7 @@ var FriendList = ccui.Layout.extend({
         var cell = table.dequeueCell();
         cell = new cc.TableViewCell();
         var friend = new FriendWithLevel(gv.friendIds[idx], res.henry, gv.friendIds[idx], 50);
+        friend.frame.addTouchEventListener(friend.setOnClick, friend);
         cell.addChild(friend);
 
         return cell;

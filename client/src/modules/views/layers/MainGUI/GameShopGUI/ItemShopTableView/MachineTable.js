@@ -7,7 +7,7 @@ var MachineTable = cc.Layer.extend({
     _sprite: null,
     _check: null,
     _tableView: null,
-    lstP : {x: 0, y : 0},
+    lstP: {x: 0, y: 0},
     autoMoveHor: 0,
     autoMoveVer: 0,
 
@@ -17,7 +17,7 @@ var MachineTable = cc.Layer.extend({
         this.init();
     },
 
-    init:function () {
+    init: function () {
         var winSize = cc.director.getWinSize();
 
         this._tableView = new cc.TableView(this, cc.size(363, cc.winSize.height / 9 * 8));
@@ -32,22 +32,22 @@ var MachineTable = cc.Layer.extend({
         return true;
     },
 
-    scrollViewDidScroll:function (view) {
+    scrollViewDidScroll: function (view) {
 
     },
-    scrollViewDidZoom:function (view) {
+    scrollViewDidZoom: function (view) {
 
     },
 
-    tableCellTouched:function (table, cell) {
+    tableCellTouched: function (table, cell) {
         cc.log("Lodge Table " + cell.getIdx());
     },
 
-    tableCellSizeForIndex:function (table, idx) {
+    tableCellSizeForIndex: function (table, idx) {
         return cc.size(363, 142 * (363 / 316));
     },
 
-    tableCellAtIndex:function (table, idx) {
+    tableCellAtIndex: function (table, idx) {
         // cc.log("Create Cell " + idx);
         ///var strValue = idx;
         var cell = table.dequeueCell();
@@ -59,85 +59,84 @@ var MachineTable = cc.Layer.extend({
         var id;
         var curslot = 0;
         var maxslot = 0;
-        var price;
+        var priceLabel;
 
-            cell = new cc.TableViewCell();
-            var imgBg = new cc.Sprite(res.shop_slot_png);
-            imgBg.x = 0;
-            imgBg.y = 0;
-            imgBg.anchorX = 0;
-            imgBg.anchorY = 0;
-            var scale = (cc.winSize.width / 3) / imgBg.getContentSize().width;
-            imgBg.setScale(scale);
-            cell.addChild(imgBg);
+        cell = new cc.TableViewCell();
+        var imgBg = new cc.Sprite(res.shop_slot_png);
+        imgBg.x = 0;
+        imgBg.y = 0;
+        imgBg.anchorX = 0;
+        imgBg.anchorY = 0;
+        var scale = (cc.winSize.width / 3) / imgBg.getContentSize().width;
+        imgBg.setScale(scale);
+        cell.addChild(imgBg);
 
-            var box = imgBg.getBoundingBox();
+        var box = imgBg.getBoundingBox();
 
-            var goldImg = new cc.Sprite(res.gold_png);
-            goldImg.x = imgBg.getBoundingBox().width / 2;
-            goldImg.y = 0;
-            goldImg.setAnchorPoint(0.5, -0.5);
-            cell.addChild(goldImg);
+        var goldImg = new cc.Sprite(res.gold_png);
+        goldImg.x = imgBg.getBoundingBox().width / 2;
+        goldImg.y = 0;
+        goldImg.setAnchorPoint(0.5, -0.5);
+        cell.addChild(goldImg);
 
-            id = new cc.LabelTTF(res.infoMachineItem[idx].id);
-            id.tag = 0;
-            id.setVisible(false);
-            cell.addChild(id);
+        id = new cc.LabelTTF(res.infoMachineItem[idx].id);
+        id.tag = 0;
+        id.setVisible(false);
+        cell.addChild(id);
 
-            image = new ccui.Button(res.infoMachineItem[idx].nameIconShop);
-            //image = new cc.Sprite(res.infoMachineItem[idx].nameIconShop);
-            image.x = box.width / 4 * 3;
-            image.y = box.height / 2;
-            var scaleImg = imgBg.getContentSize().height / image.getContentSize().height;
-            image.setScale(scaleImg);
-            image.tag = 1;
+        image = new ccui.Button(res.infoMachineItem[idx].nameIconShop);
+        image.x = box.width / 4 * 3;
+        image.y = box.height / 2;
+        var scaleImg = imgBg.getContentSize().height / image.getContentSize().height;
+        image.setScale(scaleImg);
+        image.tag = 1;
 
-            title = new cc.LabelBMFont(fr.Localization.text(res.infoMachineItem[idx].name), res.FONT_OUTLINE_30);
-            title.x = box.width / 10 - 10;
-            title.y = box.height - 10;
-            title.setAnchorPoint(0, 1);
-            title.tag = 2;
+        title = new cc.LabelBMFont(fr.Localization.text(res.infoMachineItem[idx].name), res.FONT_OUTLINE_30);
+        title.x = box.width / 10 - 10;
+        title.y = box.height - 10;
+        title.setAnchorPoint(0, 1);
+        title.tag = 2;
 
-            detail = new cc.LabelBMFont(fr.Localization.text(res.infoMachineItem[idx].detail), res.FONT_NORMAL_30);
-            detail.x = box.width / 3;
-            detail.y = box.height / 2;
-            detail.color = cc.color(77, 41, 1);
-            detail.tag = 3;
+        detail = new cc.LabelBMFont(fr.Localization.text(res.infoMachineItem[idx].detail), res.FONT_NORMAL_30);
+        detail.x = box.width / 3;
+        detail.y = box.height / 2;
+        detail.color = cc.color(77, 41, 1);
+        detail.tag = 3;
 
 
-            if (level < res.infoMachineItem[idx].level) {
-                detail.setString(fr.Localization.text("text_unlock_detail") + res.infoMachineItem[idx].level);
-                image.setTouchEnabled(false);
-            } else {
-                curslot = GameShopController.instance.getNumberMachine(res.infoMachineItem[idx].id);
-                maxslot = res.infoMachineItem[idx].number;
+        if (level < res.infoMachineItem[idx].level[0]) {
+            detail.setString(fr.Localization.text("text_unlock_detail") + res.infoMachineItem[idx].level[0]);
+            image.setTouchEnabled(false);
+        } else {
+            curslot = GameShopController.instance.getNumberMachine(res.infoMachineItem[idx].id);
+            maxslot = GameShopController.instance.getMaxMachine(res.infoMachineItem[idx].id);
 
-                if (curslot < maxslot) {
-                    image.addTouchEventListener(this.touchBuyEvent, this);
-                }
+            if (curslot < maxslot) {
+                image.addTouchEventListener(this.touchBuyEvent, this);
             }
+        }
+        slot = new cc.LabelBMFont(curslot.toString() + "/" + maxslot.toString(), res.FONT_OUTLINE_30);
+        slot.x = box.width / 3 * 2;
+        slot.y = box.height / 5 * 4;
+        slot.tag = 4;
 
-            slot = new cc.LabelBMFont(curslot.toString() + "/" + maxslot.toString(), res.FONT_OUTLINE_30);
-            slot.x = box.width / 3 * 2;
-            slot.y = box.height / 5 * 4;
-            slot.tag = 4;
+        var price = GameShopController.instance.getPriceMachine(res.infoMachineItem[idx].id);
+        priceLabel = new cc.LabelBMFont(fr.toMoney(price), res.FONT_OUTLINE_30);
+        priceLabel.x = box.width / 5 * 2;
+        priceLabel.y = 0;
+        priceLabel.setAnchorPoint(1, -0.5);
+        priceLabel.tag = 5;
 
-            price = new cc.LabelBMFont(fr.toMoney(res.infoMachineItem[idx].price), res.FONT_OUTLINE_30);
-            //price = new cc.LabelBMFont(res.infoMachineItem[idx].price, res.FONT_OUTLINE_30);
-            price.x = box.width / 5 * 2;
-            price.y = 0;
-            price.setAnchorPoint(1, -0.5);
-            price.tag = 5;
+        cell.addChild(image);
+        cell.addChild(title);
+        cell.addChild(detail);
+        cell.addChild(priceLabel);
+        cell.addChild(slot);
 
-            cell.addChild(image);
-            cell.addChild(title);
-            cell.addChild(detail);
-            cell.addChild(price);
-            cell.addChild(slot);
         return cell;
     },
 
-    numberOfCellsInTableView:function (table) {
+    numberOfCellsInTableView: function (table) {
         return res.infoMachineItem.length;
     },
 
@@ -220,7 +219,7 @@ var MachineTable = cc.Layer.extend({
                 // cc.log("Touch Moved");
                 break;
             case ccui.Widget.TOUCH_ENDED:
-                if(this._sprite){
+                if (this._sprite) {
                     this._sprite.setVisible(false);
                     this._sprite.removeFromParent(true);
                     this._sprite = null;

@@ -3,12 +3,12 @@
  */
 
 var MyShopLayout = BaseLayout.extend({
-    //cartStatus: 1,
-    cartStatus: 2,
+    cartStatus: 1,
+    //cartStatus: 2,
     //cartStatus: 3,
 
     ctor: function (id) {
-        this._super(res.roadshop_bg_in, id, true, true, true);
+        this._super(res.roadshop_bg_in, id, true, true);
 
         this._title.y = this.height / 10 * 9;
         this._btnClose.y = this.height / 10 * 9;
@@ -38,8 +38,8 @@ var MyShopLayout = BaseLayout.extend({
 
         var friendLeft = new FriendWithLevel(0, res.henry, 0, 50);
         friendLeft.x = arrowLeft.getBoundingBox().width / 2;
-        friendLeft.y = arrowLeft.getBoundingBox().height / 2;
-        friendLeft.setScale(0.6);
+        friendLeft.y = arrowLeft.getBoundingBox().height / 3 * 2;
+        friendLeft.setScale(0.8);
         friendLeft.setAnchorPoint(0.5 , 0.5);
         arrowLeft.addChild(friendLeft);
 
@@ -51,8 +51,8 @@ var MyShopLayout = BaseLayout.extend({
 
         var friendRight = new FriendWithLevel(0, res.henry, 0, 50);
         friendRight.x = arrowRight.getBoundingBox().width / 2;
-        friendRight.y = arrowRight.getBoundingBox().height / 2;
-        friendRight.setScale(0.6);
+        friendRight.y = arrowRight.getBoundingBox().height / 3 * 2;
+        friendRight.setScale(0.8);
         friendRight.setAnchorPoint(0.75, 0.5);
         arrowRight.addChild(friendRight);
 
@@ -79,63 +79,119 @@ var MyShopLayout = BaseLayout.extend({
         var cartLayout = new ccui.Layout();
         cartLayout.setContentSize(cc.size(this.width / 3.5, this.height / 5 * 2));
 
-        var cart = new cc.Sprite(res.roadshop_cart);
+        var cart = new ccui.Button(res.roadshop_cart);
         cart.x = cartLayout.width / 2;
         cart.y = cartLayout.height / 2;
         cart.setScaleY(cartLayout.height / cart.height);
+        cart.setZoomScale(0);
+        cart.addTouchEventListener(this.onClickCart, this);
+        cart.setSwallowTouches(false);
         cartLayout.addChild(cart);
 
-        switch (this.cartStatus) {
-            case 1:
-                var string = fr.Localization.text("text_create_new_sale");
-                string = string.replace("\\n", "\n");
-                var sellLabel = new cc.LabelBMFont(string, res.FONT_NORMAL_30);
-                sellLabel.x = cartLayout.width / 2;
-                sellLabel.y = cartLayout.height / 3 * 2;
-                sellLabel.color = cc.color(72, 38, 0);
-                sellLabel.setLineBreakWithoutSpace(false);
-                sellLabel.setAlignment(cc.TEXT_ALIGNMENT_CENTER);
-                cartLayout.addChild(sellLabel);
-                break;
-            case 2:
-                var numberLabel = new cc.LabelBMFont("8x", res.FONT_OUTLINE_30);
-                numberLabel.x = cartLayout.width / 4;
-                numberLabel.y = cartLayout.height / 25 * 22;
-                cartLayout.addChild(numberLabel);
+        if(idx < 7 - 1) {
+            switch (this.cartStatus) {
+                case 1:
+                    var string = fr.Localization.text("text_create_new_sale");
+                    string = string.replace("\\n", "\n");
+                    var sellLabel = new cc.LabelBMFont(string, res.FONT_NORMAL_30);
+                    sellLabel.x = cartLayout.width / 2;
+                    sellLabel.y = cartLayout.height / 3 * 2;
+                    sellLabel.color = cc.color(72, 38, 0);
+                    sellLabel.setLineBreakWithoutSpace(false);
+                    sellLabel.setAlignment(cc.TEXT_ALIGNMENT_CENTER);
+                    cartLayout.addChild(sellLabel);
+                    break;
+                case 2:
+                    var numberLabel = new cc.LabelBMFont("8x", res.FONT_OUTLINE_30);
+                    numberLabel.x = cartLayout.width / 4;
+                    numberLabel.y = cartLayout.height / 25 * 22;
+                    cartLayout.addChild(numberLabel);
 
-                var productImg = new cc.Sprite(res.storage_apple);
-                productImg.setScale(0.7);
-                productImg.x = cartLayout.width / 2;
-                productImg.y = cartLayout.height / 3 * 2;
-                cartLayout.addChild(productImg);
+                    var productImg = new cc.Sprite(res.storage_apple);
+                    productImg.setScale(0.7);
+                    productImg.x = cartLayout.width / 2;
+                    productImg.y = cartLayout.height / 3 * 2;
+                    cartLayout.addChild(productImg);
 
-                var priceImg = new cc.Sprite(res.price_table);
-                priceImg.setScale(0.8);
-                priceImg.x = cartLayout.width / 3 * 2;
-                priceImg.y = cartLayout.height / 10 * 2;
+                    var priceImg = new cc.Sprite(res.price_table);
+                    priceImg.setScale(0.8);
+                    priceImg.x = cartLayout.width / 3 * 2;
+                    priceImg.y = cartLayout.height / 10 * 2;
 
-                var goldImg = new cc.Sprite(res.gold_png);
-                goldImg.x = priceImg.getBoundingBox().width / 5 * 4;
-                goldImg.y = priceImg.getBoundingBox().height / 5 * 3;
-                var priceLabel = new cc.LabelBMFont("320", res.FONT_OUTLINE_30);
-                priceLabel.x = priceImg.getBoundingBox().width / 5 * 3;
-                priceLabel.y = priceImg.getBoundingBox().height / 5 * 3;
-                priceLabel.setAnchorPoint(1.0, 0.5);
-                priceLabel.rotation = 15;
-                priceImg.addChild(goldImg);
-                priceImg.addChild(priceLabel);
-                cartLayout.addChild(priceImg);
-                break;
-            case 3:
-                break;
-        }
+                    var goldImg = new cc.Sprite(res.gold_png);
+                    goldImg.x = priceImg.getBoundingBox().width / 5 * 4;
+                    goldImg.y = priceImg.getBoundingBox().height / 5 * 3;
+                    var priceLabel = new cc.LabelBMFont("320", res.FONT_OUTLINE_30);
+                    priceLabel.x = priceImg.getBoundingBox().width / 5 * 3;
+                    priceLabel.y = priceImg.getBoundingBox().height / 5 * 3;
+                    priceLabel.setAnchorPoint(1.0, 0.5);
+                    priceLabel.rotation = 15;
+                    priceImg.addChild(goldImg);
+                    priceImg.addChild(priceLabel);
+                    cartLayout.addChild(priceImg);
+                    break;
+                case 3:
+                    var soldLabel = new cc.LabelBMFont(fr.Localization.text("text_sold"), res.FONT_OUTLINE_30);
+                    soldLabel.x = cartLayout.width / 4;
+                    soldLabel.y = cartLayout.height / 25 * 21;
+                    soldLabel.rotation = -15;
 
-        cartLayout.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
-        if(idx % 2) {
-            cartLayout.setBackGroundColor(cc.color.GREEN);
+                    var frame = new cc.Sprite(res.friend_avatar);
+                    frame.x = cartLayout.width / 2;
+                    frame.y = cartLayout.height / 3 * 2;
+                    frame.setScaleY(0.9);
+                    var avatar = new cc.Sprite(res.henry);
+                    avatar.x = cartLayout.width / 2;
+                    avatar.y = cartLayout.height / 20 * 13;
+                    avatar.setScale(77/122);
+                    avatar.setScaleY(77/122 - 0.05);
+                    var name = new cc.LabelBMFont("Henry", res.FONT_OUTLINE_20);
+                    name.x = cartLayout.width / 2;
+                    name.y = cartLayout.height / 3;
+
+                    var priceLabel = new cc.LabelBMFont("150", res.FONT_OUTLINE_30);
+                    priceLabel.x = cartLayout.width / 2;
+                    priceLabel.y = cartLayout.height / 6;
+                    priceLabel.setAnchorPoint(1.0, 0.5);
+                    var goldImg = new cc.Sprite(res.gold_png);
+                    goldImg.x = cartLayout.width / 5 * 3;
+                    goldImg.y = cartLayout.height / 6;
+                    //goldImg.setAnchorPoint(0, 0.5);
+
+                    cartLayout.addChild(avatar);
+                    cartLayout.addChild(frame);
+                    cartLayout.addChild(soldLabel);
+                    cartLayout.addChild(name);
+                    cartLayout.addChild(priceLabel);
+                    cartLayout.addChild(goldImg);
+                    break;
+            }
         } else {
-            cartLayout.setBackGroundColor(cc.color.YELLOW);
+            var btn = new ccui.Button(res.storage_buy_tool);
+            btn.x = cartLayout.width / 2;
+            btn.y = cartLayout.height / 3 * 2;
+            btn.addTouchEventListener(this.touchBuySlot, this);
+            btn.setScale(0.8);
+            cartLayout.addChild(btn);
+
+            var ruby = new cc.Sprite(res.ruby_small);
+            ruby.x = btn.width / 4 * 3;
+            ruby.y = btn.height / 4;
+            //cc.log("ruby" + ruby);
+            btn.addChild(ruby);
+
+            var numberRubyLabel = new cc.LabelBMFont("5", res.FONT_OUTLINE_30);
+            numberRubyLabel.x = btn.width / 3;
+            numberRubyLabel.y = btn.height / 4;
+            btn.addChild(numberRubyLabel);
         }
+
+        //cartLayout.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
+        //if(idx % 2) {
+        //    cartLayout.setBackGroundColor(cc.color.GREEN);
+        //} else {
+        //    cartLayout.setBackGroundColor(cc.color.YELLOW);
+        //}
 
         cell.addChild(cartLayout);
 
@@ -155,5 +211,45 @@ var MyShopLayout = BaseLayout.extend({
 
         this._title.setScaleY(scaleX / scaleY);
         this._btnClose.setScaleY(scaleX / scaleY);
+    },
+
+    touchBuySlot: function (sender, type) {
+        // Buy slot
+        switch (type) {
+            case ccui.Widget.TOUCH_ENDED:
+                break;
+        }
+    },
+
+    onClickCart: function (sender, type) {
+        // Click cart
+        // Action follow status
+        switch (type) {
+            case ccui.Widget.TOUCH_BEGAN:
+                sender.parent.runAction(new cc.ScaleTo(0.1, 0.95));
+                break;
+            case ccui.Widget.TOUCH_ENDED:
+                /**
+                 * Process in here
+                 */
+                if (sender.parent.parent.getIdx() < 7 - 1) {
+                    switch (this.cartStatus) {
+                        case 1:
+                            BaseGUILayer.instance.removeBlockListener();
+                            BaseGUILayer.instance.showSellGUI();
+                            //this.setVisible(false);
+                            break;
+                        case 2:
+                            break;
+                        case 3:
+                            break;
+                    }
+                    break;
+                }
+                    //break;
+            case ccui.Widget.TOUCH_CANCELED:
+                sender.parent.runAction(new cc.ScaleTo(0.1, 1.0));
+                break;
+        }
     }
 });
