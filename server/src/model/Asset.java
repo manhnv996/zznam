@@ -4,6 +4,8 @@ import config.enums.AnimalEnum;
 
 import config.enums.AnimalLodgeEnum;
 
+import config.enums.MachineTypeEnum;
+
 import config.utils.OrderUtil;
 
 import java.util.ArrayList;
@@ -268,6 +270,30 @@ public class Asset {
             }
         }
         return null;
+    }
+    
+    public int getNumberMachineByType(String machineType) {
+        MachineTypeEnum machineTypeEnum = null;
+        int number = 0;
+        if(machineType.equals(MachineTypeEnum.bakery_machine.toString())) {
+            machineTypeEnum = MachineTypeEnum.bakery_machine;
+        } else if(machineType.equals(MachineTypeEnum.food_machine.toString())) {
+            machineTypeEnum = MachineTypeEnum.food_machine;
+        } else if(machineType.equals(MachineTypeEnum.butter_machine.toString())) {
+            machineTypeEnum = MachineTypeEnum.butter_machine;
+        } else if(machineType.equals(MachineTypeEnum.sugar_machine.toString())) {
+            machineTypeEnum = MachineTypeEnum.sugar_machine;
+        } else if(machineType.equals(MachineTypeEnum.popcorn_machine.toString())) {
+            machineTypeEnum = MachineTypeEnum.popcorn_machine;
+        } else {
+            return 0;
+        }
+        for (int i = 0; i <this.machineList.size(); i++) {
+            if(this.machineList.get(i).getType() == machineTypeEnum) {
+                number++;
+            }
+        }
+        return number;
     }
     
     public int getNumberAnimalByType(String animalType) {

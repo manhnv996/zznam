@@ -29,30 +29,4 @@
     "capacity": 5,
     "price": 1000
   },
-  
-  
-  {
-    "type": "bakery_machine",
-    "capacity": 0,
-    "price": 20
-  },
-  {
-    "type": "food_machine",
-    "capacity": 0,
-    "price": 3795
-  },
-  {
-    "type": "butter_machine",
-    "capacity": 0,
-    "price": 50
-  },
-  {
-    "type": "sugar_machine",
-    "capacity": 0,
-    "price": 350
-  },
-  {
-    "type": "popcorn_machine",
-    "price": 1180
-  }
 ]

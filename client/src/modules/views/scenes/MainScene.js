@@ -97,6 +97,8 @@ var MainScene = BaseScene.extend({
         //MapLayer.instance.addChild(bakery);
 		var appleTree = new AppleTreeSprite();
 		MapLayer.instance.addChild(appleTree);
+
+		cc.log("res.infoMachineItem", res.infoMachineItem[0].price[0]);
 		//MapCtrl.instance.addSpriteAlias(appleTree);
 	},
 

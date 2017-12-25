@@ -25,12 +25,11 @@ var GameShopController = cc.Class.extend({
         return getLodgeConfigById(type).capacity;
     },
 
-
     getNumberLodge: function (id) {
         var number = 0;
         var listLodge = user.getAsset().getAnimalLodgeList();
         for(var i = 0; i < listLodge.length; i++){
-            if(listLodge[i].getType() == id) number++;
+            if(listLodge[i].getType() === id) number++;
         }
         return number;
     },
@@ -41,7 +40,7 @@ var GameShopController = cc.Class.extend({
         var lodge = id + '_habitat';
         var listLodge = user.getAsset().getAnimalLodgeList();
         for(var i = 0; i < listLodge.length; i++){
-            if(listLodge[i].getType() == lodge)
+            if(listLodge[i].getType() === lodge)
                 number += listLodge[i].getCurrentSlot();
         }
         return number;
@@ -56,6 +55,31 @@ var GameShopController = cc.Class.extend({
         return number;
     },
 
+    getMaxMachine: function (type) {
+        var machineConfig = getMachineConfigByType(type);
+        var lenghtLv = machineConfig.level.length;
+        var max = 0;
+        if (user.level >= machineConfig.level[lenghtLv - 1]) {
+            return lenghtLv;
+        } else {
+            for (var i = 0; i < lenghtLv - 1; i++) {
+                if (machineConfig.level[i] <= user.level && user.level < machineConfig.level[i + 1] ) {
+                    return i + 1;
+                    //break;
+                }
+            }
+        }
+        return max;
+    },
+
+    getPriceMachine: function (type) {
+        var machineConfig = getMachineConfigByType(type);
+        var idx = this.getNumberMachine(type);
+        if(idx) {
+            return machineConfig.price[idx];
+        }
+        return machineConfig.price[0];
+    },
     //checkBorder: function (lx, ly) {
     //    if(lx < 0 || ly < 0)
     //        return false;
