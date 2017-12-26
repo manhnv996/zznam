@@ -332,9 +332,10 @@ var NPCSprite = AnimationSprite.extend({
     },
 
     runScheduleUpdateOrderNPC: function () {
-        if (home) { // Check for home
-            this.schedule(this.updateOrderNPCWaittingTime, 1.0);
+        if (!home){
+            return;
         }
+        this.schedule(this.updateOrderNPCWaittingTime, 1.0);
     },
     stopScheduleUpdateOrderNPC: function () {
         this.unschedule(this.updateOrderNPCWaittingTime);

@@ -9,12 +9,12 @@ var FriendWithLevel = ccui.Layout.extend({
          //this.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
          //this.setBackGroundColor(cc.color.GREEN);
 
-        var frame = new ccui.Button(res.friend_avatar);
-        frame.setZoomScale(0.0);
-        frame.x = this.width / 2;
-        frame.y = this.height / 3 * 2;
-        frame.addTouchEventListener(this.setOnClick, this);
-        frame.setSwallowTouches(false);
+        this.frame = new ccui.Button(res.friend_avatar);
+        this.frame.setZoomScale(0.0);
+        this.frame.x = this.width / 2;
+        this.frame.y = this.height / 3 * 2;
+        //this.frame.addTouchEventListener(this.setOnClick, this);
+        this.frame.setSwallowTouches(false);
 
         var avatar = new cc.Sprite(avatar);
         avatar.x = this.width / 2;
@@ -35,7 +35,7 @@ var FriendWithLevel = ccui.Layout.extend({
         levelLabel.y = level.height / 2;
         level.addChild(levelLabel);
 
-        this.addChild(frame);
+        this.addChild(this.frame);
         this.addChild(level);
         this.addChild(name);
         this.id = id;
@@ -58,7 +58,7 @@ var FriendWithLevel = ccui.Layout.extend({
                 //sender.runAction(new cc.ScaleTo(0.1, 77/122));
                 break;
         }
-    },
+    }
 
     //setOnclick: function () {
     //    cc.log("setOnclick");

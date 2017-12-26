@@ -129,7 +129,7 @@ public class ConstructedHandler extends BaseClientRequestHandler{
                 if ((curTime - startBuildTime) >= totalTime || machineModel.isBoostBuild()) {
                     machineModel.setCompleted();
                     userInfo.addExp(machineConfig.buildExp);
-                    System.out.println("Build Completed");
+                    System.out.println("Build Completed " + machineModel.getType());
                     send(new ResponseBuildComplete(ErrorLog.SUCCESS.getValue()), user);
                 } else {
                     send(new ResponseBuildComplete(ErrorLog.ERROR_COMPLETED_BUIDING_FAIL.getValue()), user);
@@ -213,6 +213,8 @@ public class ConstructedHandler extends BaseClientRequestHandler{
             if (userRuby > SPEED_UP){
                 if (machineModel.boostProduct()){
                     if (userInfo.reduceRuby(SPEED_UP)){
+                        System.out.println(" 208 SPEED_UP"); 
+                        userInfo.saveModel(user.getId());
                         send(new ResponseErrorCode(ErrorLog.SUCCESS.getValue()), user);
                     }
                     else {
@@ -223,13 +225,12 @@ public class ConstructedHandler extends BaseClientRequestHandler{
                 }
             }
             System.out.println(" 208 after send");    
-            userInfo.saveModel(user.getId());
             
-            try {
-                userInfo.saveModel(user.getId());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+//            try {
+//                userInfo.saveModel(user.getId());
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
         } 
         catch (Exception e) {
             System.out.println("exception 143");   
@@ -409,7 +410,7 @@ public class ConstructedHandler extends BaseClientRequestHandler{
 //           
             Machine machineModel = userInfo.getAsset().getMachineById(reqBuyRawMaterial.machineId);
             String productType  = reqBuyRawMaterial.productType;
-            MachineConfig machineConfig = ConfigContainer.getMachineConfigByType(machineModel.getType().toString());
+//            MachineConfig machineConfig = ConfigContainer.getMachineConfigByType(machineModel.getType().toString());
             ArrayList<RawMaterial>  rawMaterialList  = ConfigContainer.getRawMaterialList(machineModel.getType().toString(), productType);
                     System.out.println("zznam " + rawMaterialList.get(0).rawMaterialId + "====" + rawMaterialList.get(0).quantity);
             boolean flag = true;
@@ -446,6 +447,7 @@ public class ConstructedHandler extends BaseClientRequestHandler{
                         //                                            System.out.println("447" + currQuanTest + "  " + item.quantity);
                             }
                         } 
+                        userInfo.saveModel(user.getId());  
                         
                     } else {
                         System.out.println("290 addProductFailed");
@@ -458,7 +460,6 @@ public class ConstructedHandler extends BaseClientRequestHandler{
             
            
             System.out.println(" 297 after send");    
-            userInfo.saveModel(user.getId());  
         } 
         catch (Exception e) {
             System.out.println("exception 143");   

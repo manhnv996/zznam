@@ -2,49 +2,46 @@
  * Created by CPU60135_ZZNAM on 12/20/2017.
  */
 
-var NoticeLastSeedsLayout = BaseLayout.extend({
+var NoticeFullSlotPopup = BaseLayout.extend({
 
     _btnYes: null,
     _btnNo:null,
-    ctor: function (storageLastSeedsList) {
-        this._super(res.bgNotice2, "text_notice_title", true, true);
-        this.initLastSeedsList(storageLastSeedsList);
+    _rubyToUnlock: null,
+    ctor: function (rubyToUnlock) {
+        this._super(res.bgNotice2, "Thông báo", true, true, true);
+        this._rubyToUnlock = rubyToUnlock;
+        this.initLastSeedsList();
+
     },
 
 
-    initLastSeedsList: function (storageLastSeedsList) {
+    initLastSeedsList: function () {
         this.initMsgContent();
 
-        var itemSprite = new ccui.ImageView(res.iconGoodMilk);
-        for (var i = 0; i < storageLastSeedsList.length; i++){
-            this.initMissingItem(storageLastSeedsList[i], this._bg.width / 2 - (itemSprite.width / 2 * (storageLastSeedsList.length - 1)) + itemSprite.width * i);
-
-        }
+        this.initRubyNeed();
 
         this.initButtons();
     },
 
 
-    initMissingItem: function (missingItem, xPos) {
+    initRubyNeed: function () {
 //
-        var seedImg = new ccui.ImageView(getProductIconById(missingItem.typeItem));
-        seedImg.setPosition(cc.p(xPos, this._bg.height *2 /5));
-        seedImg.setScale(0.8);
-        this._bg.addChild(seedImg);
+        var rubyImg = new ccui.ImageView(res.ruby_small);
+        rubyImg.setPosition(cc.p(this._bg.width /2, this._bg.height *2 /5));
+        this._bg.addChild(rubyImg);
 
-
-        //var count = new cc.LabelBMFont(missingItem.quantity, res.FONT_OUTLINE_30);
-        //count.setPosition(cc.p(xPos, this._bg.height * 1 / 3));
-        //this._bg.addChild(count);
+        var count = new cc.LabelBMFont(this._rubyToUnlock, res.FONT_OUTLINE_30);
+        count.setPosition(cc.p(this._bg.width /2, this._bg.height * 1 / 3));
+        this._bg.addChild(count);
 
     },
 
     initMsgContent: function () {
         //var msg = fr.Localization.text("Text_info_crop_last");
-        this.msgContent = new cc.LabelBMFont("Đây là hạt giống duy nhất trong kho lương thực!", res.FONT_OUTLINE_30);
+        this.msgContent = new cc.LabelBMFont("Máy đã hoạt động hết công suất, không thể thêm sản phẩm!", res.FONT_OUTLINE_30);
         this.msgContent.setBoundingWidth(this._bg.width * 4 /5);
         this.msgContent.setPosition(cc.p(this._bg.width / 2, this._bg.height * 2 / 3));
-        this.nextmsgContent  = new cc.LabelBMFont("Bạn có muốn sử dụng không?", res.FONT_OUTLINE_30);
+        this.nextmsgContent  = new cc.LabelBMFont("Để tiết kiệm thời gian, bạn hãy mở rộng slot nhé?", res.FONT_OUTLINE_30);
         this.nextmsgContent.setBoundingWidth(this._bg.width * 4 /5);
         this.nextmsgContent.setPosition(cc.p(this._bg.width / 2, this._bg.height * 2 / 3 - this.msgContent.height));
 

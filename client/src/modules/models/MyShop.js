@@ -103,11 +103,17 @@ var MyShop = cc.Class.extend({
         var productSale = this.getProductBySlot(intSlot);
         if (productSale != null){
             if (productSale.product != null){
-                if (user.getAsset().addItemToStorageById(productSale.product.typeItem, productSale.product.quantity)){
 
+                if (user.reduceRuby(1)){
                     productSale.updateProductSale(null, 0);
                     return true;
                 }
+
+                //if (user.getAsset().addItemToStorageById(productSale.product.typeItem, productSale.product.quantity)){
+                //
+                //    productSale.updateProductSale(null, 0);
+                //    return true;
+                //}
             }
         }
         return false;

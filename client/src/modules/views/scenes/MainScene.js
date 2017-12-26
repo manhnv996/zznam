@@ -11,7 +11,7 @@ var MainScene = BaseScene.extend({
 		AnimalCtrl.instance = new AnimalCtrl();
 		NatureCtrl.instance = new NatureCtrl();
 		FriendCtrl.instance = new FriendCtrl();
-		
+
 		// Init layers
 		MapLayer.instance = new MapLayer();
 		this.addChild(MapLayer.instance);
@@ -95,6 +95,11 @@ var MainScene = BaseScene.extend({
         ////cc.log("machine " + machine.coordinate.x + " " + machine.coordinate.y + " id " + machine.id + " slot " + machine.slot);
         //var bakery = new BakerySprite(0, 20, 20);
         //MapLayer.instance.addChild(bakery);
+		var appleTree = new AppleTreeSprite();
+		MapLayer.instance.addChild(appleTree);
+
+		cc.log("res.infoMachineItem", res.infoMachineItem[0].price[0]);
+		//MapCtrl.instance.addSpriteAlias(appleTree);
 	},
 
 	scheduleSoundChickenIdle01: function () {

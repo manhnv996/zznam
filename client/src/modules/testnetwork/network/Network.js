@@ -46,7 +46,7 @@ testnetwork.Connector = cc.Class.extend({
                 cc.log("[TIME] Delta", gv.deltaTime);
                 cc.log("[TIME] Test, current time:", getTime());
                 this.sendGetUser();
-                PreloaderScene.instance.showLoadingText();
+                cc.director.getRunningScene().showLoadingText();
                 break;
             case gv.CMD.USER_INFO:
                 //fr.getCurrentScreen().onUserInfo(packet.name, packet.x, packet.y);
@@ -151,7 +151,7 @@ testnetwork.Connector = cc.Class.extend({
                 //
                 MainGuiLayer.instance.labelGold.setString(user.gold);
                 MainGuiLayer.instance.labelRuby.setString(user.ruby);
-                MainGuiLayer.instance.labelExp.setString(user.exp);
+                MainGuiLayer.instance.labelExp.setString(user.exp + " / " + getLevelupObjById(user.getLevel() + 1).exp);
 
                 break;
 

@@ -24,15 +24,29 @@ var Machine = ConstructedObject.extend({
         this.startTime = startTime;
     },
     addProductInQueue:function(product){
-        if (this.productQueue.length == 0){
-           this.setStartTimeByCurrentTime();
-            cc.log("29 +  this.setStartTimeByCurrentTime();")
+        var now = getTime();
+        var currNotFinishedProducts = this.productQueue.length - this.getNumberOfCompletedProducts(now);
+        if (currNotFinishedProducts < this.slot){
+            if (this.productQueue.length == 0){
+                this.setStartTimeByCurrentTime();
+                cc.log("29 +  this.setStartTimeByCurrentTime();")
+            } else {
+                if (this.productQueue.length == this.getNumberOfCompletedProducts(now)){
+                    var newStartTime = now;
+                    for (var i = 0; i < this.productQueue.length; i++){
+                        newStartTime -= this.getProductTime(this.productQueue[i]);
+                    }
+                    this.setStartTime(newStartTime);
+                }
+            }
+            this.productQueue.push(product);
+            return true;
         }
-        this.productQueue.push(product);
+        return false;
     },
 
     setStartTimeByCurrentTime:function(){
-        var now = new Date().getTime();
+        var now = getTime();
         this.startTime = now;
     },
     //tinh thoi gian hoan thanh cua tat ca san pham dang co trong list (miliseconds)
@@ -87,7 +101,7 @@ var Machine = ConstructedObject.extend({
     },
     boostCurrentProduct: function () {
         //boolean
-        var now = new Date().getTime();
+        var now = getTime();
         var remainingTime = this.getRemainingTimeToFinishCurrentProduct(now);
         if (remainingTime > 0 ){
             var newStartTime = this.startTime - remainingTime;
@@ -157,8 +171,7 @@ var Machine = ConstructedObject.extend({
     },
     //lay ra thoi gian san xuat cua san pham theo productType
     getProductTime:function( productType){
-        //cc.log("71@15 " + machineType +" == "+ productType);
-        var indexMachine  = MachineController.instance.getIndexMachineInConfigByType(this.machineType);
+        //var indexMachine  = MachineController.instance.getIndexMachineInConfigByType(this.machineType);
         ////cc.log("72 " + indexMachine);
         //if (indexMachine == -1){
         //    cc.log("getIndexMachineByType ERROR");
@@ -180,11 +193,17 @@ var Machine = ConstructedObject.extend({
         var numberOfCompletedProducts = this.getNumberOfCompletedProducts(now);
         var futureTime = this.startTime;
         if (numberOfCompletedProducts < this.productQueue.length){
-            for (var i = 0; i < numberOfCompletedProducts+1; i++){
+            for (var i = 0; i < numberOfCompletedProducts + 1; i++){
                 futureTime += this.getProductTime(this.productQueue[i]);
             }
             return futureTime - now;
         }
         return 0;
+    },
+    isFullSlot:function() {
+        var now = getTime();
+        var currNotFinishedProducts = this.productQueue.length - this.getNumberOfCompletedProducts(now);
+        if (currNotFinishedProducts < this.slot) return false;
+        return true;
     }
 });

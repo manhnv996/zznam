@@ -12,6 +12,9 @@ import config.utils.ConfigContainer;
 
 import config.utils.ProductUtil;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -76,15 +79,21 @@ public class Machine extends ConstructedObject {
           int currFinishedProducts = this.getCurrentFinishedProducts();
           int currNotFinishedProducts = length - currFinishedProducts;
           if ( currNotFinishedProducts >= this.slot) return false;
-          if (true ){
               if (productType != null ) {
+                long timeNow = System.currentTimeMillis();
                 if ( length == 0) {
-                  long timeNow = System.currentTimeMillis();
                   this.setStartTime(timeNow);
+                }
+                if (length > 0 && currNotFinishedProducts == 0){
+                    for (int i = 0; i < length; i++){
+                        ProductConfig product = ProductUtil.getProductConfObjByType(this.productQueue.get(i));
+                        long currProductTime = 60*1000*  product.timeMin; 
+                        timeNow -= currProductTime;
+                    }
+                    this.setStartTime(timeNow);
                 }
                 return this.productQueue.add(productType);
               }
-          }
           return false;
         }
         public boolean unlockSlot(){
@@ -107,7 +116,7 @@ public class Machine extends ConstructedObject {
             ProductConfig product = ProductUtil.getProductConfObjByType(this.productQueue.get(i));
             long currProductTime = 60*1000*  product.timeMin; 
             tempTime += currProductTime;
-            if (timeNow >= tempTime){
+            if (timeNow >= tempTime ){
               count++;
             } else {
               break;
@@ -122,28 +131,40 @@ public class Machine extends ConstructedObject {
           int length = this.getProductQueueLength();
           int currFinishedProducts = this.getCurrentFinishedProducts();
           if (currFinishedProducts < length){
-            long timeNow = System.currentTimeMillis();
-            long tempTime = this.startTime;
-            for (int i = 0 ; i < currFinishedProducts; i++){
-//              long currProductTime = 60*1000*5; //Todo function getProductTimeByType(this.productQueue.get(i));
-              ProductConfig product = ProductUtil.getProductConfObjByType(this.productQueue.get(i));
-              long currProductTime = 60*1000*  product.timeMin; 
-              tempTime+= currProductTime;
-            }
-            long remainingTime = timeNow - tempTime;
-            if (remainingTime > 0){
-              return remainingTime;
-            } 
-            return 0;
+                long timeNow = System.currentTimeMillis();
+                long tempTime = this.startTime;
+                Date date = new Date(tempTime);
+                  Format format = new SimpleDateFormat("yyyy MM dd HH:mm:ss");
+                 System.out.println("startTime 454 " + format.format(date));
+              System.out.println("timeNow 454 " + format.format(timeNow));
+                for (int i = 0 ; i < currFinishedProducts + 1; i++){
+    //              long currProductTime = 60*1000*5; //Todo function getProductTimeByType(this.productQueue.get(i));
+                  ProductConfig product = ProductUtil.getProductConfObjByType(this.productQueue.get(i));
+                    System.out.println("productConfig " + product.timeMin);
+                  long currProductTime = 60*1000*  product.timeMin; 
+                  tempTime+= currProductTime;
+                }
+                long remainingTime = tempTime - timeNow;
+                if (remainingTime > 0){
+                  return remainingTime;
+                } 
+                return 0;
           } else {
             return 0;
           }
         }
         public boolean boostProduct(){
+            System.out.println("curr_finished " +this.getCurrentFinishedProducts());
+            System.out.println("productQueue Size " +this.productQueue.size());
             long remainingTime = this.getFirstProductRemainingTime();
+            System.out.println("remainingTime " + remainingTime);
             if (remainingTime != 0){
                 long newStartTime = this.getStartTime() - remainingTime;
                 this.setStartTime(newStartTime);
+                Date date = new Date(this.startTime);
+                  Format format = new SimpleDateFormat("yyyy MM dd HH:mm:ss");
+                 System.out.println("new 2 startTime " + format.format(date));
+                System.out.println(this.getCurrentFinishedProducts());
                 return true;
             }
             return false;

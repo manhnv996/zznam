@@ -92,14 +92,22 @@ var SeedSprite = ProductSprite.extend({
 
     //
     showInfo: function () {
-        var popupMsg = cc.Sprite.create(res.tooltip);
-        popupMsg.setPosition(0, this.height * 6 / 5);
-        popupMsg.setScale(0.5);
-        this.addChild(popupMsg);
+        var productConfig = getProductConfigById(this.seedType);
 
-        var msg = new cc.LabelBMFont("LevelUnlock: " + getProductObjByType(this.seedType).level, res.FONT_OUTLINE_30);
-        msg.setPosition(cc.p(popupMsg.width / 2, popupMsg.height / 2));
-        popupMsg.addChild(msg);
+        this.tooltip = new ToolTipLayout(fr.Localization.text(productConfig.name), "");
+        this.addChild(this.tooltip);
+
+        this.tooltip.setPosition(cc.p(- this.width, this.height * 0.8));
+
+        this.tooltip.setScale(0.5);
+        var scaleUp = cc.scaleTo(0.2, 0.55);
+        var scaleDown = cc.scaleTo(0.15, 0.5);
+        this.tooltip.runAction(cc.sequence(scaleUp, scaleDown));
+
+
+        var msg = new cc.LabelBMFont(fr.Localization.text("text_unlock") + " " + getProductObjByType(this.seedType).level, res.FONT_OUTLINE_30);
+        msg.setPosition(cc.p(this.tooltip.width / 2, this.tooltip.height / 2));
+        this.tooltip.addChild(msg);
     },
 
     addQuantityInfo: function () {

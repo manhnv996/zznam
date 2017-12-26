@@ -2,7 +2,7 @@
 var NoticeCancelOrder = BaseLayout.extend({
 
     ctor: function (orderId) {
-        this._super(res.bgNotice2, fr.Localization.text("TITLE_CONFIRM"), true, false, true);
+        this._super(res.bgNotice2, fr.Localization.text("TITLE_CONFIRM"), false, true);
 
         //
         this.initComfirmCancel(orderId);

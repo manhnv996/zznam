@@ -8,7 +8,7 @@ var OrderNPCLayer = BaseLayout.extend({
         this.orderNPC = orderNPC;
         this.orderId = orderNPC.getOrderId();
 
-        this._super(res.bgTruckOrder, "", false, false, true);
+        this._super(res.bgTruckOrder, null, false, true);
 
         this._bg.setVisible(false);
 

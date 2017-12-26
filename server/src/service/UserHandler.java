@@ -35,6 +35,8 @@ import config.utils.OrderUtil;
 
 import config.utils.ProductUtil;
 
+import static config.utils.ProductUtil.getProductObjByType;
+
 import extension.FresherExtension;
 
 import java.util.ArrayList;
@@ -136,8 +138,9 @@ public class UserHandler extends BaseClientRequestHandler {
         try {
             userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
             if (userInfo == null) {
-                userInfo = createUser(user.getId());
                 
+//                userInfo = createUser(user.getId());
+                userInfo = initUser(user.getId());
 //                //
 //                userInfo.getAsset().getMyShop().sell(userInfo, 0, new StorageItem(ProductType.CROP_WHEAT, 5), 10);
 //                userInfo.getAsset().getMyShop().sell(userInfo, 3, new StorageItem(ProductType.GOOD_MILK, 3), 27);
@@ -145,6 +148,7 @@ public class UserHandler extends BaseClientRequestHandler {
                 
                 userInfo.saveModel(user.getId());
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -153,30 +157,6 @@ public class UserHandler extends BaseClientRequestHandler {
         send(new ResponseUser(userInfo, 3), user);
         send(new ResponseUser(userInfo, 4), user);
         
-        /*
-         * test
-         */
-//        List<ProductConfig> productList2 = ProductUtil.toProductConfigList();
-//        
-//        List<ProductConfig> productList = OrderUtil.randomTypeProduct(18);
-//        
-//        List<StorageItem> itemList = OrderUtil.randomQuantityOfProductList(18, null);
-//        for (int i = 0; i < itemList.size(); i++){
-//            System.out.println(itemList.get(i).getTypeItem() + ", " + itemList.get(i).getQuantity());
-//        }
-//        System.out.println(OrderUtil.getOrderPrice(18, null));
-//        System.out.println(OrderUtil.getOrderExp(18, null));
-        
-        
-//        Order order = new Order(15);
-//        for (int i = 0; i < order.getItemList().size(); i++){
-//            System.out.println(order.getItemList().get(i).getTypeItem() + ", " + order.getItemList().get(i).getQuantity());
-//        }
-//        System.out.println(order.getOrderPrice());
-//        System.out.println(order.getOrderExp());
-        
-//        this.orderItem = OrderNPCUtil.randomProductConfByCategory(user, OrderNPCUtil.randomCategoryNPC());
-        
     }
 
     private void userDisconnect(User user) {
@@ -184,6 +164,75 @@ public class UserHandler extends BaseClientRequestHandler {
     }
 
 
+
+    public static ZPUserInfo initUser(int userId){
+        Storage foodStorage = new Storage(StorageType.FOOD_STORAGE, 50, 
+                ConfigContainer.mapConfig.Silo.position.x,
+                ConfigContainer.mapConfig.Silo.position.y);
+        Storage warehouse = new Storage(StorageType.WAREHOUSE, 50, 
+                ConfigContainer.mapConfig.Warehouse.position.x,
+                ConfigContainer.mapConfig.Warehouse.position.y);
+
+        
+        //
+        List<NatureThing> natureThingList = new ArrayList<>();
+        for (int i = 0; i < ConfigContainer.defaultNatural.size(); i++) {
+            NaturalObject nObj = ConfigContainer.defaultNatural.get(i);
+            NatureThing nt = new NatureThing(nObj.id, nObj.type, nObj.x, nObj.y);
+            natureThingList.add(nt);
+        }
+        
+        MyShop myShop = new MyShop(6);
+        
+        Asset asset = new Asset(foodStorage, warehouse, null, natureThingList, null, null, myShop);
+        
+        //
+        for (int i = 1; i < 5; i++){
+            Field field = new Field(18, 12 + i);
+            asset.addField(field);
+
+            field.setPlantType(ProductType.CROP_WHEAT);
+            field.setPlantedTime(new Date().getTime() - ProductUtil.getProductObjByType(field.getPlantType()).time * 1000 - 5000);
+        }
+        
+        warehouse.addItem(ProductType.FOOD_CHICKEN, 3);
+        
+        //
+        AnimalLodge chickenLodge = new AnimalLodge(AnimalLodgeEnum.chicken_habitat, 20, 20);
+        asset.addAnimalLodge(chickenLodge);
+        
+        Animal animal3 = new Animal(AnimalEnum.chicken);
+        animal3.setFeededTime(animal3.getFeededTime() - 1000 * 1200);
+        animal3.setFeeded(true);
+        chickenLodge.addAnimal(animal3);
+        
+        Animal animal4 = new Animal(AnimalEnum.chicken);
+        animal4.setFeededTime(animal4.getFeededTime() - 1000 * 1200);
+        animal4.setFeeded(true);
+        chickenLodge.addAnimal(animal4);
+        
+        
+        //
+        Machine machine = new Machine(1, MachineTypeEnum.food_machine, 
+                ConfigContainer.getMachineSlot(MachineTypeEnum.food_machine.toString()),
+                0, false, true, 9, 24);
+        asset.addMachine(machine);
+        
+        
+        
+//        ////
+        ZPUserInfo userInfo = new ZPUserInfo(userId, asset); // ...Update map alias
+        
+        
+        //
+        for (int i = 0; i < OrderUtil.getNumberOfOrderByLevel(userInfo.getLevel()); i++){
+            asset.addOrder(userInfo.getLevel(), new Order(userInfo, userInfo.getLevel()));
+        }
+        asset.addOrderNPC(new OrderNPC(userInfo));
+        
+        
+        return userInfo;
+    }
 
 
     public static ZPUserInfo createUser(int userId){
@@ -287,16 +336,16 @@ public class UserHandler extends BaseClientRequestHandler {
         cowLodge.addAnimal(animal4);
 
 //        // Add Food Machine
-        Machine machine = new Machine(1, MachineTypeEnum.food_machine, 
-                        ConfigContainer.getMachineSlot(MachineTypeEnum.food_machine.toString()),
-                        0, false, true, 9, 24);
-        // Add Bakery Machine
-        Machine machine2 = new Machine(2, MachineTypeEnum.bakery_machine, 
-                        ConfigContainer.getMachineSlot(MachineTypeEnum.food_machine.toString()),
-                        0, false, true, 20, 24);
-        
-        asset.addMachine(machine);
-        asset.addMachine(machine2);
+//        Machine machine = new Machine(1, MachineTypeEnum.food_machine, 
+//                        ConfigContainer.getMachineSlot(MachineTypeEnum.food_machine.toString()),
+//                        0, false, true, 9, 24);
+//        // Add Bakery Machine
+//        Machine machine2 = new Machine(2, MachineTypeEnum.bakery_machine, 
+//                        ConfigContainer.getMachineSlot(MachineTypeEnum.food_machine.toString()),
+//                        0, false, true, 20, 24);
+//        
+//        asset.addMachine(machine);
+//        asset.addMachine(machine2);
        
         
         // Last

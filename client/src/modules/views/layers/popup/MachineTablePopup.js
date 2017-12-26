@@ -32,9 +32,9 @@ var MachineTablePopup = TablePopup.extend({
         //cc.log(MA_LOG_TAG +"23 " +machineId);
         //lay ra may da goi trong Model
         this._machine = user.getAsset().getMachineById(machineId);
-        cc.log("3535 " + this._machine.machineType);
+        //cc.log("3535 " + this._machine.machineType);
         this._machineConfig = MachineController.instance.getMachineConfigByType(this._machine.machineType);
-        cc.log("3636" + this._machineConfig.machineType);
+        //cc.log("3636" + this._machineConfig.machineType);
 
         //lay ra width height cua machine sprite da goi
         var index =  MachineController.instance.getIndexInMachineSpriteList(machineId);
@@ -80,9 +80,8 @@ var MachineTablePopup = TablePopup.extend({
             };
         }
         this._screenPosition = MapValues.logicToScreenPosition( this._machine.coordinate.x, this._machine.coordinate.y);
-        this._bg.setPosition(this._screenPosition.x - this._machineWidth * 1 / 4,
-            this._screenPosition.y + this._machineHeight * 1 / 4);
-
+        this._bg.setPosition(this._screenPosition.x - this._machineWidth  / 6,
+            this._screenPosition.y + this._machineHeight / 6);
         this.renderItemList(this._machineConfig.productList);
         this.renderFirstSlot(this._machineId, spriteCalled);
         this.initSlotlist(this._machineId);
@@ -90,17 +89,25 @@ var MachineTablePopup = TablePopup.extend({
         this.renderUnlockButton(this._machineId);
         this.updateProductQueue(this._machineId);
         this.updateRemainingTime();
-
         this.scheduleUpdateRemainingTime();
+    },
+    renderMachineName:function(name){
+        //cc.log("86  " + this._machineConfig.name);
+        this._labelMaChineName = cc.LabelBMFont(this._machineConfig.name,res.FONT_NORMAL_50);
+        this._labelMaChineName.setPosition(this._FirstSlotSprite.width * 2   ,this._FirstSlotSprite.height *3/ 2);
+        this._FirstSlotSprite.addChild(this._labelMaChineName);
+        //this._labelMaChineName.setPosition(screenPosition.x + spriteCalled.width * 1 / 5,
+        //    screenPosition.y );
     },
     renderItemList: function(productList){
 
         //init
         this._popUpItemSpriteList = [];
-        //add item sprite by productlist config of each machine.
+        //add item sprite by productListproductlist config of each machine.
         for (var i = 0; i < productList.length; i++){
             //var item = new ProductSprite(this, productList[i]);
             var item = new MachineProductSprite(productList[i]);
+            //cc.log("name item: ", item._productConfig.name);
             this._popUpItemSpriteList.push(item);
             this.addChild(this._popUpItemSpriteList[i], 1);
         }
@@ -175,8 +182,14 @@ var MachineTablePopup = TablePopup.extend({
 
         if (user.getRuby() > MACHINE_CONFIG.SPEED_UP){
             if (user.asset.machineList[index].boostCurrentProduct()){
+                //decrease ruby for unlock slot
                 user.reduceRuby(MACHINE_CONFIG.SPEED_UP);
                 this.updateProductQueue(this._machineId);
+                //update animation machine sprite
+                var j = MachineController.instance.getIndexInMachineSpriteList(this._machineId);
+                MapLayer.instance.machineSpriteList[j].scheduleAnimation();
+
+                //send request to server
                 testnetwork.connector.sendBoostProduct(this._machineId);
 
             } else {
@@ -229,6 +242,7 @@ var MachineTablePopup = TablePopup.extend({
         }
         for (var  i = 0; i < visibleProducts; i++){
             this._popUpItemSpriteList[5 * pageIndex + i].setVisible(true);
+            //this._popUpItemSpriteList[5 * pageIndex + i]._defaultPosition = new cc.p(this._popUpItemSpriteList[5 * pageIndex + i].x, this._popUpItemSpriteList[5 * pageIndex + i].y);
         }
         //setPosition
         switch (visibleProducts % 5){
@@ -240,7 +254,7 @@ var MachineTablePopup = TablePopup.extend({
                 break;
             case 2:
                 this._popUpItemSpriteList[5 * pageIndex + 1].setPosition(cc.p(this._bg.x, this._bg.y));
-                this._popUpItemSpriteList[5 * pageIndex + 0].setPosition(cc.p(this._bg.x, this._bg.y));
+                this._popUpItemSpriteList[5 * pageIndex + 0].setPosition(cc.p(this._bg.x , this._bg.y));
                 //
                 this._popUpItemSpriteList[5 * pageIndex + 1].runAction(new cc.moveBy(0.1, - (this._popUpItemSpriteList[0].width / 2), - (this._popUpItemSpriteList[5 * pageIndex + 1].height / 4)));
                 this._popUpItemSpriteList[5 * pageIndex + 0].runAction(new cc.moveBy(0.1, (this._popUpItemSpriteList[1].height / 2), (this._popUpItemSpriteList[5 * pageIndex + 0].height / 4)));
@@ -251,7 +265,7 @@ var MachineTablePopup = TablePopup.extend({
                 this._popUpItemSpriteList[5 * pageIndex + 0].setPosition(cc.p(this._bg.x, this._bg.y));
                 //
                 this._popUpItemSpriteList[5 * pageIndex + 2].runAction(new cc.moveBy(0.1, -(this._popUpItemSpriteList[5 * pageIndex + 2].width/2), 0));
-                this._popUpItemSpriteList[5 * pageIndex + 1].runAction(new cc.moveBy(0.1,  (this._popUpItemSpriteList[5 * pageIndex + 2].width)/2,  (this._popUpItemSpriteList[5 * pageIndex + 2].height / 2)));
+                this._popUpItemSpriteList[5 * pageIndex + 1].runAction(new cc.moveBy(0.1,  (this._popUpItemSpriteList[5 * pageIndex + 1].width)/2,  (this._popUpItemSpriteList[5 * pageIndex + 1].height / 2)));
                 this._popUpItemSpriteList[5 * pageIndex + 0].runAction(new cc.moveBy(0.1, (this._popUpItemSpriteList[5 * pageIndex + 0].width)/2, -(this._popUpItemSpriteList[5 * pageIndex + 2].height / 2)));
 
                 break;
@@ -285,20 +299,22 @@ var MachineTablePopup = TablePopup.extend({
                 break;
 
         }
+
+
     },
     renderFirstSlot: function(machineId, spriteCalled){
         var screenPosition = this._screenPosition;
 
         this._FirstSlotSprite = new SquareSprite(res.o_trong_1);
-        this._FirstSlotSprite.setPosition(screenPosition.x + spriteCalled.width * 1 / 5,
-            screenPosition.y );
+        this._FirstSlotSprite.setPosition(screenPosition.x ,
+            screenPosition.y - this._FirstSlotSprite.height *3 /2);
         this._FirstSlotSprite.setScale(1.1);
         this.addChild(this._FirstSlotSprite);
         this._btnBoost = ccui.Button(res.button_energy_2);
-        this._btnBoost.setScale(0.8);
+        //this._btnBoost.setScale(0.8);
         //this._btnBoost.setPosition(this._FirstSlotSprite.width/2  , 0);
-        this._btnBoost.setPosition(screenPosition.x + spriteCalled.width * 1 / 5,
-            screenPosition.y);
+        this._btnBoost.setPosition(screenPosition.x,
+            screenPosition.y - this._FirstSlotSprite.height *1.6);
 
         var rubiImage = new ccui.ImageView(res.rubi);
         rubiImage.setPosition(cc.p(this._btnBoost.width * 3 / 4, this._btnBoost.height / 2));
@@ -319,6 +335,8 @@ var MachineTablePopup = TablePopup.extend({
 
         this._imgProductFirstSlot = new cc.Sprite();
         this._FirstSlotSprite.addChild(this._imgProductFirstSlot);
+
+        this.renderMachineName(this._machineConfig.name);
 
 
     },
@@ -418,7 +436,7 @@ var MachineTablePopup = TablePopup.extend({
     },
 
     updateProductQueue:function(machineId){
-        var now = new Date().getTime();
+        var now = getTime();
         var machine  = user.asset.getMachineById(machineId);
         var temp = machine.getNumberOfCompletedProducts(now);
         var numOfProductsInQueue = machine.productQueue.length;
@@ -502,7 +520,7 @@ var MachineTablePopup = TablePopup.extend({
     },
     updateRemainingTime: function(){
 
-            var now = new Date().getTime();
+            var now = getTime();
             var machine  = user.asset.getMachineById(this._machineId);
             var temp = machine.getNumberOfCompletedProducts(now);
             var numOfProductsInQueue = machine.productQueue.length;
@@ -542,7 +560,7 @@ var MachineTablePopup = TablePopup.extend({
         this._labelTime.setVisible(false);
     },
     addTempProductInFirstNullSlot:function(resPath){
-        var now = new Date().getTime();
+        var now = getTime();
         var machine  = user.asset.getMachineById(this._machineId);
         var temp = machine.getNumberOfCompletedProducts(now);
         var numOfProductsInQueue = machine.productQueue.length;
@@ -565,7 +583,7 @@ var MachineTablePopup = TablePopup.extend({
 
     },
     removeTempProductSprite:function(){
-        var now = new Date().getTime();
+        var now = getTime();
         var machine  = user.asset.getMachineById(this._machineId);
         var temp = machine.getNumberOfCompletedProducts(now);
         var numOfProductsInQueue = machine.productQueue.length;
@@ -577,7 +595,7 @@ var MachineTablePopup = TablePopup.extend({
             } else {
                 this._FirstSlotSprite.setTexture(res.o_trong_1);
                 this._FirstSlotSprite.removeChild(this._tempProductSprite);
-                cc.log("backuppppppppppppppppppppppppp");
+                cc.log("back uppppkkkkkkkkkkkkkkkkkkkkkkkkkkk");
 
             }
         }
@@ -590,14 +608,14 @@ var MachineTablePopup = TablePopup.extend({
         this.schedule(this.updateRemainingTime,1);
     },
     scheduleUpdateRemainingTime: function(){
-    var now = new Date().getTime();
-    var machine  = user.asset.getMachineById(this._machineId);
-    var temp = machine.getNumberOfCompletedProducts(now);
-    var numOfProductsInQueue = machine.productQueue.length;
-    if (temp < numOfProductsInQueue){
-        this.schedule(this.updateRemainingTime,1);
+        var now = getTime();
+        var machine  = user.asset.getMachineById(this._machineId);
+        var temp = machine.getNumberOfCompletedProducts(now);
+        var numOfProductsInQueue = machine.productQueue.length;
+        if (temp < numOfProductsInQueue){
+            this.schedule(this.updateRemainingTime,1);
+        }
     }
-}
     //addClickListener: function () {
     //    this.btnBoostClickListener = cc.EventListener.create({
     //        event: cc.EventListener.TOUCH_ONE_BY_ONE,

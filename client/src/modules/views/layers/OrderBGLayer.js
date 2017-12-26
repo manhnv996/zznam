@@ -5,7 +5,7 @@ var OrderBGLayer = BaseLayout.extend({
     lastIndexItemClick: null,   //
 
     ctor:function(){
-        this._super(res.bgTruckOrder, fr.Localization.text("text_title_order_neighbor"), true, true, true);
+        this._super(res.bgTruckOrder, fr.Localization.text("text_title_order_neighbor"), true, true);
 
         this.lastIndexItemClick = LastPageUtil.instance.lastIndexOfOrderClick;
 //

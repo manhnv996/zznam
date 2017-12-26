@@ -136,7 +136,7 @@ var MainGuiLayer = cc.Layer.extend({
 
     //
     setExpPecent: function () {
-        // this.labelExp.setString(user.getExp() + " / " + getLevelupObjById(user.getLevel() + 1).exp);
+        this.labelExp.setString(user.getExp() + " / " + getLevelupObjById(user.getLevel() + 1).exp);
         this.loadingBar.setPercent(user.getExp() * 100.0 / getLevelupObjById(user.getLevel() + 1).exp);
     },
 
@@ -233,6 +233,9 @@ var MainGuiLayer = cc.Layer.extend({
     },
 
     increaseExp: function(exp) {
+        //
+        this.labelExp.setString(user.getExp() - exp + " / " + getLevelupObjById(user.getLevel() + 1).exp);
+        //
         var currentExp = parseInt(this.labelExp.getString().split('/')[0]);
         var dstExp = currentExp + exp;
         var time = 1.0;
@@ -248,6 +251,7 @@ var MainGuiLayer = cc.Layer.extend({
                 this.unschedule(schedule);
             }
         }
+
         this.schedule(schedule);
     },
 

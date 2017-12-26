@@ -145,6 +145,15 @@ var BaseGUILayer = cc.Layer.extend({
         }
         this.blockLayout();
     },
+    showSuggestUnlockSlot: function (rubyToUnlock) {
+        this._layout = new NoticeFullSlotPopup(rubyToUnlock);
+        //this._layout.msgContent.setString("Máy đã hoạt động hết công suất, không thể thêm sản phẩm!");
+        //this._layout.nextmsgContent.setString("Để tiết kiệm thời gian bạn hãy mở rộng slot nhé?");
+        if (this._layout._hasCloseButton) {
+            this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);
+        }
+        this.blockLayout();
+    },
 
     showNoticeSureCancelOrder: function (orderId) {
         this._layout = new NoticeCancelOrder(orderId);
@@ -175,6 +184,11 @@ var BaseGUILayer = cc.Layer.extend({
             //cc.log("_btnClose");
             this._layout._btnClose.addTouchEventListener(this.touchCloseButton, this);
         }
+        this.blockLayout();
+    },
+
+    showSellGUI: function () {
+        this._layout = new SellGUI();
         this.blockLayout();
     },
 
@@ -232,5 +246,22 @@ var BaseGUILayer = cc.Layer.extend({
         label.runAction(cc.sequence(fadeIn, move, fadeOut, cc.callFunc(function() {
             label.removeFromParent(true);
         })));
+    },
+    notifyFullStorageForMachine: function (content, x, y) {
+        if (x.x) {
+            y = x.y;
+            x = x.x;
+        }
+        var label = new cc.LabelBMFont(content, res.FONT_OUTLINE_30);
+        label.x = x;
+        label.y = y;
+        this.addChild(label);
+        var fadeIn = cc.fadeIn(0.2);
+        var move = cc.moveTo(2, cc.p(x, y + 25));
+        var fadeOut = cc.fadeOut(0.2);
+        label.runAction(cc.sequence(fadeIn, move, fadeOut, cc.callFunc(function() {
+            label.removeFromParent(true);
+        })));
     }
+
 });
