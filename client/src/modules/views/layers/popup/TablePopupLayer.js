@@ -62,6 +62,9 @@ var TablePopupLayer = cc.Layer.extend({
 
     //
     runUpdateOrderWaittingTime: function () {
+        if (!home){
+            return;
+        }
         this.schedule(this.updateOrderWaittingTime, 1);
     },
     updateOrderWaittingTime: function () {
