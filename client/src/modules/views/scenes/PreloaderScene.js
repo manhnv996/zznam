@@ -41,6 +41,7 @@ var PreloaderLayer = BaseScene.extend({
 
     onEnter:function(){
         this._super();
+        this.scheduling = true;
         this.scheduleUpdate();
         this.onPlay();
     },
@@ -51,6 +52,7 @@ var PreloaderLayer = BaseScene.extend({
             // cc.log("session exists");
             gv.gameClient.connect();
         } else {
+            this.scheduling = false;
             // cc.log("session not exists");
             LoginScene.instance = new LoginScene();
             cc.director.runScene(LoginScene.instance);
@@ -67,7 +69,9 @@ var PreloaderLayer = BaseScene.extend({
     },
 
     showLoadingText: function() {
-        this.unscheduleUpdate();
+        if (this.scheduling) {
+            this.unscheduleUpdate();
+        }
         this.loadingBar.removeFromParent();
         this.loadingBarFrame.removeFromParent();
         var loadingLabel = new cc.LabelBMFont(fr.Localization.text("text_loading"), res.FONT_OUTLINE_50);

@@ -4,5 +4,6 @@ var BaseScene = cc.Scene.extend({
 	},
 
 	disconnected: function() {},
-	connectFailed: function() {}
+	connectFailed: function() {},
+	showLoadingText: function() {}
 });

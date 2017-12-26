@@ -72,8 +72,8 @@ var home = true;
 
 // chooseServer: 
 // 1: 127.0.0.1
-// 2: 120.138.65.103
-var chooseServer = 1;
+// 2: 120.138.65.103 
+var chooseServer = 2;
 
 cc.game.onStart = function () {
     if (!cc.sys.isNative && document.getElementById("cocosLoading")) //If referenced loading.js, please remove it
@@ -117,10 +117,15 @@ cc.game.onStart = function () {
         PreloaderScene.instance = new PreloaderScene();
         cc.director.runScene(PreloaderScene.instance);
 
-  //       InertiaEngine.instance = new InertiaEngine();
-  //       MainScene.instance = new MainScene();
-  //       MainScene.instance.addChild(InertiaEngine.instance);
-		// cc.director.runScene(MainScene.instance);
+        cc.eventManager.addCustomListener(cc.game.EVENT_HIDE, function() {
+            cc.log("[Game] Hiden");
+            // cc.audioEngine.stopMusic(true);
+        });
+
+        cc.eventManager.addCustomListener(cc.game.EVENT_SHOW, function() {
+            cc.log("[Game] Show");
+            // SoundCtrl.instance.playMusic(res.bg_luamoi_mp3, true);
+        });
     }, this);
 };
 cc.game.run();

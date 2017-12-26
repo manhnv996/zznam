@@ -59,27 +59,21 @@ var LoginLayer = cc.Layer.extend({
         var autoSaveText = new cc.LabelBMFont("Auto-save password", res.FONT_NORMAL_30);
         autoSaveText.setPosition(centerpos.x + 10 ,centerpos.y*3/4 );
         this.addChild(autoSaveText);
-
-        var valueAutoSave = JSON.parse( cc.sys.localStorage.getItem( JSON.stringify( "AUTOSAVE" ) ) );
-        cc.log( "AUTOSAVE  " +valueAutoSave );
-        if (cc.sys.localStorage.getItem("USERNAME")){
-            var valueUsername = JSON.parse( cc.sys.localStorage.getItem( JSON.stringify( "USERNAME" ) ) );
+        var valueAutoSave = cc.sys.localStorage.getItem("AUTOSAVE") === 'true';
+        var valueUsername = cc.sys.localStorage.getItem("USERNAME");
+        if (valueUsername){
             this.userNameBox.setString(valueUsername);
 
         } else {
-            this.userNameBox.setString("fresher001");
-            this.passwordBox.setString("fresher");
+            this.userNameBox.setString("zznamspozz79");
+            this.passwordBox.setString("altkhm979");
         }
-
-        if (valueAutoSave == 1){
+        if (valueAutoSave){
             cc.log( "AUTOSAVE TRUE" );
-            if (cc.sys.localStorage.getItem("USERNAME")){
-                var valuePassword = JSON.parse( cc.sys.localStorage.getItem( JSON.stringify( "PASSWORD" ) ) );
+            var valuePassword = cc.sys.localStorage.getItem("PASSWORD");
+            if (valuePassword){
                 this.passwordBox.setString(valuePassword);
             }
-            //else {
-            //    this.passwordBox.setString("fresher");
-            //}
             checkBox.setSelected(true);
             this._autoSave = true;
         } else {
@@ -124,12 +118,12 @@ var LoginLayer = cc.Layer.extend({
         gv.username = username;
         gv.password = password;
         gv.gameClient.connect();
-        cc.sys.localStorage.setItem( JSON.stringify( "USERNAME" ), JSON.stringify( username ) );
+        cc.sys.localStorage.setItem("USERNAME", username);
         if (this._autoSave){
-            cc.sys.localStorage.setItem( JSON.stringify( "AUTOSAVE" ), JSON.stringify( 1 ) );
-            cc.sys.localStorage.setItem( JSON.stringify( "PASSWORD" ), JSON.stringify( password ) );
+            cc.sys.localStorage.setItem("AUTOSAVE", "true");
+            cc.sys.localStorage.setItem("PASSWORD", password);
         } else {
-            cc.sys.localStorage.setItem( JSON.stringify( "AUTOSAVE" ), JSON.stringify( 0 ) );
+            cc.sys.localStorage.setItem("AUTOSAVE", "false");
             //cc.sys.localStorage.setItem( JSON.stringify( "USERNAME" ), JSON.stringify( "" ) );
             //cc.sys.localStorage.setItem( JSON.stringify( "PASSWORD" ), JSON.stringify( "" ) );
         }
