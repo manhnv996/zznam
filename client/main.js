@@ -73,7 +73,7 @@ var home = true;
 // chooseServer: 
 // 1: 127.0.0.1
 // 2: 120.138.65.103
-var chooseServer = 2;
+var chooseServer = 1;
 
 cc.game.onStart = function () {
     if (!cc.sys.isNative && document.getElementById("cocosLoading")) //If referenced loading.js, please remove it

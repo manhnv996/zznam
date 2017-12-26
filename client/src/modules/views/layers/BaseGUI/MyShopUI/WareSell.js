@@ -36,7 +36,7 @@ var WareSell = cc.Layer.extend({
     },
 
     tableCellTouched: function (table, cell) {
-        cc.log("Silo Table " + cell.getIdx());
+        cc.log("Ware Table " + cell.getIdx());
     },
 
     tableCellSizeForIndex: function (table, idx) {
@@ -58,6 +58,8 @@ var WareSell = cc.Layer.extend({
             button.setZoomScale(0);
             button.tag = i;
             cell.addChild(button);
+            button.addTouchEventListener(this.onClickProduct, this);
+
 
             var keyItem = new cc.LabelTTF("abcxyz");
             keyItem.tag = 20 + i;
@@ -98,4 +100,23 @@ var WareSell = cc.Layer.extend({
     numberOfCellsInTableView: function (table) {
         return (this.listItem.length % 2) ? (Math.floor(this.listItem.length / 2) + 1) : (this.listItem.length / 2);
     },
+
+
+    //
+    onClickProduct: function (sender, type) {
+        switch (type) {
+            case ccui.Widget.TOUCH_BEGAN:
+                sender.runAction(new cc.ScaleTo(0.1, 0.9));
+                break;
+            case ccui.Widget.TOUCH_ENDED:
+            case ccui.Widget.TOUCH_CANCELED:
+                var type = sender.parent.getChildByTag(sender.tag + 20).getString();
+                var storageItem = new StorageItem(type, user.asset.getQuantityOfTwoStorageByProductId(type));
+
+                BaseGUILayer.instance._layout.updateSellInfo(storageItem);
+
+                sender.runAction(new cc.ScaleTo(0.1, 0.7));
+                break;
+        }
+    }
 });

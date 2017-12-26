@@ -139,12 +139,12 @@ public class UserHandler extends BaseClientRequestHandler {
             userInfo = (ZPUserInfo) ZPUserInfo.getModel(user.getId(), ZPUserInfo.class);
             if (userInfo == null) {
                 
-//                userInfo = createUser(user.getId());
-                userInfo = initUser(user.getId());
-//                //
-//                userInfo.getAsset().getMyShop().sell(userInfo, 0, new StorageItem(ProductType.CROP_WHEAT, 5), 10);
-//                userInfo.getAsset().getMyShop().sell(userInfo, 3, new StorageItem(ProductType.GOOD_MILK, 3), 27);
-//                //
+                userInfo = createUser(user.getId());
+//                userInfo = initUser(user.getId());
+                //
+                userInfo.getAsset().getMyShop().sell(userInfo, 0, new StorageItem(ProductType.CROP_WHEAT, 5), 10);
+                userInfo.getAsset().getMyShop().sell(userInfo, 3, new StorageItem(ProductType.GOOD_MILK, 3), 27);
+                //
                 
                 userInfo.saveModel(user.getId());
             }

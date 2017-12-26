@@ -98,10 +98,6 @@ var BaseGUILayer = cc.Layer.extend({
         this.blockLayout();
     },
 
-    showMyShop: function () {
-
-    },
-
     showSettingGame: function () {
         this._layout = new SettingGame();
         if (this._layout._hasCloseButton) {

@@ -32,12 +32,12 @@ var SellGUI = BaseLayout.extend({
         this.sell_ware.addTouchEventListener(this.touchChooseStorage, this);
 
         this.btnSell = new ccui.Button(res.btn_sell);
-        this.btnSell.x = this.width / 50 * 39;
+        this.btnSell.x = this.width / 52 * 40;
         this.btnSell.y = this.height / 100 * 11;
         this.btnSell.setZoomScale(0);
         this.btnSell.addTouchEventListener(this.touchSell, this);
         this.btnSell.setLocalZOrder(this.bgZOrder + 1);
-        this.btnSell.setScale(0.8);
+        //this.btnSell.setScale(0.8);
 
         var labelSell = new cc.LabelBMFont(fr.Localization.text("text_put_on_shop"), res.FONT_OUTLINE_30);
         labelSell.x = this.btnSell.width / 2;
@@ -87,17 +87,9 @@ var SellGUI = BaseLayout.extend({
         //layoutNumberSell.setBackGroundColor(cc.color.YELLOW);
 
         var scaleBtn = 0.8;
-        var btnAddNumber = new ccui.Button(res.btn_add);
-        btnAddNumber.x = layoutNumberSell.width / 8 * 7;
-        btnAddNumber.y = layoutNumberSell.height / 2;
-        btnAddNumber.setScale(scaleBtn);
-        var btnReduceNumber = new ccui.Button(res.btn_reduce);
-        btnReduceNumber.x = layoutNumberSell.width / 8;
-        btnReduceNumber.y = layoutNumberSell.height / 2;
-        btnReduceNumber.setScale(scaleBtn);
 
         this.numberSell = new cc.LabelBMFont("10x", res.FONT_OUTLINE_50);
-        this.numberSell.x = layoutNumberSell.width / 8 * 3;
+        this.numberSell.x = layoutNumberSell.width * 0.42;
         this.numberSell.y = layoutNumberSell.height / 2;
         this.numberSell.setScale(scaleBtn);
 
@@ -106,8 +98,23 @@ var SellGUI = BaseLayout.extend({
         this.imgSellItem.y = layoutNumberSell.height / 2;
         this.imgSellItem.setScale(scaleBtn);
 
-        layoutNumberSell.addChild(btnAddNumber);
-        layoutNumberSell.addChild(btnReduceNumber);
+
+        this.btnAddNumber = new ccui.Button(res.btn_add);
+        this.btnAddNumber.x = layoutNumberSell.width / 8 * 7;
+        this.btnAddNumber.y = layoutNumberSell.height / 2;
+        this.btnAddNumber.setScale(scaleBtn);
+        this.btnAddNumber.addTouchEventListener(this.onClickBtnUpdateNumber(0, this.numberSell));
+        //this.btnReducePrice.addTouchEventListener(this.onClickReduceNumber, this);
+        this.btnReduceNumber = new ccui.Button(res.btn_reduce);
+        this.btnReduceNumber.x = layoutNumberSell.width / 8;
+        this.btnReduceNumber.y = layoutNumberSell.height / 2;
+        this.btnReduceNumber.setScale(scaleBtn);
+        this.btnReduceNumber.addTouchEventListener(this.onClickBtnUpdateNumber(0, this.numberSell));
+        //this.btnReduceNumber.addTouchEventListener(this.onClickReduceNumber, this);
+
+
+        layoutNumberSell.addChild(this.btnAddNumber);
+        layoutNumberSell.addChild(this.btnReduceNumber);
         layoutNumberSell.addChild(this.numberSell);
         layoutNumberSell.addChild(this.imgSellItem);
 
@@ -121,29 +128,39 @@ var SellGUI = BaseLayout.extend({
         //layoutPriceSell.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
         //layoutPriceSell.setBackGroundColor(cc.color.BLACK);
 
-        var btnAddPrice = new ccui.Button(res.btn_add);
-        btnAddPrice.x = layoutPriceSell.width / 8 * 7;
-        btnAddPrice.y = layoutPriceSell.height / 2;
-        btnAddPrice.setScale(scaleBtn);
-        var btnReducePrice = new ccui.Button(res.btn_reduce);
-        btnReducePrice.x = layoutPriceSell.width / 8;
-        btnReducePrice.y = layoutPriceSell.height / 2;
-        btnReducePrice.setScale(scaleBtn);
-
         this.priceSell = new cc.LabelBMFont("60", res.FONT_OUTLINE_50);
-        this.priceSell.x = layoutPriceSell.width / 2;
+        //this.priceSell.x = layoutPriceSell.width / 2;
+        this.priceSell.x = layoutPriceSell.width * 0.48;
         this.priceSell.y = layoutPriceSell.height / 2;
         this.priceSell.setAnchorPoint(1.0, 0.5);
         this.priceSell.setScale(scaleBtn);
 
-        this.imgGold = new cc.Sprite(res.gold_png);
-        this.imgGold.x = layoutPriceSell.width / 2;
+        //this.imgGold = new cc.Sprite(res.gold_png);
+        this.imgGold = new ccui.ImageView(res.gold_png);
+        //this.imgGold.x = layoutPriceSell.width / 2;
+        this.imgGold.x = layoutPriceSell.width * 0.55;
         this.imgGold.y = layoutPriceSell.height / 2;
         this.imgGold.setAnchorPoint(-0.3, 0.5);
         this.imgGold.setScale(scaleBtn);
 
-        layoutPriceSell.addChild(btnAddPrice);
-        layoutPriceSell.addChild(btnReducePrice);
+
+
+        this.btnAddPrice = new ccui.Button(res.btn_add);
+        this.btnAddPrice.x = layoutPriceSell.width / 8 * 7;
+        this.btnAddPrice.y = layoutPriceSell.height / 2;
+        this.btnAddPrice.setScale(scaleBtn);
+        this.btnAddPrice.addTouchEventListener(this.onClickBtnUpdateNumber(0, this.priceSell), this);
+        //this.btnAddPrice.addTouchEventListener(this.onClickAddPrice, this);
+        this.btnReducePrice = new ccui.Button(res.btn_reduce);
+        this.btnReducePrice.x = layoutPriceSell.width / 8;
+        this.btnReducePrice.y = layoutPriceSell.height / 2;
+        this.btnReducePrice.setScale(scaleBtn);
+        this.btnReducePrice.addTouchEventListener(this.onClickBtnUpdateNumber(0, this.priceSell), this);
+        //this.btnReducePrice.addTouchEventListener(this.onClickReducePrice, this);
+
+
+        layoutPriceSell.addChild(this.btnAddPrice);
+        layoutPriceSell.addChild(this.btnReducePrice);
         layoutPriceSell.addChild(this.priceSell);
         layoutPriceSell.addChild(this.imgGold);
     },
@@ -221,10 +238,41 @@ var SellGUI = BaseLayout.extend({
     touchSell: function (sender, type) {
         switch (type) {
             case ccui.Widget.TOUCH_BEGAN:
+                sender.runAction(new cc.ScaleTo(0.1, 1.1));
                 break;
             case ccui.Widget.TOUCH_ENDED:
             case ccui.Widget.TOUCH_CANCELED:
+
+                sender.runAction(new cc.ScaleTo(0.1, 1.0));
                 break;
         }
+    },
+
+
+    //
+    updateSellInfo: function (storageItem) {
+        this.numberSell.setString(Math.ceil(storageItem.quantity / 2) + "x");
+        this.imgSellItem.setTexture(getProductIconById(storageItem.typeItem));
+
+        this.priceSell.setString(Math.ceil(getProductConfigById(storageItem.typeItem).maxPrice * 0.3));
+    },
+
+
+    onClickBtnUpdateNumber: function (storageItem, label) {
+        return function (sender, type) {
+            switch (type) {
+                case ccui.Widget.TOUCH_BEGAN:
+                    break;
+                case ccui.Widget.TOUCH_ENDED :
+                    var value = label.getString();
+                    if (isNaN(value)){
+                        var str = value
+                        value = str.split("x")[0];
+                    }
+                    cc.log(value)
+                    break;
+            }
+        }
     }
+
 });
