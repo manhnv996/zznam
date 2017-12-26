@@ -55,7 +55,7 @@ var TruckOrderSprite = MapBlockSprite.extend({
 		//
 		OrderCtrl.instance.onShowOrderBG();
         TruckOrderSprite.instance.initTruckOrder();
-		audioEngine.playEffect(res.func_click_button_mp3, false);
+		SoundCtrl.instance.playSoundEffect(res.func_click_button_mp3, false);
     },
 	
 	onBeginClick: function() {

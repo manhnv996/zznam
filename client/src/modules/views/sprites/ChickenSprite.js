@@ -91,6 +91,7 @@ var ChickenSprite = AnimalSprite.extend({
 	harvest: function() {
 		this.unscheduleUpdate();
 		this.unschedule(this.doAction);
+		this.unschedule(this.harvest);
 		this.play(ChickenSprite.Harvest);
 	},
 

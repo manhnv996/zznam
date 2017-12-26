@@ -1,4 +1,5 @@
 /**
+
  * Created by CPU60133_LOCAL on 11/30/2017.
  */
 
@@ -37,7 +38,7 @@ var ProductSprite = cc.Sprite.extend({
 
 
     onTouchBegan: function (touch) {
-        audioEngine.playEffect(res.func_click_button_mp3, false);
+        SoundCtrl.instance.playSoundEffect(res.func_click_button_mp3, false);
         var target = this;
         var locationInNode = target.convertToNodeSpace(touch.getLocation());
         var s = target.getContentSize();
@@ -64,7 +65,6 @@ var ProductSprite = cc.Sprite.extend({
     onMoveClick: function (touch) {},
     onEndClick: function (touch) {},
     //
-
 
     fadeOutProduct: function () {
         this.clearListener();

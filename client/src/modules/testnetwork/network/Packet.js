@@ -12,7 +12,8 @@ gv.CMD.GET_USER = 1002; // New
 gv.CMD.ADD_USER_MONEY = 1101;
 
 gv.CMD.MOVE = 2001;
-
+gv.CMD.BUY_GOLD  = 2002;
+gv.CMD.BUY_RUBY  = 2003;
 
 //
 gv.CMD.GAME_INFO = 5099;
@@ -76,7 +77,15 @@ gv.CMD.RESPONSE_BUY_TOOL_UPGRADE = 8101;
 //Constructed
 gv.CMD.BUID_COMPLETED = 9001;
 gv.CMD.BOOST_BUILD = 9002;
+gv.CMD.RESPONSE_BUILD_COMPLETED = 9011;
+gv.CMD.RESPONSE_BOOST_BUILD = 9012;
 
+gv.CMD.BOOST_PRODUCT = 9101; //machine product
+gv.CMD.UNLOCK_SLOT = 9102;
+gv.CMD.COLLECT_PRODUCT = 9103; //lay san pham tu may da co san pham hoan thanh
+gv.CMD.ADD_PRODUCT = 9104; // them san pham vao productQueue send(machineId, productType,
+//gv.CMD.BUY_MACHINE_PRODUCT = 9105; // mua luon san pham bang ruby send (machineId, productType, ruby)
+gv.CMD.BUY_RAW_MATERIAL = 9106; // Truong hop thieu nguyen lieu, dung ruby de bat dau san xuat, send (machineId, productType, ruby)
 // Animal
 gv.CMD.ANIMAL_HARVEST = 12001;
 gv.CMD.ANIMAL_FEED = 12002;
@@ -92,6 +101,9 @@ testnetwork.packetMap = {};
 // Friend
 gv.CMD.FRIEND_GET_LIST = 14001;
 gv.CMD.FRIEND_GET_INFO = 14002;
+
+// Time
+gv.CMD.GET_SERVER_TIME = 20001;
 
 /** Outpacket */
 
@@ -140,6 +152,106 @@ CmdSendLogin = fr.OutPacket.extend(
             // user = sessionley
             this.packHeader();
             this.putString(user);
+            this.updateSize();
+        }
+    }
+);
+
+CmdSendBoostProduct = fr.OutPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+            this.initData(100);
+            this.setCmdId(gv.CMD.BOOST_PRODUCT);
+        },
+        pack:function(machineId){
+            this.packHeader();
+            this.putShort(machineId);
+            //this.putString(   );
+            this.updateSize();
+        }
+    }
+);
+
+CmdSendUnlockSlot = fr.OutPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+            this.initData(100);
+            this.setCmdId(gv.CMD.UNLOCK_SLOT);
+        },
+        pack:function(machineId){
+            this.packHeader();
+            this.putShort(machineId);
+            this.updateSize();
+        }
+    }
+);
+
+CmdSendCollectProduct = fr.OutPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+            this.initData(100);
+            this.setCmdId(gv.CMD.COLLECT_PRODUCT);
+        },
+        pack:function(machineId){
+            this.packHeader();
+            this.putShort(machineId);
+            this.updateSize();
+        }
+    }
+);
+
+CmdSendAddProduct = fr.OutPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+            this.initData(100);
+            this.setCmdId(gv.CMD.ADD_PRODUCT);
+        },
+        pack:function(machineId, productType){
+            this.packHeader();
+            this.putShort(machineId);
+            this.putString(productType);
+            this.updateSize();
+        }
+    }
+);
+
+//CmdSendBuyMachineProduct = fr.OutPacket.extend(
+//    {
+//        ctor:function()
+//        {
+//            this._super();
+//            this.initData(100);
+//            this.setCmdId(gv.CMD.BUY_MACHINE_PRODUCT);
+//        },
+//        pack:function(machineId, productType){
+//            this.packHeader();
+//            this.putShort(machineId);
+//            this.putString(productType);
+//            this.updateSize();
+//        }
+//    }
+//);
+
+CmdSendBuyRawMaterial = fr.OutPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+            this.initData(100);
+            this.setCmdId(gv.CMD.BUY_RAW_MATERIAL);
+        },
+        pack:function(machineId, productType){
+            this.packHeader();
+            this.putShort(machineId);
+            this.putString(productType);
             this.updateSize();
         }
     }
@@ -213,6 +325,42 @@ CmdSendPlantBoost = fr.OutPacket.extend(
             this.packHeader();
 
             this.putShort(fieldId);
+            // this.putString(productType);
+
+            this.updateSize();
+        }
+    }
+);
+CmdSendBuyRuby = fr.OutPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+            this.initData(100);
+            this.setCmdId(gv.CMD.BUY_RUBY);
+        },
+        pack:function(addedRuby){
+            this.packHeader();
+
+            this.putShort(addedRuby);
+            // this.putString(productType);
+
+            this.updateSize();
+        }
+    }
+);
+CmdSendBuyGold = fr.OutPacket.extend(
+    {
+        ctor:function()
+        {
+            this._super();
+            this.initData(100);
+            this.setCmdId(gv.CMD.BUY_GOLD);
+        },
+        pack:function(addedGold){
+            this.packHeader();
+
+            this.putShort(addedGold);
             // this.putString(productType);
 
             this.updateSize();
@@ -758,6 +906,17 @@ CmdSendAddMoney = fr.OutPacket.extend({
     }
 });
 
+CmdSendGetServerTime = fr.OutPacket.extend({
+    ctor: function() {
+        this._super();
+        this.initData(100);
+        this.setCmdId(gv.CMD.GET_SERVER_TIME);
+    },
+    pack: function() {
+        this.packHeader();
+        this.updateSize();
+    }
+});
 
 /**
  * InPacket
@@ -1168,6 +1327,24 @@ testnetwork.packetMap[gv.CMD.RESPONSE_BUY_OBJECT] = fr.InPacket.extend({
     }
 });
 
+testnetwork.packetMap[gv.CMD.RESPONSE_BUILD_COMPLETED] = fr.InPacket.extend({
+    ctor: function () {
+        this._super();
+    },
+    readData: function () {
+        this.error = this.getShort();
+    }
+});
+
+testnetwork.packetMap[gv.CMD.RESPONSE_BOOST_BUILD] = fr.InPacket.extend({
+    ctor: function () {
+        this._super();
+    },
+    readData: function () {
+        this.error = this.getShort();
+    }
+});
+
 testnetwork.packetMap[gv.CMD.RESPONSE_UPGRADE_STORAGE] = fr.InPacket.extend({
     ctor: function () {
         this._super();
@@ -1200,23 +1377,36 @@ testnetwork.packetMap[gv.CMD.RESPONSE_MOVE] = fr.InPacket.extend({
 testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
     ctor: function() {
         this._super();
-        this.user = {};
-        this.user.asset = {};
+        
     },
 
-    readData: function() {
+    readData: function () {
+        this.user = {};
+        this.user.asset = {};
         // WARNING: DO NOT CHANGE THE ORDERS
-        this.unpackBasicInfo();
-        this.unpackMap();
-        this.unpackFieldList();
-        this.unpackNatureThingList();
-        this.unpackStorages();
-        this.unpackOrderList();
-        this.unpackOrderNPCList();
-        this.unpackCar();
-        this.unpackAnimalLodges();
-        this.unpackMachines();
-        this.unpackMyShop();
+        var mode = this.getInt();
+        cc.log("[USER MODE] received", mode);
+        switch (mode) {
+            case 1:
+                this.unpackBasicInfo();
+                this.unpackMap();
+                this.unpackFieldList();
+                break;
+            case 2:
+                this.unpackNatureThingList();
+                this.unpackStorages();
+                break;
+            case 3:
+                this.unpackOrderList();
+                this.unpackOrderNPCList();
+                this.unpackCar();
+                break;
+            case 4:
+                this.unpackAnimalLodges();
+                this.unpackMachines();
+                this.unpackMyShop();
+                break;
+        }
     },
 
     unpackBasicInfo: function() {
@@ -1406,16 +1596,19 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
     unpackMachines: function () {
         var size = this.getInt();
         this.user.asset.machineList = [];
+
         for (var i = 0; i < size; i++) {
-            this.user.asset.machineList.push(this.unpackMachine());
+            var machine = this.unpackMachine();
+            this.user.asset.machineList.push(machine);
         }
     },
 
     unpackMachine: function () {
-        var machine = {};
 
-        machine.id = this.getInt();
-        machine.type = this.getString();
+        var machine ={};
+        machine.machineId = this.getInt();
+        machine.machineType = this.getString();
+        machine.coordinate = {};
         machine.x = this.getInt();
         machine.y = this.getInt();
         machine.slot = this.getInt();
@@ -1426,9 +1619,12 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         machine.remainBuildTime = this.getInt();
 
         machine.productQueue = [];
+
+        //var machine = new Machine(machineId, machineType, slot, startTime,  productQueue, boostBuild, completed, startBuildTime, remainBuildTime, coordinate);
         var size = this.getInt();
         for (var i = 0; i < size; i++) {
             machine.productQueue.push(this.getString());
+
         }
 
         return machine;
@@ -1520,3 +1716,12 @@ testnetwork.packetMap[gv.CMD.FRIEND_GET_LIST] = fr.InPacket.extend({
 
 testnetwork.packetMap[gv.CMD.FRIEND_GET_INFO] 
         = testnetwork.packetMap[gv.CMD.GET_USER]; // Same
+
+testnetwork.packetMap[gv.CMD.GET_SERVER_TIME] = fr.InPacket.extend({
+    ctor: function() {
+        this._super();
+    },
+    readData: function() {
+        this.time = parseInt(this.getLong());
+    }
+});

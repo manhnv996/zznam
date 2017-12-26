@@ -5,8 +5,6 @@
 var ConstructedSprite = AnimationSprite.extend({
     typeBuilding: null,
     id: null,
-    //blockSize: null,
-    //buildTime: 0,
 
     ctor: function (id, w, h, x, y, typeBuilding) {
         var aniId;
@@ -23,12 +21,9 @@ var ConstructedSprite = AnimationSprite.extend({
         }
         this._super(aniId, w, h, x, y ,typeBuilding);
 
+
         this.id = id;
         this.typeBuilding = typeBuilding;
-        //this.blockSize = w;
-        //cc.log("Constructed sprite id", this.id);
-
-        //this.buildTime = ConstructedCtrl.instance.getBuildTime(id);
         this.buildExpress = ConstructedCtrl.instance.getBuildExpress(id);
         this.play(nameAni);
 
@@ -38,18 +33,36 @@ var ConstructedSprite = AnimationSprite.extend({
     },
 
     onBeginClick: function () {
-        if (_loadingBarConstructed) {
-            if (_loadingBarConstructed.parent) {
-                _loadingBarConstructed.removeFromParent();
-            }
-            _loadingBarConstructed = null;
-        }
     },
 
     onClick: function () {
-        cc.log("Click nha dang xay " + this.id);
-        ConstructedCtrl.instance.selectConstructedObject(this);
-        audioEngine.playEffect(res.func_click_button_mp3, false);
+        //cc.log("Click nha dang xay " + this.id);
+        SoundCtrl.instance.playSoundEffect(res.func_click_button_mp3, false);
+        this.selectConstructedObject();
+    },
+
+    selectConstructedObject: function() {
+        this.machine = user.asset.getMachineById(this.id);
+        this.machineConfig = getMachineConfigByType(this.machine.machineType);
+
+        var py = this.machine.coordinate.y;
+        var px = this.machine.coordinate.x;
+        var p = MapValues.logicToScreenPosition(px, py);
+        //this.progressBar.setPosition(p.x, p.y);
+
+        this.progressBar = new LoadingBarLayout(p.x, p.y, this.machineConfig.time,
+            this.machine.startBuildTime,
+            this.machineConfig.name,
+            this.buildExpress.toString(),
+            this.machine.remainBuildTime, true);
+
+        BaseGUILayer.instance.addChild(this.progressBar);
+
+        this.progressBar.setOnClick(function () {
+            ConstructedCtrl.instance.boostBuild(this);
+            this.progressBar.closeLoadingBar();
+            this.progressBar = null;
+        }.bind(this));
     },
 
     _offset: function() {
@@ -65,9 +78,11 @@ var ConstructedSprite = AnimationSprite.extend({
     },
 
     updateTime: function (dt) {
-        if (ConstructedCtrl.instance.checkBuildTime(this, dt)) {
-            this.removeFromParent(true);
-        }
+        //if (ConstructedCtrl.instance.checkBuildTime(this, dt)) {
+            //this.progressBar = null;
+        //    this.removeFromParent(true);
+        //}
+        ConstructedCtrl.instance.checkBuildTime(this, dt);
     },
 
     onFinishMove: function (lx, ly) {

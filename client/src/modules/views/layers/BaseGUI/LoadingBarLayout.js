@@ -8,7 +8,7 @@ var LoadingBarLayout = ccui.Layout.extend({
     startTime: 0,
     _isClose: false,
 
-   ctor: function (totalTime, startTime, name, ruby, remainTime) {
+   ctor: function (x, y, totalTime, startTime, name, ruby, remainTime, checkMove) {
        this._super();
 
        this.totalTime = totalTime * 1000;
@@ -16,7 +16,7 @@ var LoadingBarLayout = ccui.Layout.extend({
        //this._isClose = false;
 
        //this.totalTime = 9000 * 1000;
-       //this.startTime = new Date().getTime() - 5000 * 1000;
+       //this.startTime = getTime() - 5000 * 1000;
 
        this.progressBar = new cc.Sprite(res.progressbar);
        this.progressBar.x = 0;
@@ -55,7 +55,7 @@ var LoadingBarLayout = ccui.Layout.extend({
        this.boostBtn.addChild(this.rubyImg);
 
        this.setContentSize(this.progressBar.getContentSize().width + this.boostBtn.width,
-                            this.progressBar.getContentSize().height);
+                            this.progressBar.getContentSize().height + this.nameProgess.height / 2);
        //this.setPosition(cc.p(cc.winSize.width / 2, cc.winSize.height / 2));
        this.setAnchorPoint(0.5, 0.5);
 
@@ -71,12 +71,19 @@ var LoadingBarLayout = ccui.Layout.extend({
        //
        //this.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
        //this.setBackGroundColor(cc.color.BLACK);
-
+       //
+       //var sprite = new cc.Sprite(res.debug_png);
+       //sprite.x = 0;
+       //sprite.y = 0;
+       //this.addChild(sprite);
        //cc.log("total time", this.totalTime);
        //cc.log("start time", this.startTime);
        // cc.log("Remain time", this.remainTime);
-       //this.remainTime = this.totalTime - (new Date().getTime() - this.startTime) + 1000;
+       //this.remainTime = this.totalTime - (getTime() - this.startTime) + 1000;
        //cc.log("Remain time", this.remainTime);
+
+       this.x = x;
+       this.y = y;
 
        this.actionShow();
 
@@ -86,19 +93,23 @@ var LoadingBarLayout = ccui.Layout.extend({
            //this.setTimeString(this.remainTime);
            this.progress.setPercent((this.totalTime - (this.remainTime * 1000)) / this.totalTime * 100);
            this.schedule(this.updateRemainTime ,0.1);
-           cc.log("this.remainTime progress bar", this.remainTime);
+           //cc.log("this.remainTime progress bar", this.remainTime);
        } else {
-           this.remainTime = this.totalTime - (new Date().getTime() - this.startTime) + 1000;
+           this.remainTime = this.totalTime - (getTime() - this.startTime) + 1000;
            this.scheduleUpdate();
        }
+       this.checkAutoMove(checkMove);
        //this.scheduleUpdate();
-
-
-
        this.disableLoadingBar();
    },
 
-    setOnClick: function(callback) {
+    checkAutoMove: function (checkMove) {
+        if (checkMove) {
+            this.autoMove();
+        }
+    },
+
+    setOnClick: function (callback) {
         this.boostBtn.addClickEventListener(callback);
     },
 
@@ -138,7 +149,7 @@ var LoadingBarLayout = ccui.Layout.extend({
         //cc.log("remainTime " + dt);
         this.remainTime -= dt * 1000;
 
-        //var curTime = new Date().getTime();
+        //var curTime = getTime();
         //var cur = curTime - this.startTime;
         //
         //cc.log("curTime " + curTime + " " + cur);
@@ -147,7 +158,7 @@ var LoadingBarLayout = ccui.Layout.extend({
         //this.progress.setPercent(50);
 
 
-        //var remain = new Date();
+        //var remain = getDate();
         //remain.setTime(this.totalTime - cur);
         //var timeRemainShow = "";
         var time = this.remainTime / 1000;
@@ -208,10 +219,6 @@ var LoadingBarLayout = ccui.Layout.extend({
         if ((hour === 0 && min === 0 && sec === 0) || this._isClose) {
             this.closeProgressBar();
         }
-        //
-        //if(this._isClose) {
-        //    this.closeProgressBar();
-        //}
     },
 
     setTimeString: function (hour, min, sec) {
@@ -232,11 +239,8 @@ var LoadingBarLayout = ccui.Layout.extend({
         this.unschedule(this.updateRemainTime);
         if (this.parent) {
             this.removeFromParent(true);
-            // cc.log("removeFromParent");
         }
         this._isClose = false;
-        //_loadingBarConstructed.removeFromParent(true);
-        _loadingBarConstructed = null;
         cc.eventManager.removeListener(this.listener);
     },
 
@@ -244,11 +248,42 @@ var LoadingBarLayout = ccui.Layout.extend({
         this.unscheduleUpdate();
         if (this.parent) {
             this.removeFromParent(true);
-            // cc.log("removeFromParent");
         }
         this._isClose = false;
-        //_loadingBarConstructed.removeFromParent(true);
-        _loadingBarConstructed = null;
         cc.eventManager.removeListener(this.listener);
+    },
+
+    autoMove: function () {
+        //var lP = MapValues.screenPositionToLogic(this.x, this.y);
+        var delta = cc.p(0, 0);
+
+        var pointX = this.x - this.width / 2;
+        var pointY = this.y + this.height / 2;
+        //var pointX = this.x;
+        //var pointY = this.y + this.getBoundingBox().height;
+        //cc.log("loadingbar size", this.getBoundingBox().width, " ", this.getBoundingBox().height);
+        cc.log("loadingbar size", this.width, " ", this.height);
+        cc.log("lodaing bar position", this.x, " ", this.y);
+        cc.log("begin point", pointX, " ", pointY);
+        if (pointX < 0) {
+            //if (lP.x < 0) {
+            //    delta.x = -pointX;
+            //} else {
+                delta.x = -pointX;
+            //}
+        }
+
+        if (pointY > cc.winSize.height) {
+            delta.y = -(pointY - cc.winSize.height);
+        }
+
+        cc.log("delta", delta.x, " ", delta.y);
+        var actionMap = new cc.MoveBy(1, delta).easing(cc.easeExponentialOut());
+        MapLayer.instance.runAction(actionMap);
+
+        //delta.x = -delta.x;
+        //delta.y = -delta.y;
+        //var action = new cc.MoveBy(1, delta).easing(cc.easeExponentialOut());
+        this.runAction(actionMap.clone());
     }
 });

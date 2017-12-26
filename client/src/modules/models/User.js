@@ -78,12 +78,15 @@ var User = cc.Class.extend({
             this.exp = 0;
 
             MainGuiLayer.instance.labelExp.setString(this.exp + " / " + getLevelupObjById(this.level + 1).exp);
+            GameShopLayout.instance._gameShop.reloadShopData();
 
             this.addExp(expCurr + number - getLevelupObjById(user.level).exp);
             MainGuiLayer.instance.labelLevel.setString(this.level);
 
             if (this.getAsset().getOrderList().length < getNumberOfOrderByLevel(this.level)){
+                cc.log("create new order")
                 testnetwork.connector.sendCreateNewOrder(this.getAsset().getOrderList().length);
+
             }
 
         } else {

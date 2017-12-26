@@ -2,7 +2,7 @@
 var NoticeCancelOrder = BaseLayout.extend({
 
     ctor: function (orderId) {
-        this._super(res.bgNotice2, "TITLE_CONFIRM", true, false, true);
+        this._super(res.bgNotice2, fr.Localization.text("TITLE_CONFIRM"), false, true);
 
         //
         this.initComfirmCancel(orderId);
@@ -31,7 +31,7 @@ var NoticeCancelOrder = BaseLayout.extend({
             }
         });
 
-        var btCancel = new ccui.Button(res.btCancle);
+        var btCancel = new ccui.Button(res.btCancel);
         btCancel.setPosition(this._bg.width * 2 / 3, this._bg.height / 4);
         this._bg.addChild(btCancel);
         btCancel.addClickEventListener(function () {

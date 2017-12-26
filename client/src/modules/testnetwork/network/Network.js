@@ -22,15 +22,31 @@ testnetwork.Connector = cc.Class.extend({
                 //this.sendLoginRequest();
                 cc.log(gv.username +"====" + gv.password);
                 this.sendLoginRequest(gv.username, gv.password);
-
                 break;
+            
             case gv.CMD.USER_LOGIN:
+                // Get friend list
+                this.sendFriendGetList();
+                // cc.log(packet);
                 // this.sendGetUserInfo(); // Old. Do not use
-                this.sendGetUser();
-
+                cc.log("Get server time");
+                this.sendGetServerTime();
                 // MainScene.instance = new MainScene();
                 // cc.director.runScene(MainScene.instance);
 
+                break;
+            // Time
+            case gv.CMD.GET_SERVER_TIME:
+                cc.log("GET_SERVER_TIME");
+                var serverStartTime = packet.time;
+                var clientStartTime = new Date().getTime();
+                gv.deltaTime = clientStartTime - serverStartTime;
+                cc.log("[TIME] Client time", clientStartTime);
+                cc.log("[TIME] Server time", serverStartTime);
+                cc.log("[TIME] Delta", gv.deltaTime);
+                cc.log("[TIME] Test, current time:", getTime());
+                this.sendGetUser();
+                PreloaderScene.instance.showLoadingText();
                 break;
             case gv.CMD.USER_INFO:
                 //fr.getCurrentScreen().onUserInfo(packet.name, packet.x, packet.y);
@@ -90,7 +106,7 @@ testnetwork.Connector = cc.Class.extend({
                 var fieldSelected = user.getAsset().getFieldById(packet.fieldId);
                 fieldSelected.setPlantType(packet.plantType);
 
-                var plantedTime = new Date();
+                var plantedTime = getDate();
                 plantedTime.setTime(packet.longPlantedTime);
                 fieldSelected.setPlantedTime(plantedTime);
 
@@ -135,7 +151,7 @@ testnetwork.Connector = cc.Class.extend({
                 //
                 MainGuiLayer.instance.labelGold.setString(user.gold);
                 MainGuiLayer.instance.labelRuby.setString(user.ruby);
-                MainGuiLayer.instance.labelExp.setString(user.exp);
+                MainGuiLayer.instance.labelExp.setString(user.exp + " / " + getLevelupObjById(user.getLevel() + 1).exp);
 
                 break;
 
@@ -309,6 +325,20 @@ testnetwork.Connector = cc.Class.extend({
                 }
                 break;
 
+            case gv.CMD.RESPONSE_BUILD_COMPLETED:
+                cc.log("BUILD_COMPLETED Error:", packet.error);
+                if (packet.error !== 0) {
+                    cc.log('[E] Error occurs!');
+                }
+                break;
+
+            case gv.CMD.RESPONSE_BOOST_BUILD:
+                cc.log("BOOST_BUILD Error:", packet.error);
+                if (packet.error !== 0) {
+                    cc.log('[E] Error occurs!');
+                }
+                break;
+
             case gv.CMD.RESPONSE_UPGRADE_STORAGE:
                 cc.log("UPGRADE_STORAGE Error:", packet.error);
                 if (packet.error !== 0) {
@@ -330,9 +360,8 @@ testnetwork.Connector = cc.Class.extend({
             case gv.CMD.FRIEND_GET_LIST:
                 cc.log("FRIEND_GET_LIST");
                 cc.log(packet.idList);
-                var id = packet.idList[0] || user.id; // or last id
-                cc.log("[F] Choose", id);
-                this.sendFriendGetInfo(id);
+                gv.friendIds = packet.idList;
+                // this.sendFriendGetInfo(id);
                 break;
             case gv.CMD.FRIEND_GET_INFO:
                 cc.log("FRIEND_GET_INFO");
@@ -360,21 +389,19 @@ testnetwork.Connector = cc.Class.extend({
         cc.log("Send login request", username, password);
         var ATTEMP_TO_TRY = 5;
         var failedToConnect = function() {
-            return cc.log("Check your network connection");
+            ConnectCtrl.instance.onConnectFailed();
+            // return cc.log("Check your network connection");
+            return;
         }
 
         var invalidUsernamePassword = function() {
-            return cc.log("Invalid username or password");
+            LoginScene.instance.layer.invalidUsernamePassword();
+            // return cc.log("Invalid username or password");
+            return;
         }
 
         // Not modify after here
         var that = this;
-        var sendLoginPacket = function(sessionKey, userid) {
-            var pk = that.gameClient.getOutPacket(CmdSendLogin);
-            pk.pack(sessionKey, userid);
-            that.gameClient.sendPacket(pk);
-        }
-
         var getSessionProcess = function(userid, sessionKey, attemp) {
             var url = "https://zplogin.g6.zing.vn/?service_name=getSessionKey" 
                 + "&gameId=100&distribution=&clientInfo=" 
@@ -387,7 +414,9 @@ testnetwork.Connector = cc.Class.extend({
                     cc.log("Retry attemp", attemp + 1);
                     return getSessionProcess(userid, sessionKey, attemp + 1);
                 }
-                return sendLoginPacket(response.sessionKey, userid);
+                // Save session
+                cc.sys.localStorage.setItem("session", response.sessionKey);
+                return that.sendLoginSession(response.sessionKey, userid);
             });
         }
 
@@ -411,63 +440,77 @@ testnetwork.Connector = cc.Class.extend({
             });
         }
 
-        return loginProcess(username, password, 0);
+        // return this.sendLoginSession("aWQ9Mjg5OTMxMzYmdXNlcm5hbWU9enpuYW1zcG96ejc5JnNvY2lhbD16aW5nbWUmc29jaWFsbmFtZT1OYW0rRnNwJmF2YXRhcj1odHRwJTNBJTJGJTJGemluZ3BsYXkuc3RhdGljLmc2Lnppbmcudm4lMkZpbWFnZXMlMkZ6cHAlMkZ6cGRlZmF1bHQucG5nJnRpbWU9MTUxMzc1NjExMSZvdGhlcj1kZWZhdWx0JTNBJTNBJTNBJTNBMjg5OTMxMzYlM0ElM0ExMDAmdG9rZW5LZXk9ODAzMjRmYmNmOTJmOTc1OTQ1NDY0MmMwZWYwNmNjOTM=", 0);
+        // return this.sendLoginSession("aWQ9NDgzNjk4NzI2JnVzZXJuYW1lPWZyZXNoZXIwMDEmc29jaWFsPXppbmdtZSZzb2NpYWxuYW1lPWZyZXNoZXIwMDEmYXZhdGFyPWh0dHAlM0ElMkYlMkZ6aW5ncGxheS5zdGF0aWMuZzYuemluZy52biUyRmltYWdlcyUyRnpwcCUyRnpwZGVmYXVsdC5wbmcmdGltZT0xNTEzNzU2MjE1Jm90aGVyPWRlZmF1bHQlM0ElM0ElM0ElM0E0ODM2OTg3MjYlM0ElM0ExMDAmdG9rZW5LZXk9YWFmNTVlN2MwNTk5Y2ZkMGEyMWM5MDI4NjA5NDYwYmM=", 0);
+        var ss = cc.sys.localStorage.getItem("session");
+        if (ss) {
+            return this.sendLoginSession(ss, 0);
+        } else {
+            return loginProcess(username, password, 0);
+        }
     },
 
-    _sendLoginRequest: function (username, password) {
-        cc.log("sendLoginRequest");
-        cc.log("sendingLoginRequest with: " + username + "===" + password);
-        //this.getSessionKeyAndUserId();
-        var xhr = cc.loader.getXMLHttpRequest();
-        var url = "https://myplay.apps.zing.vn/sso3/login.php?username=" + username + "&password=" + password;
-        xhr.open("GET", url);
-        xhr.setRequestHeader("Content-Type", "text/plain");
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && ( xhr.status >= 200 && xhr.status <= 207 )) {
-                var httpStatus = xhr.statusText;
-                var response = xhr.responseText;
-                var jsonData = JSON.parse(response);
-                var error = jsonData["error"];
-                var accessToken = jsonData["sessionKey"];
-                var userid = jsonData["userid"];
-
-                if (error == "0") {
-                    var url2 = "https://zplogin.g6.zing.vn/?service_name=getSessionKey&gameId=100&distribution=&clientInfo=&social=zingme&accessToken=";
-                    cc.log("HTTP Response : error : " + error);
-                    var xhr2 = cc.loader.getXMLHttpRequest();
-                    xhr2.open("GET", url2 + accessToken);
-                    xhr2.setRequestHeader("Content-Type", "text/plain");
-                    xhr2.onreadystatechange = function () {
-                        cc.log("Networking away");
-
-                        if (xhr2.readyState == 4 && ( xhr2.status >= 200 && xhr2.status <= 207 )) {
-                            var httpStatus = xhr2.statusText;
-                            cc.log(httpStatus);
-
-                            var response = xhr2.responseText;
-                            //cc.log(response);
-
-                            //parse to json object;
-                            var jsonData = JSON.parse(response);
-                            var error2 = jsonData["error"];
-                            var sessionKey2 = jsonData["sessionKey"];
-                            var openId = jsonData["openId"];
-                            var expired_time = jsonData["expired_time"];
-                            cc.log("HTTP Response : error2 : " + error2);
-                            cc.log("HTTP Response : sessionKey2 : " + sessionKey2);
-                            //cc.log("HTTP Response : openId : " + openId);
-                            //cc.log("HTTP Response : expired_time : " + expired_time);
-                            var pk = this.gameClient.getOutPacket(CmdSendLogin);
-                            pk.pack(sessionKey2, userid);
-                            this.gameClient.sendPacket(pk);
-                        }
-                    }.bind(this, userid);
-                    xhr2.send();
-                }
-            }
-        }.bind(this);
-        xhr.send();
+    sendLoginSession: function(sessionKey, userid) {
+        var pk = this.gameClient.getOutPacket(CmdSendLogin);
+        pk.pack(sessionKey, userid);
+        this.gameClient.sendPacket(pk);
+        cc.log("ss", sessionKey);
     },
+
+    // sendLoginRequest: function (username, password) {
+    //     cc.log("sendLoginRequest");
+    //     cc.log("sendingLoginRequest with: " + username + "===" + password);
+    //     //this.getSessionKeyAndUserId();
+    //     var xhr = cc.loader.getXMLHttpRequest();
+    //     var url = "https://myplay.apps.zing.vn/sso3/login.php?username=" + username + "&password=" + password;
+    //     xhr.open("GET", url);
+    //     xhr.setRequestHeader("Content-Type", "text/plain");
+    //     xhr.onreadystatechange = function () {
+    //         if (xhr.readyState == 4 && ( xhr.status >= 200 && xhr.status <= 207 )) {
+    //             var httpStatus = xhr.statusText;
+    //             var response = xhr.responseText;
+    //             var jsonData = JSON.parse(response);
+    //             var error = jsonData["error"];
+    //             var accessToken = jsonData["sessionKey"];
+    //             var userid = jsonData["userid"];
+
+    //             if (error == "0") {
+    //                 var url2 = "https://zplogin.g6.zing.vn/?service_name=getSessionKey&gameId=100&distribution=&clientInfo=&social=zingme&accessToken=";
+    //                 cc.log("HTTP Response : error : " + error);
+    //                 var xhr2 = cc.loader.getXMLHttpRequest();
+    //                 xhr2.open("GET", url2 + accessToken);
+    //                 xhr2.setRequestHeader("Content-Type", "text/plain");
+    //                 xhr2.onreadystatechange = function () {
+    //                     cc.log("Networking away");
+
+    //                     if (xhr2.readyState == 4 && ( xhr2.status >= 200 && xhr2.status <= 207 )) {
+    //                         var httpStatus = xhr2.statusText;
+    //                         cc.log(httpStatus);
+
+    //                         var response = xhr2.responseText;
+    //                         //cc.log(response);
+
+    //                         //parse to json object;
+    //                         var jsonData = JSON.parse(response);
+    //                         var error2 = jsonData["error"];
+    //                         var sessionKey2 = jsonData["sessionKey"];
+    //                         var openId = jsonData["openId"];
+    //                         var expired_time = jsonData["expired_time"];
+    //                         cc.log("HTTP Response : error2 : " + error2);
+    //                         cc.log("HTTP Response : sessionKey2 : " + sessionKey2);
+    //                         //cc.log("HTTP Response : openId : " + openId);
+    //                         //cc.log("HTTP Response : expired_time : " + expired_time);
+    //                         var pk = this.gameClient.getOutPacket(CmdSendLogin);
+    //                         pk.pack(sessionKey2, userid);
+    //                         this.gameClient.sendPacket(pk);
+    //                     }
+    //                 }.bind(this, userid);
+    //                 xhr2.send();
+    //             }
+    //         }
+    //     }.bind(this);
+    //     xhr.send();
+    // },
     
     sendMove:function(direction){
         cc.log("SendMove:" + direction);
@@ -712,5 +755,43 @@ testnetwork.Connector = cc.Class.extend({
         var pk = this.gameClient.getOutPacket(CmdSendAddMoney);
         pk.pack(number, type);
         this.gameClient.sendPacket(pk);
-    }
+    },
+
+    sendGetServerTime: function() {
+        cc.log("Send get server time");
+        var pk = this.gameClient.getOutPacket(CmdSendGetServerTime);
+        pk.pack();
+        this.gameClient.sendPacket(pk);
+    },
+    //
+    sendBoostProduct: function(machineId) {
+        cc.log("sendBoostProduct");
+        var pk = this.gameClient.getOutPacket(CmdSendBoostProduct);
+        pk.pack(machineId);
+        this.gameClient.sendPacket(pk);
+    },
+    sendUnlockSlot: function(machineId) {
+        cc.log("sendUnlockSlot");
+        var pk = this.gameClient.getOutPacket(CmdSendUnlockSlot);
+        pk.pack(machineId);
+        this.gameClient.sendPacket(pk);
+    },
+    sendCollectProduct: function(machineId) {
+        cc.log("sendCollectProduct");
+        var pk = this.gameClient.getOutPacket(CmdSendCollectProduct);
+        pk.pack(machineId);
+        this.gameClient.sendPacket(pk);
+    },
+    sendAddProduct: function(machineId, productType) {
+        cc.log("sendAddProduct");
+        var pk = this.gameClient.getOutPacket(CmdSendAddProduct);
+        pk.pack(machineId, productType);
+        this.gameClient.sendPacket(pk);
+    },
+    sendBuyRawMaterial: function(machineId, productType) {
+        cc.log("sendBuyRawMaterial");
+        var pk = this.gameClient.getOutPacket(CmdSendBuyRawMaterial);
+        pk.pack(machineId, productType);
+        this.gameClient.sendPacket(pk);
+    },
 });

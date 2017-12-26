@@ -38,7 +38,7 @@ var PopupLayer = cc.Layer.extend({
             });
             var parsePlantTime = field.getPlantedTime().getTime();
             var parseCropTime = field.getCropTime().getTime();
-            var currTime = new Date().getTime();
+            var currTime = getTime();
 
             var duration = parseCropTime - parsePlantTime;
             var curr = currTime - parsePlantTime;
@@ -54,7 +54,7 @@ var PopupLayer = cc.Layer.extend({
 
 
             //
-            var remain = new Date();
+            var remain = getDate();
             remain.setTime(duration - curr);
             var timeRemainShow = "";
             if (duration - curr > 60 * 60 * 1000){
@@ -515,10 +515,10 @@ var PopupLayer = cc.Layer.extend({
 
 
 
-        var btCancle = new ccui.Button(res.btCancle);
-        btCancle.setPosition(this.noticeBG.width * 19 / 20, this.noticeBG.height * 7 / 8);
-        this.noticeBG.addChild(btCancle);
-        btCancle.addClickEventListener(this.addCloseBGEvent.bind(this));
+        var btCancel = new ccui.Button(res.btCancel);
+        btCancel.setPosition(this.noticeBG.width * 19 / 20, this.noticeBG.height * 7 / 8);
+        this.noticeBG.addChild(btCancel);
+        btCancel.addClickEventListener(this.addCloseBGEvent.bind(this));
 
         var msgNotice = new cc.LabelBMFont("Thông Báo", res.FONT_OUTLINE_50);
         msgNotice.setPosition(cc.p(this.noticeBG.width / 2, this.noticeBG.height * 7 / 8));
@@ -569,6 +569,20 @@ var PopupLayer = cc.Layer.extend({
 
     },
 
+    //showSuggestBuyRawMaterial:function(productConfig){
+    //    this.addCloseBGEvent();
+    //    //this.setPauseBackground(MapLayer.instance.fieldList, true);
+    //    var rawMaterialList = productConfig.rawMaterialList;
+    //    var count; // đếm số nguyên liệu còn thiếu
+    //    for (var i = 0; i < rawMaterialList.length; i++){
+    //        var currQuantity = user.getAsset().getQuantityOfTwoStorageByProductId(rawMaterialList[i].rawMaterialId);
+    //        var quantityNeedToProduce = rawMaterialList[i].quantity;
+    //        if (currQuantity < quantityNeedToProduce){
+    //            count ++;
+    //        }
+    //    }
+    //
+    //},
 
     setPauseBackground: function(listSprite, isPause){
         if (isPause){

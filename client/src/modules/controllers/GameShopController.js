@@ -25,12 +25,11 @@ var GameShopController = cc.Class.extend({
         return getLodgeConfigById(type).capacity;
     },
 
-
     getNumberLodge: function (id) {
         var number = 0;
         var listLodge = user.getAsset().getAnimalLodgeList();
         for(var i = 0; i < listLodge.length; i++){
-            if(listLodge[i].getType() == id) number++;
+            if(listLodge[i].getType() === id) number++;
         }
         return number;
     },
@@ -41,7 +40,7 @@ var GameShopController = cc.Class.extend({
         var lodge = id + '_habitat';
         var listLodge = user.getAsset().getAnimalLodgeList();
         for(var i = 0; i < listLodge.length; i++){
-            if(listLodge[i].getType() == lodge)
+            if(listLodge[i].getType() === lodge)
                 number += listLodge[i].getCurrentSlot();
         }
         return number;
@@ -51,11 +50,36 @@ var GameShopController = cc.Class.extend({
         var number = 0;
         var listMachine = user.getAsset().getMachineList();
         for(var i = 0; i < listMachine.length; i++){
-            if(listMachine[i].type == type) number++;
+            if(listMachine[i].machineType === type) number++;
         }
         return number;
     },
 
+    getMaxMachine: function (type) {
+        var machineConfig = getMachineConfigByType(type);
+        var lenghtLv = machineConfig.level.length;
+        var max = 0;
+        if (user.level >= machineConfig.level[lenghtLv - 1]) {
+            return lenghtLv;
+        } else {
+            for (var i = 0; i < lenghtLv - 1; i++) {
+                if (machineConfig.level[i] <= user.level && user.level < machineConfig.level[i + 1] ) {
+                    return i + 1;
+                    //break;
+                }
+            }
+        }
+        return max;
+    },
+
+    getPriceMachine: function (type) {
+        var machineConfig = getMachineConfigByType(type);
+        var idx = this.getNumberMachine(type);
+        if(idx) {
+            return machineConfig.price[idx];
+        }
+        return machineConfig.price[0];
+    },
     //checkBorder: function (lx, ly) {
     //    if(lx < 0 || ly < 0)
     //        return false;
@@ -129,33 +153,33 @@ var GameShopController = cc.Class.extend({
         //Model
         var machineConfig = getMachineConfigByType(typeObject);
         var machineModel = new Machine(0, typeObject, machineConfig.slot, 0, null, false,
-            false, new Date().getTime(), machineConfig.time, new Coordinate(lx, ly));
+            false, getTime(), machineConfig.time, new Coordinate(lx, ly));
         user.asset.addMachine(machineModel);
 
         //Sprite
         switch (typeObject) {
             case "bakery_machine":
-                this._sprite = new ConstructedSprite(machineModel.id,
+                this._sprite = new ConstructedSprite(machineModel.machineId,
                     MapConfigs.BakeryMachine.size.width, MapConfigs.BakeryMachine.size.height,
                     lx, ly, MapItemEnum.MACHINE);
                 break;
             case "food_machine":
-                this._sprite = new ConstructedSprite(machineModel.id,
+                this._sprite = new ConstructedSprite(machineModel.machineId,
                     MapConfigs.FoodMachine.size.width, MapConfigs.FoodMachine.size.height,
                     lx, ly, MapItemEnum.MACHINE);
                 break;
             case "butter_machine":
-                this._sprite = new ConstructedSprite(machineModel.id,
+                this._sprite = new ConstructedSprite(machineModel.machineId,
                     MapConfigs.ButterMachine.size.width, MapConfigs.ButterMachine.size.height,
                     lx, ly, MapItemEnum.MACHINE);
                 break;
             case "sugar_machine":
-                this._sprite = new ConstructedSprite(machineModel.id,
+                this._sprite = new ConstructedSprite(machineModel.machineId,
                     MapConfigs.SugarMachine.size.width, MapConfigs.SugarMachine.size.height,
                     lx, ly, MapItemEnum.MACHINE);
                 break;
             case "popcorn_machine":
-                this._sprite = new ConstructedSprite(machineModel.id,
+                this._sprite = new ConstructedSprite(machineModel.machineId,
                     MapConfigs.PopcornMachine.size.width, MapConfigs.PopcornMachine.size.height,
                     lx, ly, MapItemEnum.MACHINE);
                 break;
@@ -163,7 +187,7 @@ var GameShopController = cc.Class.extend({
         GameShopLayout.instance._gameShop._machineTable._tableView.reloadData();
 
         //Send server
-        testnetwork.connector.sendBuyMapObjectByRuby(machineModel.id, typeObject,
+        testnetwork.connector.sendBuyMapObjectByRuby(machineModel.machineId, typeObject,
             lx, ly);
     },
 

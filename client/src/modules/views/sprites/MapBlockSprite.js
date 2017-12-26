@@ -86,7 +86,7 @@ var MapBlockSprite = cc.Sprite.extend({
                 // When sprite is normal
                 // cc.log("Start schedule outOfHoldTimeCallback");
                 this.scheduleOnce(this.outOfHoldTimeCallback, 0.5);
-                this.touchListener.scheduling = true;
+                this.scheduling = true;
                 this.arrowShowed = false;
             }
             return true;
@@ -139,9 +139,9 @@ var MapBlockSprite = cc.Sprite.extend({
             // Check threshold
             if (this.totalMovedDistance > 10) {
                 this.touchMoved = true;
-                if (this.touchListener.scheduling) {
+                if (this.scheduling) {
                     // When callback didnot be excuted and move
-                    this.touchListener.scheduling = false;
+                    this.scheduling = false;
                     // cc.log("Canceled schedule outOfHoldTimeCallback");
                     this.unschedule(this.outOfHoldTimeCallback);
                 }
@@ -190,9 +190,9 @@ var MapBlockSprite = cc.Sprite.extend({
         this.onEndClick();
         PopupLayer.instance.removeArrow();
 
-        if (this.touchListener.scheduling) {
+        if (this.scheduling) {
             // When callback didnot be executed 
-            this.touchListener.scheduling = false;
+            this.scheduling = false;
             // cc.log("Canceled schedule outOfHoldTimeCallback");
             this.unschedule(this.outOfHoldTimeCallback);
         }
@@ -229,7 +229,7 @@ var MapBlockSprite = cc.Sprite.extend({
     outOfHoldTimeCallback: function() {
         // cc.log("outOfHoldTimeCallback started");
         // Set lock scheduling to false after started
-        this.touchListener.scheduling = false;
+        this.scheduling = false;
         // disable onClick event after long click
         this.touchMoved = true;
         this.arrowShowed = true;

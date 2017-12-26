@@ -68,7 +68,7 @@ var Field = CoordinatedObject.extend({
             if (user.getAsset().getFoodStorage().takeItem(productType, 1)) {
 
                 this.setPlantType(productType);
-                this.setPlantedTime(new Date());
+                this.setPlantedTime(getDate());
 
                 // cc.log("__" + this.plantType + ", " + this.plantedTime);
 
@@ -103,7 +103,7 @@ var Field = CoordinatedObject.extend({
 
 
         var parseTime = this.plantedTime.getTime();
-        var cropTime = new Date();
+        var cropTime = getDate();
         cropTime.setTime(parseTime + getProductObjByType(this.plantType).time * 1000);
         //cropTime.setTime(parseTime + 6000);     //HERE IS TEST
 
@@ -112,7 +112,7 @@ var Field = CoordinatedObject.extend({
     checkStatus: function () {
         //return Enum{FieldStatusType}
         if (this.plantType != null){
-            var currentTime = new Date();
+            var currentTime = getDate();
 
             if (currentTime >= this.getCropTime()){
                 return FieldStatusTypes.DONE;
@@ -130,7 +130,7 @@ var Field = CoordinatedObject.extend({
         //boolean
         if (this.checkStatus() == FieldStatusTypes.GROWING){
             if (user.reduceRuby(1)){
-                var date = new Date();
+                var date = getDate();
                 var intDate = date.getTime();
                 this.plantedTime.setTime(intDate - getProductObjByType(this.plantType).time * 1000);
                 //this.plantedTime.setTime(intDate - 6000);   //HERE IS TEST

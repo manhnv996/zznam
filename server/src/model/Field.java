@@ -77,12 +77,14 @@ public class Field extends CoordinateObject {
 
                 user.addExp(getProductObjByType((this.plantType)).harvestExp);
                 this.init();
-
+                //System.out.println("DONE");
                 return ErrorLog.SUCCESS.getValue();
             } else {
+                //System.out.println("ERROR_STORAGE_NOT_ADD");
                 return ErrorLog.ERROR_STORAGE_NOT_ADD.getValue();
             }
         }
+        //System.out.println("ERROR_FIELD_STATUS_NOT_DONE");
         return ErrorLog.ERROR_FIELD_STATUS_NOT_DONE.getValue();
     }
     

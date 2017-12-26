@@ -11,6 +11,9 @@ import config.utils.ConfigContainer;
 
 import java.nio.ByteBuffer;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
+
 import java.util.Date;
 import java.util.List;
 
@@ -31,43 +34,53 @@ import model.ZPUserInfo;
 public class ResponseUser extends BaseMsg {
     ZPUserInfo user;
     ByteBuffer bf; // Buffer to send
+    private int mode;
     
-    public ResponseUser(ZPUserInfo user) {
+    public ResponseUser(ZPUserInfo user, int mode) {
         super(CmdDefine.GET_USER);
         this.user = user;
+        this.mode = mode;
         this.bf = this.makeBuffer();
     }
 
-    public ResponseUser(ZPUserInfo user, short cmd) {
+    public ResponseUser(ZPUserInfo user, int mode, short cmd) {
         super(cmd);
         this.user = user;
+        this.mode = mode;
         this.bf = this.makeBuffer();
     }
     
-    @Override
-    protected ByteBuffer makeBuffer() {
-        ByteBuffer localByteBuffer = ByteBuffer.allocate(2 * 1024 * 1024);
-        localByteBuffer.put(this.Error.byteValue());
-        return localByteBuffer;
-    }
+//    @Override
+//    protected ByteBuffer makeBuffer() {
+//        ByteBuffer localByteBuffer = ByteBuffer.allocate(2 * 1024 * 1024);
+//        localByteBuffer.put(this.Error.byteValue());
+//        return localByteBuffer;
+//    }
     
     @Override
     public byte[] createData() {
-        
-        this.packBasicInfo();
-        this.packMap();
-        this.packFieldList();
-        this.packNatureThingList();
-        this.packStorages();
-        this.packOrderList();
-        this.packOrderNPCList();
-        this.packCar();
-        
-        this.packAnimalLodges();
-        this.packMachines();
-        
-        this.packMyShop();
-
+        bf.putInt(this.mode); // Pack mode
+        switch (this.mode) {
+        case 1:
+            this.packBasicInfo();
+            this.packMap();
+            this.packFieldList();
+            break;
+        case 2:
+            this.packNatureThingList();
+            this.packStorages();
+            break;
+        case 3:
+            this.packOrderList();
+            this.packOrderNPCList();
+            this.packCar();
+            break;
+        case 4:
+            this.packAnimalLodges();
+            this.packMachines();
+            this.packMyShop();
+            break;
+        }
         return packBuffer(this.bf);
     }
     
@@ -306,6 +319,9 @@ public class ResponseUser extends BaseMsg {
         //Pack each machine
         for (int i = 0; i < size; i++) {
             this.packMachine(machineList.get(i));
+            Date date = new Date(machineList.get(i).getStartTime());
+              Format format = new SimpleDateFormat("yyyy MM dd HH:mm:ss");
+             System.out.println("logByZznam: " + machineList.get(i).getType().toString()+" && startTime " + format.format(date));
         }
     }
     // Pack a machine

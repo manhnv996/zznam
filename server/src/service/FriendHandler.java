@@ -46,6 +46,9 @@ public class FriendHandler extends BaseClientRequestHandler {
         if (userInfo == null) {
             return;    
         }
-        send(new ResponseUser(userInfo, CmdDefine.FRIEND_GET_INFO), user);
+        send(new ResponseUser(userInfo, 1, CmdDefine.FRIEND_GET_INFO), user);
+        send(new ResponseUser(userInfo, 2, CmdDefine.FRIEND_GET_INFO), user);
+        send(new ResponseUser(userInfo, 3, CmdDefine.FRIEND_GET_INFO), user);
+        send(new ResponseUser(userInfo, 4, CmdDefine.FRIEND_GET_INFO), user);
     }
 }

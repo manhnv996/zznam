@@ -1,0 +1,6 @@
+[
+  {"id": "product_bread" , "rawMaterialList": [ {"rawMaterialId": "crop_wheat", "quantity": 3}]},
+  {"id": "product_corn_bread" , "rawMaterialList": [ {"rawMaterialId": "good_egg", "quantity": 2},{"rawMaterialId": "crop_corn", "quantity": 2}]},
+  {"id": "product_cookie" , "rawMaterialList": [{"rawMaterialId": "crop_wheat", "quantity": 2},{"rawMaterialId": "good_egg", "quantity": 2},{"rawMaterialId": "product_brown_sugar", "quantity": 1}]}
+]
+ 

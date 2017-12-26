@@ -10,7 +10,7 @@ var BaseLayout = ccui.Layout.extend({
     //_debug: true,
     _debug: false,
 
-    ctor: function (background, titleKey, hasTitle, hasCloseButton, hideShop) {
+    ctor: function (background, title, hasCloseButton, hideShop) {
         //cc.log("Notify Miss Gold");
 
         this._super();
@@ -36,8 +36,8 @@ var BaseLayout = ccui.Layout.extend({
 
 
         //Set title
-        if (hasTitle) {
-            this._title = new cc.LabelBMFont(fr.Localization.text(titleKey), res.FONT_OUTLINE_50);
+        if (title) {
+            this._title = new cc.LabelBMFont(title.toString(), res.FONT_OUTLINE_50);
             this._title.x = this.width / 2;
             this._title.y = this.height / 8 * 7;
 

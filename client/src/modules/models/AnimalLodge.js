@@ -34,7 +34,7 @@ var AnimalLodge = CoordinatedObject.extend({
         var max = 0;
         var animalType = this.type.split('_')[0];
         var timeToHarvest = AnimalConfig[animalType].time * 1000;
-        var currentTime = new Date().getTime();
+        var currentTime = getTime();
         this.animalList.forEach(function(animal) {
             var remainTime = timeToHarvest - (currentTime - animal.feededTime);
             if (remainTime > max) {
@@ -74,7 +74,7 @@ var AnimalLodge = CoordinatedObject.extend({
 
     harvestableCount: function() {
         var count = 0;
-        var currentTime = new Date().getTime();
+        var currentTime = getTime();
         var totalTime = AnimalConfig[this.type.split('_')[0]].time * 1000;
         this.animalList.forEach(function(animal) {
             if (animal.feeded) {
@@ -97,7 +97,7 @@ var AnimalLodge = CoordinatedObject.extend({
     },
 
     canHarvest: function() {
-        var crtTime = new Date().getTime();
+        var crtTime = getTime();
         var harvestTime = AnimalConfig[this.type.split('_')[0]].time * 1000;
 
         for (var i = 0; i < this.animalList.length; i++) {

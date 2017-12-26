@@ -83,7 +83,7 @@ var FieldSprite = MapBlockSprite.extend({
 
     // When begin click
     onBeginClick: function() {
-        audioEngine.playEffect(res.farm_click_dirt, false);
+        SoundCtrl.instance.playSoundEffect(res.farm_click_dirt, false);
         this.setOpacity(180);
         if (this.plantSprite){
             this.plantSprite.setOpacity(180);
@@ -170,7 +170,8 @@ var FieldSprite = MapBlockSprite.extend({
             var parsePlantTime = this.field.getPlantedTime().getTime();
             var parseCropTime = this.field.getCropTime().getTime();
             
-            var currTime = new Date().getTime();
+            // var currTime = getTime();
+            var currTime = getTime();
 
             duration = parseCropTime - parsePlantTime;
             curr = currTime - parsePlantTime;

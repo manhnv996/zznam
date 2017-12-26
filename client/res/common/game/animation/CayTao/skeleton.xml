@@ -266,7 +266,7 @@
     </frame>
    </timeline>
   </animation>
-  <animation name="small_select" fadeInTime="0" duration="31" scale="1" loop="0" autoTween="1" tweenEasing="NaN">
+  <animation name="small_select" fadeInTime="0" duration="31" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
    <timeline name="Bong" scale="1" offset="0">
     <frame z="0" duration="387">
      <transform x="9.85" y="-3.45" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>

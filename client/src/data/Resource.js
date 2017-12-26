@@ -12,6 +12,7 @@ var res = {
     FONT_OUTLINE_20: "fonts/outline/20.fnt",
     FONT_OUTLINE_30: "fonts/outline/30.fnt",
     FONT_OUTLINE_50: "fonts/outline/50.fnt",
+    FONT_OUTLINE_80: "fonts/outline/80.fnt",
     FONT_NORMAL_20: "fonts/normal/20.fnt",
     FONT_NORMAL_30: "fonts/normal/30.fnt",
     FONT_NORMAL_50: "fonts/normal/50.fnt",
@@ -29,7 +30,8 @@ var res = {
     //images
     Slot1_png : "zcsd/slot1.png",
 
-    bg_luamoi_mp3: "Sound_Music/Music/LuamoiIntroduction80kbps.mp3"
+    // bg_luamoi_mp3: "Sound_Music/Music/LuamoiIntroduction80kbps.mp3"
+    bg_luamoi_mp3: "res/Sound_Music/Music/LuaMoiIntroduction80kbps.mp3"
 //////////////////
     ///////////
 
@@ -137,6 +139,10 @@ for (var k in FontResource) {
     res[k] = FontResource[k];
 }
 
+//add resources in /machines/item
+for (var k in MachineItemResource) {
+    res[k] = MachineItemResource[k];
+}
 //
 for (var k in OrderResource) {
     res[k] = OrderResource[k];
@@ -157,6 +163,10 @@ for (var k in FriendResource) {
 
 for (var k in ToolResource) {
     res[k] = ToolResource[k];
+}
+
+for (var k in RoadsideShopResource) {
+    res[k] = RoadsideShopResource[k];
 }
 
 for (var k in AnimateEventResource) {

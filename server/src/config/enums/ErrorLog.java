@@ -22,6 +22,8 @@ public enum ErrorLog {
 
     ERROR_RUBY_NOT_REDUCE((short) 30),
     ERROR_RUBY_NOT_ENOUGH((short) 31),
+    ERROR_RUBY_NOT_INCREASE((short) 32),
+    ERROR_GOLD_NOT_INCREASE((short) 33),
 
     ERROR_ORDER_NOT_COMPLETE((short) 40),
     

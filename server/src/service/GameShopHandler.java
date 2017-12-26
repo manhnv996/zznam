@@ -26,6 +26,7 @@ import config.enums.ErrorLog;
 import config.enums.MachineTypeEnum;
 import config.enums.MapItemEnum;
 
+import config.jsonobject.MachineConfig;
 import config.jsonobject.animal.AnimalObject;
 
 import config.utils.ConfigContainer;
@@ -218,7 +219,7 @@ public class GameShopHandler extends BaseClientRequestHandler {
     }
     
     private boolean processBuyMapObject(User user, ZPUserInfo userInfo, RequestBuyMapObject req) {
-        if (!getInfoObj(req.type)) {
+        if (!getInfoObj(userInfo, req.type)) {
             send(new ResponseBuyObject(ErrorLog.ERROR_BUY_FAIL.getValue()), user);
             return false;
         }
@@ -245,6 +246,7 @@ public class GameShopHandler extends BaseClientRequestHandler {
     }
 
     private void addObject(ZPUserInfo userInfo, String typeObj, int id, int x, int y) {
+        System.out.println("buy map object gold " + price + " type " + typeObj);
         userInfo.getMap().addMapAlias(x, y, this.width, this.height, this.mapType);
         switch (this.mapType) {
         case MapItemEnum.FIELD:
@@ -288,26 +290,30 @@ public class GameShopHandler extends BaseClientRequestHandler {
         }
     }
 
-    private boolean getInfoObj(String typeObj) {
+    private boolean getInfoObj(ZPUserInfo userInfo, String typeObj) {
         if (typeObj.equals("field")) {
             this.width = ConfigContainer.mapConfig.Field.size.width;
             this.height = ConfigContainer.mapConfig.Field.size.height;
             this.mapType = MapItemEnum.FIELD;
+            this.price = ConfigContainer.getCoopPrice(typeObj);
         } else if (typeObj.equals("bakery_machine")) {
             this.width = ConfigContainer.mapConfig.Machine.Bakery_Machine.size.width;
             this.height = ConfigContainer.mapConfig.Machine.Bakery_Machine.size.height;
             this.machineType = MachineTypeEnum.bakery_machine;
             this.mapType = MapItemEnum.MACHINE;
+            this.price = this.getPriceMachine(userInfo, typeObj);
         } else if (typeObj.equals("food_machine")) {
             this.width = ConfigContainer.mapConfig.Machine.Food_Machine.size.width;
             this.height = ConfigContainer.mapConfig.Machine.Food_Machine.size.height;
             this.machineType = MachineTypeEnum.food_machine;
             this.mapType = MapItemEnum.MACHINE;
+            this.price = this.getPriceMachine(userInfo, typeObj);
         } else if (typeObj.equals("butter_machine")) {
             this.width = ConfigContainer.mapConfig.Machine.Butter_Machine.size.width;
             this.height = ConfigContainer.mapConfig.Machine.Butter_Machine.size.height;
             this.machineType = MachineTypeEnum.butter_machine;
             this.mapType = MapItemEnum.MACHINE;
+            this.price = this.getPriceMachine(userInfo, typeObj);
         } else if (typeObj.equals("sugar_machine")) {
             width = ConfigContainer.mapConfig.Machine.Sugar_Machine.size.width;
             height = ConfigContainer.mapConfig.Machine.Sugar_Machine.size.height;
@@ -318,21 +324,24 @@ public class GameShopHandler extends BaseClientRequestHandler {
             this.height = ConfigContainer.mapConfig.Machine.Popcorn_Machine.size.height;
             this.machineType = MachineTypeEnum.popcorn_machine;
             this.mapType = MapItemEnum.MACHINE;
+            this.price = this.getPriceMachine(userInfo, typeObj);
         } else if (typeObj.equals("chicken_habitat")) {
             this.width = ConfigContainer.mapConfig.ChickenLodge.size.width;
             this.height = ConfigContainer.mapConfig.ChickenLodge.size.height;
             this.animalLodgeType = AnimalLodgeEnum.chicken_habitat;
             this.mapType = MapItemEnum.LODGE;
+            this.price = ConfigContainer.getCoopPrice(typeObj);
         } else if (typeObj.equals("cow_habitat")) {
             this.width = ConfigContainer.mapConfig.CowLodge.size.width;
             this.height = ConfigContainer.mapConfig.CowLodge.size.height;
             this.animalLodgeType = AnimalLodgeEnum.cow_habitat;
             this.mapType = MapItemEnum.LODGE;
+            this.price = ConfigContainer.getCoopPrice(typeObj);
         } else {
             System.out.println("[!] Can't find type object");
             return false;
         }
-        this.price = ConfigContainer.getPrice(typeObj);
+    
         return true;
     }
 
@@ -380,16 +389,24 @@ public class GameShopHandler extends BaseClientRequestHandler {
         return 0;
     }
     
+    private int getPriceMachine(ZPUserInfo userInfo, String machineType) {
+        MachineConfig machineConfig = ConfigContainer.getMachineConfigByType(machineType);
+        int numberMachine = userInfo.getAsset().getNumberMachineByType(machineType);
+        if (numberMachine > 0) {
+            return machineConfig.price[numberMachine];
+        } 
+        return machineConfig.price[0];
+    }
+    
     private boolean checkGold(User user, ZPUserInfo userInfo, int price) {
-        System.out.println("buy buy buy gold " + price);
         //Check gold enough
-        if ((price > userInfo.getGold())) {
-            send(new ResponseBuyObject(ErrorLog.ERROR_GOLD_NOT_ENOUGH.getValue()), user);
-            return false;
-        }
-        //Reduce gold
+//        if ((price > userInfo.getGold())) {
+//            send(new ResponseBuyObject(ErrorLog.ERROR_GOLD_NOT_ENOUGH.getValue()), user);
+//            return false;
+//        }
+        //Check gold enough
         if (!userInfo.reduceGold(price)) {
-            send(new ResponseBuyObject(ErrorLog.ERROR_GOLD_NOT_REDUCE.getValue()), user);
+            send(new ResponseBuyObject(ErrorLog.ERROR_GOLD_NOT_ENOUGH.getValue()), user);
             return false;
         }
         return true;
@@ -402,13 +419,13 @@ public class GameShopHandler extends BaseClientRequestHandler {
             return false;
         }
         int ruby = fromGoldToRuby(price - gold);
-        if (!(ruby <= userInfo.getRuby())) {
-            send(new ResponseBuyObject(ErrorLog.ERROR_RUBY_NOT_ENOUGH.getValue()), user);
-            return false;
-        }
+//        if (!(ruby <= userInfo.getRuby())) {
+//            send(new ResponseBuyObject(ErrorLog.ERROR_RUBY_NOT_ENOUGH.getValue()), user);
+//            return false;
+//        }
         //Reduce ruby
         if (!userInfo.reduceRuby(ruby)) {
-            send(new ResponseBuyObject(ErrorLog.ERROR_RUBY_NOT_REDUCE.getValue()), user);
+            send(new ResponseBuyObject(ErrorLog.ERROR_RUBY_NOT_ENOUGH.getValue()), user);
             return false;
         }
         return true;

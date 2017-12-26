@@ -22,11 +22,9 @@ public class ResponseFriendGetList  extends BaseMsg {
     @Override
     public byte[] createData() {
         ByteBuffer bf = makeBuffer();
-        bf.putInt(idList.size() - 1);
+        bf.putInt(idList.size());
         for (int i = 0; i < idList.size(); i++) {
-            if (idList.get(i) != this.currentId) {
-                bf.putInt(idList.get(i));   
-            }
+            bf.putInt(idList.get(i));   
         }
         return packBuffer(bf);
     }

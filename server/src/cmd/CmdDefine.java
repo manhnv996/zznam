@@ -19,6 +19,8 @@ public class CmdDefine {
    
     //Log cmd
     public static final short MOVE = 2001;
+    public static final short BUY_GOLD = 2002;
+    public static final short BUY_RUBY = 2003;
     
     //
     public static final short GAME_INFO = 5099;    
@@ -70,6 +72,7 @@ public class CmdDefine {
     
     public static final short BUY_MAP_OBJECT_REQUEST = 7001;
     public static final short BUY_MAP_OBJECT_BY_RUBY = 7002;
+    
     public static final short BUY_ANIMAL = 7003;
     public static final short BUY_ANIMAL_BY_RUBY = 7004;
     public static final short RESPONSE_BUY_OBJECT = 7100;
@@ -81,6 +84,15 @@ public class CmdDefine {
     
     public static final short BUILD_COMPLETED_REQUEST = 9001;
     public static final short BOOST_BUILD_REQUEST = 9002;
+    public static final short RESPONSE_BUILD_COMPLETE = 9011;
+    public static final short RESPONSE_BOOST_BUILD = 9012;
+    //cmd machine
+    public static final short BOOST_PRODUCT = 9101; //machine product
+    public static final short UNLOCK_SLOT = 9102;
+    public static final short COLLECT_PRODUCT = 9103; //lay san pham tu may da co san pham hoan thanh
+    public static final short ADD_PRODUCT = 9104; // them san pham vao productQueue send(machineId, productType,
+    //    gv.CMD.BUY_MACHINE_PRODUCT = 9105 // mua luon san pham bang ruby send (machineId, productType, ruby)
+    public static final short BUY_RAW_MATERIAL = 9106; // Truong hop thieu nguyen lieu, dung ruby de bat dau san xuat, send (machineId, productType, ruby)
     
     public static final short GET_FRIENDS = 3001;
     public static final short FRIEND_SEND_MESSAGE = 3002;
@@ -116,4 +128,7 @@ public class CmdDefine {
     // Friend
     public static final short FRIEND_GET_LIST = 14001;
     public static final short FRIEND_GET_INFO = 14002;
+    
+    // Time
+    public static final short GET_SERVER_TIME = 20001;
 }

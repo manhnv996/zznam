@@ -14,17 +14,22 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import config.enums.MapItemEnum;
 
-import config.jsonobject.MachineConfig;
-import config.jsonobject.ShopConfig;
+import config.enums.NaturalThingEnum;
+
 import config.jsonobject.AnimalConfig;
+import config.jsonobject.MachineConfig;
+
+import config.jsonobject.sCoopConfig;
 import config.jsonobject.animal.AnimalObject;
+import config.jsonobject.machine.MachineProductConfig;
+import config.jsonobject.machine.RawMaterial;
 import config.jsonobject.map.NaturalObject;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import config.enums.NaturalThingEnum;
+
 
 public class ConfigContainer {
     public static MapConfig mapConfig;
@@ -32,8 +37,11 @@ public class ConfigContainer {
     public static int[][] defaultMap;
     public static List<NaturalObject> defaultNatural;
     
-    public static ShopConfig[] shopConfig;
+    public static sCoopConfig[] sCoopConfig;
     public static MachineConfig[] machineConfig;
+    public static MachineProductConfig[] bakeryProductConfig;
+    public static MachineProductConfig[] foodProductConfig;
+    public static MachineProductConfig[] othersProductConfig;
     public static AnimalConfig animalConfig;
     
     
@@ -126,8 +134,13 @@ public class ConfigContainer {
 //            System.out.println("[Value] " + jobj.get("id").getAsString());
         }
         try {
-            shopConfig = gson.fromJson(new FileReader("src/config/json/shopConfig.json"), ShopConfig[].class);
+            sCoopConfig = gson.fromJson(new FileReader("src/config/json/sCoopConfig.json"), sCoopConfig[].class);
             machineConfig =  gson.fromJson(new FileReader("src/config/json/machineConfig.json"), MachineConfig[].class);
+//
+            bakeryProductConfig = gson.fromJson(new FileReader("src/config/json/bakeryMachineConfig.json"), MachineProductConfig[].class);
+            foodProductConfig = gson.fromJson(new FileReader("src/config/json/foodMachineConfig.json"), MachineProductConfig[].class);
+            othersProductConfig = gson.fromJson(new FileReader("src/config/json/othersMachineConfig.json"), MachineProductConfig[].class);
+            System.out.println("128" + foodProductConfig[0].rawMaterialList.get(0).quantity +"===="+ foodProductConfig[1].rawMaterialList.get(1).rawMaterialId);
             animalConfig = gson.fromJson(new FileReader("src/config/json/animalConfig.json"), AnimalConfig.class);
 //            System.out.println(shopCoopConfig[0].type);
         } catch (FileNotFoundException e) {
@@ -135,10 +148,20 @@ public class ConfigContainer {
         }
     }
     
-    public static int getPrice (String type) {
-        for (int i = 0; i < shopConfig.length; i++) {
-            if (shopConfig[i].type.equals(type)) {
-                return shopConfig[i].price;
+    
+//    public static int getCoopPrice (String type) {
+//        for (int i = 0; i < shopCoopConfig.length; i++) {
+//            if (shopCoopConfig[i].type.equals(type)) {
+//                return shopCoopConfig[i].price;
+//            }
+//        }
+//        return 0;
+//    }
+    
+    public static int getCoopPrice (String type) {
+        for (int i = 0; i < sCoopConfig.length; i++) {
+            if (sCoopConfig[i].type.equals(type)) {
+                return sCoopConfig[i].price;
             }
         }
         return 0;
@@ -155,9 +178,9 @@ public class ConfigContainer {
     }
     
     public static int getLodgeCapacityByType(String type) {
-        for (int i = 0; i < shopConfig.length; i++) {
-            if (shopConfig[i].type.equals(type)) {
-                return shopConfig[i].capacity;
+        for (int i = 0; i < sCoopConfig.length; i++) {
+            if (sCoopConfig[i].type.equals(type)) {
+                return sCoopConfig[i].capacity;
             }
         }
         return 0;
@@ -180,6 +203,40 @@ public class ConfigContainer {
             }
         }
         return null;
+    }
+    public static ArrayList<RawMaterial> getRawMaterialList(String machineType, String productType){
+        switch (machineType){
+        
+         case "bakery_machine":
+            for (MachineProductConfig product : bakeryProductConfig) {
+//                System.out.println("170" + product.id);
+//                System.out.println("171" + productType);
+                if (product.id.equalsIgnoreCase(productType)){
+                    return product.rawMaterialList;
+                }
+            }
+            break;
+         case "food_machine":
+            for (MachineProductConfig product : foodProductConfig) {
+//                System.out.println("178" + product.id);
+//                System.out.println("179" + productType);
+                if (product.id.equalsIgnoreCase(productType)){
+//                    System.out.println("RETURNNNN");
+                    return product.rawMaterialList;
+                }
+            }
+            break;
+        default:
+            for (MachineProductConfig product : othersProductConfig) {
+            //                System.out.println("178" + product.id);
+            //                System.out.println("179" + productType);
+                if (product.id.equalsIgnoreCase(productType)){
+            //                    System.out.println("RETURNNNN");
+                    return product.rawMaterialList;
+                }
+        }
+    }
+        return new ArrayList<RawMaterial>();
     }
     
     public static String toJSON(Object obj) {

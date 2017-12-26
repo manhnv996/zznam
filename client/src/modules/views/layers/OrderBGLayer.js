@@ -5,7 +5,7 @@ var OrderBGLayer = BaseLayout.extend({
     lastIndexItemClick: null,   //
 
     ctor:function(){
-        this._super(res.bgTruckOrder, "text_title_order_neighbor", true, true, true);
+        this._super(res.bgTruckOrder, fr.Localization.text("text_title_order_neighbor"), true, true);
 
         this.lastIndexItemClick = LastPageUtil.instance.lastIndexOfOrderClick;
 //
@@ -78,7 +78,7 @@ var OrderBGLayer = BaseLayout.extend({
 
     cancelOrderEvent: function () {
         //
-        audioEngine.playEffect(res.func_click_button_mp3, false);
+        SoundCtrl.instance.playSoundEffect(res.func_click_button_mp3, false);
         if (this.lastIndexItemClick != null){
             this.stopAllRepeatAction();
 
@@ -90,7 +90,7 @@ var OrderBGLayer = BaseLayout.extend({
         //
         if (this.lastIndexItemClick != null){
             this.stopAllRepeatAction();
-            audioEngine.playEffect(res.func_click_button_mp3, false);
+            SoundCtrl.instance.playSoundEffect(res.func_click_button_mp3, false);
 
             OrderCtrl.instance.onMakeOrder(this.lastIndexItemClick);
         }

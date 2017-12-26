@@ -171,12 +171,18 @@ public class MyShop {
         ProductSale productSale = this.getProductBySlot(slot);
         if (productSale != null){
             if (productSale.getProduct() != null){
-                if (user.getAsset().addItemToStorageById(productSale.getProduct().getTypeItem(), 
-                                                         productSale.getProduct().getQuantity())){
-                    
+                
+                if (user.reduceRuby(1)){
                     productSale.updateProductSale(null, 0);
                     return ErrorLog.SUCCESS.getValue();
                 }
+                
+//                if (user.getAsset().addItemToStorageById(productSale.getProduct().getTypeItem(), 
+//                                                         productSale.getProduct().getQuantity())){
+//                    
+//                    productSale.updateProductSale(null, 0);
+//                    return ErrorLog.SUCCESS.getValue();
+//                }
             }
         }
         //
