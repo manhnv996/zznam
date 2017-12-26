@@ -119,12 +119,12 @@ cc.game.onStart = function () {
 
         cc.eventManager.addCustomListener(cc.game.EVENT_HIDE, function() {
             cc.log("[Game] Hiden");
-            cc.audioEngine.stopMusic(true);
+            // cc.audioEngine.stopMusic(true);
         });
 
         cc.eventManager.addCustomListener(cc.game.EVENT_SHOW, function() {
             cc.log("[Game] Show");
-            SoundCtrl.instance.playMusic(res.bg_luamoi_mp3, true);
+            // SoundCtrl.instance.playMusic(res.bg_luamoi_mp3, true);
         });
     }, this);
 };

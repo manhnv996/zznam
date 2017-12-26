@@ -24,9 +24,9 @@ var SoundCtrl = cc.Class.extend({
     playMusic: function(musicPath, isLoop) {
         isLoop = typeof  isLoop !== 'undefined' ? isLoop : true;
         cc.audioEngine.playMusic(musicPath, isLoop);
-        cc.log("MUSIC", this._isOnMusic);
+        // cc.log("MUSIC", this._isOnMusic);
         if (!this._isOnMusic) {
-            cc.log("Pause music");
+            // cc.log("Pause music");
             cc.audioEngine.pauseMusic();
         }
     },
