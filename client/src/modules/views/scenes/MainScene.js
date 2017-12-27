@@ -39,6 +39,7 @@ var MainScene = BaseScene.extend({
 		MapCtrl.instance = new MapCtrl();
 
         OrderCtrl.instance = new OrderCtrl();
+		MyShopCtrl.instance = new MyShopCtrl();
 
         // Add ScheduleLoop
         // ScheduleLoop.instance = new ScheduleLoop();

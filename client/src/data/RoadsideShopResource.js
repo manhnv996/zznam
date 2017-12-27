@@ -23,7 +23,11 @@ var _ = (function() {
         btn_add: r("guiban/butoon2.png"),
         btn_sell: r("guiban/button-banhang.png"),
         sell_silo: r("guiban/button-kho2.png"),
-        sell_ware: r("guiban/button-kho1.png")
+        sell_ware: r("guiban/button-kho1.png"),
+
+        //
+        guiEdit: r("guiban/guiedit/edit.png"),
+        rac: r("guiban/guiedit/bo rac.png"),
     };
 
     var g_RoadsideShopResource = [];

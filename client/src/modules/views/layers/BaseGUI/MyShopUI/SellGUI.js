@@ -4,10 +4,16 @@
 
 
 var SellGUI = BaseLayout.extend({
-    ctor: function () {
+
+    storageItemCurr: null,
+    slot: null,
+
+    ctor: function (slot) {
         this._super(res.sellGUI_bg, null, false, true);
         this.bgZOrder = 1;
         this._bg.setLocalZOrder(this.bgZOrder);
+
+        this.slot = slot;
 
         this.btnClose = new ccui.Button(res.close_png);
         this.btnClose.setZoomScale(-0.1);
@@ -103,13 +109,13 @@ var SellGUI = BaseLayout.extend({
         this.btnAddNumber.x = layoutNumberSell.width / 8 * 7;
         this.btnAddNumber.y = layoutNumberSell.height / 2;
         this.btnAddNumber.setScale(scaleBtn);
-        this.btnAddNumber.addTouchEventListener(this.onClickBtnUpdateNumber(0, this.numberSell));
+        this.btnAddNumber.addTouchEventListener(this.onClickBtnUpdateNumber("add", "number"));
         //this.btnReducePrice.addTouchEventListener(this.onClickReduceNumber, this);
         this.btnReduceNumber = new ccui.Button(res.btn_reduce);
         this.btnReduceNumber.x = layoutNumberSell.width / 8;
         this.btnReduceNumber.y = layoutNumberSell.height / 2;
         this.btnReduceNumber.setScale(scaleBtn);
-        this.btnReduceNumber.addTouchEventListener(this.onClickBtnUpdateNumber(0, this.numberSell));
+        this.btnReduceNumber.addTouchEventListener(this.onClickBtnUpdateNumber("reduce", "number"));
         //this.btnReduceNumber.addTouchEventListener(this.onClickReduceNumber, this);
 
 
@@ -149,13 +155,13 @@ var SellGUI = BaseLayout.extend({
         this.btnAddPrice.x = layoutPriceSell.width / 8 * 7;
         this.btnAddPrice.y = layoutPriceSell.height / 2;
         this.btnAddPrice.setScale(scaleBtn);
-        this.btnAddPrice.addTouchEventListener(this.onClickBtnUpdateNumber(0, this.priceSell), this);
+        this.btnAddPrice.addTouchEventListener(this.onClickBtnUpdateNumber("add", "price"), this);
         //this.btnAddPrice.addTouchEventListener(this.onClickAddPrice, this);
         this.btnReducePrice = new ccui.Button(res.btn_reduce);
         this.btnReducePrice.x = layoutPriceSell.width / 8;
         this.btnReducePrice.y = layoutPriceSell.height / 2;
         this.btnReducePrice.setScale(scaleBtn);
-        this.btnReducePrice.addTouchEventListener(this.onClickBtnUpdateNumber(0, this.priceSell), this);
+        this.btnReducePrice.addTouchEventListener(this.onClickBtnUpdateNumber("reduce", "price"), this);
         //this.btnReducePrice.addTouchEventListener(this.onClickReducePrice, this);
 
 
@@ -163,6 +169,10 @@ var SellGUI = BaseLayout.extend({
         layoutPriceSell.addChild(this.btnReducePrice);
         layoutPriceSell.addChild(this.priceSell);
         layoutPriceSell.addChild(this.imgGold);
+
+
+        //
+        this.setVisibleInfo(false);
     },
 
     initSellDataItem: function () {
@@ -213,6 +223,8 @@ var SellGUI = BaseLayout.extend({
             case ccui.Widget.TOUCH_ENDED:
             case ccui.Widget.TOUCH_CANCELED:
                 sender.runAction(new cc.ScaleTo(0.1, 1.0));
+
+                this.setVisibleInfo(false);
                 switch (sender.tag) {
                     case 101:
                         this.multiLayer.switchTo(0);
@@ -241,8 +253,12 @@ var SellGUI = BaseLayout.extend({
                 sender.runAction(new cc.ScaleTo(0.1, 1.1));
                 break;
             case ccui.Widget.TOUCH_ENDED:
+                sender.runAction(new cc.ScaleTo(0.1, 1.0));
+                MyShopCtrl.instance.onSell(this.slot,
+                    new StorageItem(this.storageItemCurr.typeItem, parseInt(this.numberSell.getString().split("x")[0])),
+                    parseInt(this.priceSell.getString()));
+                break;
             case ccui.Widget.TOUCH_CANCELED:
-
                 sender.runAction(new cc.ScaleTo(0.1, 1.0));
                 break;
         }
@@ -250,29 +266,125 @@ var SellGUI = BaseLayout.extend({
 
 
     //
-    updateSellInfo: function (storageItem) {
-        this.numberSell.setString(Math.ceil(storageItem.quantity / 2) + "x");
-        this.imgSellItem.setTexture(getProductIconById(storageItem.typeItem));
+    setVisibleInfo: function (b) {
+        this.numberSell.setVisible(b);
+        this.imgSellItem.setVisible(b);
+        this.priceSell.setVisible(b);
+        this.imgGold.setVisible(b);
 
-        this.priceSell.setString(Math.ceil(getProductConfigById(storageItem.typeItem).maxPrice * 0.3));
+        this.setTouchEnableButton(this.btnAddNumber, true);
+        this.setTouchEnableButton(this.btnReduceNumber, true);
+        this.setTouchEnableButton(this.btnAddPrice, true);
+        this.setTouchEnableButton(this.btnReducePrice, true);
+
+        if (b == false){
+            this.storageItemCurr = null;
+        }
+    },
+
+    setTouchEnableButton: function (btn, isEnable) {
+        btn.setTouchEnabled(isEnable);
+        if (!isEnable){
+            btn.setColor(cc.color(128, 128, 128));
+        } else {
+            btn.setColor(cc.color(255, 255, 255));
+        }
     },
 
 
-    onClickBtnUpdateNumber: function (storageItem, label) {
+    checkMinMaxInfo: function (storageItem) {
+        var numberValue = parseInt(this.numberSell.getString().split("x")[0]);
+        if (numberValue <= 1){
+            this.setTouchEnableButton(this.btnReduceNumber, false);
+            if (numberValue >= storageItem.quantity){
+                this.setTouchEnableButton(this.btnAddNumber, false);
+            } else {
+                this.setTouchEnableButton(this.btnAddNumber, true);
+            }
+        } else {
+            this.setTouchEnableButton(this.btnReduceNumber, true);
+            if (numberValue >= storageItem.quantity){
+                this.setTouchEnableButton(this.btnAddNumber, false);
+            } else {
+                this.setTouchEnableButton(this.btnAddNumber, true);
+            }
+        }
+
+        var priceValue = parseInt(this.priceSell.getString());
+        var maxPrice = getProductConfigById(storageItem.typeItem).maxPrice * storageItem.quantity;
+        if (priceValue <= 1){
+            this.setTouchEnableButton(this.btnReducePrice, false);
+            if (priceValue >= maxPrice){
+                this.setTouchEnableButton(this.btnAddPrice, false);
+            } else {
+                this.setTouchEnableButton(this.btnAddPrice, true);
+            }
+        } else {
+            this.setTouchEnableButton(this.btnReducePrice, true);
+            if (priceValue >= maxPrice){
+                this.setTouchEnableButton(this.btnAddPrice, false);
+            } else {
+                this.setTouchEnableButton(this.btnAddPrice, true);
+            }
+        }
+    },
+
+    updateSellInfo: function (storageItem) {
+        this.storageItemCurr = storageItem;
+        this.defaultPricePQuantity = Math.ceil(getProductConfigById(storageItem.typeItem).maxPrice * 0.3);
+        this.setTouchEnableButton(this.btnAddNumber, true);
+        this.setTouchEnableButton(this.btnReduceNumber, true);
+        this.setTouchEnableButton(this.btnAddPrice, true);
+        this.setTouchEnableButton(this.btnReducePrice, true);
+
+        this.setVisibleInfo(true);
+        //
+        this.numberSell.setString(Math.ceil(storageItem.quantity / 2) + "x");
+        this.imgSellItem.setTexture(getProductIconById(storageItem.typeItem));
+
+        this.priceSell.setString(this.defaultPricePQuantity * parseInt(this.numberSell.getString()));
+    },
+
+
+    onClickBtnUpdateNumber: function (typeBtn, typeLabel) {
         return function (sender, type) {
             switch (type) {
                 case ccui.Widget.TOUCH_BEGAN:
                     break;
                 case ccui.Widget.TOUCH_ENDED :
-                    var value = label.getString();
-                    if (isNaN(value)){
-                        var str = value
-                        value = str.split("x")[0];
+
+                    if (this.storageItemCurr == null){
+                        break;
                     }
-                    cc.log(value)
+                    if (typeLabel === "price"){
+                        var value = this.priceSell.getString();
+                        if (typeBtn === "add"){
+                            this.priceSell.setString((parseInt(value) + 1).toString());
+                        } else {
+                            this.priceSell.setString((parseInt(value) - 1).toString());
+                        }
+                        this.checkMinMaxInfo(this.storageItemCurr);
+
+                    } else {
+                        var value = this.numberSell.getString().split("x")[0];
+                        if (typeBtn === "add"){
+                            this.numberSell.setString((parseInt(value) + 1).toString() + "x");
+
+                            var maxPrice = getProductConfigById(this.storageItemCurr.typeItem).maxPrice * this.storageItemCurr.quantity;
+                            var nextPrice = parseInt(this.priceSell.getString()) + this.defaultPricePQuantity;
+                            this.priceSell.setString((nextPrice > maxPrice) ? maxPrice.toString() : nextPrice.toString());
+                        } else {
+                            this.numberSell.setString((parseInt(value) - 1).toString() + "x");
+
+                            var nextPrice = parseInt(this.priceSell.getString()) - this.defaultPricePQuantity;
+                            this.priceSell.setString((nextPrice < 1) ? "1" : nextPrice.toString());
+                        }
+                        this.checkMinMaxInfo(this.storageItemCurr);
+
+                    }
                     break;
             }
-        }
+        }.bind(this)
     }
 
 });

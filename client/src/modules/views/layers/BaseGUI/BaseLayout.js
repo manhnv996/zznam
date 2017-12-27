@@ -39,7 +39,7 @@ var BaseLayout = ccui.Layout.extend({
         if (title) {
             this._title = new cc.LabelBMFont(title.toString(), res.FONT_OUTLINE_50);
             this._title.x = this.width / 2;
-            this._title.y = this.height / 8 * 7;
+            this._title.y = this.height * 0.9;
 
             this.addChild(this._title);
         }

@@ -11,6 +11,7 @@ public class MyShop {
     private List<ProductSale> productList;
     private long lastTimeNpcCome;
     
+    private final int MAX_SLOT = 12;
     
     public MyShop(int maxSlot) {
             super();
@@ -193,7 +194,10 @@ public class MyShop {
         /*
          *inprogress
          */
-        if (user.reduceRuby(6)){
+        if (this.maxSlot >= this.MAX_SLOT){
+            return ErrorLog.ERROR_OVER_MAX_SLOT.getValue();
+        }
+        if (user.reduceRuby(5)){
             this.maxSlot ++;
             
             ProductSale productSale = new ProductSale(this.maxSlot - 1, null, 0);

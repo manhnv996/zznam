@@ -183,8 +183,13 @@ var BaseGUILayer = cc.Layer.extend({
         this.blockLayout();
     },
 
-    showSellGUI: function () {
-        this._layout = new SellGUI();
+    showSellGUI: function (slot) {
+        this._layout = new SellGUI(slot);
+        this.blockLayout();
+    },
+
+    showEditGui: function (slot) {
+        this._layout = new EditSell(slot);
         this.blockLayout();
     },
 

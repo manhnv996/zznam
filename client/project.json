@@ -223,6 +223,7 @@
         "src/modules/views/layers/BaseGUI/MyShopUI/SellGUI.js",
         "src/modules/views/layers/BaseGUI/MyShopUI/SiloSell.js",
         "src/modules/views/layers/BaseGUI/MyShopUI/WareSell.js",
+        "src/modules/views/layers/BaseGUI/MyShopUI/EditSell.js",
         "src/modules/views/layers/BaseGUI/BaseGUILayer.js",
 
         "src/modules/views/layers/MapLayer.js",

@@ -2,6 +2,9 @@ package config.utils;
 
 import config.enums.ProductCategory;
 
+import config.enums.ProductType;
+
+import config.jsonobject.CropProduct;
 import config.jsonobject.ProductConfig;
 
 import java.util.ArrayList;
@@ -77,6 +80,10 @@ public class OrderNPCUtil {
         List<ProductConfig> list = ProductUtil.getProductConfObjByCategory(category);
         //
         list = OrderUtil.filterProductByLevel(user.getLevel(), list);
+        //
+        if (list.isEmpty()){
+            return new StorageItem(ProductType.CROP_WHEAT, 1);
+        }
         ProductConfig item = list.get((int) Math.floor(Math.random() * 0.99 * list.size()));
         
         return new StorageItem(item.id, (int) (Math.random() * 0.99 * 5) + 1);

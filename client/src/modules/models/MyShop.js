@@ -35,10 +35,13 @@ var MyShop = cc.Class.extend({
     sell: function (intSlot, product, price) {
         var index = this.getProductIdBySlot(intSlot);
         if (index != null){
-            if (user.getAsset().getQuantityOfTwoStorageByProductId(product.getTypeItem()) >= product.getQuantity()){
+            if (product == null){
+                return false;
+            }
+            if (user.getAsset().getQuantityOfTwoStorageByProductId(product.typeItem) >= product.quantity){
 
-                user.getAsset().takeItemToStorageById(product.getTypeItem(), product.getQuantity());
-                this.productList.get(index).updateProductSale(product, price);
+                user.getAsset().takeItemToStorageById(product.typeItem, product.quantity);
+                this.productList[index].updateProductSale(product, price);
 
                 return true;
             }
@@ -120,7 +123,7 @@ var MyShop = cc.Class.extend({
     },
 
     unlockSlot: function () {
-        if (user.reduceRuby(6)){
+        if (user.reduceRuby(5)){
             this.maxSlot ++;
 
             var productSale = new ProductSale(this.maxSlot - 1, null, 0);

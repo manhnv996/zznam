@@ -113,6 +113,7 @@ var SiloSell = cc.Layer.extend({
                 var storageItem = new StorageItem(type, user.asset.getQuantityOfTwoStorageByProductId(type));
 
                 BaseGUILayer.instance._layout.updateSellInfo(storageItem);
+                BaseGUILayer.instance._layout.checkMinMaxInfo(storageItem);
 
                 sender.runAction(new cc.ScaleTo(0.1, 0.7));
                 break;

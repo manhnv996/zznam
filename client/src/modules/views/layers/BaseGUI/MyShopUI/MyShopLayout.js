@@ -8,6 +8,7 @@ var MyShopLayout = BaseLayout.extend({
     //cartStatus: 3,
 
     cartList: null,
+    slotClickCurr: null,
 
     ctor: function (id) {
         this._super(res.roadshop_bg_in, id, true, true);
@@ -15,13 +16,9 @@ var MyShopLayout = BaseLayout.extend({
         this._title.y = this.height / 10 * 9;
         this._btnClose.y = this.height / 10 * 9;
 
-
         //
         this.cartList = user.asset.myShop.productList;
-        cc.log(this.cartList)
         //
-
-
 
         var bangten = new cc.Sprite(res.bangten);
         bangten.x = this.width / 2;
@@ -32,7 +29,7 @@ var MyShopLayout = BaseLayout.extend({
         bg2.x = this.width / 2;
         bg2.y = this.height / 2;
 
-        this._listCart = new cc.TableView(this, cc.size(this.width, this.height / 5 * 2));
+        this._listCart = new cc.TableView(this, cc.size(this.width, this.height / 5 * 3));
         this._listCart.setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL);
         this._listCart.x = 0;
         this._listCart.y = this.height / 10 * 3;
@@ -85,31 +82,32 @@ var MyShopLayout = BaseLayout.extend({
 
         cell = new cc.TableViewCell();
 
-        var cartLayout = new ccui.Layout();
-        cartLayout.setContentSize(cc.size(this.width / 3.5, this.height / 5 * 2));
+        this.cartLayout = new ccui.Layout();
+        this.cartLayout.setContentSize(cc.size(this.width / 3.5, this.height / 5 * 2));
 
         var cart = new ccui.Button(res.roadshop_cart);
-        cart.x = cartLayout.width / 2;
-        cart.y = cartLayout.height / 2;
-        cart.setScaleY(cartLayout.height / cart.height);
+        cart.x = this.cartLayout.width / 2;
+        cart.y = this.cartLayout.height / 2;
+        cart.setScaleY(this.cartLayout.height / cart.height);
         cart.setZoomScale(0);
         cart.addTouchEventListener(this.onClickCart, this);
         cart.setSwallowTouches(false);
-        cartLayout.addChild(cart);
+        this.cartLayout.addChild(cart);
 
 
         /////
         if (idx < this.cartList.length){
             /////
-            this.customCell(cartLayout, idx);
+            this.customCell(this.cartLayout, idx);
             //
         } else {
-            var btn = new ccui.Button(res.storage_buy_tool);
-            btn.x = cartLayout.width / 2;
-            btn.y = cartLayout.height / 3 * 2;
-            btn.addTouchEventListener(this.touchBuySlot, this);
+            // var btn = new ccui.Button(res.storage_buy_tool);
+            var btn = new cc.Sprite(res.storage_buy_tool);
+            btn.x = this.cartLayout.width / 2;
+            btn.y = this.cartLayout.height / 3 * 2;
+            // btn.addTouchEventListener(this.touchBuySlot, this);
             btn.setScale(0.8);
-            cartLayout.addChild(btn);
+            this.cartLayout.addChild(btn);
 
             var ruby = new cc.Sprite(res.ruby_small);
             ruby.x = btn.width / 4 * 3;
@@ -228,13 +226,14 @@ var MyShopLayout = BaseLayout.extend({
         //    cartLayout.setBackGroundColor(cc.color.YELLOW);
         //}
 
-        cell.addChild(cartLayout);
+        cell.addChild(this.cartLayout);
 
         return cell;
     },
 
     numberOfCellsInTableView: function (table) {
-        return this.cartList.length + 1;
+        // return this.cartList.length + 1;
+        return (this.cartList.length < 12) ? (this.cartList.length + 1) : 12;
     },
 
     actionShow: function () {
@@ -260,7 +259,7 @@ var MyShopLayout = BaseLayout.extend({
     onClickCart: function (sender, type) {
         // Click cart
         // Action follow status
-        cc.log("clickCart")
+        // var isMove = false;
         switch (type) {
             case ccui.Widget.TOUCH_BEGAN:
                 sender.parent.runAction(new cc.ScaleTo(0.1, 0.95));
@@ -270,45 +269,54 @@ var MyShopLayout = BaseLayout.extend({
                  * Process in here
                  */
                 sender.parent.runAction(new cc.ScaleTo(0.1, 1.0));
-
+                // if (isMove){
+                //     break;
+                // }
                 if (sender.parent.parent.getIdx() < this.cartList.length) {
-                    if (this.cartList[sender.parent.parent.getIdx()].product == null){
+                    var product = this.cartList[sender.parent.parent.getIdx()];
+
+                    // if (this.cartList[sender.parent.parent.getIdx()].product == null){
+                    if (product.product == null){
                         BaseGUILayer.instance.removeBlockListener();
-                        BaseGUILayer.instance.showSellGUI();
+                        BaseGUILayer.instance.showSellGUI(product.slot);
                         //this.setVisible(false);
                         break;
 
-                    } else if (!this.cartList[sender.parent.parent.getIdx()].isSold){
-                        break;
+                    // } else if (!this.cartList[sender.parent.parent.getIdx()].isSold){
+                    } else if (!product.isSold){
+                        BaseGUILayer.instance.removeBlockListener();
+                        BaseGUILayer.instance.showEditGui(product.slot);
 
+                        break;
                     } else {
+                        if(MyShopCtrl.instance.onReceiveMoney(product.slot)){
+                            //
+                            this.cartList = user.asset.myShop.productList;
+                            this._listCart.updateCellAtIndex(product.slot);
+                            // this._listCart.reloadData();
+                        }
+
                         break;
                     }
+                } else {
+                    if(MyShopCtrl.instance.onUnlockSlot()){
+                        //
+                        this.cartList = user.asset.myShop.productList;
+                        // this._listCart.reloadData();
+                        if (this.cartList.length < 12){
+                            this._listCart.insertCellAtIndex(this.cartList.length - 1);
+                        } else {
+                            this._listCart.updateCellAtIndex(11);
+                        }
+                    }
+
                 }
-                //if (sender.parent.parent.getIdx() < 7 - 1) {
-                //    cc.log("clickCart by idx")
-                //    switch (this.cartStatus) {
-                //        case 1:
-                //            BaseGUILayer.instance.removeBlockListener();
-                //            BaseGUILayer.instance.showSellGUI();
-                //            //this.setVisible(false);
-                //            break;
-                //        case 2:
-                //            break;
-                //        case 3:
-                //            break;
-                //    }
-                //    //break;
-                //}
-                    //break;
+
             case ccui.Widget.TOUCH_CANCELED:
-                sender.parent.runAction(new cc.ScaleTo(0.1, 1.0));
+                sender.parent.runAction(cc.sequence(cc.ScaleTo(0.15, 1.15), cc.ScaleTo(0.1, 1.0)));
                 break;
         }
     },
-
-
-
 
 
 
@@ -344,14 +352,14 @@ var MyShopLayout = BaseLayout.extend({
         numberLabel.y = cartLayout.height / 25 * 22;
         cartLayout.addChild(numberLabel);
 
-        //var productImg = new cc.Sprite(res.storage_apple);
-        var productImg = new ccui.Button(getProductIconById(this.cartList[idx].product.typeItem));
+        var productImg = new cc.Sprite(getProductIconById(this.cartList[idx].product.typeItem));
+        // var productImg = new ccui.Button(getProductIconById(this.cartList[idx].product.typeItem));
         productImg.setScale(0.7);
         productImg.x = cartLayout.width / 2;
         productImg.y = cartLayout.height / 3 * 2;
         cartLayout.addChild(productImg);
 
-        //var priceImg = new cc.Sprite(res.price_table);
+        // var priceImg = new cc.Sprite(res.price_table);
         var priceImg = new ccui.ImageView(res.price_table);
         priceImg.setScale(0.8);
         priceImg.x = cartLayout.width / 4 * 3;

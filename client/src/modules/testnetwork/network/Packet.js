@@ -1304,7 +1304,11 @@ testnetwork.packetMap[gv.CMD.RESPONSE_SYNC_PRODUCT_SALE] = fr.InPacket.extend(
             product.price = this.getInt();
             product.isSold = this.getBool();
 
-            return product;
+            //
+            var productSale = new ProductSale(product.slot, product.product, product.price);
+            productSale.isSold = product.isSold;
+
+            return productSale;
         },
 
         unpackStorageItem: function() {
@@ -1660,7 +1664,11 @@ testnetwork.packetMap[gv.CMD.GET_USER] = fr.InPacket.extend({
         product.price = this.getInt();
         product.isSold = this.getBool();
 
-        return product;
+        //
+        var productSale = new ProductSale(product.slot, product.product, product.price);
+        productSale.isSold = product.isSold;
+
+        return productSale;
     }
 
 });
